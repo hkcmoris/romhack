@@ -88,6 +88,12 @@ test saves. Copy the normal in-game battery save before starting; an emulator
 save state alone is insufficient. Keep each player's save separate and never
 copy one player's active save over the other's.
 
+If both phones use the same Google account for My Boy!'s **Sync with Google
+Drive**, disable that synchronization for the test or isolate the accounts.
+The emulator's [official FAQ](https://sites.google.com/site/fastemulator/frequently-asked-questions)
+says it propagates saves between Android devices; keep these two same-ROM saves
+independent. Back up each save before changing synchronization settings.
+
 The shortcut does not replace or grant Pokemon. The original Tower temporarily
 reduces each in-memory party to its two selections, retaining the full party
 through `SavePlayerParty` and `LoadPlayerParty`. `SaveGameFrontier` restores the
@@ -169,10 +175,11 @@ This document is indexed in `docs/SUMMARY.md` for documentation validation.
 4. Talk to that attendant on both phones. Choose **CHALLENGE**, choose the same
    **Level 50** mode, select the agreed two Pokemon each, and accept the native
    save prompts. Do not choose an NPC Multi or Cable Club four-player mode.
-5. Establish My Boy!'s remote cable connection using its menu:
+5. Connect both phones to the same Wi-Fi network or a hotspot first. Establish
+   My Boy!'s remote cable connection using its menu:
    **Link remote > Wi-Fi (server)** on one phone and **Link remote > Wi-Fi
    (client)** on the other. Enter the server phone's IP address and port on
-   the client. Connect both phones to the same Wi-Fi network or a hotspot.
+   the client.
    If one phone provides the hotspot, make that phone the emulator **client**,
    as the emulator's official FAQ directs. Menu wording may depend on version.
 6. Let both games reach their connection prompts. The in-game link leader
@@ -218,12 +225,28 @@ cases.
 | Active challenge guard | Attempt shortcut travel with an existing Frontier challenge | Travel is refused; the existing challenge remains available through its native flow |
 | Party cancellation | Cancel the original party selection menu | Return to lobby control with complete party intact |
 | Save cancellation | Decline the native pre-challenge save | No battle starts; inspect party and lobby control |
-| Handshake cancellation | Before final link confirmation, press B using the native prompt | No co-op battle starts; inspect cancellation/error messages, lobby control, and both parties |
-| Different level modes | One player chooses Level 50, the other Open Level | Native connection validation rejects the mismatch |
-| Shared species | Select one species on both players' pairs | Native handshake rejects the shared species and names the conflict |
+| Handshake cancellation | Before final link confirmation, press B using the native prompt | No co-op battle starts; inspect messages and both parties, then follow the pending-challenge recovery below if travel is refused |
+| Different level modes | One player chooses Level 50, the other Open Level | Native connection validation rejects the mismatch; pending-challenge recovery may be needed |
+| Shared species | Select one species on both players' pairs | Native handshake rejects the shared species and names the conflict; pending-challenge recovery may be needed |
 | One player retires | After a win, one chooses RETIRE and the other GO ON | Native retirement exchange ends the challenge for both; the continuing player should see a partner-retired message |
 | Loss | Let the two human teams lose normally | Both complete the stock loss return and regain their full local parties |
 | Transport interruption | From backup copies, disable one phone's Wi-Fi or terminate its emulator during handshake, a battle, or return | Record each phase independently; graceful recovery is not guaranteed |
+
+The current configuration defines `BUGFIX` in `include/config/general.h`.
+After the pre-link full save, native handshake cancellation or rejection can
+leave `CHALLENGE_STATUS_SAVING` set in memory. The new return guide then refuses
+travel. This is a native state-handling limitation, not a reason to bypass the
+guard or overwrite Frontier state in the shortcut.
+
+For that case, **do not make another in-game save after cancellation**. Reset
+both ROM sessions and choose normal **CONTINUE**, avoiding emulator save states.
+The pre-link save contains the full party and temporary challenge status `0`;
+the lobby's `GetChallengeStatus` and `QuitWithoutSaving` scripts should show the
+original interrupted-challenge warning and clear the pending challenge. This
+forfeits the native challenge/streak. Dismiss the warning, compare the parties,
+use the return guide, then save normally. This recovery is source-derived and
+must also be verified on both phones. Restore the external backups if the
+expected recovery does not occur.
 
 For an interruption, wait long enough to distinguish normal partner input from
 a persistent error or hang. Record which device disconnected, the last action,
