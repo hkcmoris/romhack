@@ -50,6 +50,8 @@
 #include "union_room_chat.h"
 #include "constants/map_groups.h"
 #include "constants/items.h"
+#include "constants/heal_locations.h"
+#include "constants/oraculum_duo_test.h"
 #include "difficulty.h"
 #include "follower_npc.h"
 
@@ -61,6 +63,9 @@ static void WarpToTruck(void);
 static void ResetMiniGamesRecords(void);
 static void ResetItemFlags(void);
 static void ResetDexNav(void);
+#if ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
+static void InitDuoTestQuickStart(void);
+#endif
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
@@ -135,10 +140,14 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
+#if ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
+    SetWarpDestination(MAP_GROUP(MAP_LITTLEROOT_TOWN), MAP_NUM(MAP_LITTLEROOT_TOWN), WARP_ID_NONE, 17, 13);
+#else
     if (IS_FRLG)
         SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), WARP_ID_NONE, 6, 6);
     else
         SetWarpDestination(MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
+#endif
     WarpIntoMap();
 }
 
@@ -234,7 +243,63 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
+#if ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
+    InitDuoTestQuickStart();
+#endif
 }
+
+#if ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
+static void InitDuoTestQuickStart(void)
+{
+    // Complete only the local introduction states. The rest of Hoenn remains untouched.
+    VarSet(VAR_LITTLEROOT_INTRO_STATE, 7);
+    VarSet(VAR_LITTLEROOT_TOWN_STATE, 4);
+    VarSet(VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2);
+    VarSet(VAR_LITTLEROOT_HOUSES_STATE_MAY, 2);
+    VarSet(VAR_LITTLEROOT_RIVAL_STATE, 4);
+    VarSet(VAR_ROUTE101_STATE, 3);
+    VarSet(VAR_BIRCH_LAB_STATE, 5);
+    VarSet(VAR_OLDALE_RIVAL_STATE, 2);
+    VarSet(VAR_ORACULUM_DUO_TEST_STATE, ORACULUM_DUO_TEST_PENDING);
+
+    FlagSet(FLAG_RESCUED_BIRCH);
+    FlagSet(FLAG_ADVENTURE_STARTED);
+    FlagSet(FLAG_MET_RIVAL_MOM);
+    FlagSet(FLAG_SET_WALL_CLOCK);
+    FlagSet(FLAG_RECEIVED_RUNNING_SHOES);
+    FlagSet(FLAG_SYS_B_DASH);
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK);
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK);
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE);
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_BEDROOM_MOM);
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_1);
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_2);
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_POKE_BALL);
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_2F_POKE_BALL);
+    FlagSet(FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE);
+    FlagSet(FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG);
+    FlagSet(FLAG_HIDE_ROUTE_103_RIVAL);
+    FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_FAT_MAN);
+    FlagClear(FLAG_HIDE_ROUTE_101_BOY);
+    FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH);
+
+    // Mirror the ordinary truck script's gender-specific home and respawn setup.
+    if (gSaveBlock2Ptr->playerGender == MALE)
+    {
+        SetLastHealLocationWarp(HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F);
+        FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM);
+        FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_MOM);
+        FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_SIBLING);
+    }
+    else
+    {
+        SetLastHealLocationWarp(HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE_2F);
+        FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM);
+        FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_MOM);
+        FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_SIBLING);
+    }
+}
+#endif
 
 static void ResetMiniGamesRecords(void)
 {

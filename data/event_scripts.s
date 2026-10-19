@@ -49,6 +49,7 @@
 #include "constants/metatile_labels.h"
 #include "constants/move_relearner.h"
 #include "constants/moves.h"
+#include "constants/oraculum_duo_test.h"
 #include "constants/mystery_gift.h"
 #include "constants/party_menu.h"
 #include "constants/pokeball.h"
