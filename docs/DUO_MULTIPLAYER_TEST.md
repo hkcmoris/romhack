@@ -1,0 +1,292 @@
+# Duo Adventure: Link Multi feasibility test
+
+## Status and scope
+
+**Manual Android/My Boy! verification: NOT TESTED.** This milestone exposes
+Emerald Expansion 1.17.1's existing Battle Tower Link Multi challenge. It does
+not establish that My Boy!'s Wi-Fi cable emulation can complete that challenge.
+A successful GitHub Actions run proves compilation and its automated checks,
+not communication, independent controls, or recovery on two phones.
+
+The hypothesis to test is: two human players, each with their own save and
+the identical ROM build, can each control a Pokemon on the same side against
+two existing NPC trainers. A first battle followed by normal retirement is
+enough to test this; completing the seven-battle challenge is unnecessary.
+
+There is no Virelia, custom story battle, progression lock, custom reward,
+network protocol, save synchronization, save-format change, or battle-engine
+rewrite in this test.
+
+## Implementation and access
+
+The only gameplay additions are two stationary NPCs and a shared script:
+
+| File | Addition |
+| --- | --- |
+| `data/maps/LittlerootTown/map.json` | Test travel NPC at tile `(17, 12)`, east of Birch's laboratory |
+| `data/maps/BattleFrontier_BattleTowerLobby/map.json` | Return NPC at tile `(22, 8)` |
+| `data/scripts/duo_multiplayer_test.inc` | `DuoMultiplayerTest_EventScript_TravelToTower` and `DuoMultiplayerTest_EventScript_ReturnToLittleroot` |
+| `data/event_scripts.s` | Includes the shared test script |
+
+Talk to the Littleroot NPC after obtaining at least two party Pokemon. Accept
+the trip to arrive at `(18, 6)` in the original Battle Tower lobby, directly
+below the rightmost Link Multi attendant at `(18, 5)`. The trip does not require
+finishing the Hoenn story or obtaining the Frontier Pass. Talk to that original
+attendant to start the test.
+
+Both travel NPCs refuse travel while `FRONTIER_DATA_CHALLENGE_STATUS` is
+nonzero, so the shortcut cannot abandon an active or suspended Frontier
+challenge. Finish or retire from an existing challenge through its ordinary
+facility flow before using the shortcut. The Littleroot NPC also requires at
+least two party members; the original attendant applies the actual eligibility
+rules. The script uses existing special variables and allocates no saved flags
+or variables.
+
+After the Tower has completed its normal return dialogue and saving, talk to
+the return NPC to land at `(17, 13)` in Littleroot. Hoenn maps, their existing
+objects, and story progression remain intact. The original Tower scripts and
+battle engine are unchanged.
+
+## Relevant source and lifecycle
+
+The Cable Club's `USING_MULTI_BATTLE` is a four-human PvP mode. The test uses
+`FRONTIER_MODE_LINK_MULTIS` and the Tower's `USING_BATTLE_TOWER` service, which
+require exactly two humans. `FRONTIER_MODE_MULTIS` instead supplies an NPC
+partner and does not test the requested cooperation.
+
+| Stage | Source functions or script labels | Responsibility |
+| --- | --- | --- |
+| Registration | `BattleFrontier_BattleTowerLobby_EventScript_LinkMultisAttendant`, `TryEnterLinkMultisChallenge` in `data/maps/BattleFrontier_BattleTowerLobby/scripts.inc` | Set Tower facility and Link Multi mode; back up the complete local party; choose level mode |
+| Eligibility | `CheckPartyIneligibility`, `AppendIfValid` in `src/frontier_util.c`; `GetBattleEntryEligibility`, `CheckBattleEntriesAndGetMessage` in `src/party_menu.c` | Validate two selectable Pokemon and species, level, egg, item restrictions |
+| Selection | `ChoosePartyForBattleFrontier`, `CB2_ReturnFromChooseBattleFrontierParty` in `src/script_pokemon_util.c` | Show the original party selection screen and return selected order or cancellation |
+| Challenge initialization | `InitTowerChallenge` in `src/battle_tower.c`, dispatched through `CallBattleTowerFunc` | Initialize challenge status and battle number, trainer IDs, streak state, and dynamic return warp |
+| Initial save | `SaveBeforeLinkMultisChallenge`, `CableLinkSuccessful` in the lobby script; `SaveForBattleTowerLink` in `src/start_menu.c` | Perform the native pre-challenge save and synchronized link save |
+| Cable handshake | `TryBattleLinkup`, `Task_LinkupStart`, `Task_LinkupAwaitConnection`, `Task_LinkupAwaitConfirmation`, `Task_LinkupAwaitTrainerCardData`, `FinishLinkup` in `src/cable_club.c` | Require two players, confirm the connection, exchange player/trainer-card data, and report success or an error |
+| Shared species check | `AreBattleTowerLinkSpeciesSame` in `src/cable_club.c` | Reject a selected species appearing on both players' teams |
+| Opponent synchronization | `LoadLinkMultiOpponentsData`, `SetNextTowerOpponent` in `src/battle_tower.c` | Exchange challenge difficulty, synchronize the original NPC trainer list, and select the next opponent pair |
+| Selected party preparation | `EnterElevator` in the lobby script; `SetSelectedPartyOrder` in `src/frontier_util.c`; `ReducePlayerPartyToSelectedMons` in `src/script_pokemon_util.c` | Back up the complete party, then prepare only the two selections for battle |
+| Room and battle start | `BattleFrontier_BattleTowerMultiBattleRoom_EventScript_EnterRoom`, `DoTowerBattle`; common `BattleFrontier_BattleTowerBattleRoom_EventScript_DoTowerBattle` | Run the original room presentation and call `dofacilitytrainerbattle FACILITY_BATTLE_TOWER` |
+| Battle type and enemies | `DoFacilityTrainerBattleInternal`, `FillFrontierTrainersParties` in `src/battle_frontier.c` | Set `TRAINER`, `BATTLE_TOWER`, `DOUBLE`, `LINK`, `MULTI`, and `TOWER_LINK_MULTI`; create the two NPC parties |
+| Battle connection and data | `HandleLinkBattleSetup` in `src/battle_controllers.c`; `Task_WaitForLinkPlayerConnection` in `src/cable_club.c`; `CB2_HandleStartMultiPartnerBattle` in `src/battle_main.c` | Reopen cable communication, exchange human and NPC parties, select the battle master, and synchronize battle data |
+| Human control | `InitBtlControllersInternal`, `GetBattlerTrainer` in `src/battle_controllers.c` | Assign local player and remote partner controllers to separate human parties; the battle master runs the two NPC controllers |
+| Transition selection | `GetSpecialBattleTransition` in `src/battle_setup.c` | Choose the Link Multi transition from synchronized opponent IDs instead of independent random choices |
+| Battle teardown | `SetBattleEndCallbacks`, `SetLinkBattleEndCallbacks` in `src/battle_controller_player.c`; `CB2_InitEndLinkBattle` in `src/battle_main.c`; `HandleFacilityTrainerBattleEnd` in `src/battle_frontier.c` | Close the wired link and return to the field script after battle |
+| Result processing | `DoTowerBattle`, `DefeatedOpponents`, `WarpToLobbyLost` in the battle-room scripts; `SetTowerBattleWon` in `src/battle_tower.c` | Read the outcome, update the native challenge/streak, and continue or exit |
+| Continue/retire agreement | `BattleTowerReconnectLink`, `LinkRetireStatusWithBattleTowerPartner`, `Task_LinkRetireStatusWithBattleTowerPartner` in `src/field_specials.c`; `Task_ReconnectWithLinkPlayers` in `src/cable_club.c` | Reconnect the saved participants and exchange each player's continue/retire choice |
+| Party and final return | `SavePlayerParty`, `LoadPlayerParty` in `src/load_save.c`; `SaveGameFrontier` in `src/frontier_util.c`; lobby `AskSaveBattle` | Restore the complete original local party, heal it, save the native challenge result, and finish the lobby return |
+
+`CB2_HandleStartMultiPartnerBattle` assigns battlefield IDs 0 and 2 to the two
+humans and IDs 1 and 3 to the NPC trainers. It receives each human's Pokemon
+into a separate party and synchronizes the NPC parties from player 0. The
+controller assignments support one local human selection on each device;
+actual behavior must still be checked on the phones.
+
+## Save and compatibility considerations
+
+Use backed-up copies of each player's compatible hack save, or dedicated new
+test saves. Copy the normal in-game battery save before starting; an emulator
+save state alone is insufficient. Keep each player's save separate and never
+copy one player's active save over the other's.
+
+The shortcut does not replace or grant Pokemon. The original Tower temporarily
+reduces each in-memory party to its two selections, retaining the full party
+through `SavePlayerParty` and `LoadPlayerParty`. `SaveGameFrontier` restores the
+full party while writing the save. On normal exit the party is restored and
+healed. Verify members, order, moves, held items, and experience after the test;
+HP, PP, and status are expected to be healed.
+
+The native Tower writes normal saves, Frontier challenge data, statistics,
+selected-party order, and win streaks. Entering therefore updates the current
+save; it does not preserve a byte-identical file or a previous Tower streak.
+The original seven-win BP and ribbon behavior remains present because the
+Tower implementation is reused unchanged. Retire after the first win for this
+milestone. No custom reward system has been added.
+
+Both phones must run the exact same ROM file from the same Actions artifact.
+Do not mix release and development builds, different commits, or a retail
+Emerald ROM. FireRed and LeafGreen builds remain CI compatibility checks;
+this early-game access test is in Emerald's Hoenn maps.
+
+The GBA program sees an emulated **Link Cable**. My Boy!'s Wi-Fi transport does
+not make this a GBA Wireless Adapter session. The attendant automatically
+detects the emulated adapter type; there is no additional in-game "Cable Link"
+menu to select. Use the same My Boy! cable-emulation setup that already works
+for the players' PvP battles.
+
+## Party eligibility
+
+- Each player selects exactly two eligible Pokemon, one active and one reserve.
+- The four selected species must all be different: the original menu rejects
+  duplicates within a pair, and the handshake rejects shared species between
+  the two players.
+- No eggs or species marked `isFrontierBanned` are permitted.
+- Within a player's pair, two Pokemon cannot hold the same nonempty item.
+  Holding no item is allowed. No cross-player held-item check was found in the
+  cable handshake.
+- Both players choose the same level mode. **Level 50** permits Pokemon at or
+  below level 50; it does not raise early-game Pokemon to level 50, while the
+  opponents are level 50. Prepare suitable teams on the test save for a win.
+- **Open Level** accepts higher levels, but NPC levels have a minimum of 60.
+  Avoid it for the first test and use similarly leveled teams on both devices.
+
+Distinct player names make control ownership easier to observe. Separate
+trainer identities from independent new saves are recommended; this document
+does not establish distinct trainer names or IDs as an additional hard rule.
+
+## Build and download
+
+Use the existing `.github/workflows/build.yml` workflow on
+`codex/duo-link-poc`. No local Ubuntu, WSL, or new build environment is needed.
+
+1. Open the repository's
+   [Actions workflow](https://github.com/hkcmoris/romhack/actions/workflows/build.yml).
+2. Select the run for the intended branch **and commit**. Wait for the complete
+   run, including Emerald, FireRed, LeafGreen, release, test, documentation, and
+   aggregate build checks.
+3. Download `emerald-release` from that run's **Artifacts**, then extract
+   `pokeemerald-release.gba`.
+4. Transfer that one extracted ROM to both phones. Record the Actions run ID
+   and commit; compare file hashes if the transfers are in doubt.
+5. Associate each phone with its own backed-up compatible save copy. Confirm
+   the expected character and party before saving over that copy.
+
+`emerald-development` is available for development testing, but both devices
+must use that identical build if it is chosen. An artifact becoming available
+does not mean every workflow job has finished or that multiplayer is verified.
+This document is indexed in `docs/SUMMARY.md` for documentation validation.
+
+## Two-phone My Boy! test
+
+1. Back up both normal in-game saves outside the active emulator save location.
+   Record each player's party members, order, moves, held items, levels, and
+   experience. Include unselected Pokemon in the comparison when possible.
+2. Load the identical test ROM on both phones. Start from independent save
+   files and ensure neither player has an active Frontier challenge. Obtain
+   at least two eligible Pokemon per player and plan four distinct species.
+3. On both phones, talk to the Littleroot travel NPC east of Birch's lab.
+   Confirm the trip. Both should arrive in the original Tower lobby directly
+   below the rightmost Link Multi attendant.
+4. Talk to that attendant on both phones. Choose **CHALLENGE**, choose the same
+   **Level 50** mode, select the agreed two Pokemon each, and accept the native
+   save prompts. Do not choose an NPC Multi or Cable Club four-player mode.
+5. Establish My Boy!'s remote cable connection using its menu:
+   **Link remote > Wi-Fi (server)** on one phone and **Link remote > Wi-Fi
+   (client)** on the other. Enter the server phone's IP address and port on
+   the client. Connect both phones to the same Wi-Fi network or a hotspot.
+   If one phone provides the hotspot, make that phone the emulator **client**,
+   as the emulator's official FAQ directs. Menu wording may depend on version.
+6. Let both games reach their connection prompts. The in-game link leader
+   confirms when **two** participants are present, following the displayed
+   A-button prompts. The My Boy! server/client role and the game's link leader
+   are separate concepts; follow the actual screens.
+7. Keep the remote emulator link connected during lobby movement, room entry,
+   battle setup, and return. The original Tower deliberately closes and
+   reopens the emulated cable between phases. Do not disconnect My Boy!'s
+   Wi-Fi session when the game changes screens.
+8. Observe a double battle against two NPC trainers. Each phone must offer
+   choices for its own Pokemon. Select clearly different moves on the two
+   phones and verify that both choices occur in the same battle turn. Check
+   shared targets, HP, damage, fainting, and outcome agree on both screens.
+9. When practical, switch each player's active Pokemon to that player's own
+   reserve. Confirm the other phone does not choose that switch for them.
+   Normal animations or the need to wait for the other player's input are
+   expected; divergent battle state or permanent waiting is a failure.
+10. Win the first battle. At the next-opponents prompt choose **RETIRE** on
+    both devices and confirm. Complete the native return dialogue and save
+    process. Alternatively, losing the battle should take both players back
+    through the original loss/return flow.
+11. Confirm both have returned to their own Tower lobby and compare the entire
+    restored party with the baseline. Expect healing; confirm no party member,
+    move, held item, or experience data was lost or replaced.
+12. Talk to the return NPC at `(22, 8)` on both phones. Verify each returns to
+    Littleroot at `(17, 13)` and can continue their original Hoenn story.
+    Save normally, restart the emulator, and confirm each own save reloads.
+
+The network setup above follows the emulator's
+[official FAQ](https://sites.google.com/site/fastemulator/frequently-asked-questions).
+Use the same known-working Wi-Fi/link settings as the existing PvP baseline.
+
+## Cancellation and failure tests
+
+Repeat these from the backed-up test saves. Record the phase and both screens'
+actual behavior; cancellation and an abrupt transport failure are different
+cases.
+
+| Test | Procedure | Expected or required observation |
+| --- | --- | --- |
+| Decline travel | Decline the Littleroot NPC's offer | Stay in Littleroot with unchanged party |
+| Active challenge guard | Attempt shortcut travel with an existing Frontier challenge | Travel is refused; the existing challenge remains available through its native flow |
+| Party cancellation | Cancel the original party selection menu | Return to lobby control with complete party intact |
+| Save cancellation | Decline the native pre-challenge save | No battle starts; inspect party and lobby control |
+| Handshake cancellation | Before final link confirmation, press B using the native prompt | No co-op battle starts; inspect cancellation/error messages, lobby control, and both parties |
+| Different level modes | One player chooses Level 50, the other Open Level | Native connection validation rejects the mismatch |
+| Shared species | Select one species on both players' pairs | Native handshake rejects the shared species and names the conflict |
+| One player retires | After a win, one chooses RETIRE and the other GO ON | Native retirement exchange ends the challenge for both; the continuing player should see a partner-retired message |
+| Loss | Let the two human teams lose normally | Both complete the stock loss return and regain their full local parties |
+| Transport interruption | From backup copies, disable one phone's Wi-Fi or terminate its emulator during handshake, a battle, or return | Record each phase independently; graceful recovery is not guaranteed |
+
+For an interruption, wait long enough to distinguish normal partner input from
+a persistent error or hang. Record which device disconnected, the last action,
+the visible message, and whether the other device times out. If either game is
+stuck, reset the emulator and reload its last **in-game save**. Inspect both
+parties and handle any original Tower interrupted-challenge dialogue before
+trying the return NPC. Do not save a suspected damaged session over the only
+backup or use an old emulator save state to resume a live link connection.
+
+## Known limitations and remaining risks
+
+- Two-phone My Boy! behavior, including independent control and return, is
+  unverified until the manual procedure is completed.
+- Existing PvP success is a useful baseline, but Tower Link Multi adds opponent
+  data exchange, synchronized NPC control, and repeated cable reconnections.
+  It may expose different timing or emulator compatibility problems.
+- `Task_WaitForLinkPlayerConnection` has a connection timeout, but not every
+  original script/block-exchange wait provides a clean cancellation path.
+- `CB2_LinkError` and `CB2_PrintErrorMessage` in `src/link.c` show the native
+  communication-error behavior. The wired state does not guarantee an
+  automatic return to the overworld; a reset and last-save reload may be
+  necessary. This test adds no recovery protocol.
+- Pokemon and other save data are not synchronized between players. Each save
+  receives only its own native Tower changes. There is no overworld co-op.
+- Early access does not supply battle-ready Pokemon. Suitable teams or
+  dedicated prepared test saves are needed to test victory and retirement.
+- The original seven-battle challenge and its native bookkeeping remain
+  accessible. Avoid unrelated Frontier play while isolating this result.
+- An upstream update can change link behavior or eligibility. Repeat the
+  two-phone test after changing the engine version or multiplayer code.
+
+If testing reveals that reliable play needs substantial engine changes, record
+the reproducible failure before expanding the implementation. Stop at this
+milestone; custom Rocket/Rival battles, rewards, and story synchronization
+depend on a confirmed basic cooperative battle.
+
+## Manual test record
+
+Copy this record for each test attempt. Leave untested cases explicitly marked.
+
+```text
+Status: NOT TESTED / PASS / FAIL
+Date:
+Branch and commit:
+Actions run ID and artifact:
+ROM SHA-256:
+Phone A model, Android version, My Boy! version:
+Phone B model, Android version, My Boy! version:
+Wi-Fi/hotspot setup; emulator server/client:
+Separate save backups and trainer names:
+Selected pairs; level mode:
+Handshake and room entry:
+Independent move selection:
+Independent reserve switching:
+Matching HP, fainting, and outcome:
+First win -> both RETIRE -> lobby:
+One RETIRE / one GO ON:
+Loss -> lobby:
+Full party comparison and healing:
+Return to Littleroot; save/restart/reload:
+Party/save/handshake cancellation:
+Level-mode/shared-species rejection:
+Disconnect phase and behavior on each phone:
+Recovery and post-reload party comparison:
+Screenshots/video and reproducible failure steps:
+```
