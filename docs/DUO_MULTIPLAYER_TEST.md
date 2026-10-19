@@ -35,7 +35,7 @@ an Emerald-only new-game path and optional team setup to their shared script:
 | `src/overworld.c` | Use the ordinary field fade instead of the truck sequence and initialize time-based events without the clock tutorial |
 | `data/maps/LittlerootTown/scripts.inc` | First-entry team prompt when a new test save is pending |
 | `include/constants/vars.h`, `include/constants/oraculum_duo_test.h` | Name an existing unused saved variable slot and its pending/received values |
-| `test/oraculum_duo_test.c` | Automated checks for team eligibility, ownership, health, capacity, and repeated-grant protection |
+| `test/oraculum_duo_test.c` | Automated checks for team eligibility, ownership, health, capacity, repeated-grant protection, and native save/load persistence |
 
 Start **NEW GAME**, select gender and name normally, and arrive outdoors at
 `(17, 13)` in Littleroot, directly below the scientist at `(17, 12)`. Select a
@@ -370,7 +370,8 @@ backup or use an old emulator save state to resume a live link connection.
 - Quick start and optional setup supply one preset per save, with no preset
   reset or exchange action. Both players must choose different presets before
   linking. New-game and save/load UI behavior remains part of the manual test;
-  automated grant checks do not establish emulator behavior.
+  automated grant and native save-data round-trip checks do not exercise the
+  complete menu/restart UI or establish My Boy! behavior.
 - The quick start skips selected local introduction states only. It is not a
   complete Hoenn unlock or the planned ORÁKULUM introduction, and this milestone
   does not validate playing through the later story from a quick-start save.

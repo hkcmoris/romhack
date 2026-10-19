@@ -4,6 +4,7 @@
 #include "frontier_util.h"
 #include "new_game.h"
 #include "pokemon.h"
+#include "save.h"
 #include "string_util.h"
 #include "test/overworld_script.h"
 #include "test/test.h"
@@ -136,6 +137,61 @@ TEST("Duo quick start respects saved completion state even after Pokemon leave t
     EXPECT_EQ(gPartiesCount[B_TRAINER_PLAYER], 1);
     EXPECT_EQ(VarGet(VAR_ORACULUM_DUO_TEST_STATE), team);
     EXPECT_EQ(memcmp(original, gParties[B_TRAINER_PLAYER], sizeof(original)), 0);
+}
+
+TEST("Duo quick start survives native flash save and load without granting another team")
+{
+    struct Pokemon loadedParty[PARTY_SIZE];
+    u32 team = ORACULUM_DUO_TEST_TEAM_A;
+    PARAMETRIZE { team = ORACULUM_DUO_TEST_TEAM_A; }
+    PARAMETRIZE { team = ORACULUM_DUO_TEST_TEAM_B; }
+
+    InitDuoTestParty(0, ORACULUM_DUO_TEST_PENDING);
+    GiveDuoTestTeam(team);
+    EXPECT_EQ(gSpecialVar_Result, TRUE);
+
+    // Each runner has its own emulated flash. Remove older slots so their
+    // counters cannot select data from a previous parameter or test.
+    ClearSaveData();
+    Save_ResetSaveCounters();
+    EXPECT_EQ(TrySavingData(SAVE_NORMAL), SAVE_STATUS_OK);
+
+    // Destroy the live party and completion marker before using the game's
+    // real flash reader and party restoration path.
+    ZeroPlayerPartyMons();
+    VarSet(VAR_ORACULUM_DUO_TEST_STATE, ORACULUM_DUO_TEST_PENDING);
+    SetTrainerId(0, gSaveBlock2Ptr->playerTrainerId);
+    StringCopy(gSaveBlock2Ptr->playerName, COMPOUND_STRING("Other"));
+    gSaveBlock2Ptr->playerGender = MALE;
+    EXPECT_EQ(LoadGameSave(SAVE_NORMAL), SAVE_STATUS_OK);
+
+    EXPECT_EQ(VarGet(VAR_ORACULUM_DUO_TEST_STATE), team);
+    EXPECT_EQ(gPartiesCount[B_TRAINER_PLAYER], 2);
+    EXPECT_EQ(GetTrainerId(gSaveBlock2Ptr->playerTrainerId), 0x1234ABCD);
+    EXPECT_EQ(StringCompare(gSaveBlock2Ptr->playerName, COMPOUND_STRING("Duo")), 0);
+    EXPECT_EQ(gSaveBlock2Ptr->playerGender, FEMALE);
+    EXPECT_EQ(GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_SPECIES),
+              team == ORACULUM_DUO_TEST_TEAM_A ? SPECIES_GARDEVOIR : SPECIES_SWAMPERT);
+    EXPECT_EQ(GetMonData(&gParties[B_TRAINER_PLAYER][1], MON_DATA_SPECIES),
+              team == ORACULUM_DUO_TEST_TEAM_A ? SPECIES_BRELOOM : SPECIES_MANECTRIC);
+    ExpectReadyDuoTestMon(&gParties[B_TRAINER_PLAYER][0]);
+    ExpectReadyDuoTestMon(&gParties[B_TRAINER_PLAYER][1]);
+    VarSet(VAR_FRONTIER_FACILITY, FRONTIER_FACILITY_TOWER);
+    VarSet(VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_LINK_MULTIS);
+    gSpecialVar_Result = FRONTIER_LVL_50;
+    gSpecialVar_0x8004 = FRONTIER_UTIL_FUNC_CHECK_INELIGIBLE;
+    CallFrontierUtilFunc();
+    EXPECT_EQ(gSpecialVar_0x8004, FALSE);
+
+    // Compare after load because the native loader migrates legacy fields.
+    memcpy(loadedParty, gParties[B_TRAINER_PLAYER], sizeof(loadedParty));
+    GiveDuoTestTeam(ORACULUM_DUO_TEST_TEAM_A);
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    GiveDuoTestTeam(ORACULUM_DUO_TEST_TEAM_B);
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    EXPECT_EQ(gPartiesCount[B_TRAINER_PLAYER], 2);
+    EXPECT_EQ(VarGet(VAR_ORACULUM_DUO_TEST_STATE), team);
+    EXPECT_EQ(memcmp(loadedParty, gParties[B_TRAINER_PLAYER], sizeof(loadedParty)), 0);
 }
 
 TEST("Duo optional setup appends to an existing party without changing existing Pokemon")
