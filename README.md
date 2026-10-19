@@ -4,13 +4,19 @@ This project starts from **RHH's pokeemerald-expansion 1.17.1**
 (`bb1093a7c72d3961d9a37d8e02ad2abc2c866682`). The engine's Git history and
 credits are preserved so future releases can be merged into this project.
 
-- [Project setup, build commands, and upstream updates](docs/PROJECT_SETUP.md)
+- [Build with GitHub Actions and playtest on Windows](docs/PROJECT_SETUP.md)
 - [Included engine features](FEATURES.md)
 - [Engine configuration](include/config)
 - [Mapping with Porymap](https://huderlem.github.io/porymap/)
 
 The initial setup keeps the released engine's gameplay configuration. Choose
 the game's setting and defining mechanics before changing feature switches.
+
+Edit on Windows, commit and push, then download a ROM from the successful
+[CI run](https://github.com/hkcmoris/romhack/actions/workflows/build.yml).
+Extract the `emerald-release` artifact and open `pokeemerald-release.gba` in
+mGBA. GitHub Actions handles compilation and engine tests; no local Linux
+installation is required for this workflow.
 
 The documentation below describes the upstream engine.
 
