@@ -8,7 +8,7 @@ on:
 
 jobs:
   label:
-    if: ${{ github.actor != 'allcontributors[bot]' && github.event.review.state == 'approved' }}
+    if: ${{ github.repository == 'rh-hideout/pokeemerald-expansion' && github.actor != 'allcontributors[bot]' && github.event.review.state == 'approved' }}
     runs-on: ubuntu-latest
     steps:
       - name: check labels
@@ -31,9 +31,8 @@ jobs:
             category: sprite-issue
             type: documentation
   allcontributors:
-    if: github.actor == 'allcontributors[bot]'
+    if: github.repository == 'rh-hideout/pokeemerald-expansion' && github.actor == 'allcontributors[bot]'
     runs-on: ubuntu-latest
-    needs: []
     steps:
       - name: Automatically pass for allcontributors
         run: echo "CI automatically passes for allcontributors" && exit 0

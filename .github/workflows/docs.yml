@@ -6,6 +6,8 @@ on:
 
 jobs:
   deploy:
+    # Publishing the upstream engine manual belongs to its original repository.
+    if: github.repository == 'rh-hideout/pokeemerald-expansion'
     runs-on: ubuntu-latest
     permissions:
       contents: write

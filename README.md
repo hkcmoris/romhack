@@ -1,3 +1,19 @@
+# ROM hack workspace
+
+This project starts from **RHH's pokeemerald-expansion 1.17.1**
+(`bb1093a7c72d3961d9a37d8e02ad2abc2c866682`). The engine's Git history and
+credits are preserved so future releases can be merged into this project.
+
+- [Project setup, build commands, and upstream updates](docs/PROJECT_SETUP.md)
+- [Included engine features](FEATURES.md)
+- [Engine configuration](include/config)
+- [Mapping with Porymap](https://huderlem.github.io/porymap/)
+
+The initial setup keeps the released engine's gameplay configuration. Choose
+the game's setting and defining mechanics before changing feature switches.
+
+The documentation below describes the upstream engine.
+
 # About `pokeemerald-expansion`
 
 ![Gif that shows debugging functionality that is unique to pokeemerald-expansion such as rerolling Trainer ID, Cheat Start, PC from Debug Menu, Debug PC Fill, Pokémon Sprite Visualizer, Debug Warp to Map, and Battle Debug Menu](https://github.com/user-attachments/assets/cf9dfbee-4c6b-4bca-8e0a-07f116ef891c) ![Gif that shows overworld functionality that is unique to pokeemerald-expansion such as indoor running, BW2 style map popups, overworld followers, DNA Splicers, Gen 1 style fishing, OW Item descriptions, Quick Run from Battle, Use Last Ball, Wild Double Battles, and Catch from EXP](https://github.com/user-attachments/assets/383af243-0904-4d41-bced-721492fbc48e) ![Gif that shows off a number of modern Pokémon battle mechanics happening in the pokeemerald-expansion engine: 2 vs 1 battles, modern Pokémon, items, moves, abilities, fully customizable opponents and partners, Trainer Slides, and generational gimmicks](https://github.com/user-attachments/assets/50c576bc-415e-4d66-a38f-ad712f3316be)
