@@ -62,13 +62,14 @@ battle engine, maps, and existing travel exits are unchanged.
 
 ## Temporary quick-start configuration
 
-`ORACULUM_DUO_TEST_QUICK_START` defaults to `TRUE` in
+`ORACULUM_DUO_TEST_QUICK_START` defaults to `1` in
 `include/config/general.h`. Its behavior is gated by `!IS_FRLG` and is included
 in both Emerald development and release artifacts. It does not depend on the
-debug menu. Setting it to `FALSE` restores the original Emerald new-game and
+debug menu. Setting it to `0` restores the original Emerald new-game and
 truck flow, removes the automatic team prompt and optional NPC team menu, and
 leaves the two original POC travel NPCs available. FireRed and LeafGreen do not
-use the quick-start behavior.
+use the quick-start behavior. Use numeric `1`/`0` because the option is shared
+by C and event-script preprocessing, where the C-only `TRUE` macro is absent.
 
 Normal name/gender selection, `NewGameInitData`, and `InitPlayerTrainerId`
 remain responsible for each new player's identity and save initialization. The
