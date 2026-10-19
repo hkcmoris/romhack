@@ -1,4 +1,5 @@
 #include "global.h"
+#include "agb_flash.h"
 #include "battle.h"
 #include "event_data.h"
 #include "frontier_util.h"
@@ -142,6 +143,10 @@ TEST("Duo quick start respects saved completion state even after Pokemon leave t
 TEST("Duo quick start survives native flash save and load without granting another team")
 {
     struct Pokemon loadedParty[PARTY_SIZE];
+    IntrFunc originalTimer3Handler;
+    IntrFunc unusedFlashHandler;
+    u16 originalIe, originalIme, originalTimer3Low, originalTimer3High;
+    u8 saveStatus, loadStatus = SAVE_STATUS_ERROR;
     u32 team = ORACULUM_DUO_TEST_TEAM_A;
     PARAMETRIZE { team = ORACULUM_DUO_TEST_TEAM_A; }
     PARAMETRIZE { team = ORACULUM_DUO_TEST_TEAM_B; }
@@ -150,20 +155,50 @@ TEST("Duo quick start survives native flash save and load without granting anoth
     GiveDuoTestTeam(team);
     EXPECT_EQ(gSpecialVar_Result, TRUE);
 
+    // Flash normally uses Timer 2, which the test runner owns for its watchdog.
+    // Borrow Timer 3 (interrupt table index 2), keeping Timer 2 running normally.
+    originalIme = REG_IME;
+    REG_IME = 0;
+    originalIe = REG_IE;
+    originalTimer3Handler = gIntrTable[2];
+    originalTimer3Low = REG_TM3CNT_L;
+    originalTimer3High = REG_TM3CNT_H;
+    REG_TM3CNT_H = 0;
+    REG_IF = INTR_FLAG_TIMER3;
+    SetFlashTimerIntr(3, &gIntrTable[2]);
+    REG_IME = originalIme;
+
     // Each runner has its own emulated flash. Remove older slots so their
     // counters cannot select data from a previous parameter or test.
     ClearSaveData();
     Save_ResetSaveCounters();
-    EXPECT_EQ(TrySavingData(SAVE_NORMAL), SAVE_STATUS_OK);
+    saveStatus = TrySavingData(SAVE_NORMAL);
 
     // Destroy the live party and completion marker before using the game's
     // real flash reader and party restoration path.
-    ZeroPlayerPartyMons();
-    VarSet(VAR_ORACULUM_DUO_TEST_STATE, ORACULUM_DUO_TEST_PENDING);
-    SetTrainerId(0, gSaveBlock2Ptr->playerTrainerId);
-    StringCopy(gSaveBlock2Ptr->playerName, COMPOUND_STRING("Other"));
-    gSaveBlock2Ptr->playerGender = MALE;
-    EXPECT_EQ(LoadGameSave(SAVE_NORMAL), SAVE_STATUS_OK);
+    if (saveStatus == SAVE_STATUS_OK)
+    {
+        ZeroPlayerPartyMons();
+        VarSet(VAR_ORACULUM_DUO_TEST_STATE, ORACULUM_DUO_TEST_PENDING);
+        SetTrainerId(0, gSaveBlock2Ptr->playerTrainerId);
+        StringCopy(gSaveBlock2Ptr->playerName, COMPOUND_STRING("Other"));
+        gSaveBlock2Ptr->playerGender = MALE;
+        loadStatus = LoadGameSave(SAVE_NORMAL);
+    }
+
+    // Restore before assertions, which may exit the test nonlocally. Reset the
+    // flash library's timer selection without replacing the runner's handler.
+    REG_IME = 0;
+    REG_TM3CNT_H = 0;
+    REG_IF = INTR_FLAG_TIMER3;
+    SetFlashTimerIntr(2, &unusedFlashHandler);
+    gIntrTable[2] = originalTimer3Handler;
+    REG_TM3CNT_L = originalTimer3Low;
+    REG_TM3CNT_H = originalTimer3High;
+    REG_IE = originalIe;
+    REG_IME = originalIme;
+    EXPECT_EQ(saveStatus, SAVE_STATUS_OK);
+    EXPECT_EQ(loadStatus, SAVE_STATUS_OK);
 
     EXPECT_EQ(VarGet(VAR_ORACULUM_DUO_TEST_STATE), team);
     EXPECT_EQ(gPartiesCount[B_TRAINER_PLAYER], 2);
