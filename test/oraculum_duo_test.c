@@ -43,7 +43,7 @@ static void ExpectReadyDuoTestMon(struct Pokemon *mon)
 
     EXPECT_EQ(GetMonData(mon, MON_DATA_LEVEL), 50);
     EXPECT_EQ(GetMonData(mon, MON_DATA_IS_EGG), FALSE);
-    EXPECT_EQ(gSpeciesInfo[species].isFrontierBanned, FALSE);
+    EXPECT(!gSpeciesInfo[species].isFrontierBanned);
     EXPECT_EQ(GetMonData(mon, MON_DATA_OT_ID), GetTrainerId(gSaveBlock2Ptr->playerTrainerId));
     EXPECT_EQ(GetMonData(mon, MON_DATA_OT_GENDER), gSaveBlock2Ptr->playerGender);
     GetMonData(mon, MON_DATA_OT_NAME, otName);
