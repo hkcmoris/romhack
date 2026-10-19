@@ -250,7 +250,8 @@ This document is indexed in `docs/SUMMARY.md` for documentation validation.
    For an existing save, use **CONTINUE** instead; no automatic team or skipped
    story states are applied. At the scientist, choose **TEST TEAM SETUP**,
    read the one-time confirmation, and choose **YES** only when ready to append
-   the agreed preset to two empty party slots.
+   the agreed preset to two empty party slots. Save normally after selecting
+   the preset before restarting.
 3. Restart each ROM and choose **CONTINUE**. Verify the correct player and team
    reload, the team prompt does not recur, and the party has not duplicated.
    Record the full party's members, order, moves, held items, levels, and
