@@ -244,9 +244,19 @@ The first Rocket finale also exposed an asset configuration error: the police
 sprite was registered only in FireRed/LeafGreen, so spawning it reset Emerald.
 The existing police art and registry entry are now shared with Emerald, without
 changing any graphics or species IDs. Native tests check the graphics pointer
-for every object template on all five playable maps. The corrected-ROM capture,
-nickname, next-battle and full finale sequences remain required regression
-checks; the localization audit records their outcome and build.
+for every object template on all five playable maps. The corrected capture,
+nickname and next-battle sequence passed on `ee05868f53` (Actions build
+`0.2.36`). The full Rocket finale passed in both unoptimized and optimized
+release builds. The officer's three Czech dialogue pages lead to state 5 and
+the quarry/Gym objective. The Gym stays closed; leaving Slateford and returning
+does not replay the ending. A normal in-game save followed by a fresh core boot
+from FLASH restored the exact Slateford position, party, items, hidden Rocket,
+visible officer and completion flags. The
+[localization audit](VIRELIA_LOCALIZATION_AUDIT.md) records the evidence.
+
+![Metric Czech Pokédex](images/virelia-prologue/pokedex-ee058.png)
+![Officer arriving after the Rocket battle in release](images/virelia-prologue/police-ee058.png)
+![The next objective in release](images/virelia-prologue/ending-ee058.png)
 
 Source checks runnable without an ARM toolchain:
 
@@ -291,12 +301,19 @@ both route trainers, the optional detour and the Rocket scene. The initial
 estimate allocates 4–5 minutes to creation/home/lab, 2–3 to the rival/equipment,
 5–7 to route exploration/catching and 3–5 to Slateford. This is a content and
 interaction estimate, **not a measured human playthrough**. A native Grass run
-reached the Rocket's final clue at an in-game clock of **00:14:02**, including
-Hana's quest and both route trainers, with no capture on that run. This supports
+completed the fixed prologue at an in-game clock of **00:14:03**, including
+all three starter descriptions, one selection, Hana's quest, both route trainers
+and the Rocket battle, with no capture on that run. Checking the closed Gym and
+returning to the city advanced the clock to **00:14:55**. This supports
 the estimate for a normal journey with one capture and time to read the ending;
 it does not certify human completion time. Record timed release-ROM observations
 after manual verification; CI duration is not gameplay duration. Fast text,
 skipped exploration or grinding can change it.
+
+The requested `npm format` and `npm lint` commands were invoked, but this C/ASM
+repository has no npm package/scripts and npm reports them as unsupported.
+The repository's Python validators, native `make check` suites and GitHub
+Actions are the applicable checks. No JavaScript or dependency was added.
 
 ## Remaining milestones
 
