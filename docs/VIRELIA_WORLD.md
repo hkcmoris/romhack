@@ -309,6 +309,9 @@ Screenshots and exact reproduction steps for failures:
   are classified as Hoenn by `GetRegionForSectionId`. Section names identify
   the new locations, but this does not provide a separate Virelia Town Map,
   PokeNav map, Fly destinations, regional Pokedex or region-selection UI.
+- The optional Gen 5 map-name popup table is sized to the full section range,
+  matching the default popup table. Appended Virelia sections use the default
+  theme safely in either style.
 - Section footprints provide nonzero dimensions required by the current map
   cursor calculations. They are compatibility metadata, not a drawn Virelia
   world map. No existing Hoenn map-art cell or Fly destination is repurposed.
