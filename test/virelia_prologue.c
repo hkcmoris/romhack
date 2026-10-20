@@ -10,6 +10,7 @@
 #include "new_game.h"
 #include "overworld.h"
 #include "pokedex.h"
+#include "pokedex_common.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
 #include "save.h"
@@ -28,6 +29,7 @@
 static void InitPrologueTest(void)
 {
     InitEventData();
+    ResetPokedex();
     ZeroPlayerPartyMons();
     ResetPokemonStorageSystem();
     ClearBag();
@@ -205,7 +207,7 @@ TEST("Virelia compiled rival teams use the opposing level five starter and fair 
     ZeroPartyMons(party);
     CreateNPCTrainerPartyFromTrainer(party, trainer);
     gBattleTypeFlags = previousBattleFlags;
-    EXPECT_EQ(trainer->partySize, 1);
+    EXPECT_EQ((u32)trainer->partySize, 1);
     EXPECT_EQ(GetMonData(&party[0], MON_DATA_SPECIES), GetVireliaRivalSpecies(choice));
     EXPECT_EQ(GetMonData(&party[0], MON_DATA_LEVEL), VIRELIA_RIVAL_LEVEL);
     EXPECT_EQ(GetMonData(&party[0], MON_DATA_MOVE1), MOVE_TACKLE);
@@ -243,7 +245,7 @@ TEST("Virelia compiled route trainers and Rocket use the approved species levels
     ZeroPartyMons(party);
     CreateNPCTrainerPartyFromTrainer(party, trainer);
     gBattleTypeFlags = previousBattleFlags;
-    EXPECT_EQ(trainer->partySize, counts[team]);
+    EXPECT_EQ((u32)trainer->partySize, counts[team]);
     for (u32 i = 0; i < counts[team]; i++)
     {
         EXPECT_EQ(GetMonData(&party[i], MON_DATA_SPECIES), species[team][i]);
@@ -343,6 +345,72 @@ TEST("Virelia supplies require the rival and are an idempotent complete bundle")
     EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_POKE_BALL), VIRELIA_STARTING_POKE_BALLS);
     EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_POTION), VIRELIA_STARTING_POTIONS);
 }
+
+TEST("Virelia research Pokedex includes every starter through the native National Dex")
+{
+    u32 choice = VIRELIA_STARTER_GRASS;
+    PARAMETRIZE { choice = VIRELIA_STARTER_GRASS; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_WATER; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_FIRE; }
+    InitPrologueTest();
+    EXPECT(!IsNationalPokedexEnabled());
+    ReceivePrologueStarter(choice);
+    enum NationalDexOrder dexNum = SpeciesToNationalPokedexNum(GetVireliaStarterSpecies(choice));
+    EXPECT(GetSetPokedexFlag(dexNum, FLAG_GET_SEEN));
+    EXPECT(GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT));
+    CompletePrologueRival(B_OUTCOME_LOST);
+    VireliaPrologue_GrantBasics();
+    EXPECT_EQ(gSpecialVar_Result, TRUE);
+    EXPECT(IsNationalPokedexEnabled());
+    EXPECT_EQ(gSaveBlock2Ptr->pokedex.mode, DEX_MODE_NATIONAL);
+    EXPECT_EQ(GetNationalPokedexCount(FLAG_GET_SEEN), 1);
+    EXPECT_EQ(GetNationalPokedexCount(FLAG_GET_CAUGHT), 1);
+    EXPECT(!ShouldSkipPokedexListEntry(dexNum));
+}
+
+#if VIRELIA_PROLOGUE
+TEST("Virelia default Pokedex resolves all nine local forms without requiring the HGSS interface")
+{
+    u32 index = 0;
+    for (u32 i = 0; i < 9; i++)
+        PARAMETRIZE { index = i; }
+    static const enum Species forms[] =
+    {
+        SPECIES_POOCHYENA_VIRELIA, SPECIES_MIGHTYENA_VIRELIA, SPECIES_WRAITHENA,
+        SPECIES_SPINARAK_VIRELIA, SPECIES_ARIADOS_VIRELIA, SPECIES_ARACHNAUT,
+        SPECIES_EKANS_VIRELIA, SPECIES_ARBOK_VIRELIA, SPECIES_CINDRACOIL,
+    };
+    InitPrologueTest();
+    ReceivePrologueStarter(index / 3);
+    enum NationalDexOrder dexNum = SpeciesToNationalPokedexNum(forms[index]);
+    EXPECT_EQ(NationalPokedexNumToSpeciesForm(dexNum), forms[index]);
+    EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_WURMPLE), SPECIES_WURMPLE);
+}
+
+TEST("Virelia Pokedex preserves ordinary forms and identifies only the rival form actually encountered")
+{
+    u32 choice = VIRELIA_STARTER_GRASS;
+    PARAMETRIZE { choice = VIRELIA_STARTER_GRASS; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_WATER; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_FIRE; }
+    InitPrologueTest();
+    EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_POOCHYENA), SPECIES_POOCHYENA);
+    EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_SPINARAK), SPECIES_SPINARAK);
+    EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_EKANS), SPECIES_EKANS);
+    ReceivePrologueStarter(choice);
+    enum Species rival = GetVireliaRivalSpecies(choice);
+    enum NationalDexOrder rivalDex = SpeciesToNationalPokedexNum(rival);
+    EXPECT_EQ(NationalPokedexNumToSpeciesForm(rivalDex), NationalPokedexNumToSpecies(rivalDex));
+    CompletePrologueRival(B_OUTCOME_WON);
+    EXPECT_EQ(NationalPokedexNumToSpeciesForm(rivalDex), rival);
+    if (choice == VIRELIA_STARTER_FIRE)
+    {
+        EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_POOCHYENA), SPECIES_POOCHYENA);
+        EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_MIGHTYENA), SPECIES_MIGHTYENA);
+        EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_ARIADOS), SPECIES_ARIADOS);
+    }
+}
+#endif
 
 TEST("Virelia a full item pocket cannot partially grant supplies and allows retry")
 {

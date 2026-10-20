@@ -33,6 +33,7 @@
 #include "window.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/virelia_prologue.h"
 #include "config/pokedex_plus_hgss.h"
 
 EWRAM_DATA struct PokedexView *sPokedexView = NULL;
@@ -5907,6 +5908,44 @@ enum Species NationalPokedexNumToSpeciesForm(enum NationalDexOrder nationalNum)
     if (POKEDEX_PLUS_HGSS && nationalNum && sPokedexView && sPokedexView->formSpecies)
         return sPokedexView->formSpecies;
 
+#if VIRELIA_PROLOGUE && !IS_FRLG && P_VIRELIA_STARTERS
+    // Shared National Dex slots prefer a known local representative. Ordinary
+    // encounters keep their original entry until that regional family is known.
+    if (FlagGet(FLAG_VIRELIA_STARTER_RECEIVED))
+    {
+        u32 starter = VarGet(VAR_VIRELIA_STARTER);
+        bool32 rivalKnown = FlagGet(FLAG_VIRELIA_RIVAL_COMPLETE);
+        switch (nationalNum)
+        {
+        case NATIONAL_DEX_POOCHYENA:
+            if (starter == VIRELIA_STARTER_GRASS || (rivalKnown && starter == VIRELIA_STARTER_WATER))
+                return SPECIES_POOCHYENA_VIRELIA;
+            break;
+        case NATIONAL_DEX_MIGHTYENA:
+            if (starter == VIRELIA_STARTER_GRASS)
+                return SPECIES_MIGHTYENA_VIRELIA;
+            break;
+        case NATIONAL_DEX_SPINARAK:
+            if (starter == VIRELIA_STARTER_WATER || (rivalKnown && starter == VIRELIA_STARTER_FIRE))
+                return SPECIES_SPINARAK_VIRELIA;
+            break;
+        case NATIONAL_DEX_ARIADOS:
+            if (starter == VIRELIA_STARTER_WATER)
+                return SPECIES_ARIADOS_VIRELIA;
+            break;
+        case NATIONAL_DEX_EKANS:
+            if (starter == VIRELIA_STARTER_FIRE || (rivalKnown && starter == VIRELIA_STARTER_GRASS))
+                return SPECIES_EKANS_VIRELIA;
+            break;
+        case NATIONAL_DEX_ARBOK:
+            if (starter == VIRELIA_STARTER_FIRE)
+                return SPECIES_ARBOK_VIRELIA;
+            break;
+        default:
+            break;
+        }
+    }
+#endif
     return NationalPokedexNumToSpecies(nationalNum);
 }
 

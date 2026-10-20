@@ -155,6 +155,7 @@ void VireliaPrologue_GrantBasics(void)
     AddBagItem(ITEM_POTION, VIRELIA_STARTING_POTIONS);
     FlagSet(FLAG_VIRELIA_SUPPLIES_RECEIVED);
     FlagSet(FLAG_SYS_POKEDEX_GET);
+    EnableNationalPokedex();
     FlagSet(FLAG_ADVENTURE_STARTED);
     gSpecialVar_Result = TRUE;
 }

@@ -88,6 +88,13 @@ def main():
         byte_limit = entry.get("max_bytes", fixed_bytes.get(entry["kind"]))
         if byte_limit and len(visible) + 1 > byte_limit:
             errors.append(f"{label}: {len(visible) + 1} encoded bytes > {byte_limit}")
+        if entry.get("max_appended_bytes"):
+            # Naming's native StringAppendN copies encoded bytes. This suffix
+            # retains its two-byte placeholder even though the printer ignores
+            # it; the species name has already been written separately.
+            suffix_bytes = len(TOKEN.sub("", text)) + sum(2 for _ in TOKEN.finditer(text)) + 1
+            if suffix_bytes > entry["max_appended_bytes"]:
+                errors.append(f"{label}: nickname suffix exceeds StringAppendN byte limit")
         for line in visible.split("\n"):
             unsupported = sorted(set(line) - set(chars))
             if unsupported:

@@ -4802,9 +4802,13 @@
       "key": "literal:{STR_VAR_1}'s nickname?:0",
       "kind": "ui",
       "english": "{STR_VAR_1}'s nickname?",
-      "czech": "Přezdívka: {STR_VAR_1}?",
+      "czech": "{STR_VAR_1}: jméno?",
       "font": "Normal",
-      "width": 208
+      "width": 64,
+      "replacements": {
+        "{STR_VAR_1}": ""
+      },
+      "max_appended_bytes": 15
     },
     {
       "path": "src/naming_screen.c",
@@ -6843,6 +6847,24 @@
       "czech": "TAJEMNÉ AKCE nelze použít\\ns připojeným bezdrátovým adaptérem.",
       "font": "Normal",
       "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_OTSlash",
+      "kind": "ui",
+      "english": "OT/",
+      "czech": "PT/",
+      "font": "Normal",
+      "width": 24
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_IDNumber",
+      "kind": "ui",
+      "english": "IDNo.",
+      "czech": "ID č.",
+      "font": "Normal",
+      "width": 30
     }
   ]
 }

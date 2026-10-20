@@ -234,6 +234,7 @@ jobs:
         run: |
           python3 tools/validate_virelia_prologue_text.py
           python3 tools/virelia/localize_ui_graphics.py --check
+          python3 tools/virelia/localize_font_labels.py --check
 
       - name: Test
         env:

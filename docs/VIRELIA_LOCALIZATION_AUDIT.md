@@ -11,7 +11,7 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
   "status": "source_checked_runtime_pending",
   "manifest": "tools/virelia_prologue_localization.json",
   "level_bound": 15,
-  "manifest_entries": 705,
+  "manifest_entries": 707,
   "map_script_texts": 76,
   "expanded_ui_cases": 115,
   "move_names": 64,
@@ -43,5 +43,8 @@ Texty v grafice vytvářejí následující skripty z původních herních bitma
 - `tools/virelia/localize_type_icons.py`: typy a soutěžní kategorie.
 - `tools/virelia/localize_naming_buttons.py`: zpět, mazání a další znaky.
 - `tools/virelia/localize_ui_graphics.py`: Pokédex včetně vyhledávání a neznámé oblasti, souhrn Pokémona a karta trenéra. Volba `--check` ověří, že opakované vygenerování nezmění uložené soubory.
+- `tools/virelia/localize_font_labels.py`: sdílené symboly `Lv.` a `No` nahrazuje `úr.` a `č.` ve všech devíti latinských písmech. Kódy `{LV}`, `{LV_2}` a `{NO}` zůstávají zachovány. Zkratka původního trenéra je `PT/`.
+
+Nativní snímky první sestavené verze potvrdily čitelnost hlavních záložek, názvů útoků, schopností a typových štítků. Odhalily také anglické symboly úrovně a chybné spojení názvu druhu s výzvou k přezdívce. Zdrojové opravy jsou zahrnuty v tomto auditu; novou sestavenou ROM je ještě nutné zkontrolovat.
 
 Vyšší úrovně lze získat opakovanými souboji. Tento audit proto nepotvrzuje překlad všech útoků a evolucí při neomezeném trénování. Nepokrývá jiné oblasti, multiplayer ani předměty a útoky dostupné až mimo uvedený rozsah. Úplná česká lokalizace celé hry není cílem tohoto seznamu. Nativní ověření nové ROM musí ještě potvrdit čitelnost grafických popisků a rozložení otevřených obrazovek. Délka hraní 15 až 20 minut zatím nebyla ručně změřena.

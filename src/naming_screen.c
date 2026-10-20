@@ -2178,7 +2178,7 @@ static const struct NamingScreenTemplate sMonNamingScreenTemplate =
     .addGenderIcon = TRUE,
     .initialPage = KBPAGE_LETTERS_UPPER,
     .unused = 35,
-    .title = COMPOUND_STRING(LOCALIZED_TEXT("{STR_VAR_1}'s nickname?", "Přezdívka: {STR_VAR_1}?")),
+    .title = COMPOUND_STRING(LOCALIZED_TEXT("{STR_VAR_1}'s nickname?", "{STR_VAR_1}: jméno?")),
 };
 
 static const struct NamingScreenTemplate sWaldaWordsScreenTemplate =

@@ -55,6 +55,15 @@ catching tutorial is required. Hoenn content remains registered for future
 postgame work. The Virelia initialization marks the original introduction's
 progress variables so that it cannot unexpectedly restart during this campaign.
 
+The new-game field callback also uses an ordinary fade instead of the original
+truck animation. Time-based events are initialized without the clock lesson.
+The equipment grant enables the engine's National Pokédex, because Spinarak and
+Ekans are outside the inherited Hoenn listing. In story mode, entries prefer the
+chosen regional starter family and the rival's actually encountered first stage;
+other species keep their ordinary form. The native Pokédex shares seen/caught
+bits between forms, so it cannot list ordinary and regional versions as separate
+captures. A dedicated Virelia regional listing is reserved for later work.
+
 ## Maps and actors
 
 The four existing Virelia map IDs are unchanged. The house is appended to the
@@ -199,6 +208,10 @@ facilities through the established configuration. It adds `-devmode` to output
 names and object directories, preventing stale object reuse when switching modes.
 Use distinct saves for development and story playtests. The development mode
 does not modify Cable Club communication or Link Multi battle rules.
+
+The title SELECT shortcut and built-in debug menus are also restricted to
+development mode in Emerald. Both optimized and unoptimized story builds keep
+those tools hidden. FireRed/LeafGreen retain their existing configuration.
 
 CI retains Emerald, FireRed, LeafGreen, optimized release and documentation
 checks. It runs story and explicit development-mode tests in separate jobs.

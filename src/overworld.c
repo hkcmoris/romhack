@@ -1938,7 +1938,7 @@ void CB2_NewGame(void)
     PlayTimeCounter_Start();
     ScriptContext_Init();
     UnlockPlayerFieldControls();
-#if ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
+#if (VIRELIA_PROLOGUE || ORACULUM_DUO_TEST_QUICK_START) && !IS_FRLG
     gFieldCallback = FieldCB_WarpExitFadeFromBlack;
 #else
     if (IS_FRLG)
@@ -1955,7 +1955,7 @@ void CB2_NewGame(void)
     // Wall clock now track local time so we set it to 10AM to match initial wall clock time
     RtcCalcLocalTimeOffset(0, 10, 0, 0);
 #endif
-#if ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
+#if (VIRELIA_PROLOGUE || ORACULUM_DUO_TEST_QUICK_START) && !IS_FRLG
     InitTimeBasedEvents();
 #endif
 }

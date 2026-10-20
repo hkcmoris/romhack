@@ -74,26 +74,45 @@ def main():
     assert x <= 36
     write_png(path, image, depth, chunks)
 
-    path = ROOT / "graphics/naming_screen/page_swap_others.png"
-    image, depth, chunks = read_png(path)
-    assert len(image) == 8 and len(image[0]) == 40
-    label = "další"
-    width = sum(widths[codes[char]] for char in label)
-    assert width <= 24
-    for y in range(8):
-        for x in range(24):
-            image[y][x] = 11
-    x = (24 - width) // 2
-    for char in label:
-        code = codes[char]
+    for name, label, bg, shadow in (
+        ("lower", "malá", 9, 8),
+        ("upper", "VELKÁ", 6, 7),
+        ("others", "další", 11, 10),
+    ):
+        path = ROOT / ("graphics/naming_screen/page_swap_" + name + ".png")
+        image, depth, chunks = read_png(path)
+        assert len(image) == 8 and len(image[0]) == 40
+        glyph_widths, glyph_pixel = (narrow_widths, narrow_pixel) if name == "upper" else (widths, pixel)
+        width = sum(glyph_widths[codes[char]] for char in label)
+        assert width <= 24
         for y in range(8):
-            for gx in range(widths[code]):
-                value = pixel(code, gx, y + 3)
-                if value in (1, 2):
-                    image[y][x + gx] = 1 if value == 1 else 10
-        x += widths[code]
-    write_png(path, image, depth, chunks)
-    print("Rendered Czech Back/Delete/Other labels with original palettes and button geometry.")
+            for x in range(24):
+                image[y][x] = bg
+        x = (24 - width) // 2
+        ink = []
+        for char in label:
+            code = codes[char]
+            if name == "upper":
+                # Keep both native acute-mark rows above five body rows. The
+                # eight-pixel sprite has no room for a full-height capital.
+                for dy, sy in enumerate((1, 2, 4, 5, 7, 9, 10)):
+                    for gx in range(glyph_widths[code]):
+                        if glyph_pixel(code, gx, sy) == 1:
+                            ink.append((x + gx, dy))
+            else:
+                for y in range(8):
+                    for gx in range(glyph_widths[code]):
+                        value = glyph_pixel(code, gx, y + 3)
+                        if value in (1, 2):
+                            image[y][x + gx] = 1 if value == 1 else shadow
+            x += glyph_widths[code]
+        for x, y in ink:
+            assert x + 1 < 24 and y + 1 < 8
+            image[y + 1][x + 1] = shadow
+        for x, y in ink:
+            image[y][x] = 1
+        write_png(path, image, depth, chunks)
+    print("Rendered Czech naming labels with original palettes and button geometry.")
 
 
 if __name__ == "__main__":
