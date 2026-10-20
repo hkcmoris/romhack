@@ -129,13 +129,25 @@ Teachable moves temporarily reuse each source species' existing compatibility
 list; finals reuse the original second stage's list. These lists need a later
 balance pass. No new TM or egg move is introduced.
 
-## Placeholder graphics and sound
+## Battle graphics and placeholder assets
 
-All front/back sprites, normal/shiny palettes, party icons, footprints, cries,
-and applicable overworld graphics reference existing assets. Original image files
-are not recolored or overwritten.
+Virelian Poochyena, Virelian Mightyena and Wraithena use custom battle graphics
+and normal/shiny palettes. Each `anim_front.png` contains two vertically stacked
+64x64 frames (a 64x128 sheet); each `back.png` is 64x64. The shiny palettes color
+the sage fur deep blue while retaining the same sprite pixels.
 
-| Prototype stages | Temporary asset source |
+| Species | Battle graphics directory |
+| --- | --- |
+| Virelian Poochyena | `graphics/pokemon/poochyena/virelia/` |
+| Virelian Mightyena | `graphics/pokemon/mightyena/virelia/` |
+| Wraithena | `graphics/pokemon/wraithena/` |
+
+The other two families still use placeholder battle sprites and palettes. Party
+icons, footprints, cries and applicable overworld graphics for all three families
+continue to reference these existing assets. Original image files are not
+recolored or overwritten.
+
+| Prototype stages | Placeholder asset source |
 | --- | --- |
 | Virelian Poochyena | Poochyena |
 | Virelian Mightyena, Wraithena | Mightyena |
@@ -144,10 +156,10 @@ are not recolored or overwritten.
 | Virelian Ekans | Ekans |
 | Virelian Arbok, Cindracoil | Arbok |
 
-Final stages consequently look like their second stages. Their distinct names,
-base stats and species IDs distinguish them. Height, weight, display scale and
-animation metadata also initially follow the placeholder: Wraithena 1.0 m/37.0 kg,
-Arachnaut 1.1 m/33.5 kg, Cindracoil 3.5 m/65.0 kg.
+Arachnaut and Cindracoil consequently still look like their second stages in
+battle; Wraithena has its own final-stage art. Height, weight and display scale
+remain provisional: Wraithena 1.0 m/37.0 kg, Arachnaut 1.1 m/33.5 kg, Cindracoil
+3.5 m/65.0 kg.
 
 ## Development access and testing
 
@@ -256,6 +268,6 @@ remain a playtest task; no completed emulator playthrough is claimed here.
 
 Remaining work: starter-vs-starter and campaign balance, per-stage move pacing,
 TM/egg-move review, final names (especially the provisional fire family), custom
-sprites/palettes/icons/cries, final physical dimensions and dex prose, signature
-mechanic design/testing, and a future Virelia regional dex. None is implemented
-as part of this prototype.
+battle sprites/palettes for the Water and Fire families, custom icons, footprints,
+cries and overworld graphics for all families, final physical dimensions and dex
+prose, signature mechanic design/testing, and a future Virelia regional dex.

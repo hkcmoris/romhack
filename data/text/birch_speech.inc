@@ -1,10 +1,10 @@
 gText_Birch_Welcome::
-	.string "Ahoj! Jsem profesor Birch.\n"
-	.string "Vítej mezi Pokémony!\p"
+	.string "Hej! Hej posluchej.\n"
+	.string "Hej slyšíš mě?\p"
 	.string "$"
 
 gText_Birch_Pokemon::
-	.string "This is what we call a “POKéMON.”\p"
+	.string "Toto je “POKéMON.”\p"
 	.string "\n"
 	.string "$"
 
@@ -24,16 +24,17 @@ gText_Birch_WhatsYourName::
 	.string "Jak se jmenuješ?$"
 
 gText_Birch_SoItsPlayer::
+	.string "Já tě úplně nejvíc vnímám!\n"
 	.string "Jsi {PLAYER}{KUN}?$"
 
 gText_Birch_YourePlayer::
 	.string "Aha, ok!\p"
 	.string "Ty jsi {PLAYER}{KUN}!\n"
-	.string "Vítej v LITTLEROOTU.\l"
-	.string "Já tě úplně nejvíc vnímám!\p"
+	.string "Vítej ve VIRELII.\l"
+	.string "\p"
 	.string "$"
 
 gText_Birch_AreYouReady::
 	.string "Stav se za mnou\n"
-	.string "v mé POKéMON LABORATOŘI.\p"
+	.string "v mé POKéMONÍ LABORATOŘI.\p"
 	.string "$"

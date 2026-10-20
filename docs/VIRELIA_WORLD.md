@@ -149,8 +149,9 @@ Whisperwood Trail.
 | Slateford City | `gTileset_General` + `gTileset_Rustboro` |
 
 NPCs and item/starter display objects use existing Emerald object graphics.
-The laboratory displays are prototype props; the regional Pokemon still use
-the placeholder assets documented in [Virelia starters](VIRELIA_STARTERS.md).
+The laboratory displays are prototype props. The Poochyena regional line has
+custom battle sprites and palettes; remaining placeholder battle and overworld
+assets are documented in [Virelia starters](VIRELIA_STARTERS.md).
 No original graphics file is recolored or replaced.
 
 Open this repository in the installed Porymap and find the new Virelia map

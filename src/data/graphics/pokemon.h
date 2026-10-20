@@ -27500,6 +27500,23 @@ const u32 gObjectEventPic_Substitute[] = INCGFX_COMP("graphics/pokemon/question_
 #endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_FAMILY_PECHARUNT
 
+#if P_VIRELIA_STARTERS
+    const u32 gMonFrontPic_PoochyenaVirelia[] = INCGFX_U32("graphics/pokemon/poochyena/virelia/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_PoochyenaVirelia[] = INCGFX_U32("graphics/pokemon/poochyena/virelia/back.png", ".4bpp.smol");
+    const u16 gMonPalette_PoochyenaVirelia[] = INCGFX_U16("graphics/pokemon/poochyena/virelia/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_PoochyenaVirelia[] = INCGFX_U16("graphics/pokemon/poochyena/virelia/shiny.pal", ".gbapal");
+
+    const u32 gMonFrontPic_MightyenaVirelia[] = INCGFX_U32("graphics/pokemon/mightyena/virelia/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_MightyenaVirelia[] = INCGFX_U32("graphics/pokemon/mightyena/virelia/back.png", ".4bpp.smol");
+    const u16 gMonPalette_MightyenaVirelia[] = INCGFX_U16("graphics/pokemon/mightyena/virelia/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_MightyenaVirelia[] = INCGFX_U16("graphics/pokemon/mightyena/virelia/shiny.pal", ".gbapal");
+
+    const u32 gMonFrontPic_Wraithena[] = INCGFX_U32("graphics/pokemon/wraithena/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_Wraithena[] = INCGFX_U32("graphics/pokemon/wraithena/back.png", ".4bpp.smol");
+    const u16 gMonPalette_Wraithena[] = INCGFX_U16("graphics/pokemon/wraithena/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_Wraithena[] = INCGFX_U16("graphics/pokemon/wraithena/shiny.pal", ".gbapal");
+#endif //P_VIRELIA_STARTERS
+
     const u32 gMonFrontPic_Egg[] = INCGFX_U32("graphics/pokemon/egg/anim_front.png", ".4bpp.smol");
     const u16 gMonPalette_Egg[] = INCGFX_U16("graphics/pokemon/egg/normal.pal", ".gbapal");
     const u8 gMonIcon_Egg[] = INCGFX_U8("graphics/pokemon/egg/icon.png", ".4bpp");
