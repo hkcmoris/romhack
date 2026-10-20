@@ -256,6 +256,7 @@ void NewGameInitData(void)
     // Keep story actors out of the independent development playground.
     FlagSet(FLAG_VIRELIA_HIDE_STORY_ACTORS);
     FlagSet(FLAG_VIRELIA_HIDE_POLICEMAN);
+    FlagSet(FLAG_VIRELIA_ROCKET_DEFEATED);
 #endif
 }
 

@@ -1,3 +1,4 @@
+#include "localization.h"
 #include "global.h"
 #include "item_use.h"
 #include "battle.h"
@@ -92,7 +93,7 @@ static const u8 sText_BootedUpTM[] = _("Booted up a TM.");
 static const u8 sText_BootedUpHM[] = _("Booted up an HM.");
 static const u8 sText_TMHMContainedVar1[] = _("It contained\n{STR_VAR_1}.\pTeach {STR_VAR_1}\nto a POKéMON?");
 static const u8 sText_UsedVar2WildLured[] = _("{PLAYER} used the\n{STR_VAR_2}.\pWild POKéMON will be lured.{PAUSE_UNTIL_PRESS}");
-static const u8 sText_UsedVar2WildRepelled[] = _("{PLAYER} used the\n{STR_VAR_2}.\pWild POKéMON will be repelled.{PAUSE_UNTIL_PRESS}");
+static const u8 sText_UsedVar2WildRepelled[] = _(LOCALIZED_TEXT("{PLAYER} used the\n{STR_VAR_2}.\pWild POKéMON will be repelled.{PAUSE_UNTIL_PRESS}", "{PLAYER}: použit předmět\n{STR_VAR_2}.\pDivocí Pokémoni se budou držet dál.{PAUSE_UNTIL_PRESS}"));
 static const u8 sText_PlayedPokeFluteCatchy[] = _("Played the POKé FLUTE.\pNow, that's a catchy tune!{PAUSE_UNTIL_PRESS}");
 static const u8 sText_PlayedPokeFlute[] = _("Played the POKé FLUTE.");
 static const u8 sText_PokeFluteAwakenedMon[] = _("The POKé FLUTE awakened sleeping\nPOKéMON.{PAUSE_UNTIL_PRESS}");
@@ -1139,9 +1140,9 @@ bool32 CanThrowBall(void)
     return (GetBallThrowableState() == BALL_THROW_ABLE);
 }
 
-static const u8 sText_CantThrowPokeBall_TwoMons[] = _("Cannot throw a ball!\nThere are two Pokémon out there!\p");
-static const u8 sText_CantThrowPokeBall_SemiInvulnerable[] = _("Cannot throw a ball!\nThere's no Pokémon in sight!\p");
-static const u8 sText_CantThrowPokeBall_Disabled[] = _("POKé BALLS cannot be used\nright now!\p");
+static const u8 sText_CantThrowPokeBall_TwoMons[] = _(LOCALIZED_TEXT("Cannot throw a ball!\nThere are two Pokémon out there!\p", "Nelze hodit Pokéball!\nJsou tu dva Pokémoni!\p"));
+static const u8 sText_CantThrowPokeBall_SemiInvulnerable[] = _(LOCALIZED_TEXT("Cannot throw a ball!\nThere's no Pokémon in sight!\p", "Nelze hodit Pokéball!\nNení vidět žádného Pokémona!\p"));
+static const u8 sText_CantThrowPokeBall_Disabled[] = _(LOCALIZED_TEXT("POKé BALLS cannot be used\nright now!\p", "Teď nelze použít\nPokébally!\p"));
 
 static void ItemUseInBattle_ShowPartyMenu(u8 taskId)
 {

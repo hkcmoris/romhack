@@ -1382,8 +1382,12 @@ gText_SandstormIsVicious::
 	.string "It's impossible to keep going.$"
 
 gText_SelectWithoutRegisteredItem::
+#if TESTING
 	.string "An item in the BAG can be\n"
 	.string "registered to SELECT for easy use.$"
+#else
+	.string "Předmět z batohu si můžeš přiřadit\nna SELECT a rychle jej používat.$"
+#endif
 
 gText_PokemonTrainerSchoolEmail::
 	.string "There's an e-mail from POKéMON TRAINER\n"
@@ -1405,14 +1409,23 @@ gText_UnusedNicknameReceivedPokemon::
 	.string "the {STR_VAR_2} you received?$"
 
 gText_PlayerWhitedOut::
+#if TESTING
 	.string "{PLAYER} is out of usable\n"
 	.string "POKéMON!\p{PLAYER} whited out!$"
+#else
+	.string "{PLAYER} už nemá žádného\nPokémona schopného boje!\p{PLAYER} ztrácí vědomí!$"
+#endif
 
 gText_FirstShouldRestoreMonsHealth::
+#if TESTING
 	.string "First, you should restore your\n"
 	.string "POKéMON to full health.$"
+#else
+	.string "Nejdřív svým Pokémonům\nobnov všechny HP.$"
+#endif
 
 gText_MonsHealedShouldBuyPotions::
+#if TESTING
 	.string "Your POKéMON have been healed\n"
 	.string "to perfect health.\p"
 	.string "If your POKéMON's energy, HP,\n"
@@ -1421,21 +1434,33 @@ gText_MonsHealedShouldBuyPotions::
 	.string "field, you should buy some POTIONS\l"
 	.string "at the POKéMON MART.\p"
 	.string "We hope you excel!$"
+#else
+	.string "Tvoji Pokémoni jsou zase\nv plné síle.\pKdyž ztratí HP,\npřijď je sem vyléčit.\pNa delší cestu si v obchodě\nnakup lektvary.\pAť se ti daří!$"
+#endif
 
 gText_MonsHealed::
+#if TESTING
 	.string "Your POKéMON have been healed\n"
 	.string "to perfect health.\p"
 	.string "We hope you excel!$"
+#else
+	.string "Tvoji Pokémoni jsou zase\nv plné síle.\pAť se ti daří!$"
+#endif
 
 gText_HadQuiteAnExperienceTakeRest::
+#if TESTING
 	.string "MOM: {PLAYER}!\n"
 	.string "Welcome home.\p"
 	.string "It sounds like you had quite\n"
 	.string "an experience.\p"
 	.string "Maybe you should take a quick\n"
 	.string "rest.$"
+#else
+	.string "MÁMA: {PLAYER}!\nVítej doma.\pZdá se, že máš za sebou\npořádné dobrodružství.\pNa chvíli si odpočiň.$"
+#endif
 
 gText_MomExplainHPGetPotions::
+#if TESTING
 	.string "MOM: Oh, good! You and your\n"
 	.string "POKéMON are looking great.\p"
 	.string "I just heard from {STR_VAR_1}.\p"
@@ -1449,6 +1474,9 @@ gText_MomExplainHPGetPotions::
 	.string "POTIONS at the POKéMON MART.\p"
 	.string "Make me proud, honey!\p"
 	.string "Take care!$"
+#else
+	.string "MÁMA: Výborně! Ty i tvoji\nPokémoni zase vypadáte zdravě.\pPrávě se mi ozval {STR_VAR_1}.\pSílu Pokémona vyjadřují HP.\pKdyž Pokémoni ztratí HP,\nv centru je zase vyléčí.\pNa delší cesty si nakup\ndost lektvarů.\pDávej na sebe pozor!\pTěším se na tvoje zážitky!$"
+#endif
 
 gText_RegisteredTrainerinPokeNav::
 	.string "Registered {STR_VAR_1} {STR_VAR_2}\n"

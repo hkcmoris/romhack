@@ -27,6 +27,33 @@ def main():
     sources = {}
     errors = []
     widths = []
+    dynamic_cases = 0
+    def text_width(text, font):
+        return sum(fonts[font][chars[c]] for c in text)
+
+    def widest(kind, field="name"):
+        values = [e["czech"] for e in manifest["entries"] if e["kind"] == kind and "." + field + "." in e["key"]]
+        return max(values, key=lambda t: text_width(t, "Normal"), default="WWWWWWWWWWWW")
+
+    # The nickname limit is 12 in this repository, not vanilla's 10. Use the
+    # widest glyph allowed by the name screen, rather than a typical nickname.
+    mon = "W" * 12
+    player = "W" * 7
+    item = widest("item_name")
+    move = widest("move_name")
+    nature = widest("nature")
+    generic = max([mon, item, move], key=lambda t: text_width(t, "Normal"))
+    substitutions = {
+        "{PLAYER}": player, "{STR_VAR_1}": generic,
+        "{STR_VAR_2}": generic, "{STR_VAR_3}": "999999",
+        "{DYNAMIC 0}": "", "{DYNAMIC 1}": "",
+        "{DYNAMIC 2}": nature, "{DYNAMIC 3}": "100",
+        "{DYNAMIC 4}": "Maplebrook", "{DYNAMIC 5}": "",
+        "{PKMN}": "PKMN", "{POKEBLOCK}": "POKéBLOCK",
+        "{LV_2}": "úr.", "{A_BUTTON}": "WW",
+        "{B_BUTTON}": "WW", "{START_BUTTON}": "WW",
+        "{DPAD_UPDOWN}": "WW", "{DPAD_NONE}": "WW",
+    }
     for entry in manifest["entries"]:
         path, key, text = entry["path"], entry["key"], entry["czech"]
         source = sources.setdefault(path, (ROOT / path).read_text(encoding="utf-8"))
@@ -39,10 +66,18 @@ def main():
             errors.append(f"{label}: missing conditional translation")
         if not entry.get("conditional") and collections.Counter(TOKEN.findall(entry["english"])) != collections.Counter(TOKEN.findall(text)):
             errors.append(f"{label}: changed placeholders/control tokens")
-        # Replacement widths are explicit per case. Unbound dynamic controls are
-        # audited separately by the native emulator; never silently guessed.
-        dynamic = entry.get("replacements", {})
-        visible = TOKEN.sub(lambda m: dynamic.get(m[0], ""), text)
+        dynamic = {**substitutions, **entry.get("replacements", {})}
+        if TOKEN.search(text):
+            dynamic_cases += 1
+        def replace_token(match):
+            token = match[0]
+            if token in dynamic:
+                return dynamic[token]
+            if token.startswith(("{COLOR ", "{SHADOW ", "{BACKGROUND ", "{HIGHLIGHT ", "{PAUSE ", "{PLAY_SE ")) or token == "{PAUSE_UNTIL_PRESS}":
+                return ""
+            errors.append(f"{label}: unbound token {token}")
+            return ""
+        visible = TOKEN.sub(replace_token, text)
         visible = re.sub(r"\\[pnl]", "\n", visible)
         visible = visible.replace(r'\"', '"').replace(r"\\", "\\")
         for line in visible.split("\n"):
@@ -56,7 +91,7 @@ def main():
                 errors.append(f"{label}: {width}px > {entry['width']}px: {line}")
         if entry.get("lines") and len(visible.split("\n")) > entry["lines"]:
             errors.append(f"{label}: too many lines")
-    result = {"passed": not errors, "entries": len(manifest["entries"]), "max_literal_width": max(widths, default=0), "level_bound": manifest["level_bound"], "errors": errors}
+    result = {"passed": not errors, "entries": len(manifest["entries"]), "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "errors": errors}
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:

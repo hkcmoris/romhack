@@ -41,6 +41,8 @@ Virelia_SlatefordCity_EventScript_MaintenanceWorker::
 	goto_if FALSE, Virelia_SlatefordCity_EventScript_WorkerBusy
 	msgbox Virelia_SlatefordCity_Text_Worker, MSGBOX_DEFAULT
 	trainerbattle_single TRAINER_VIRELIA_ROCKET, Virelia_SlatefordCity_Text_RocketIntro, Virelia_SlatefordCity_Text_RocketDefeat, Virelia_SlatefordCity_EventScript_AfterRocket
+#else
+	msgbox Virelia_SlatefordCity_Text_Maintenance, MSGBOX_DEFAULT
 #endif
 	release
 	end
@@ -179,6 +181,10 @@ Virelia_SlatefordCity_Text_Resident:
 Virelia_SlatefordCity_Text_WorkerBusy:
 	.string "ÚDRŽBÁŘ: Mám práci. Zeptej se\n"
 	.string "horníka u lomu, ten ví všechno.$"
+
+Virelia_SlatefordCity_Text_Maintenance:
+	.string "ÚDRŽBÁŘ: Probíhá průzkum lomu.\n"
+	.string "Vstup zatím není povolený.$"
 
 Virelia_SlatefordCity_Text_Worker:
 	.string "ÚDRŽBÁŘ: Ukradené minerály?\n"

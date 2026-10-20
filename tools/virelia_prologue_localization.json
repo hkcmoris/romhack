@@ -559,7 +559,11 @@
       "english": "{STR_VAR_1} gained {STR_VAR_2} Exp. Points!{PAUSE_UNTIL_PRESS}",
       "czech": "{STR_VAR_1}: získáno {STR_VAR_2}\\nbodů zkušeností!{PAUSE_UNTIL_PRESS}",
       "font": "Normal",
-      "width": 208
+      "width": 208,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW",
+        "{STR_VAR_2}": "99999"
+      }
     },
     {
       "path": "src/strings.c",
@@ -1079,9 +1083,14 @@
       "key": "gText_MoveRelearnerPkmnForgotMoveAndLearnedNew",
       "kind": "ui",
       "english": "{STR_VAR_1} forgot {STR_VAR_3}.\\pAnd…\\p{STR_VAR_1} learned {STR_VAR_2}.",
-      "czech": "{STR_VAR_1} zapomněl {STR_VAR_3}.\\pA…\\p{STR_VAR_1} se naučil {STR_VAR_2}.",
+      "czech": "{STR_VAR_1} zapomněl\\n{STR_VAR_3}.\\pA…\\p{STR_VAR_1} se naučil\\n{STR_VAR_2}.",
       "font": "Normal",
-      "width": 208
+      "width": 208,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW",
+        "{STR_VAR_2}": "Roztomilý pohled",
+        "{STR_VAR_3}": "Roztomilý pohled"
+      }
     },
     {
       "path": "src/strings.c",
@@ -3749,10 +3758,11 @@
       "key": "TYPE_NONE.generic.0",
       "kind": "type_generic",
       "english": "a move",
-      "czech": "útok typu žádný",
+      "czech": "útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/moves_info.h",
@@ -3898,10 +3908,11 @@
       "key": "TYPE_NORMAL.generic.0",
       "kind": "type_generic",
       "english": "a NORMAL move",
-      "czech": "útok typu běžný",
+      "czech": "běžný útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -3918,10 +3929,11 @@
       "key": "TYPE_FIGHTING.generic.0",
       "kind": "type_generic",
       "english": "a FIGHTING move",
-      "czech": "útok typu bojový",
+      "czech": "bojový útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -3938,10 +3950,11 @@
       "key": "TYPE_FLYING.generic.0",
       "kind": "type_generic",
       "english": "a FLYING move",
-      "czech": "útok typu létající",
+      "czech": "létající útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -3958,10 +3971,11 @@
       "key": "TYPE_POISON.generic.0",
       "kind": "type_generic",
       "english": "a POISON move",
-      "czech": "útok typu jedový",
+      "czech": "jedový útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -3978,10 +3992,11 @@
       "key": "TYPE_GROUND.generic.0",
       "kind": "type_generic",
       "english": "a GROUND move",
-      "czech": "útok typu zemní",
+      "czech": "zemní útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -3998,10 +4013,11 @@
       "key": "TYPE_ROCK.generic.0",
       "kind": "type_generic",
       "english": "a ROCK move",
-      "czech": "útok typu kamenný",
+      "czech": "kamenný útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4018,10 +4034,11 @@
       "key": "TYPE_BUG.generic.0",
       "kind": "type_generic",
       "english": "a BUG move",
-      "czech": "útok typu hmyzí",
+      "czech": "hmyzí útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4041,7 +4058,8 @@
       "czech": "duchový útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4058,10 +4076,11 @@
       "key": "TYPE_STEEL.generic.0",
       "kind": "type_generic",
       "english": "a STEEL move",
-      "czech": "útok typu ocelový",
+      "czech": "ocelový útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4078,10 +4097,11 @@
       "key": "TYPE_MYSTERY.generic.0",
       "kind": "type_generic",
       "english": "a ??? move",
-      "czech": "útok typu ???",
+      "czech": "neznámý útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4098,10 +4118,11 @@
       "key": "TYPE_FIRE.generic.0",
       "kind": "type_generic",
       "english": "a FIRE move",
-      "czech": "útok typu ohnivý",
+      "czech": "ohnivý útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4118,10 +4139,11 @@
       "key": "TYPE_WATER.generic.0",
       "kind": "type_generic",
       "english": "a WATER move",
-      "czech": "útok typu vodní",
+      "czech": "vodní útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4138,10 +4160,11 @@
       "key": "TYPE_GRASS.generic.0",
       "kind": "type_generic",
       "english": "a GRASS move",
-      "czech": "útok typu travní",
+      "czech": "travní útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4158,10 +4181,11 @@
       "key": "TYPE_ELECTRIC.generic.0",
       "kind": "type_generic",
       "english": "an ELECTRIC move",
-      "czech": "útok typu elektr.",
+      "czech": "elektrický útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4178,10 +4202,11 @@
       "key": "TYPE_PSYCHIC.generic.0",
       "kind": "type_generic",
       "english": "a PSYCHIC move",
-      "czech": "útok typu psych.",
+      "czech": "psychický útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4198,10 +4223,11 @@
       "key": "TYPE_ICE.generic.0",
       "kind": "type_generic",
       "english": "an ICE move",
-      "czech": "útok typu ledový",
+      "czech": "ledový útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4218,10 +4244,11 @@
       "key": "TYPE_DRAGON.generic.0",
       "kind": "type_generic",
       "english": "a DRAGON move",
-      "czech": "útok typu dračí",
+      "czech": "dračí útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4238,10 +4265,11 @@
       "key": "TYPE_DARK.generic.0",
       "kind": "type_generic",
       "english": "a DARK move",
-      "czech": "útok typu temný",
+      "czech": "temný útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4258,10 +4286,11 @@
       "key": "TYPE_FAIRY.generic.0",
       "kind": "type_generic",
       "english": "a FAIRY move",
-      "czech": "útok typu vílí",
+      "czech": "vílí útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/types_info.h",
@@ -4278,10 +4307,11 @@
       "key": "TYPE_STELLAR.generic.0",
       "kind": "type_generic",
       "english": "a STELLAR move",
-      "czech": "útok typu hvězdný",
+      "czech": "hvězdný útok",
       "font": "Narrower",
       "width": 152,
-      "lines": 0
+      "lines": 0,
+      "max_bytes": 17
     },
     {
       "path": "src/data/moves_info.h",
@@ -5558,7 +5588,10 @@
       "english": "Deposited {STR_VAR_2}\\n{STR_VAR_1}.",
       "czech": "Uloženo: {STR_VAR_2}×\\n{STR_VAR_1}.",
       "font": "Normal",
-      "width": 109
+      "width": 109,
+      "replacements": {
+        "{STR_VAR_2}": "999"
+      }
     },
     {
       "path": "src/item_menu.c",
@@ -6318,6 +6351,211 @@
       "font": "Narrower",
       "width": 146,
       "lines": 3
+    },
+    {
+      "path": "src/field_screen_effect.c",
+      "key": "sText_PlayerScurriedToCenter",
+      "kind": "ui",
+      "english": "{PLAYER} scurried to a POKéMON CENTER,\\nprotecting the exhausted and fainted\\nPOKéMON from further harm…\\p",
+      "czech": "{PLAYER} spěchá do Pokémoního centra\\na chrání vyčerpané Pokémony\\npřed dalším zraněním…\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/field_screen_effect.c",
+      "key": "sText_PlayerScurriedBackHome",
+      "kind": "ui",
+      "english": "{PLAYER} scurried back home, protecting\\nthe exhausted and fainted POKéMON from\\nfurther harm…\\p",
+      "czech": "{PLAYER} spěchá domů\\na chrání vyčerpané Pokémony\\npřed dalším zraněním…\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/field_screen_effect.c",
+      "key": "sText_PlayerRegroupCenter",
+      "kind": "ui",
+      "english": "{PLAYER} scurried to a POKéMON CENTER,\\nto regroup and reconsider the battle\\nstrategy…\\p",
+      "czech": "{PLAYER} spěchá do Pokémoního centra\\nobnovit síly a promyslet\\nnovou bojovou strategii…\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/field_screen_effect.c",
+      "key": "sText_PlayerRegroupHome",
+      "kind": "ui",
+      "english": "{PLAYER} scurried back home, to regroup\\nand reconsider the battle strategy…\\p",
+      "czech": "{PLAYER} spěchá domů\\nobnovit síly a promyslet\\nnovou bojovou strategii…\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/item_use.c",
+      "key": "sText_UsedVar2WildRepelled",
+      "kind": "ui",
+      "english": "{PLAYER} used the\\n{STR_VAR_2}.\\pWild POKéMON will be repelled.{PAUSE_UNTIL_PRESS}",
+      "czech": "{PLAYER}: použit předmět\\n{STR_VAR_2}.\\pDivocí Pokémoni se budou držet dál.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/item_use.c",
+      "key": "sText_CantThrowPokeBall_TwoMons",
+      "kind": "ui",
+      "english": "Cannot throw a ball!\\nThere are two Pokémon out there!\\p",
+      "czech": "Nelze hodit Pokéball!\\nJsou tu dva Pokémoni!\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/item_use.c",
+      "key": "sText_CantThrowPokeBall_SemiInvulnerable",
+      "kind": "ui",
+      "english": "Cannot throw a ball!\\nThere's no Pokémon in sight!\\p",
+      "czech": "Nelze hodit Pokéball!\\nNení vidět žádného Pokémona!\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/item_use.c",
+      "key": "sText_CantThrowPokeBall_Disabled",
+      "kind": "ui",
+      "english": "POKé BALLS cannot be used\\nright now!\\p",
+      "czech": "Teď nelze použít\\nPokébally!\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Cool",
+      "kind": "ui",
+      "english": "COOL",
+      "czech": "STYL",
+      "font": "Normal",
+      "width": 64
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Beauty",
+      "kind": "ui",
+      "english": "BEAUTY",
+      "czech": "KRÁSA",
+      "font": "Normal",
+      "width": 64
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Cute",
+      "kind": "ui",
+      "english": "CUTE",
+      "czech": "ROZTOM.",
+      "font": "Normal",
+      "width": 64
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Smart",
+      "kind": "ui",
+      "english": "SMART",
+      "czech": "CHYTROST",
+      "font": "Normal",
+      "width": 64
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Tough",
+      "kind": "ui",
+      "english": "TOUGH",
+      "czech": "DRSNOST",
+      "font": "Normal",
+      "width": 64
+    },
+    {
+      "path": "src/strings.c",
+      "key": "field_poison.666",
+      "kind": "field_message",
+      "english": "{STR_VAR_1} fainted…\\p\\n",
+      "czech": "{STR_VAR_1} už nemůže bojovat…\\p\\n",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "field_poison.667",
+      "kind": "field_message",
+      "english": "{STR_VAR_1} survived the poisoning.\\nThe poison faded away!\\p",
+      "czech": "{STR_VAR_1} přežil otravu.\\nJed už nepůsobí!\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "data/event_scripts.s",
+      "key": "gText_SelectWithoutRegisteredItem",
+      "kind": "shared_script",
+      "english": "An item in the BAG can be\\nregistered to SELECT for easy use.$",
+      "czech": "Předmět z batohu si můžeš přiřadit\\nna SELECT a rychle jej používat.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/event_scripts.s",
+      "key": "gText_PlayerWhitedOut",
+      "kind": "shared_script",
+      "english": "{PLAYER} is out of usable\\nPOKéMON!\\p{PLAYER} whited out!$",
+      "czech": "{PLAYER} už nemá žádného\\nPokémona schopného boje!\\p{PLAYER} ztrácí vědomí!$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/event_scripts.s",
+      "key": "gText_FirstShouldRestoreMonsHealth",
+      "kind": "shared_script",
+      "english": "First, you should restore your\\nPOKéMON to full health.$",
+      "czech": "Nejdřív svým Pokémonům\\nobnov všechny HP.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/event_scripts.s",
+      "key": "gText_MonsHealedShouldBuyPotions",
+      "kind": "shared_script",
+      "english": "Your POKéMON have been healed\\nto perfect health.\\pIf your POKéMON's energy, HP,\\nis down, please come see us.\\pIf you're planning to go far in the\\nfield, you should buy some POTIONS\\lat the POKéMON MART.\\pWe hope you excel!$",
+      "czech": "Tvoji Pokémoni jsou zase\\nv plné síle.\\pKdyž ztratí HP,\\npřijď je sem vyléčit.\\pNa delší cestu si v obchodě\\nnakup lektvary.\\pAť se ti daří!$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/event_scripts.s",
+      "key": "gText_MonsHealed",
+      "kind": "shared_script",
+      "english": "Your POKéMON have been healed\\nto perfect health.\\pWe hope you excel!$",
+      "czech": "Tvoji Pokémoni jsou zase\\nv plné síle.\\pAť se ti daří!$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/event_scripts.s",
+      "key": "gText_HadQuiteAnExperienceTakeRest",
+      "kind": "shared_script",
+      "english": "MOM: {PLAYER}!\\nWelcome home.\\pIt sounds like you had quite\\nan experience.\\pMaybe you should take a quick\\nrest.$",
+      "czech": "MÁMA: {PLAYER}!\\nVítej doma.\\pZdá se, že máš za sebou\\npořádné dobrodružství.\\pNa chvíli si odpočiň.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/event_scripts.s",
+      "key": "gText_MomExplainHPGetPotions",
+      "kind": "shared_script",
+      "english": "MOM: Oh, good! You and your\\nPOKéMON are looking great.\\pI just heard from {STR_VAR_1}.\\pHe said that POKéMON's energy is\\nmeasured in HP.\\pIf your POKéMON lose their HP,\\nyou can restore them at any\\lPOKéMON CENTER.\\pIf you're going to travel far away,\\nthe smart TRAINER stocks up on\\lPOTIONS at the POKéMON MART.\\pMake me proud, honey!\\pTake care!$",
+      "czech": "MÁMA: Výborně! Ty i tvoji\\nPokémoni zase vypadáte zdravě.\\pPrávě se mi ozval {STR_VAR_1}.\\pSílu Pokémona vyjadřují HP.\\pKdyž Pokémoni ztratí HP,\\nv centru je zase vyléčí.\\pNa delší cesty si nakup\\ndost lektvarů.\\pDávej na sebe pozor!\\pTěším se na tvoje zážitky!$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
     }
   ]
 }

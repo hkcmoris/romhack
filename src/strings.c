@@ -406,11 +406,11 @@ const u8 gText_No[] = _("NE");
 const u8 gText_Lv50[] = _("LV. 50");
 const u8 gText_OpenLevel[] = _("OPEN LEVEL");
 const u8 gText_BattleFrontier[] = _("BATTLE FRONTIER");
-const u8 gText_Cool[] = _("COOL");
-const u8 gText_Beauty[] = _("BEAUTY");
-const u8 gText_Cute[] = _("CUTE");
-const u8 gText_Smart[] = _("SMART");
-const u8 gText_Tough[] = _("TOUGH");
+const u8 gText_Cool[] = _(LOCALIZED_TEXT("COOL", "STYL"));
+const u8 gText_Beauty[] = _(LOCALIZED_TEXT("BEAUTY", "KRÁSA"));
+const u8 gText_Cute[] = _(LOCALIZED_TEXT("CUTE", "ROZTOM."));
+const u8 gText_Smart[] = _(LOCALIZED_TEXT("SMART", "CHYTROST"));
+const u8 gText_Tough[] = _(LOCALIZED_TEXT("TOUGH", "DRSNOST"));
 const u8 gText_Normal[] = _("NORMAL");
 const u8 gText_Super[] = _("SUPER");
 const u8 gText_Hyper[] = _("HYPER");
@@ -596,9 +596,9 @@ const u8 gText_First[] = _("first");
 const u8 gText_Second[] = _("second");
 const u8 gText_Third[] = _("third");
 #if OW_POISON_DAMAGE < GEN_4
-const u8 gText_PkmnFainted_FldPsn[] = _("{STR_VAR_1} fainted…\p\n");
+const u8 gText_PkmnFainted_FldPsn[] = _(LOCALIZED_TEXT("{STR_VAR_1} fainted…\p\n", "{STR_VAR_1} už nemůže bojovat…\p\n"));
 #else
-const u8 gText_PkmnFainted_FldPsn[] = _("{STR_VAR_1} survived the poisoning.\nThe poison faded away!\p");
+const u8 gText_PkmnFainted_FldPsn[] = _(LOCALIZED_TEXT("{STR_VAR_1} survived the poisoning.\nThe poison faded away!\p", "{STR_VAR_1} přežil otravu.\nJed už nepůsobí!\p"));
 #endif
 const u8 gText_Marco[] = _("MARCO");
 const u8 gText_TrainerCardName[] = _(LOCALIZED_TEXT("NAME: ", "JMÉNO: "));
@@ -1060,7 +1060,7 @@ const u8 gText_MoveRelearnerPkmnLearnedMove[] = _(LOCALIZED_TEXT("{STR_VAR_1} le
 const u8 gText_MoveRelearnerPkmnTryingToLearnMove[] = _(LOCALIZED_TEXT("{STR_VAR_1} is trying to learn\n{STR_VAR_2}.\pBut {STR_VAR_1} can't learn more\nthan four moves.\pDelete an older move to make\nroom for {STR_VAR_2}?", "{STR_VAR_1} se chce naučit\nútok {STR_VAR_2}.\pUž ale {STR_VAR_1} zná\nčtyři útoky.\pZapomenout starý útok\na naučit se {STR_VAR_2}?"));
 const u8 gText_MoveRelearnerStopTryingToTeachMove[] = _(LOCALIZED_TEXT("Stop trying to teach\n{STR_VAR_2}?", "Přestat s učením\nútoku {STR_VAR_2}?"));
 const u8 gText_MoveRelearnerAndPoof[] = _(LOCALIZED_TEXT("{PAUSE 32}1, {PAUSE 15}2, and {PAUSE 15}… {PAUSE 15}… {PAUSE 15}… {PAUSE 15}{PLAY_SE SE_BALL_BOUNCE_1}Poof!\p", "{PAUSE 32}1, {PAUSE 15}2 a {PAUSE 15}… {PAUSE 15}… {PAUSE 15}… {PAUSE 15}{PLAY_SE SE_BALL_BOUNCE_1}Puf!\p"));
-const u8 gText_MoveRelearnerPkmnForgotMoveAndLearnedNew[] = _(LOCALIZED_TEXT("{STR_VAR_1} forgot {STR_VAR_3}.\pAnd…\p{STR_VAR_1} learned {STR_VAR_2}.", "{STR_VAR_1} zapomněl {STR_VAR_3}.\pA…\p{STR_VAR_1} se naučil {STR_VAR_2}."));
+const u8 gText_MoveRelearnerPkmnForgotMoveAndLearnedNew[] = _(LOCALIZED_TEXT("{STR_VAR_1} forgot {STR_VAR_3}.\pAnd…\p{STR_VAR_1} learned {STR_VAR_2}.", "{STR_VAR_1} zapomněl\n{STR_VAR_3}.\pA…\p{STR_VAR_1} se naučil\n{STR_VAR_2}."));
 const u8 gText_MoveRelearnedPkmnDidNotLearnMove[] = _("{STR_VAR_1} did not learn the\nmove {STR_VAR_2}."); // Unused
 const u8 gText_MoveRelearnerGiveUp[] = _(LOCALIZED_TEXT("Give up trying to teach a new\nmove to {STR_VAR_1}?", "Přestat s učením nového\nútoku pro {STR_VAR_1}?"));
 const u8 gText_MoveRelearnerStop[] = _(LOCALIZED_TEXT("Stop trying to learn new\nmoves for {STR_VAR_1}?", "Přestat s učením nových\nútoků pro {STR_VAR_1}?"));;
