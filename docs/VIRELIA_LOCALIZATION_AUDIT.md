@@ -14,6 +14,7 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
   "manifest_entries": 710,
   "map_script_texts": 76,
   "expanded_ui_cases": 115,
+  "move_stat_layout_cases": 12,
   "move_names": 64,
   "ability_names": 28,
   "item_names": 28,
@@ -33,7 +34,9 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
     "metric_measurement_followup": "ee05868 native_pass: 0,5 m and 13,6 kg",
     "pokedex_lifecycle_followup": "ee05868 native_pass: close full Dex, uncaught capture, nickname, next wild battle and return",
     "pokedex_lifecycle_evidence": "outputs/emulator/capturefixed-proof.json",
-    "rocket_finale_followup": "ee05868 native_pass: development and release, clue, police, state 5, closed Gym, reentry and FLASH Continue"
+    "rocket_finale_followup": "ee05868 native_pass: development and release, clue, police, state 5, closed Gym, reentry and FLASH Continue",
+    "status_badge_followup": "f52456d native_pass: natural fainting, Czech MDL in forced party selection",
+    "move_info_followup": "14a3132 native_pass: POPIS, KAT, SIL and complete accuracy 100; close detail, run, return to field"
   },
   "expanded_placeholder_layout": "source_pass",
   "baked_ui_graphics": "native_pass_on_listed_screens",
@@ -58,7 +61,7 @@ Texty v grafice vytvářejí následující skripty z původních herních bitma
 
 Nativní snímky sestavení `bf4b5254a3` potvrdily čitelnost hlavních záložek, názvů útoků, schopností a typových štítků. Odhalily anglické symboly `Lv.`, `No` a `OT/` a chybné spojení názvu druhu s výzvou k přezdívce. Jejich opravy byly znovu ověřeny v sestavení `7c120`.
 
-Pozdější nativní kontrola release `0.2.36` odhalila ještě grafické štítky `FNT` a `MOVE INFO`. Generátor je nyní nahrazuje českými `MDL` a `POPIS` a současně překládá ostatní stavové štítky: `OTR`, `PAR`, `SPÍ`, `MRZ`, `POP` a `OMR`. Vlastní název Pokérus si ponechává zkratku `PKRS`. Zdrojová kontrola potvrdila původní rozměry, palety, pořadí dlaždic a opakovatelné generování; náhled je v `outputs/czech-status-badges.png`. Nativní kontrola nového sestavení s těmito posledními grafickými změnami zatím čeká.
+Pozdější nativní kontrola release `0.2.36` odhalila ještě grafické štítky `FNT` a `MOVE INFO`. Generátor je nyní nahrazuje českými `MDL` a `POPIS` a současně překládá ostatní stavové štítky: `OTR`, `PAR`, `SPÍ`, `MRZ`, `POP` a `OMR`. Vlastní název Pokérus si ponechává zkratku `PKRS`. Zdrojová kontrola potvrdila původní rozměry, palety, pořadí dlaždic a opakovatelné generování; náhled je v `outputs/czech-status-badges.png`. V sestavení `f52456d` divoký Taillow přirozeně vyřadil Poochyenu. Povinná volba náhradního Pokémona správně zobrazila `MDL`; druhý Pokémon v týmu zůstal bojeschopný. Hodnota `PŘES: 100` se v detailu útoku ještě ořezávala. Oprava posunula sloupce do šířky 144 px a číselným bufferům ponechala čtyři bajty včetně koncové značky. Nativní kontrola sestavení `14a3132`, verze `0.2.39`, potvrdila čitelné `POPIS`, `KAT`, `SÍL` i celé `PŘES: 100`. Po zavření detailu a útěku ze souboje fungoval návrat do mapy. Kontrola začala novým spuštěním z původní paměti FLASH a nepřenášela stav emulátoru mezi verzemi ROM.
 
 Kontrola `7c120` proběhla skutečnými stisky tlačítek v emulátoru mGBA libretro. Nová hra s travním startérem prošla tvorbou postavy, pojmenováním, domem a laboratoří. Do RAM se nezapisovaly žádné testovací hodnoty a nepřidávaly se předměty ani Pokémoni. Výsledky obrazovek:
 
@@ -76,11 +79,13 @@ Kontrola `7c120` proběhla skutečnými stisky tlačítek v emulátoru mGBA libr
 | Pokédex, odchyt a přezdívka | `ee05868`: odchyt po zavření Pokédexu, přezdívka a další souboj umožní návrat do mapy | `outputs/emulator/capturefixed-nickname.png`, `outputs/emulator/capturefixed-next-battle-return.png`, `outputs/emulator/capturefixed-proof.json` |
 | Rocket a závěr | `ee05868`: výhra, česká stopa, příchod policisty, další cíl; ověřeno i v release | `outputs/emulator/releasefinal-policeman.png`, `outputs/emulator/releasefinal-next-objective.png` |
 | Načtení po závěru | `ee05868`: restart pouze z FLASH, přesná pozice a tým, policista přítomen, Rocket pryč | `outputs/emulator/releasefinal-flash-world.png`, `outputs/emulator/grassfinal-continued-world.png` |
+| Vyřazený Pokémon | `f52456d`: přirozené vyřazení v souboji, český štítek `MDL` v povinné volbě náhrady | `outputs/emulator/glyphqa-mdl-party.png` |
+| Detail útoku v souboji | `14a3132`: české `POPIS`, `KAT`, `SÍL` a celé `PŘES: 100`, bez ořezu | `outputs/emulator/glyph100-popis-prompt.png`, `outputs/emulator/glyph100-popis-100.png` |
 
 Snímky jsou místní pracovní výstupy v ignorovaném adresáři `outputs`. Kontrola `ee05868` potvrdila metrické jednotky a desetinnou čárku. Po zavření Pokédexu hráč chytil dosud nechycený druh Zigzagoon, zadal přezdívku `A` a vrátil se do mapy. Pak zahájil divoký souboj s Taillow, utekl a opět se vrátil do mapy. Kontrola RAM potvrdila `sPokedexView = NULL` po zavření Pokédexu a `gBattleStruct = NULL` po obou návratech. Průchod používal skutečné stisky tlačítek a původní uloženou hru z paměti FLASH.
 
 Při kontrole `ee05868` prošly výhra nad Rocketem, všechny tři stránky policistova dialogu a závěrečný cíl. Policista používá původní grafiku, nově dostupnou i v Emerald. Dokončení nastavilo stav 5 a trvalý příznak. Stadion zůstal zavřený. Přechod město → trasa → město neopakoval scénu. Uložení a nové spuštění pouze z FLASH obnovily pozici, tým, předměty i dokončení. Závěr a načtení prošly také v optimalizované release ROM `0.2.36`.
 
-Po opravách uvedených výše zůstává nativně ověřit poslední stavové štítky a tlačítko popisu útoku. Chybové obrazovky poškozené uložené hry, všechny kombinace léčiv a všechny větve učení útoků mají zdrojovou kontrolu; každá jejich obrazovka nebyla ručně vyvolána. Toto omezení platí i po úspěšné kompilaci a automatických testech.
+Na uvedených nativně ověřených obrazovkách nezůstal anglický popisek ani známý ořez textu. Chybové obrazovky poškozené uložené hry, všechny kombinace léčiv a všechny větve učení útoků mají zdrojovou kontrolu; každá jejich obrazovka nebyla ručně vyvolána. Toto omezení platí i po úspěšné kompilaci a automatických testech.
 
 Vyšší úrovně lze získat opakovanými souboji. Tento audit proto nepotvrzuje překlad všech útoků a evolucí při neomezeném trénování. Nepokrývá jiné oblasti, multiplayer ani předměty a útoky dostupné až mimo uvedený rozsah. Úplná česká lokalizace celé hry není cílem tohoto seznamu. Nativní průchod s travním startérem skončil v čase 14:03 bez odchytu; kontrola stadionu a návratu do města jej prodloužila na 14:55. Jde o herní hodiny při automatizovaném ovládání. Cílových 15 až 20 minut s odchytem zatím nebylo změřeno lidským hráčem.

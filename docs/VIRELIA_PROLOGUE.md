@@ -254,9 +254,19 @@ from FLASH restored the exact Slateford position, party, items, hidden Rocket,
 visible officer and completion flags. The
 [localization audit](VIRELIA_LOCALIZATION_AUDIT.md) records the evidence.
 
+The later `f52456d` native check also verified the Czech `MDL` badge after a
+wild Taillow naturally fainted the starter, and the `POPIS` move-detail prompt.
+The assembled statistics row has a separate font-metric check for three-digit
+values and `---`, column spacing, category icon and the 144-pixel window edge.
+Its numeric buffers include space for all three digits and the terminator.
+Native build `14a3132` (`0.2.39`) confirmed the complete `PŘES: 100` label
+without clipping, followed by closing the detail and returning from battle.
+
 ![Metric Czech Pokédex](images/virelia-prologue/pokedex-ee058.png)
 ![Officer arriving after the Rocket battle in release](images/virelia-prologue/police-ee058.png)
 ![The next objective in release](images/virelia-prologue/ending-ee058.png)
+![Czech fainted badge in the forced party selector](images/virelia-prologue/status-f524.png)
+![Complete Czech move statistics in battle](images/virelia-prologue/move-detail-14a3132.png)
 
 Source checks runnable without an ARM toolchain:
 
