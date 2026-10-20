@@ -14,17 +14,17 @@ Virelia_Route01_EventScript_NorthSign::
 	end
 
 Virelia_Route01_Text_Naturalist:
-	.string "Listen carefully to the grass.\n"
-	.string "It is full of little footsteps!\p"
-	.string "The eastern clearing is a nice\n"
-	.string "place to take a short detour.$"
+	.string "Zaposlouchej se do trávy.\n"
+	.string "Ozývá se z ní spousta krůčků!\p"
+	.string "Na východě je pěkná mýtina.\n"
+	.string "Stojí za malou zacházku.$"
 
 Virelia_Route01_Text_SouthSign:
-	.string "ROUTE 01 - WHISPERWOOD TRAIL\n"
-	.string "South: MAPLEBROOK TOWN\p"
-	.string "North: SLATEFORD CITY\n"
-	.string "Watch for wild POKéMON!$"
+	.string "CESTA 01 - ŠEPTAJÍCÍ STEZKA\n"
+	.string "Jih: MĚSTEČKO MAPLEBROOK\p"
+	.string "Sever: MĚSTO SLATEFORD\n"
+	.string "Pozor na divoké Pokémony!$"
 
 Virelia_Route01_Text_NorthSign:
-	.string "SLATEFORD CITY lies ahead.\n"
-	.string "MAPLEBROOK TOWN lies south.$"
+	.string "Před tebou leží město Slateford.\n"
+	.string "Na jihu je městečko Maplebrook.$"

@@ -79,8 +79,8 @@ DuoMultiplayerTest_Text_ReturnToLittleroot:
 	.string "Return to LITTLEROOT TOWN?$"
 
 DuoMultiplayerTest_Text_ChallengeBusy:
-	.string "Finish your current FRONTIER\n"
-	.string "challenge before using this trip.$"
+	.string "Nejprve dokonči současnou výzvu\n"
+	.string "v Bitevní zóně. Pak můžeš cestovat.$"
 
 DuoMultiplayerTest_Text_NeedParty:
 	.string "Bring at least two POKéMON.\n"

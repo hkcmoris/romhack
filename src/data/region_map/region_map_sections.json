@@ -1633,7 +1633,7 @@
     },
     {
       "id": "MAPSEC_VIRELIA_MAPLEBROOK_TOWN",
-      "name": "MAPLEBROOK TOWN",
+      "name": "MĚSTEČKO MAPLEBROOK",
       "x": 4,
       "y": 11,
       "width": 1,
@@ -1641,7 +1641,7 @@
     },
     {
       "id": "MAPSEC_VIRELIA_WHISPERWOOD_TRAIL",
-      "name": "WHISPERWOOD TRAIL",
+      "name": "ŠEPTAJÍCÍ STEZKA",
       "x": 4,
       "y": 10,
       "width": 1,
@@ -1649,7 +1649,7 @@
     },
     {
       "id": "MAPSEC_VIRELIA_SLATEFORD_CITY",
-      "name": "SLATEFORD CITY",
+      "name": "MĚSTO SLATEFORD",
       "x": 4,
       "y": 9,
       "width": 1,

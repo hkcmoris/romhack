@@ -30,15 +30,15 @@ VireliaWorldTest_EventScript_NeedPokemon:
 	end
 
 VireliaWorldTest_Text_Visit:
-	.string "VISIT VIRELIA$"
+	.string "NAVŠTÍVIT VIRELII$"
 VireliaWorldTest_Text_Travel:
-	.string "Explore the VIRELIA map prototype?\n"
-	.string "The trail has wild POKéMON.\p"
-	.string "A guide in MAPLEBROOK TOWN can\n"
-	.string "bring you back here. Travel now?$"
+	.string "Prozkoumáš prototyp VIRELIE?\n"
+	.string "Na stezce žijí divocí Pokémoni.\p"
+	.string "Průvodce v Maplebrooku tě\n"
+	.string "vezme zpátky. Vyrazíme?$"
 VireliaWorldTest_Text_NeedPokemon:
-	.string "Bring a healthy POKéMON first.\n"
-	.string "The trail has wild POKéMON.$"
+	.string "Vezmi s sebou zdravého Pokémona.\n"
+	.string "Na stezce žijí divocí Pokémoni.$"
 #endif
 
 @ Keep the exit available even when development entry is disabled. This
@@ -56,6 +56,6 @@ VireliaWorldTest_EventScript_ReturnToLittleroot::
 	end
 
 VireliaWorldTest_Text_Return:
-	.string "Return to LITTLEROOT TOWN?\n"
-	.string "Your party and items travel with you.$"
+	.string "Vrátit se do městečka LITTLEROOT?\n"
+	.string "Pokémoni i předměty půjdou s tebou.$"
 #endif

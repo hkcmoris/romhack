@@ -42,45 +42,45 @@ Virelia_SlatefordCity_EventScript_ClosedOffice::
 	end
 
 Virelia_SlatefordCity_Text_Miner:
-	.string "Stone built this town, but it\n"
-	.string "takes people to make a home.\p"
-	.string "Our survey crew is getting\n"
-	.string "the quarry ready.$"
+	.string "Tohle město vyrostlo z kamene,\n"
+	.string "ale domov z něj dělají lidé.\p"
+	.string "Průzkumný tým připravuje\n"
+	.string "lom k provozu.$"
 
 Virelia_SlatefordCity_Text_Resident:
-	.string "MAPLEBROOK is just beyond\n"
-	.string "WHISPERWOOD TRAIL to the south.\p"
-	.string "Come back when our new shops\n"
-	.string "are ready to open!$"
+	.string "Maplebrook leží jižně odtud,\n"
+	.string "za Šeptající stezkou.\p"
+	.string "Vrať se, až otevřeme\n"
+	.string "nové obchody!$"
 
 Virelia_SlatefordCity_Text_Stone:
-	.string "A marked quarry sample.\n"
-	.string "Please leave it for the crew.$"
+	.string "Označený vzorek z lomu.\n"
+	.string "Nech ho prosím pracovníkům.$"
 
 Virelia_SlatefordCity_Text_GymSign:
-	.string "SLATEFORD CITY POKéMON GYM\n"
-	.string "Preparing for its first trainers.$"
+	.string "STADION MĚSTA SLATEFORD\n"
+	.string "Chystá se na první trenéry.$"
 
 Virelia_SlatefordCity_Text_CitySign:
-	.string "SLATEFORD CITY\n"
-	.string "Strong roots in stone.$"
+	.string "MĚSTO SLATEFORD\n"
+	.string "Pevné kořeny v kameni.$"
 
 Virelia_SlatefordCity_Text_QuarrySign:
-	.string "SLATEFORD QUARRY\n"
-	.string "Survey work in progress.$"
+	.string "LOM SLATEFORD\n"
+	.string "Probíhá průzkum.$"
 
 Virelia_SlatefordCity_Text_OfficeSign:
-	.string "SLATEFORD MINING OFFICE\n"
-	.string "Opening soon.$"
+	.string "DŮLNÍ SPRÁVA SLATEFORD\n"
+	.string "Brzy otevřeme.$"
 
 Virelia_SlatefordCity_Text_ClosedGym:
-	.string "The GYM is not open yet.\n"
-	.string "Its first challenge awaits.$"
+	.string "Stadion ještě není otevřený.\n"
+	.string "První výzva teprve přijde.$"
 
 Virelia_SlatefordCity_Text_ClosedHouse:
-	.string "The door is locked.\n"
-	.string "The residents are away.$"
+	.string "Dveře jsou zamčené.\n"
+	.string "Obyvatelé jsou pryč.$"
 
 Virelia_SlatefordCity_Text_ClosedOffice:
-	.string "The mining office is being\n"
-	.string "prepared for its new crew.$"
+	.string "Důlní správa se připravuje\n"
+	.string "na příchod nového týmu.$"

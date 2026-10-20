@@ -1,23 +1,24 @@
 gText_ObtainedTheItem::
-	.string "Obtained the {STR_VAR_2}!$"
+	.string "Předmět: {STR_VAR_2}!$"
 
 gText_TheBagIsFull::
 	.string "The BAG is full…$"
 
 gText_PutItemInPocket::
-	.string "{PLAYER} put away the {STR_VAR_2}\n"
-	.string "in the {STR_VAR_3} POCKET.$"
+	.string "{PLAYER}: {STR_VAR_2}\n"
+	.string "Uloženo. Kapsa: {STR_VAR_3}.$"
 
 gText_PlayerFoundOneItem::
-	.string "{PLAYER} found one {STR_VAR_2}!$"
+	.string "{PLAYER}: nalezen předmět!\n"
+	.string "{STR_VAR_2}$"
 
 gText_TooBadBagIsFull::
-	.string "Too bad!\n"
-	.string "The BAG is full…$"
+	.string "Škoda!\n"
+	.string "Batoh je plný…$"
 
 gText_PlayerPutItemInBag::
-	.string "{PLAYER} put away the {STR_VAR_2}\n"
-	.string "in the BAG.$"
+	.string "{PLAYER}: uloženo do batohu\n"
+	.string "{STR_VAR_2}$"
 
 gText_ObtainedTheDecor::
 	.string "Obtained the {STR_VAR_2}!$"

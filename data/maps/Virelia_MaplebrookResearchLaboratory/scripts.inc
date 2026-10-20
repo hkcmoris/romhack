@@ -30,35 +30,35 @@ Virelia_MaplebrookResearchLaboratory_EventScript_FireStarter::
 	end
 
 Virelia_MaplebrookResearchLaboratory_Text_Professor:
-	.string "Welcome to our VIRELIA lab!\n"
-	.string "We study local POKéMON.\p"
-	.string "Our research is just beginning.\n"
-	.string "Let your team rest a moment.$"
+	.string "Vítej v laboratoři ve Virelii!\n"
+	.string "Zkoumáme místní Pokémony.\p"
+	.string "Náš výzkum teprve začíná.\n"
+	.string "Nech svůj tým odpočinout.$"
 
 Virelia_MaplebrookResearchLaboratory_Text_Healed:
-	.string "Your POKéMON are refreshed.\n"
-	.string "Enjoy exploring the trail!$"
+	.string "Tví Pokémoni jsou plní sil.\n"
+	.string "Užij si průzkum stezky!$"
 
 Virelia_MaplebrookResearchLaboratory_Text_Assistant:
-	.string "These three places are reserved\n"
-	.string "for VIRELIA's first partners.\p"
-	.string "The displays are not ready for\n"
-	.string "a starter selection yet.$"
+	.string "Tato tři místa jsou vyhrazena\n"
+	.string "pro první partnery z Virelie.\p"
+	.string "Expozice zatím není připravená\n"
+	.string "na výběr prvního Pokémona.$"
 
 Virelia_MaplebrookResearchLaboratory_Text_GrassStarter:
-	.string "VIRELIAN POOCHYENA\n"
-	.string "GRASS / GHOST\p"
-	.string "A place for a future partner.\n"
-	.string "Research display only.$"
+	.string "POOCHYENA Z VIRELIE\n"
+	.string "TRÁVA / DUCH\p"
+	.string "Místo pro budoucího partnera.\n"
+	.string "Pouze výzkumná expozice.$"
 
 Virelia_MaplebrookResearchLaboratory_Text_WaterStarter:
-	.string "VIRELIAN SPINARAK\n"
-	.string "WATER / BUG\p"
-	.string "A place for a future partner.\n"
-	.string "Research display only.$"
+	.string "SPINARAK Z VIRELIE\n"
+	.string "VODA / HMYZ\p"
+	.string "Místo pro budoucího partnera.\n"
+	.string "Pouze výzkumná expozice.$"
 
 Virelia_MaplebrookResearchLaboratory_Text_FireStarter:
-	.string "VIRELIAN EKANS\n"
-	.string "FIRE / POISON\p"
-	.string "A place for a future partner.\n"
-	.string "Research display only.$"
+	.string "EKANS Z VIRELIE\n"
+	.string "OHEŇ / JED\p"
+	.string "Místo pro budoucího partnera.\n"
+	.string "Pouze výzkumná expozice.$"

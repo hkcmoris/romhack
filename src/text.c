@@ -2204,7 +2204,7 @@ u8 GetMenuCursorDimensionByFont(u8 fontId, u8 whichDimension)
 // The Czech slots use supplemental bitmaps; Japanese and Braille keep their own fonts.
 static const u16 *GetLatinGlyph(const u16 *glyphs, const u16 czechGlyphs[][32], u16 glyphId)
 {
-    if (glyphId >= CHAR_s_CARON && glyphId <= CHAR_R_CARON)
+    if (glyphId >= CHAR_s_CARON && glyphId <= CHAR_D_CARON)
         return czechGlyphs[glyphId - CHAR_s_CARON];
     return glyphs + (0x20 * glyphId);
 }

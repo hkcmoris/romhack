@@ -43,40 +43,40 @@ Virelia_MaplebrookTown_EventScript_ClosedCottage::
 	end
 
 Virelia_MaplebrookTown_Text_Gardener:
-	.string "We leave room for POKéMON\n"
-	.string "in every garden here.\p"
-	.string "The professor can help your\n"
-	.string "team rest before a walk.$"
+	.string "V každé zahradě tu necháváme\n"
+	.string "místo i pro Pokémony.\p"
+	.string "Profesor pomůže tvému týmu\n"
+	.string "odpočinout si před výpravou.$"
 
 Virelia_MaplebrookTown_Text_Zigzagoon:
 	.string "ZIGZAGOON: Zig! Zig!$"
 
 Virelia_MaplebrookTown_Text_TrailWalker:
-	.string "WHISPERWOOD TRAIL winds north\n"
-	.string "to SLATEFORD CITY.\p"
-	.string "The little forest paths are\n"
-	.string "worth exploring, too!$"
+	.string "Šeptající stezka vede na sever\n"
+	.string "do města Slateford.\p"
+	.string "Stojí za to prozkoumat i malé\n"
+	.string "lesní pěšiny!$"
 
 Virelia_MaplebrookTown_Text_HomeSign:
-	.string "{PLAYER}'s future home\n"
-	.string "MAPLEBROOK TOWN$"
+	.string "{PLAYER}: budoucí domov\n"
+	.string "MĚSTEČKO MAPLEBROOK$"
 
 Virelia_MaplebrookTown_Text_LabSign:
-	.string "MAPLEBROOK RESEARCH LAB\n"
-	.string "Visitors and POKéMON welcome!$"
+	.string "VÝZKUMNÁ LABORATOŘ MAPLEBROOK\n"
+	.string "Vítáme návštěvníky i Pokémony!$"
 
 Virelia_MaplebrookTown_Text_NorthSign:
-	.string "ROUTE 01 - WHISPERWOOD TRAIL\n"
-	.string "North to SLATEFORD CITY$"
+	.string "CESTA 01 - ŠEPTAJÍCÍ STEZKA\n"
+	.string "Na sever: MĚSTO SLATEFORD$"
 
 Virelia_MaplebrookTown_Text_TownSign:
-	.string "MAPLEBROOK TOWN\n"
-	.string "A small home for new beginnings.$"
+	.string "MĚSTEČKO MAPLEBROOK\n"
+	.string "Malý domov pro nové začátky.$"
 
 Virelia_MaplebrookTown_Text_ClosedHome:
-	.string "The house is being prepared.\n"
-	.string "Its rooms will open another day.$"
+	.string "Dům ještě není připravený.\n"
+	.string "Dovnitř se podíváš později.$"
 
 Virelia_MaplebrookTown_Text_ClosedCottage:
-	.string "The neighbours are out tending\n"
-	.string "their gardens.$"
+	.string "Sousedé se právě starají\n"
+	.string "o své zahrady.$"

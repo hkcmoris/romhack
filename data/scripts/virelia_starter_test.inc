@@ -197,37 +197,37 @@ VireliaStarterTest_EventScript_CannotGive:
 
 #if VIRELIA_STARTER_SCRIPT_ENABLED
 VireliaStarterTest_Text_Welcome:
-	.string "VIRELIA STARTER TEST\n"
-	.string "Choose a family or test supplies.$"
+	.string "TEST STARTÉRŮ VIRELIE\n"
+	.string "Vyber vývojovou řadu nebo pomůcky.$"
 VireliaStarterTest_Text_GrassFamily:
-	.string "GRASS / GHOST$"
+	.string "TRÁVA / DUCH$"
 VireliaStarterTest_Text_WaterFamily:
-	.string "WATER / BUG$"
+	.string "VODA / HMYZ$"
 VireliaStarterTest_Text_FireFamily:
-	.string "FIRE / POISON$"
+	.string "OHEŇ / JED$"
 VireliaStarterTest_Text_Candies:
 	.string "RARE CANDY x10$"
 VireliaStarterTest_Text_SelectStage:
-	.string "Select the evolutionary stage.\n"
-	.string "All entries are Virelian forms.$"
+	.string "Vyber vývojové stadium.\n"
+	.string "Všechny formy pocházejí z Virelie.$"
 VireliaStarterTest_Text_SelectLevel:
-	.string "Choose a test level.\n"
-	.string "Use UP/DOWN to scroll the list.$"
+	.string "Vyber úroveň pro testování.\n"
+	.string "Seznam posouvej šipkami nahoru/dolů.$"
 VireliaStarterTest_Text_Given:
-	.string "Lv. {STR_VAR_2} {STR_VAR_1} added!\n"
-	.string "Check SUMMARY for stats and moves.\p"
-	.string "Use RARE CANDY to test evolution.\n"
-	.string "Save normally to keep this POKéMON.$"
+	.string "Získáváš: {STR_VAR_1}, úr. {STR_VAR_2}!\n"
+	.string "Statistiky a útoky najdeš v PŘEHLEDU.\p"
+	.string "RARE CANDY umožní otestovat vývoj.\n"
+	.string "Pokémona si ponecháš uložením hry.$"
 VireliaStarterTest_Text_NoRoom:
-	.string "Make one empty party slot first.\n"
-	.string "Store a POKéMON in a PC and return.$"
+	.string "Nejprve uvolni místo v týmu.\n"
+	.string "Ulož Pokémona do PC a vrať se.$"
 VireliaStarterTest_Text_CandiesGiven:
-	.string "Added 10 RARE CANDIES to your BAG.\p"
-	.string "Use them to level up normally.\n"
-	.string "Evolution only occurs on level-up.$"
+	.string "Do batohu přidáno: 10× RARE CANDY.\p"
+	.string "Zvýší Pokémonovi úroveň.\n"
+	.string "Vývoj probíhá při zvýšení úrovně.$"
 VireliaStarterTest_Text_BagFull:
-	.string "There is no room for 10 candies.\n"
-	.string "Make room in your BAG and return.$"
+	.string "Na 10 bonbonů není místo.\n"
+	.string "Uvolni místo v batohu a vrať se.$"
 VireliaStarterTest_Text_POOCHYENA_VIRELIA:
 	.string "POOCHYENA$"
 VireliaStarterTest_Text_MIGHTYENA_VIRELIA:
@@ -247,29 +247,29 @@ VireliaStarterTest_Text_ARBOK_VIRELIA:
 VireliaStarterTest_Text_CINDRACOIL:
 	.string "CINDRACOIL$"
 VireliaStarterTest_Text_Level5:
-	.string "Lv. 5$"
+	.string "Úr. 5$"
 VireliaStarterTest_Text_Level10:
-	.string "Lv. 10$"
+	.string "Úr. 10$"
 VireliaStarterTest_Text_Level14:
-	.string "Lv. 14$"
+	.string "Úr. 14$"
 VireliaStarterTest_Text_Level16:
-	.string "Lv. 16$"
+	.string "Úr. 16$"
 VireliaStarterTest_Text_Level18:
-	.string "Lv. 18$"
+	.string "Úr. 18$"
 VireliaStarterTest_Text_Level20:
-	.string "Lv. 20$"
+	.string "Úr. 20$"
 VireliaStarterTest_Text_Level30:
-	.string "Lv. 30$"
+	.string "Úr. 30$"
 VireliaStarterTest_Text_Level34:
-	.string "Lv. 34$"
+	.string "Úr. 34$"
 VireliaStarterTest_Text_Level36:
-	.string "Lv. 36$"
+	.string "Úr. 36$"
 VireliaStarterTest_Text_Level38:
-	.string "Lv. 38$"
+	.string "Úr. 38$"
 VireliaStarterTest_Text_Level40:
-	.string "Lv. 40$"
+	.string "Úr. 40$"
 VireliaStarterTest_Text_Level50:
-	.string "Lv. 50$"
+	.string "Úr. 50$"
 #endif
 
 #undef VIRELIA_STARTER_SCRIPT_ENABLED
