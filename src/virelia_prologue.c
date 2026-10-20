@@ -119,7 +119,9 @@ void VireliaPrologue_CompleteRival(void)
         gSpecialVar_Result = TRUE;
         return;
     }
-    if (gBattleOutcome != B_OUTCOME_WON && gBattleOutcome != B_OUTCOME_LOST)
+    if (gBattleOutcome != B_OUTCOME_WON
+     && gBattleOutcome != B_OUTCOME_LOST
+     && gBattleOutcome != B_OUTCOME_DREW)
         return;
 
     VarSet(VAR_VIRELIA_RIVAL_RESULT, gBattleOutcome);

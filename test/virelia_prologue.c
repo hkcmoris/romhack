@@ -2,6 +2,7 @@
 #include "agb_flash.h"
 #include "battle.h"
 #include "battle_setup.h"
+#include "data.h"
 #include "event_data.h"
 #include "heal_location.h"
 #include "item.h"
@@ -184,11 +185,79 @@ TEST("Virelia rival has the specified opposing starter for all three choices")
     EXPECT_EQ(VIRELIA_RIVAL_LEVEL, 5);
 }
 
-TEST("Virelia introductory rival win and loss both heal the team and advance exactly once")
+TEST("Virelia compiled rival teams use the opposing level five starter and fair neutral moves")
+{
+    u32 choice = VIRELIA_STARTER_GRASS;
+    PARAMETRIZE { choice = VIRELIA_STARTER_GRASS; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_WATER; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_FIRE; }
+    static const u16 trainerIds[VIRELIA_STARTER_COUNT] =
+    {
+        [VIRELIA_STARTER_GRASS] = TRAINER_VIRELIA_VIKTOR_GRASS,
+        [VIRELIA_STARTER_WATER] = TRAINER_VIRELIA_VIKTOR_WATER,
+        [VIRELIA_STARTER_FIRE] = TRAINER_VIRELIA_VIKTOR_FIRE,
+    };
+    InitPrologueTest();
+    struct Pokemon *party = gParties[B_TRAINER_OPPONENT_A];
+    const struct Trainer *trainer = GetTrainerStructFromId(trainerIds[choice]);
+    u32 previousBattleFlags = gBattleTypeFlags;
+    gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+    ZeroPartyMons(party);
+    CreateNPCTrainerPartyFromTrainer(party, trainer);
+    gBattleTypeFlags = previousBattleFlags;
+    EXPECT_EQ(trainer->partySize, 1);
+    EXPECT_EQ(GetMonData(&party[0], MON_DATA_SPECIES), GetVireliaRivalSpecies(choice));
+    EXPECT_EQ(GetMonData(&party[0], MON_DATA_LEVEL), VIRELIA_RIVAL_LEVEL);
+    EXPECT_EQ(GetMonData(&party[0], MON_DATA_MOVE1), MOVE_TACKLE);
+    EXPECT_EQ(GetMonData(&party[0], MON_DATA_MOVE2), MOVE_GROWL);
+    EXPECT_EQ(GetMonData(&party[0], MON_DATA_MOVE3), MOVE_NONE);
+    EXPECT_EQ(GetMonData(&party[0], MON_DATA_MOVE4), MOVE_NONE);
+    for (u32 i = 0; i < NUM_STATS; i++)
+    {
+        EXPECT_EQ(GetMonData(&party[0], MON_DATA_HP_IV + i), 0);
+        EXPECT_EQ(GetMonData(&party[0], MON_DATA_HP_EV + i), 0);
+    }
+    EXPECT_EQ(GetMonData(&party[1], MON_DATA_SPECIES), SPECIES_NONE);
+}
+
+TEST("Virelia compiled route trainers and Rocket use the approved species levels and party sizes")
+{
+    u32 team = 0;
+    PARAMETRIZE { team = 0; }
+    PARAMETRIZE { team = 1; }
+    PARAMETRIZE { team = 2; }
+    static const u16 trainerIds[] = {TRAINER_VIRELIA_ELA, TRAINER_VIRELIA_OTA, TRAINER_VIRELIA_ROCKET};
+    static const enum Species species[][2] =
+    {
+        {SPECIES_WURMPLE, SPECIES_ZIGZAGOON},
+        {SPECIES_TAILLOW, SPECIES_NONE},
+        {SPECIES_RATTATA, SPECIES_ZUBAT},
+    };
+    static const u8 levels[][2] = {{4, 4}, {6, 0}, {7, 6}};
+    static const u8 counts[] = {2, 1, 2};
+    InitPrologueTest();
+    struct Pokemon *party = gParties[B_TRAINER_OPPONENT_A];
+    const struct Trainer *trainer = GetTrainerStructFromId(trainerIds[team]);
+    u32 previousBattleFlags = gBattleTypeFlags;
+    gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+    ZeroPartyMons(party);
+    CreateNPCTrainerPartyFromTrainer(party, trainer);
+    gBattleTypeFlags = previousBattleFlags;
+    EXPECT_EQ(trainer->partySize, counts[team]);
+    for (u32 i = 0; i < counts[team]; i++)
+    {
+        EXPECT_EQ(GetMonData(&party[i], MON_DATA_SPECIES), species[team][i]);
+        EXPECT_EQ(GetMonData(&party[i], MON_DATA_LEVEL), levels[team][i]);
+    }
+    EXPECT_EQ(GetMonData(&party[counts[team]], MON_DATA_SPECIES), SPECIES_NONE);
+}
+
+TEST("Virelia introductory rival win loss and draw heal the team and advance exactly once")
 {
     u32 outcome = B_OUTCOME_WON;
     PARAMETRIZE { outcome = B_OUTCOME_WON; }
     PARAMETRIZE { outcome = B_OUTCOME_LOST; }
+    PARAMETRIZE { outcome = B_OUTCOME_DREW; }
     InitPrologueTest();
     ReceivePrologueStarter(VIRELIA_STARTER_GRASS);
     u32 hp = 0, status = STATUS1_POISON, pp = 0;
@@ -209,6 +278,23 @@ TEST("Virelia introductory rival win and loss both heal the team and advance exa
     EXPECT_EQ(gSpecialVar_Result, TRUE);
     EXPECT_EQ(VarGet(VAR_VIRELIA_RIVAL_RESULT), outcome);
     EXPECT_EQ(gPartiesCount[B_TRAINER_PLAYER], 1);
+}
+
+TEST("Virelia introductory rival cannot complete from other battle outcomes")
+{
+    u32 outcome = 0;
+    PARAMETRIZE { outcome = 0; }
+    for (u32 i = B_OUTCOME_RAN; i <= B_OUTCOME_MON_TELEPORTED; i++)
+        PARAMETRIZE { outcome = i; }
+    PARAMETRIZE { outcome = B_OUTCOME_LINK_BATTLE_RAN; }
+    InitPrologueTest();
+    ReceivePrologueStarter(VIRELIA_STARTER_FIRE);
+    gBattleOutcome = outcome;
+    VireliaPrologue_CompleteRival();
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    EXPECT(!FlagGet(FLAG_VIRELIA_RIVAL_COMPLETE));
+    EXPECT_EQ(VarGet(VAR_VIRELIA_RIVAL_RESULT), 0);
+    EXPECT_EQ(VarGet(VAR_VIRELIA_PROLOGUE_STATE), VIRELIA_STATE_STARTER);
 }
 
 TEST("Virelia heal-only rival battles keep normal input while the original tutorial stays enabled")

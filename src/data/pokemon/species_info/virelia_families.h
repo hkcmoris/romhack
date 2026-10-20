@@ -575,8 +575,9 @@
         .height = 35,
         .weight = 650,
         .description = COMPOUND_STRING(
-            "Tento mrštný had vydechuje žhavý jed.\n"
-            "Jeho varovné syčení zní jako sílící oheň."),
+            "Tento mrštný had vydechuje\n"
+            "žhavý jed. Jeho varovné syčení\n"
+            "zní jako sílící oheň."),
         .pokemonScale = 256,
         .pokemonOffset = 0,
         .trainerScale = 296,

@@ -89,7 +89,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_WATER_ABSORB] =
     {
         .name = _(LOCALIZED_TEXT("Water Absorb", "Sání vody")),
-        .description = COMPOUND_STRING(LOCALIZED_TEXT("Restores HP if hit by Water.", "Vodní útoky neublíží a místo toho obnoví\nHP.")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Restores HP if hit by Water.", "Vodní útoky neublíží a místo toho\nobnoví HP.")),
         .aiRating = 7,
         .breakable = TRUE,
     },
@@ -218,7 +218,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_EFFECT_SPORE] =
     {
         .name = _(LOCALIZED_TEXT("Effect Spore", "Výtrusy")),
-        .description = COMPOUND_STRING(LOCALIZED_TEXT("Contact may psn/slp/par.", "Dotyk může způsobit otravu, spánek nebo\nochrnutí.")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Contact may psn/slp/par.", "Dotyk může způsobit otravu, spánek\nnebo ochrnutí.")),
         .aiRating = 4,
     },
 
@@ -442,7 +442,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_HUSTLE] =
     {
         .name = _(LOCALIZED_TEXT("Hustle", "Zápal")),
-        .description = COMPOUND_STRING(LOCALIZED_TEXT("Trades accuracy for power.", "Zvýší útok, ale sníží přesnost fyzických\nútoků.")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Trades accuracy for power.", "Zvýší útok, ale sníží přesnost\nfyzických útoků.")),
         .aiRating = 7,
     },
 
@@ -1194,7 +1194,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_INFILTRATOR] =
     {
         .name = _(LOCALIZED_TEXT("Infiltrator", "Průnik")),
-        .description = COMPOUND_STRING(LOCALIZED_TEXT("Passes through barriers.", "Útoky projdou přes bariéry a náhradníka.")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Passes through barriers.", "Útoky projdou přes bariéry a\nnáhradníka.")),
         .aiRating = 6,
     },
 

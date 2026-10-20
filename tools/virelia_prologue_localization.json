@@ -2410,7 +2410,7 @@
       "english": "Ups Grass moves at low HP.",
       "czech": "Při nízkých HP zesílí travní útoky.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2430,7 +2430,7 @@
       "english": "Ups Water moves at low HP.",
       "czech": "Při nízkých HP zesílí vodní útoky.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2450,7 +2450,7 @@
       "english": "Ups Fire moves at low HP.",
       "czech": "Při nízkých HP zesílí ohnivé útoky.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2470,7 +2470,7 @@
       "english": "Can poison Steel & Poison.",
       "czech": "Dokáže otrávit i ocelové a jedové typy.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2488,9 +2488,9 @@
       "key": "ABILITY_WATER_ABSORB.description.0",
       "kind": "ability_description",
       "english": "Restores HP if hit by Water.",
-      "czech": "Vodní útoky neublíží a místo toho obnoví\\nHP.",
+      "czech": "Vodní útoky neublíží a místo toho\\nobnoví HP.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2508,9 +2508,9 @@
       "key": "ABILITY_INFILTRATOR.description.0",
       "kind": "ability_description",
       "english": "Passes through barriers.",
-      "czech": "Útoky projdou přes bariéry a náhradníka.",
+      "czech": "Útoky projdou přes bariéry a\\nnáhradníka.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2530,7 +2530,7 @@
       "english": "Boosts Speed in sunlight.",
       "czech": "Na ostrém slunci zdvojnásobí rychlost.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2550,7 +2550,7 @@
       "english": "Boosts accuracy.",
       "czech": "Zvýší přesnost vlastních útoků.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2570,7 +2570,7 @@
       "english": "Awakens twice as fast.",
       "czech": "Probudí se dvakrát rychleji.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2588,9 +2588,9 @@
       "key": "ABILITY_EFFECT_SPORE.description.0",
       "kind": "ability_description",
       "english": "Contact may psn/slp/par.",
-      "czech": "Dotyk může způsobit otravu, spánek nebo\\nochrnutí.",
+      "czech": "Dotyk může způsobit otravu, spánek\\nnebo ochrnutí.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2610,7 +2610,7 @@
       "english": "Eats Berries at half HP.",
       "czech": "Drženou bobuli sní dříve než obvykle.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2630,7 +2630,7 @@
       "english": "Boosts Attack if statused.",
       "czech": "Při stavovém problému zvýší útok.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2648,9 +2648,9 @@
       "key": "ABILITY_HUSTLE.description.0",
       "kind": "ability_description",
       "english": "Trades accuracy for power.",
-      "czech": "Zvýší útok, ale sníží přesnost fyzických\\nútoků.",
+      "czech": "Zvýší útok, ale sníží přesnost\\nfyzických útoků.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2670,7 +2670,7 @@
       "english": "Prevents flinching.",
       "czech": "Brání zaváhání a zastrašení.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2690,7 +2690,7 @@
       "english": "Steals foe's item if hit.",
       "czech": "Po zásahu dotykem ukradne útočníkův\\npředmět.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2710,7 +2710,7 @@
       "english": "May pick up items.",
       "czech": "Po souboji může najít předmět.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2730,7 +2730,7 @@
       "english": "Restores HP if poisoned.",
       "czech": "Otrava místo zranění obnovuje HP.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2750,7 +2750,7 @@
       "english": "Boosts Speed if statused.",
       "czech": "Stavový problém zvýší rychlost.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2770,7 +2770,7 @@
       "english": "Raises Speed when scared.",
       "czech": "Po děsivém útoku se zvýší rychlost.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2790,7 +2790,7 @@
       "english": "Strong vs. opposite gender.",
       "czech": "Proti stejnému pohlaví zesílí, proti\\nopačnému zeslábne.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2810,7 +2810,7 @@
       "english": "Enables a sure getaway.",
       "czech": "Umožní vždy utéct z divokého souboje.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2830,7 +2830,7 @@
       "english": "Normal & Fight. hit Ghosts.",
       "czech": "Běžné a bojové útoky zasáhnou i duchy.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2850,7 +2850,7 @@
       "english": "May heal status problems.",
       "czech": "Může se sám zbavit stavového problému.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2870,7 +2870,7 @@
       "english": "Blocks foes' added effects.",
       "czech": "Brání dodatečným účinkům cizích útoků.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2890,7 +2890,7 @@
       "english": "Ups Bug moves at low HP.",
       "czech": "Při nízkých HP zesílí hmyzí útoky.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2910,7 +2910,7 @@
       "english": "Passes on brn/par/psn.",
       "czech": "Přenese otravu, popálení nebo ochrnutí\\nna původce.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2930,7 +2930,7 @@
       "english": "Dodges ally's attacks.",
       "czech": "Vyhne se útokům spojenců.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -2950,7 +2950,7 @@
       "english": "Copies a foe's Ability.",
       "czech": "Při vstupu do boje napodobí schopnost\\nsoupeře.",
       "font": "Narrower",
-      "width": 152,
+      "width": 144,
       "lines": 2
     },
     {
@@ -5208,8 +5208,8 @@
       "kind": "dex_category",
       "english": "Worm",
       "czech": "Červ",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5217,8 +5217,8 @@
       "key": "SPECIES_WURMPLE.description.0",
       "kind": "dex_description",
       "english": "It sticks to tree branches and eats\\nleaves. The thread it spits from its mouth,\\nwhich becomes gooey when it touches\\nair, slows the movement of its foes.",
-      "czech": "Žije na větvích stromů a požírá listí. Lepkavým vláknem\\nse zachytává kůry.",
-      "font": "Narrower",
+      "czech": "Žije na větvích stromů a požírá listí.\\nLepkavým vláknem se zachytává kůry.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5228,8 +5228,8 @@
       "kind": "dex_category",
       "english": "Cocoon",
       "czech": "Kukla",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5237,8 +5237,8 @@
       "key": "SPECIES_SILCOON.description.0",
       "kind": "dex_description",
       "english": "It prepares for evolution using the\\nenergy it stored while it was a Wurmple.\\nIt keeps watch over the surroundings with\\nits two eyes.",
-      "czech": "Ukrývá se v hedvábné kukle. Šetří síly a trpělivě čeká na\\nsvou proměnu.",
-      "font": "Narrower",
+      "czech": "Ukrývá se v hedvábné kukle. Šetří síly\\na trpělivě čeká na svou proměnu.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5248,8 +5248,8 @@
       "kind": "dex_category",
       "english": "Cocoon",
       "czech": "Kukla",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5257,8 +5257,8 @@
       "key": "SPECIES_CASCOON.description.0",
       "kind": "dex_description",
       "english": "To avoid detection by its enemies, it hides\\nmotionlessly beneath large leaves and in\\nthe gaps of branches. It also attaches\\ndead leaves to its body for camouflage.",
-      "czech": "Pod tvrdou kuklou se připravuje na proměnu. Pamatuje si\\nkaždý útok na své tělo.",
-      "font": "Narrower",
+      "czech": "Pod tvrdou kuklou se připravuje na\\nproměnu. Pamatuje si každý útok na své\\ntělo.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5268,8 +5268,8 @@
       "kind": "dex_category",
       "english": "Butterfly",
       "czech": "Motýl",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5277,8 +5277,8 @@
       "key": "SPECIES_BEAUTIFLY.description.0",
       "kind": "dex_description",
       "english": "Its colorfully patterned wings are its\\nmost prominent feature. It flies through\\nflower-covered fields collecting pollen.\\nIt attacks ferociously when angered.",
-      "czech": "Saje sladký nektar dlouhým sosákem. Barevná křídla\\nskrývají prudkou povahu.",
-      "font": "Narrower",
+      "czech": "Saje sladký nektar dlouhým sosákem.\\nBarevná křídla skrývají prudkou\\npovahu.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5288,8 +5288,8 @@
       "kind": "dex_category",
       "english": "Poison Moth",
       "czech": "Jedová můra",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5297,8 +5297,8 @@
       "key": "SPECIES_DUSTOX.description.0",
       "kind": "dex_description",
       "english": "It is a nocturnal Pokémon that flies from\\nfields and mountains to the attraction of\\nstreetlights at night. It looses highly\\ntoxic powder from its wings.",
-      "czech": "V noci přilétá za světlem. Z křídel sype jedovatý prach.",
-      "font": "Narrower",
+      "czech": "V noci přilétá za světlem. Z křídel sype\\njedovatý prach.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5308,8 +5308,8 @@
       "kind": "dex_category",
       "english": "Tiny Raccoon",
       "czech": "Mýval",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5317,8 +5317,8 @@
       "key": "SPECIES_ZIGZAGOON.description.0",
       "kind": "dex_description",
       "english": "Rubbing its nose against the ground, it\\nalways wanders about back and forth in\\nsearch of something. It is distinguished\\nby the zigzag footprints it leaves.",
-      "czech": "Zvědavě pobíhá sem a tam. Často při tom najde drobný\\npředmět.",
-      "font": "Narrower",
+      "czech": "Zvědavě pobíhá sem a tam. Často při tom\\nnajde drobný předmět.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5328,8 +5328,8 @@
       "kind": "dex_category",
       "english": "Bite",
       "czech": "Kousáček",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5337,8 +5337,8 @@
       "key": "SPECIES_POOCHYENA.description.0",
       "kind": "dex_description",
       "english": "It savagely threatens foes with bared\\nfangs. It chases after fleeing targets\\ntenaciously. It turns tail and runs,\\nhowever, if the foe strikes back.",
-      "czech": "Citlivým čichem stopuje kořist. Vytrvale pronásleduje vše,\\nco se pohne.",
-      "font": "Narrower",
+      "czech": "Citlivým čichem stopuje kořist.\\nVytrvale pronásleduje vše, co se pohne.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5348,8 +5348,8 @@
       "kind": "dex_category",
       "english": "Acorn",
       "czech": "Žalud",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5357,8 +5357,8 @@
       "key": "SPECIES_SEEDOT.description.0",
       "kind": "dex_description",
       "english": "It hangs off branches and absorbs\\nnutrients. When it finishes eating, its\\nbody becomes so heavy that it drops to\\nthe ground with a thump.",
-      "czech": "Visí na větvích a vypadá jako žalud. Rád vyleká\\nkolemjdoucí Pokémony.",
-      "font": "Narrower",
+      "czech": "Visí na větvích a vypadá jako žalud.\\nRád vyleká kolemjdoucí Pokémony.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5368,8 +5368,8 @@
       "kind": "dex_category",
       "english": "Wily",
       "czech": "Lesní skřet",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5377,8 +5377,8 @@
       "key": "SPECIES_NUZLEAF.description.0",
       "kind": "dex_description",
       "english": "A forest-dwelling Pokémon that is skilled\\nat climbing trees. Its long and pointed\\nnose is its weak point. It loses power if\\nthe nose is gripped.",
-      "czech": "Žije hluboko v lese. Na listu na hlavě hraje podivné\\nmelodie.",
-      "font": "Narrower",
+      "czech": "Žije hluboko v lese. Na listu na hlavě\\nhraje podivné melodie.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5388,8 +5388,8 @@
       "kind": "dex_category",
       "english": "Tiny Swallow",
       "czech": "Vlaštovka",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5397,8 +5397,8 @@
       "key": "SPECIES_TAILLOW.description.0",
       "kind": "dex_description",
       "english": "Although it is small, it is very courageous.\\nIt will take on a larger Skarmory on an\\nequal footing. However, its will weakens if\\nit becomes hungry.",
-      "czech": "I přes malé tělo je velmi odvážný. Neústupně hájí své\\núzemí.",
-      "font": "Narrower",
+      "czech": "I přes malé tělo je velmi odvážný.\\nNeústupně hájí své území.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5408,8 +5408,8 @@
       "kind": "dex_category",
       "english": "Mushroom",
       "czech": "Houbička",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5417,8 +5417,8 @@
       "key": "SPECIES_SHROOMISH.description.0",
       "kind": "dex_description",
       "english": "It loves to eat damp, composted soil in\\nforests. If you enter a forest after a\\nlong rain, you can see many Shroomish\\nfeasting on composted soil.",
-      "czech": "Žije ve vlhkém lesním listí. Při ohrožení rozptyluje\\njedovaté výtrusy.",
-      "font": "Narrower",
+      "czech": "Žije ve vlhkém lesním listí. Při\\nohrožení rozptyluje jedovaté výtrusy.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5428,8 +5428,8 @@
       "kind": "dex_category",
       "english": "Feeling",
       "czech": "Citlivka",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5437,8 +5437,8 @@
       "key": "SPECIES_RALTS.description.0",
       "kind": "dex_description",
       "english": "A Ralts has the power to sense the\\nemotions of people and Pokémon with the\\nhorns on its head. It takes cover if it\\nsenses any hostility.",
-      "czech": "Vnímá emoce lidí i Pokémonů. Přitahují ho radostné a\\npřátelské pocity.",
-      "font": "Narrower",
+      "czech": "Vnímá emoce lidí i Pokémonů. Přitahují\\nho radostné a přátelské pocity.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5448,8 +5448,8 @@
       "kind": "dex_category",
       "english": "Mouse",
       "czech": "Myš",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5457,8 +5457,8 @@
       "key": "SPECIES_RATTATA.description.0",
       "kind": "dex_description",
       "english": "A Rattata is cautious in the extreme.\\nEven while it is asleep, it constantly\\nmoves its ears and listens for danger.\\nIt will make its nest anywhere.",
-      "czech": "Ostré řezáky mu stále dorůstají. Dokáže žít téměř na\\njakémkoli místě.",
-      "font": "Narrower",
+      "czech": "Ostré řezáky mu stále dorůstají.\\nDokáže žít téměř na jakémkoli místě.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -5468,8 +5468,8 @@
       "kind": "dex_category",
       "english": "Bat",
       "czech": "Netopýr",
-      "font": "Narrower",
-      "width": 60,
+      "font": "Normal",
+      "width": 96,
       "lines": 0
     },
     {
@@ -5477,8 +5477,8 @@
       "key": "SPECIES_ZUBAT.description.0",
       "kind": "dex_description",
       "english": "While living in pitch-black caverns, their\\neyes gradually grew shut and deprived\\nthem of vision. They use ultrasonic waves\\nto detect obstacles.",
-      "czech": "Žije v temných jeskyních. Při letu se orientuje pomocí\\nultrazvuku.",
-      "font": "Narrower",
+      "czech": "Žije v temných jeskyních. Při letu se\\norientuje pomocí ultrazvuku.",
+      "font": "Normal",
       "width": 208,
       "lines": 4
     },
@@ -6745,6 +6745,104 @@
       "font": "Normal",
       "width": 208,
       "conditional": true
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_TrainerCardIDNo",
+      "kind": "ui",
+      "english": "IDNo.",
+      "czech": "ID č.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_WinsLosses",
+      "kind": "ui",
+      "english": "W:{COLOR RED}{SHADOW LIGHT_RED}{STR_VAR_1}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}  L:{COLOR RED}{SHADOW LIGHT_RED}{STR_VAR_2}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}",
+      "czech": "V:{COLOR RED}{SHADOW LIGHT_RED}{STR_VAR_1}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}  P:{COLOR RED}{SHADOW LIGHT_RED}{STR_VAR_2}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}",
+      "font": "Normal",
+      "width": 208,
+      "replacements": {
+        "{STR_VAR_1}": "65535",
+        "{STR_VAR_2}": "65535"
+      }
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_WinsStraight",
+      "kind": "ui",
+      "english": "W/{COLOR RED}{SHADOW LIGHT_RED}{STR_VAR_1}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}  STRAIGHT/{COLOR RED}{SHADOW LIGHT_RED}{STR_VAR_2}",
+      "czech": "V/{COLOR RED}{SHADOW LIGHT_RED}{STR_VAR_1}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}  ŘADA/{COLOR RED}{SHADOW LIGHT_RED}{STR_VAR_2}",
+      "font": "Normal",
+      "width": 208,
+      "replacements": {
+        "{STR_VAR_1}": "65535",
+        "{STR_VAR_2}": "65535"
+      }
+    },
+    {
+      "path": "src/main_menu.c",
+      "key": "gText_SaveFileCorrupted",
+      "kind": "ui",
+      "english": "The save file is corrupted. The\\nprevious save file will be loaded.",
+      "czech": "Uložená hra je poškozená.\\nNačte se předchozí uložená hra.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/main_menu.c",
+      "key": "gText_SaveFileErased",
+      "kind": "ui",
+      "english": "The save file has been erased\\ndue to corruption or damage.",
+      "czech": "Uložená hra byla kvůli\\npoškození vymazána.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/main_menu.c",
+      "key": "gJPText_No1MSubCircuit",
+      "kind": "ui",
+      "english": "1Mサブきばんが ささっていません！",
+      "czech": "Chybí paměťový obvod 1M.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/main_menu.c",
+      "key": "gText_BatteryRunDry",
+      "kind": "ui",
+      "english": "The internal battery has run dry.\\nThe game can be played.\\pHowever, clock-based events will\\nno longer occur.",
+      "czech": "Baterie je vybitá.\\nVe hře lze pokračovat.\\pUdálosti závislé na hodinách\\nuž nebudou probíhat.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/main_menu.c",
+      "key": "gText_WirelessNotConnected",
+      "kind": "ui",
+      "english": "The Wireless Adapter is not\\nconnected.",
+      "czech": "Bezdrátový adaptér\\nnení připojen.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/main_menu.c",
+      "key": "gText_MysteryGiftCantUse",
+      "kind": "ui",
+      "english": "MYSTERY GIFT can't be used while\\nthe Wireless Adapter is attached.",
+      "czech": "TAJEMNÝ DÁREK nelze použít\\ns připojeným bezdrátovým adaptérem.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/main_menu.c",
+      "key": "gText_MysteryEventsCantUse",
+      "kind": "ui",
+      "english": "MYSTERY EVENTS can't be used while\\nthe Wireless Adapter is attached.",
+      "czech": "TAJEMNÉ AKCE nelze použít\\ns připojeným bezdrátovým adaptérem.",
+      "font": "Normal",
+      "width": 208
     }
   ]
 }

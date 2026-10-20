@@ -48,7 +48,7 @@ def main():
         "{STR_VAR_2}": generic, "{STR_VAR_3}": "999999",
         "{DYNAMIC 0}": "", "{DYNAMIC 1}": "",
         "{DYNAMIC 2}": nature, "{DYNAMIC 3}": "100",
-        "{DYNAMIC 4}": "Maplebrook", "{DYNAMIC 5}": "",
+        "{DYNAMIC 4}": "Whisperwood Trail", "{DYNAMIC 5}": "",
         "{PKMN}": "PKMN", "{POKEBLOCK}": "POKéBLOCK",
         "{LV_2}": "úr.", "{A_BUTTON}": "WW",
         "{B_BUTTON}": "WW", "{START_BUTTON}": "WW",
@@ -80,8 +80,14 @@ def main():
         visible = TOKEN.sub(replace_token, text)
         visible = re.sub(r"\\[pnl]", "\n", visible)
         visible = visible.replace(r'\"', '"').replace(r"\\", "\\")
-        if entry.get("max_bytes") and len(visible) + 1 > entry["max_bytes"]:
-            errors.append(f"{label}: {len(visible) + 1} encoded bytes > {entry['max_bytes']}")
+        fixed_bytes = {"move_name": 17, "ability_name": 17,
+                       "type_name": 9, "type_generic": 17,
+                       "item_name": 21, "item_plural_name": 23,
+                       "nature_name": 13, "dex_category": 13,
+                       "trainer_class": 13}
+        byte_limit = entry.get("max_bytes", fixed_bytes.get(entry["kind"]))
+        if byte_limit and len(visible) + 1 > byte_limit:
+            errors.append(f"{label}: {len(visible) + 1} encoded bytes > {byte_limit}")
         for line in visible.split("\n"):
             unsupported = sorted(set(line) - set(chars))
             if unsupported:
@@ -98,13 +104,14 @@ def main():
     script_paths = sorted((ROOT / "data/maps").glob("Virelia_*/scripts.inc"))
     script_paths += [ROOT / "data/scripts/virelia_prologue.inc"]
     script_count = 0
+    dynamic = substitutions
     for path in script_paths:
         source = path.read_text(encoding="utf-8")
         for match in re.finditer(r"(?m)^([A-Za-z0-9_]+)::?\n((?:[ \t]*\.string \"(?:\\.|[^\"\\])*\"\n)+)", source):
             text = "".join(re.findall(r'"((?:\\.|[^"\\])*)"', match[2])).removesuffix("$")
             label = f"{path.relative_to(ROOT)}:{match[1]}"
             script_count += 1
-            visible = TOKEN.sub(lambda m: substitutions.get(m[0], ""), text)
+            visible = TOKEN.sub(replace_token, text)
             for line in re.split(r"\\[pnl]", visible):
                 unsupported = sorted(set(line) - set(chars))
                 if unsupported:
@@ -124,11 +131,30 @@ def main():
     # New game uses three dedicated native strings before naming.
     main_source = (ROOT / "src/main_menu.c").read_text(encoding="utf-8")
     for match in re.finditer(r'sText_Virelia\w+\[\]\s*=\s*_\("((?:\\.|[^"\\])*)"\)', main_source):
-        visible = TOKEN.sub(lambda m: substitutions.get(m[0], ""), match[1])
+        label = "src/main_menu.c:new game"
+        visible = TOKEN.sub(replace_token, match[1])
         for line in re.split(r"\\[pnl]", visible):
             if any(c not in chars for c in line) or text_width(line, "Normal") > 208:
                 errors.append("src/main_menu.c: new game text exceeds font/window constraints")
-    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "errors": errors}
+    regional = (ROOT / "src/data/pokemon/species_info/virelia_families.h").read_text(encoding="utf-8")
+    regional_count = 0
+    for match in re.finditer(r'\[(SPECIES_\w+)\]\s*=\s*\{(.*?)\n    \},', regional, re.S):
+        regional_count += 1
+        for field, limit, max_lines in [("categoryName", 96, 1), ("description", 208, 3)]:
+            value = re.search(r'\.' + field + r'\s*=\s*(?:_|COMPOUND_STRING)\(\s*((?:"(?:\\.|[^"\\])*"\s*)+)\)', match[2])
+            if not value:
+                errors.append(f"{match[1]}: missing regional {field}")
+                continue
+            text = "".join(re.findall(r'"((?:\\.|[^"\\])*)"', value[1]))
+            lines = text.split(r"\n")
+            if len(lines) > max_lines or (field == "categoryName" and len(text) > 12):
+                errors.append(f"{match[1]}: regional {field} exceeds fixed bounds")
+            for line in lines:
+                if any(c not in chars for c in line) or text_width(line, "Normal") > limit:
+                    errors.append(f"{match[1]}: regional {field} exceeds native Normal {limit}px")
+    if regional_count != 9:
+        errors.append(f"Expected 9 regional Dex entries, found {regional_count}")
+    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "regional_dex_entries": regional_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "errors": errors}
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:

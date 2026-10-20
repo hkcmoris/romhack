@@ -12,6 +12,7 @@
 #include "graphics.h"
 #include "international_string_util.h"
 #include "link.h"
+#include "localization.h"
 #include "main.h"
 #include "main_menu.h"
 #include "menu.h"
@@ -262,10 +263,10 @@ static const u32 sBirchSpeechShadowGfx[] = INCGFX_U32("graphics/birch_speech/sha
 static const u32 sBirchSpeechBgMap[] = INCGFX_U32("graphics/birch_speech/map.bin", ".smolTM");
 static const u16 sBirchSpeechBgGradientPal[] = INCGFX_U16("graphics/birch_speech/bg2.pal", ".gbapal");
 
-static const u8 gText_SaveFileCorrupted[] = _("The save file is corrupted. The\nprevious save file will be loaded.");
-static const u8 gText_SaveFileErased[] = _("The save file has been erased\ndue to corruption or damage.");
-static const u8 gJPText_No1MSubCircuit[] = _("1Mサブきばんが ささっていません！");
-static const u8 gText_BatteryRunDry[] = _("The internal battery has run dry.\nThe game can be played.\pHowever, clock-based events will\nno longer occur.");
+static const u8 gText_SaveFileCorrupted[] = _(LOCALIZED_TEXT("The save file is corrupted. The\nprevious save file will be loaded.", "Uložená hra je poškozená.\nNačte se předchozí uložená hra."));
+static const u8 gText_SaveFileErased[] = _(LOCALIZED_TEXT("The save file has been erased\ndue to corruption or damage.", "Uložená hra byla kvůli\npoškození vymazána."));
+static const u8 gJPText_No1MSubCircuit[] = _(LOCALIZED_TEXT("1Mサブきばんが ささっていません！", "Chybí paměťový obvod 1M."));
+static const u8 gText_BatteryRunDry[] = _(LOCALIZED_TEXT("The internal battery has run dry.\nThe game can be played.\pHowever, clock-based events will\nno longer occur.", "Baterie je vybitá.\nVe hře lze pokračovat.\pUdálosti závislé na hodinách\nuž nebudou probíhat."));
 
 static const u8 gText_MainMenuNewGame[] = _("NOVÁ HRA");
 static const u8 gText_MainMenuContinue[] = _("POKRAČOVAT");
@@ -273,9 +274,9 @@ static const u8 gText_MainMenuOption[] = _("NASTAVENÍ");
 static const u8 gText_MainMenuMysteryGift[] = _("TAJEMNÝ DÁREK");
 static const u8 gText_MainMenuMysteryGift2[] = _("TAJEMNÝ DÁREK");
 static const u8 gText_MainMenuMysteryEvents[] = _("TAJEMNÉ AKCE");
-static const u8 gText_WirelessNotConnected[] = _("The Wireless Adapter is not\nconnected.");
-static const u8 gText_MysteryGiftCantUse[] = _("MYSTERY GIFT can't be used while\nthe Wireless Adapter is attached.");
-static const u8 gText_MysteryEventsCantUse[] = _("MYSTERY EVENTS can't be used while\nthe Wireless Adapter is attached.");
+static const u8 gText_WirelessNotConnected[] = _(LOCALIZED_TEXT("The Wireless Adapter is not\nconnected.", "Bezdrátový adaptér\nnení připojen."));
+static const u8 gText_MysteryGiftCantUse[] = _(LOCALIZED_TEXT("MYSTERY GIFT can't be used while\nthe Wireless Adapter is attached.", "TAJEMNÝ DÁREK nelze použít\ns připojeným bezdrátovým adaptérem."));
+static const u8 gText_MysteryEventsCantUse[] = _(LOCALIZED_TEXT("MYSTERY EVENTS can't be used while\nthe Wireless Adapter is attached.", "TAJEMNÉ AKCE nelze použít\ns připojeným bezdrátovým adaptérem."));
 
 static const u8 gText_ContinueMenuPlayer[] = _("HRÁČ");
 static const u8 gText_ContinueMenuTime[] = _("ČAS");

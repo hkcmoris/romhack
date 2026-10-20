@@ -51,10 +51,16 @@ def main():
         start = left
         for char in text:
             code = codes[char]
+            accent_rows = [y for y in range(4) if any(glyph(code, x, y) == 1 for x in range(widths[code]))]
+            accent_top = min(accent_rows, default=0)
             for y in range(11):
-                # Native capitals occupy rows4..10. Keep their seven rows;
-                # accented capitals additionally use the available top row.
-                target_y = (max(0, y - 3) if compact else y)
+                # One-tile headings have eight rows. Reserve two distinct
+                # accent rows so a caron remains a V, not a horizontal bar.
+                # Compress the seven native body rows to six below them.
+                if compact:
+                    target_y = min(1, max(0, y - accent_top)) if y < 4 else 2 + (y - 4) * 6 // 7
+                else:
+                    target_y = y
                 if target_y >= height:
                     continue
                 for x in range(widths[code]):
@@ -91,7 +97,7 @@ def main():
             ((2, 72, 66, 8), "SCHOPNOST", 2),
             ((74, 64, 50, 8), "PŘEDMĚT", 2),
             ((74, 72, 50, 8), "STUHY", 2),
-            ((74, 80, 50, 8), "STATISTIKY", 2),
+            ((74, 80, 50, 8), "STAT.", 2),
             ((74, 88, 34, 8), "ZKUŠ.", 2),
             ((2, 88, 66, 8), "STAV", 2),
             ((2, 96, 66, 8), "ÚTOKY", 2),
