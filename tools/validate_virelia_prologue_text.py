@@ -15,6 +15,84 @@ ROOT = Path(__file__).resolve().parents[1]
 TOKEN = re.compile(r"\{[^}]+\}")
 
 
+def validate_move_description_layout(fonts, chars, controller_source=None):
+    """Check the assembled stat row, whose CLEAR_TO fields do not auto-wrap."""
+    if controller_source is None:
+        controller_source = (ROOT / "src/battle_controller_player.c").read_text(encoding="utf-8")
+    controller = re.search(r"static void MoveSelectionDisplayMoveDescription\(enum BattlerId battler\)\n\{(.*?)\n\}", controller_source, re.S)
+    errors = []
+    result = {"cases": 0}
+    if not controller:
+        return result, ["Move description: missing native row renderer"]
+    controller = controller[1]
+
+    def c_string(name):
+        matches = re.findall(r"\bu8\s+" + name + r"\[\d*\]\s*=\s*_\((.*?)\);", controller, re.S)
+        if not matches:
+            raise ValueError(f"missing {name} initializer")
+        value = matches[-1]
+        localized = re.fullmatch(r'\s*LOCALIZED_TEXT\(\s*"((?:\\.|[^"\\])*)"\s*,\s*"((?:\\.|[^"\\])*)"\s*\)\s*', value, re.S)
+        return localized[2] if localized else "".join(re.findall(r'"((?:\\.|[^"\\])*)"', value))
+
+    try:
+        window_source = (ROOT / "src/battle_bg.c").read_text(encoding="utf-8")
+        text_source = (ROOT / "src/battle_message.c").read_text(encoding="utf-8")
+        windows = re.findall(r"\[B_WIN_MOVE_DESCRIPTION\]\s*=\s*\{(.*?)\n    \}", window_source, re.S)
+        printers = re.findall(r"\[B_WIN_MOVE_DESCRIPTION\]\s*=\s*\{(.*?)\n    \}", text_source, re.S)
+        geometry = {(int(re.search(r"\.tilemapLeft\s*=\s*(\d+)", block)[1]) * 8,
+                     int(re.search(r"\.width\s*=\s*(\d+)", block)[1]) * 8) for block in windows}
+        printer_geometry = {(re.search(r"\.fontId\s*=\s*FONT_(\w+)", block)[1],
+                             int(re.search(r"\.x\s*=\s*(\d+)", block)[1]),
+                             int(re.search(r"\.letterSpacing\s*=\s*(\d+)", block)[1])) for block in printers}
+        if len(geometry) != 1 or len(printer_geometry) != 1:
+            raise ValueError("window/printer variants need individual layout checks")
+        window_x, window_width = next(iter(geometry))
+        font_id, text_x, spacing = next(iter(printer_geometry))
+        font = "".join(word.title() for word in font_id.split("_"))
+        starts = {name: int(re.fullmatch(r"\{CLEAR_TO (\d+)\}", c_string(name + "_start"))[1]) + text_x
+                  for name in ("cat", "pwr", "acc")}
+        labels = {name: c_string(name + "_desc") for name in starts}
+        for name in ("pwr", "acc"):
+            size = re.search(r"\b" + name + r"_num\[(\d+)\]", controller)
+            if not size or int(size[1]) < 4:
+                errors.append(f"Move description: {name} buffer needs three digits and EOS")
+        summary = (ROOT / "src/pokemon_summary_screen.c").read_text(encoding="utf-8")
+        icon_oam = re.search(r"sOamData_CategoryIcons\s*=\s*\{(.*?)\n\};", summary, re.S)[1]
+        icon_width = int(re.search(r"SPRITE_SIZE\((\d+)x\d+\)", icon_oam)[1])
+        icon_center = int(re.search(r"CreateSprite\(&gSpriteTemplate_CategoryIcons,\s*(\d+),", controller)[1]) - window_x
+        icon_left, icon_right = icon_center - icon_width // 2, icon_center + icon_width // 2
+
+        def width(text, font_name):
+            return sum(fonts[font_name][chars[c]] + spacing for c in text)
+
+        # The sprite uses absolute screen coordinates, whereas CLEAR_TO is
+        # relative to the window. Ignore trailing space when checking its ink.
+        category_end = starts["cat"] + width(labels["cat"].rstrip(), font)
+        if not (0 <= starts["cat"] <= category_end <= icon_left < icon_right <= starts["pwr"] <= window_width):
+            errors.append("Move description: category label/icon overlaps a column or window edge")
+        max_right = {}
+        # Native Narrow is authoritative; retain a Normal-font safety margin
+        # for the new Czech columns, without widening the legacy icon label.
+        for checked_font in dict.fromkeys((font, "Normal")):
+            max_right[checked_font] = 0
+            for power in ("100", "999", "---"):
+                for accuracy in ("100", "---"):
+                    result["cases"] += 1
+                    power_end = starts["pwr"] + width(labels["pwr"] + power, checked_font)
+                    accuracy_end = starts["acc"] + width(labels["acc"] + accuracy, checked_font)
+                    max_right[checked_font] = max(max_right[checked_font], accuracy_end)
+                    if power_end + 2 > starts["acc"]:
+                        errors.append(f"Move description ({checked_font}): power {power} leaves less than 2px before accuracy")
+                    if accuracy_end > window_width:
+                        errors.append(f"Move description ({checked_font}): accuracy {accuracy} ends at {accuracy_end}px > {window_width}px")
+        result.update({"window_width": window_width, "native_font": font,
+                       "columns": starts, "category_icon": [icon_left, icon_right],
+                       "max_right": max_right})
+    except (AttributeError, IndexError, KeyError, TypeError, ValueError) as error:
+        errors.append(f"Move description: cannot validate native geometry: {error}")
+    return result, errors
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="print machine readable results")
@@ -161,7 +239,9 @@ def main():
                     errors.append(f"{match[1]}: regional {field} exceeds native Normal {limit}px")
     if regional_count != 9:
         errors.append(f"Expected 9 regional Dex entries, found {regional_count}")
-    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "regional_dex_entries": regional_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "errors": errors}
+    move_layout, layout_errors = validate_move_description_layout(fonts, chars)
+    errors.extend(layout_errors)
+    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "regional_dex_entries": regional_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "move_description_layout": move_layout, "errors": errors}
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:

@@ -2,7 +2,7 @@
 
 Zdrojová kontrola i nativní kontrola níže uvedených obrazovek prošly. Samotný počet přeložených řetězců nepotvrzuje úplnou lokalizaci ani celý herní průchod.
 
-Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localization.json). Kontrolu spouští `python tools/validate_virelia_prologue_text.py`. Používá skutečné šířky znaků z `src/fonts.c` a mapování znaků z `charmap.txt`. Makro `LOCALIZED_TEXT` zachovává původní anglické texty pro sestavení `TESTING`.
+Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localization.json). Kontrolu spouští `python tools/validate_virelia_prologue_text.py`. Používá skutečné šířky znaků z `src/fonts.c` a mapování znaků z `charmap.txt`. U prvního řádku popisu útoku načítá také pozice sloupců, kategorii a její ikonu, písmo a šířku okna přímo ze zdrojů. Dvanáct případů s hodnotami `100`, `999` a `---` kontroluje mezery mezi sloupci i pravý okraj 144 pixelů. Makro `LOCALIZED_TEXT` zachovává původní anglické texty pro sestavení `TESTING`.
 
 ```json
 {

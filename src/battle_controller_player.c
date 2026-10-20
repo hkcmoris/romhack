@@ -1768,8 +1768,9 @@ static void MoveSelectionDisplayMoveDescription(enum BattlerId battler)
     u8 pwr_desc[7] = _(LOCALIZED_TEXT("PWR: ", "SÍL: "));
     u8 acc_desc[7] = _(LOCALIZED_TEXT("ACC: ", "PŘES: "));
     u8 cat_start[] = _("{CLEAR_TO 3}");
-    u8 pwr_start[] = _("{CLEAR_TO 56}");
-    u8 acc_start[] = _("{CLEAR_TO 108}");
+    // Keep the complete Czech labels and three-digit values inside 144px.
+    u8 pwr_start[] = _(LOCALIZED_TEXT("{CLEAR_TO 56}", "{CLEAR_TO 52}"));
+    u8 acc_start[] = _(LOCALIZED_TEXT("{CLEAR_TO 108}", "{CLEAR_TO 96}"));
     LoadMessageBoxAndBorderGfx();
     DrawStdWindowFrame(B_WIN_MOVE_DESCRIPTION, FALSE);
     if (pwr < 2)
