@@ -74,6 +74,11 @@
 #define GEN_LATEST GEN_9
 
 // General settings
+#ifndef ORACULUM_DUO_TEST_QUICK_START
+// Use 1/0: this option is shared by C and the event-script preprocessor.
+// Temporary Emerald-only test start, also enabled in release artifacts.
+#define ORACULUM_DUO_TEST_QUICK_START 1 // Set 0 to restore the original introduction.
+#endif
 #define EXPANSION_INTRO              TRUE    // If TRUE, a custom RHH intro will play after the vanilla copyright screen.
 #define PHONEMES_SHARED              FALSE   // If TRUE, bard phonemes all reference the same sound (sound/direct_sound_samples/phonemes/shared.bin) to save ROM space.
 

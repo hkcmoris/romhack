@@ -16,6 +16,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  # New CI runs advance the patch version; reruns retain the same version.
+  ROM_VERSION: 0.1.${{ github.run_number }}
   GAME_REVISION: 0
   GAME_LANGUAGE: ENGLISH
   COMPARE: 0
@@ -64,7 +66,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: emerald-development
-          path: pokeemerald.gba
+          path: "*-v${{ env.ROM_VERSION }}.gba"
           if-no-files-found: error
           retention-days: 14
 
@@ -179,7 +181,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: emerald-release
-          path: pokeemerald-release.gba
+          path: "*-v${{ env.ROM_VERSION }}-release.gba"
           if-no-files-found: error
           retention-days: 14
 

@@ -25,8 +25,6 @@ MAKER_CODE  := 01
 REVISION    := 0
 KEEP_TEMPS  ?= 0
 
-# `File name`.gba
-FILE_NAME := poke$(BUILD_NAME)
 BUILD_DIR := build
 
 # Compares the ROM to a checksum of the original - only makes sense using when non-modern
@@ -62,6 +60,9 @@ endif
 
 include config.mk
 
+# Keep non-Emerald variants distinct; all jobs in one CI run share a version.
+FILE_NAME ?= $(ROM_BASENAME)$(if $(filter emerald,$(BUILD_NAME)),,-$(BUILD_NAME))-v$(ROM_VERSION)
+
 # Default make rule
 all: rom
 
@@ -92,11 +93,7 @@ endif
 
 CPP := $(PREFIX)cpp
 
-ifeq ($(RELEASE),1)
-	FILE_NAME := $(FILE_NAME)-release
-endif
-
-ROM_NAME := $(FILE_NAME).gba
+ROM_NAME := $(FILE_NAME)$(if $(filter 1,$(RELEASE)),-release).gba
 OBJ_DIR_NAME := $(BUILD_DIR)/$(BUILD_NAME)
 OBJ_DIR_NAME_TEST := $(BUILD_DIR)/$(BUILD_NAME)-test
 OBJ_DIR_NAME_DEBUG := $(BUILD_DIR)/$(BUILD_NAME)-debug
@@ -389,6 +386,7 @@ tidy: tidymodern tidycheck tidydebug tidyrelease
 
 tidymodern:
 	rm -f poke*.gba poke*.elf poke*.map
+	rm -f $(ROM_BASENAME)*-v*.gba $(ROM_BASENAME)*-v*.elf $(ROM_BASENAME)*-v*.map
 	rm -rf $(OBJ_DIR_NAME)
 
 tidycheck:
@@ -404,6 +402,7 @@ ifeq ($(RELEASE),1)
 else # Manually remove the release files on clean/tidy
 	rm -f $(FILE_NAME)-release.gba $(FILE_NAME)-release.elf $(FILE_NAME)-release.map
 endif
+	rm -f $(ROM_BASENAME)*-v*-release.gba $(ROM_BASENAME)*-v*-release.elf $(ROM_BASENAME)*-v*-release.map
 	rm -rf $(OBJ_DIR_NAME_RELEASE)
 
 # Other rules

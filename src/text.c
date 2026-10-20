@@ -2201,6 +2201,14 @@ u8 GetMenuCursorDimensionByFont(u8 fontId, u8 whichDimension)
     return sMenuCursorDimensions[fontId][whichDimension];
 }
 
+// The Czech slots use supplemental bitmaps; Japanese and Braille keep their own fonts.
+static const u16 *GetLatinGlyph(const u16 *glyphs, const u16 czechGlyphs[][32], u16 glyphId)
+{
+    if (glyphId >= CHAR_s_CARON && glyphId <= CHAR_R_CARON)
+        return czechGlyphs[glyphId - CHAR_s_CARON];
+    return glyphs + (0x20 * glyphId);
+}
+
 static void DecompressGlyph_Small(u16 glyphId, bool32 isJapanese)
 {
     const u16 *glyphs;
@@ -2215,7 +2223,7 @@ static void DecompressGlyph_Small(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontSmallLatinGlyphs + (0x20 * glyphId);
+        glyphs = GetLatinGlyph(gFontSmallLatinGlyphs, gFontSmallCzechGlyphs, glyphId);
         gCurGlyph.width = gFontSmallLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
@@ -2257,7 +2265,7 @@ static void DecompressGlyph_Narrow(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontNarrowLatinGlyphs + (0x20 * glyphId);
+        glyphs = GetLatinGlyph(gFontNarrowLatinGlyphs, gFontNarrowCzechGlyphs, glyphId);
         gCurGlyph.width = gFontNarrowLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
@@ -2299,7 +2307,7 @@ static void DecompressGlyph_SmallNarrow(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontSmallNarrowLatinGlyphs + (0x20 * glyphId);
+        glyphs = GetLatinGlyph(gFontSmallNarrowLatinGlyphs, gFontSmallNarrowCzechGlyphs, glyphId);
         gCurGlyph.width = gFontSmallNarrowLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
@@ -2343,7 +2351,7 @@ static void DecompressGlyph_Short(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontShortLatinGlyphs + (0x20 * glyphId);
+        glyphs = GetLatinGlyph(gFontShortLatinGlyphs, gFontShortCzechGlyphs, glyphId);
         gCurGlyph.width = gFontShortLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
@@ -2385,7 +2393,7 @@ static void DecompressGlyph_Normal(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontNormalLatinGlyphs + (0x20 * glyphId);
+        glyphs = GetLatinGlyph(gFontNormalLatinGlyphs, gFontNormalCzechGlyphs, glyphId);
         gCurGlyph.width = gFontNormalLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
@@ -2438,7 +2446,7 @@ static void DecompressGlyph_Narrower(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontNarrowerLatinGlyphs + (0x20 * glyphId);
+        glyphs = GetLatinGlyph(gFontNarrowerLatinGlyphs, gFontNarrowerCzechGlyphs, glyphId);
         gCurGlyph.width = gFontNarrowerLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
@@ -2480,7 +2488,7 @@ static void DecompressGlyph_SmallNarrower(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontSmallNarrowerLatinGlyphs + (0x20 * glyphId);
+        glyphs = GetLatinGlyph(gFontSmallNarrowerLatinGlyphs, gFontSmallNarrowerCzechGlyphs, glyphId);
         gCurGlyph.width = gFontSmallNarrowerLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
@@ -2524,7 +2532,7 @@ static void DecompressGlyph_ShortNarrow(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontShortNarrowLatinGlyphs + (0x20 * glyphId);
+        glyphs = GetLatinGlyph(gFontShortNarrowLatinGlyphs, gFontShortNarrowCzechGlyphs, glyphId);
         gCurGlyph.width = gFontShortNarrowLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
@@ -2568,7 +2576,7 @@ static void DecompressGlyph_ShortNarrower(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontShortNarrowerLatinGlyphs + (0x20 * glyphId);
+        glyphs = GetLatinGlyph(gFontShortNarrowerLatinGlyphs, gFontShortNarrowerCzechGlyphs, glyphId);
         gCurGlyph.width = gFontShortNarrowerLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)

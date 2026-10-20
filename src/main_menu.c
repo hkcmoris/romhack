@@ -473,8 +473,8 @@ static const union AffineAnimCmd *const sSpriteAffineAnimTable_PlayerShrink[] =
 };
 
 static const struct MenuAction sMenuActions_Gender[] = {
-    {gText_Boy, {NULL}},
-    {gText_Girl, {NULL}}
+    {COMPOUND_STRING("KLUK"), {NULL}},
+    {COMPOUND_STRING("HOLKA"), {NULL}}
 };
 
 static const u8 *const sMalePresetNames[] = {
