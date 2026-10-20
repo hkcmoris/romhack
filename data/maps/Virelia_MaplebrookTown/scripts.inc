@@ -8,7 +8,7 @@ Virelia_MaplebrookTown_EventScript_Gardener::
 Virelia_MaplebrookTown_EventScript_Zigzagoon::
 	lock
 	faceplayer
-	cry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
+	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
 	msgbox Virelia_MaplebrookTown_Text_Zigzagoon, MSGBOX_DEFAULT
 	waitmoncry
 	release
