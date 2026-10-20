@@ -56,6 +56,12 @@
 #define CHAR_V_D_ARROW         0x38
 #define CHAR_NBSP              0x39 // Non-breaking space
 #define CHAR_ZWS               0x3A // Zero-width space
+#define CHAR_s_CARON           0x3B
+#define CHAR_y_ACUTE           0x3C
+#define CHAR_d_CARON           0x3D
+#define CHAR_r_CARON           0x3E
+#define CHAR_e_CARON           0x3F
+#define CHAR_R_CARON           0x40
 #define CHAR_INV_QUESTION_MARK 0x51
 #define CHAR_INV_EXCL_MARK     0x52
 #define CHAR_PK                0x53
