@@ -2568,3 +2568,43 @@ static const u16 sTerapagosFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_TERAPAGOS
+
+// Virelia forms use the standard base-first form table; no runtime form changes.
+#if P_VIRELIA_STARTERS
+static const u16 sPoochyenaFormSpeciesIdTable[] = {
+    SPECIES_POOCHYENA,
+    SPECIES_POOCHYENA_VIRELIA,
+    FORM_SPECIES_END,
+};
+
+static const u16 sMightyenaFormSpeciesIdTable[] = {
+    SPECIES_MIGHTYENA,
+    SPECIES_MIGHTYENA_VIRELIA,
+    FORM_SPECIES_END,
+};
+
+static const u16 sSpinarakFormSpeciesIdTable[] = {
+    SPECIES_SPINARAK,
+    SPECIES_SPINARAK_VIRELIA,
+    FORM_SPECIES_END,
+};
+
+static const u16 sAriadosFormSpeciesIdTable[] = {
+    SPECIES_ARIADOS,
+    SPECIES_ARIADOS_VIRELIA,
+    FORM_SPECIES_END,
+};
+
+static const u16 sEkansFormSpeciesIdTable[] = {
+    SPECIES_EKANS,
+    SPECIES_EKANS_VIRELIA,
+    FORM_SPECIES_END,
+};
+
+static const u16 sArbokFormSpeciesIdTable[] = {
+    SPECIES_ARBOK,
+    SPECIES_ARBOK_VIRELIA,
+    FORM_SPECIES_END,
+};
+
+#endif // P_VIRELIA_STARTERS

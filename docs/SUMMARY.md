@@ -3,6 +3,7 @@
 - [README](./README.md)
 - [Project setup](./PROJECT_SETUP.md)
 - [Duo multiplayer feasibility test](./DUO_MULTIPLAYER_TEST.md)
+- [Virelia regional starter prototype](./VIRELIA_STARTERS.md)
 - [FEATURES](./FEATURES.md)
 - [Installation](./INSTALL.md)
     - [Setting up WSL1 (Legacy Portion)](./legacy_WSL1_INSTALL.md)

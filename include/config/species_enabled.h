@@ -603,4 +603,8 @@
 #define P_FAMILY_TERAPAGOS               P_GEN_9_POKEMON
 #define P_FAMILY_PECHARUNT               P_GEN_9_POKEMON
 
+// Prototype uses spare National Dex flag bits in the current full-generation save layout.
+// Reduced-generation configurations and FRLG keep their existing species and dex behavior.
+#define P_VIRELIA_STARTERS (!IS_FRLG && P_GEN_9_POKEMON && P_FAMILY_POOCHYENA && P_FAMILY_SPINARAK && P_FAMILY_EKANS)
+
 #endif // GUARD_CONFIG_SPECIES_ENABLED_H

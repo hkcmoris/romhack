@@ -2710,6 +2710,9 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
             gOverworldPalette_Ekans,
             gShinyOverworldPalette_Ekans
         )
+#if P_VIRELIA_STARTERS
+        .formSpeciesIdTable = sEkansFormSpeciesIdTable,
+#endif
         .levelUpLearnset = sEkansLevelUpLearnset,
         .teachableLearnset = sEkansTeachableLearnset,
         .eggMoveLearnset = sEkansEggMoveLearnset,
@@ -2785,6 +2788,9 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
             gOverworldPalette_Arbok,
             gShinyOverworldPalette_Arbok
         )
+#if P_VIRELIA_STARTERS
+        .formSpeciesIdTable = sArbokFormSpeciesIdTable,
+#endif
         .levelUpLearnset = sArbokLevelUpLearnset,
         .teachableLearnset = sArbokTeachableLearnset,
     },
