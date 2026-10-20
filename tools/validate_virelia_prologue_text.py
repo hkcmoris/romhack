@@ -41,7 +41,7 @@ def main():
     player = "W" * 7
     item = widest("item_name")
     move = widest("move_name")
-    nature = widest("nature")
+    nature = widest("nature_name")
     generic = max([mon, item, move], key=lambda t: text_width(t, "Normal"))
     substitutions = {
         "{PLAYER}": player, "{STR_VAR_1}": generic,
@@ -80,6 +80,8 @@ def main():
         visible = TOKEN.sub(replace_token, text)
         visible = re.sub(r"\\[pnl]", "\n", visible)
         visible = visible.replace(r'\"', '"').replace(r"\\", "\\")
+        if entry.get("max_bytes") and len(visible) + 1 > entry["max_bytes"]:
+            errors.append(f"{label}: {len(visible) + 1} encoded bytes > {entry['max_bytes']}")
         for line in visible.split("\n"):
             unsupported = sorted(set(line) - set(chars))
             if unsupported:
@@ -91,7 +93,42 @@ def main():
                 errors.append(f"{label}: {width}px > {entry['width']}px: {line}")
         if entry.get("lines") and len(visible.split("\n")) > entry["lines"]:
             errors.append(f"{label}: too many lines")
-    result = {"passed": not errors, "entries": len(manifest["entries"]), "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "errors": errors}
+    # These script files contain the playable prologue, including every text
+    # label on all five maps. Keep this scan automatic as story text evolves.
+    script_paths = sorted((ROOT / "data/maps").glob("Virelia_*/scripts.inc"))
+    script_paths += [ROOT / "data/scripts/virelia_prologue.inc"]
+    script_count = 0
+    for path in script_paths:
+        source = path.read_text(encoding="utf-8")
+        for match in re.finditer(r"(?m)^([A-Za-z0-9_]+)::?\n((?:[ \t]*\.string \"(?:\\.|[^\"\\])*\"\n)+)", source):
+            text = "".join(re.findall(r'"((?:\\.|[^"\\])*)"', match[2])).removesuffix("$")
+            label = f"{path.relative_to(ROOT)}:{match[1]}"
+            script_count += 1
+            visible = TOKEN.sub(lambda m: substitutions.get(m[0], ""), text)
+            for line in re.split(r"\\[pnl]", visible):
+                unsupported = sorted(set(line) - set(chars))
+                if unsupported:
+                    errors.append(f"{label}: unmapped glyphs {unsupported!r}")
+                elif text_width(line, "Normal") > 208:
+                    errors.append(f"{label}: {text_width(line, 'Normal')}px > 208px: {line}")
+            lines = 1
+            for control in re.findall(r"\\[pnl]", text):
+                if control == r"\p":
+                    lines = 1
+                elif control == r"\l":
+                    lines = 2
+                else:
+                    lines += 1
+                    if lines > 2:
+                        errors.append(f"{label}: newline below the two-line dialogue window")
+    # New game uses three dedicated native strings before naming.
+    main_source = (ROOT / "src/main_menu.c").read_text(encoding="utf-8")
+    for match in re.finditer(r'sText_Virelia\w+\[\]\s*=\s*_\("((?:\\.|[^"\\])*)"\)', main_source):
+        visible = TOKEN.sub(lambda m: substitutions.get(m[0], ""), match[1])
+        for line in re.split(r"\\[pnl]", visible):
+            if any(c not in chars for c in line) or text_width(line, "Normal") > 208:
+                errors.append("src/main_menu.c: new game text exceeds font/window constraints")
+    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "errors": errors}
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:

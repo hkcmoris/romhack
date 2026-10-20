@@ -6556,6 +6556,195 @@
       "font": "Normal",
       "width": 208,
       "conditional": true
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnGainedExpAndElevatedToLvVar3",
+      "kind": "ui",
+      "english": "{STR_VAR_1} gained {STR_VAR_2} Exp. Points\\nand was elevated to Lv. {STR_VAR_3}!",
+      "czech": "{STR_VAR_1}: získáno {STR_VAR_2}\\nbodů zkušeností. Nová úr. {STR_VAR_3}!",
+      "font": "Normal",
+      "width": 208,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW",
+        "{STR_VAR_2}": "99999",
+        "{STR_VAR_3}": "100"
+      }
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_RestoreWhichMove",
+      "kind": "ui",
+      "english": "Restore which move?",
+      "czech": "Kterému útoku obnovit PP?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_BoostPP",
+      "kind": "ui",
+      "english": "Boost PP of which move?",
+      "czech": "Kterému útoku zvýšit PP?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_CantUseHere",
+      "kind": "ui",
+      "english": "Can't use that here.",
+      "czech": "Tady to nelze použít.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SendWhichMonToPC",
+      "kind": "ui",
+      "english": "Send which POKéMON to the PC?",
+      "czech": "Kterého Pokémona poslat do PC?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_AlreadyHoldingOne",
+      "kind": "ui",
+      "english": "{STR_VAR_1} is already holding\\none {STR_VAR_2}.",
+      "czech": "{STR_VAR_1} už drží\\n{STR_VAR_2}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ExpShareOn",
+      "kind": "ui",
+      "english": "The Exp. Share has been turned on.{PAUSE_UNTIL_PRESS}",
+      "czech": "Sdílení zkušeností zapnuto.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ExpShareOff",
+      "kind": "ui",
+      "english": "The Exp. Share has been turned off.{PAUSE_UNTIL_PRESS}",
+      "czech": "Sdílení zkušeností vypnuto.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ClearAllSaveData",
+      "kind": "ui",
+      "english": "Clear all save data areas?",
+      "czech": "Vymazat všechna uložená data?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ClearingData",
+      "kind": "ui",
+      "english": "Clearing data…\\nPlease wait.",
+      "czech": "Mažu data…\\nPočkej prosím.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Confirm3",
+      "kind": "ui",
+      "english": "CONFIRM",
+      "czech": "POTVRDIT",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex_area_screen.c",
+      "key": "gText_Morning",
+      "kind": "ui",
+      "english": "{DPAD_UPDOWN} MORNING",
+      "czech": "{DPAD_UPDOWN} RÁNO",
+      "font": "Normal",
+      "width": 80
+    },
+    {
+      "path": "src/pokedex_area_screen.c",
+      "key": "gText_Day",
+      "kind": "ui",
+      "english": "{DPAD_UPDOWN} DAY",
+      "czech": "{DPAD_UPDOWN} DEN",
+      "font": "Normal",
+      "width": 80
+    },
+    {
+      "path": "src/pokedex_area_screen.c",
+      "key": "gText_Evening",
+      "kind": "ui",
+      "english": "{DPAD_UPDOWN} EVENING",
+      "czech": "{DPAD_UPDOWN} VEČER",
+      "font": "Normal",
+      "width": 80
+    },
+    {
+      "path": "src/pokedex_area_screen.c",
+      "key": "gText_Night",
+      "kind": "ui",
+      "english": "{DPAD_UPDOWN} NIGHT",
+      "czech": "{DPAD_UPDOWN} NOC",
+      "font": "Normal",
+      "width": 80
+    },
+    {
+      "path": "src/pokedex_area_screen.c",
+      "key": "gText_AreaUnknown",
+      "kind": "ui",
+      "english": "AREA UNKNOWN",
+      "czech": "NEZNÁMÁ",
+      "font": "Normal",
+      "width": 80
+    },
+    {
+      "path": "data/scripts/repel.inc",
+      "key": "Text_SprayWoreOff",
+      "kind": "shared_script",
+      "english": "{STR_VAR_1}'s effect wore off…$",
+      "czech": "{STR_VAR_1}\\nÚčinek skončil…$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/scripts/repel.inc",
+      "key": "Text_SprayWoreOffAskUseAnother",
+      "kind": "shared_script",
+      "english": "{STR_VAR_1}'s effect wore off!\\nUse another?$",
+      "czech": "{STR_VAR_1}: účinek skončil!\\nPoužít další?$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/scripts/repel.inc",
+      "key": "Text_SprayWoreOffAskUseX",
+      "kind": "shared_script",
+      "english": "{STR_VAR_1}'s effect wore off…\\nUse a {STR_VAR_2}?$",
+      "czech": "{STR_VAR_1}: účinek skončil…\\nPoužít {STR_VAR_2}?$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/scripts/repel.inc",
+      "key": "Text_SprayWoreOffUseX",
+      "kind": "shared_script",
+      "english": "{PLAYER} used the\\n{STR_VAR_2}.$",
+      "czech": "{PLAYER}: použit předmět\\n{STR_VAR_2}.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
     }
   ]
 }

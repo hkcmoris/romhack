@@ -231,7 +231,9 @@ jobs:
         run: python3 tools/validate_virelia_world.py
 
       - name: Validate prologue localization
-        run: python3 tools/validate_virelia_prologue_text.py
+        run: |
+          python3 tools/validate_virelia_prologue_text.py
+          python3 tools/virelia/localize_ui_graphics.py --check
 
       - name: Test
         env:

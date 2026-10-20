@@ -39,11 +39,16 @@
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
 #include "constants/heal_locations.h"
+#include "constants/maps.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
 #include "trainer_hill.h"
 #include "fldeff.h"
 #include "battle.h"
+
+#if VIRELIA_PROLOGUE && !IS_FRLG
+extern const u8 Virelia_MaplebrookPlayersHouse_EventScript_Mom[];
+#endif
 
 static void Task_ExitNonAnimDoor(u8);
 static void Task_ExitNonDoor(u8);
@@ -1464,6 +1469,14 @@ static void Task_RushInjuredPokemonToCenter(u8 taskId)
         if (WaitForWeatherFadeIn() == TRUE)
         {
             DestroyTask(taskId);
+#if VIRELIA_PROLOGUE && !IS_FRLG
+            if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE)
+             && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE))
+            {
+                ScriptContext_SetupScript(Virelia_MaplebrookPlayersHouse_EventScript_Mom);
+            }
+            else
+#endif
             if (gTasks[taskId].tIsPlayerHouse)
             {
                 if (IS_FRLG)

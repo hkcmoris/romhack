@@ -137,16 +137,32 @@ EventScript_UseSpray::
 
 
 Text_SprayWoreOff::
+#if TESTING
 	.string "{STR_VAR_1}'s effect wore off…$"
+#else
+	.string "{STR_VAR_1}\nÚčinek skončil…$"
+#endif
 
 Text_SprayWoreOffAskUseAnother::
+#if TESTING
 	.string "{STR_VAR_1}'s effect wore off!\n"
 	.string "Use another?$"
+#else
+	.string "{STR_VAR_1}: účinek skončil!\nPoužít další?$"
+#endif
 
 Text_SprayWoreOffAskUseX::
+#if TESTING
 	.string "{STR_VAR_1}'s effect wore off…\n"
 	.string "Use a {STR_VAR_2}?$"
+#else
+	.string "{STR_VAR_1}: účinek skončil…\nPoužít {STR_VAR_2}?$"
+#endif
 
 Text_SprayWoreOffUseX::
+#if TESTING
 	.string "{PLAYER} used the\n"
 	.string "{STR_VAR_2}.$"
+#else
+	.string "{PLAYER}: použit předmět\n{STR_VAR_2}.$"
+#endif
