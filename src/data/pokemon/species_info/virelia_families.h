@@ -165,7 +165,7 @@
         .weight = 370,
         .description = COMPOUND_STRING(
             "This Virelian forest guardian strikes\n"
-            "from cover, then tends its wounds in shade."),
+            "from cover and heals its wounds in shade."),
         .pokemonScale = 362,
         .pokemonOffset = 9,
         .trainerScale = 256,
@@ -232,7 +232,7 @@
         .weight = 85,
         .description = COMPOUND_STRING(
             "A Virelian Spinarak that skates on ponds.\n"
-            "Its wet silk slows prey caught in the reeds."),
+            "Its wet silk slows prey among the reeds."),
         .pokemonScale = 414,
         .pokemonOffset = 21,
         .trainerScale = 256,
@@ -304,7 +304,7 @@
         .weight = 335,
         .description = COMPOUND_STRING(
             "A Virelian Ariados that hunts in rivers.\n"
-            "It anchors webs against powerful currents."),
+            "It anchors webs against strong currents."),
         .pokemonScale = 316,
         .pokemonOffset = 8,
         .trainerScale = 256,
