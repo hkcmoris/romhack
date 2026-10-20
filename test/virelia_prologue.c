@@ -2,9 +2,11 @@
 #include "agb_flash.h"
 #include "battle.h"
 #include "battle_setup.h"
+#include "battle_transition.h"
 #include "data.h"
 #include "event_data.h"
 #include "heal_location.h"
+#include "graphics.h"
 #include "item.h"
 #include "main.h"
 #include "new_game.h"
@@ -16,15 +18,27 @@
 #include "save.h"
 #include "string_util.h"
 #include "task.h"
+#include "trainer_pools.h"
 #include "virelia_prologue.h"
 #include "test/test.h"
 #include "constants/heal_locations.h"
+#include "constants/abilities.h"
+#include "constants/battle_ai.h"
 #include "constants/items.h"
+#include "constants/moves.h"
 #include "constants/oraculum_duo_test.h"
 #include "constants/opponents.h"
+#include "constants/trainers.h"
 #include "constants/virelia_prologue.h"
 
 #if !IS_FRLG && P_VIRELIA_STARTERS
+
+// TESTING replaces gTrainers with trainer_control.party's synthetic teams.
+// Compile the real generated table separately for these story-data regressions.
+static const struct Trainer sVireliaStoryTrainers[DIFFICULTY_COUNT][TRAINERS_COUNT] =
+{
+#include "../src/data/trainers.h"
+};
 
 static void InitPrologueTest(void)
 {
@@ -201,12 +215,15 @@ TEST("Virelia compiled rival teams use the opposing level five starter and fair 
     };
     InitPrologueTest();
     struct Pokemon *party = gParties[B_TRAINER_OPPONENT_A];
-    const struct Trainer *trainer = GetTrainerStructFromId(trainerIds[choice]);
+    const struct Trainer *trainer = &sVireliaStoryTrainers[DIFFICULTY_NORMAL][trainerIds[choice]];
     u32 previousBattleFlags = gBattleTypeFlags;
+    bool32 previousDebugBattle = gIsDebugBattle;
     gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+    gIsDebugBattle = FALSE;
     ZeroPartyMons(party);
     CreateNPCTrainerPartyFromTrainer(party, trainer);
     gBattleTypeFlags = previousBattleFlags;
+    gIsDebugBattle = previousDebugBattle;
     EXPECT_EQ((u32)trainer->partySize, 1);
     EXPECT_EQ(GetMonData(&party[0], MON_DATA_SPECIES), GetVireliaRivalSpecies(choice));
     EXPECT_EQ(GetMonData(&party[0], MON_DATA_LEVEL), VIRELIA_RIVAL_LEVEL);
@@ -239,12 +256,15 @@ TEST("Virelia compiled route trainers and Rocket use the approved species levels
     static const u8 counts[] = {2, 1, 2};
     InitPrologueTest();
     struct Pokemon *party = gParties[B_TRAINER_OPPONENT_A];
-    const struct Trainer *trainer = GetTrainerStructFromId(trainerIds[team]);
+    const struct Trainer *trainer = &sVireliaStoryTrainers[DIFFICULTY_NORMAL][trainerIds[team]];
     u32 previousBattleFlags = gBattleTypeFlags;
+    bool32 previousDebugBattle = gIsDebugBattle;
     gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+    gIsDebugBattle = FALSE;
     ZeroPartyMons(party);
     CreateNPCTrainerPartyFromTrainer(party, trainer);
     gBattleTypeFlags = previousBattleFlags;
+    gIsDebugBattle = previousDebugBattle;
     EXPECT_EQ((u32)trainer->partySize, counts[team]);
     for (u32 i = 0; i < counts[team]; i++)
     {
@@ -493,7 +513,31 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
         SetTrainerFlag(TRAINER_VIRELIA_ELA);
         SetTrainerFlag(TRAINER_VIRELIA_OTA);
     }
+    // Exercise the actual saved map fields at four distinct story locations.
+    // Only update save data here; the test runner's loaded map stays untouched.
+    static const u16 checkpointMaps[] =
+    {
+        MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE,
+        MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY,
+        MAP_VIRELIA_ROUTE01,
+        MAP_VIRELIA_SLATEFORD_CITY,
+    };
+    static const s16 checkpointCoords[][2] = {{5, 6}, {4, 7}, {14, 39}, {14, 27}};
+    gSaveBlock1Ptr->location = (struct WarpData)
+    {
+        .mapGroup = MAP_GROUP(checkpointMaps[checkpoint]),
+        .mapNum = MAP_NUM(checkpointMaps[checkpoint]),
+        .warpId = WARP_ID_NONE,
+        .x = checkpointCoords[checkpoint][0],
+        .y = checkpointCoords[checkpoint][1],
+    };
+    gSaveBlock1Ptr->pos.x = checkpointCoords[checkpoint][0];
+    gSaveBlock1Ptr->pos.y = checkpointCoords[checkpoint][1];
     ClearTempFieldEventData();
+    struct WarpData originalLocation, originalHealLocation;
+    memcpy(&originalLocation, &gSaveBlock1Ptr->location, sizeof(originalLocation));
+    memcpy(&originalHealLocation, &gSaveBlock1Ptr->lastHealLocation, sizeof(originalHealLocation));
+    s16 originalX = gSaveBlock1Ptr->pos.x, originalY = gSaveBlock1Ptr->pos.y;
     struct Pokemon original = gParties[B_TRAINER_PLAYER][0];
     u32 originalPartyCount = gPartiesCount[B_TRAINER_PLAYER];
     u32 originalStarter = VarGet(VAR_VIRELIA_STARTER);
@@ -526,6 +570,13 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
         InitEventData();
         ClearBag();
         StringCopy(gSaveBlock2Ptr->playerName, COMPOUND_STRING("Other"));
+        gSaveBlock1Ptr->pos.x = -1;
+        gSaveBlock1Ptr->pos.y = -1;
+        gSaveBlock1Ptr->location = (struct WarpData)
+        {
+            .mapGroup = -1, .mapNum = -1, .warpId = WARP_ID_NONE, .x = -1, .y = -1,
+        };
+        gSaveBlock1Ptr->lastHealLocation = gSaveBlock1Ptr->location;
         loadStatus = LoadGameSave(SAVE_NORMAL);
     }
     REG_IME = 0;
@@ -540,6 +591,10 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
 
     EXPECT_EQ(saveStatus, SAVE_STATUS_OK);
     EXPECT_EQ(loadStatus, SAVE_STATUS_OK);
+    EXPECT_EQ(gSaveBlock1Ptr->pos.x, originalX);
+    EXPECT_EQ(gSaveBlock1Ptr->pos.y, originalY);
+    EXPECT_EQ(memcmp(&gSaveBlock1Ptr->location, &originalLocation, sizeof(originalLocation)), 0);
+    EXPECT_EQ(memcmp(&gSaveBlock1Ptr->lastHealLocation, &originalHealLocation, sizeof(originalHealLocation)), 0);
     EXPECT_EQ(StringCompare(gSaveBlock2Ptr->playerName, COMPOUND_STRING("Virelia")), 0);
     EXPECT_EQ(GetTrainerId(gSaveBlock2Ptr->playerTrainerId), 0x1234ABCD);
     EXPECT_EQ(gPartiesCount[B_TRAINER_PLAYER], originalPartyCount);

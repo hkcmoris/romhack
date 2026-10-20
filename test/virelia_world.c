@@ -2,6 +2,7 @@
 #include "agb_flash.h"
 #include "battle.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "fieldmap.h"
 #include "metatile_behavior.h"
 #include "new_game.h"
@@ -74,6 +75,24 @@ TEST("Virelia world headers use distinct appended groups and native layouts")
     }
     EXPECT_NE(MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_TOWN),
               MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY));
+}
+
+TEST("Virelia object graphics include hidden story actors in Emerald")
+{
+    u32 index = 0;
+    for (u32 i = 0; i < ARRAY_COUNT(sVireliaMaps); i++)
+        PARAMETRIZE { index = i; }
+
+    const struct MapEvents *events = WorldHeader(sVireliaMaps[index])->events;
+    for (u32 i = 0; i < events->objectEventCount; i++)
+    {
+        const struct ObjectEventGraphicsInfo *info =
+            GetObjectEventGraphicsInfo(events->objectEvents[i].graphicsId);
+        EXPECT_NE(info, NULL);
+        EXPECT_NE(info->images, NULL);
+        EXPECT_NE(info->anims, NULL);
+        EXPECT_NE(info->oam, NULL);
+    }
 }
 
 TEST("Virelia building warps resolve through the native warp loader in both directions")

@@ -207,8 +207,8 @@ Virelia_SlatefordCity_Text_RocketEscape:
 Virelia_SlatefordCity_Text_Policeman:
 	.string "POLICISTA: Výborně. Situaci jsem\n"
 	.string "měl celou dobu pod dohledem.\p"
-	.string "Souboj byl na tobě.\n"
-	.string "Já o dohled. Dobrá spolupráce.\p"
+	.string "Ty řešíš souboje.\n"
+	.string "Já papíry. Dobrá spolupráce.\p"
 	.string "Vzorek předám lidem z lomu.\n"
 	.string "Ten štítek si zaslouží prověřit.$"
 

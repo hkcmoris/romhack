@@ -180,6 +180,8 @@ Shared battle and data strings retain English test fixtures under `TESTING`
 where necessary. Normal and release ROMs select Czech at preprocessing time.
 This keeps the upstream behavior tests meaningful without duplicating either
 language in a playable ROM. Development-only test notices are hidden in story.
+The story Pokédex uses metres, kilograms and a decimal comma. Development mode,
+FireRed/LeafGreen and upstream test fixtures retain their original unit settings.
 
 ## Build configuration
 
@@ -218,6 +220,33 @@ checks. It runs story and explicit development-mode tests in separate jobs.
 The ROM file version is now `0.2.N`, where `N` is the Actions run number.
 
 ## Validation and manual playtest
+
+Native QA uses an official mGBA libretro core and real controller inputs at
+240 × 160. It does not inject Pokémon, items or story flags. The optimized
+release from commit `7c120c18eb` passed fresh female trainer creation and the
+automatic home introduction within 120 frames of confirming the name. It also
+loaded a genuine in-game FLASH save from the earlier story build. Save tests
+restart the core from FLASH, without transferring an emulator savestate.
+
+![Czech release title](images/virelia-prologue/title-7c120.png)
+![Mother in the player's home](images/virelia-prologue/home-7c120.png)
+![Czech party summary with the regional Grass/Dark starter](images/virelia-prologue/summary-7c120.png)
+
+All three starter/rival matchups were played natively. Winning and deliberately
+losing the rival both continued to healing and the initial supplies. Additional
+native checks covered catching an ordinary Wurmple, both route trainers, the
+optional Potion detour, Hana's once-only reward and its FLASH persistence, and
+a Rocket loss returning safely to mother before winning a retry. A capture
+after previously opening the full Pokédex exposed a pre-existing stale-pointer
+bug: closing the menu freed `sPokedexView` without clearing it, so caught-entry
+cleanup could free a live battle allocation. The cleanup now clears the pointer.
+The first Rocket finale also exposed an asset configuration error: the police
+sprite was registered only in FireRed/LeafGreen, so spawning it reset Emerald.
+The existing police art and registry entry are now shared with Emerald, without
+changing any graphics or species IDs. Native tests check the graphics pointer
+for every object template on all five playable maps. The corrected-ROM capture,
+nickname, next-battle and full finale sequences remain required regression
+checks; the localization audit records their outcome and build.
 
 Source checks runnable without an ARM toolchain:
 
@@ -261,9 +290,13 @@ The target is **15–20 minutes** at normal text speed, including one capture,
 both route trainers, the optional detour and the Rocket scene. The initial
 estimate allocates 4–5 minutes to creation/home/lab, 2–3 to the rival/equipment,
 5–7 to route exploration/catching and 3–5 to Slateford. This is a content and
-interaction estimate, **not a measured human playthrough**. Replace it with
-timed release-ROM observations after manual verification; CI duration is not
-gameplay duration. Fast text, skipped exploration or grinding can change it.
+interaction estimate, **not a measured human playthrough**. A native Grass run
+reached the Rocket's final clue at an in-game clock of **00:14:02**, including
+Hana's quest and both route trainers, with no capture on that run. This supports
+the estimate for a normal journey with one capture and time to read the ending;
+it does not certify human completion time. Record timed release-ROM observations
+after manual verification; CI duration is not gameplay duration. Fast text,
+skipped exploration or grinding can change it.
 
 ## Remaining milestones
 
