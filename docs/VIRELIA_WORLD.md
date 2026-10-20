@@ -44,6 +44,13 @@ own `map.bin` and `border.bin` under `data/layouts/`. The layout constants are
 `LAYOUT_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY`. Existing layouts are not
 overwritten or renumbered.
 
+| Layout constant | Layout ID |
+| --- | ---: |
+| `LAYOUT_VIRELIA_MAPLEBROOK_TOWN` | 786 |
+| `LAYOUT_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY` | 787 |
+| `LAYOUT_VIRELIA_ROUTE01` | 788 |
+| `LAYOUT_VIRELIA_SLATEFORD_CITY` | 789 |
+
 New section entries are appended to
 `src/data/region_map/region_map_sections.json`; existing named sections retain
 their numeric IDs.
@@ -86,21 +93,51 @@ flag. Coordinates in this document use Porymap's zero-based map coordinates.
 Maplebrook provides a rural starting-town exterior, the player's home
 exterior, a laboratory exterior, signs and a clear road north. The home is an
 exterior placeholder. The laboratory is the working building entrance for
-this milestone.
+this milestone. Its doorway at `(24, 18)` is town warp `0`, targeting laboratory
+warp `0` at `(6, 12)`. Both laboratory exit tiles, warps `0` and `1` at
+`(6, 12)` and `(7, 12)`, target town warp `0`. The home door at `(7, 9)` and
+cottage door at `(22, 9)` are closed placeholders with explanatory dialogue.
 
 The research laboratory contains a professor, research furniture, and three
 starter display positions with placeholder dialogue. These displays do not
 replace the existing regional starter test NPC or implement the campaign's
 starter selection. Use the Littleroot scientist to obtain the already
-implemented regional starters.
+implemented regional starters. The professor at `(6, 4)` heals the party without
+changing its last healing destination. Item-ball display objects at `(4, 6)`,
+`(6, 6)` and `(8, 6)` describe the Grass/Ghost, Water/Bug and Fire/Poison
+families respectively.
 
 Whisperwood Trail contains trees, several short paths, tall grass with ordinary
 wild encounters, and an optional item area. A walkable route connects both
-towns. The wild encounter table belongs only to the new route.
+towns. The wild encounter table in `src/data/wild_encounters.json` belongs only
+to the new route. Its land encounter rate is `20`; this is the engine's encounter-rate
+parameter, not a flat 20% chance per step. The twelve native slot weights are
+20, 20, 10, 10, 10, 10, 5, 5, 4, 4, 1 and 1 percent.
+
+| Slot | Pokemon | Level range | Slot weight |
+| --- | --- | --- | ---: |
+| 0 | Wurmple | 2–3 | 20% |
+| 1 | Zigzagoon | 2–3 | 20% |
+| 2 | Poochyena | 2–4 | 10% |
+| 3 | Wurmple | 3–4 | 10% |
+| 4 | Seedot | 3–4 | 10% |
+| 5 | Taillow | 3–4 | 10% |
+| 6 | Poochyena | 4–5 | 5% |
+| 7 | Shroomish | 3–4 | 5% |
+| 8 | Seedot | 4–5 | 4% |
+| 9 | Taillow | 4–5 | 4% |
+| 10 | Shroomish | 4–5 | 1% |
+| 11 | Ralts | 4–5 | 1% |
+
+These are the original Pokemon, not the regional starter forms. The optional
+Potion is at `(25, 27)` and uses the native item script and
+`FLAG_ITEM_VIRELIA_ROUTE01_POTION` (`0x20`, a previously unused saved flag).
+It can be collected once per save without adding a saved field.
 
 Slateford is a mining-town exterior with rocky scenery, building placeholders
 and a first Gym exterior. These buildings have no interiors or battles yet.
-The southern entrance leads back to Whisperwood Trail.
+The Gym door placeholder is at `(22, 9)`. The southern entrance leads back to
+Whisperwood Trail.
 
 ## Graphics and editing
 
@@ -121,7 +158,10 @@ groups. Edit only the new maps and layouts for this milestone. Preserve the
 passable edge openings, reciprocal connection offsets, paired laboratory
 warps, event positions and collision/elevation settings when changing tiles.
 An attractive tile that has the wrong behavior can block an entrance or remove
-grass encounters.
+grass encounters. `tools/virelia/generate_layouts.py` reproduces the initial
+binary layouts; running it replaces the generated map files and therefore
+also replaces later Porymap tile edits. Prefer Porymap for subsequent mapping,
+or update the generator deliberately before regenerating.
 
 ## Development access
 
@@ -144,8 +184,9 @@ quick-start and starter-test switches. FireRed and LeafGreen do not expose this
 development travel.
 
 There is no Virelia Pokemon Center or new heal location yet. The native
-blackout flow uses the save's existing healing destination. Carry healing
-items, return to Hoenn when needed, and include blackout behavior in testing.
+blackout flow uses the save's existing Hoenn healing destination. The laboratory
+professor heals the party locally without registering a new respawn point.
+Include blackout behavior in testing.
 
 ## Build and test
 
@@ -173,7 +214,8 @@ the current party or use the existing test tools as described in
    remains accessible separately.
 3. Walk around Maplebrook, read the signs and inspect the home and laboratory
    exteriors. Enter the laboratory, speak to the professor and inspect all
-   three starter displays. Exit and enter again to check both warp directions
+   three starter displays. Verify that the professor restores HP, PP and
+   status. Exit and enter again to check both warp directions
    and doorway animation.
 4. Walk north into Whisperwood Trail. Explore each short path, walk through
    grass until a wild battle starts, and confirm the encounter is from the
@@ -207,12 +249,30 @@ the current party or use the existing test tools as described in
 
 ### Validation status
 
-The inherited starter baseline has a completed successful CI run linked
-above. Final world-branch build and automated test results must be checked
-against that branch's exact commit and CI run. Compilation, structural map
-checks, and native automated tests provide different evidence from an emulator
-playtest. This document does not claim a completed visual playthrough,
-save-menu/restart test, or two-device Link Multi test.
+The local source validator passed against the pinned starter baseline: all
+3,434 original map/layout/story files and their IDs remain unchanged; the
+connected graph has 1,764 reachable tiles and 75 reachable grass tiles, all
+12 land encounter slots are valid, and every NPC and item is approachable.
+The existing documentation-index validator also passed. Reproduce these checks
+from the repository root:
+
+```sh
+python tools/validate_virelia_world.py --base 960b3cf8cd0f283b9afd553d7e4df129aea73a02
+python .github/docs_validate/inclusive_summary.py
+```
+
+`test/virelia_world.c` exercises the compiled headers/layouts, native warp
+loader, reciprocal map seams, native wild-Pokemon generation, and flash
+save/load of map positions, an item flag and a regional starter. The existing
+starter and Duo suites remain part of CI. The CI workflow also builds Emerald
+development/release, FireRed and LeafGreen and validates the documentation.
+Select a successful run for the exact world-branch commit when downloading a
+ROM; a successful baseline run does not validate later changes.
+
+Compilation, structural map checks, and native automated tests provide
+different evidence from an emulator playtest. Manual visual playthrough,
+save-menu/restart and two-device Link Multi checks remain unverified until the
+procedure above is completed and its test record is filled in.
 
 Record untested cases explicitly:
 
@@ -224,7 +284,7 @@ Actions run, artifact and ROM SHA-256:
 New game or backed-up existing save:
 Duo guide entry/cancel and starter NPC:
 Maplebrook collision, signs and laboratory entrance/exit:
-Laboratory dialogue and three displays:
+Laboratory dialogue, healing and three displays:
 Route grass encounter, capture/flee and regional starter battle:
 Optional item acquisition, persistence and Bag-full behavior:
 Maplebrook -> Route 01 -> Slateford -> Route 01 -> Maplebrook:

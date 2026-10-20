@@ -143,11 +143,11 @@ def main():
     quarry = set()
     road(quarry, 20, 17, 7, 8)
     paint_roads(city, quarry)
-    for x, y in [(3, 3), (8, 3), (24, 24), (2, 24), (7, 24)]:
+    for x, y in [(3, 3), (8, 3), (24, 25), (2, 24), (7, 24)]:
         brush_tree(city, x, y)
     for x, y in [(18, 9), (17, 25), (20, 16), (9, 20)]:
         city[y][x] = 0x3403
-    for x, y in [(9, 5), (10, 6), (3, 14), (4, 15), (26, 12), (25, 13)]:
+    for x, y in [(10, 4), (10, 6), (3, 14), (4, 15), (26, 12), (25, 13)]:
         city[y][x] = FLOWER
     save('SlatefordCity', city)
     print('Wrote four Virelia layouts; original Emerald layouts unchanged.')
