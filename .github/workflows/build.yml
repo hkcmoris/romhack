@@ -219,6 +219,9 @@ jobs:
             tools/mgba-rom-test-hydra/mgba-rom-test-hydra
           key: tools-check-${{ runner.os }}-${{ hashFiles('tools/*/Makefile', 'tools/**/*.c', 'tools/**/*.cpp', 'tools/**/*.h') }}
 
+      - name: Validate Virelia map connectivity and assets
+        run: python3 tools/validate_virelia_world.py
+
       - name: Test
         env:
           GAME_VERSION: EMERALD

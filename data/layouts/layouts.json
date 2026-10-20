@@ -9323,6 +9323,50 @@
       "border_filepath": "data/layouts/OneIsland_KindleRoad_EmberSpa_Frlg/border.bin",
       "blockdata_filepath": "data/layouts/OneIsland_KindleRoad_EmberSpa_Frlg/map.bin",
       "layout_version": "frlg"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_MAPLEBROOK_TOWN",
+      "name": "Virelia_MaplebrookTown_Layout",
+      "width": 30,
+      "height": 28,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/Virelia_MaplebrookTown/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_MaplebrookTown/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY",
+      "name": "Virelia_MaplebrookResearchLaboratory_Layout",
+      "width": 13,
+      "height": 13,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Lab",
+      "border_filepath": "data/layouts/Virelia_MaplebrookResearchLaboratory/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_MaplebrookResearchLaboratory/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_ROUTE01",
+      "name": "Virelia_Route01_Layout",
+      "width": 30,
+      "height": 42,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/Virelia_Route01/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Route01/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SLATEFORD_CITY",
+      "name": "Virelia_SlatefordCity_Layout",
+      "width": 30,
+      "height": 30,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/Virelia_SlatefordCity/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_SlatefordCity/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

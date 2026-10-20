@@ -1739,5 +1739,12 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/scripts/battle_frontier.inc"
 	.include "data/scripts/duo_multiplayer_test.inc"
 	.include "data/scripts/virelia_starter_test.inc"
+	.include "data/scripts/virelia_world_test.inc"
+#if !IS_FRLG
+	.include "data/maps/Virelia_MaplebrookTown/scripts.inc"
+	.include "data/maps/Virelia_MaplebrookResearchLaboratory/scripts.inc"
+	.include "data/maps/Virelia_Route01/scripts.inc"
+	.include "data/maps/Virelia_SlatefordCity/scripts.inc"
+#endif
 	.include "data/scripts/apricorn_tree.inc"
 	.include "data/scripts/wild_encounter.inc"

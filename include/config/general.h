@@ -84,6 +84,11 @@
 // Set 0 to hide the guide and disable all Virelia development gifts.
 #define VIRELIA_STARTER_TEST 1
 #endif
+#ifndef VIRELIA_WORLD_TEST
+// Emerald-only development travel from the existing Duo guide. Use numeric 1/0.
+// Disabling entry still allows players already in Virelia to return to Hoenn.
+#define VIRELIA_WORLD_TEST 1
+#endif
 #define EXPANSION_INTRO              TRUE    // If TRUE, a custom RHH intro will play after the vanilla copyright screen.
 #define PHONEMES_SHARED              FALSE   // If TRUE, bard phonemes all reference the same sound (sound/direct_sound_samples/phonemes/shared.bin) to save ROM space.
 

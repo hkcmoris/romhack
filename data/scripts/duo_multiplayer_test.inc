@@ -6,10 +6,25 @@ DuoMultiplayerTest_EventScript_TravelToTower::
 	frontier_get FRONTIER_DATA_CHALLENGE_STATUS
 	goto_if_ne VAR_RESULT, 0, DuoMultiplayerTest_EventScript_ChallengeBusy
 #if ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
+#if VIRELIA_WORLD_TEST
+	dynmultichoice 13, 4, FALSE, 4, 0, DYN_MULTICHOICE_CB_NONE, DuoMultiplayerTest_Text_Travel, DuoMultiplayerTest_Text_TestTeam, VireliaWorldTest_Text_Visit, gText_Cancel
+#else
 	dynmultichoice 13, 4, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, DuoMultiplayerTest_Text_Travel, DuoMultiplayerTest_Text_TestTeam, gText_Cancel
+#endif
 	switch VAR_RESULT
 	case 0, DuoMultiplayerTest_EventScript_OfferTravel
 	case 1, DuoMultiplayerTest_EventScript_OptionalTeam
+#if VIRELIA_WORLD_TEST
+	case 2, VireliaWorldTest_EventScript_OfferTravel
+#endif
+	goto DuoMultiplayerTest_EventScript_Cancel
+
+DuoMultiplayerTest_EventScript_OfferTravel:
+#elif VIRELIA_WORLD_TEST && !IS_FRLG
+	dynmultichoice 13, 4, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, DuoMultiplayerTest_Text_Travel, VireliaWorldTest_Text_Visit, gText_Cancel
+	switch VAR_RESULT
+	case 0, DuoMultiplayerTest_EventScript_OfferTravel
+	case 1, VireliaWorldTest_EventScript_OfferTravel
 	goto DuoMultiplayerTest_EventScript_Cancel
 
 DuoMultiplayerTest_EventScript_OfferTravel:
@@ -158,8 +173,6 @@ DuoMultiplayerTest_EventScript_GiveTeamB::
 	setvar VAR_RESULT, TRUE
 	return
 
-DuoMultiplayerTest_Text_Travel:
-	.string "TRAVEL TO TOWER$"
 DuoMultiplayerTest_Text_TestTeam:
 	.string "TEST TEAM SETUP$"
 DuoMultiplayerTest_Text_TeamA:
@@ -191,4 +204,9 @@ DuoMultiplayerTest_Text_NoRoom:
 DuoMultiplayerTest_Text_UseOptionalSetup:
 	.string "Your existing party was kept.\n"
 	.string "Ask the scientist for TEST TEAM SETUP.$"
+#endif
+
+#if (ORACULUM_DUO_TEST_QUICK_START || VIRELIA_WORLD_TEST) && !IS_FRLG
+DuoMultiplayerTest_Text_Travel:
+	.string "TRAVEL TO TOWER$"
 #endif

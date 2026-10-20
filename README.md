@@ -5,6 +5,7 @@ This project starts from **RHH's pokeemerald-expansion 1.17.1**
 credits are preserved so future releases can be merged into this project.
 
 - [Build with GitHub Actions and playtest on Windows](docs/PROJECT_SETUP.md)
+- [Virelia world foundation and playtest guide](docs/VIRELIA_WORLD.md)
 - [Included engine features](FEATURES.md)
 - [Engine configuration](include/config)
 - [Mapping with Porymap](https://huderlem.github.io/porymap/)

@@ -1630,6 +1630,30 @@
       "y": 4,
       "width": 1,
       "height": 1
+    },
+    {
+      "id": "MAPSEC_VIRELIA_MAPLEBROOK_TOWN",
+      "name": "MAPLEBROOK TOWN",
+      "x": 4,
+      "y": 11,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_VIRELIA_WHISPERWOOD_TRAIL",
+      "name": "WHISPERWOOD TRAIL",
+      "x": 4,
+      "y": 10,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_VIRELIA_SLATEFORD_CITY",
+      "name": "SLATEFORD CITY",
+      "x": 4,
+      "y": 9,
+      "width": 1,
+      "height": 1
     }
   ]
 }
