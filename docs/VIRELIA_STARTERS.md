@@ -217,6 +217,10 @@ Link Battle, or Battle Tower code is changed.
   per-species saved array is a separate save-layout decision, not part of this
   milestone. Reduced-generation or disabled source-family configurations disable
   the prototype data rather than silently expanding their dex save allocation.
+- Event scripts do not import the C Boolean macros. The new NPC script resolves
+  its species/configuration guard to a numeric value in a temporary, local
+  Boolean context, then restores the previous macros. This keeps the guide
+  enabled when its species exist without changing unrelated script conditions.
 - No new persistent development flags or variables are allocated. NPC visibility
   uses a map-local temporary flag. Existing saves can use the added NPC when they
   reach Littleroot; the inherited quick start itself applies to new games.

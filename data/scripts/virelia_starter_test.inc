@@ -1,7 +1,32 @@
+@ Species options use TRUE/FALSE from C. Event CPP runs before assembler
+@ constants define those names. Evaluate this guard numerically in a local
+@ scope, then restore the surrounding script preprocessor environment.
+#ifndef TRUE
+#define TRUE 1
+#define VIRELIA_SCRIPT_UNDEF_TRUE
+#endif
+#ifndef FALSE
+#define FALSE 0
+#define VIRELIA_SCRIPT_UNDEF_FALSE
+#endif
+#if VIRELIA_STARTER_TEST && P_VIRELIA_STARTERS
+#define VIRELIA_STARTER_SCRIPT_ENABLED 1
+#else
+#define VIRELIA_STARTER_SCRIPT_ENABLED 0
+#endif
+#ifdef VIRELIA_SCRIPT_UNDEF_TRUE
+#undef TRUE
+#undef VIRELIA_SCRIPT_UNDEF_TRUE
+#endif
+#ifdef VIRELIA_SCRIPT_UNDEF_FALSE
+#undef FALSE
+#undef VIRELIA_SCRIPT_UNDEF_FALSE
+#endif
+
 @ Development access only; all grants use normal engine gift/Bag commands.
 @ FLAG_TEMP_10 is unused elsewhere in Littleroot and adds no saved flag IDs.
 VireliaStarterTest_EventScript_SetVisibility::
-#if VIRELIA_STARTER_TEST && P_VIRELIA_STARTERS
+#if VIRELIA_STARTER_SCRIPT_ENABLED
 	clearflag FLAG_TEMP_10
 #else
 	setflag FLAG_TEMP_10
@@ -10,14 +35,14 @@ VireliaStarterTest_EventScript_SetVisibility::
 
 @ Saved object events can already exist when resuming an older test save.
 VireliaStarterTest_EventScript_ResumeVisibility::
-#if !VIRELIA_STARTER_TEST || !P_VIRELIA_STARTERS
+#if !VIRELIA_STARTER_SCRIPT_ENABLED
 	setflag FLAG_TEMP_10
 	removeobject LOCALID_LITTLEROOT_VIRELIA_TEST_GUIDE
 #endif
 	end
 
 VireliaStarterTest_EventScript_Guide::
-#if VIRELIA_STARTER_TEST && P_VIRELIA_STARTERS
+#if VIRELIA_STARTER_SCRIPT_ENABLED
 	lock
 	faceplayer
 	message VireliaStarterTest_Text_Welcome
@@ -34,7 +59,7 @@ VireliaStarterTest_EventScript_Guide::
 	end
 #endif
 
-#if VIRELIA_STARTER_TEST && P_VIRELIA_STARTERS
+#if VIRELIA_STARTER_SCRIPT_ENABLED
 VireliaStarterTest_EventScript_Grass:
 	message VireliaStarterTest_Text_SelectStage
 	waitmessage
@@ -127,7 +152,7 @@ VireliaStarterTest_EventScript_Cancel:
 @ VAR_0x8005 level. Returns MON_GIVEN_TO_PARTY or MON_CANT_GIVE in VAR_RESULT.
 @ Revalidate both inputs and capacity before givemon can append to the party.
 VireliaStarterTest_EventScript_Give::
-#if VIRELIA_STARTER_TEST && P_VIRELIA_STARTERS
+#if VIRELIA_STARTER_SCRIPT_ENABLED
 	switch VAR_0x8004
 	case SPECIES_POOCHYENA_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
 	case SPECIES_MIGHTYENA_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
@@ -170,7 +195,7 @@ VireliaStarterTest_EventScript_CannotGive:
 	setvar VAR_RESULT, MON_CANT_GIVE
 	return
 
-#if VIRELIA_STARTER_TEST && P_VIRELIA_STARTERS
+#if VIRELIA_STARTER_SCRIPT_ENABLED
 VireliaStarterTest_Text_Welcome:
 	.string "VIRELIA STARTER TEST\n"
 	.string "Choose a family or test supplies.$"
@@ -246,3 +271,5 @@ VireliaStarterTest_Text_Level40:
 VireliaStarterTest_Text_Level50:
 	.string "Lv. 50$"
 #endif
+
+#undef VIRELIA_STARTER_SCRIPT_ENABLED
