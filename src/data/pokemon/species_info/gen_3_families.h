@@ -999,6 +999,9 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             gOverworldPalette_Poochyena,
             gShinyOverworldPalette_Poochyena
         )
+#if P_VIRELIA_STARTERS
+        .formSpeciesIdTable = sPoochyenaFormSpeciesIdTable,
+#endif
         .levelUpLearnset = sPoochyenaLevelUpLearnset,
         .teachableLearnset = sPoochyenaTeachableLearnset,
         .eggMoveLearnset = sPoochyenaEggMoveLearnset,
@@ -1074,6 +1077,9 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             gOverworldPalette_Mightyena,
             gShinyOverworldPalette_Mightyena
         )
+#if P_VIRELIA_STARTERS
+        .formSpeciesIdTable = sMightyenaFormSpeciesIdTable,
+#endif
         .levelUpLearnset = sMightyenaLevelUpLearnset,
         .teachableLearnset = sMightyenaTeachableLearnset,
     },

@@ -79,6 +79,11 @@
 // Temporary Emerald-only test start, also enabled in release artifacts.
 #define ORACULUM_DUO_TEST_QUICK_START 1 // Set 0 to restore the original introduction.
 #endif
+#ifndef VIRELIA_STARTER_TEST
+// Emerald prototype NPC only. Use 1/0 for both C and event preprocessing.
+// Set 0 to hide the guide and disable all Virelia development gifts.
+#define VIRELIA_STARTER_TEST 1
+#endif
 #define EXPANSION_INTRO              TRUE    // If TRUE, a custom RHH intro will play after the vanilla copyright screen.
 #define PHONEMES_SHARED              FALSE   // If TRUE, bard phonemes all reference the same sound (sound/direct_sound_samples/phonemes/shared.bin) to save ROM space.
 
