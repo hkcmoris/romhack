@@ -1,3 +1,4 @@
+#include "localization.h"
 #include "constants/battle.h"
 #include "constants/pokemon.h"
 
@@ -50,8 +51,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
 {
     [TYPE_NONE] =
     {
-        .name = _("None"),
-        .generic = _("a move"),
+        .name = _(LOCALIZED_TEXT("None", "Žádný")),
+        .generic = _(LOCALIZED_TEXT("a move", "útok typu žádný")),
         .palette = 15, // Uses TYPE_MYSTERY's icon
         .zMove = MOVE_BREAKNECK_BLITZ,
         .maxMove = MOVE_MAX_STRIKE,
@@ -64,8 +65,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_NORMAL] =
     {
-        .name = _("Normal"),
-        .generic = _("a NORMAL move"),
+        .name = _(LOCALIZED_TEXT("Normal", "Běžný")),
+        .generic = _(LOCALIZED_TEXT("a NORMAL move", "útok typu běžný")),
         .palette = 13,
         .zMove = MOVE_BREAKNECK_BLITZ,
         .maxMove = MOVE_MAX_STRIKE,
@@ -84,8 +85,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_FIGHTING] =
     {
-        .name = _("Fighting"),
-        .generic = _("a FIGHTING move"),
+        .name = _(LOCALIZED_TEXT("Fighting", "Bojový")),
+        .generic = _(LOCALIZED_TEXT("a FIGHTING move", "útok typu bojový")),
         .palette = 13,
         .zMove = MOVE_ALL_OUT_PUMMELING,
         .maxMove = MOVE_MAX_KNUCKLE,
@@ -106,8 +107,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_FLYING] =
     {
-        .name = _("Flying"),
-        .generic = _("a FLYING move"),
+        .name = _(LOCALIZED_TEXT("Flying", "Létající")),
+        .generic = _(LOCALIZED_TEXT("a FLYING move", "útok typu létající")),
         .palette = 14,
         .zMove = MOVE_SUPERSONIC_SKYSTRIKE,
         .maxMove = MOVE_MAX_AIRSTREAM,
@@ -128,8 +129,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_POISON] =
     {
-        .name = _("Poison"),
-        .generic = _("a POISON move"),
+        .name = _(LOCALIZED_TEXT("Poison", "Jedový")),
+        .generic = _(LOCALIZED_TEXT("a POISON move", "útok typu jedový")),
         .palette = 14,
         .zMove = MOVE_ACID_DOWNPOUR,
         .maxMove = MOVE_MAX_OOZE,
@@ -150,8 +151,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_GROUND] =
     {
-        .name = _("Ground"),
-        .generic = _("a GROUND move"),
+        .name = _(LOCALIZED_TEXT("Ground", "Zemní")),
+        .generic = _(LOCALIZED_TEXT("a GROUND move", "útok typu zemní")),
         .palette = 13,
         .zMove = MOVE_TECTONIC_RAGE,
         .maxMove = MOVE_MAX_QUAKE,
@@ -172,8 +173,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_ROCK] =
     {
-        .name = _("Rock"),
-        .generic = _("a ROCK move"),
+        .name = _(LOCALIZED_TEXT("Rock", "Kamenný")),
+        .generic = _(LOCALIZED_TEXT("a ROCK move", "útok typu kamenný")),
         .palette = 13,
         .zMove = MOVE_CONTINENTAL_CRUSH,
         .maxMove = MOVE_MAX_ROCKFALL,
@@ -194,8 +195,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_BUG] =
     {
-        .name = _("Bug"),
-        .generic = _("a BUG move"),
+        .name = _(LOCALIZED_TEXT("Bug", "Hmyzí")),
+        .generic = _(LOCALIZED_TEXT("a BUG move", "útok typu hmyzí")),
         .palette = 15,
         .zMove = MOVE_SAVAGE_SPIN_OUT,
         .maxMove = MOVE_MAX_FLUTTERBY,
@@ -216,8 +217,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_GHOST] =
     {
-        .name = _("Ghost"),
-        .generic = _("a GHOST move"),
+        .name = _(LOCALIZED_TEXT("Ghost", "Duchový")),
+        .generic = _(LOCALIZED_TEXT("a GHOST move", "duchový útok")),
         .palette = 14,
         .zMove = MOVE_NEVER_ENDING_NIGHTMARE,
         .maxMove = MOVE_MAX_PHANTASM,
@@ -238,8 +239,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_STEEL] =
     {
-        .name = _("Steel"),
-        .generic = _("a STEEL move"),
+        .name = _(LOCALIZED_TEXT("Steel", "Ocelový")),
+        .generic = _(LOCALIZED_TEXT("a STEEL move", "útok typu ocelový")),
         .palette = 13,
         .zMove = MOVE_CORKSCREW_CRASH,
         .maxMove = MOVE_MAX_STEELSPIKE,
@@ -260,8 +261,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_MYSTERY] =
     {
-        .name = _("???"),
-        .generic = _("a ??? move"),
+        .name = _(LOCALIZED_TEXT("???", "???")),
+        .generic = _(LOCALIZED_TEXT("a ??? move", "útok typu ???")),
         .palette = 15,
         .zMove = MOVE_BREAKNECK_BLITZ,
         .maxMove = MOVE_MAX_STRIKE,
@@ -274,8 +275,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_FIRE] =
     {
-        .name = _("Fire"),
-        .generic = _("a FIRE move"),
+        .name = _(LOCALIZED_TEXT("Fire", "Ohnivý")),
+        .generic = _(LOCALIZED_TEXT("a FIRE move", "útok typu ohnivý")),
         .palette = 13,
         .zMove = MOVE_INFERNO_OVERDRIVE,
         .maxMove = MOVE_MAX_FLARE,
@@ -296,8 +297,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_WATER] =
     {
-        .name = _("Water"),
-        .generic = _("a WATER move"),
+        .name = _(LOCALIZED_TEXT("Water", "Vodní")),
+        .generic = _(LOCALIZED_TEXT("a WATER move", "útok typu vodní")),
         .palette = 14,
         .zMove = MOVE_HYDRO_VORTEX,
         .maxMove = MOVE_MAX_GEYSER,
@@ -318,8 +319,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_GRASS] =
     {
-        .name = _("Grass"),
-        .generic = _("a GRASS move"),
+        .name = _(LOCALIZED_TEXT("Grass", "Travní")),
+        .generic = _(LOCALIZED_TEXT("a GRASS move", "útok typu travní")),
         .palette = 15,
         .zMove = MOVE_BLOOM_DOOM,
         .maxMove = MOVE_MAX_OVERGROWTH,
@@ -340,8 +341,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_ELECTRIC] =
     {
-        .name = _("Electric"),
-        .generic = _("an ELECTRIC move"),
+        .name = _(LOCALIZED_TEXT("Electric", "Elektr.")),
+        .generic = _(LOCALIZED_TEXT("an ELECTRIC move", "útok typu elektr.")),
         .palette = 13,
         .zMove = MOVE_GIGAVOLT_HAVOC,
         .maxMove = MOVE_MAX_LIGHTNING,
@@ -362,8 +363,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_PSYCHIC] =
     {
-        .name = _("Psychic"),
-        .generic = _("a PSYCHIC move"),
+        .name = _(LOCALIZED_TEXT("Psychic", "Psych.")),
+        .generic = _(LOCALIZED_TEXT("a PSYCHIC move", "útok typu psych.")),
         .palette = 14,
         .zMove = MOVE_SHATTERED_PSYCHE,
         .maxMove = MOVE_MAX_MINDSTORM,
@@ -384,8 +385,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_ICE] =
     {
-        .name = _("Ice"),
-        .generic = _("an ICE move"),
+        .name = _(LOCALIZED_TEXT("Ice", "Ledový")),
+        .generic = _(LOCALIZED_TEXT("an ICE move", "útok typu ledový")),
         .palette = 14,
         .zMove = MOVE_SUBZERO_SLAMMER,
         .maxMove = MOVE_MAX_HAILSTORM,
@@ -406,8 +407,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_DRAGON] =
     {
-        .name = _("Dragon"),
-        .generic = _("a DRAGON move"),
+        .name = _(LOCALIZED_TEXT("Dragon", "Dračí")),
+        .generic = _(LOCALIZED_TEXT("a DRAGON move", "útok typu dračí")),
         .palette = 15,
         .zMove = MOVE_DEVASTATING_DRAKE,
         .maxMove = MOVE_MAX_WYRMWIND,
@@ -428,8 +429,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_DARK] =
     {
-        .name = _("Dark"),
-        .generic = _("a DARK move"),
+        .name = _(LOCALIZED_TEXT("Dark", "Temný")),
+        .generic = _(LOCALIZED_TEXT("a DARK move", "útok typu temný")),
         .palette = 13,
         .zMove = MOVE_BLACK_HOLE_ECLIPSE,
         .maxMove = MOVE_MAX_DARKNESS,
@@ -450,8 +451,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_FAIRY] =
     {
-        .name = _("Fairy"),
-        .generic = _("a FAIRY move"),
+        .name = _(LOCALIZED_TEXT("Fairy", "Vílí")),
+        .generic = _(LOCALIZED_TEXT("a FAIRY move", "útok typu vílí")),
         .palette = 14,
         .zMove = MOVE_TWINKLE_TACKLE,
         .maxMove = MOVE_MAX_STARFALL,
@@ -472,8 +473,8 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     },
     [TYPE_STELLAR] =
     {
-        .name = _("Stellar"),
-        .generic = _("a STELLAR move"),
+        .name = _(LOCALIZED_TEXT("Stellar", "Hvězdný")),
+        .generic = _(LOCALIZED_TEXT("a STELLAR move", "útok typu hvězdný")),
         .palette = 15,
         .zMove = MOVE_BREAKNECK_BLITZ,
         .maxMove = MOVE_MAX_STRIKE,

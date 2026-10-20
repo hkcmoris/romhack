@@ -54,6 +54,8 @@
 #include "constants/oraculum_duo_test.h"
 #include "difficulty.h"
 #include "follower_npc.h"
+#include "virelia_prologue.h"
+#include "constants/virelia_prologue.h"
 
 extern const u8 EventScript_ResetAllMapFlags[];
 extern const u8 EventScript_ResetAllMapFlagsFrlg[];
@@ -140,7 +142,9 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
-#if ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
+#if VIRELIA_PROLOGUE && !IS_FRLG
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE), MAP_NUM(MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE), WARP_ID_NONE, 5, 6);
+#elif ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
     SetWarpDestination(MAP_GROUP(MAP_LITTLEROOT_TOWN), MAP_NUM(MAP_LITTLEROOT_TOWN), WARP_ID_NONE, 17, 13);
 #else
     if (IS_FRLG)
@@ -243,8 +247,15 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
-#if ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
+#if VIRELIA_PROLOGUE && !IS_FRLG
+    InitVireliaPrologueNewGame();
+#elif ORACULUM_DUO_TEST_QUICK_START && !IS_FRLG
     InitDuoTestQuickStart();
+#endif
+#if !VIRELIA_PROLOGUE && !IS_FRLG
+    // Keep story actors out of the independent development playground.
+    FlagSet(FLAG_VIRELIA_HIDE_STORY_ACTORS);
+    FlagSet(FLAG_VIRELIA_HIDE_POLICEMAN);
 #endif
 }
 

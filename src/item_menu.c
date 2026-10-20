@@ -1,3 +1,4 @@
+#include "localization.h"
 #include "global.h"
 #include "item_menu.h"
 #include "battle.h"
@@ -216,11 +217,11 @@ static void ConfirmSell(u8);
 static void CancelSell(u8);
 static void Task_FadeAndCloseBagMenuIfMulch(u8 taskId);
 
-static const u8 sText_Var1CantBeHeldHere[] = _("The {STR_VAR_1} can't be held\nhere.");
-static const u8 sText_DepositHowManyVar1[] = _("Deposit how many\n{STR_VAR_1}?");
-static const u8 sText_DepositedVar2Var1s[] = _("Deposited {STR_VAR_2}\n{STR_VAR_1}.");
-static const u8 sText_NoRoomForItems[] = _("There's no room to\nstore items.");
-static const u8 sText_CantStoreImportantItems[] = _("Important items\ncan't be stored in\nthe PC!");
+static const u8 sText_Var1CantBeHeldHere[] = _(LOCALIZED_TEXT("The {STR_VAR_1} can't be held\nhere.", "Tady nelze držet\n{STR_VAR_1}."));
+static const u8 sText_DepositHowManyVar1[] = _(LOCALIZED_TEXT("Deposit how many\n{STR_VAR_1}?", "Kolik kusů uložit?\n{STR_VAR_1}"));
+static const u8 sText_DepositedVar2Var1s[] = _(LOCALIZED_TEXT("Deposited {STR_VAR_2}\n{STR_VAR_1}.", "Uloženo: {STR_VAR_2}×\n{STR_VAR_1}."));
+static const u8 sText_NoRoomForItems[] = _(LOCALIZED_TEXT("There's no room to\nstore items.", "Na předměty\nuž není místo."));
+static const u8 sText_CantStoreImportantItems[] = _(LOCALIZED_TEXT("Important items\ncan't be stored in\nthe PC!", "Klíčové předměty\nnelze uložit\ndo PC!"));
 
 static void Task_LoadBagSortOptions(u8 taskId);
 static void ItemMenu_SortByName(u8 taskId);

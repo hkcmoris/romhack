@@ -1,5 +1,9 @@
 # Virelia regional starters: playable prototype v0.1
 
+The [v0.2 prologue](VIRELIA_PROLOGUE.md) adds the normal story start and corrects
+first-stage Virelian Poochyena to Grass/Dark. The evolved stages stay Grass/Ghost;
+their existing IDs and level-18/38 evolution requirements are preserved.
+
 ## Scope and branch
 
 This milestone adds nine playable species to the Emerald prototype on
@@ -14,11 +18,11 @@ final artwork. The Fire/Poison family is provisional and may be replaced.
 ## Species and evolution chains
 
 Species IDs are appended in the engine's custom-species range. Existing playable
-species IDs are unchanged. Types apply to all three stages of each family.
+species IDs are unchanged. The grass family's first stage differs from its evolutions.
 
 | Species identifier | ID | Types | Evolves into | Required level | National dex |
 | --- | ---: | --- | --- | ---: | ---: |
-| `SPECIES_POOCHYENA_VIRELIA` | 1573 | Grass/Ghost | Virelian Mightyena | 18 | 261 |
+| `SPECIES_POOCHYENA_VIRELIA` | 1573 | Grass/Dark | Virelian Mightyena | 18 | 261 |
 | `SPECIES_MIGHTYENA_VIRELIA` | 1574 | Grass/Ghost | Wraithena | 38 | 262 |
 | `SPECIES_WRAITHENA` | 1575 | Grass/Ghost | Final stage | — | 1026 |
 | `SPECIES_SPINARAK_VIRELIA` | 1576 | Water/Bug | Virelian Ariados | 14 | 167 |
@@ -60,34 +64,36 @@ These are base stats, not the calculated stats shown on an individual Pokemon.
 
 | Family | Normal ability | Hidden ability | Intended role |
 | --- | --- | --- | --- |
-| Grass/Ghost | Overgrow | Infiltrator | Fast physical attacker; evasion and recovery |
+| Grass/Dark → Grass/Ghost | Overgrow | Infiltrator | Fast physical attacker; evasion and recovery |
 | Water/Bug | Torrent | Water Absorb | Bulky physical attacker; lower the opponent's Speed |
 | Fire/Poison | Blaze | Corrosion | Fast special attacker; status pressure |
 
 All nine use Medium Slow growth, a 12.5% female ratio, 20 egg cycles, and catch
 rate 45. Egg groups are Field (grass), Bug (water), and Field/Dragon (fire).
-Each family uses one preliminary level-up learnset across its three stages.
+The water and fire families share their preliminary level-up learnsets. The
+grass first stage uses a Dark-type opening move; evolved grass stages retain
+their Ghost-type opening move.
 Native creation initializes the last four eligible moves, normal PP, Trainer
 identity, and valid Pokemon data; granting a high-level first stage does not
 skip its evolution chain.
 
-### Grass/Ghost learnset
+### Grass family learnsets (updated in v0.2)
 
-| Level | Move |
-| ---: | --- |
-| 1 | Leafage, Astonish |
-| 5 | Growl |
-| 9 | Shadow Sneak |
-| 12 | Razor Leaf |
-| 15 | Leech Seed |
-| 18 | Shadow Claw |
-| 22 | Double Team |
-| 26 | Seed Bomb |
-| 30 | Synthesis |
-| 34 | Phantom Force |
-| 40 | Leaf Blade |
-| 46 | Leech Life |
-| 50 | Swords Dance |
+| Level | Poochyena (Grass/Dark) | Mightyena / Wraithena (Grass/Ghost) |
+| ---: | --- | --- |
+| 1 | Leafage, Growl | Leafage, Astonish |
+| 5 | Bite | Growl |
+| 9 | Shadow Sneak | Shadow Sneak |
+| 12 | Razor Leaf | Razor Leaf |
+| 15 | Leech Seed | Leech Seed |
+| 18 | Crunch | Shadow Claw |
+| 22 | Double Team | Double Team |
+| 26 | Seed Bomb | Seed Bomb |
+| 30 | Synthesis | Synthesis |
+| 34 | Foul Play | Phantom Force |
+| 40 | Leaf Blade | Leaf Blade |
+| 46 | Leech Life | Leech Life |
+| 50 | Swords Dance | Swords Dance |
 
 ### Water/Bug learnset
 
@@ -171,7 +177,10 @@ The feature's data configuration requires the full Generation 9 dex and the
 original Poochyena, Spinarak and Ekans families. FireRed and LeafGreen retain
 normal species and dex behavior and do not expose the test NPC.
 
-1. Open the Emerald release ROM from this branch's successful GitHub Actions run.
+1. For the current v0.2 code, build with `VIRELIA_DEVELOPMENT_MODE=1` before
+   following this prototype checklist. The default release now starts the
+   [story prologue](VIRELIA_PROLOGUE.md). A historical v0.1 prototype ROM also
+   supports the checklist below.
 2. Choose **NEW GAME**, select gender and name, then finish the existing Duo team
    prompt. The quick start places you at Littleroot `(17, 13)`.
 3. Speak to the separate scientist at `(18, 12)`, immediately east of the Duo

@@ -5,6 +5,8 @@
 - [Duo multiplayer feasibility test](./DUO_MULTIPLAYER_TEST.md)
 - [Virelia regional starter prototype](./VIRELIA_STARTERS.md)
 - [Virelia world foundation](./VIRELIA_WORLD.md)
+- [Virelia playable prologue](./VIRELIA_PROLOGUE.md)
+- [Virelia Czech localization audit](./VIRELIA_LOCALIZATION_AUDIT.md)
 - [FEATURES](./FEATURES.md)
 - [Installation](./INSTALL.md)
     - [Setting up WSL1 (Legacy Portion)](./legacy_WSL1_INSTALL.md)

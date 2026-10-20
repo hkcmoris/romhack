@@ -1,5 +1,11 @@
 # Virelia world foundation v0.1
 
+The [v0.2 playable prologue](VIRELIA_PROLOGUE.md) builds on this foundation,
+adds the player's home, replaces the normal new-game start with the story and
+makes the original development gateway an explicit build configuration. This
+document records the original map foundation; use the prologue document for
+current progression and playtesting instructions.
+
 ## Scope and baseline
 
 This milestone adds four explorable Virelia maps to the Emerald build based on
@@ -104,7 +110,7 @@ replace the existing regional starter test NPC or implement the campaign's
 starter selection. Use the Littleroot scientist to obtain the already
 implemented regional starters. The professor at `(6, 4)` heals the party without
 changing its last healing destination. Item-ball display objects at `(4, 6)`,
-`(6, 6)` and `(8, 6)` describe the Grass/Ghost, Water/Bug and Fire/Poison
+`(6, 6)` and `(8, 6)` describe the Grass/Dark, Water/Bug and Fire/Poison
 families respectively.
 
 Whisperwood Trail contains trees, several short paths, tall grass with ordinary

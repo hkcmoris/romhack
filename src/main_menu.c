@@ -192,6 +192,12 @@ static void Task_HandleMainMenuInput(u8);
 static void Task_HandleMainMenuAPressed(u8);
 static void Task_HandleMainMenuBPressed(u8);
 static void Task_NewGameBirchSpeech_Init(u8);
+#if VIRELIA_PROLOGUE && !IS_FRLG
+static void Task_NewGameVireliaIntro(u8);
+static const u8 sText_VireliaChooseAppearance[] = _("Vítej ve Virelii!\nVyber si podobu své postavy.");
+static const u8 sText_VireliaChooseName[] = _("Jak se jmenuješ?");
+static const u8 sText_VireliaConfirmName[] = _("Tvé jméno je {PLAYER}.\nJe to správně?");
+#endif
 static void Task_DisplayMainMenuInvalidActionError(u8);
 static void AddBirchSpeechObjects(u8);
 static void Task_NewGameBirchSpeech_WaitToShowBirch(u8);
@@ -1325,7 +1331,34 @@ static void Task_NewGameBirchSpeech_Init(u8 taskId)
     PlayBGM(MUS_ROUTE122);
     ShowBg(0);
     ShowBg(1);
+#if VIRELIA_PROLOGUE && !IS_FRLG
+    // Reuse the native gender/name controls without playing the Hoenn speech.
+    gTasks[taskId].tPlayerSpriteId = gTasks[taskId].tBrendanSpriteId;
+    gTasks[taskId].tPlayerGender = MALE;
+    gSprites[gTasks[taskId].tPlayerSpriteId].x = 180;
+    gSprites[gTasks[taskId].tPlayerSpriteId].y = 60;
+    gSprites[gTasks[taskId].tPlayerSpriteId].invisible = FALSE;
+    gTasks[taskId].tBG1HOFS = -60;
+    SetGpuReg(REG_OFFSET_BG1HOFS, -60);
+    gTasks[taskId].func = Task_NewGameVireliaIntro;
+#endif
 }
+
+#if VIRELIA_PROLOGUE && !IS_FRLG
+static void Task_NewGameVireliaIntro(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        InitWindows(sNewGameBirchSpeechTextWindows);
+        LoadMainMenuWindowFrameTiles(0, 0xF3);
+        LoadMessageBoxGfx(0, BIRCH_DLG_BASE_TILE_NUM, BG_PLTT_ID(15));
+        DrawDialogFrameWithCustomTile(0, TRUE, BIRCH_DLG_BASE_TILE_NUM);
+        PutWindowTilemap(0);
+        CopyWindowToVram(0, COPYWIN_GFX);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_BoyOrGirl;
+    }
+}
+#endif
 
 static void Task_NewGameBirchSpeech_WaitToShowBirch(u8 taskId)
 {
@@ -1516,7 +1549,11 @@ static void Task_NewGameBirchSpeech_WaitForPlayerFadeIn(u8 taskId)
 static void Task_NewGameBirchSpeech_BoyOrGirl(u8 taskId)
 {
     NewGameBirchSpeech_ClearWindow(0);
+#if VIRELIA_PROLOGUE && !IS_FRLG
+    StringExpandPlaceholders(gStringVar4, sText_VireliaChooseAppearance);
+#else
     StringExpandPlaceholders(gStringVar4, gText_Birch_BoyOrGirl);
+#endif
     AddTextPrinterForMessage(TRUE);
     gTasks[taskId].func = Task_NewGameBirchSpeech_WaitToShowGenderMenu;
 }
@@ -1608,7 +1645,11 @@ static void Task_NewGameBirchSpeech_SlideInNewGenderSprite(u8 taskId)
 static void Task_NewGameBirchSpeech_WhatsYourName(u8 taskId)
 {
     NewGameBirchSpeech_ClearWindow(0);
+#if VIRELIA_PROLOGUE && !IS_FRLG
+    StringExpandPlaceholders(gStringVar4, sText_VireliaChooseName);
+#else
     StringExpandPlaceholders(gStringVar4, gText_Birch_WhatsYourName);
+#endif
     AddTextPrinterForMessage(TRUE);
     gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForWhatsYourNameToPrint;
 }
@@ -1643,7 +1684,11 @@ static void Task_NewGameBirchSpeech_StartNamingScreen(u8 taskId)
 static void Task_NewGameBirchSpeech_SoItsPlayerName(u8 taskId)
 {
     NewGameBirchSpeech_ClearWindow(0);
+#if VIRELIA_PROLOGUE && !IS_FRLG
+    StringExpandPlaceholders(gStringVar4, sText_VireliaConfirmName);
+#else
     StringExpandPlaceholders(gStringVar4, gText_Birch_SoItsPlayer);
+#endif
     AddTextPrinterForMessage(TRUE);
     gTasks[taskId].func = Task_NewGameBirchSpeech_CreateNameYesNo;
 }
@@ -1663,10 +1708,15 @@ static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8 taskId)
     {
     case 0:
         PlaySE(SE_SELECT);
+#if VIRELIA_PROLOGUE && !IS_FRLG
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_Cleanup;
+#else
         gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
         NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 2);
         NewGameBirchSpeech_StartFadePlatformIn(taskId, 1);
         gTasks[taskId].func = Task_NewGameBirchSpeech_SlidePlatformAway2;
+#endif
         break;
     case MENU_B_PRESSED:
     case 1:
@@ -1675,7 +1725,7 @@ static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8 taskId)
     }
 }
 
-static void Task_NewGameBirchSpeech_SlidePlatformAway2(u8 taskId)
+static void UNUSED Task_NewGameBirchSpeech_SlidePlatformAway2(u8 taskId)
 {
     if (gTasks[taskId].tBG1HOFS)
     {

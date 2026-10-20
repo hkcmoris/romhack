@@ -26,6 +26,7 @@ static const u16 sVireliaMaps[] =
     MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY,
     MAP_VIRELIA_ROUTE01,
     MAP_VIRELIA_SLATEFORD_CITY,
+    MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE,
 };
 
 static const struct MapHeader *WorldHeader(u16 map)
@@ -75,11 +76,12 @@ TEST("Virelia world headers use distinct appended groups and native layouts")
               MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY));
 }
 
-TEST("Virelia laboratory warps resolve through the native warp loader in both directions")
+TEST("Virelia building warps resolve through the native warp loader in both directions")
 {
     u32 index = 0;
     PARAMETRIZE { index = 0; }
     PARAMETRIZE { index = 1; }
+    PARAMETRIZE { index = 4; }
 
     const struct MapHeader *source = WorldHeader(sVireliaMaps[index]);
     EXPECT_GT(source->events->warpCount, 0);

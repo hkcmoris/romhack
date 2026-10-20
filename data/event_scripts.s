@@ -50,6 +50,7 @@
 #include "constants/move_relearner.h"
 #include "constants/moves.h"
 #include "constants/oraculum_duo_test.h"
+#include "constants/virelia_prologue.h"
 #include "constants/mystery_gift.h"
 #include "constants/party_menu.h"
 #include "constants/pokeball.h"
@@ -1741,6 +1742,8 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/scripts/virelia_starter_test.inc"
 	.include "data/scripts/virelia_world_test.inc"
 #if !IS_FRLG
+	.include "data/scripts/virelia_prologue.inc"
+	.include "data/maps/Virelia_MaplebrookPlayersHouse/scripts.inc"
 	.include "data/maps/Virelia_MaplebrookTown/scripts.inc"
 	.include "data/maps/Virelia_MaplebrookResearchLaboratory/scripts.inc"
 	.include "data/maps/Virelia_Route01/scripts.inc"

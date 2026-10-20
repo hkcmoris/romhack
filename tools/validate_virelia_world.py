@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Virelia v0.1 assets and walking paths without a ROM toolchain.
+"""Validate Virelia assets and walking paths without a ROM toolchain.
 
 This is a collision/elevation graph check, not a replacement for emulator QA.
 Use --base <committed-starter-revision> to also enforce unchanged legacy assets.
@@ -20,8 +20,9 @@ NAMES = (
     "Virelia_MaplebrookResearchLaboratory",
     "Virelia_Route01",
     "Virelia_SlatefordCity",
+    "Virelia_MaplebrookPlayersHouse",
 )
-TOWN, LAB, ROUTE, CITY = NAMES
+TOWN, LAB, ROUTE, CITY, HOME = NAMES
 GROUPS = ("gMapGroup_VireliaOverworld", "gMapGroup_VireliaInteriors")
 OPPOSITE = {"up": "down", "down": "up", "left": "right", "right": "left"}
 
@@ -52,16 +53,28 @@ def verify_legacy(base, groups, layouts, sections):
         "Existing map group indices changed",
     )
     for name in old_groups["group_order"]:
-        require(groups[name] == old_groups[name], f"Existing map IDs changed: {name}")
+        if name in GROUPS:
+            require(groups[name][: len(old_groups[name])] == old_groups[name],
+                    f"Existing Virelia map IDs changed: {name}")
+        else:
+            require(groups[name] == old_groups[name], f"Existing map IDs changed: {name}")
     old_layouts = json.loads(git("show", f"{base}:data/layouts/layouts.json"))["layouts"]
     old_sections = json.loads(
         git("show", f"{base}:src/data/region_map/region_map_sections.json")
     )["map_sections"]
     require(layouts[: len(old_layouts)] == old_layouts, "Existing layouts changed or moved")
-    require(sections[: len(old_sections)] == old_sections, "Existing sections changed or moved")
+    for old, current in zip(old_sections, sections):
+        if old["id"].startswith("MAPSEC_VIRELIA_"):
+            require({k: v for k, v in old.items() if k != "name"}
+                    == {k: v for k, v in current.items() if k != "name"},
+                    "Existing Virelia section IDs or coordinates changed")
+        else:
+            require(current == old, "Existing sections changed or moved")
     # Includes every original Hoenn and FRLG map, story script and binary layout.
     paths = git("ls-tree", "-r", "--name-only", base, "data/maps", "data/layouts").splitlines()
-    legacy = [p for p in paths if p not in ("data/maps/map_groups.json", "data/layouts/layouts.json")]
+    legacy = [p for p in paths
+              if p not in ("data/maps/map_groups.json", "data/layouts/layouts.json")
+              and not p.startswith(("data/maps/Virelia_", "data/layouts/Virelia_"))]
     changed = set(git("diff", "--name-only", base, "--", "data/maps", "data/layouts").splitlines())
     require(not changed.intersection(legacy), f"Existing map assets changed: {sorted(changed.intersection(legacy))}")
     print(f"PASS: {len(legacy)} legacy map/layout files and all existing IDs preserved from {base}")
@@ -78,7 +91,7 @@ def validate(base=None):
     require(len(sections) < 0xFD, "Map sections overlap reserved Pokemon met-location IDs")
     require(groups["group_order"][-2:] == list(GROUPS), "Virelia groups must be appended")
     require(groups[GROUPS[0]] == [TOWN, ROUTE, CITY], "Unexpected Virelia overworld IDs")
-    require(groups[GROUPS[1]] == [LAB], "Unexpected Virelia interior IDs")
+    require(groups[GROUPS[1]] == [LAB, HOME], "Unexpected Virelia interior IDs")
     require(groups["group_order"].index(GROUPS[1]) < 0x7F, "Virelia group exceeds signed warp storage")
     if base:
         verify_legacy(base, groups, layouts, sections)
@@ -111,7 +124,8 @@ def validate(base=None):
         for obj in entry["object_events"]:
             require(0 <= obj["x"] < width and 0 <= obj["y"] < height,
                     f"{name}: object outside map")
-            require(obj["trainer_type"] == "TRAINER_TYPE_NONE", f"{name}: out-of-scope trainer battle")
+            require(obj["trainer_type"] in ("TRAINER_TYPE_NONE", "TRAINER_TYPE_NORMAL"),
+                    f"{name}: unexpected trainer battle kind")
 
     def dimensions(name):
         layout = by_layout[maps[name]["layout"]]
@@ -200,7 +214,7 @@ def validate(base=None):
     start = (TOWN, 14, 21)
     require(walkable(start), "Development arrival is blocked")
     seen = reachable(start)
-    require({node[0] for node in seen} == set(NAMES), "Cannot reach all four maps from Maplebrook")
+    require({node[0] for node in seen} == set(NAMES), "Cannot reach every Virelia map from Maplebrook")
     require(set(warp_points) <= seen, "A building entrance/exit cannot be reached")
     for name in NAMES:
         target = next(node for node in seen if node[0] == name)
@@ -226,7 +240,7 @@ def validate(base=None):
             "Invalid encounter levels")
     require(any(obj["flag"] == "FLAG_ITEM_VIRELIA_ROUTE01_POTION"
                 for obj in maps[ROUTE]["object_events"]), "Missing optional route item")
-    print(f"PASS: four maps, native layouts, reciprocal warps/connections, {len(seen)} reachable tiles")
+    print(f"PASS: {len(NAMES)} maps, native layouts, reciprocal warps/connections, {len(seen)} reachable tiles")
     print(f"PASS: {len(grass)} reachable tall-grass tiles, 12 encounter slots, approachable NPCs/item")
     print("Run the native test/virelia_world.c suite and emulator checklist for runtime/save validation.")
 

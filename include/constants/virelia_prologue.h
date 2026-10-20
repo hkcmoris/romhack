@@ -1,0 +1,42 @@
+#ifndef GUARD_CONSTANTS_VIRELIA_PROLOGUE_H
+#define GUARD_CONSTANTS_VIRELIA_PROLOGUE_H
+
+// Reserved Emerald save flags and vars; the existing save layout is unchanged.
+#define FLAG_VIRELIA_MOM_MET               0x21
+#define FLAG_VIRELIA_STARTER_RECEIVED      0x22
+#define FLAG_VIRELIA_RIVAL_COMPLETE        0x23
+#define FLAG_VIRELIA_ROCKET_DEFEATED       0x24
+#define FLAG_VIRELIA_SUPPLIES_RECEIVED     0x25
+#define FLAG_VIRELIA_PROLOGUE_COMPLETE     0x26
+#define FLAG_VIRELIA_SIDEQUEST_STARTED     0x27
+#define FLAG_VIRELIA_SIDEQUEST_RESOLVED    0x28
+#define FLAG_VIRELIA_SIDEQUEST_REWARDED    0x29
+#define FLAG_VIRELIA_HIDE_DEV_GUIDE        0x2A
+#define FLAG_VIRELIA_HIDE_POLICEMAN        0x2B
+#define FLAG_VIRELIA_HIDE_STORY_ACTORS     0x2C
+#define FLAG_VIRELIA_MINER_REPORT          0x2D
+#define FLAG_VIRELIA_PROFESSOR_MET         0x2E
+
+#define VAR_VIRELIA_PROLOGUE_STATE         0x4083
+#define VAR_VIRELIA_STARTER                0x408B
+#define VAR_VIRELIA_RIVAL_RESULT           0x4091
+
+#define VIRELIA_STATE_HOME                0
+#define VIRELIA_STATE_MOM                 1
+#define VIRELIA_STATE_STARTER             2
+#define VIRELIA_STATE_RIVAL               3
+#define VIRELIA_STATE_ROCKET              4
+#define VIRELIA_STATE_COMPLETE            5
+
+#define VIRELIA_STARTER_GRASS             0
+#define VIRELIA_STARTER_WATER             1
+#define VIRELIA_STARTER_FIRE              2
+#define VIRELIA_STARTER_COUNT             3
+#define VIRELIA_STARTER_NONE              0xFFFF
+#define VIRELIA_STARTER_LEVEL             5
+#define VIRELIA_RIVAL_LEVEL               5
+#define VIRELIA_STARTING_POKE_BALLS       5
+#define VIRELIA_STARTING_POTIONS          3
+#define LOCALID_VIRELIA_MOM               1
+
+#endif // GUARD_CONSTANTS_VIRELIA_PROLOGUE_H

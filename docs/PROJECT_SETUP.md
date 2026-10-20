@@ -12,6 +12,15 @@ Keep this ancestry when integrating the setup branch into `main`: use a regular
 merge, rather than a squash merge. No game-specific feature settings have been
 changed from the release baseline.
 
+## Virelia story and development modes
+
+The current Emerald release starts the [Virelia prologue](VIRELIA_PROLOGUE.md).
+The old quick start and starter/Link test NPCs require the explicit build option
+`VIRELIA_DEVELOPMENT_MODE=1`. This adds `-devmode` to the output filename and
+uses separate object directories. The default `emerald-development` artifact
+uses story mode with ordinary compiler settings; `emerald-release` uses story
+mode with release optimizations. No multiplayer implementation is changed.
+
 ## Windows development with GitHub Actions
 
 Edit this checkout with Windows tools. GitHub's Linux runners provide the ARM
@@ -28,26 +37,26 @@ compiler and run the engine tests, so WSL and Ubuntu are optional on your PC.
    Each ROM is uploaded when its own compilation succeeds, so an artifact may
    appear while tests or other build checks are still running.
 5. Under **Artifacts**, download `emerald-release`, extract the ZIP, and open
-   `oraculum-v0.1.N-release.gba` in the Windows version of mGBA.
+   `oraculum-v0.2.N-release.gba` in the Windows version of mGBA.
 
 Each successful compile provides one of these artifacts for 14 days:
 
 | Artifact | File | Use |
 | --- | --- | --- |
-| `emerald-release` | `oraculum-v0.1.N-release.gba` | Normal playtesting with the optimized release build |
-| `emerald-development` | `oraculum-v0.1.N.gba` | Testing the standard development build |
+| `emerald-release` | `oraculum-v0.2.N-release.gba` | Normal playtesting with the optimized release build |
+| `emerald-development` | `oraculum-v0.2.N.gba` | Testing the unoptimized story build |
 
 `N` is the GitHub Actions CI run number. For example, CI run 12 produces
-`oraculum-v0.1.12.gba` and `oraculum-v0.1.12-release.gba`. Both artifacts share
+`oraculum-v0.2.12.gba` and `oraculum-v0.2.12-release.gba`. Both artifacts share
 the same version. Each new CI run advances the number across branches and pull
 requests; retrying a run retains its version. Failed or cancelled runs can
 leave gaps. The version belongs to this ROM hack, independently of the
 upstream engine version.
 
 The workflow's `ROM_VERSION` setting in `.github/workflows/build.yml` controls
-the `0.1` series; `config.mk` defines the `oraculum` filename prefix. Artifact
+the `0.2` series; `config.mk` defines the `oraculum` filename prefix. Artifact
 names remain `emerald-release` and `emerald-development` for download scripts.
-If no version is supplied outside CI, the Makefile uses `0.1.0-local`, which
+If no version is supplied outside CI, the Makefile uses `0.2.0-local`, which
 is a local placeholder rather than an automatically numbered release.
 FireRed and LeafGreen checks add `-firered` or `-leafgreen` before the version.
 
@@ -128,10 +137,10 @@ add `upstream` again in each fresh clone.
 Run these commands from the repository root in Ubuntu:
 
 ```bash
-# Strict development build; produces oraculum-v0.1.0-local.gba.
+# Strict development build; produces oraculum-v0.2.0-local.gba.
 make -j"$(nproc)" -O all UNUSED_ERROR=1 DEPRECATED_ERROR=1
 
-# Optimized release build; produces oraculum-v0.1.0-local-release.gba.
+# Optimized release build; produces oraculum-v0.2.0-local-release.gba.
 make -j"$(nproc)" release UNUSED_ERROR=1 DEPRECATED_ERROR=1
 
 # Automated engine tests using the bundled headless mGBA test harness.
@@ -164,8 +173,8 @@ including the palette files' required CRLF endings.
   `.pory` scripts; the baseline continues to use the included script files.
 - [Porytiles](https://github.com/grunt-lucas/porytiles): optional custom tileset
   compilation; follow its integration guide when adding custom map art.
-- [mGBA](https://mgba.io/): open `oraculum-v0.1.N.gba` or
-  `oraculum-v0.1.N-release.gba` to playtest the corresponding build.
+- [mGBA](https://mgba.io/): open `oraculum-v0.2.N.gba` or
+  `oraculum-v0.2.N-release.gba` to playtest the corresponding build.
 - `include/config/`: engine switches, species selection, caps, AI, and DexNav.
 - `data/maps/`: map data and event scripts; use Porymap for structural edits.
 - `src/`: engine implementation and game data.

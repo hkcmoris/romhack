@@ -349,6 +349,16 @@
       "y": 12,
       "respawn_map": "MAP_SIX_ISLAND_POKEMON_CENTER_1F",
       "respawn_npc": "LOCALID_SIX_ISLAND_NURSE"
+    },
+    {
+      "id": "HEAL_LOCATION_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE",
+      "map": "MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE",
+      "x": 2,
+      "y": 7,
+      "respawn_map": "MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE",
+      "respawn_npc": "1",
+      "respawn_x": 2,
+      "respawn_y": 7
     }
   ]
 }

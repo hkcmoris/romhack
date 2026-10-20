@@ -1,3 +1,4 @@
+#include "localization.h"
 #ifdef __INTELLISENSE__
 const struct SpeciesInfo gSpeciesInfoGen1[] =
 {
@@ -2129,14 +2130,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Rattata"),
         .cryId = CRY_RATTATA,
         .natDexNum = NATIONAL_DEX_RATTATA,
-        .categoryName = _("Mouse"),
+        .categoryName = _(LOCALIZED_TEXT("Mouse", "Myš")),
         .height = 3,
         .weight = 35,
-        .description = COMPOUND_STRING(
-            "A Rattata is cautious in the extreme.\n"
-            "Even while it is asleep, it constantly\n"
-            "moves its ears and listens for danger.\n"
-            "It will make its nest anywhere."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A Rattata is cautious in the extreme.\nEven while it is asleep, it constantly\nmoves its ears and listens for danger.\nIt will make its nest anywhere.", "Ostré řezáky mu stále dorůstají. Dokáže žít téměř na\njakémkoli místě.")),
         .pokemonScale = 481,
         .pokemonOffset = 21,
         .trainerScale = 256,
@@ -5853,14 +5850,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Zubat"),
         .cryId = CRY_ZUBAT,
         .natDexNum = NATIONAL_DEX_ZUBAT,
-        .categoryName = _("Bat"),
+        .categoryName = _(LOCALIZED_TEXT("Bat", "Netopýr")),
         .height = 8,
         .weight = 75,
-        .description = COMPOUND_STRING(
-            "While living in pitch-black caverns, their\n"
-            "eyes gradually grew shut and deprived\n"
-            "them of vision. They use ultrasonic waves\n"
-            "to detect obstacles."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("While living in pitch-black caverns, their\neyes gradually grew shut and deprived\nthem of vision. They use ultrasonic waves\nto detect obstacles.", "Žije v temných jeskyních. Při letu se orientuje pomocí\nultrazvuku.")),
         .pokemonScale = 362,
         .pokemonOffset = -5,
         .trainerScale = 256,

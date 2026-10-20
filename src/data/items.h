@@ -1,3 +1,4 @@
+#include "localization.h"
 #if I_USE_EVO_HELD_ITEMS_FROM_BAG == TRUE
     #define EVO_HELD_ITEM_TYPE ITEM_USE_PARTY_MENU
     #define EVO_HELD_ITEM_FIELD_FUNC ItemUseOutOfBattle_EvolutionStone
@@ -54,12 +55,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_POKE_BALL] =
     {
-        .name = ITEM_NAME("Poké Ball"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Poké Ball", "Pokéball")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Pokéball", "Pokéball")),
+#endif
         .price = 200,
-        .description = COMPOUND_STRING(
-            "A tool used for\n"
-            "catching wild\n"
-            "Pokémon."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A tool used for\ncatching wild\nPokémon.", "Míček k chytání\ndivokých Pokémonů.")),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -70,12 +71,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_GREAT_BALL] =
     {
-        .name = ITEM_NAME("Great Ball"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Great Ball", "Superball")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Superball", "Superball")),
+#endif
         .price = 600,
-        .description = COMPOUND_STRING(
-            "A good Ball with a\n"
-            "higher catch rate\n"
-            "than a Poké Ball."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A good Ball with a\nhigher catch rate\nthan a Poké Ball.", "Lepší míček k\nchytání divokých\nPokémonů.")),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -497,13 +498,13 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_POTION] =
     {
-        .name = ITEM_NAME("Potion"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Potion", "Lektvar")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Lektvar", "Lektvar")),
+#endif
         .price = (I_PRICE >= GEN_7) ? 200 : 300,
         .holdEffectParam = 20,
-        .description = COMPOUND_STRING(
-            "Restores the HP of\n"
-            "a Pokémon by\n"
-            "20 points."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Restores the HP of\na Pokémon by\n20 points.", "Obnoví Pokémonovi\n20 HP.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HEALTH_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -517,9 +518,14 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_SUPER_POTION] =
     {
-        .name = ITEM_NAME("Super Potion"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Super Potion", "Silný lektvar")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Silný lektvar", "Silný lektvar")),
+#endif
         .price = 700,
         .holdEffectParam = 60,
+
+#if TESTING
         .description = COMPOUND_STRING(
             "Restores the HP of\n"
             "a Pokémon by\n"
@@ -528,6 +534,10 @@ const struct ItemInfo gItemsInfo[] =
         #else
             "50 points."),
         #endif
+
+#else
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Obnoví Pokémonovi\n60 HP.", "Obnoví Pokémonovi\n60 HP.")),
+#endif
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HEALTH_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -541,9 +551,14 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_HYPER_POTION] =
     {
-        .name = ITEM_NAME("Hyper Potion"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Hyper Potion", "Hyperlektvar")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Hyperlektvar", "Hyperlektvar")),
+#endif
         .price = (I_PRICE >= GEN_2 && I_PRICE <= GEN_6) ? 1200 : 1500,
         .holdEffectParam = 120,
+
+#if TESTING
         .description = COMPOUND_STRING(
             "Restores the HP of\n"
             "a Pokémon by\n"
@@ -552,6 +567,10 @@ const struct ItemInfo gItemsInfo[] =
         #else
             "200 points."),
         #endif
+
+#else
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Obnoví Pokémonovi\n120 HP.", "Obnoví Pokémonovi\n120 HP.")),
+#endif
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HEALTH_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -604,12 +623,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_REVIVE] =
     {
-        .name = ITEM_NAME("Revive"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Revive", "Oživení")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Oživení", "Oživení")),
+#endif
         .price = (I_PRICE >= GEN_7) ? 2000 : 1500,
-        .description = COMPOUND_STRING(
-            "Revives a fainted\n"
-            "Pokémon with half\n"
-            "its HP."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Revives a fainted\nPokémon with half\nits HP.", "Oživí Pokémona a\nobnoví polovinu HP.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HEALTH_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -818,11 +837,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_ANTIDOTE] =
     {
-        .name = ITEM_NAME("Antidote"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Antidote", "Protijed")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Protijed", "Protijed")),
+#endif
         .price = (I_PRICE >= GEN_7) ? 200 : 100,
-        .description = COMPOUND_STRING(
-            "Heals a poisoned\n"
-            "Pokémon."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Heals a poisoned\nPokémon.", "Vyléčí otravu\nPokémona.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STATUS_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -836,11 +856,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_PARALYZE_HEAL] =
     {
-        .name = ITEM_NAME("Paralyze Heal"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Paralyze Heal", "Lék na ochrnutí")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Lék na ochrnutí", "Lék na ochrnutí")),
+#endif
         .price = (I_PRICE == GEN_7) ? 300 : 200,
-        .description = COMPOUND_STRING(
-            "Heals a paralyzed\n"
-            "Pokémon."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Heals a paralyzed\nPokémon.", "Vyléčí ochrnutí\nPokémona.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STATUS_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -854,7 +875,10 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_BURN_HEAL] =
     {
-        .name = ITEM_NAME("Burn Heal"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Burn Heal", "Lék na popálení")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Lék na popálení", "Lék na popálení")),
+#endif
     #if I_PRICE >= GEN_8
         .price = 200,
     #elif I_PRICE == GEN_7
@@ -862,9 +886,7 @@ const struct ItemInfo gItemsInfo[] =
     #else
         .price = 250,
     #endif
-        .description = COMPOUND_STRING(
-            "Heals Pokémon\n"
-            "of a burn."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Heals Pokémon\nof a burn.", "Vyléčí popálení\nPokémona.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STATUS_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -878,7 +900,10 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_ICE_HEAL] =
     {
-        .name = ITEM_NAME("Ice Heal"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Ice Heal", "Lék na mráz")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Lék na mráz", "Lék na mráz")),
+#endif
     #if I_PRICE >= GEN_8
         .price = 200,
     #elif I_PRICE == GEN_7
@@ -886,6 +911,8 @@ const struct ItemInfo gItemsInfo[] =
     #else
         .price = 250,
     #endif
+
+#if TESTING
         .description = COMPOUND_STRING(
         #if B_USE_FROSTBITE
             "Heals Pokémon\n"
@@ -894,6 +921,10 @@ const struct ItemInfo gItemsInfo[] =
             "Defrosts a frozen\n"
             "Pokémon."),
         #endif
+
+#else
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Vyléčí zmrazení či\nomrzliny.", "Vyléčí zmrazení či\nomrzliny.")),
+#endif
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STATUS_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -907,7 +938,10 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_AWAKENING] =
     {
-        .name = ITEM_NAME("Awakening"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Awakening", "Budíček")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Budíček", "Budíček")),
+#endif
     #if (I_PRICE >= GEN_8 || I_PRICE == GEN_1)
         .price = 200,
     #elif I_PRICE == GEN_7
@@ -915,9 +949,7 @@ const struct ItemInfo gItemsInfo[] =
     #else
         .price = 250,
     #endif
-        .description = COMPOUND_STRING(
-            "Awakens a sleeping\n"
-            "Pokémon."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Awakens a sleeping\nPokémon.", "Probudí spícího\nPokémona.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STATUS_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -931,12 +963,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_FULL_HEAL] =
     {
-        .name = ITEM_NAME("Full Heal"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Full Heal", "Všelék")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Všelék", "Všelék")),
+#endif
         .price = (I_PRICE >= GEN_7) ? 400 : 600,
-        .description = COMPOUND_STRING(
-            "Heals all the\n"
-            "status problems of\n"
-            "one Pokémon."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Heals all the\nstatus problems of\none Pokémon.", "Vyléčí všechny\nstavové problémy.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_STATUS_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -950,13 +982,13 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_ETHER] =
     {
-        .name = ITEM_NAME("Ether"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Ether", "Éter")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Éter", "Éter")),
+#endif
         .price = (I_PRICE >= GEN_2) ? 1200 : 1,
         .holdEffectParam = 10,
-        .description = COMPOUND_STRING(
-            "Restores the PP\n"
-            "of a selected move\n"
-            "by 10."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Restores the PP\nof a selected move\nby 10.", "Obnoví 10 PP\njednoho útoku.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_PP_RECOVERY,
         .type = ITEM_USE_PARTY_MENU_MOVES,
@@ -1952,13 +1984,10 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_RARE_CANDY] =
     {
-        .name = ITEM_NAME("Rare Candy"),
-        .pluralName = ITEM_PLURAL_NAME("Rare Candies"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Rare Candy", "Vzácný bonbon")),
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Rare Candies", "Vzácný bonbon")),
         .price = (I_PRICE >= GEN_7) ? 10000 : 4800,
-        .description = COMPOUND_STRING(
-            "Raises the level\n"
-            "of a Pokémon by\n"
-            "one."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Raises the level\nof a Pokémon by\none.", "Zvýší úroveň\nPokémona o jednu.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_LEVEL_UP_ITEM,
         .type = ITEM_USE_PARTY_MENU,
@@ -2192,13 +2221,13 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_REPEL] =
     {
-        .name = ITEM_NAME("Repel"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Repel", "Repelent")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Repelent", "Repelent")),
+#endif
         .price = (I_PRICE >= GEN_7) ? 400 : 350,
         .holdEffectParam = 100,
-        .description = COMPOUND_STRING(
-            "Repels weak wild\n"
-            "Pokémon for 100\n"
-            "steps."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Repels weak wild\nPokémon for 100\nsteps.", "Na 100 kroků\nodpudí slabé\ndivoké Pokémony.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_FIELD_USE,
         .type = ITEM_USE_BAG_MENU,
@@ -2210,13 +2239,13 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_SUPER_REPEL] =
     {
-        .name = ITEM_NAME("Super Repel"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Super Repel", "Silný repelent")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Silný repelent", "Silný repelent")),
+#endif
         .price = (I_PRICE >= GEN_7) ? 700 : 500,
         .holdEffectParam = 200,
-        .description = COMPOUND_STRING(
-            "Repels weak wild\n"
-            "Pokémon for 200\n"
-            "steps."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Repels weak wild\nPokémon for 200\nsteps.", "Na 200 kroků\nodpudí slabé\ndivoké Pokémony.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_FIELD_USE,
         .type = ITEM_USE_BAG_MENU,
@@ -2228,13 +2257,13 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_MAX_REPEL] =
     {
-        .name = ITEM_NAME("Max Repel"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Max Repel", "Maxirepelent")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Maxirepelent", "Maxirepelent")),
+#endif
         .price = (I_PRICE >= GEN_7) ? 900 : 700,
         .holdEffectParam = 250,
-        .description = COMPOUND_STRING(
-            "Repels weak wild\n"
-            "Pokémon for 250\n"
-            "steps."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Repels weak wild\nPokémon for 250\nsteps.", "Na 250 kroků\nodpudí slabé\ndivoké Pokémony.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_FIELD_USE,
         .type = ITEM_USE_BAG_MENU,
@@ -2524,7 +2553,10 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_POKE_DOLL] =
     {
-        .name = ITEM_NAME("Poké Doll"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Poké Doll", "Poképanenka")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Poképanenka", "Poképanenka")),
+#endif
     #if I_PRICE >= GEN_8
         .price = 300,
     #elif I_PRICE == GEN_7
@@ -2532,10 +2564,7 @@ const struct ItemInfo gItemsInfo[] =
     #else
         .price = 1000,
     #endif
-        .description = COMPOUND_STRING(
-            "Use to flee from\n"
-            "any battle with\n"
-            "a wild Pokémon."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Use to flee from\nany battle with\na wild Pokémon.", "Umožní únik z\ndivokého souboje.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_BATTLE_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -2679,12 +2708,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_TINY_MUSHROOM] =
     {
-        .name = ITEM_NAME("Tiny Mushroom"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Tiny Mushroom", "Malá houba")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Malá houba", "Malá houba")),
+#endif
         .price = 500 * TREASURE_FACTOR,
-        .description = COMPOUND_STRING(
-            "A plain mushroom\n"
-            "that would sell\n"
-            "at a cheap price."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A plain mushroom\nthat would sell\nat a cheap price.", "Vzácná houbička.\nDá se výhodně\nprodat.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_SELLABLE,
         .type = ITEM_USE_BAG_MENU,
@@ -2696,12 +2725,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_BIG_MUSHROOM] =
     {
-        .name = ITEM_NAME("Big Mushroom"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Big Mushroom", "Velká houba")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Velká houba", "Velká houba")),
+#endif
         .price = 5000 * TREASURE_FACTOR,
-        .description = COMPOUND_STRING(
-            "A rare mushroom\n"
-            "that would sell at a\n"
-            "high price."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A rare mushroom\nthat would sell at a\nhigh price.", "Vzácná velká\nhouba. Dá se draze\nprodat.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_SELLABLE,
         .type = ITEM_USE_BAG_MENU,
@@ -4183,12 +4212,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_SUN_STONE] =
     {
-        .name = ITEM_NAME("Sun Stone"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Sun Stone", "Sluneční kámen")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Sluneční kámen", "Sluneční kámen")),
+#endif
         .price = (I_PRICE >= GEN_7) ? 3000 : 2100,
-        .description = COMPOUND_STRING(
-            "Makes certain\n"
-            "species of Pokémon\n"
-            "evolve."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Makes certain\nspecies of Pokémon\nevolve.", "Vyvine některé\ndruhy Pokémonů.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_EVOLUTION_STONE,
         .type = ITEM_USE_PARTY_MENU,
@@ -4201,7 +4230,10 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_MOON_STONE] =
     {
-        .name = ITEM_NAME("Moon Stone"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Moon Stone", "Měsíční kámen")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Měsíční kámen", "Měsíční kámen")),
+#endif
     #if I_PRICE >= GEN_7
         .price = 3000,
     #elif I_PRICE >= GEN_4
@@ -4211,10 +4243,7 @@ const struct ItemInfo gItemsInfo[] =
     #else
         .price = 1,
     #endif
-        .description = COMPOUND_STRING(
-            "Makes certain\n"
-            "species of Pokémon\n"
-            "evolve."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Makes certain\nspecies of Pokémon\nevolve.", "Vyvine některé\ndruhy Pokémonů.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_EVOLUTION_STONE,
         .type = ITEM_USE_PARTY_MENU,
@@ -9744,7 +9773,10 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_BRIGHT_POWDER] =
     {
-        .name = ITEM_NAME("Bright Powder"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Bright Powder", "Zářivý prach")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Zářivý prach", "Zářivý prach")),
+#endif
     #if I_PRICE >= GEN_9
         .price = 30000,
     #elif I_PRICE >= GEN_7
@@ -9754,10 +9786,7 @@ const struct ItemInfo gItemsInfo[] =
     #endif
         .holdEffect = HOLD_EFFECT_EVASION_UP,
         .holdEffectParam = 10,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "casts a glare to\n"
-            "reduce accuracy."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\ncasts a glare to\nreduce accuracy.", "Při držení mírně\nzvýší úhybnost.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -9793,21 +9822,18 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_EXP_SHARE] =
     {
-        .name = ITEM_NAME("Exp. Share"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Exp. Share", "Sdílení zkuš.")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Sdílení zkuš.", "Sdílení zkuš.")),
+#endif
         .holdEffect = HOLD_EFFECT_EXP_SHARE,
     #if I_EXP_SHARE_ITEM >= GEN_6
-        .description = COMPOUND_STRING(
-            "This device allows\n"
-            "all party members\n"
-            "to share in Exp."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("This device allows\nall party members\nto share in Exp.", "Sdílí získané\nzkušenosti s\ntýmem.")),
         .price = 0,
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
     #else
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "gets Exp. Points\n"
-            "from battles."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\ngets Exp. Points\nfrom battles.", "Sdílí získané\nzkušenosti s\ntýmem.")),
         .price = (I_PRICE == GEN_1) ? 1 : 3000,
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
@@ -10261,7 +10287,10 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_POWER_HERB] =
     {
-        .name = ITEM_NAME("Power Herb"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Power Herb", "Silová bylina")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Silová bylina", "Silová bylina")),
+#endif
     #if I_PRICE >= GEN_9
         .price = 30000,
     #elif I_PRICE >= GEN_7
@@ -10270,10 +10299,7 @@ const struct ItemInfo gItemsInfo[] =
         .price = 100,
     #endif
         .holdEffect = HOLD_EFFECT_POWER_HERB,
-        .description = COMPOUND_STRING(
-            "Allows immediate\n"
-            "use of a move that\n"
-            "requires charging."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Allows immediate\nuse of a move that\nrequires charging.", "Urychlí nabíjecí\nútok. Potom zmizí.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -10505,7 +10531,10 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_SHED_SHELL] =
     {
-        .name = ITEM_NAME("Shed Shell"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Shed Shell", "Prázdná ulita")),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Prázdná ulita", "Prázdná ulita")),
+#endif
     #if I_PRICE >= GEN_9
         .price = 20000,
     #elif I_PRICE >= GEN_7
@@ -10514,10 +10543,7 @@ const struct ItemInfo gItemsInfo[] =
         .price = 100,
     #endif
         .holdEffect = HOLD_EFFECT_SHED_SHELL,
-        .description = COMPOUND_STRING(
-            "Enables the holder\n"
-            "to switch out\n"
-            "without fail."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Enables the holder\nto switch out\nwithout fail.", "Držiteli vždy\numožní výměnu.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -11080,14 +11106,11 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_PECHA_BERRY] =
     {
-        .name = ITEM_NAME("Pecha Berry"),
-        .pluralName = ITEM_PLURAL_NAME("Pecha Berries"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Pecha Berry", "Bobule Pecha")),
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Pecha Berries", "Bobule Pecha")),
         .price = (I_BERRY_PRICE >= GEN_8) ? 80 : 20,
         .holdEffect = HOLD_EFFECT_CURE_PSN,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "heals poisoning\n"
-            "in battle."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\nheals poisoning\nin battle.", "Při držení sama\nvyléčí otravu.")),
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
@@ -11165,15 +11188,12 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_ORAN_BERRY] =
     {
-        .name = ITEM_NAME("Oran Berry"),
-        .pluralName = ITEM_PLURAL_NAME("Oran Berries"),
+        .name = ITEM_NAME(LOCALIZED_TEXT("Oran Berry", "Bobule Oran")),
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Oran Berries", "Bobule Oran")),
         .price = (I_BERRY_PRICE >= GEN_8) ? 80 : 20,
         .holdEffect = HOLD_EFFECT_RESTORE_HP,
         .holdEffectParam = 10,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "restores 10 HP in\n"
-            "battle."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\nrestores 10 HP in\nbattle.", "Při držení sama\nobnoví 10 HP.")),
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,

@@ -9367,6 +9367,17 @@
       "border_filepath": "data/layouts/Virelia_SlatefordCity/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_SlatefordCity/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE",
+      "name": "Virelia_MaplebrookPlayersHouse_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BrendansMaysHouse",
+      "border_filepath": "data/layouts/Virelia_MaplebrookPlayersHouse/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_MaplebrookPlayersHouse/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

@@ -74,20 +74,25 @@
 #define GEN_LATEST GEN_9
 
 // General settings
+#ifndef VIRELIA_DEVELOPMENT_MODE
+// Explicit opt-in to the original Duo/starter/world development playground.
+#define VIRELIA_DEVELOPMENT_MODE 0
+#endif
+#ifndef VIRELIA_PROLOGUE
+#define VIRELIA_PROLOGUE (!IS_FRLG && !VIRELIA_DEVELOPMENT_MODE)
+#endif
 #ifndef ORACULUM_DUO_TEST_QUICK_START
 // Use 1/0: this option is shared by C and the event-script preprocessor.
-// Temporary Emerald-only test start, also enabled in release artifacts.
-#define ORACULUM_DUO_TEST_QUICK_START 1 // Set 0 to restore the original introduction.
+// The existing Emerald Duo start is retained in explicit development builds.
+#define ORACULUM_DUO_TEST_QUICK_START (VIRELIA_DEVELOPMENT_MODE && !IS_FRLG)
 #endif
 #ifndef VIRELIA_STARTER_TEST
-// Emerald prototype NPC only. Use 1/0 for both C and event preprocessing.
-// Set 0 to hide the guide and disable all Virelia development gifts.
-#define VIRELIA_STARTER_TEST 1
+// Prototype gifts remain available only in the explicit development mode.
+#define VIRELIA_STARTER_TEST (VIRELIA_DEVELOPMENT_MODE && !IS_FRLG)
 #endif
 #ifndef VIRELIA_WORLD_TEST
-// Emerald-only development travel from the existing Duo guide. Use numeric 1/0.
-// Disabling entry still allows players already in Virelia to return to Hoenn.
-#define VIRELIA_WORLD_TEST 1
+// Development travel is separate from the playable Virelia story.
+#define VIRELIA_WORLD_TEST (VIRELIA_DEVELOPMENT_MODE && !IS_FRLG)
 #endif
 #define EXPANSION_INTRO              TRUE    // If TRUE, a custom RHH intro will play after the vanilla copyright screen.
 #define PHONEMES_SHARED              FALSE   // If TRUE, bard phonemes all reference the same sound (sound/direct_sound_samples/phonemes/shared.bin) to save ROM space.

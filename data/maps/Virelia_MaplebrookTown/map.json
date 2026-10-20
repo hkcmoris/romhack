@@ -33,7 +33,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "VireliaWorldTest_EventScript_ReturnToLittleroot",
-      "flag": "0"
+      "flag": "FLAG_VIRELIA_HIDE_DEV_GUIDE"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
@@ -82,9 +82,89 @@
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 7,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE",
+      "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 1,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "0",
+      "script": "Virelia_MaplebrookTown_EventScript_NorthGate"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 1,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "0",
+      "script": "Virelia_MaplebrookTown_EventScript_NorthGate"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 1,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "1",
+      "script": "Virelia_MaplebrookTown_EventScript_NorthGate"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 1,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "1",
+      "script": "Virelia_MaplebrookTown_EventScript_NorthGate"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 1,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "2",
+      "script": "Virelia_MaplebrookTown_EventScript_NorthGate"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 1,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "2",
+      "script": "Virelia_MaplebrookTown_EventScript_NorthGate"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 1,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "3",
+      "script": "Virelia_MaplebrookTown_EventScript_NorthGate"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 1,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "3",
+      "script": "Virelia_MaplebrookTown_EventScript_NorthGate"
+    }
+  ],
   "bg_events": [
     {
       "type": "sign",
@@ -117,14 +197,6 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookTown_EventScript_TownSign"
-    },
-    {
-      "type": "sign",
-      "x": 7,
-      "y": 9,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Virelia_MaplebrookTown_EventScript_ClosedHome"
     },
     {
       "type": "sign",

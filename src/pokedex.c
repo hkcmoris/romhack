@@ -1,3 +1,4 @@
+#include "localization.h"
 #include "global.h"
 #include "battle_main.h"
 #include "battle_script_commands.h"
@@ -686,24 +687,24 @@ static const u8 sText_UnkHeight[] = _("{CLEAR_TO 12}??'??”");
 static const u8 sText_UnkHeightMetric[] = _("???.? m");
 static const u8 sText_UnkWeight[] = _("????.? lbs.");
 static const u8 sText_UnkWeightMetric[] = _("???.? kg.");
-static const u8 sText_PokedexRegistration[] = _("POKéDEX registration completed.");
-static const u8 sText_HTHeight[] = _("HT");
-static const u8 sText_WTWeight[] = _("WT");
-static const u8 sText_SearchingPleaseWait[] = _("Searching…\nPlease wait.");
-static const u8 sText_SearchCompleted[] = _("Search completed.");
-static const u8 sText_NoMatchingPkmnWereFound[] = _("No matching POKéMON were found.");
-static const u8 sText_SearchForPkmnBasedOnParameters[] = _("Search for POKéMON based on\nselected parameters.");
-static const u8 sText_SwitchPokedexListings[] = _("Switch POKéDEX listings.");
-static const u8 sText_ReturnToPokedex[] = _("Return to the POKéDEX.");
-static const u8 sText_SelectPokedexMode[] = _("Select the POKéDEX mode.");
-static const u8 sText_SelectPokedexListingMode[] = _("Select the POKéDEX listing mode.");
-static const u8 sText_ListByFirstLetter[] = _("List by the first letter in the name.\nSpotted POKéMON only.");
-static const u8 sText_ListByBodyColor[] = _("List by body color.\nSpotted POKéMON only.");
-static const u8 sText_ListByType[] = _("List by type.\nOwned POKéMON only.");
-static const u8 sText_ExecuteSearchSwitch[] = _("Execute search/switch.");
+static const u8 sText_PokedexRegistration[] = _(LOCALIZED_TEXT("POKéDEX registration completed.", "Zápis do Pokédexu dokončen."));
+static const u8 sText_HTHeight[] = _(LOCALIZED_TEXT("HT", "VÝŠ."));
+static const u8 sText_WTWeight[] = _(LOCALIZED_TEXT("WT", "VÁH."));
+static const u8 sText_SearchingPleaseWait[] = _(LOCALIZED_TEXT("Searching…\nPlease wait.", "Hledám…\nPočkej prosím."));
+static const u8 sText_SearchCompleted[] = _(LOCALIZED_TEXT("Search completed.", "Hledání dokončeno."));
+static const u8 sText_NoMatchingPkmnWereFound[] = _(LOCALIZED_TEXT("No matching POKéMON were found.", "Žádní odpovídající Pokémoni."));
+static const u8 sText_SearchForPkmnBasedOnParameters[] = _(LOCALIZED_TEXT("Search for POKéMON based on\nselected parameters.", "Hledat Pokémony podle\nzvolených podmínek."));
+static const u8 sText_SwitchPokedexListings[] = _(LOCALIZED_TEXT("Switch POKéDEX listings.", "Změnit řazení Pokédexu."));
+static const u8 sText_ReturnToPokedex[] = _(LOCALIZED_TEXT("Return to the POKéDEX.", "Zpět do Pokédexu."));
+static const u8 sText_SelectPokedexMode[] = _(LOCALIZED_TEXT("Select the POKéDEX mode.", "Vyber režim Pokédexu."));
+static const u8 sText_SelectPokedexListingMode[] = _(LOCALIZED_TEXT("Select the POKéDEX listing mode.", "Vyber způsob řazení."));
+static const u8 sText_ListByFirstLetter[] = _(LOCALIZED_TEXT("List by the first letter in the name.\nSpotted POKéMON only.", "Podle prvního písmene jména.\nPouze spatření Pokémoni."));
+static const u8 sText_ListByBodyColor[] = _(LOCALIZED_TEXT("List by body color.\nSpotted POKéMON only.", "Podle barvy těla.\nPouze spatření Pokémoni."));
+static const u8 sText_ListByType[] = _(LOCALIZED_TEXT("List by type.\nOwned POKéMON only.", "Podle typu.\nPouze chycení Pokémoni."));
+static const u8 sText_ExecuteSearchSwitch[] = _(LOCALIZED_TEXT("Execute search/switch.", "Potvrdit hledání nebo změnu."));
 static const u8 sText_DexEmptyString[] = _("");
-static const u8 sText_DexSearchDontSpecify[] = _("DON'T SPECIFY.");
-static const u8 sText_DexSearchTypeNone[] = _("NONE");
+static const u8 sText_DexSearchDontSpecify[] = _(LOCALIZED_TEXT("DON'T SPECIFY.", "NEZADÁVAT"));
+static const u8 sText_DexSearchTypeNone[] = _(LOCALIZED_TEXT("NONE", "ŽÁDNÝ"));
 
 ALIGNED(4) static const u8 sExpandedPlaceholder_PokedexDescription[] = _("");
 
@@ -1181,19 +1182,19 @@ static const u8 sSearchMovementMap_ShiftHoennDex[SEARCH_COUNT][4] =
 
 static const struct SearchOptionText sDexModeOptions[] =
 {
-    [DEX_MODE_HOENN]    = {COMPOUND_STRING("HOENN region's POKéDEX"),   COMPOUND_STRING("HOENN DEX")},
-    [DEX_MODE_NATIONAL] = {COMPOUND_STRING("National edition POKéDEX"), COMPOUND_STRING("NATIONAL DEX")},
+    [DEX_MODE_HOENN]    = {COMPOUND_STRING(LOCALIZED_TEXT("HOENN region's POKéDEX", "Pokédex oblasti HOENN")),   COMPOUND_STRING("HOENN DEX")},
+    [DEX_MODE_NATIONAL] = {COMPOUND_STRING(LOCALIZED_TEXT("National edition POKéDEX", "Národní vydání Pokédexu")), COMPOUND_STRING(LOCALIZED_TEXT("NATIONAL DEX", "NÁRODNÍ DEX"))},
     {},
 };
 
 static const struct SearchOptionText sDexOrderOptions[] =
 {
-    [ORDER_NUMERICAL]    = {COMPOUND_STRING("POKéMON are listed according to their\nnumber."),               COMPOUND_STRING("NUMERICAL MODE")},
-    [ORDER_ALPHABETICAL] = {COMPOUND_STRING("Spotted and owned POKéMON are listed\nalphabetically."),        COMPOUND_STRING("A TO Z MODE")},
-    [ORDER_HEAVIEST]     = {COMPOUND_STRING("Owned POKéMON are listed from the\nheaviest to the lightest."), COMPOUND_STRING("HEAVIEST MODE")},
-    [ORDER_LIGHTEST]     = {COMPOUND_STRING("Owned POKéMON are listed from the\nlightest to the heaviest."), COMPOUND_STRING("LIGHTEST MODE")},
-    [ORDER_TALLEST]      = {COMPOUND_STRING("Owned POKéMON are listed from the\ntallest to the smallest."),  COMPOUND_STRING("TALLEST MODE")},
-    [ORDER_SMALLEST]     = {COMPOUND_STRING("Owned POKéMON are listed from the\nsmallest to the tallest."),  COMPOUND_STRING("SMALLEST MODE")},
+    [ORDER_NUMERICAL]    = {COMPOUND_STRING(LOCALIZED_TEXT("POKéMON are listed according to their\nnumber.", "Pokémoni seřazení\npodle čísla.")),               COMPOUND_STRING(LOCALIZED_TEXT("NUMERICAL MODE", "PODLE ČÍSLA"))},
+    [ORDER_ALPHABETICAL] = {COMPOUND_STRING(LOCALIZED_TEXT("Spotted and owned POKéMON are listed\nalphabetically.", "Spatření a chycení Pokémoni\nseřazení podle abecedy.")),        COMPOUND_STRING(LOCALIZED_TEXT("A TO Z MODE", "PODLE ABECEDY"))},
+    [ORDER_HEAVIEST]     = {COMPOUND_STRING(LOCALIZED_TEXT("Owned POKéMON are listed from the\nheaviest to the lightest.", "Chycení Pokémoni od nejtěžších\npo nejlehčí.")), COMPOUND_STRING(LOCALIZED_TEXT("HEAVIEST MODE", "NEJTĚŽŠÍ"))},
+    [ORDER_LIGHTEST]     = {COMPOUND_STRING(LOCALIZED_TEXT("Owned POKéMON are listed from the\nlightest to the heaviest.", "Chycení Pokémoni od nejlehčích\npo nejtěžší.")), COMPOUND_STRING(LOCALIZED_TEXT("LIGHTEST MODE", "NEJLEHČÍ"))},
+    [ORDER_TALLEST]      = {COMPOUND_STRING(LOCALIZED_TEXT("Owned POKéMON are listed from the\ntallest to the smallest.", "Chycení Pokémoni od nejvyšších\npo nejmenší.")),  COMPOUND_STRING(LOCALIZED_TEXT("TALLEST MODE", "NEJVYŠŠÍ"))},
+    [ORDER_SMALLEST]     = {COMPOUND_STRING(LOCALIZED_TEXT("Owned POKéMON are listed from the\nsmallest to the tallest.", "Chycení Pokémoni od nejmenších\npo nejvyšší.")),  COMPOUND_STRING(LOCALIZED_TEXT("SMALLEST MODE", "NEJMENŠÍ"))},
     {},
 };
 
@@ -1215,16 +1216,16 @@ static const struct SearchOptionText sDexSearchNameOptions[] =
 static const struct SearchOptionText sDexSearchColorOptions[] =
 {
     {sText_DexEmptyString, sText_DexSearchDontSpecify},
-    [BODY_COLOR_RED + 1]    = {sText_DexEmptyString, COMPOUND_STRING("RED")},
-    [BODY_COLOR_BLUE + 1]   = {sText_DexEmptyString, COMPOUND_STRING("BLUE")},
-    [BODY_COLOR_YELLOW + 1] = {sText_DexEmptyString, COMPOUND_STRING("YELLOW")},
-    [BODY_COLOR_GREEN + 1]  = {sText_DexEmptyString, COMPOUND_STRING("GREEN")},
-    [BODY_COLOR_BLACK + 1]  = {sText_DexEmptyString, COMPOUND_STRING("BLACK")},
-    [BODY_COLOR_BROWN + 1]  = {sText_DexEmptyString, COMPOUND_STRING("BROWN")},
-    [BODY_COLOR_PURPLE + 1] = {sText_DexEmptyString, COMPOUND_STRING("PURPLE")},
-    [BODY_COLOR_GRAY + 1]   = {sText_DexEmptyString, COMPOUND_STRING("GRAY")},
-    [BODY_COLOR_WHITE + 1]  = {sText_DexEmptyString, COMPOUND_STRING("WHITE")},
-    [BODY_COLOR_PINK + 1]   = {sText_DexEmptyString, COMPOUND_STRING("PINK")},
+    [BODY_COLOR_RED + 1]    = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("RED", "ČERVENÁ"))},
+    [BODY_COLOR_BLUE + 1]   = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("BLUE", "MODRÁ"))},
+    [BODY_COLOR_YELLOW + 1] = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("YELLOW", "ŽLUTÁ"))},
+    [BODY_COLOR_GREEN + 1]  = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("GREEN", "ZELENÁ"))},
+    [BODY_COLOR_BLACK + 1]  = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("BLACK", "ČERNÁ"))},
+    [BODY_COLOR_BROWN + 1]  = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("BROWN", "HNĚDÁ"))},
+    [BODY_COLOR_PURPLE + 1] = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("PURPLE", "FIALOVÁ"))},
+    [BODY_COLOR_GRAY + 1]   = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("GRAY", "ŠEDÁ"))},
+    [BODY_COLOR_WHITE + 1]  = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("WHITE", "BÍLÁ"))},
+    [BODY_COLOR_PINK + 1]   = {sText_DexEmptyString, COMPOUND_STRING(LOCALIZED_TEXT("PINK", "RŮŽOVÁ"))},
     {},
 };
 

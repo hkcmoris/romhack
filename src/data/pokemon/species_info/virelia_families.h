@@ -10,7 +10,7 @@
         .baseSpeed     = 70,
         .baseSpAttack  = 40,
         .baseSpDefense = 45,
-        .types = MON_TYPES(TYPE_GRASS, TYPE_GHOST),
+        .types = MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 45,
         .expYield = 64,
         .evYield_Attack = 1,
@@ -24,12 +24,12 @@
         .speciesName = _("Poochyena"),
         .cryId = CRY_POOCHYENA,
         .natDexNum = NATIONAL_DEX_POOCHYENA,
-        .categoryName = _("Moss Pup"),
+        .categoryName = _("Mechový psík"),
         .height = 5,
         .weight = 136,
         .description = COMPOUND_STRING(
-            "A Virelian Poochyena that hides in moss.\n"
-            "Its quiet paws leave no trace in the woods."),
+            "Skrývá se v mechu. Její tiché tlapky\n"
+            "nezanechávají v lese žádné stopy."),
         .pokemonScale = 481,
         .pokemonOffset = 19,
         .trainerScale = 256,
@@ -91,12 +91,12 @@
         .speciesName = _("Mightyena"),
         .cryId = CRY_MIGHTYENA,
         .natDexNum = NATIONAL_DEX_MIGHTYENA,
-        .categoryName = _("Forest Wolf"),
+        .categoryName = _("Lesní vlk"),
         .height = 10,
         .weight = 370,
         .description = COMPOUND_STRING(
-            "A Virelian Mightyena that guards groves.\n"
-            "It slips between shadows to evade foes."),
+            "Střeží lesní háje. Před nepřáteli\n"
+            "uniká tichým pohybem mezi stíny."),
         .pokemonScale = 362,
         .pokemonOffset = 9,
         .trainerScale = 256,
@@ -132,7 +132,7 @@
             gOverworldPalette_Mightyena,
             gShinyOverworldPalette_Mightyena
         )
-        .levelUpLearnset = sPoochyenaVireliaLevelUpLearnset,
+        .levelUpLearnset = sMightyenaVireliaLevelUpLearnset,
         .teachableLearnset = sMightyenaTeachableLearnset,
         .formSpeciesIdTable = sMightyenaFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL, 38, SPECIES_WRAITHENA}),
@@ -160,12 +160,12 @@
         .speciesName = _("Wraithena"),
         .cryId = CRY_MIGHTYENA,
         .natDexNum = NATIONAL_DEX_WRAITHENA,
-        .categoryName = _("Forest Wolf"),
+        .categoryName = _("Lesní vlk"),
         .height = 10,
         .weight = 370,
         .description = COMPOUND_STRING(
-            "This Virelian forest guardian strikes\n"
-            "from cover and heals its wounds in shade."),
+            "Tento strážce lesa útočí z úkrytu.\n"
+            "Ve stínu si hojí utržené rány."),
         .pokemonScale = 362,
         .pokemonOffset = 9,
         .trainerScale = 256,
@@ -201,7 +201,7 @@
             gOverworldPalette_Mightyena,
             gShinyOverworldPalette_Mightyena
         )
-        .levelUpLearnset = sPoochyenaVireliaLevelUpLearnset,
+        .levelUpLearnset = sMightyenaVireliaLevelUpLearnset,
         .teachableLearnset = sMightyenaTeachableLearnset,
     },
 
@@ -227,12 +227,12 @@
         .speciesName = _("Spinarak"),
         .cryId = CRY_SPINARAK,
         .natDexNum = NATIONAL_DEX_SPINARAK,
-        .categoryName = _("Pond Spider"),
+        .categoryName = _("Vodní pavouk"),
         .height = 5,
         .weight = 85,
         .description = COMPOUND_STRING(
-            "A Virelian Spinarak that skates on ponds.\n"
-            "Its wet silk slows prey among the reeds."),
+            "Bruslí po hladině rybníků. Mokré\n"
+            "vlákno zpomaluje kořist v rákosí."),
         .pokemonScale = 414,
         .pokemonOffset = 21,
         .trainerScale = 256,
@@ -299,12 +299,12 @@
         .speciesName = _("Ariados"),
         .cryId = CRY_ARIADOS,
         .natDexNum = NATIONAL_DEX_ARIADOS,
-        .categoryName = _("Water Web"),
+        .categoryName = _("Vodní síť"),
         .height = 11,
         .weight = 335,
         .description = COMPOUND_STRING(
-            "A Virelian Ariados that hunts in rivers.\n"
-            "It anchors webs against strong currents."),
+            "Loví v řekách. Své sítě pevně\n"
+            "kotví i proti silnému proudu."),
         .pokemonScale = 316,
         .pokemonOffset = 8,
         .trainerScale = 256,
@@ -367,12 +367,12 @@
         .speciesName = _("Arachnaut"),
         .cryId = CRY_ARIADOS,
         .natDexNum = NATIONAL_DEX_ARACHNAUT,
-        .categoryName = _("Water Web"),
+        .categoryName = _("Vodní síť"),
         .height = 11,
         .weight = 335,
         .description = COMPOUND_STRING(
-            "Its sturdy legs brace against the tide.\n"
-            "Prey caught in its nets can barely move."),
+            "Pevnýma nohama odolává přílivu.\n"
+            "Kořist se v jeho síti sotva pohne."),
         .pokemonScale = 316,
         .pokemonOffset = 8,
         .trainerScale = 256,
@@ -433,12 +433,12 @@
         .speciesName = _("Ekans"),
         .cryId = CRY_EKANS,
         .natDexNum = NATIONAL_DEX_EKANS,
-        .categoryName = _("Ember Snake"),
+        .categoryName = _("Žhavý had"),
         .height = 20,
         .weight = 69,
         .description = COMPOUND_STRING(
-            "A Virelian Ekans that rests on warm rocks.\n"
-            "Its breath carries hot, irritating fumes."),
+            "Odpočívá na vyhřátých kamenech.\n"
+            "Jeho dech nese horké, dráždivé výpary."),
         .pokemonScale = 298,
         .pokemonOffset = 12,
         .trainerScale = 256,
@@ -504,12 +504,12 @@
         .speciesName = _("Arbok"),
         .cryId = CRY_ARBOK,
         .natDexNum = NATIONAL_DEX_ARBOK,
-        .categoryName = _("Fume Cobra"),
+        .categoryName = _("Dýmová kobra"),
         .height = 35,
         .weight = 650,
         .description = COMPOUND_STRING(
-            "A Virelian Arbok that spreads heated mist.\n"
-            "It weakens foes before releasing flames."),
+            "Šíří horkou mlhu. Nejprve oslabí\n"
+            "nepřítele, pak vypustí plameny."),
         .pokemonScale = 256,
         .pokemonOffset = 0,
         .trainerScale = 296,
@@ -571,12 +571,12 @@
         .speciesName = _("Cindracoil"),
         .cryId = CRY_ARBOK,
         .natDexNum = NATIONAL_DEX_CINDRACOIL,
-        .categoryName = _("Fume Cobra"),
+        .categoryName = _("Dýmová kobra"),
         .height = 35,
         .weight = 650,
         .description = COMPOUND_STRING(
-            "This swift serpent exhales searing venom.\n"
-            "Its warning hiss sounds like a rising fire."),
+            "Tento mrštný had vydechuje žhavý jed.\n"
+            "Jeho varovné syčení zní jako sílící oheň."),
         .pokemonScale = 256,
         .pokemonOffset = 0,
         .trainerScale = 296,

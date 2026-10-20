@@ -16877,3 +16877,94 @@ Double Battle: No
 Kyogre
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+/* Virelia prologue. Rival suffix names the player's starter choice. */
+=== TRAINER_VIRELIA_VIKTOR_GRASS ===
+Name: VIKTOR
+Class: Rival
+Pic: RS Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+SPECIES_EKANS_VIRELIA
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Growl
+
+=== TRAINER_VIRELIA_VIKTOR_WATER ===
+Name: VIKTOR
+Class: Rival
+Pic: RS Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+SPECIES_POOCHYENA_VIRELIA
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Growl
+
+=== TRAINER_VIRELIA_VIKTOR_FIRE ===
+Name: VIKTOR
+Class: Rival
+Pic: RS Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+SPECIES_SPINARAK_VIRELIA
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Growl
+
+=== TRAINER_VIRELIA_ELA ===
+Name: ELA
+Class: Lass
+Pic: Lass
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+Wurmple
+Level: 4
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+Zigzagoon
+Level: 4
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_VIRELIA_OTA ===
+Name: OTA
+Class: Youngster
+Pic: Youngster
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+Taillow
+Level: 6
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_VIRELIA_ROCKET ===
+Name: POSKOK
+Class: Team Rocket Frlg
+Pic: Rocket Grunt M Frlg
+Gender: Male
+Music: Suspicious
+AI: Check Bad Move
+
+Rattata
+Level: 7
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Tail Whip
+
+Zubat
+Level: 6
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Absorb
+- Astonish

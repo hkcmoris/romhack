@@ -1,6 +1,25 @@
-// Virelia v0.1 uses only existing moves. All stages share their family schedule.
+// Virelia uses existing moves. The Grass/Dark pup has its own Dark STAB;
+// the evolved Grass/Ghost forms retain the original spectral schedule.
 #if P_VIRELIA_STARTERS
 static const struct LevelUpMove sPoochyenaVireliaLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_LEAFAGE),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 5, MOVE_BITE),
+    LEVEL_UP_MOVE( 9, MOVE_SHADOW_SNEAK),
+    LEVEL_UP_MOVE(12, MOVE_RAZOR_LEAF),
+    LEVEL_UP_MOVE(15, MOVE_LEECH_SEED),
+    LEVEL_UP_MOVE(18, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(22, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(26, MOVE_SEED_BOMB),
+    LEVEL_UP_MOVE(30, MOVE_SYNTHESIS),
+    LEVEL_UP_MOVE(34, MOVE_FOUL_PLAY),
+    LEVEL_UP_MOVE(40, MOVE_LEAF_BLADE),
+    LEVEL_UP_MOVE(46, MOVE_LEECH_LIFE),
+    LEVEL_UP_MOVE(50, MOVE_SWORDS_DANCE),
+    LEVEL_UP_END
+};
+
+static const struct LevelUpMove sMightyenaVireliaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_LEAFAGE),
     LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
     LEVEL_UP_MOVE( 5, MOVE_GROWL),

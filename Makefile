@@ -31,6 +31,9 @@ BUILD_DIR := build
 COMPARE     ?= 0
 # Executes the Test Runner System that checks that all mechanics work as expected
 TEST         ?= 0
+# Story is the default. The explicit development mode retains the original
+# Littleroot starter/Duo test tools without changing multiplayer behavior.
+VIRELIA_DEVELOPMENT_MODE ?= 0
 # Enables -fanalyzer C flag to analyze in depth potential UBs
 ANALYZE      ?= 0
 # Count unused warnings as errors. Used by RH-Hideout's repo
@@ -61,7 +64,8 @@ endif
 include config.mk
 
 # Keep non-Emerald variants distinct; all jobs in one CI run share a version.
-FILE_NAME ?= $(ROM_BASENAME)$(if $(filter emerald,$(BUILD_NAME)),,-$(BUILD_NAME))-v$(ROM_VERSION)
+VIRELIA_BUILD_SUFFIX := $(if $(filter 1,$(VIRELIA_DEVELOPMENT_MODE)),-devmode)
+FILE_NAME ?= $(ROM_BASENAME)$(if $(filter emerald,$(BUILD_NAME)),,-$(BUILD_NAME))$(VIRELIA_BUILD_SUFFIX)-v$(ROM_VERSION)
 
 # Default make rule
 all: rom
@@ -94,10 +98,10 @@ endif
 CPP := $(PREFIX)cpp
 
 ROM_NAME := $(FILE_NAME)$(if $(filter 1,$(RELEASE)),-release).gba
-OBJ_DIR_NAME := $(BUILD_DIR)/$(BUILD_NAME)
-OBJ_DIR_NAME_TEST := $(BUILD_DIR)/$(BUILD_NAME)-test
-OBJ_DIR_NAME_DEBUG := $(BUILD_DIR)/$(BUILD_NAME)-debug
-OBJ_DIR_NAME_RELEASE := $(BUILD_DIR)/$(BUILD_NAME)-release
+OBJ_DIR_NAME := $(BUILD_DIR)/$(BUILD_NAME)$(VIRELIA_BUILD_SUFFIX)
+OBJ_DIR_NAME_TEST := $(BUILD_DIR)/$(BUILD_NAME)$(VIRELIA_BUILD_SUFFIX)-test
+OBJ_DIR_NAME_DEBUG := $(BUILD_DIR)/$(BUILD_NAME)$(VIRELIA_BUILD_SUFFIX)-debug
+OBJ_DIR_NAME_RELEASE := $(BUILD_DIR)/$(BUILD_NAME)$(VIRELIA_BUILD_SUFFIX)-release
 ASSETS_DIR_NAME := $(BUILD_DIR)/assets
 
 ELF_NAME := $(ROM_NAME:.gba=.elf)
@@ -153,7 +157,7 @@ O_LEVEL ?= g
 else
 O_LEVEL ?= 2
 endif
-CPPFLAGS := $(INCLUDE_CPP_ARGS) -Wno-trigraphs -DMODERN=1 -DTESTING=$(TEST) -D$(GAME_VERSION) -std=gnu17
+CPPFLAGS := $(INCLUDE_CPP_ARGS) -Wno-trigraphs -DMODERN=1 -DTESTING=$(TEST) -DVIRELIA_DEVELOPMENT_MODE=$(VIRELIA_DEVELOPMENT_MODE) -D$(GAME_VERSION) -std=gnu17
 ifeq ($(RELEASE),1)
 	override CPPFLAGS += -DRELEASE
 	ifeq ($(USE_LTO_ON_RELEASE),1)

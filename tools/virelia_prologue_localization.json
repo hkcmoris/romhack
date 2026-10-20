@@ -1,0 +1,6323 @@
+{
+  "schema": 1,
+  "language": "cs",
+  "level_bound": 15,
+  "entries": [
+    {
+      "path": "src/strings.c",
+      "key": "gText_EggNickname",
+      "kind": "ui",
+      "english": "EGG",
+      "czech": "VEJCE",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Name",
+      "kind": "ui",
+      "english": "NAME",
+      "czech": "JMÉNO",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Level",
+      "kind": "ui",
+      "english": "Lv. ",
+      "czech": "úr. ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Number",
+      "kind": "ui",
+      "english": "No. ",
+      "czech": "č. ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Next",
+      "kind": "ui",
+      "english": "{A_BUTTON}NEXT",
+      "czech": "{A_BUTTON}DÁL",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NextBack",
+      "kind": "ui",
+      "english": "{A_BUTTON}NEXT {B_BUTTON}BACK",
+      "czech": "{A_BUTTON}DÁL {B_BUTTON}ZPĚT",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PickNextCancel",
+      "kind": "ui",
+      "english": "{DPAD_UPDOWN}PICK {A_BUTTON}NEXT {B_BUTTON}CANCEL",
+      "czech": "{DPAD_UPDOWN}VÝBĚR {A_BUTTON}DÁL {B_BUTTON}ZPĚT",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PickCancel",
+      "kind": "ui",
+      "english": "{DPAD_UPDOWN}PICK {A_BUTTON}{B_BUTTON}CANCEL",
+      "czech": "{DPAD_UPDOWN}VÝBĚR {A_BUTTON}{B_BUTTON}ZPĚT",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_AButtonExit",
+      "kind": "ui",
+      "english": "{A_BUTTON}EXIT",
+      "czech": "{A_BUTTON}ZPĚT",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_None",
+      "kind": "ui",
+      "english": "NONE",
+      "czech": "NIC",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Var1IsSelected",
+      "kind": "ui",
+      "english": "{STR_VAR_1}\\nis selected.",
+      "czech": "{STR_VAR_1}\\nje vybrán.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_CantWriteMail",
+      "kind": "ui",
+      "english": "You can't write\\nMAIL here.",
+      "czech": "Tady nelze\\npsát dopis.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NoPokemon",
+      "kind": "ui",
+      "english": "There is no\\nPOKéMON.",
+      "czech": "Nemáš žádného\\nPokémona.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveVar1Where",
+      "kind": "ui",
+      "english": "Move the\\n{STR_VAR_1}\\nwhere?",
+      "czech": "Kam přesunout\\n{STR_VAR_1}\\n?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Var1CantBeHeld",
+      "kind": "ui",
+      "english": "The {STR_VAR_1} can't be held.",
+      "czech": "Tento předmět nelze držet:\\n{STR_VAR_1}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_TossHowManyVar1s",
+      "kind": "ui",
+      "english": "Toss out how many\\n{STR_VAR_1}?",
+      "czech": "Kolik kusů vyhodit?\\n{STR_VAR_1}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ThrewAwayVar2Var1s",
+      "kind": "ui",
+      "english": "Threw away {STR_VAR_2}\\n{STR_VAR_1}.",
+      "czech": "Vyhozeno: {STR_VAR_2}×\\n{STR_VAR_1}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ConfirmTossItems",
+      "kind": "ui",
+      "english": "Is it okay to\\nthrow away {STR_VAR_2}\\n{STR_VAR_1}?",
+      "czech": "Opravdu vyhodit\\n{STR_VAR_2}×\\n{STR_VAR_1}?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_DadsAdvice",
+      "kind": "ui",
+      "english": "DAD's advice…\\n{PLAYER}, there's a time and place for\\leverything!{PAUSE_UNTIL_PRESS}",
+      "czech": "Rada od táty…\\n{PLAYER}, všechno má svůj čas\\la správné místo!{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PlayerUsedVar2",
+      "kind": "ui",
+      "english": "{PLAYER} used the\\n{STR_VAR_2}.{PAUSE_UNTIL_PRESS}",
+      "czech": "{PLAYER}: použit předmět\\n{STR_VAR_2}.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_RepelEffectsLingered",
+      "kind": "ui",
+      "english": "But the effects of a REPEL\\nlingered from earlier.{PAUSE_UNTIL_PRESS}",
+      "czech": "Předchozí repelent stále působí.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_LureEffectsLingered",
+      "kind": "ui",
+      "english": "But the effects of a Lure\\nlingered from earlier.{PAUSE_UNTIL_PRESS}",
+      "czech": "Předchozí lákadlo stále působí.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_BoxFull",
+      "kind": "ui",
+      "english": "The BOX is full.{PAUSE_UNTIL_PRESS}",
+      "czech": "Box je plný.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SoldOut",
+      "kind": "ui",
+      "english": "SOLD OUT",
+      "czech": "VYPRODÁNO",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_YouDontHaveMoney",
+      "kind": "ui",
+      "english": "You don't have enough money.{PAUSE_UNTIL_PRESS}",
+      "czech": "Nemáš dost peněz.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NoMoreRoomForThis",
+      "kind": "ui",
+      "english": "You have no more room for this\\nitem.{PAUSE_UNTIL_PRESS}",
+      "czech": "Na tento předmět už\\nnemáš místo.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SpaceForVar1Full",
+      "kind": "ui",
+      "english": "The space for {STR_VAR_1} is full.{PAUSE_UNTIL_PRESS}",
+      "czech": "Na další kus už není místo:\\n{STR_VAR_1}.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_CantBuyKeyItem",
+      "kind": "ui",
+      "english": "{STR_VAR_2}? Oh, no.\\nI can't buy that.{PAUSE_UNTIL_PRESS}",
+      "czech": "Tento předmět nelze prodat:\\n{STR_VAR_2}.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_WontHaveEffect",
+      "kind": "ui",
+      "english": "It won't have any effect.{PAUSE_UNTIL_PRESS}",
+      "czech": "To nebude mít žádný účinek.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_CantBeUsedOnPkmn",
+      "kind": "ui",
+      "english": "This can't be used on\\nthat POKéMON.{PAUSE_UNTIL_PRESS}",
+      "czech": "Na tohoto Pokémona\\nto nelze použít.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnCantSwitchOut",
+      "kind": "ui",
+      "english": "{STR_VAR_1} can't be switched\\nout!{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} nemůže\\nopustit souboj!{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnAlreadyInBattle",
+      "kind": "ui",
+      "english": "{STR_VAR_1} is already\\nin battle!{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} už\\nbojuje!{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnAlreadySelected",
+      "kind": "ui",
+      "english": "{STR_VAR_1} has already been\\nselected.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} už\\nje vybrán.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnHasNoEnergy",
+      "kind": "ui",
+      "english": "{STR_VAR_1} has no energy\\nleft to battle!{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} už nemá\\nsílu bojovat!{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_EggCantBattle",
+      "kind": "ui",
+      "english": "An EGG can't battle!{PAUSE_UNTIL_PRESS}",
+      "czech": "Vejce nemůže bojovat!{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnWasGivenItem",
+      "kind": "ui",
+      "english": "{STR_VAR_1} was given the\\n{STR_VAR_2} to hold.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1}: předmět k držení\\n{STR_VAR_2}.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnAlreadyHoldingItemSwitch",
+      "kind": "ui",
+      "english": "{STR_VAR_1} is already holding\\none {STR_VAR_2}.\\pWould you like to switch the\\ntwo items?",
+      "czech": "{STR_VAR_1} už drží\\n{STR_VAR_2}.\\pChceš tyto dva předměty\\nvyměnit?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnNotHolding",
+      "kind": "ui",
+      "english": "{STR_VAR_1} isn't holding\\nanything.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} nic\\nnedrží.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ReceivedItemFromPkmn",
+      "kind": "ui",
+      "english": "Received the {STR_VAR_2}\\nfrom {STR_VAR_1}.{PAUSE_UNTIL_PRESS}",
+      "czech": "Předmět {STR_VAR_2}\\nvrátil {STR_VAR_1}.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SwitchedPkmnItem",
+      "kind": "ui",
+      "english": "The {STR_VAR_2} was taken and\\nreplaced with the {STR_VAR_1}.{PAUSE_UNTIL_PRESS}",
+      "czech": "Odebrán: {STR_VAR_2}\\nNový předmět: {STR_VAR_1}.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_BagFullCouldNotRemoveItem",
+      "kind": "ui",
+      "english": "The BAG is full. The POKéMON's\\nitem could not be removed.{PAUSE_UNTIL_PRESS}",
+      "czech": "Batoh je plný. Předmět Pokémona\\nnelze odebrat.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnLearnedMove3",
+      "kind": "ui",
+      "english": "{STR_VAR_1} learned\\n{STR_VAR_2}!",
+      "czech": "{STR_VAR_1} se naučil\\n{STR_VAR_2}!",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnLearnedMove4",
+      "kind": "ui",
+      "english": "{STR_VAR_1} learned\\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} se naučil\\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnCantLearnMove",
+      "kind": "ui",
+      "english": "{STR_VAR_1} and {STR_VAR_2}\\nare not compatible.\\p{STR_VAR_2} can't be\\nlearned.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} a {STR_VAR_2}\\nse k sobě nehodí.\\pÚtok {STR_VAR_2}\\nse nelze naučit.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnNeedsToReplaceMove",
+      "kind": "ui",
+      "english": "{STR_VAR_1} wants to learn the\\nmove {STR_VAR_2}.\\pHowever, {STR_VAR_1} already\\nknows four moves.\\pShould a move be deleted and\\nreplaced with {STR_VAR_2}?",
+      "czech": "{STR_VAR_1} se chce naučit\\nútok {STR_VAR_2}.\\pUž ale {STR_VAR_1} zná\\nčtyři útoky.\\pSmazat starý útok\\na naučit se {STR_VAR_2}?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_StopLearningMove2",
+      "kind": "ui",
+      "english": "Stop trying to teach\\n{STR_VAR_2}?",
+      "czech": "Přestat s učením\\nútoku {STR_VAR_2}?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveNotLearned",
+      "kind": "ui",
+      "english": "{STR_VAR_1} did not learn the\\nmove {STR_VAR_2}.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} se nenaučil\\nútok {STR_VAR_2}.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_WhichMoveToForget",
+      "kind": "ui",
+      "english": "Which move should be forgotten?{PAUSE_UNTIL_PRESS}",
+      "czech": "Který útok zapomenout?{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_12PoofForgotMove",
+      "kind": "ui",
+      "english": "1, {PAUSE 15}2, and{PAUSE 15}… {PAUSE 15}… {PAUSE 15}… {PAUSE 15}{PLAY_SE SE_BALL_BOUNCE_1}Poof!\\p{STR_VAR_1} forgot how to\\nuse {STR_VAR_2}.\\pAnd…{PAUSE_UNTIL_PRESS}",
+      "czech": "1, {PAUSE 15}2 a{PAUSE 15}… {PAUSE 15}… {PAUSE 15}… {PAUSE 15}{PLAY_SE SE_BALL_BOUNCE_1}Puf!\\p{STR_VAR_1} zapomněl\\nútok {STR_VAR_2}.\\pA…{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnAlreadyKnows",
+      "kind": "ui",
+      "english": "{STR_VAR_1} already knows\\n{STR_VAR_2}.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} už zná\\nútok {STR_VAR_2}.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnHPRestoredByVar2",
+      "kind": "ui",
+      "english": "{STR_VAR_1}'s HP was restored\\nby {STR_VAR_2} point(s).{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1}: obnoveno\\n{STR_VAR_2} HP.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnCuredOfPoison",
+      "kind": "ui",
+      "english": "{STR_VAR_1} was cured of its\\npoisoning.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} se zbavil\\notravy.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnCuredOfParalysis",
+      "kind": "ui",
+      "english": "{STR_VAR_1} was cured of\\nparalysis.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} se zbavil\\nochrnutí.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnWokeUp2",
+      "kind": "ui",
+      "english": "{STR_VAR_1} woke up.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} se probudil.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnBurnHealed",
+      "kind": "ui",
+      "english": "{STR_VAR_1}'s burn was healed.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1}: popáleniny\\njsou vyléčené.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnFrostbiteHealed",
+      "kind": "ui",
+      "english": "{STR_VAR_1}'s frostbite was healed.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1}: omrzliny\\njsou vyléčené.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnThawedOut",
+      "kind": "ui",
+      "english": "{STR_VAR_1} was thawed out.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} rozmrzl.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PPWasRestored",
+      "kind": "ui",
+      "english": "PP was restored.{PAUSE_UNTIL_PRESS}",
+      "czech": "PP byly obnoveny.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnBecameHealthy",
+      "kind": "ui",
+      "english": "{STR_VAR_1} became healthy.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1} je zase zdravý.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MovesPPIncreased",
+      "kind": "ui",
+      "english": "{STR_VAR_1}'s PP increased.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1}: maximum PP\\nse zvýšilo.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnElevatedToLvVar2",
+      "kind": "ui",
+      "english": "{STR_VAR_1} was elevated to\\nLv. {STR_VAR_2}.",
+      "czech": "{STR_VAR_1} dosáhl\\núr. {STR_VAR_2}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnGainedExp",
+      "kind": "ui",
+      "english": "{STR_VAR_1} gained {STR_VAR_2} Exp. Points!{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1}: získáno {STR_VAR_2}\\nbodů zkušeností!{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ThrowAwayItem",
+      "kind": "ui",
+      "english": "Throw away this\\n{STR_VAR_1}?",
+      "czech": "Vyhodit tento předmět?\\n{STR_VAR_1}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ItemThrownAway",
+      "kind": "ui",
+      "english": "The {STR_VAR_1}\\nwas thrown away.{PAUSE_UNTIL_PRESS}",
+      "czech": "{STR_VAR_1}\\nbyl vyhozen.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_TeachWhichPokemon",
+      "kind": "ui",
+      "english": "Teach which POKéMON?",
+      "czech": "Kterého Pokémona učit?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NoPokemonForBattle",
+      "kind": "ui",
+      "english": "No POKéMON for battle!",
+      "czech": "Žádný Pokémon nemůže bojovat!",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NotEnoughHp",
+      "kind": "ui",
+      "english": "Not enough HP…",
+      "czech": "Nedostatek HP…",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ChoosePokemonCancel",
+      "kind": "ui",
+      "english": "Choose POKéMON or CANCEL.",
+      "czech": "Vyber Pokémona, nebo ZPĚT.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ChoosePokemonConfirm",
+      "kind": "ui",
+      "english": "Choose POKéMON and confirm.",
+      "czech": "Vyber Pokémona a potvrď.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NoUse",
+      "kind": "ui",
+      "english": "No use.",
+      "czech": "Nelze použít.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_InUseAlready_PM",
+      "kind": "ui",
+      "english": "This is in use already.",
+      "czech": "Už se používá.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Able",
+      "kind": "ui",
+      "english": "ABLE",
+      "czech": "LZE",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Able2",
+      "kind": "ui",
+      "english": "ABLE",
+      "czech": "LZE",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Able3",
+      "kind": "ui",
+      "english": "ABLE!",
+      "czech": "LZE!",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NotAble",
+      "kind": "ui",
+      "english": "NOT ABLE",
+      "czech": "NELZE",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NotAble2",
+      "kind": "ui",
+      "english": "NOT ABLE!",
+      "czech": "NELZE!",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Learned",
+      "kind": "ui",
+      "english": "LEARNED",
+      "czech": "NAUČENO",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Have",
+      "kind": "ui",
+      "english": "HAVE",
+      "czech": "MÁŠ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_DontHave",
+      "kind": "ui",
+      "english": "DON'T HAVE",
+      "czech": "NEMÁŠ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_OnlyPkmnForBattle",
+      "kind": "ui",
+      "english": "That's your only\\nPOKéMON for battle.",
+      "czech": "Tohle je tvůj jediný\\nPokémon schopný boje.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Attack3",
+      "kind": "ui",
+      "english": "ATTACK",
+      "czech": "ÚTOK",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Defense3",
+      "kind": "ui",
+      "english": "DEFENSE",
+      "czech": "OBRANA",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SpAtk4",
+      "kind": "ui",
+      "english": "SP. ATK",
+      "czech": "S. ÚT.",
+      "font": "Normal",
+      "width": 36
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SpDef4",
+      "kind": "ui",
+      "english": "SP. DEF",
+      "czech": "S.OBR.",
+      "font": "Normal",
+      "width": 36
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Speed2",
+      "kind": "ui",
+      "english": "SPEED",
+      "czech": "RYCHL.",
+      "font": "Normal",
+      "width": 36
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_TypeSlash",
+      "kind": "ui",
+      "english": "TYPE/",
+      "czech": "TYP/",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Power",
+      "kind": "ui",
+      "english": "POWER",
+      "czech": "SÍLA",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Accuracy2",
+      "kind": "ui",
+      "english": "ACCURACY",
+      "czech": "PŘESNOST",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Appeal",
+      "kind": "ui",
+      "english": "APPEAL",
+      "czech": "DOJEM",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Jam",
+      "kind": "ui",
+      "english": "JAM",
+      "czech": "RUŠENÍ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Status",
+      "kind": "ui",
+      "english": "STATUS",
+      "czech": "STAV",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ExpPoints",
+      "kind": "ui",
+      "english": "EXP. POINTS",
+      "czech": "ZKUŠENOSTI",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NextLv",
+      "kind": "ui",
+      "english": "NEXT LV.",
+      "czech": "DALŠÍ ÚR.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_RibbonsVar1",
+      "kind": "ui",
+      "english": "RIBBONS: {STR_VAR_1}",
+      "czech": "STUHY: {STR_VAR_1}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnInfo",
+      "kind": "ui",
+      "english": "POKéMON INFO",
+      "czech": "POKéMON: ÚDAJE",
+      "font": "Normal",
+      "width": 86
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PkmnSkills",
+      "kind": "ui",
+      "english": "POKéMON SKILLS",
+      "czech": "STATISTIKY",
+      "font": "Normal",
+      "width": 86
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_BattleMoves",
+      "kind": "ui",
+      "english": "BATTLE MOVES",
+      "czech": "ÚTOKY",
+      "font": "Normal",
+      "width": 86
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_ContestMoves",
+      "kind": "ui",
+      "english": "CONTEST MOVES",
+      "czech": "SOUTĚŽNÍ ÚTOKY",
+      "font": "Normal",
+      "width": 86
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Info",
+      "kind": "ui",
+      "english": "INFO",
+      "czech": "ÚDAJE",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_HMMovesCantBeForgotten2",
+      "kind": "ui",
+      "english": "HM moves can't be\\nforgotten now.",
+      "czech": "Útoky HM teď nelze\\nzapomenout.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_XNatureMetAtYZ",
+      "kind": "ui",
+      "english": "{DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5} nature,\\nmet at {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1},\\n{DYNAMIC 0}{DYNAMIC 4}{DYNAMIC 1}.",
+      "czech": "Povaha: {DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5}.\\nSetkání na {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1}.\\n{DYNAMIC 0}{DYNAMIC 4}{DYNAMIC 1}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_XNatureHatchedAtYZ",
+      "kind": "ui",
+      "english": "{DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5} nature,\\nhatched at {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1},\\n{DYNAMIC 0}{DYNAMIC 4}{DYNAMIC 1}.",
+      "czech": "Povaha: {DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5}.\\nVylíhnutí na {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1}.\\n{DYNAMIC 0}{DYNAMIC 4}{DYNAMIC 1}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_XNatureObtainedInTrade",
+      "kind": "ui",
+      "english": "{DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5} nature,\\nobtained in a trade.",
+      "czech": "Povaha: {DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5}.\\nZískán výměnou.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_XNatureFatefulEncounter",
+      "kind": "ui",
+      "english": "{DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5} nature,\\nobtained in a fateful\\nencounter at {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1}.",
+      "czech": "Povaha: {DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5}.\\nOsudové setkání\\nna {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_XNatureProbablyMetAt",
+      "kind": "ui",
+      "english": "{DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5} nature,\\nprobably met at {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1},\\n{DYNAMIC 0}{DYNAMIC 4}{DYNAMIC 1}.",
+      "czech": "Povaha: {DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5}.\\nAsi setkání na {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1}.\\n{DYNAMIC 0}{DYNAMIC 4}{DYNAMIC 1}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_XNature",
+      "kind": "ui",
+      "english": "{DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5} nature",
+      "czech": "Povaha: {DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_XNatureMetSomewhereAt",
+      "kind": "ui",
+      "english": "{DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5} nature,\\nmet somewhere at {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1}.",
+      "czech": "Povaha: {DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5}.\\nSetkání někde\\nna {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_XNatureHatchedSomewhereAt",
+      "kind": "ui",
+      "english": "{DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5} nature,\\nhatched somewhere at {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1}.",
+      "czech": "Povaha: {DYNAMIC 0}{DYNAMIC 2}{DYNAMIC 1}{DYNAMIC 5}.\\nVylíhnutí někde\\nna {LV_2}{DYNAMIC 0}{DYNAMIC 3}{DYNAMIC 1}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_BagIsFull",
+      "kind": "ui",
+      "english": "The BAG is full.{PAUSE_UNTIL_PRESS}",
+      "czech": "Batoh je plný.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_NoItems",
+      "kind": "ui",
+      "english": "There are no items.{PAUSE_UNTIL_PRESS}",
+      "czech": "Nemáš žádné předměty.{PAUSE_UNTIL_PRESS}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_TrainerCardName",
+      "kind": "ui",
+      "english": "NAME: ",
+      "czech": "JMÉNO: ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SaveCompleted",
+      "kind": "ui",
+      "english": "Save completed.",
+      "czech": "Hra je uložena.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SaveFailed",
+      "kind": "ui",
+      "english": "Save failed…",
+      "czech": "Uložení se nezdařilo…",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerTeachMoveConfirm",
+      "kind": "ui",
+      "english": "Teach {STR_VAR_2}?",
+      "czech": "Naučit útok {STR_VAR_2}?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerTeachMoveConfirmUseTm",
+      "kind": "ui",
+      "english": "Teach {STR_VAR_2}?\\nThis will consume one {STR_VAR_3}.",
+      "czech": "Naučit útok {STR_VAR_2}?\\nSpotřebuje se {STR_VAR_3}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerPkmnLearnedMove",
+      "kind": "ui",
+      "english": "{STR_VAR_1} learned\\n{STR_VAR_2}!",
+      "czech": "{STR_VAR_1} se naučil\\nútok {STR_VAR_2}!",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerPkmnTryingToLearnMove",
+      "kind": "ui",
+      "english": "{STR_VAR_1} is trying to learn\\n{STR_VAR_2}.\\pBut {STR_VAR_1} can't learn more\\nthan four moves.\\pDelete an older move to make\\nroom for {STR_VAR_2}?",
+      "czech": "{STR_VAR_1} se chce naučit\\nútok {STR_VAR_2}.\\pUž ale {STR_VAR_1} zná\\nčtyři útoky.\\pZapomenout starý útok\\na naučit se {STR_VAR_2}?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerStopTryingToTeachMove",
+      "kind": "ui",
+      "english": "Stop trying to teach\\n{STR_VAR_2}?",
+      "czech": "Přestat s učením\\nútoku {STR_VAR_2}?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerAndPoof",
+      "kind": "ui",
+      "english": "{PAUSE 32}1, {PAUSE 15}2, and {PAUSE 15}… {PAUSE 15}… {PAUSE 15}… {PAUSE 15}{PLAY_SE SE_BALL_BOUNCE_1}Poof!\\p",
+      "czech": "{PAUSE 32}1, {PAUSE 15}2 a {PAUSE 15}… {PAUSE 15}… {PAUSE 15}… {PAUSE 15}{PLAY_SE SE_BALL_BOUNCE_1}Puf!\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerPkmnForgotMoveAndLearnedNew",
+      "kind": "ui",
+      "english": "{STR_VAR_1} forgot {STR_VAR_3}.\\pAnd…\\p{STR_VAR_1} learned {STR_VAR_2}.",
+      "czech": "{STR_VAR_1} zapomněl {STR_VAR_3}.\\pA…\\p{STR_VAR_1} se naučil {STR_VAR_2}.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerGiveUp",
+      "kind": "ui",
+      "english": "Give up trying to teach a new\\nmove to {STR_VAR_1}?",
+      "czech": "Přestat s učením nového\\nútoku pro {STR_VAR_1}?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerStop",
+      "kind": "ui",
+      "english": "Stop trying to learn new\\nmoves for {STR_VAR_1}?",
+      "czech": "Přestat s učením nových\\nútoků pro {STR_VAR_1}?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerWhichMoveToForget",
+      "kind": "ui",
+      "english": "Which move should be\\nforgotten?\\p",
+      "czech": "Který útok se má\\nzapomenout?\\p",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerBattleMoves",
+      "kind": "ui",
+      "english": "BATTLE MOVES",
+      "czech": "ÚTOKY",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerContestMovesTitle",
+      "kind": "ui",
+      "english": "CONTEST MOVES",
+      "czech": "SOUTĚŽNÍ ÚTOKY",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerPower",
+      "kind": "ui",
+      "english": "POWER/",
+      "czech": "SÍLA/",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerAccuracy",
+      "kind": "ui",
+      "english": "ACCURACY/",
+      "czech": "PŘESNOST/",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerAppeal",
+      "kind": "ui",
+      "english": "APPEAL",
+      "czech": "DOJEM",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_MoveRelearnerJam",
+      "kind": "ui",
+      "english": "JAM",
+      "czech": "RUŠENÍ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ABSORB.name.0",
+      "kind": "move_name",
+      "english": "Absorb",
+      "czech": "Vysátí",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ABSORB.description.0",
+      "kind": "move_description",
+      "english": "An attack that absorbs\\nhalf the damage inflicted.",
+      "czech": "Vysaje část HP cíle. Polovina zranění léčí\\nuživatele.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ACID.name.0",
+      "kind": "move_name",
+      "english": "Acid",
+      "czech": "Kyselina",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ACID_SPRAY.name.0",
+      "kind": "move_name",
+      "english": "Acid Spray",
+      "czech": "Kyselý sprej",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ACID_SPRAY.description.0",
+      "kind": "move_description",
+      "english": "Sprays a hide-melting acid.\\nHarshly lowers Sp. Def.",
+      "czech": "Zasáhne cíl kyselinou a prudce sníží jeho\\nspeciální obranu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_AIR_CUTTER.name.0",
+      "kind": "move_name",
+      "english": "Air Cutter",
+      "czech": "Vzdušná čepel",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_AIR_CUTTER.description.0",
+      "kind": "move_description",
+      "english": "Hacks with razorlike wind.\\nHigh critical-hit ratio.",
+      "czech": "Zasáhne cíl ostrým větrem. Častěji\\nzpůsobí kritický zásah.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_AQUA_JET.name.0",
+      "kind": "move_name",
+      "english": "Aqua Jet",
+      "czech": "Vodní trysk",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_AQUA_JET.description.0",
+      "kind": "move_description",
+      "english": "Strikes first by dashing\\nat the foe at a high speed.",
+      "czech": "Vyrazí na cíl proudem vody. Útočí před\\nvětšinou útoků.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ASTONISH.name.0",
+      "kind": "move_name",
+      "english": "Astonish",
+      "czech": "Úlek",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ASTONISH.description.0",
+      "kind": "move_description",
+      "english": "An attack that may shock\\nthe foe into flinching.",
+      "czech": "Vyděsí a zasáhne cíl. Cíl může zaváhat.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BABY_DOLL_EYES.name.0",
+      "kind": "move_name",
+      "english": "Baby-Doll Eyes",
+      "czech": "Roztomilý pohled",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BABY_DOLL_EYES.description.0",
+      "kind": "move_description",
+      "english": "Lowers the foe's Attack\\nbefore it can move.",
+      "czech": "Roztomilým pohledem sníží útok cíle. Má\\npřednost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BIDE.name.0",
+      "kind": "move_name",
+      "english": "Bide",
+      "czech": "Vyčkání",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BIDE.description.0",
+      "kind": "move_description",
+      "english": "Endures attack for 2\\nturns to retaliate double.",
+      "czech": "Dvě kola snáší útoky. Pak vrátí\\ndvojnásobek přijatého zranění.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BITE.name.0",
+      "kind": "move_name",
+      "english": "Bite",
+      "czech": "Kousnutí",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BITE.description.0",
+      "kind": "move_description",
+      "english": "Bites with vicious fangs.\\nMay cause flinching.",
+      "czech": "Kousne cíl ostrými zuby. Cíl může zaváhat.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BUG_BITE.name.0",
+      "kind": "move_name",
+      "english": "Bug Bite",
+      "czech": "Hmyzí kousnutí",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BUG_BITE.description.0",
+      "kind": "move_description",
+      "english": "Eats the foe's held Berry\\nand gains its effect.",
+      "czech": "Kousne cíl. Sní jeho drženou bobuli a\\nzíská její účinek.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CONFUSION.name.0",
+      "kind": "move_name",
+      "english": "Confusion",
+      "czech": "Zmatení",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CONFUSION.description.0",
+      "kind": "move_description",
+      "english": "A psychic attack that may\\ncause confusion.",
+      "czech": "Zasáhne cíl psychickou silou. Může ho\\nzmást.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_COVET.name.0",
+      "kind": "move_name",
+      "english": "Covet",
+      "czech": "Žadonění",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_COVET.description.0",
+      "kind": "move_description",
+      "english": "Cutely begs to obtain an\\nitem held by the foe.",
+      "czech": "Zasáhne cíl a ukradne jeho držený\\npředmět.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_DISARMING_VOICE.name.0",
+      "kind": "move_name",
+      "english": "Disarming Voice",
+      "czech": "Kouzelný hlas",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_DISARMING_VOICE.description.0",
+      "kind": "move_description",
+      "english": "Lets out a charming cry\\nthat cannot be evaded.",
+      "czech": "Zasáhne cíl kouzelným hlasem. Útok vždy\\nzasáhne.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_DOUBLE_TEAM.name.0",
+      "kind": "move_name",
+      "english": "Double Team",
+      "czech": "Dvojník",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_DOUBLE_TEAM.description.0",
+      "kind": "move_description",
+      "english": "Creates illusory copies to\\nraise evasiveness.",
+      "czech": "Vytvoří klamné obrazy a zvýší úhybnost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_DRAINING_KISS.name.0",
+      "kind": "move_name",
+      "english": "Draining Kiss",
+      "czech": "Savý polibek",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_DRAINING_KISS.description.0",
+      "kind": "move_description",
+      "english": "A kiss that steals over\\nhalf the damage inflicted.",
+      "czech": "Políbí cíl a vysaje HP. Většinu zranění\\nzíská jako léčení.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_EMBER.name.0",
+      "kind": "move_name",
+      "english": "Ember",
+      "czech": "Žhavík",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_EMBER.description.0",
+      "kind": "move_description",
+      "english": "A weak fire attack that may\\ninflict a burn.",
+      "czech": "Zasáhne cíl malým plamenem. Může způsobit\\npopálení.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_EXPLOSION.name.0",
+      "kind": "move_name",
+      "english": "Explosion",
+      "czech": "Exploze",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_EXPLOSION.description.0",
+      "kind": "move_description",
+      "english": "Inflicts severe damage but\\nmakes the user faint.",
+      "czech": "Způsobí silný výbuch. Uživatel potom\\npadne.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FAKE_OUT.name.0",
+      "kind": "move_name",
+      "english": "Fake Out",
+      "czech": "Překvapení",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FAKE_OUT.description.0",
+      "kind": "move_description",
+      "english": "A 1st-turn only, 1st-strike\\nmove that causes flinching.",
+      "czech": "Rychlý úder přinutí cíl zaváhat. Funguje\\njen po vstupu do boje.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FLIP_TURN.name.0",
+      "kind": "move_name",
+      "english": "Flip Turn",
+      "czech": "Vodní obrat",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FLIP_TURN.description.0",
+      "kind": "move_description",
+      "english": "Attacks and rushes back to\\nswitch with a party Pokémon.",
+      "czech": "Zasáhne cíl vodním útokem. Potom se\\nvymění za člena týmu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FOCUS_ENERGY.name.0",
+      "kind": "move_name",
+      "english": "Focus Energy",
+      "czech": "Soustředění",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FOCUS_ENERGY.description.0",
+      "kind": "move_description",
+      "english": "Focuses power to raise the\\ncritical-hit ratio.",
+      "czech": "Soustředí se a zvýší šanci na kritický\\nzásah.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_GROWL.name.0",
+      "kind": "move_name",
+      "english": "Growl",
+      "czech": "Vrčení",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_GROWL.description.0",
+      "kind": "move_description",
+      "english": "Growls cutely to lower the\\nfoes' Attack.",
+      "czech": "Zavrčí na protivníky a sníží jejich útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_GROWTH.name.0",
+      "kind": "move_name",
+      "english": "Growth",
+      "czech": "Růst",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_GUST.name.0",
+      "kind": "move_name",
+      "english": "Gust",
+      "czech": "Poryv",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_GUST.description.0",
+      "kind": "move_description",
+      "english": "Strikes the foe with a gust\\nof wind whipped up by wings.",
+      "czech": "Zasáhne cíl silným poryvem větru.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HARDEN.name.0",
+      "kind": "move_name",
+      "english": "Harden",
+      "czech": "Zpevnění",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HARDEN.description.0",
+      "kind": "move_description",
+      "english": "Stiffens the body's \\nmuscles to raise Defense.",
+      "czech": "Zpevní své tělo a zvýší obranu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HEADBUTT.name.0",
+      "kind": "move_name",
+      "english": "Headbutt",
+      "czech": "Úder hlavou",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HEADBUTT.description.0",
+      "kind": "move_description",
+      "english": "A ramming attack that may\\ncause flinching.",
+      "czech": "Vrazí hlavou do cíle. Cíl může zaváhat.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HOWL.name.0",
+      "kind": "move_name",
+      "english": "Howl",
+      "czech": "Vytí",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HYPER_FANG.name.0",
+      "kind": "move_name",
+      "english": "Hyper Fang",
+      "czech": "Silný tesák",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HYPER_FANG.description.0",
+      "kind": "move_description",
+      "english": "Attacks with sharp fangs.\\nMay cause flinching.",
+      "czech": "Silně kousne cíl. Cíl může zaváhat.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HYPNOSIS.name.0",
+      "kind": "move_name",
+      "english": "Hypnosis",
+      "czech": "Hypnóza",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HYPNOSIS.description.0",
+      "kind": "move_description",
+      "english": "A hypnotizing move that\\ninduces sleep.",
+      "czech": "Pokusí se uspat cíl hypnotickým pohledem.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_INCINERATE.name.0",
+      "kind": "move_name",
+      "english": "Incinerate",
+      "czech": "Spálení",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LASER_FOCUS.name.0",
+      "kind": "move_name",
+      "english": "Laser Focus",
+      "czech": "Přesné zaměření",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LASER_FOCUS.description.0",
+      "kind": "move_description",
+      "english": "Guarantees the next move\\nwill be a critical hit.",
+      "czech": "Soustředí se. Příští útok způsobí\\nkritický zásah.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LEAFAGE.name.0",
+      "kind": "move_name",
+      "english": "Leafage",
+      "czech": "Lístky",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LEAFAGE.description.0",
+      "kind": "move_description",
+      "english": "Attacks with a flurry of\\nsmall leaves.",
+      "czech": "Zasáhne cíl ostrými lístky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LEECH_LIFE.name.0",
+      "kind": "move_name",
+      "english": "Leech Life",
+      "czech": "Sání života",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LEECH_LIFE.description.0",
+      "kind": "move_description",
+      "english": "An attack that steals half\\nthe damage inflicted.",
+      "czech": "Vysaje cíl. Polovina způsobeného zranění\\nobnoví HP uživatele.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LEECH_SEED.name.0",
+      "kind": "move_name",
+      "english": "Leech Seed",
+      "czech": "Savé semínko",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LEECH_SEED.description.0",
+      "kind": "move_description",
+      "english": "Plants a seed on the foe to\\nsteal HP on every turn.",
+      "czech": "Zasadí na cíl semínko. Každé kolo mu\\nvysává HP.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LEER.name.0",
+      "kind": "move_name",
+      "english": "Leer",
+      "czech": "Zlý pohled",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LEER.description.0",
+      "kind": "move_description",
+      "english": "Frightens the foes with a\\nleer to lower Defense.",
+      "czech": "Zlým pohledem sníží obranu protivníků.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LUCKY_CHANT.name.0",
+      "kind": "move_name",
+      "english": "Lucky Chant",
+      "czech": "Šťastný zpěv",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LUCKY_CHANT.description.0",
+      "kind": "move_description",
+      "english": "Prevents the foe from\\nlanding critical hits.",
+      "czech": "Pět kol chrání svůj tým před kritickými\\nzásahy.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MEAN_LOOK.name.0",
+      "kind": "move_name",
+      "english": "Mean Look",
+      "czech": "Upřený pohled",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MEAN_LOOK.description.0",
+      "kind": "move_description",
+      "english": "Fixes the foe with a mean\\nlook that prevents escape.",
+      "czech": "Upřeným pohledem znemožní cíli utéct\\nnebo se vyměnit.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MEGA_DRAIN.name.0",
+      "kind": "move_name",
+      "english": "Mega Drain",
+      "czech": "Megavysátí",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MEGA_DRAIN.description.0",
+      "kind": "move_description",
+      "english": "An attack that absorbs\\nhalf the damage inflicted.",
+      "czech": "Vysaje HP cíle. Polovina způsobeného\\nzranění léčí uživatele.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MUD_SLAP.name.0",
+      "kind": "move_name",
+      "english": "Mud-Slap",
+      "czech": "Blátivý políček",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MUD_SLAP.description.0",
+      "kind": "move_description",
+      "english": "Hurls mud in the foe's face\\nto lower its accuracy.",
+      "czech": "Hodí na cíl bláto a sníží jeho přesnost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_NATURE_POWER.name.0",
+      "kind": "move_name",
+      "english": "Nature Power",
+      "czech": "Síla přírody",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_NATURE_POWER.description.0",
+      "kind": "move_description",
+      "english": "The type of attack varies\\ndepending on the location.",
+      "czech": "Použije útok, který se mění podle\\nokolního prostředí.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ODOR_SLEUTH.name.0",
+      "kind": "move_name",
+      "english": "Odor Sleuth",
+      "czech": "Stopování",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ODOR_SLEUTH.description.0",
+      "kind": "move_description",
+      "english": "Negates evasion and the\\nGhost type's immunities.",
+      "czech": "Umožní zasáhnout duchy běžnými útoky.\\nPotlačí úhybnost cíle.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_PECK.name.0",
+      "kind": "move_name",
+      "english": "Peck",
+      "czech": "Klovnutí",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_PECK.description.0",
+      "kind": "move_description",
+      "english": "Attacks the foe with a\\njabbing beak, etc.",
+      "czech": "Klovne cíl ostrým zobákem nebo rohem.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POISON_FANG.name.0",
+      "kind": "move_name",
+      "english": "Poison Fang",
+      "czech": "Jedový tesák",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POISON_FANG.description.0",
+      "kind": "move_description",
+      "english": "A sharp-fanged attack.\\nMay badly poison the foe.",
+      "czech": "Kousne jedovými zuby. Může způsobit\\nsilnou otravu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POISON_POWDER.name.0",
+      "kind": "move_name",
+      "english": "Poison Powder",
+      "czech": "Jedový prach",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POISON_POWDER.description.0",
+      "kind": "move_description",
+      "english": "Scatters a toxic powder\\nthat poisons the foe.",
+      "czech": "Pokusí se otrávit cíl jedovatým prachem.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POISON_STING.name.0",
+      "kind": "move_name",
+      "english": "Poison Sting",
+      "czech": "Jedové žihadlo",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POISON_STING.description.0",
+      "kind": "move_description",
+      "english": "A toxic attack with barbs,\\netc., that may poison.",
+      "czech": "Bodne cíl jedovatým žihadlem. Může ho\\notrávit.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POUNCE.name.0",
+      "kind": "move_name",
+      "english": "Pounce",
+      "czech": "Skok",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POUNCE.description.0",
+      "kind": "move_description",
+      "english": "The user pounces on the foe,\\nlowering its Speed.",
+      "czech": "Skočí na cíl a sníží jeho rychlost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POUND.name.0",
+      "kind": "move_name",
+      "english": "Pound",
+      "czech": "Bouchnutí",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_POUND.description.0",
+      "kind": "move_description",
+      "english": "Pounds the foe with\\nforelegs or tail.",
+      "czech": "Zasáhne cíl ocasem nebo předními\\nkončetinami.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_PURSUIT.name.0",
+      "kind": "move_name",
+      "english": "Pursuit",
+      "czech": "Pronásledování",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_PURSUIT.description.0",
+      "kind": "move_description",
+      "english": "Inflicts double damage if\\nused on a foe switching out.",
+      "czech": "Zasáhne prchající cíl silněji, pokud se\\ncíl právě mění.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_QUICK_ATTACK.name.0",
+      "kind": "move_name",
+      "english": "Quick Attack",
+      "czech": "Rychlý útok",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_QUICK_ATTACK.description.0",
+      "kind": "move_description",
+      "english": "An extremely fast attack\\nthat always strikes first.",
+      "czech": "Rychle zasáhne cíl. Útočí před většinou\\nútoků.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_RAZOR_LEAF.name.0",
+      "kind": "move_name",
+      "english": "Razor Leaf",
+      "czech": "Ostrý list",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_RAZOR_LEAF.description.0",
+      "kind": "move_description",
+      "english": "Cuts enemies with leaves.\\nHigh critical-hit ratio.",
+      "czech": "Zasáhne cíle ostrými listy. Častěji\\nzpůsobí kritický zásah.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ROLLOUT.name.0",
+      "kind": "move_name",
+      "english": "Rollout",
+      "czech": "Kutálení",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ROLLOUT.description.0",
+      "kind": "move_description",
+      "english": "An attack lasting 5 turns\\nwith rising intensity.",
+      "czech": "Kutálí se až pět kol. Každým zásahem\\nzesiluje.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SAND_ATTACK.name.0",
+      "kind": "move_name",
+      "english": "Sand Attack",
+      "czech": "Písek do očí",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SAND_ATTACK.description.0",
+      "kind": "move_description",
+      "english": "Lowers the foe's accuracy\\nby hurling sand in its face.",
+      "czech": "Hodí na cíl písek a sníží jeho přesnost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SHADOW_SNEAK.name.0",
+      "kind": "move_name",
+      "english": "Shadow Sneak",
+      "czech": "Stínový úskok",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SHADOW_SNEAK.description.0",
+      "kind": "move_description",
+      "english": "Extends the user's shadow\\nto strike first.",
+      "czech": "Zasáhne cíl protaženým stínem. Má\\npřednost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SMOKESCREEN.name.0",
+      "kind": "move_name",
+      "english": "Smokescreen",
+      "czech": "Kouřová clona",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SMOKESCREEN.description.0",
+      "kind": "move_description",
+      "english": "Lowers the foe's accuracy\\nusing smoke, ink, etc.",
+      "czech": "Zahalí cíl kouřem a sníží jeho přesnost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STRING_SHOT.name.0",
+      "kind": "move_name",
+      "english": "String Shot",
+      "czech": "Lepivé vlákno",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STUN_SPORE.name.0",
+      "kind": "move_name",
+      "english": "Stun Spore",
+      "czech": "Omračující pyl",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STUN_SPORE.description.0",
+      "kind": "move_description",
+      "english": "Scatters a powder that\\nparalyzes the foe.",
+      "czech": "Pokusí se ochromit cíl rozptýleným pylem.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SUPERSONIC.name.0",
+      "kind": "move_name",
+      "english": "Supersonic",
+      "czech": "Ultrazvuk",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SUPERSONIC.description.0",
+      "kind": "move_description",
+      "english": "Emits bizarre sound waves\\nthat confuse the foe.",
+      "czech": "Vydá zvláštní zvuk, který může zmást cíl.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SWAGGER.name.0",
+      "kind": "move_name",
+      "english": "Swagger",
+      "czech": "Vychloubání",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SWAGGER.description.0",
+      "kind": "move_description",
+      "english": "Confuses the foe, but also\\nsharply raises its Attack.",
+      "czech": "Zmate cíl, ale zároveň prudce zvýší jeho\\nútok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SYNTHESIS.name.0",
+      "kind": "move_name",
+      "english": "Synthesis",
+      "czech": "Syntéza",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SYNTHESIS.description.0",
+      "kind": "move_description",
+      "english": "Restores HP. The amount\\nvaries with the weather.",
+      "czech": "Obnoví vlastní HP. Množství léčení závisí\\nna počasí.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TACKLE.name.0",
+      "kind": "move_name",
+      "english": "Tackle",
+      "czech": "Náraz",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TACKLE.description.0",
+      "kind": "move_description",
+      "english": "Charges the foe with a full-\\nbody tackle.",
+      "czech": "Narazí do cíle celým tělem.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TAIL_WHIP.name.0",
+      "kind": "move_name",
+      "english": "Tail Whip",
+      "czech": "Vrtění ocasem",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TAIL_WHIP.description.0",
+      "kind": "move_description",
+      "english": "Wags the tail to lower the\\nfoes' Defense.",
+      "czech": "Zavrtí ocasem a sníží obranu protivníků.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TELEPORT.name.0",
+      "kind": "move_name",
+      "english": "Teleport",
+      "czech": "Teleport",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TORMENT.name.0",
+      "kind": "move_name",
+      "english": "Torment",
+      "czech": "Trýzeň",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TORMENT.description.0",
+      "kind": "move_description",
+      "english": "Torments the foe and stops\\nsuccessive use of a move.",
+      "czech": "Znemožní cíli použít stejný útok dvakrát\\nza sebou.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_WING_ATTACK.name.0",
+      "kind": "move_name",
+      "english": "Wing Attack",
+      "czech": "Úder křídly",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_WING_ATTACK.description.0",
+      "kind": "move_description",
+      "english": "Strikes the foe with wings\\nspread wide.",
+      "czech": "Zasáhne cíl rozevřenými křídly.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STRUGGLE.name.0",
+      "kind": "move_name",
+      "english": "Struggle",
+      "czech": "Zápasení",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STRUGGLE.description.0",
+      "kind": "move_description",
+      "english": "Used only if all PP are gone.\\nAlso hurts the user a little.",
+      "czech": "Použije se při nedostatku PP. Zraní i\\nuživatele.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_OVERGROW.name.0",
+      "kind": "ability_name",
+      "english": "Overgrow",
+      "czech": "Bujení",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_OVERGROW.description.0",
+      "kind": "ability_description",
+      "english": "Ups Grass moves at low HP.",
+      "czech": "Při nízkých HP zesílí travní útoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_TORRENT.name.0",
+      "kind": "ability_name",
+      "english": "Torrent",
+      "czech": "Příval",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_TORRENT.description.0",
+      "kind": "ability_description",
+      "english": "Ups Water moves at low HP.",
+      "czech": "Při nízkých HP zesílí vodní útoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_BLAZE.name.0",
+      "kind": "ability_name",
+      "english": "Blaze",
+      "czech": "Žár",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_BLAZE.description.0",
+      "kind": "ability_description",
+      "english": "Ups Fire moves at low HP.",
+      "czech": "Při nízkých HP zesílí ohnivé útoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_CORROSION.name.0",
+      "kind": "ability_name",
+      "english": "Corrosion",
+      "czech": "Žíravost",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_CORROSION.description.0",
+      "kind": "ability_description",
+      "english": "Can poison Steel & Poison.",
+      "czech": "Dokáže otrávit i ocelové a jedové typy.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_WATER_ABSORB.name.0",
+      "kind": "ability_name",
+      "english": "Water Absorb",
+      "czech": "Sání vody",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_WATER_ABSORB.description.0",
+      "kind": "ability_description",
+      "english": "Restores HP if hit by Water.",
+      "czech": "Vodní útoky neublíží a místo toho obnoví\\nHP.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_INFILTRATOR.name.0",
+      "kind": "ability_name",
+      "english": "Infiltrator",
+      "czech": "Průnik",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_INFILTRATOR.description.0",
+      "kind": "ability_description",
+      "english": "Passes through barriers.",
+      "czech": "Útoky projdou přes bariéry a náhradníka.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_CHLOROPHYLL.name.0",
+      "kind": "ability_name",
+      "english": "Chlorophyll",
+      "czech": "Chlorofyl",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_CHLOROPHYLL.description.0",
+      "kind": "ability_description",
+      "english": "Boosts Speed in sunlight.",
+      "czech": "Na ostrém slunci zdvojnásobí rychlost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_COMPOUND_EYES.name.0",
+      "kind": "ability_name",
+      "english": "Compound Eyes",
+      "czech": "Složené oči",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_COMPOUND_EYES.description.0",
+      "kind": "ability_description",
+      "english": "Boosts accuracy.",
+      "czech": "Zvýší přesnost vlastních útoků.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_EARLY_BIRD.name.0",
+      "kind": "ability_name",
+      "english": "Early Bird",
+      "czech": "Ranní ptáče",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_EARLY_BIRD.description.0",
+      "kind": "ability_description",
+      "english": "Awakens twice as fast.",
+      "czech": "Probudí se dvakrát rychleji.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_EFFECT_SPORE.name.0",
+      "kind": "ability_name",
+      "english": "Effect Spore",
+      "czech": "Výtrusy",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_EFFECT_SPORE.description.0",
+      "kind": "ability_description",
+      "english": "Contact may psn/slp/par.",
+      "czech": "Dotyk může způsobit otravu, spánek nebo\\nochrnutí.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_GLUTTONY.name.0",
+      "kind": "ability_name",
+      "english": "Gluttony",
+      "czech": "Žravost",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_GLUTTONY.description.0",
+      "kind": "ability_description",
+      "english": "Eats Berries at half HP.",
+      "czech": "Drženou bobuli sní dříve než obvykle.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_GUTS.name.0",
+      "kind": "ability_name",
+      "english": "Guts",
+      "czech": "Odhodlání",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_GUTS.description.0",
+      "kind": "ability_description",
+      "english": "Boosts Attack if statused.",
+      "czech": "Při stavovém problému zvýší útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_HUSTLE.name.0",
+      "kind": "ability_name",
+      "english": "Hustle",
+      "czech": "Zápal",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_HUSTLE.description.0",
+      "kind": "ability_description",
+      "english": "Trades accuracy for power.",
+      "czech": "Zvýší útok, ale sníží přesnost fyzických\\nútoků.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_INNER_FOCUS.name.0",
+      "kind": "ability_name",
+      "english": "Inner Focus",
+      "czech": "Vnitřní klid",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_INNER_FOCUS.description.0",
+      "kind": "ability_description",
+      "english": "Prevents flinching.",
+      "czech": "Brání zaváhání a zastrašení.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_PICKPOCKET.name.0",
+      "kind": "ability_name",
+      "english": "Pickpocket",
+      "czech": "Kapsář",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_PICKPOCKET.description.0",
+      "kind": "ability_description",
+      "english": "Steals foe's item if hit.",
+      "czech": "Po zásahu dotykem ukradne útočníkův\\npředmět.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_PICKUP.name.0",
+      "kind": "ability_name",
+      "english": "Pickup",
+      "czech": "Sběr",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_PICKUP.description.0",
+      "kind": "ability_description",
+      "english": "May pick up items.",
+      "czech": "Po souboji může najít předmět.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_POISON_HEAL.name.0",
+      "kind": "ability_name",
+      "english": "Poison Heal",
+      "czech": "Léčivý jed",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_POISON_HEAL.description.0",
+      "kind": "ability_description",
+      "english": "Restores HP if poisoned.",
+      "czech": "Otrava místo zranění obnovuje HP.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_QUICK_FEET.name.0",
+      "kind": "ability_name",
+      "english": "Quick Feet",
+      "czech": "Rychlé nohy",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_QUICK_FEET.description.0",
+      "kind": "ability_description",
+      "english": "Boosts Speed if statused.",
+      "czech": "Stavový problém zvýší rychlost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_RATTLED.name.0",
+      "kind": "ability_name",
+      "english": "Rattled",
+      "czech": "Nervozita",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_RATTLED.description.0",
+      "kind": "ability_description",
+      "english": "Raises Speed when scared.",
+      "czech": "Po děsivém útoku se zvýší rychlost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_RIVALRY.name.0",
+      "kind": "ability_name",
+      "english": "Rivalry",
+      "czech": "Rivalita",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_RIVALRY.description.0",
+      "kind": "ability_description",
+      "english": "Strong vs. opposite gender.",
+      "czech": "Proti stejnému pohlaví zesílí, proti\\nopačnému zeslábne.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_RUN_AWAY.name.0",
+      "kind": "ability_name",
+      "english": "Run Away",
+      "czech": "Útěk",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_RUN_AWAY.description.0",
+      "kind": "ability_description",
+      "english": "Enables a sure getaway.",
+      "czech": "Umožní vždy utéct z divokého souboje.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SCRAPPY.name.0",
+      "kind": "ability_name",
+      "english": "Scrappy",
+      "czech": "Průbojnost",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SCRAPPY.description.0",
+      "kind": "ability_description",
+      "english": "Normal & Fight. hit Ghosts.",
+      "czech": "Běžné a bojové útoky zasáhnou i duchy.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SHED_SKIN.name.0",
+      "kind": "ability_name",
+      "english": "Shed Skin",
+      "czech": "Svlékání",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SHED_SKIN.description.0",
+      "kind": "ability_description",
+      "english": "May heal status problems.",
+      "czech": "Může se sám zbavit stavového problému.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SHIELD_DUST.name.0",
+      "kind": "ability_name",
+      "english": "Shield Dust",
+      "czech": "Šupinový prach",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SHIELD_DUST.description.0",
+      "kind": "ability_description",
+      "english": "Blocks foes' added effects.",
+      "czech": "Brání dodatečným účinkům cizích útoků.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SWARM.name.0",
+      "kind": "ability_name",
+      "english": "Swarm",
+      "czech": "Roj",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SWARM.description.0",
+      "kind": "ability_description",
+      "english": "Ups Bug moves at low HP.",
+      "czech": "Při nízkých HP zesílí hmyzí útoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SYNCHRONIZE.name.0",
+      "kind": "ability_name",
+      "english": "Synchronize",
+      "czech": "Souhra",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SYNCHRONIZE.description.0",
+      "kind": "ability_description",
+      "english": "Passes on brn/par/psn.",
+      "czech": "Přenese otravu, popálení nebo ochrnutí\\nna původce.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_TELEPATHY.name.0",
+      "kind": "ability_name",
+      "english": "Telepathy",
+      "czech": "Telepatie",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_TELEPATHY.description.0",
+      "kind": "ability_description",
+      "english": "Dodges ally's attacks.",
+      "czech": "Vyhne se útokům spojenců.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_TRACE.name.0",
+      "kind": "ability_name",
+      "english": "Trace",
+      "czech": "Kopie",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_TRACE.description.0",
+      "kind": "ability_description",
+      "english": "Copies a foe's Ability.",
+      "czech": "Při vstupu do boje napodobí schopnost\\nsoupeře.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 2
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POKE_BALL.name.0",
+      "kind": "item_name",
+      "english": "Poké Ball",
+      "czech": "Pokéball",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POKE_BALL.description.0",
+      "kind": "item_description",
+      "english": "A tool used for\\ncatching wild\\nPokémon.",
+      "czech": "Míček k chytání\\ndivokých Pokémonů.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_GREAT_BALL.name.0",
+      "kind": "item_name",
+      "english": "Great Ball",
+      "czech": "Superball",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_GREAT_BALL.description.0",
+      "kind": "item_description",
+      "english": "A good Ball with a\\nhigher catch rate\\nthan a Poké Ball.",
+      "czech": "Lepší míček k\\nchytání divokých\\nPokémonů.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POTION.name.0",
+      "kind": "item_name",
+      "english": "Potion",
+      "czech": "Lektvar",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POTION.description.0",
+      "kind": "item_description",
+      "english": "Restores the HP of\\na Pokémon by\\n20 points.",
+      "czech": "Obnoví Pokémonovi\\n20 HP.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUPER_POTION.name.0",
+      "kind": "item_name",
+      "english": "Super Potion",
+      "czech": "Silný lektvar",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_HYPER_POTION.name.0",
+      "kind": "item_name",
+      "english": "Hyper Potion",
+      "czech": "Hyperlektvar",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_REVIVE.name.0",
+      "kind": "item_name",
+      "english": "Revive",
+      "czech": "Oživení",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_REVIVE.description.0",
+      "kind": "item_description",
+      "english": "Revives a fainted\\nPokémon with half\\nits HP.",
+      "czech": "Oživí Pokémona a\\nobnoví polovinu HP.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_FULL_HEAL.name.0",
+      "kind": "item_name",
+      "english": "Full Heal",
+      "czech": "Všelék",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_FULL_HEAL.description.0",
+      "kind": "item_description",
+      "english": "Heals all the\\nstatus problems of\\none Pokémon.",
+      "czech": "Vyléčí všechny\\nstavové problémy.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ANTIDOTE.name.0",
+      "kind": "item_name",
+      "english": "Antidote",
+      "czech": "Protijed",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ANTIDOTE.description.0",
+      "kind": "item_description",
+      "english": "Heals a poisoned\\nPokémon.",
+      "czech": "Vyléčí otravu\\nPokémona.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_PARALYZE_HEAL.name.0",
+      "kind": "item_name",
+      "english": "Paralyze Heal",
+      "czech": "Lék na ochrnutí",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_PARALYZE_HEAL.description.0",
+      "kind": "item_description",
+      "english": "Heals a paralyzed\\nPokémon.",
+      "czech": "Vyléčí ochrnutí\\nPokémona.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_AWAKENING.name.0",
+      "kind": "item_name",
+      "english": "Awakening",
+      "czech": "Budíček",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_AWAKENING.description.0",
+      "kind": "item_description",
+      "english": "Awakens a sleeping\\nPokémon.",
+      "czech": "Probudí spícího\\nPokémona.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_BURN_HEAL.name.0",
+      "kind": "item_name",
+      "english": "Burn Heal",
+      "czech": "Lék na popálení",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_BURN_HEAL.description.0",
+      "kind": "item_description",
+      "english": "Heals Pokémon\\nof a burn.",
+      "czech": "Vyléčí popálení\\nPokémona.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ICE_HEAL.name.0",
+      "kind": "item_name",
+      "english": "Ice Heal",
+      "czech": "Lék na mráz",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_REPEL.name.0",
+      "kind": "item_name",
+      "english": "Repel",
+      "czech": "Repelent",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_REPEL.description.0",
+      "kind": "item_description",
+      "english": "Repels weak wild\\nPokémon for 100\\nsteps.",
+      "czech": "Na 100 kroků\\nodpudí slabé\\ndivoké Pokémony.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUPER_REPEL.name.0",
+      "kind": "item_name",
+      "english": "Super Repel",
+      "czech": "Silný repelent",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUPER_REPEL.description.0",
+      "kind": "item_description",
+      "english": "Repels weak wild\\nPokémon for 200\\nsteps.",
+      "czech": "Na 200 kroků\\nodpudí slabé\\ndivoké Pokémony.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MAX_REPEL.name.0",
+      "kind": "item_name",
+      "english": "Max Repel",
+      "czech": "Maxirepelent",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MAX_REPEL.description.0",
+      "kind": "item_description",
+      "english": "Repels weak wild\\nPokémon for 250\\nsteps.",
+      "czech": "Na 250 kroků\\nodpudí slabé\\ndivoké Pokémony.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POKE_DOLL.name.0",
+      "kind": "item_name",
+      "english": "Poké Doll",
+      "czech": "Poképanenka",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POKE_DOLL.description.0",
+      "kind": "item_description",
+      "english": "Use to flee from\\nany battle with\\na wild Pokémon.",
+      "czech": "Umožní únik z\\ndivokého souboje.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_TINY_MUSHROOM.name.0",
+      "kind": "item_name",
+      "english": "Tiny Mushroom",
+      "czech": "Malá houba",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_TINY_MUSHROOM.description.0",
+      "kind": "item_description",
+      "english": "A plain mushroom\\nthat would sell\\nat a cheap price.",
+      "czech": "Vzácná houbička.\\nDá se výhodně\\nprodat.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_BIG_MUSHROOM.name.0",
+      "kind": "item_name",
+      "english": "Big Mushroom",
+      "czech": "Velká houba",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_BIG_MUSHROOM.description.0",
+      "kind": "item_description",
+      "english": "A rare mushroom\\nthat would sell at a\\nhigh price.",
+      "czech": "Vzácná velká\\nhouba. Dá se draze\\nprodat.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ETHER.name.0",
+      "kind": "item_name",
+      "english": "Ether",
+      "czech": "Éter",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ETHER.description.0",
+      "kind": "item_description",
+      "english": "Restores the PP\\nof a selected move\\nby 10.",
+      "czech": "Obnoví 10 PP\\njednoho útoku.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MOON_STONE.name.0",
+      "kind": "item_name",
+      "english": "Moon Stone",
+      "czech": "Měsíční kámen",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MOON_STONE.description.0",
+      "kind": "item_description",
+      "english": "Makes certain\\nspecies of Pokémon\\nevolve.",
+      "czech": "Vyvine některé\\ndruhy Pokémonů.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUN_STONE.name.0",
+      "kind": "item_name",
+      "english": "Sun Stone",
+      "czech": "Sluneční kámen",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUN_STONE.description.0",
+      "kind": "item_description",
+      "english": "Makes certain\\nspecies of Pokémon\\nevolve.",
+      "czech": "Vyvine některé\\ndruhy Pokémonů.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_RARE_CANDY.name.0",
+      "kind": "item_name",
+      "english": "Rare Candy",
+      "czech": "Vzácný bonbon",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_RARE_CANDY.description.0",
+      "kind": "item_description",
+      "english": "Raises the level\\nof a Pokémon by\\none.",
+      "czech": "Zvýší úroveň\\nPokémona o jednu.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_PECHA_BERRY.name.0",
+      "kind": "item_name",
+      "english": "Pecha Berry",
+      "czech": "Bobule Pecha",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_PECHA_BERRY.description.0",
+      "kind": "item_description",
+      "english": "A held item that\\nheals poisoning\\nin battle.",
+      "czech": "Při držení sama\\nvyléčí otravu.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ORAN_BERRY.name.0",
+      "kind": "item_name",
+      "english": "Oran Berry",
+      "czech": "Bobule Oran",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ORAN_BERRY.description.0",
+      "kind": "item_description",
+      "english": "A held item that\\nrestores 10 HP in\\nbattle.",
+      "czech": "Při držení sama\\nobnoví 10 HP.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_BRIGHT_POWDER.name.0",
+      "kind": "item_name",
+      "english": "Bright Powder",
+      "czech": "Zářivý prach",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_BRIGHT_POWDER.description.0",
+      "kind": "item_description",
+      "english": "A held item that\\ncasts a glare to\\nreduce accuracy.",
+      "czech": "Při držení mírně\\nzvýší úhybnost.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POWER_HERB.name.0",
+      "kind": "item_name",
+      "english": "Power Herb",
+      "czech": "Silová bylina",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POWER_HERB.description.0",
+      "kind": "item_description",
+      "english": "Allows immediate\\nuse of a move that\\nrequires charging.",
+      "czech": "Urychlí nabíjecí\\nútok. Potom zmizí.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SHED_SHELL.name.0",
+      "kind": "item_name",
+      "english": "Shed Shell",
+      "czech": "Prázdná ulita",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SHED_SHELL.description.0",
+      "kind": "item_description",
+      "english": "Enables the holder\\nto switch out\\nwithout fail.",
+      "czech": "Držiteli vždy\\numožní výměnu.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_EXP_SHARE.name.0",
+      "kind": "item_name",
+      "english": "Exp. Share",
+      "czech": "Sdílení zkuš.",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_EXP_SHARE.description.0",
+      "kind": "item_description",
+      "english": "This device allows\\nall party members\\nto share in Exp.",
+      "czech": "Sdílí získané\\nzkušenosti s\\ntýmem.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_EXP_SHARE.description.1",
+      "kind": "item_description",
+      "english": "A held item that\\ngets Exp. Points\\nfrom battles.",
+      "czech": "Sdílí získané\\nzkušenosti s\\ntýmem.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_HARDY.name.0",
+      "kind": "nature_name",
+      "english": "Hardy",
+      "czech": "Vytrvalá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_LONELY.name.0",
+      "kind": "nature_name",
+      "english": "Lonely",
+      "czech": "Samotářská",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_BRAVE.name.0",
+      "kind": "nature_name",
+      "english": "Brave",
+      "czech": "Statečná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_ADAMANT.name.0",
+      "kind": "nature_name",
+      "english": "Adamant",
+      "czech": "Tvrdohlavá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_NAUGHTY.name.0",
+      "kind": "nature_name",
+      "english": "Naughty",
+      "czech": "Nezbedná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_BOLD.name.0",
+      "kind": "nature_name",
+      "english": "Bold",
+      "czech": "Smělá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_DOCILE.name.0",
+      "kind": "nature_name",
+      "english": "Docile",
+      "czech": "Poddajná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_RELAXED.name.0",
+      "kind": "nature_name",
+      "english": "Relaxed",
+      "czech": "Uvolněná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_IMPISH.name.0",
+      "kind": "nature_name",
+      "english": "Impish",
+      "czech": "Šibalská",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_LAX.name.0",
+      "kind": "nature_name",
+      "english": "Lax",
+      "czech": "Nedbalá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_TIMID.name.0",
+      "kind": "nature_name",
+      "english": "Timid",
+      "czech": "Plachá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_HASTY.name.0",
+      "kind": "nature_name",
+      "english": "Hasty",
+      "czech": "Zbrklá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_SERIOUS.name.0",
+      "kind": "nature_name",
+      "english": "Serious",
+      "czech": "Vážná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_JOLLY.name.0",
+      "kind": "nature_name",
+      "english": "Jolly",
+      "czech": "Veselá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_NAIVE.name.0",
+      "kind": "nature_name",
+      "english": "Naive",
+      "czech": "Naivní",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_MODEST.name.0",
+      "kind": "nature_name",
+      "english": "Modest",
+      "czech": "Skromná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_MILD.name.0",
+      "kind": "nature_name",
+      "english": "Mild",
+      "czech": "Mírná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_QUIET.name.0",
+      "kind": "nature_name",
+      "english": "Quiet",
+      "czech": "Tichá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_BASHFUL.name.0",
+      "kind": "nature_name",
+      "english": "Bashful",
+      "czech": "Nesmělá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_RASH.name.0",
+      "kind": "nature_name",
+      "english": "Rash",
+      "czech": "Unáhlená",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_CALM.name.0",
+      "kind": "nature_name",
+      "english": "Calm",
+      "czech": "Klidná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_GENTLE.name.0",
+      "kind": "nature_name",
+      "english": "Gentle",
+      "czech": "Jemná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_SASSY.name.0",
+      "kind": "nature_name",
+      "english": "Sassy",
+      "czech": "Drzá",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_CAREFUL.name.0",
+      "kind": "nature_name",
+      "english": "Careful",
+      "czech": "Opatrná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/pokemon.c",
+      "key": "NATURE_QUIRKY.name.0",
+      "kind": "nature_name",
+      "english": "Quirky",
+      "czech": "Svérázná",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_NONE.name.0",
+      "kind": "type_name",
+      "english": "None",
+      "czech": "Žádný",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_NONE.generic.0",
+      "kind": "type_generic",
+      "english": "a move",
+      "czech": "útok typu žádný",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ACID.description.conditional",
+      "kind": "move_description",
+      "english": "Sprays a hide-melting acid.\\nMay lower Sp. Def.May lower Defense.",
+      "czech": "Poleje cíl kyselinou. Může snížit speciální\\nobranu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3,
+      "conditional": true
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_GROWTH.description.conditional",
+      "kind": "move_description",
+      "english": "Forces the body to grow and\\nraises Attack and Sp. Atk.Forces the body to grow\\nand raises Sp. Atk.",
+      "czech": "Zvýší útok a speciální útok. Na slunci\\npůsobí silněji.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3,
+      "conditional": true
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HOWL.description.conditional",
+      "kind": "move_description",
+      "english": "Howls to raise the spirit\\nand raises allies' Attack.Howls to raise the spirit\\nand raises Attack.",
+      "czech": "Zavytím povzbudí sebe i spojence a zvýší\\njejich útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3,
+      "conditional": true
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_INCINERATE.description.conditional",
+      "kind": "move_description",
+      "english": "Burns up certain items,\\nBurns up Berries,\\nmaking them unusable.",
+      "czech": "Zasáhne cíle ohněm. Spálí jejich držené\\nbobule a drahokamy.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3,
+      "conditional": true
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STRING_SHOT.description.conditional",
+      "kind": "move_description",
+      "english": "Binds the foe with string\\nto harshly lower its Speed.to lower its Speed.",
+      "czech": "Omotá cíle lepkavým vláknem a prudce\\nsníží jejich rychlost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3,
+      "conditional": true
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TELEPORT.description.conditional",
+      "kind": "move_description",
+      "english": "The user switches places\\nwith another party Pokémon.A psychic move for fleeing\\nfrom battle instantly.",
+      "czech": "V divokém souboji umožní únik. Jinak\\nstáhne uživatele z boje.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3,
+      "conditional": true
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUPER_POTION.description.conditional",
+      "kind": "item_description",
+      "english": "Restores the HP of\\na Pokémon by\\n60 points.50 points.",
+      "czech": "Obnoví Pokémonovi\\n60 HP.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3,
+      "conditional": true
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_HYPER_POTION.description.conditional",
+      "kind": "item_description",
+      "english": "Restores the HP of\\na Pokémon by\\n120 points.200 points.",
+      "czech": "Obnoví Pokémonovi\\n120 HP.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3,
+      "conditional": true
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ICE_HEAL.description.conditional",
+      "kind": "item_description",
+      "english": "Heals Pokémon\\nof frostbite.Defrosts a frozen\\nPokémon.",
+      "czech": "Vyléčí zmrazení či\\nomrzliny.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3,
+      "conditional": true
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_RARE_CANDY.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Rare Candies",
+      "czech": "Vzácný bonbon",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_PECHA_BERRY.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Pecha Berries",
+      "czech": "Bobule Pecha",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ORAN_BERRY.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Oran Berries",
+      "czech": "Bobule Oran",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_NORMAL.name.0",
+      "kind": "type_name",
+      "english": "Normal",
+      "czech": "Běžný",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_NORMAL.generic.0",
+      "kind": "type_generic",
+      "english": "a NORMAL move",
+      "czech": "útok typu běžný",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_FIGHTING.name.0",
+      "kind": "type_name",
+      "english": "Fighting",
+      "czech": "Bojový",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_FIGHTING.generic.0",
+      "kind": "type_generic",
+      "english": "a FIGHTING move",
+      "czech": "útok typu bojový",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_FLYING.name.0",
+      "kind": "type_name",
+      "english": "Flying",
+      "czech": "Létající",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_FLYING.generic.0",
+      "kind": "type_generic",
+      "english": "a FLYING move",
+      "czech": "útok typu létající",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_POISON.name.0",
+      "kind": "type_name",
+      "english": "Poison",
+      "czech": "Jedový",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_POISON.generic.0",
+      "kind": "type_generic",
+      "english": "a POISON move",
+      "czech": "útok typu jedový",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_GROUND.name.0",
+      "kind": "type_name",
+      "english": "Ground",
+      "czech": "Zemní",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_GROUND.generic.0",
+      "kind": "type_generic",
+      "english": "a GROUND move",
+      "czech": "útok typu zemní",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_ROCK.name.0",
+      "kind": "type_name",
+      "english": "Rock",
+      "czech": "Kamenný",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_ROCK.generic.0",
+      "kind": "type_generic",
+      "english": "a ROCK move",
+      "czech": "útok typu kamenný",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_BUG.name.0",
+      "kind": "type_name",
+      "english": "Bug",
+      "czech": "Hmyzí",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_BUG.generic.0",
+      "kind": "type_generic",
+      "english": "a BUG move",
+      "czech": "útok typu hmyzí",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_GHOST.name.0",
+      "kind": "type_name",
+      "english": "Ghost",
+      "czech": "Duchový",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_GHOST.generic.0",
+      "kind": "type_generic",
+      "english": "a GHOST move",
+      "czech": "duchový útok",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_STEEL.name.0",
+      "kind": "type_name",
+      "english": "Steel",
+      "czech": "Ocelový",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_STEEL.generic.0",
+      "kind": "type_generic",
+      "english": "a STEEL move",
+      "czech": "útok typu ocelový",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_MYSTERY.name.0",
+      "kind": "type_name",
+      "english": "???",
+      "czech": "???",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_MYSTERY.generic.0",
+      "kind": "type_generic",
+      "english": "a ??? move",
+      "czech": "útok typu ???",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_FIRE.name.0",
+      "kind": "type_name",
+      "english": "Fire",
+      "czech": "Ohnivý",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_FIRE.generic.0",
+      "kind": "type_generic",
+      "english": "a FIRE move",
+      "czech": "útok typu ohnivý",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_WATER.name.0",
+      "kind": "type_name",
+      "english": "Water",
+      "czech": "Vodní",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_WATER.generic.0",
+      "kind": "type_generic",
+      "english": "a WATER move",
+      "czech": "útok typu vodní",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_GRASS.name.0",
+      "kind": "type_name",
+      "english": "Grass",
+      "czech": "Travní",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_GRASS.generic.0",
+      "kind": "type_generic",
+      "english": "a GRASS move",
+      "czech": "útok typu travní",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_ELECTRIC.name.0",
+      "kind": "type_name",
+      "english": "Electric",
+      "czech": "Elektr.",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_ELECTRIC.generic.0",
+      "kind": "type_generic",
+      "english": "an ELECTRIC move",
+      "czech": "útok typu elektr.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_PSYCHIC.name.0",
+      "kind": "type_name",
+      "english": "Psychic",
+      "czech": "Psych.",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_PSYCHIC.generic.0",
+      "kind": "type_generic",
+      "english": "a PSYCHIC move",
+      "czech": "útok typu psych.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_ICE.name.0",
+      "kind": "type_name",
+      "english": "Ice",
+      "czech": "Ledový",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_ICE.generic.0",
+      "kind": "type_generic",
+      "english": "an ICE move",
+      "czech": "útok typu ledový",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_DRAGON.name.0",
+      "kind": "type_name",
+      "english": "Dragon",
+      "czech": "Dračí",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_DRAGON.generic.0",
+      "kind": "type_generic",
+      "english": "a DRAGON move",
+      "czech": "útok typu dračí",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_DARK.name.0",
+      "kind": "type_name",
+      "english": "Dark",
+      "czech": "Temný",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_DARK.generic.0",
+      "kind": "type_generic",
+      "english": "a DARK move",
+      "czech": "útok typu temný",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_FAIRY.name.0",
+      "kind": "type_name",
+      "english": "Fairy",
+      "czech": "Vílí",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_FAIRY.generic.0",
+      "kind": "type_generic",
+      "english": "a FAIRY move",
+      "czech": "útok typu vílí",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_STELLAR.name.0",
+      "kind": "type_name",
+      "english": "Stellar",
+      "czech": "Hvězdný",
+      "font": "Narrower",
+      "width": 34,
+      "lines": 0
+    },
+    {
+      "path": "src/data/types_info.h",
+      "key": "TYPE_STELLAR.generic.0",
+      "kind": "type_generic",
+      "english": "a STELLAR move",
+      "czech": "útok typu hvězdný",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ACID.description.0",
+      "kind": "move_description",
+      "english": "Poleje cíl kyselinou. Může snížit speciální\\nobranu.",
+      "czech": "Poleje cíl kyselinou. Může snížit speciální\\nobranu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_GROWTH.description.0",
+      "kind": "move_description",
+      "english": "Zvýší útok a speciální útok. Na slunci\\npůsobí silněji.",
+      "czech": "Zvýší útok a speciální útok. Na slunci\\npůsobí silněji.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HOWL.description.0",
+      "kind": "move_description",
+      "english": "Zavytím povzbudí sebe i spojence a zvýší\\njejich útok.",
+      "czech": "Zavytím povzbudí sebe i spojence a zvýší\\njejich útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_INCINERATE.description.0",
+      "kind": "move_description",
+      "english": "Zasáhne cíle ohněm. Spálí jejich držené\\nbobule a drahokamy.",
+      "czech": "Zasáhne cíle ohněm. Spálí jejich držené\\nbobule a drahokamy.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STRING_SHOT.description.0",
+      "kind": "move_description",
+      "english": "Omotá cíle lepkavým vláknem a prudce\\nsníží jejich rychlost.",
+      "czech": "Omotá cíle lepkavým vláknem a prudce\\nsníží jejich rychlost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TELEPORT.description.0",
+      "kind": "move_description",
+      "english": "V divokém souboji umožní únik. Jinak\\nstáhne uživatele z boje.",
+      "czech": "V divokém souboji umožní únik. Jinak\\nstáhne uživatele z boje.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POKE_BALL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Pokéball",
+      "czech": "Pokéball",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_GREAT_BALL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Superball",
+      "czech": "Superball",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POTION.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Lektvar",
+      "czech": "Lektvar",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUPER_POTION.description.0",
+      "kind": "item_description",
+      "english": "Obnoví Pokémonovi\\n60 HP.",
+      "czech": "Obnoví Pokémonovi\\n60 HP.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUPER_POTION.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Silný lektvar",
+      "czech": "Silný lektvar",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_HYPER_POTION.description.0",
+      "kind": "item_description",
+      "english": "Obnoví Pokémonovi\\n120 HP.",
+      "czech": "Obnoví Pokémonovi\\n120 HP.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_HYPER_POTION.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Hyperlektvar",
+      "czech": "Hyperlektvar",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_REVIVE.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Oživení",
+      "czech": "Oživení",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_FULL_HEAL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Všelék",
+      "czech": "Všelék",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ANTIDOTE.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Protijed",
+      "czech": "Protijed",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_PARALYZE_HEAL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Lék na ochrnutí",
+      "czech": "Lék na ochrnutí",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_AWAKENING.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Budíček",
+      "czech": "Budíček",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_BURN_HEAL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Lék na popálení",
+      "czech": "Lék na popálení",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ICE_HEAL.description.0",
+      "kind": "item_description",
+      "english": "Vyléčí zmrazení či\\nomrzliny.",
+      "czech": "Vyléčí zmrazení či\\nomrzliny.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ICE_HEAL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Lék na mráz",
+      "czech": "Lék na mráz",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_REPEL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Repelent",
+      "czech": "Repelent",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUPER_REPEL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Silný repelent",
+      "czech": "Silný repelent",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MAX_REPEL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Maxirepelent",
+      "czech": "Maxirepelent",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POKE_DOLL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Poképanenka",
+      "czech": "Poképanenka",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_TINY_MUSHROOM.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Malá houba",
+      "czech": "Malá houba",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_BIG_MUSHROOM.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Velká houba",
+      "czech": "Velká houba",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_ETHER.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Éter",
+      "czech": "Éter",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MOON_STONE.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Měsíční kámen",
+      "czech": "Měsíční kámen",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SUN_STONE.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Sluneční kámen",
+      "czech": "Sluneční kámen",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_BRIGHT_POWDER.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Zářivý prach",
+      "czech": "Zářivý prach",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_POWER_HERB.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Silová bylina",
+      "czech": "Silová bylina",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SHED_SHELL.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Prázdná ulita",
+      "czech": "Prázdná ulita",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_EXP_SHARE.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Sdílení zkuš.",
+      "czech": "Sdílení zkuš.",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Attack",
+      "kind": "ui",
+      "english": "ATTACK",
+      "czech": "ÚTOK",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Defense",
+      "kind": "ui",
+      "english": "DEFENSE",
+      "czech": "OBRANA",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Speed",
+      "kind": "ui",
+      "english": "SPEED",
+      "czech": "RYCHLOST",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SpAtk",
+      "kind": "ui",
+      "english": "SP. ATK",
+      "czech": "S. ÚTOK",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SpDef",
+      "kind": "ui",
+      "english": "SP. DEF",
+      "czech": "S. OBRANA",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SpAtk3",
+      "kind": "ui",
+      "english": "SP. ATK",
+      "czech": "S. ÚT.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SpDef3",
+      "kind": "ui",
+      "english": "SP. DEF",
+      "czech": "S.OBR.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_CryOf",
+      "kind": "ui",
+      "english": "CRY OF",
+      "czech": "HLAS",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SizeComparedTo",
+      "kind": "ui",
+      "english": "SIZE COMPARED TO ",
+      "czech": "VELIKOST A ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokemon_summary_screen.c",
+      "key": "literal:{START_BUTTON} RELEARN:0",
+      "kind": "ui",
+      "english": "{START_BUTTON} RELEARN",
+      "czech": "{START_BUTTON} UČENÍ",
+      "font": "Normal",
+      "width": 86
+    },
+    {
+      "path": "src/pokemon_summary_screen.c",
+      "key": "literal:STATS:0",
+      "kind": "ui",
+      "english": "STATS",
+      "czech": "STAV",
+      "font": "Normal",
+      "width": 86
+    },
+    {
+      "path": "src/pokemon_summary_screen.c",
+      "key": "literal:RENAME:0",
+      "kind": "ui",
+      "english": "RENAME",
+      "czech": "JMÉNO",
+      "font": "Normal",
+      "width": 86
+    },
+    {
+      "path": "src/naming_screen.c",
+      "key": "literal:RIVAL's NAME?:0",
+      "kind": "ui",
+      "english": "RIVAL's NAME?",
+      "czech": "JMÉNO SOUPEŘE?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/naming_screen.c",
+      "key": "literal:{DPAD_NONE}MOVE  {A_BUTTON}OK  {B_BUTTON}BACK:0",
+      "kind": "ui",
+      "english": "{DPAD_NONE}MOVE  {A_BUTTON}OK  {B_BUTTON}BACK",
+      "czech": "{DPAD_NONE}POHYB {A_BUTTON}OK {B_BUTTON}ZPĚT",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/naming_screen.c",
+      "key": "literal:YOUR NAME?:0",
+      "kind": "ui",
+      "english": "YOUR NAME?",
+      "czech": "TVOJE JMÉNO?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/naming_screen.c",
+      "key": "literal:BOX NAME?:0",
+      "kind": "ui",
+      "english": "BOX NAME?",
+      "czech": "JMÉNO BOXU?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/naming_screen.c",
+      "key": "literal:{STR_VAR_1}'s nickname?:0",
+      "kind": "ui",
+      "english": "{STR_VAR_1}'s nickname?",
+      "czech": "Přezdívka: {STR_VAR_1}?",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/naming_screen.c",
+      "key": "literal:Tell him the words.:0",
+      "kind": "ui",
+      "english": "Tell him the words.",
+      "czech": "Zadej mu slova.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/naming_screen.c",
+      "key": "literal:Enter code::0",
+      "kind": "ui",
+      "english": "Enter code:",
+      "czech": "Zadej kód:",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:POKéDEX registration completed.:0",
+      "kind": "ui",
+      "english": "POKéDEX registration completed.",
+      "czech": "Zápis do Pokédexu dokončen.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:HT:0",
+      "kind": "ui",
+      "english": "HT",
+      "czech": "VÝŠ.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:WT:0",
+      "kind": "ui",
+      "english": "WT",
+      "czech": "VÁH.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Searching…\\nPlease wait.:0",
+      "kind": "ui",
+      "english": "Searching…\\nPlease wait.",
+      "czech": "Hledám…\\nPočkej prosím.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Search completed.:0",
+      "kind": "ui",
+      "english": "Search completed.",
+      "czech": "Hledání dokončeno.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:No matching POKéMON were found.:0",
+      "kind": "ui",
+      "english": "No matching POKéMON were found.",
+      "czech": "Žádní odpovídající Pokémoni.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Search for POKéMON based on\\nselected parameters.:0",
+      "kind": "ui",
+      "english": "Search for POKéMON based on\\nselected parameters.",
+      "czech": "Hledat Pokémony podle\\nzvolených podmínek.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Switch POKéDEX listings.:0",
+      "kind": "ui",
+      "english": "Switch POKéDEX listings.",
+      "czech": "Změnit řazení Pokédexu.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Return to the POKéDEX.:0",
+      "kind": "ui",
+      "english": "Return to the POKéDEX.",
+      "czech": "Zpět do Pokédexu.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Select the POKéDEX mode.:0",
+      "kind": "ui",
+      "english": "Select the POKéDEX mode.",
+      "czech": "Vyber režim Pokédexu.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Select the POKéDEX listing mode.:0",
+      "kind": "ui",
+      "english": "Select the POKéDEX listing mode.",
+      "czech": "Vyber způsob řazení.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:List by the first letter in the name.\\nSpotted POKéMON only.:0",
+      "kind": "ui",
+      "english": "List by the first letter in the name.\\nSpotted POKéMON only.",
+      "czech": "Podle prvního písmene jména.\\nPouze spatření Pokémoni.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:List by body color.\\nSpotted POKéMON only.:0",
+      "kind": "ui",
+      "english": "List by body color.\\nSpotted POKéMON only.",
+      "czech": "Podle barvy těla.\\nPouze spatření Pokémoni.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:List by type.\\nOwned POKéMON only.:0",
+      "kind": "ui",
+      "english": "List by type.\\nOwned POKéMON only.",
+      "czech": "Podle typu.\\nPouze chycení Pokémoni.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Execute search/switch.:0",
+      "kind": "ui",
+      "english": "Execute search/switch.",
+      "czech": "Potvrdit hledání nebo změnu.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:DON'T SPECIFY.:0",
+      "kind": "ui",
+      "english": "DON'T SPECIFY.",
+      "czech": "NEZADÁVAT",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:NONE:0",
+      "kind": "ui",
+      "english": "NONE",
+      "czech": "ŽÁDNÝ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:HOENN region's POKéDEX:0",
+      "kind": "ui",
+      "english": "HOENN region's POKéDEX",
+      "czech": "Pokédex oblasti HOENN",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:National edition POKéDEX:0",
+      "kind": "ui",
+      "english": "National edition POKéDEX",
+      "czech": "Národní vydání Pokédexu",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:NATIONAL DEX:0",
+      "kind": "ui",
+      "english": "NATIONAL DEX",
+      "czech": "NÁRODNÍ DEX",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:POKéMON are listed according to their\\nnumber.:0",
+      "kind": "ui",
+      "english": "POKéMON are listed according to their\\nnumber.",
+      "czech": "Pokémoni seřazení\\npodle čísla.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:NUMERICAL MODE:0",
+      "kind": "ui",
+      "english": "NUMERICAL MODE",
+      "czech": "PODLE ČÍSLA",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Spotted and owned POKéMON are listed\\nalphabetically.:0",
+      "kind": "ui",
+      "english": "Spotted and owned POKéMON are listed\\nalphabetically.",
+      "czech": "Spatření a chycení Pokémoni\\nseřazení podle abecedy.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:A TO Z MODE:0",
+      "kind": "ui",
+      "english": "A TO Z MODE",
+      "czech": "PODLE ABECEDY",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Owned POKéMON are listed from the\\nheaviest to the lightest.:0",
+      "kind": "ui",
+      "english": "Owned POKéMON are listed from the\\nheaviest to the lightest.",
+      "czech": "Chycení Pokémoni od nejtěžších\\npo nejlehčí.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:HEAVIEST MODE:0",
+      "kind": "ui",
+      "english": "HEAVIEST MODE",
+      "czech": "NEJTĚŽŠÍ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Owned POKéMON are listed from the\\nlightest to the heaviest.:0",
+      "kind": "ui",
+      "english": "Owned POKéMON are listed from the\\nlightest to the heaviest.",
+      "czech": "Chycení Pokémoni od nejlehčích\\npo nejtěžší.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:LIGHTEST MODE:0",
+      "kind": "ui",
+      "english": "LIGHTEST MODE",
+      "czech": "NEJLEHČÍ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Owned POKéMON are listed from the\\ntallest to the smallest.:0",
+      "kind": "ui",
+      "english": "Owned POKéMON are listed from the\\ntallest to the smallest.",
+      "czech": "Chycení Pokémoni od nejvyšších\\npo nejmenší.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:TALLEST MODE:0",
+      "kind": "ui",
+      "english": "TALLEST MODE",
+      "czech": "NEJVYŠŠÍ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:Owned POKéMON are listed from the\\nsmallest to the tallest.:0",
+      "kind": "ui",
+      "english": "Owned POKéMON are listed from the\\nsmallest to the tallest.",
+      "czech": "Chycení Pokémoni od nejmenších\\npo nejvyšší.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:SMALLEST MODE:0",
+      "kind": "ui",
+      "english": "SMALLEST MODE",
+      "czech": "NEJMENŠÍ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:RED:0",
+      "kind": "ui",
+      "english": "RED",
+      "czech": "ČERVENÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:BLUE:0",
+      "kind": "ui",
+      "english": "BLUE",
+      "czech": "MODRÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:YELLOW:0",
+      "kind": "ui",
+      "english": "YELLOW",
+      "czech": "ŽLUTÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:GREEN:0",
+      "kind": "ui",
+      "english": "GREEN",
+      "czech": "ZELENÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:BLACK:0",
+      "kind": "ui",
+      "english": "BLACK",
+      "czech": "ČERNÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:BROWN:0",
+      "kind": "ui",
+      "english": "BROWN",
+      "czech": "HNĚDÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:PURPLE:0",
+      "kind": "ui",
+      "english": "PURPLE",
+      "czech": "FIALOVÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:GRAY:0",
+      "kind": "ui",
+      "english": "GRAY",
+      "czech": "ŠEDÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:WHITE:0",
+      "kind": "ui",
+      "english": "WHITE",
+      "czech": "BÍLÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/pokedex.c",
+      "key": "literal:PINK:0",
+      "kind": "ui",
+      "english": "PINK",
+      "czech": "RŮŽOVÁ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_WURMPLE.categoryName.0",
+      "kind": "dex_category",
+      "english": "Worm",
+      "czech": "Červ",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_WURMPLE.description.0",
+      "kind": "dex_description",
+      "english": "It sticks to tree branches and eats\\nleaves. The thread it spits from its mouth,\\nwhich becomes gooey when it touches\\nair, slows the movement of its foes.",
+      "czech": "Žije na větvích stromů a požírá listí. Lepkavým vláknem\\nse zachytává kůry.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_SILCOON.categoryName.0",
+      "kind": "dex_category",
+      "english": "Cocoon",
+      "czech": "Kukla",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_SILCOON.description.0",
+      "kind": "dex_description",
+      "english": "It prepares for evolution using the\\nenergy it stored while it was a Wurmple.\\nIt keeps watch over the surroundings with\\nits two eyes.",
+      "czech": "Ukrývá se v hedvábné kukle. Šetří síly a trpělivě čeká na\\nsvou proměnu.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_CASCOON.categoryName.0",
+      "kind": "dex_category",
+      "english": "Cocoon",
+      "czech": "Kukla",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_CASCOON.description.0",
+      "kind": "dex_description",
+      "english": "To avoid detection by its enemies, it hides\\nmotionlessly beneath large leaves and in\\nthe gaps of branches. It also attaches\\ndead leaves to its body for camouflage.",
+      "czech": "Pod tvrdou kuklou se připravuje na proměnu. Pamatuje si\\nkaždý útok na své tělo.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_BEAUTIFLY.categoryName.0",
+      "kind": "dex_category",
+      "english": "Butterfly",
+      "czech": "Motýl",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_BEAUTIFLY.description.0",
+      "kind": "dex_description",
+      "english": "Its colorfully patterned wings are its\\nmost prominent feature. It flies through\\nflower-covered fields collecting pollen.\\nIt attacks ferociously when angered.",
+      "czech": "Saje sladký nektar dlouhým sosákem. Barevná křídla\\nskrývají prudkou povahu.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_DUSTOX.categoryName.0",
+      "kind": "dex_category",
+      "english": "Poison Moth",
+      "czech": "Jedová můra",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_DUSTOX.description.0",
+      "kind": "dex_description",
+      "english": "It is a nocturnal Pokémon that flies from\\nfields and mountains to the attraction of\\nstreetlights at night. It looses highly\\ntoxic powder from its wings.",
+      "czech": "V noci přilétá za světlem. Z křídel sype jedovatý prach.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_ZIGZAGOON.categoryName.0",
+      "kind": "dex_category",
+      "english": "Tiny Raccoon",
+      "czech": "Mýval",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_ZIGZAGOON.description.0",
+      "kind": "dex_description",
+      "english": "Rubbing its nose against the ground, it\\nalways wanders about back and forth in\\nsearch of something. It is distinguished\\nby the zigzag footprints it leaves.",
+      "czech": "Zvědavě pobíhá sem a tam. Často při tom najde drobný\\npředmět.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_POOCHYENA.categoryName.0",
+      "kind": "dex_category",
+      "english": "Bite",
+      "czech": "Kousáček",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_POOCHYENA.description.0",
+      "kind": "dex_description",
+      "english": "It savagely threatens foes with bared\\nfangs. It chases after fleeing targets\\ntenaciously. It turns tail and runs,\\nhowever, if the foe strikes back.",
+      "czech": "Citlivým čichem stopuje kořist. Vytrvale pronásleduje vše,\\nco se pohne.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_SEEDOT.categoryName.0",
+      "kind": "dex_category",
+      "english": "Acorn",
+      "czech": "Žalud",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_SEEDOT.description.0",
+      "kind": "dex_description",
+      "english": "It hangs off branches and absorbs\\nnutrients. When it finishes eating, its\\nbody becomes so heavy that it drops to\\nthe ground with a thump.",
+      "czech": "Visí na větvích a vypadá jako žalud. Rád vyleká\\nkolemjdoucí Pokémony.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_NUZLEAF.categoryName.0",
+      "kind": "dex_category",
+      "english": "Wily",
+      "czech": "Lesní skřet",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_NUZLEAF.description.0",
+      "kind": "dex_description",
+      "english": "A forest-dwelling Pokémon that is skilled\\nat climbing trees. Its long and pointed\\nnose is its weak point. It loses power if\\nthe nose is gripped.",
+      "czech": "Žije hluboko v lese. Na listu na hlavě hraje podivné\\nmelodie.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_TAILLOW.categoryName.0",
+      "kind": "dex_category",
+      "english": "Tiny Swallow",
+      "czech": "Vlaštovka",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_TAILLOW.description.0",
+      "kind": "dex_description",
+      "english": "Although it is small, it is very courageous.\\nIt will take on a larger Skarmory on an\\nequal footing. However, its will weakens if\\nit becomes hungry.",
+      "czech": "I přes malé tělo je velmi odvážný. Neústupně hájí své\\núzemí.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_SHROOMISH.categoryName.0",
+      "kind": "dex_category",
+      "english": "Mushroom",
+      "czech": "Houbička",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_SHROOMISH.description.0",
+      "kind": "dex_description",
+      "english": "It loves to eat damp, composted soil in\\nforests. If you enter a forest after a\\nlong rain, you can see many Shroomish\\nfeasting on composted soil.",
+      "czech": "Žije ve vlhkém lesním listí. Při ohrožení rozptyluje\\njedovaté výtrusy.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_RALTS.categoryName.0",
+      "kind": "dex_category",
+      "english": "Feeling",
+      "czech": "Citlivka",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_3_families.h",
+      "key": "SPECIES_RALTS.description.0",
+      "kind": "dex_description",
+      "english": "A Ralts has the power to sense the\\nemotions of people and Pokémon with the\\nhorns on its head. It takes cover if it\\nsenses any hostility.",
+      "czech": "Vnímá emoce lidí i Pokémonů. Přitahují ho radostné a\\npřátelské pocity.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_RATTATA.categoryName.0",
+      "kind": "dex_category",
+      "english": "Mouse",
+      "czech": "Myš",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_RATTATA.description.0",
+      "kind": "dex_description",
+      "english": "A Rattata is cautious in the extreme.\\nEven while it is asleep, it constantly\\nmoves its ears and listens for danger.\\nIt will make its nest anywhere.",
+      "czech": "Ostré řezáky mu stále dorůstají. Dokáže žít téměř na\\njakémkoli místě.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_ZUBAT.categoryName.0",
+      "kind": "dex_category",
+      "english": "Bat",
+      "czech": "Netopýr",
+      "font": "Narrower",
+      "width": 60,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_ZUBAT.description.0",
+      "kind": "dex_description",
+      "english": "While living in pitch-black caverns, their\\neyes gradually grew shut and deprived\\nthem of vision. They use ultrasonic waves\\nto detect obstacles.",
+      "czech": "Žije v temných jeskyních. Při letu se orientuje pomocí\\nultrazvuku.",
+      "font": "Narrower",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_RIVAL",
+      "kind": "trainer_class",
+      "english": "{PKMN} TRAINER",
+      "czech": "{PKMN} SOUPEŘ",
+      "font": "Normal",
+      "width": 78
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_YOUNGSTER",
+      "kind": "trainer_class",
+      "english": "YOUNGSTER",
+      "czech": "MLADÍK",
+      "font": "Normal",
+      "width": 78
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_LASS",
+      "kind": "trainer_class",
+      "english": "LASS",
+      "czech": "DÍVKA",
+      "font": "Normal",
+      "width": 78
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_BUG_CATCHER",
+      "kind": "trainer_class",
+      "english": "BUG CATCHER",
+      "czech": "BROUKAŘ",
+      "font": "Normal",
+      "width": 78
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_PKMN_TRAINER_1",
+      "kind": "trainer_class",
+      "english": "{PKMN} TRAINER",
+      "czech": "{PKMN} TRENÉR",
+      "font": "Normal",
+      "width": 78
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_PKMN_TRAINER_2",
+      "kind": "trainer_class",
+      "english": "{PKMN} TRAINER",
+      "czech": "{PKMN} TRENÉR",
+      "font": "Normal",
+      "width": 78
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_RIVAL_EARLY_FRLG",
+      "kind": "trainer_class",
+      "english": "RIVAL",
+      "czech": "SOUPEŘ",
+      "font": "Normal",
+      "width": 78
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_RIVAL_LATE_FRLG",
+      "kind": "trainer_class",
+      "english": "RIVAL",
+      "czech": "SOUPEŘ",
+      "font": "Normal",
+      "width": 78
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_TEAM_ROCKET_FRLG",
+      "kind": "trainer_class",
+      "english": "TEAM ROCKET",
+      "czech": "RAKEŤÁK",
+      "font": "Normal",
+      "width": 78
+    },
+    {
+      "path": "src/item_menu.c",
+      "key": "sText_Var1CantBeHeldHere",
+      "kind": "ui",
+      "english": "The {STR_VAR_1} can't be held\\nhere.",
+      "czech": "Tady nelze držet\\n{STR_VAR_1}.",
+      "font": "Normal",
+      "width": 109
+    },
+    {
+      "path": "src/item_menu.c",
+      "key": "sText_DepositHowManyVar1",
+      "kind": "ui",
+      "english": "Deposit how many\\n{STR_VAR_1}?",
+      "czech": "Kolik kusů uložit?\\n{STR_VAR_1}",
+      "font": "Normal",
+      "width": 109
+    },
+    {
+      "path": "src/item_menu.c",
+      "key": "sText_DepositedVar2Var1s",
+      "kind": "ui",
+      "english": "Deposited {STR_VAR_2}\\n{STR_VAR_1}.",
+      "czech": "Uloženo: {STR_VAR_2}×\\n{STR_VAR_1}.",
+      "font": "Normal",
+      "width": 109
+    },
+    {
+      "path": "src/item_menu.c",
+      "key": "sText_NoRoomForItems",
+      "kind": "ui",
+      "english": "There's no room to\\nstore items.",
+      "czech": "Na předměty\\nuž není místo.",
+      "font": "Normal",
+      "width": 109
+    },
+    {
+      "path": "src/item_menu.c",
+      "key": "sText_CantStoreImportantItems",
+      "kind": "ui",
+      "english": "Important items\\ncan't be stored in\\nthe PC!",
+      "czech": "Klíčové předměty\\nnelze uložit\\ndo PC!",
+      "font": "Normal",
+      "width": 109
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_TrainerCardMoney",
+      "kind": "ui",
+      "english": "MONEY",
+      "czech": "PENÍZE",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_TrainerCardTime",
+      "kind": "ui",
+      "english": "TIME",
+      "czech": "ČAS",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_Var1sTrainerCard",
+      "kind": "ui",
+      "english": "{STR_VAR_1}'s TRAINER CARD",
+      "czech": "KARTA TRENÉRA: {STR_VAR_1}",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_HallOfFameDebut",
+      "kind": "ui",
+      "english": "HALL OF FAME DEBUT  ",
+      "czech": "PRVNÍ SÍŇ SLÁVY  ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_LinkBattles",
+      "kind": "ui",
+      "english": "LINK BATTLES",
+      "czech": "PROPOJENÉ SOUBOJE",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_LinkCableBattles",
+      "kind": "ui",
+      "english": "LINK CABLE BATTLES",
+      "czech": "SOUBOJE PŘES KABEL",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PokemonTrades",
+      "kind": "ui",
+      "english": "POKéMON TRADES",
+      "czech": "VÝMĚNY POKéMONŮ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_UnionTradesAndBattles",
+      "kind": "ui",
+      "english": "UNION TRADES & BATTLES",
+      "czech": "VÝMĚNY A SOUBOJE",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_BerryCrush",
+      "kind": "ui",
+      "english": "BERRY CRUSH",
+      "czech": "DRCENÍ BOBULÍ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_PokeblocksWithFriends",
+      "kind": "ui",
+      "english": "{POKEBLOCK}S W/FRIENDS",
+      "czech": "{POKEBLOCK}: S PŘÁTELI",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_WonContestsWFriends",
+      "kind": "ui",
+      "english": "WON CONTESTS W/FRIENDS",
+      "czech": "VYHRANÉ SOUTĚŽE",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_BattlePtsWon",
+      "kind": "ui",
+      "english": "BATTLE POINTS WON",
+      "czech": "ZÍSKANÉ BOJOVÉ BODY",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_BattleTower",
+      "kind": "ui",
+      "english": "BATTLE TOWER",
+      "czech": "BOJOVÁ VĚŽ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SaveFailedCheckingBackup",
+      "kind": "ui",
+      "english": "Save failed. Checking the backup\\nmemory… Please wait.\\n{COLOR RED}“Time required: about 1 minute”",
+      "czech": "Uložení selhalo. Kontroluji paměť…\\nPočkej prosím.\\n{COLOR RED}“Zabere to asi minutu.“",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_BackupMemoryDamaged",
+      "kind": "ui",
+      "english": "The backup memory is damaged, or\\nthe internal battery has run dry.\\nYou can still play, but not save.",
+      "czech": "Paměť je poškozená, nebo se vybila\\nvnitřní baterie. Můžeš dál hrát,\\nale hru nelze uložit.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_GamePlayCannotBeContinued",
+      "kind": "ui",
+      "english": "{COLOR RED}“Game play cannot be continued.\\nReturning to the title screen…”",
+      "czech": "{COLOR RED}“Ve hře nelze pokračovat.\\nNávrat na úvodní obrazovku…“",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_CheckCompleted",
+      "kind": "ui",
+      "english": "Check completed.\\nAttempting to save again.\\nPlease wait.",
+      "czech": "Kontrola dokončena.\\nZnovu zkouším uložit hru.\\nPočkej prosím.",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SaveCompleteGameCannotContinue",
+      "kind": "ui",
+      "english": "Save completed.\\n{COLOR RED}“Game play cannot be continued.\\nReturning to the title screen.”",
+      "czech": "Hra uložena.\\n{COLOR RED}“Ve hře nelze pokračovat.\\nNávrat na úvodní obrazovku.“",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/strings.c",
+      "key": "gText_SaveCompletePressA",
+      "kind": "ui",
+      "english": "Save completed.\\n{COLOR RED}“Please press the A Button.”",
+      "czech": "Hra uložena.\\n{COLOR RED}“Stiskni tlačítko A.“",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.1",
+      "kind": "contest_effect",
+      "english": "Quite the appealing move.",
+      "czech": "Působivé vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.2",
+      "kind": "contest_effect",
+      "english": "A highly appealing move.",
+      "czech": "Velmi působivé vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.3",
+      "kind": "contest_effect",
+      "english": "After this move, the user is\\nmore easily startled.",
+      "czech": "Po vystoupení se uživatel snáze nechá\\nvyrušit.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.4",
+      "kind": "contest_effect",
+      "english": "Makes a great appeal, but\\nallows no more to the end.",
+      "czech": "Skvělé vystoupení. Pak už do konce\\nsoutěže nevystoupí.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.5",
+      "kind": "contest_effect",
+      "english": "Can be repeatedly used\\nwithout boring the JUDGE.",
+      "czech": "Lze opakovat bez znudění poroty.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.6",
+      "kind": "contest_effect",
+      "english": "Can avoid being startled\\nby others once.",
+      "czech": "Jednou zabrání vyrušení soupeřem.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.7",
+      "kind": "contest_effect",
+      "english": "Can avoid being startled\\nby others.",
+      "czech": "Zabrání vyrušení ostatními.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.8",
+      "kind": "contest_effect",
+      "english": "Can avoid being startled\\nby others a little.",
+      "czech": "Částečně zabrání vyrušení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.9",
+      "kind": "contest_effect",
+      "english": "After this move, the user is\\nless likely to be startled.",
+      "czech": "Uživatel se pak hůře nechá vyrušit.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.10",
+      "kind": "contest_effect",
+      "english": "Slightly startles the\\nPOKéMON in front.",
+      "czech": "Mírně vyruší předchozího Pokémona.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.11",
+      "kind": "contest_effect",
+      "english": "Slightly startles those\\nthat have made appeals.",
+      "czech": "Mírně vyruší všechny, kdo už vystoupili.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.12",
+      "kind": "contest_effect",
+      "english": "Startles the last Pokémon\\nto act before the user.",
+      "czech": "Vyruší posledního Pokémona před\\nuživatelem.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.13",
+      "kind": "contest_effect",
+      "english": "Startles the POKéMON that\\nappealed before the user.",
+      "czech": "Vyruší předchozího Pokémona.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.14",
+      "kind": "contest_effect",
+      "english": "Startles all of the Pokémon\\nto act before the user.",
+      "czech": "Vyruší všechny, kdo už vystoupili.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.15",
+      "kind": "contest_effect",
+      "english": "Startles all POKéMON that\\nhave done their appeals.",
+      "czech": "Vyruší všechny, kdo už vystoupili.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.16",
+      "kind": "contest_effect",
+      "english": "Badly startles the\\nPOKéMON in front.",
+      "czech": "Silně vyruší předchozího Pokémona.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.17",
+      "kind": "contest_effect",
+      "english": "Badly startles those that\\nhave made appeals.",
+      "czech": "Silně vyruší všechny, kdo už vystoupili.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.18",
+      "kind": "contest_effect",
+      "english": "Startles the POKéMON that\\nappealed before the user.",
+      "czech": "Vyruší předchozího Pokémona.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.19",
+      "kind": "contest_effect",
+      "english": "Startles all POKéMON that\\nhave done their appeals.",
+      "czech": "Vyruší všechny, kdo už vystoupili.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.20",
+      "kind": "contest_effect",
+      "english": "Makes audience expect\\nlittle of other contestants.",
+      "czech": "Sníží očekávání publika od soupeřů.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.21",
+      "kind": "contest_effect",
+      "english": "Shifts the JUDGE's\\nattention from others.",
+      "czech": "Odvede pozornost poroty od soupeřů.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.22",
+      "kind": "contest_effect",
+      "english": "Startles the POKéMON that\\nhas the JUDGE's attention.",
+      "czech": "Vyruší Pokémona, kterého porota\\nsleduje.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.23",
+      "kind": "contest_effect",
+      "english": "Jams the others, and misses\\none turn of appeals.",
+      "czech": "Vyruší ostatní, ale pak jedno kolo\\nvynechá.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.24",
+      "kind": "contest_effect",
+      "english": "Startles POKéMON that\\nmade a same-type appeal.",
+      "czech": "Vyruší Pokémony se stejným typem\\nvystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.25",
+      "kind": "contest_effect",
+      "english": "Badly startles POKéMON\\nthat made COOL appeals.",
+      "czech": "Silně vyruší stylová vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.26",
+      "kind": "contest_effect",
+      "english": "Badly startles POKéMON\\nthat made BEAUTY appeals.",
+      "czech": "Silně vyruší krásná vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.27",
+      "kind": "contest_effect",
+      "english": "Badly startles POKéMON\\nthat made CUTE appeals.",
+      "czech": "Silně vyruší roztomilá vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.28",
+      "kind": "contest_effect",
+      "english": "Badly startles POKéMON\\nthat made SMART appeals.",
+      "czech": "Silně vyruší chytrá vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.29",
+      "kind": "contest_effect",
+      "english": "Badly startles POKéMON\\nthat made TOUGH appeals.",
+      "czech": "Silně vyruší drsná vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.30",
+      "kind": "contest_effect",
+      "english": "Makes one POKéMON after\\nthe user nervous.",
+      "czech": "Znervózní příštího Pokémona.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.31",
+      "kind": "contest_effect",
+      "english": "Makes the remaining\\nPokémon nervous.",
+      "czech": "Znervózní zbývající Pokémony.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.32",
+      "kind": "contest_effect",
+      "english": "Makes all POKéMON after\\nthe user nervous.",
+      "czech": "Znervózní všechny příští Pokémony.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.33",
+      "kind": "contest_effect",
+      "english": "Worsens the condition of\\nthose that made appeals.",
+      "czech": "Zhorší kondici těch, kdo už vystoupili.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.34",
+      "kind": "contest_effect",
+      "english": "Badly startles POKéMON in\\ngood condition.",
+      "czech": "Silně vyruší Pokémony v dobré kondici.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.35",
+      "kind": "contest_effect",
+      "english": "The appeal works great if\\nperformed first.",
+      "czech": "Výborně působí při prvním vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.36",
+      "kind": "contest_effect",
+      "english": "The appeal works great if\\nperformed last.",
+      "czech": "Výborně působí při posledním\\nvystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.37",
+      "kind": "contest_effect",
+      "english": "Makes the appeal as good\\nas those before it.",
+      "czech": "Dojem vyrovná předchozím vystoupením.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.38",
+      "kind": "contest_effect",
+      "english": "Makes the appeal as good\\nas the one before it.",
+      "czech": "Dojem vyrovná předchozímu vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.39",
+      "kind": "contest_effect",
+      "english": "The appeal works better\\nthe later it is performed.",
+      "czech": "Čím později vystoupí, tím lépe působí.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.40",
+      "kind": "contest_effect",
+      "english": "Effectiveness varies\\ndepending on when it is used.",
+      "czech": "Účinek závisí na pořadí vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.41",
+      "kind": "contest_effect",
+      "english": "The appeal's quality varies\\ndepending on its timing.",
+      "czech": "Kvalita závisí na pořadí vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.42",
+      "kind": "contest_effect",
+      "english": "Works well if it's the same\\ntype as the one before.",
+      "czech": "Dobře působí po vystoupení stejného\\ntypu.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.43",
+      "kind": "contest_effect",
+      "english": "Works well if different in\\ntype than the one before.",
+      "czech": "Dobře působí po vystoupení jiného\\ntypu.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.44",
+      "kind": "contest_effect",
+      "english": "Affected by how well the\\nprevious Pokémon's move went.",
+      "czech": "Účinek závisí na předchozím vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.45",
+      "kind": "contest_effect",
+      "english": "Affected by how well the\\nappeal in front goes.",
+      "czech": "Účinek závisí na předchozím vystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.46",
+      "kind": "contest_effect",
+      "english": "Ups the user's condition.\\nHelps prevent nervousness.",
+      "czech": "Zlepší kondici. Pomáhá proti nervozitě.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.47",
+      "kind": "contest_effect",
+      "english": "The appeal works well if the\\nuser's condition is good.",
+      "czech": "Dobře působí při dobré kondici\\nuživatele.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.48",
+      "kind": "contest_effect",
+      "english": "Causes the user to move\\nearlier on the next turn.",
+      "czech": "Příště se uživatel dostane na řadu\\ndříve.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.49",
+      "kind": "contest_effect",
+      "english": "The next appeal can be\\nmade earlier next turn.",
+      "czech": "Příště se dostane na řadu dříve.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.50",
+      "kind": "contest_effect",
+      "english": "Causes the user to move\\nlater on the next turn.",
+      "czech": "Příště se uživatel dostane na řadu\\npozději.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.51",
+      "kind": "contest_effect",
+      "english": "The next appeal can be\\nmade later next turn.",
+      "czech": "Příště se dostane na řadu později.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.52",
+      "kind": "contest_effect",
+      "english": "Makes the next turn's order\\nmore easily scrambled.",
+      "czech": "Usnadní změnu pořadí v příštím kole.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.53",
+      "kind": "contest_effect",
+      "english": "Scrambles the order of\\nappeals on the next turn.",
+      "czech": "Zamíchá pořadí vystoupení v příštím\\nkole.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.54",
+      "kind": "contest_effect",
+      "english": "An appeal that excites the\\naudience in any CONTEST.",
+      "czech": "Nadchne publikum v každé soutěži.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.55",
+      "kind": "contest_effect",
+      "english": "Badly startles all POKéMON\\nthat made good appeals.",
+      "czech": "Silně vyruší všechny po dobrém\\nvystoupení.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.56",
+      "kind": "contest_effect",
+      "english": "The appeal works best the\\nmore the crowd is excited.",
+      "czech": "Čím nadšenější publikum, tím lepší\\ndojem.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    },
+    {
+      "path": "src/data/contest_moves.h",
+      "key": "contest_effect_description.57",
+      "kind": "contest_effect",
+      "english": "Temporarily stops the\\ncrowd from growing excited.",
+      "czech": "Dočasně zabrání dalšímu nadšení\\npublika.",
+      "font": "Narrower",
+      "width": 146,
+      "lines": 3
+    }
+  ]
+}

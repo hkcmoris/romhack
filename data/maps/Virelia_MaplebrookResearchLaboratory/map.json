@@ -16,7 +16,7 @@
   "connections": null,
   "object_events": [
     {
-      "graphics_id": "OBJ_EVENT_GFX_PROF_BIRCH",
+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_4",
       "x": 6,
       "y": 4,
       "elevation": 3,
@@ -79,6 +79,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_MaplebrookResearchLaboratory_EventScript_FireStarter",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_LAB_VIKTOR",
+      "graphics_id": "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
+      "x": 4,
+      "y": 9,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookResearchLaboratory_EventScript_Viktor",
+      "flag": "FLAG_VIRELIA_HIDE_STORY_ACTORS"
     }
   ],
   "warp_events": [
@@ -97,6 +111,25 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 6,
+      "y": 11,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "VIRELIA_STATE_STARTER",
+      "script": "Virelia_MaplebrookResearchLaboratory_EventScript_RivalGate"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 11,
+      "elevation": 0,
+      "var": "VAR_VIRELIA_PROLOGUE_STATE",
+      "var_value": "VIRELIA_STATE_STARTER",
+      "script": "Virelia_MaplebrookResearchLaboratory_EventScript_RivalGate"
+    }
+  ],
   "bg_events": []
 }

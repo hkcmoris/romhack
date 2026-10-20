@@ -1,5 +1,10 @@
 # Duo Adventure: Link Multi feasibility test
 
+In v0.2, use an explicit `VIRELIA_DEVELOPMENT_MODE=1` build for the quick start
+and test NPCs described below. Default Emerald artifacts now start the
+[Virelia story prologue](VIRELIA_PROLOGUE.md). The Link Multi implementation and
+its outstanding manual verification are unchanged.
+
 ## Status and scope
 
 **Manual Android/My Boy! verification: NOT TESTED.** This milestone exposes
