@@ -1,4 +1,5 @@
 #include "global.h"
+#include "localization.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_arena.h"
@@ -1762,10 +1763,10 @@ static void MoveSelectionDisplayMoveDescription(enum BattlerId battler)
         acc = 0;
     }
 
-    u8 pwr_num[3], acc_num[3];
-    u8 cat_desc[7] = _("CAT: ");
-    u8 pwr_desc[7] = _("PWR: ");
-    u8 acc_desc[7] = _("ACC: ");
+    u8 pwr_num[4], acc_num[4];
+    u8 cat_desc[7] = _(LOCALIZED_TEXT("CAT: ", "KAT: "));
+    u8 pwr_desc[7] = _(LOCALIZED_TEXT("PWR: ", "SÍL: "));
+    u8 acc_desc[7] = _(LOCALIZED_TEXT("ACC: ", "PŘES: "));
     u8 cat_start[] = _("{CLEAR_TO 3}");
     u8 pwr_start[] = _("{CLEAR_TO 56}");
     u8 acc_start[] = _("{CLEAR_TO 108}");

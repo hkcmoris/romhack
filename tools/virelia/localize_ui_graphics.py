@@ -39,7 +39,7 @@ def main():
             return word >> (14 - x % 8 * 2) & 3
         return font[code // 16 * 16 + y][code % 16 * 16 + x]
 
-    def label(pixels, box, text, ink, background=None, compact=False):
+    def label(pixels, box, text, ink, background=None, compact=False, centered=False):
         left, top, width, height = box
         total = sum(widths[codes[c]] for c in text)
         assert total <= width, (text, total, width)
@@ -48,7 +48,7 @@ def main():
         for y in range(top, top + height):
             for x in range(left, left + width):
                 pixels[y][x] = background
-        start = left
+        start = left + ((width - total) // 2 if centered else 0)
         for char in text:
             code = codes[char]
             accent_rows = [y for y in range(4) if any(glyph(code, x, y) == 1 for x in range(widths[code]))]
@@ -148,7 +148,36 @@ def main():
         for x in range(96):
             pixels[(x // 32) * 32 + y][x % 32] = frame[y][x]
     write_png(path, pixels, depth, chunks)
-    print("Rendered Czech Pokédex and summary labels with native font glyphs.")
+
+    # Party and summary share 32x8 OBJ status frames. Healthboxes use 24x8
+    # frames with four different palette indices (one per battler). Keep those
+    # indices, the rounded ends and the surrounding healthbox tiles unchanged.
+    # PKRS is the proper name Pokérus, rather than an English status label.
+    status_labels = ("OTR", "PAR", "SPÍ", "MRZ", "POP", None, "MDL", "OMR")
+    path = ROOT / "graphics/interface/status_icons.png"
+    pixels, depth, chunks = read_png(path)
+    for index, text in enumerate(status_labels):
+        if text is not None:
+            label(pixels, (8, index * 8, 17, 8), text, 2,
+                  compact=True, centered=True)
+    write_png(path, pixels, depth, chunks)
+
+    for suffix in ("", "2", "3", "4"):
+        path = ROOT / f"graphics/battle_interface/status{suffix}.png"
+        pixels, depth, chunks = read_png(path)
+        for index, text in enumerate(("OTR", "PAR", "SPÍ", "MRZ", "POP", "OMR")):
+            label(pixels, (2, index * 8, 16, 8), text, 2,
+                  compact=True, centered=True)
+        write_png(path, pixels, depth, chunks)
+
+    # A 32x32 OBJ frame stores the button pictogram above MOVE INFO. One
+    # Czech word fits without touching either the button or the window border.
+    for button in ("l", "r"):
+        path = ROOT / f"graphics/battle_interface/move_info_window_{button}.png"
+        pixels, depth, chunks = read_png(path)
+        label(pixels, (5, 10, 22, 13), "POPIS", 5, background=13, centered=True)
+        write_png(path, pixels, depth, chunks)
+    print("Rendered Czech Pokédex, summary, status and battle labels with native font glyphs.")
 
 
 if __name__ == "__main__":

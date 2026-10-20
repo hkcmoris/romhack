@@ -11,7 +11,7 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
   "status": "source_and_scoped_native_checked",
   "manifest": "tools/virelia_prologue_localization.json",
   "level_bound": 15,
-  "manifest_entries": 707,
+  "manifest_entries": 710,
   "map_script_texts": 76,
   "expanded_ui_cases": 115,
   "move_names": 64,
@@ -47,16 +47,18 @@ Data pokrývají výše uvedené druhy do úrovně 15, jejich útoky a schopnost
 
 Kontrola používá nejdelší možné jméno hráče o sedmi znacích a přezdívku o dvanácti znacích. Dále rozbaluje názvy předmětů, útoků, povah, míst a číselné hodnoty podle kontextu hlášky. Žádný překročený limit se nevynechává. Pevná pole kontroluje i v zakódovaných bajtech včetně koncové značky. Zvlášť měří 144 px pro popis schopnosti v souhrnu, 208 px v běžném dialogu a v Pokédexu, 102 px pro popis předmětu a 86 px pro záhlaví souhrnu. Pro Pokédex používá skutečný `FONT_NORMAL`; tento tisk se automaticky nezmenšuje.
 
-Samostatný překlad 859 bojových řetězců v `src/battle_message.c` není součástí 707 položek manifestu. Funkce `BattleStringExpandPlaceholders` po rozbalení předává text funkci `BreakStringAutomatic` s limity `BATTLE_MSG_MAX_WIDTH` a `BATTLE_MSG_MAX_LINES`. Nativní souboje se startéry a trenéry ověřily použité výzvy, útoky, změny statistik, vítězství, porážku a získání úrovně. Tato kontrola nepotvrzuje šířku všech bojových řetězců ani všechny kombinace jejich zástupných hodnot.
+Samostatný překlad 859 bojových řetězců v `src/battle_message.c` není součástí 710 položek manifestu. Funkce `BattleStringExpandPlaceholders` po rozbalení předává text funkci `BreakStringAutomatic` s limity `BATTLE_MSG_MAX_WIDTH` a `BATTLE_MSG_MAX_LINES`. Nativní souboje se startéry a trenéry ověřily použité výzvy, útoky, změny statistik, vítězství, porážku a získání úrovně. Tato kontrola nepotvrzuje šířku všech bojových řetězců ani všechny kombinace jejich zástupných hodnot.
 
 Texty v grafice vytvářejí následující skripty z původních herních bitmapových písem. Zachovávají rozměry obrázků a indexované palety. Osmiřádkové popisky ponechávají dva řádky pro rozlišení háčku a čárky.
 
 - `tools/virelia/localize_type_icons.py`: typy a soutěžní kategorie.
 - `tools/virelia/localize_naming_buttons.py`: zpět, mazání a další znaky.
-- `tools/virelia/localize_ui_graphics.py`: Pokédex včetně vyhledávání a neznámé oblasti, souhrn Pokémona a karta trenéra. Volba `--check` ověří, že opakované vygenerování nezmění uložené soubory.
+- `tools/virelia/localize_ui_graphics.py`: Pokédex včetně vyhledávání a neznámé oblasti, souhrn Pokémona, karta trenéra, stavové štítky týmu a všech čtyř pozic v souboji a tlačítko `POPIS` útoku pro L i R. Volba `--check` ověří, že opakované vygenerování nezmění uložené soubory.
 - `tools/virelia/localize_font_labels.py`: sdílené symboly `Lv.` a `No` nahrazuje `úr.` a `č.` ve všech devíti latinských písmech. Kódy `{LV}`, `{LV_2}` a `{NO}` zůstávají zachovány. Zkratka původního trenéra je `PT/`.
 
 Nativní snímky sestavení `bf4b5254a3` potvrdily čitelnost hlavních záložek, názvů útoků, schopností a typových štítků. Odhalily anglické symboly `Lv.`, `No` a `OT/` a chybné spojení názvu druhu s výzvou k přezdívce. Jejich opravy byly znovu ověřeny v sestavení `7c120`.
+
+Pozdější nativní kontrola release `0.2.36` odhalila ještě grafické štítky `FNT` a `MOVE INFO`. Generátor je nyní nahrazuje českými `MDL` a `POPIS` a současně překládá ostatní stavové štítky: `OTR`, `PAR`, `SPÍ`, `MRZ`, `POP` a `OMR`. Vlastní název Pokérus si ponechává zkratku `PKRS`. Zdrojová kontrola potvrdila původní rozměry, palety, pořadí dlaždic a opakovatelné generování; náhled je v `outputs/czech-status-badges.png`. Nativní kontrola nového sestavení s těmito posledními grafickými změnami zatím čeká.
 
 Kontrola `7c120` proběhla skutečnými stisky tlačítek v emulátoru mGBA libretro. Nová hra s travním startérem prošla tvorbou postavy, pojmenováním, domem a laboratoří. Do RAM se nezapisovaly žádné testovací hodnoty a nepřidávaly se předměty ani Pokémoni. Výsledky obrazovek:
 
@@ -79,6 +81,6 @@ Snímky jsou místní pracovní výstupy v ignorovaném adresáři `outputs`. Ko
 
 Při kontrole `ee05868` prošly výhra nad Rocketem, všechny tři stránky policistova dialogu a závěrečný cíl. Policista používá původní grafiku, nově dostupnou i v Emerald. Dokončení nastavilo stav 5 a trvalý příznak. Stadion zůstal zavřený. Přechod město → trasa → město neopakoval scénu. Uložení a nové spuštění pouze z FLASH obnovily pozici, tým, předměty i dokončení. Závěr a načtení prošly také v optimalizované release ROM `0.2.36`.
 
-V uvedených nativních průchodech nezůstal viditelný anglický text mimo zachované vlastní názvy a běžné zkratky. Chybové obrazovky poškozené uložené hry, všechny kombinace léčiv a všechny větve učení útoků mají zdrojovou kontrolu; každá jejich obrazovka nebyla ručně vyvolána. Toto omezení platí i po úspěšné kompilaci a automatických testech.
+Po opravách uvedených výše zůstává nativně ověřit poslední stavové štítky a tlačítko popisu útoku. Chybové obrazovky poškozené uložené hry, všechny kombinace léčiv a všechny větve učení útoků mají zdrojovou kontrolu; každá jejich obrazovka nebyla ručně vyvolána. Toto omezení platí i po úspěšné kompilaci a automatických testech.
 
 Vyšší úrovně lze získat opakovanými souboji. Tento audit proto nepotvrzuje překlad všech útoků a evolucí při neomezeném trénování. Nepokrývá jiné oblasti, multiplayer ani předměty a útoky dostupné až mimo uvedený rozsah. Úplná česká lokalizace celé hry není cílem tohoto seznamu. Nativní průchod s travním startérem skončil v čase 14:03 bez odchytu; kontrola stadionu a návratu do města jej prodloužila na 14:55. Jde o herní hodiny při automatizovaném ovládání. Cílových 15 až 20 minut s odchytem zatím nebylo změřeno lidským hráčem.

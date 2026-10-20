@@ -6865,6 +6865,36 @@
       "czech": "ID č.",
       "font": "Normal",
       "width": 30
+    },
+    {
+      "path": "src/battle_controller_player.c",
+      "key": "cat_desc",
+      "kind": "ui",
+      "english": "CAT: ",
+      "czech": "KAT: ",
+      "font": "Normal",
+      "width": 35,
+      "max_bytes": 7
+    },
+    {
+      "path": "src/battle_controller_player.c",
+      "key": "pwr_desc",
+      "kind": "ui",
+      "english": "PWR: ",
+      "czech": "SÍL: ",
+      "font": "Normal",
+      "width": 33,
+      "max_bytes": 7
+    },
+    {
+      "path": "src/battle_controller_player.c",
+      "key": "acc_desc",
+      "kind": "ui",
+      "english": "ACC: ",
+      "czech": "PŘES: ",
+      "font": "Normal",
+      "width": 33,
+      "max_bytes": 7
     }
   ]
 }
