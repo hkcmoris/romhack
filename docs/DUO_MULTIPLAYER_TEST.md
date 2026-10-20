@@ -223,7 +223,7 @@ Use the existing `.github/workflows/build.yml` workflow on
    run, including Emerald, FireRed, LeafGreen, release, test, documentation, and
    aggregate build checks.
 3. Download `emerald-release` from that run's **Artifacts**, then extract
-   `pokeemerald-release.gba`.
+   `oraculum-v0.1.N-release.gba`, where `N` is that CI run's number.
 4. Transfer that one extracted ROM to both phones. Record the Actions run ID
    and commit; compare file hashes if the transfers are in doubt.
 5. Use a separate save for each phone. Choose **NEW GAME** for quick start, or

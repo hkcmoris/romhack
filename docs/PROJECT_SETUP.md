@@ -28,14 +28,33 @@ compiler and run the engine tests, so WSL and Ubuntu are optional on your PC.
    Each ROM is uploaded when its own compilation succeeds, so an artifact may
    appear while tests or other build checks are still running.
 5. Under **Artifacts**, download `emerald-release`, extract the ZIP, and open
-   `pokeemerald-release.gba` in the Windows version of mGBA.
+   `oraculum-v0.1.N-release.gba` in the Windows version of mGBA.
 
 Each successful compile provides one of these artifacts for 14 days:
 
 | Artifact | File | Use |
 | --- | --- | --- |
-| `emerald-release` | `pokeemerald-release.gba` | Normal playtesting with the optimized release build |
-| `emerald-development` | `pokeemerald.gba` | Testing the standard development build |
+| `emerald-release` | `oraculum-v0.1.N-release.gba` | Normal playtesting with the optimized release build |
+| `emerald-development` | `oraculum-v0.1.N.gba` | Testing the standard development build |
+
+`N` is the GitHub Actions CI run number. For example, CI run 12 produces
+`oraculum-v0.1.12.gba` and `oraculum-v0.1.12-release.gba`. Both artifacts share
+the same version. Each new CI run advances the number across branches and pull
+requests; retrying a run retains its version. Failed or cancelled runs can
+leave gaps. The version belongs to this ROM hack, independently of the
+upstream engine version.
+
+The workflow's `ROM_VERSION` setting in `.github/workflows/build.yml` controls
+the `0.1` series; `config.mk` defines the `oraculum` filename prefix. Artifact
+names remain `emerald-release` and `emerald-development` for download scripts.
+If no version is supplied outside CI, the Makefile uses `0.1.0-local`, which
+is a local placeholder rather than an automatically numbered release.
+FireRed and LeafGreen checks add `-firered` or `-leafgreen` before the version.
+
+Emulators commonly associate saves with the ROM filename. When upgrading,
+back up the save and import it for the new ROM, or copy it to the matching new
+filename as your emulator requires. A new build number does not guarantee
+save compatibility.
 
 Use the artifact from the commit you intend to test. Sign in to GitHub to
 download it. A failed run's job logs identify the compiler or test error;
@@ -109,10 +128,10 @@ add `upstream` again in each fresh clone.
 Run these commands from the repository root in Ubuntu:
 
 ```bash
-# Strict development build; produces pokeemerald.gba.
+# Strict development build; produces oraculum-v0.1.0-local.gba.
 make -j"$(nproc)" -O all UNUSED_ERROR=1 DEPRECATED_ERROR=1
 
-# Optimized release build; produces pokeemerald-release.gba locally.
+# Optimized release build; produces oraculum-v0.1.0-local-release.gba.
 make -j"$(nproc)" release UNUSED_ERROR=1 DEPRECATED_ERROR=1
 
 # Automated engine tests using the bundled headless mGBA test harness.
@@ -145,8 +164,8 @@ including the palette files' required CRLF endings.
   `.pory` scripts; the baseline continues to use the included script files.
 - [Porytiles](https://github.com/grunt-lucas/porytiles): optional custom tileset
   compilation; follow its integration guide when adding custom map art.
-- [mGBA](https://mgba.io/): open `pokeemerald.gba` or
-  `pokeemerald-release.gba` to playtest the corresponding build.
+- [mGBA](https://mgba.io/): open `oraculum-v0.1.N.gba` or
+  `oraculum-v0.1.N-release.gba` to playtest the corresponding build.
 - `include/config/`: engine switches, species selection, caps, AI, and DexNav.
 - `data/maps/`: map data and event scripts; use Porymap for structural edits.
 - `src/`: engine implementation and game data.

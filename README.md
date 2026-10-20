@@ -14,8 +14,9 @@ the game's setting and defining mechanics before changing feature switches.
 
 Edit on Windows, commit and push, then download a ROM from the successful
 [CI run](https://github.com/hkcmoris/romhack/actions/workflows/build.yml).
-Extract the `emerald-release` artifact and open `pokeemerald-release.gba` in
-mGBA. GitHub Actions handles compilation and engine tests; no local Linux
+Extract the `emerald-release` artifact and open `oraculum-v0.1.N-release.gba`
+in mGBA. `N` is the CI run number and increases automatically with each new
+run. GitHub Actions handles compilation and engine tests; no local Linux
 installation is required for this workflow.
 
 The documentation below describes the upstream engine.
