@@ -236,8 +236,15 @@ Spinarak preview, examining Ekans triggered a corrupted wild battle. The next
 controlled comparison runs the unchanged graphics decoder from immutable ROM.
 The ROM-mode release `0.3.58` also froze on the affected device, once at Ekans
 and once on the first exit from the player home, before any preview. Android
-acceptance is unresolved despite both complete CI modes passing; investigation
-now requires a freeze-state captured on the phone.
+acceptance is unresolved despite both complete CI modes passing. The supplied
+Android freeze-state confirms correctly decoded and released Spinarak graphics,
+but corrupt battle state during the starter switch. A candidate now canonicalizes
+effect-tagged script callbacks before execution; release 0.3.60 still froze at
+Ekans on My Boy!, this time including the emulator UI. This is not a verified
+Android fix. The same phone and ROM pass the reported preview sequence in
+Lemuroid; My Boy! still fails with both external and built-in BIOS. This confirms
+a compatibility difference, not a full Android chapter playtest. See the
+investigation for exact evidence and remaining uncertainty.
 
 ## Validation status and manual checklist
 

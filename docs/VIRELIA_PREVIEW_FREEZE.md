@@ -2,6 +2,12 @@
 
 ## Rozsah a jistota závěru
 
+**Aktuální stav:** My Boy! 1.8.0 na Galaxy J6 / Androidu 9 zamrzá i v 0.3.60,
+s vlastním i vestavěným BIOSem. Stejná ROM a telefon prošly hlášeným postupem
+Spinarak → B → Ekans v Lemuroidu. Dodaný BIOS má správný standardní hash.
+Konkrétní příčina ani oprava My Boy! nejsou prokázané; úplný Gym tím na
+Androidu ověřen není. Podrobná matice a důkazy jsou níže.
+
 Oprava vznikla ve větvi `codex/virelia-prologue`, základ `14a30dafeb`.
 Stejnou opravu přebírá navazující větev `codex/virelia-first-gym`.
 Hlášený problém: stisk A u Poochyeny v laboratoři profesorky Javorové
@@ -10,8 +16,9 @@ Spinarak a Ekans údajně fungují; Windows a iPhone problém údajně nemají.
 Tato hlášení nejsou přímým měřením na postiženém zařízení.
 
 Zdrojová analýza prokázala několik nezávislých chyb v obsluze prostředků.
-Oprava je odstraňuje. Konkrétní příčinu Android freeze zatím nelze potvrdit:
-není k dispozici postižený telefon, jeho nastavení ani diagnostický záznam.
+Oprava je odstraňuje. Konkrétní příčinu Android freeze zatím nelze potvrdit.
+Uživatel již dodal save state zamrzlé emulace 0.3.58; jeho rozbor je uveden
+níže. Přímý přístup k postiženému telefonu není k dispozici.
 Úspěch CI nebo mGBA nelze vydávat za úspěšný test My Boy!.
 
 ## Upřesnění Android hlášení: 0.3.52
@@ -245,7 +252,7 @@ Ekansova Poké Ballu. Další čistý pokus zamrzl už při prvním opuštění 
 před jakýmkoli náhledem startéra. Menu My Boy! dále funguje a hudba glitchuje.
 Přesun grafických kernelů do ROM tedy problém na tomto telefonu neodstranil;
 nelze jej označit za opravu Androidu ani příčinu omezit na Poochyenin obrázek.
-Pro pokračování je potřeba zachytit skutečný save state zmrazené emulace.
+Uživatel již dodal skutečný save state zmrazené emulace; viz následující oddíl.
 
 Prologové CI59 již prošlo celé. CI58 prvního Gymu prošlo celé: story 5494 / 5942 a development 5492 / 5940,
 se zděděnými 18 known / 421 TODO / 9 expected v každé sadě, bez nového selhání. Nativní a CI úspěchy výše tento negativní Android výsledek nemění.
@@ -253,8 +260,185 @@ se zděděnými 18 known / 421 TODO / 9 expected v každé sadě, bez nového se
 ![0.3.58: Ekans po odmítnutí Spinaraka](images/virelia-preview/rom58-ekans-after-spinarak.png)
 ![0.3.58: následný první souboj](images/virelia-preview/rom58-first-battle.png)
 
+## Skutečný save state My Boy!: 0.3.58
+
+Dodaný soubor `oraculum-v0.3.58-release.st1` má 26 033 B a SHA-256
+`87110085dd480b1e24892e2402ae9ed258b2b0675243659c8933514cd54fa865`.
+Rozbalený stav má 527 992 B a SHA-256
+`b063c3bdc8cdbddde5c1635fa901e16b759468de86090a08855d49c87a59a965`.
+Rozbor používá přesnou release ROM 0.3.58 s hashem uvedeným výše. Adresy
+objektů byly ověřeny v jejím optimalizovaném strojovém kódu; vývojové RAM
+symboly se na release paměť nepřenášely. Obrazovka ve stavu ukazuje
+laboratoř u vodního Poké Ballu. Tento soubor nezachycuje hlášený samostatný
+pokus se zamrznutím při odchodu z domova.
+
+Zachovaná volná paměť obsahuje všech 4096 správných bajtů obou předních
+snímků Spinaraka na `0x02004EB4`. Nezávislý převod zdrojového
+[PNG](../graphics/pokemon/spinarak/virelia/anim_front.png) do GBA 4bpp
+odpovídá byte po bytu; SHA-256 je
+`9ca7f6d1e0c73c22045e3eabb79c4bc2521c0d5ef70044ec0a524dc7a7eee841`.
+SMOL `sDataPtr` ukazuje na poslední slovo téhož komprimovaného obrázku,
+`0x0856155C`. To prokazuje správné dekódování Spinaraka i v tomto Android
+pokusu. Celé bitmapy Ekanse ani Poochyeny v EWRAM nalezeny nebyly; jejich
+nepřítomnost sama neprokazuje, že se nikdy nenačetly.
+
+Heap na `0x020018C4` má šest platně propojených bloků a přesně pokrývá
+`HEAP_SIZE`. Obsahuje 11 648 B živých dat a jeden volný blok 104 224 B.
+Všech osm záznamů PicData je vynulovaných, rámy a jejich popisovače jsou
+uvolněné a druhová paleta Spinaraka již není rezervovaná. Žádný živý sprite
+ani okno PicBox nezůstaly; existuje jen běžné textové okno. Ukazatel `gFonts`
+je platný. Tento snímek neukazuje nedostatek heapu, porušený řetězec bloků
+ani chybnou Spinarakovu bitmapu. Dřívější přechodné přepsání tím nelze
+vyloučit. Rozložení prostředků určuje
+[PicSprite](../src/trainer_pokemon_sprites.c), [okno](../include/window.h)
+a [alokátor](../src/malloc.c).
+
+Podle [ScriptContext](../include/script.h) a release instrukcí je globální
+kontext na `0x03000C88`. Má režim BYTECODE, prázdný zásobník a `scriptPtr`
+`0x083BFC9D`. Před ním je příkaz `19 00 80 04 80`, tedy
+`copyvar VAR_0x8000, VAR_0x8004`; následuje porovnání s travní volbou.
+Zdroj `VAR_0x8004` na `0x0200000C` obsahuje 2, tedy FIRE. Cíl `VAR_0x8000`
+na `0x02021BF0` stále obsahuje 0. Tato část
+[laboratorního skriptu](../data/maps/Virelia_MaplebrookResearchLaboratory/scripts.inc)
+teprve vybírá náhled. `copyvar` posune `scriptPtr` za argumenty ještě před
+uložením hodnoty, takže samotný ukazatel neprokazuje návrat z příkazu.
+
+Globální status je WAITING a ovládání je zamčené. Zachovaný `nativePtr`
+`0x0813C181` patří `IsFreezePlayerFinished`, ale režim BYTECODE jej právě
+nevolá. Okamžitý kontext na `0x03001ABC` obsahuje začátek FireStarter;
+[analýza efektů](../src/script.c) zde může ponechat poslední kontrolovanou
+pozici. Není to důkaz druhého současně běžícího skriptu.
+
+Současně je aktivní `Task_BattleStart`, stav 0, s přechodem 9
+(`B_TRANSITION_WHITE_BARS_FADE`). `gBattleTypeFlags` na `0x020000B4`
+a `gMain.savedCallback` na `0x030023F8` obsahují stejnou chybnou hodnotu
+`0x23682368`. Ta není platným uloženým callbackem. Parametry trenéra jsou
+nulové a ani jeden ze šesti slotů obou nepřátelských týmů nemá příznak
+`hasSpecies`. Nejde o správně připravený souboj. Platná cesta z `copyvar`
+do [přípravy boje](../src/battle_setup.c) neexistuje; místo původního
+chybného zápisu nebo skoku z tohoto snímku určit nelze.
+
+CPU má PC `0x00000068`, SP `0x03007FF0` a CPSR `0x600000DF`.
+Spolu s hodnotami na vrcholu BIOS zásobníku to silně odpovídá zachycení
+v BIOS smyčce po neočekávaném přenosu řízení. Uživatel následně dodal používaný
+BIOS; jeho skutečné instrukce na `0x1C` a `0x68` odpovídají právě této smyčce
+reset/reserved handleru. Snímek neuchovává historii instrukcí, takže
+neprokazuje původní skok do nízké paměti ani jeho příčinu. Platné struktury,
+poškozený stav boje a tento CPU nález je nutné posuzovat společně.
+
+### Další kandidát: provádění tagovaných funkcí ze základního okna ROM
+
+[Tabulka příkazů](../data/script_cmd_table.inc),
+[tabulka special](../data/specials.inc) a
+[makra callnative/gotonative](../asm/macros/event.inc) ukládají příznak
+`requests_effects` přičtením `ROM_SIZE`, tedy `0x02000000`, k adrese funkce.
+Například slot pro `copyvar` obsahuje `0x0A223311`; stejný kód začíná
+v základním okně na `0x08223310`. Bit 0 určuje režim Thumb. Jde o platná
+zrcadla GBA ROM; samotná taková adresa není poškozený ukazatel.
+
+Kandidát pro kompatibilitu těsně před voláním převádí
+pouze adresy `0x0A000000` až `0x0BFFFFFF` do základního okna `0x08000000`
+až `0x09FFFFFF`. Zachová offset i bit Thumb a ponechá EWRAM/IWRAM callbacky
+beze změny. Normalizace pokrývá šest míst: bytekódový příkaz a odložený native
+callback v `RunScriptCommand`, příkaz při analýze efektů a volání ze
+`special`, `specialvar` a `callnative`. `gotonative` použije cestu odloženého
+callbacku. Změna patří do [script.c](../src/script.c)
+a [scrcmd.c](../src/scrcmd.c).
+
+Původní tabulky, bytekód a tagy musí zůstat zachované. Kontroly efektů musí
+nejprve vyhodnotit původní adresu a teprve její volání použije normalizovaný
+cíl. Tento kandidát odděluje metadata od místa provádění; neprokazuje chybu
+My Boy! JIT ani dokončenou opravu Androidu. Pro tento nový kandidát zde
+Android výsledek níže je neúspěšný. Dosavadní zelené CI 58/59
+ověřovalo předchozí sestavení.
+
+Změna je v commitu `4c3aeaf6c7bdf588a9ff4e69dc69c829ace74bba` větve prvního
+Gymu a `60be47ba9682221332708142353fd045de3c18c4` větve prologu.
+[Release 0.3.60](https://github.com/hkcmoris/romhack/actions/runs/39672879252/artifacts/12380941700)
+má SHA-256 `612318d63e787be7c9574bb6c3bc8bd5ce1a69431e37cbdcb709b4f6d376b44b`.
+Prologová release 0.2.61 má SHA-256
+`7ad2764ea49682a2c73f27c0606db4ba6a12fabe856650b3df5074d9a6fe6767`.
+
+Obě přesné release ROM prošly v nativním mGBA čistou novou hrou přes
+Spinarak → B → Ekans → B → Poochyena, uvedenou profesorkinu větu,
+přesun a Viktorův skutečný trenérský souboj. Všechny tři náhledy odpovídaly
+kontrolním pixelům. V 0.3.60 byl souboj také dokončen a hra uložena běžnou
+nabídkou. Nové spuštění pouze z FLASH zachovalo mapu (76, 0), pozici (4, 8),
+prologový stav 3, travní volbu a jediného Pokémona. Celý 600bytový uložený tým
+byl shodný, SHA-256 `93a62e4e779e640fffa95cee05fcb6e9d5e460d262437bba1b5d8d223d8bdf3c`.
+Samostatná čistá hra 0.3.60 se Spinarakem ověřila také přední bojovou
+Poochyenu a zadního Spinaraka. Jiná relace spustila z běžného předvýběrového
+FLASH savu dvacet otevření a odmítnutí každého startéra, celkem 60 přesných
+shod obrázků. Žádný z těchto nativních testů nepoužil starý save state.
+Šlo o skutečné vstupy ovladače, bez změn herní RAM. Test neprokazuje opravu
+na My Boy!; dodaný poškozený save state nebyl použit k novému průchodu.
+
+**Android 0.3.60: neúspěšné.** Uživatel zopakoval nový test a hra opět zamrzla
+u Ekanse. Tentokrát přestal reagovat celý My Boy!, takže nešlo uložit nový
+stav emulátoru. Normalizace adres tedy chybu na postiženém telefonu
+neodstranila. Zelené nativní průchody a případné CI výsledky tento negativní
+výsledek nemění. Původní tvrzení o konkrétní chybě JIT nebo ROM zrcadla není
+prokázané. Kandidát zůstává zaznamenaným neúspěšným porovnáním.
+
+Binární audit přesné release 0.3.60 ověřil všech šest skutečných cest:
+rozsahový test, odečet `0x02000000` i výsledné nepřímé volání jsou přítomné
+v optimalizovaném kódu. Tabulka příkazů na `0x082CE8FC` nadále uchovává
+tagy; `copyvar` má raw adresu `0x0A223381`. Neúspěch tedy nelze vysvětlit
+vynecháním změny z release. Vývojové symboly se pro tento audit nepoužily.
+
+### Stejný telefon, různé jádro a ověřený BIOS
+
+Uživatel potvrdil, že stejná ROM 0.3.60 na stejném Samsung Galaxy J6 projde
+postupem Spinarak → B → Ekans v Lemuroidu. Nejde tedy o problém všech
+Android emulátorů. [Lemuroid](https://github.com/Swordfish90/Lemuroid) podle
+svého README používá pro GBA mGBA. Uživatel zároveň vypnul vlastní BIOS
+v My Boy! a čistý test zopakoval s vestavěnou emulací BIOSu: znovu freeze.
+
+Dodaný `gba_bios.bin` má 16384 B, MD5 `a860e8c0b6d573d191e4ec7db1b1e4f6`
+a SHA-256 `fd2547724b505f487e6dcb29ec2ecff3af35a841a77ab2e85fd87350abd36570`.
+MD5 přesně odpovídá referenci pro standardní GBA BIOS v
+[dokumentaci Libretro](https://docs.libretro.com/library/mgba/#bios).
+Soubor nebyl přidán do repozitáře ani distribuován s ROM.
+
+| Prostředí / ROM 0.3.60 | Ověřený výsledek |
+| --- | --- |
+| Galaxy J6, My Boy! 1.8.0, dodaný BIOS | Freeze u Ekanse včetně ovládání emulátoru, hlásí uživatel |
+| Stejný telefon, My Boy!, vestavěná emulace BIOSu | Freeze přetrval, hlásí uživatel |
+| Stejný telefon, Lemuroid | Postup Spinarak → B → Ekans prošel, hlásí uživatel |
+| Windows mGBA, vestavěný BIOS | Nová hra, tři náhledy, první boj, save/load i 60 odmítnutí prošly |
+| Windows mGBA, přesný dodaný BIOS | Nová hra, tři náhledy, profesorkina věta, přesun a skutečný první boj prošly |
+
+Nativní test s dodaným BIOSem jej skutečně načetl: serializovaný stav má
+BIOS checksum `0xBAAE187F`, nikoli checksum vestavěné náhrady. BIOS se
+načítal z původního umístění; test nevkládal herní RAM ani nepřenášel stav
+mezi různými ROM. Výsledek tedy nelze připsat pouze použití náhradního BIOSu
+v dosavadních nativních testech.
+
+Prakticky je pro tento telefon potvrzen Lemuroid pro uvedený krátký postup;
+celý nový Gym tím na Androidu otestován není. My Boy! 1.8.0 zůstává známou
+nevyřešenou kombinací. Nelze označit za prokázanou chybu BIOS souboru,
+konkrétní JIT chybu ani bezchybnost ROM na skutečném GBA. My Boy! podle
+[oficiálního popisu](https://play.google.com/store/apps/details?id=com.fastemulator.gba)
+používá JIT i vysokoúrovňovou emulaci BIOSu; tento obecný popis sám příčinu
+nevysvětluje. Další změna artworku nebo další náhodná ROM varianta nemá
+v těchto výsledcích oporu.
+
+[CI60](https://github.com/hkcmoris/romhack/actions/runs/39672879252) již prošlo
+příběhovou sadou 5499 / 5947, [CI61](https://github.com/hkcmoris/romhack/actions/runs/39672887814)
+5481 / 5929. Obě potvrzují všech pět nových script-mirror skupin, dvě původní
+Script_HasNoEffect skupiny, 22 preview/battle skupin a 107 kompresních skupin.
+Každá zachovává 18 KNOWN_FAILING, 421 TODO a 9 EXPECT_FAILING bez nového
+selhání. CI60 již prošlo celé včetně vývojové sady 5497 / 5945 a aggregate
+build. CI61 prošlo celé včetně vývojové sady 5487 / 5935 a aggregate build.
+Všechny čtyři logy potvrzují uvedené nové i původní testovací skupiny bez
+nového selhání. Android My Boy! výsledek výše zůstává neúspěšný.
+
 ## Regresní pokrytí
 
+- `test/script_rom_mirror.c`: skutečný PC v tagovaném kontrolním callbacku
+  a v normalizovaném bytekódovém i odloženém volání; `callnative` a `gotonative`;
+  zachování tagů při analýze efektů; blokování účinku na save; konkrétní
+  `copyvar` a následný switch startéra; meze oblasti, RAM, NULL a Thumb bit.
 - `test/pokemon_pic_preview.c`: skutečné vyčerpání tasků, oken, spritů,
   palet a heapu; rollback BG pointeru; 120 cyklů všech tří startérů;
   okamžité a opakované skrytí a skutečný `ScrCmd_hidemonpic` po selhání.

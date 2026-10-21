@@ -384,3 +384,10 @@ See [the preview freeze investigation](VIRELIA_PREVIEW_FREEZE.md) for checked
 sprite allocation, cleanup regressions, unchanged artwork evidence, the
 separate battle path and the exact My Boy! verification procedure. A successful
 CI or native mGBA run does not certify the affected Android device.
+
+The affected Galaxy J6 / Android 9 still freezes in My Boy! 1.8.0 with both
+external and built-in BIOS, including the 0.3.60 candidate. The user's BIOS
+matches the standard checksum. On the same phone the same ROM passes the
+reported Spinarak → B → Ekans sequence in Lemuroid. This is a confirmed
+compatibility difference, not a completed My Boy! fix or a full Android
+chapter playtest; see the investigation for the captured state and native proof.
