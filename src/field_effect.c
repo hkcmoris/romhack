@@ -1030,32 +1030,26 @@ u8 AddNewGameBirchObject(s16 x, s16 y, u8 subpriority)
 
 u8 CreateMonSprite_PicBox(enum Species species, s16 x, s16 y, u8 subpriority)
 {
-    s32 spriteId = CreateMonPicSprite(species, FALSE, 0x8000, TRUE, x, y, 0, species);
-    PreservePaletteInWeather(IndexOfSpritePaletteTag(species) + 0x10);
-    if (spriteId == 0xFFFF)
+    u16 spriteId = CreateMonPicSprite(species, FALSE, 0x8000, TRUE, x, y, 0, species);
+    if (spriteId >= MAX_SPRITES)
         return MAX_SPRITES;
-    else
-        return spriteId;
+    PreservePaletteInWeather(gSprites[spriteId].oam.paletteNum + 0x10);
+    return spriteId;
 }
 
 u8 CreateMonSprite_FieldMove(enum Species species, bool8 isShiny, u32 personality, s16 x, s16 y, u8 subpriority)
 {
     u16 spriteId = CreateMonPicSprite(species, isShiny, personality, TRUE, x, y, 0, species);
-    PreservePaletteInWeather(gSprites[spriteId].oam.paletteNum + 0x10);
-    if (spriteId == 0xFFFF)
+    if (spriteId >= MAX_SPRITES)
         return MAX_SPRITES;
-    else
-        return spriteId;
+    PreservePaletteInWeather(gSprites[spriteId].oam.paletteNum + 0x10);
+    return spriteId;
 }
 
 void FreeResourcesAndDestroySprite(struct Sprite *sprite, u8 spriteId)
 {
     u8 paletteNum = sprite->oam.paletteNum;
     ResetPreservedPalettesInWeather();
-    if (sprite->oam.affineMode != ST_OAM_AFFINE_OFF)
-    {
-        FreeOamMatrix(sprite->oam.matrixNum);
-    }
     FreeAndDestroyMonPicSpriteNoPalette(spriteId);
     FieldEffectFreePaletteIfUnused(paletteNum); // Clear palette only if unused, in case follower is using it
 }

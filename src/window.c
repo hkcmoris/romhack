@@ -141,6 +141,7 @@ u32 AddWindow(const struct WindowTemplate *template)
     int allocatedBaseBlock;
     u16 attrib;
     u8 *allocatedTilemapBuffer;
+    bool32 allocatedBgTilemap = FALSE;
     int i;
 
     for (win = 0; win < WINDOWS_MAX; ++win)
@@ -169,7 +170,7 @@ u32 AddWindow(const struct WindowTemplate *template)
 
         if (attrib != 0xFFFF)
         {
-            allocatedTilemapBuffer = AllocZeroed(attrib);
+            allocatedTilemapBuffer = AllocZeroedUnchecked(attrib);
 
             if (allocatedTilemapBuffer == NULL)
                 return WINDOW_NONE;
@@ -179,17 +180,19 @@ u32 AddWindow(const struct WindowTemplate *template)
 
             gWindowBgTilemapBuffers[bgLayer] = allocatedTilemapBuffer;
             SetBgTilemapBuffer(bgLayer, allocatedTilemapBuffer);
+            allocatedBgTilemap = TRUE;
         }
     }
 
-    allocatedTilemapBuffer = AllocZeroed((u16)(32 * (template->width * template->height)));
+    allocatedTilemapBuffer = AllocZeroedUnchecked((u16)(32 * (template->width * template->height)));
 
     if (allocatedTilemapBuffer == NULL)
     {
-        if ((GetNumActiveWindowsOnBg(bgLayer) == 0) && (gWindowBgTilemapBuffers[bgLayer] != DummyWindowBgTilemap))
+        if (allocatedBgTilemap && GetNumActiveWindowsOnBg(bgLayer) == 0)
         {
             Free(gWindowBgTilemapBuffers[bgLayer]);
-            gWindowBgTilemapBuffers[bgLayer] = allocatedTilemapBuffer;
+            gWindowBgTilemapBuffers[bgLayer] = NULL;
+            UnsetBgTilemapBuffer(bgLayer);
         }
         return WINDOW_NONE;
     }
@@ -258,6 +261,7 @@ void RemoveWindow(u32 windowId)
         {
             Free(gWindowBgTilemapBuffers[bgLayer]);
             gWindowBgTilemapBuffers[bgLayer] = NULL;
+            UnsetBgTilemapBuffer(bgLayer);
         }
     }
 

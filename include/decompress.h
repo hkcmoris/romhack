@@ -78,6 +78,8 @@ void HandleLoadSpecialPokePic(bool32 isFrontPic, void *dest, enum Species specie
 void HandleLoadSpecialPokePicIsEgg(bool32 isFrontPic, void *dest, enum Species species, u32 personality, bool32 isEgg);
 
 void LoadSpecialPokePic(void *dest, enum Species species, u32 personality, bool8 isFrontPic);
+// Recoverable menu loader; capacity includes every decompressed animation frame.
+bool32 TryLoadSpecialPokePic(void *dest, enum Species species, u32 personality, bool8 isFrontPic, u32 capacity);
 void LoadSpecialPokePicIsEgg(void *dest, enum Species species, u32 personality, bool8 isFrontPic, bool32 isEgg);
 
 u32 GetDecompressedDataSize(const u32 *ptr);
