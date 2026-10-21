@@ -41,8 +41,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_STURDY] =
     {
-        .name = _("Sturdy"),
-        .description = COMPOUND_STRING("Negates 1-hit KO attacks."),
+        .name = _(LOCALIZED_TEXT("Sturdy", "Odolnost")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Negates 1-hit KO attacks.", "Při plných HP přežije jedním HP.")),
         .aiRating = 6,
         .breakable = TRUE,
     },
@@ -65,8 +65,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SAND_VEIL] =
     {
-        .name = _("Sand Veil"),
-        .description = COMPOUND_STRING("Ups evasion in a sandstorm."),
+        .name = _(LOCALIZED_TEXT("Sand Veil", "Písečný plášť")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Ups evasion in a sandstorm.", "V písečné bouři zvýší úhybnost.")),
         .aiRating = 3,
         .breakable = TRUE,
     },
@@ -178,8 +178,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_INTIMIDATE] =
     {
-        .name = _("Intimidate"),
-        .description = COMPOUND_STRING("Lowers foes' Atk on entry."),
+        .name = _(LOCALIZED_TEXT("Intimidate", "Zastrašení")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Lowers foes' Atk on entry.", "Při vstupu sníží útok protivníků.")),
         .aiRating = 7,
     },
 
@@ -345,8 +345,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_MAGNET_PULL] =
     {
-        .name = _("Magnet Pull"),
-        .description = COMPOUND_STRING("Traps Steel-type foes."),
+        .name = _(LOCALIZED_TEXT("Magnet Pull", "Magnetismus")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Traps Steel-type foes.", "Znemožní ocelovým cílům výměnu.")),
         .aiRating = 9,
     },
 
@@ -381,8 +381,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_THICK_FAT] =
     {
-        .name = _("Thick Fat"),
-        .description = COMPOUND_STRING("Halves Fire and Ice damage."),
+        .name = _(LOCALIZED_TEXT("Thick Fat", "Silný tuk")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Halves Fire and Ice damage.", "Sníží zranění ohněm a ledem.")),
         .aiRating = 7,
         .breakable = TRUE,
     },
@@ -554,8 +554,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_ROCK_HEAD] =
     {
-        .name = _("Rock Head"),
-        .description = COMPOUND_STRING("Prevents recoil damage."),
+        .name = _(LOCALIZED_TEXT("Rock Head", "Tvrdá hlava")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Prevents recoil damage.", "Chrání před zpětným zraněním.")),
         .aiRating = 5,
     },
 
@@ -992,8 +992,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SHEER_FORCE] =
     {
-        .name = _("Sheer Force"),
-        .description = COMPOUND_STRING("Trades effects for power."),
+        .name = _(LOCALIZED_TEXT("Sheer Force", "Hrubá síla")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Trades effects for power.", "Zesílí útoky bez vedlejších účinků.")),
         .aiRating = 8,
     },
 
@@ -1050,15 +1050,15 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_WEAK_ARMOR] =
     {
-        .name = _("Weak Armor"),
-        .description = COMPOUND_STRING("Hits change Def and Speed."),
+        .name = _(LOCALIZED_TEXT("Weak Armor", "Slabý pancíř")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Hits change Def and Speed.", "Fyzický zásah sníží obranu a zrychlí.")),
         .aiRating = 2,
     },
 
     [ABILITY_HEAVY_METAL] =
     {
-        .name = _("Heavy Metal"),
-        .description = COMPOUND_STRING("Doubles weight."),
+        .name = _(LOCALIZED_TEXT("Heavy Metal", "Těžký kov")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Doubles weight.", "Zdvojnásobí vlastní hmotnost.")),
         .aiRating = -1,
         .breakable = TRUE,
     },
@@ -1152,8 +1152,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SAND_RUSH] =
     {
-        .name = _("Sand Rush"),
-        .description = COMPOUND_STRING("Ups Speed in a sandstorm."),
+        .name = _(LOCALIZED_TEXT("Sand Rush", "Písečný běh")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Ups Speed in a sandstorm.", "V písečné bouři zdvojnásobí rychlost.")),
         .aiRating = 6,
     },
 
@@ -1207,8 +1207,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_MOXIE] =
     {
-        .name = _("Moxie"),
-        .description = COMPOUND_STRING("Raises Attack after KOs."),
+        .name = _(LOCALIZED_TEXT("Moxie", "Sebevědomí")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Raises Attack after KOs.", "Po vyřazení cíle zvýší svůj útok.")),
         .aiRating = 7,
     },
 
@@ -1251,8 +1251,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SAND_FORCE] =
     {
-        .name = _("Sand Force"),
-        .description = COMPOUND_STRING("Powers up in a sandstorm."),
+        .name = _(LOCALIZED_TEXT("Sand Force", "Síla písku")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Powers up in a sandstorm.", "V písku zesílí kámen, zem a ocel.")),
         .aiRating = 4,
     },
 

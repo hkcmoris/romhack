@@ -1,4 +1,5 @@
 #include "global.h"
+#include "virelia_first_gym.h"
 #include "data.h"
 #include "main.h"
 #include "battle.h"
@@ -1058,12 +1059,12 @@ static void TryUpdateGymLeaderRematchFromTrainer(void)
 
 static u16 GetTrainerAFlag(void)
 {
-    return TRAINER_FLAGS_START + TRAINER_BATTLE_PARAM.opponentA;
+    return VireliaFirstGym_TrainerFlag(TRAINER_BATTLE_PARAM.opponentA);
 }
 
 static u16 GetTrainerBFlag(void)
 {
-    return TRAINER_FLAGS_START + TRAINER_BATTLE_PARAM.opponentB;
+    return VireliaFirstGym_TrainerFlag(TRAINER_BATTLE_PARAM.opponentB);
 }
 
 static bool32 IsPlayerDefeated(u32 battleOutcome)
@@ -1373,7 +1374,7 @@ void ConfigureApproachingFacilityTrainerBattle(struct ApproachingTrainer *approa
 bool32 GetTrainerFlagFromScriptPointer(const u8 *data)
 {
     TrainerBattleParameter *temp = (TrainerBattleParameter*)(data + TRAINERBATTLE_OPCODE_OFFSET);
-    return FlagGet(TRAINER_FLAGS_START + temp->params.opponentA);
+    return FlagGet(VireliaFirstGym_TrainerFlag(temp->params.opponentA));
 }
 
 bool32 GetRematchFromScriptPointer(const u8 *data)
@@ -1428,17 +1429,17 @@ static void UNUSED SetBattledTrainerFlag(void)
 
 bool8 HasTrainerBeenFought(u16 trainerId)
 {
-    return FlagGet(TRAINER_FLAGS_START + trainerId);
+    return FlagGet(VireliaFirstGym_TrainerFlag(trainerId));
 }
 
 void SetTrainerFlag(u16 trainerId)
 {
-    FlagSet(TRAINER_FLAGS_START + trainerId);
+    FlagSet(VireliaFirstGym_TrainerFlag(trainerId));
 }
 
 void ClearTrainerFlag(u16 trainerId)
 {
-    FlagClear(TRAINER_FLAGS_START + trainerId);
+    FlagClear(VireliaFirstGym_TrainerFlag(trainerId));
 }
 
 void BattleSetup_StartTrainerBattle(void)

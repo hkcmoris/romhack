@@ -8,6 +8,7 @@ Use --base <committed-starter-revision> to also enforce unchanged legacy assets.
 import argparse
 from collections import deque
 import json
+import re
 from pathlib import Path
 import struct
 import subprocess
@@ -21,8 +22,13 @@ NAMES = (
     "Virelia_Route01",
     "Virelia_SlatefordCity",
     "Virelia_MaplebrookPlayersHouse",
+    "Virelia_Slateford_PokemonCenter",
+    "Virelia_Slateford_Mart",
+    "Virelia_Slateford_QuarryEntrance",
+    "Virelia_Slateford_QuarryDepths",
+    "Virelia_Slateford_Gym",
 )
-TOWN, LAB, ROUTE, CITY, HOME = NAMES
+TOWN, LAB, ROUTE, CITY, HOME = NAMES[:5]
 GROUPS = ("gMapGroup_VireliaOverworld", "gMapGroup_VireliaInteriors")
 OPPOSITE = {"up": "down", "down": "up", "left": "right", "right": "left"}
 
@@ -91,7 +97,7 @@ def validate(base=None):
     require(len(sections) < 0xFD, "Map sections overlap reserved Pokemon met-location IDs")
     require(groups["group_order"][-2:] == list(GROUPS), "Virelia groups must be appended")
     require(groups[GROUPS[0]] == [TOWN, ROUTE, CITY], "Unexpected Virelia overworld IDs")
-    require(groups[GROUPS[1]] == [LAB, HOME], "Unexpected Virelia interior IDs")
+    require(groups[GROUPS[1]] == [LAB, HOME, *NAMES[5:]], "Unexpected Virelia interior IDs")
     require(groups["group_order"].index(GROUPS[1]) < 0x7F, "Virelia group exceeds signed warp storage")
     if base:
         verify_legacy(base, groups, layouts, sections)
@@ -102,6 +108,38 @@ def validate(base=None):
     by_id = {entry["id"]: name for name, entry in maps.items()}
     unique([entry["id"] for entry in maps.values()], "Virelia map IDs")
     unique([entry["layout"] for entry in maps.values()], "Virelia layouts")
+    # Reachability below checks the eventual completed state of dynamic gates.
+    # The first-Gym validator separately proves locked-state puzzle gating.
+    dynamic_open = {
+        "Virelia_Slateford_QuarryDepths": (11, 6),
+        "Virelia_Slateford_Gym": (6, 6),
+    }
+    tileset_headers = (ROOT / "src/data/tilesets/headers.h").read_text()
+    metatile_sources = (ROOT / "src/data/tilesets/metatiles.h").read_text()
+    behavior_names = re.findall(r"\b(MB_[A-Z0-9_]+)\s*,", (ROOT / "include/constants/metatile_behaviors.h").read_text())
+    counter_behavior = behavior_names.index("MB_COUNTER")
+    tileset_attrs = {}
+
+    def tile_behavior(name, x, y):
+        tile = block(name, x, y)
+        if tile is None:
+            return None
+        metatile = tile & 0x3FF
+        layout = by_layout[maps[name]["layout"]]
+        tileset = layout["primary_tileset" if metatile < 512 else "secondary_tileset"]
+        if tileset not in tileset_attrs:
+            header = re.search(r"const struct Tileset " + tileset + r"\s*=\s*\{(.*?)\};", tileset_headers, re.S)
+            require(header is not None, f"Unknown tileset: {tileset}")
+            symbol = re.search(r"\.metatileAttributes\s*=\s*(\w+)", header.group(1)).group(1)
+            source = re.search(r"const u16 " + symbol + r"\[\] = INCBIN_U16\(\"([^\"]+)\"\)", metatile_sources)
+            require(source is not None, f"Missing native attributes: {symbol}")
+            raw_attrs = (ROOT / source.group(1)).read_bytes()
+            tileset_attrs[tileset] = struct.unpack(f"<{len(raw_attrs) // 2}H", raw_attrs)
+        attrs = tileset_attrs[tileset]
+        offset = metatile if metatile < 512 else metatile - 512
+        require(offset < len(attrs), f"{name}: invalid native metatile index {metatile}")
+        return attrs[offset] & 0xFF
+
     blocks, occupied = {}, {}
     for name, entry in maps.items():
         require(entry["region"] == "REGION_HOENN", f"{name}: Emerald compiler region mismatch")
@@ -138,7 +176,7 @@ def validate(base=None):
     def walkable(node):
         name, x, y = node
         tile = block(name, x, y)
-        return tile is not None and not tile & 0xC00 and (x, y) not in occupied[name]
+        return tile is not None and (not tile & 0xC00 or dynamic_open.get(name) == (x, y)) and (x, y) not in occupied[name]
 
     def same_elevation(a, b):
         elevation_a, elevation_b = block(*a) >> 12, block(*b) >> 12
@@ -222,6 +260,13 @@ def validate(base=None):
         for obj in maps[name]["object_events"]:
             adjacent = {(name, obj["x"] + dx, obj["y"] + dy)
                         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))}
+            # The engine extends A-button interaction by one tile across an
+            # actual MB_COUNTER. A wall or arbitrary blocked tile never qualifies.
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                counter = name, obj["x"] + dx, obj["y"] + dy
+                stand = name, obj["x"] + 2 * dx, obj["y"] + 2 * dy
+                if tile_behavior(*counter) == counter_behavior and stand in seen:
+                    adjacent.add(stand)
             require(bool(adjacent & seen), f"{name}: object cannot be approached: {obj.get('local_id', obj['script'])}")
 
     general_attrs = (ROOT / "data/tilesets/primary/general/metatile_attributes.bin").read_bytes()

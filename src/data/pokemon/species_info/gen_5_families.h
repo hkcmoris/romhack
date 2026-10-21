@@ -1,3 +1,4 @@
+#include "localization.h"
 #ifdef __INTELLISENSE__
 const struct SpeciesInfo gSpeciesInfoGen5[] =
 {
@@ -2327,14 +2328,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .speciesName = _("Roggenrola"),
         .cryId = CRY_ROGGENROLA,
         .natDexNum = NATIONAL_DEX_ROGGENROLA,
-        .categoryName = _("Mantle"),
+        .categoryName = _(LOCALIZED_TEXT("Mantle", "Plášť")),
         .height = 4,
         .weight = 180,
-        .description = COMPOUND_STRING(
-            "The hexagonal cavity is its ear.\n"
-            "It walks in the direction of sounds it\n"
-            "hears, but if the sounds cease, it panics\n"
-            "and topples over."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("The hexagonal cavity is its ear.\nIt walks in the direction of sounds it\nhears, but if the sounds cease, it panics\nand topples over.", "Šestihranným otvorem vnímá zvuky.\nKdyž hluk utichne, ztratí orientaci.")),
         .pokemonScale = 491,
         .pokemonOffset = 16,
         .trainerScale = 256,

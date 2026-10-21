@@ -353,3 +353,11 @@ content stable and evaluate save compatibility for each later change.
 Final tilesets, sprites, names, starter selection, story events, Gyms, Rocket
 missions, Mega Evolutions and an additional League remain future work. This
 branch stops at the four-map foundation.
+
+## v0.3 progression extension
+
+The [first Gym milestone](VIRELIA_FIRST_GYM.md) appends Slateford services, two
+quarry maps and Mara's Rock Gym to the completed prologue. The original map and
+species IDs remain fixed. Its independent Virelia badge flag does not repurpose
+Hoenn badges or imply that the eight-slot Trainer Card covers sixteen badges.
+The earlier foundation expansion notes above describe historical scope.

@@ -9378,6 +9378,61 @@
       "border_filepath": "data/layouts/Virelia_MaplebrookPlayersHouse/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_MaplebrookPlayersHouse/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SLATEFORD_POKEMON_CENTER",
+      "name": "Virelia_Slateford_PokemonCenter_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Virelia_Slateford_PokemonCenter/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Slateford_PokemonCenter/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SLATEFORD_MART",
+      "name": "Virelia_Slateford_Mart_Layout",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/Virelia_Slateford_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Slateford_Mart/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SLATEFORD_QUARRY_ENTRANCE",
+      "name": "Virelia_Slateford_QuarryEntrance_Layout",
+      "width": 24,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_RusturfTunnel",
+      "border_filepath": "data/layouts/Virelia_Slateford_QuarryEntrance/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryEntrance/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SLATEFORD_QUARRY_DEPTHS",
+      "name": "Virelia_Slateford_QuarryDepths_Layout",
+      "width": 24,
+      "height": 22,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_RusturfTunnel",
+      "border_filepath": "data/layouts/Virelia_Slateford_QuarryDepths/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryDepths/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SLATEFORD_GYM",
+      "name": "Virelia_Slateford_Gym_Layout",
+      "width": 13,
+      "height": 20,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_RustboroGym",
+      "border_filepath": "data/layouts/Virelia_Slateford_Gym/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Slateford_Gym/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

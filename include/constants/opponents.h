@@ -871,7 +871,14 @@
 #define TRAINER_VIRELIA_OTA                859
 #define TRAINER_VIRELIA_ROCKET             860
 
-#define TRAINERS_COUNT_EMERALD     861
+#define TRAINER_VIRELIA_MINER_BRUNO              866
+#define TRAINER_VIRELIA_EXPLORER_LENKA           867
+#define TRAINER_VIRELIA_GYM_IVAN                 868
+#define TRAINER_VIRELIA_GYM_DANA                 869
+#define TRAINER_VIRELIA_MARA                     870
+
+// Keep MAX fixed: saved system flags and partner IDs depend on it.
+#define TRAINERS_COUNT_EMERALD     871
 #define MAX_TRAINERS_COUNT_EMERALD 864
 
 #if IS_FRLG

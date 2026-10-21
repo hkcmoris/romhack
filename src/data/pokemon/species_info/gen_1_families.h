@@ -2210,14 +2210,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Raticate"),
         .cryId = CRY_RATICATE,
         .natDexNum = NATIONAL_DEX_RATICATE,
-        .categoryName = _("Mouse"),
+        .categoryName = _(LOCALIZED_TEXT("Mouse", "Hlodavec")),
         .height = 7,
         .weight = 185,
-        .description = COMPOUND_STRING(
-            "A Raticate's sturdy fangs grow steadily.\n"
-            "To keep them ground down, it gnaws on\n"
-            "rocks and logs. It may even chew on the\n"
-            "walls of houses."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A Raticate's sturdy fangs grow steadily.\nTo keep them ground down, it gnaws on\nrocks and logs. It may even chew on the\nwalls of houses.", "Pevnými řezáky prokouše i tvrdý\nmateriál. Neustále si je musí obrušovat.")),
         .pokemonScale = 459,
         .pokemonOffset = 18,
         .trainerScale = 256,
@@ -4254,14 +4250,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Sandshrew"),
         .cryId = CRY_SANDSHREW,
         .natDexNum = NATIONAL_DEX_SANDSHREW,
-        .categoryName = _("Mouse"),
+        .categoryName = _(LOCALIZED_TEXT("Mouse", "Myš")),
         .height = 6,
         .weight = 120,
-        .description = COMPOUND_STRING(
-            "When it curls up in a ball, it can make any\n"
-            "attack bounce off harmlessly. Its hide has\n"
-            "turned tough and solid as a result of\n"
-            "living in the desert."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("When it curls up in a ball, it can make any\nattack bounce off harmlessly. Its hide has\nturned tough and solid as a result of\nliving in the desert.", "Vyhrabává si nory v suché půdě. Při\nohrožení se stočí do pevné koule.")),
         .pokemonScale = 365,
         .pokemonOffset = 18,
         .trainerScale = 256,
@@ -9690,14 +9682,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Geodude"),
         .cryId = CRY_GEODUDE,
         .natDexNum = NATIONAL_DEX_GEODUDE,
-        .categoryName = _("Rock"),
+        .categoryName = _(LOCALIZED_TEXT("Rock", "Kámen")),
         .height = 4,
         .weight = 200,
-        .description = COMPOUND_STRING(
-            "It climbs mountain paths using only the\n"
-            "power of its arms. Because they look just\n"
-            "like boulders lining paths, hikers may step\n"
-            "on them without noticing."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It climbs mountain paths using only the\npower of its arms. Because they look just\nlike boulders lining paths, hikers may step\non them without noticing.", "Po stezkách šplhá pomocí silných paží.\nNehybného si lidé často spletou s\nkamenem.")),
         .pokemonScale = 347,
         .pokemonOffset = 18,
         .trainerScale = 256,

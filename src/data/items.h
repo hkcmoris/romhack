@@ -646,10 +646,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("Max Revive"),
         .price = 4000,
-        .description = COMPOUND_STRING(
-            "Revives a fainted\n"
-            "Pokémon with all\n"
-            "its HP."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Revives a fainted\nPokémon with all\nits HP.", "Oživí Pokémona a\nplně obnoví jeho\nHP.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HEALTH_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,
@@ -2335,10 +2332,7 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_ESCAPE_ROPE] =
     {
         .name = ITEM_NAME("Escape Rope"),
-        .description = COMPOUND_STRING(
-            "Use to escape\n"
-            "instantly from a\n"
-            "cave or a dungeon."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Use to escape\ninstantly from a\ncave or a dungeon.", "Umožní návrat ke\nvstupu do jeskyně\nči dolu.")),
     #if I_KEY_ESCAPE_ROPE >= GEN_8
         .price = 0,
         .importance = 1,
@@ -4746,10 +4740,7 @@ const struct ItemInfo gItemsInfo[] =
         .name = ITEM_NAME("Everstone"),
         .price = (I_PRICE >= GEN_7) ? 3000 : 200,
         .holdEffect = HOLD_EFFECT_PREVENT_EVOLVE,
-        .description = COMPOUND_STRING(
-            "A wondrous hold\n"
-            "item that prevents\n"
-            "evolution."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A wondrous hold\nitem that prevents\nevolution.", "Při držení brání\nevoluci Pokémona.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_EVOLUTION_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -9070,10 +9061,7 @@ const struct ItemInfo gItemsInfo[] =
         .price = TYPE_BOOSTING_PRICE,
         .holdEffect = HOLD_EFFECT_TYPE_POWER,
         .holdEffectParam = TYPE_BOOST_PARAM,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "boosts Electric-\n"
-            "type moves."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\nboosts Electric-\ntype moves.", "Při držení zesílí\nelektrické útoky.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_TYPE_BOOST_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -9130,10 +9118,7 @@ const struct ItemInfo gItemsInfo[] =
         .price = TYPE_BOOSTING_PRICE,
         .holdEffect = HOLD_EFFECT_TYPE_POWER,
         .holdEffectParam = TYPE_BOOST_PARAM,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "boosts Fighting-\n"
-            "type moves."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\nboosts Fighting-\ntype moves.", "Při držení zesílí\nbojové útoky.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_TYPE_BOOST_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -9251,10 +9236,7 @@ const struct ItemInfo gItemsInfo[] =
         .price = TYPE_BOOSTING_PRICE,
         .holdEffect = HOLD_EFFECT_TYPE_POWER,
         .holdEffectParam = TYPE_BOOST_PARAM,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "raises the power of\n"
-            "Rock-type moves."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\nraises the power of\nRock-type moves.", "Při držení zesílí\nkamenné útoky.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_TYPE_BOOST_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -10494,10 +10476,7 @@ const struct ItemInfo gItemsInfo[] =
         .price = 200,
     #endif
         .holdEffect = HOLD_EFFECT_GRIP_CLAW,
-        .description = COMPOUND_STRING(
-            "Multi-turn moves\n"
-            "like Bind and Wrap\n"
-            "last longer."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Multi-turn moves\nlike Bind and Wrap\nlast longer.", "Při držení\nprodlouží\nsvazující útoky.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -12909,10 +12888,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("TM39"),
         .price = 3000,
-        .description = COMPOUND_STRING(
-            "Stops the foe from\n"
-            "moving with rocks.\n"
-            "May lower Speed."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Stops the foe from\nmoving with rocks.\nMay lower Speed.", "Zasype cíl kameny\na sníží jeho\nrychlost.")),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
