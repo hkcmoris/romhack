@@ -1,4 +1,4 @@
-# Virelia: zamrznutí náhledu startéra na My Boy!
+# Virelia: Android zamrznutí náhledu a přechodu k Viktorovi
 
 ## Rozsah a jistota závěru
 
@@ -36,6 +36,13 @@ se mezi zachycením a pohybem nepřepisuje. Přístupné cesty u Poochyeny
 končí na volném poli (4, 8). Nezávislé dekódování původních overworld
 snímků všech tří druhů také odpovídá PNG, ale tato vypnutá funkce je zde
 nepoužívá.
+
+Stejná ROM 0.3.52 následně prošla čistou novou hrou v mGBA na Windows,
+pouze běžnými stisky ovladače. Po uvedené větě se hráč přesunul, objevil se
+Viktorův další dialog a skutečný souboj vykreslil Poochyenu zezadu proti
+Ekansovi. Snapshot před zavřením profesorkina dialogu měl platný heap
+s největším volným blokem 104 224 B. Jde o kontrolní běh na jiném emulátoru;
+neukazuje stav Androidu v okamžiku jeho zamrznutí.
 
 Nové hlášení vylučuje starý save jako příčinu tohoto pokusu. Nepotvrzuje
 však konkrétní chybu alokace ani úspěch připravené opravy na Androidu.
@@ -115,8 +122,12 @@ výstupu se zdrojovými pixely. Poochyena tedy nemá největší scratch ani
 odlišný kompresní režim. Není prokázaný důvod měnit artwork nebo kompresi.
 
 SMOL i rychlé LZ77 kopírují ARM instrukce do pracovní paměti a vykonávají je.
-Neshoda s dynamickou rekompilací emulátoru je pouze hypotéza, nikoli potvrzená
-příčina ani tvrzení o známé chybě konkrétní verze My Boy!.
+Kontrola kopírovaných ARM rutin v analyzovaném vývojovém buildu ověřila,
+že jejich buffery pokrývají zaokrouhlení kopie na 32 B; největší kopie
+1728 B se vešla do 1740 B. Volání skončí před zánikem stack bufferu.
+Toto měření není záznam z postiženého zařízení. Neshoda s dynamickou
+rekompilací emulátoru je pouze hypotéza, nikoli potvrzená příčina ani tvrzení
+o známé chybě konkrétní verze My Boy!.
 
 ## Nativně ověřené chování
 
@@ -150,6 +161,52 @@ Nativní výsledky potvrzují tyto cesty v mGBA; neprokazují úspěch My Boy!.
 ![Ekans](images/virelia-preview/ekans.png)
 ![Poochyena zezadu v běžném boji](images/virelia-preview/poochyena-back-battle.png)
 ![Poochyena zepředu v běžném boji](images/virelia-preview/poochyena-front-battle.png)
+
+## Navazující sestavení s prvním Gymem: 0.3.56
+
+Oprava je také v commitu `9ac6efecd8dbee7935aeeafe16f3cdb50abc3206`
+větve `codex/virelia-first-gym`.
+[Release 0.3.56](https://github.com/hkcmoris/romhack/actions/runs/39661103220/artifacts/12375320942)
+má SHA-256 `48a301b4aab67380aec0a066d08d2fbcc0cd09588983a9c5369d97ef19680147`.
+Prologové finální sestavení 0.2.57, commit `d5fd364a6c`, je byte po bytu
+shodné s již nativně ověřenými prologovými release 0.2.53 a 0.2.54.
+
+Release 0.3.56 prošel v mGBA další čistou novou hrou: náhledem Poochyeny,
+jejím výběrem, přesnou uvedenou větou, přesunem hráče, Viktorovým dialogem
+a skutečným prvním soubojem s Poochyenou zezadu. Samostatný běžný
+předvýběrový save z prologu se načetl v nové ROM; náhledy Spinaraka a Ekanse
+odpovídaly původním nativním pixelům. Volba Spinaraka ověřila soupeřovu
+Poochyenu zepředu. Běžné uložení po prvním boji a nové spuštění pouze
+z FLASH zachovaly mapu (76, 0), pozici (4, 8), stav 3, travní volbu a jediného
+Pokémona. Celých 600 B uloženého týmu mělo stejný SHA-256 před i po načtení.
+
+![0.3.56: uvedená věta před přesunem](images/virelia-preview/first-gym56-received.png)
+![0.3.56: Viktorův dialog po přesunu](images/virelia-preview/first-gym56-staging.png)
+![0.3.56: skutečný první souboj](images/virelia-preview/first-gym56-battle.png)
+
+**Android 0.3.56: neúspěšné.** Uživatel po náhledu Spinaraka přešel
+k Ekansovu Poké Ballu. Po A se místo náhledu spustil poškozený divoký boj
+s prázdným sprite. Laboratorní Ekansův skript nemá žádnou cestu k divokému
+boji; běžná cesta po převzetí startéra vede k trenérskému souboji s Viktorem.
+Tento nový výsledek potvrzuje, že samotná oprava životního cyklu náhledu
+Android problém nevyřešila. Přesné potvrzení či odmítnutí Spinaraka a verze
+My Boy!/telefonu se dále upřesňují.
+
+## Srovnávací změna: neměnný dekodér v ROM
+
+`GFX_DECOMPRESS_FROM_ROM` v `include/config/general.h` zapíná pro Virelia
+story i development sestavení spouštění všech grafických ARM kernelů přímo
+z jejich neměnných ROM adres. Dosavadní ARM přechodové obálky zůstávají.
+Změna pokrývá LO, symboly s delta kódováním i bez něj, instrukce, delta
+čísla dlaždic a FastLZ77. Starý RAM režim lze výslovně zapnout nastavením
+přepínače na 0 pro kontrolované porovnání; FireRed a LeafGreen jej zachovávají.
+
+Algoritmy, komprimovaná data, obrázky, palety a příběh se nemění. Nový režim
+nevytváří buffery spustitelného kódu na stacku a nepřepisuje jejich instrukce.
+Provádění z ROM může být pomalejší kvůli čekání na ROM sběrnici. Změna
+izoluje konkrétní rozdíl, který by mohl vadit dynamické rekompilaci emulátoru;
+sama ještě nedokazuje, že příčinou je právě My Boy! JIT. Výsledek nového
+Android porovnání musí být zapsán odděleně od CI a mGBA.
 
 ## Regresní pokrytí
 

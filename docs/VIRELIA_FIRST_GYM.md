@@ -223,6 +223,20 @@ No load-time blanket initialization clears chapter flags. Rewards commit their
 flag only after successful item insertion. Save/load must preserve exact map,
 party, storage, money, purchases, trainer victories and story completion.
 
+## Android starter report and preview fix
+
+A clean New Game on Android/My Boy! release `0.3.52` was reported to freeze
+after Professor Javorová says Viktor is waiting for the first practice battle.
+That release predates the picture resource fixes. The same ROM passed that
+point and entered the real battle in native mGBA; this does not disprove the
+Android report. The branch now includes the prologue picture lifecycle fixes.
+See [the investigation](VIRELIA_PREVIEW_FREEZE.md) for exact commits, checks,
+remaining uncertainty and the required My Boy! test. The first corrected release `0.3.56` still failed on My Boy!: after a
+Spinarak preview, examining Ekans triggered a corrupted wild battle. The next
+controlled comparison runs the unchanged graphics decoder from immutable ROM.
+Android acceptance remains pending until that comparison succeeds on the
+affected device.
+
 ## Validation status and manual checklist
 
 The gameplay revision `6f3fa01bd8` passed all jobs in
