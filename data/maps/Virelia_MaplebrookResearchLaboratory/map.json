@@ -52,7 +52,8 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_MaplebrookResearchLaboratory_EventScript_GrassStarter",
-      "flag": "0"
+      "flag": "FLAG_VIRELIA_HIDE_GRASS_STARTER",
+      "local_id": "LOCALID_VIRELIA_LAB_GRASS_STARTER"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
@@ -65,7 +66,8 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_MaplebrookResearchLaboratory_EventScript_WaterStarter",
-      "flag": "0"
+      "flag": "FLAG_VIRELIA_HIDE_WATER_STARTER",
+      "local_id": "LOCALID_VIRELIA_LAB_WATER_STARTER"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
@@ -78,7 +80,8 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_MaplebrookResearchLaboratory_EventScript_FireStarter",
-      "flag": "0"
+      "flag": "FLAG_VIRELIA_HIDE_FIRE_STARTER",
+      "local_id": "LOCALID_VIRELIA_LAB_FIRE_STARTER"
     },
     {
       "local_id": "LOCALID_VIRELIA_LAB_VIKTOR",

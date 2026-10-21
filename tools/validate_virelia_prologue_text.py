@@ -93,6 +93,31 @@ def validate_move_description_layout(fonts, chars, controller_source=None):
     return result, errors
 
 
+def validate_english_names(source, macro, label, allowed_identifiers=()):
+    """Keep shared display names independent of the selected game language."""
+    # Ignore C comments without stripping comment-like text inside a string.
+    source = re.sub(r'"(?:\\.|[^"\\])*"|/\*.*?\*/|//[^\n]*',
+                    lambda m: m[0] if m[0].startswith('"') else ' ' + '\n' * m[0].count('\n'),
+                    source, flags=re.S)
+    names = list(re.finditer(r'^[ \t]*\.name\s*=\s*', source, re.M))
+    expression = re.escape(macro) + r'\(\s*(?:"(?:\\.|[^"\\])*"\s*)+\)'
+    alternatives = [expression, *(re.escape(name) for name in allowed_identifiers)]
+    literal = re.compile(r'(?:' + '|'.join(alternatives) + r')\s*,')
+    errors = [f"{label} names must remain English literals (line {source.count(chr(10), 0, name.start()) + 1})"
+              for name in names if not literal.match(source, name.end())]
+    if not names:
+        errors.append(f"{label} names: missing shared name table")
+    return len(names), errors
+
+
+def validate_english_move_names(source):
+    return validate_english_names(source, "COMPOUND_STRING", "Move")
+
+
+def validate_english_item_names(source):
+    return validate_english_names(source, "ITEM_NAME", "Item", ("gQuestionMarksItemName",))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="print machine readable results")
@@ -132,11 +157,28 @@ def main():
         "{B_BUTTON}": "WW", "{START_BUTTON}": "WW",
         "{DPAD_UPDOWN}": "WW", "{DPAD_NONE}": "WW",
     }
+    item_base_names = {e["key"].split(".")[0]: e["english"] for e in manifest["entries"] if e["kind"] == "item_name"}
     for entry in manifest["entries"]:
         path, key, text = entry["path"], entry["key"], entry["czech"]
         source = sources.setdefault(path, (ROOT / path).read_text(encoding="utf-8"))
         label = f"{path}:{key}"
-        if not entry.get("conditional"):
+        if entry["kind"] in ("move_name", "item_name"):
+            # Match the named record so another entry cannot mask a mismatch.
+            record_id = entry["key"].split(".")[0]
+            block = re.search(r"^    \[" + re.escape(record_id) + r"\]\s*=\s*\{(.*?)^    \},", source, re.M | re.S)
+            macro = "COMPOUND_STRING" if entry["kind"] == "move_name" else "ITEM_NAME"
+            name = re.compile(r'\.name\s*=\s*' + macro + r'\("' + re.escape(entry["english"]) + r'"\)')
+            if text != entry["english"] or not block or not name.search(block[1]):
+                errors.append(f"{label}: name must match its English name")
+        elif entry["kind"] == "item_plural_name":
+            # Czech quantity messages already supply Nx, so use the base name.
+            item_id = entry["key"].split(".")[0]
+            block = re.search(r"^    \[" + re.escape(item_id) + r"\]\s*=\s*\{(.*?)^    \},", source, re.M | re.S)
+            pair = 'LOCALIZED_TEXT("' + entry["english"] + '", "' + text + '")'
+            plural = re.compile(r'\.pluralName\s*=\s*ITEM_PLURAL_NAME\(\s*' + re.escape(pair) + r'\s*\)')
+            if text != item_base_names.get(item_id) or not block or not plural.search(block[1]):
+                errors.append(f"{label}: quantity display must preserve its English base name")
+        elif not entry.get("conditional"):
             pair = 'LOCALIZED_TEXT("' + entry["english"] + '", "' + text + '")'
             if pair not in source:
                 errors.append(f"{label}: manifest/source mismatch")
@@ -239,9 +281,13 @@ def main():
                     errors.append(f"{match[1]}: regional {field} exceeds native Normal {limit}px")
     if regional_count != 9:
         errors.append(f"Expected 9 regional Dex entries, found {regional_count}")
+    move_names, name_errors = validate_english_move_names(sources["src/data/moves_info.h"])
+    errors.extend(name_errors)
+    item_names, item_name_errors = validate_english_item_names(sources["src/data/items.h"])
+    errors.extend(item_name_errors)
     move_layout, layout_errors = validate_move_description_layout(fonts, chars)
     errors.extend(layout_errors)
-    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "regional_dex_entries": regional_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "move_description_layout": move_layout, "errors": errors}
+    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "regional_dex_entries": regional_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "move_description_layout": move_layout, "english_move_names": move_names, "english_item_names": item_names, "errors": errors}
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:

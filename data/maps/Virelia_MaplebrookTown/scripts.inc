@@ -117,12 +117,12 @@ Virelia_MaplebrookTown_Text_HanaFound:
 	.string "kde se ten malý strážce toulá.$"
 
 Virelia_MaplebrookTown_Text_HanaReward:
-	.string "Od Hany dostáváš Lektvar.\p"
+	.string "Od Hany dostáváš Potion.\p"
 	.string "HANA: Ten je pro tvého parťáka.\n"
 	.string "Tobě na škrábance stačí náplast.$"
 
 Virelia_MaplebrookTown_Text_HanaBagFull:
-	.string "Mám pro tebe Lektvar, ale batoh\n"
+	.string "Mám pro tebe Potion, ale batoh\n"
 	.string "je plný. Stav se pro něj později.$"
 
 Virelia_MaplebrookTown_Text_HanaDone:

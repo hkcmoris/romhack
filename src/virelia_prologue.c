@@ -1,16 +1,26 @@
 #include "global.h"
 #include "battle.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "item.h"
 #include "overworld.h"
 #include "pokemon.h"
 #include "script_pokemon_util.h"
 #include "virelia_prologue.h"
+#include "constants/event_objects.h"
 #include "constants/heal_locations.h"
 #include "constants/items.h"
 #include "constants/maps.h"
 #include "constants/oraculum_duo_test.h"
 #include "constants/virelia_prologue.h"
+
+// The rival takes the starter with a type advantage against the player's choice.
+static const u8 sRivalChoices[VIRELIA_STARTER_COUNT] =
+{
+    [VIRELIA_STARTER_GRASS] = VIRELIA_STARTER_FIRE,
+    [VIRELIA_STARTER_WATER] = VIRELIA_STARTER_GRASS,
+    [VIRELIA_STARTER_FIRE] = VIRELIA_STARTER_WATER,
+};
 
 u32 GetVireliaStarterSpecies(u32 choice)
 {
@@ -29,13 +39,6 @@ u32 GetVireliaStarterSpecies(u32 choice)
 
 u32 GetVireliaRivalSpecies(u32 choice)
 {
-    // Grass -> Fire, Water -> Grass, Fire -> Water, all at level 5.
-    static const u8 sRivalChoices[VIRELIA_STARTER_COUNT] =
-    {
-        [VIRELIA_STARTER_GRASS] = VIRELIA_STARTER_FIRE,
-        [VIRELIA_STARTER_WATER] = VIRELIA_STARTER_GRASS,
-        [VIRELIA_STARTER_FIRE] = VIRELIA_STARTER_WATER,
-    };
     if (choice < ARRAY_COUNT(sRivalChoices))
         return GetVireliaStarterSpecies(sRivalChoices[choice]);
     return SPECIES_NONE;
@@ -61,7 +64,7 @@ void InitVireliaPrologueNewGame(void)
     FlagSet(FLAG_RECEIVED_RUNNING_SHOES);
     FlagSet(FLAG_SYS_B_DASH);
 
-    for (u32 flag = FLAG_VIRELIA_MOM_MET; flag <= FLAG_VIRELIA_PROFESSOR_MET; flag++)
+    for (u32 flag = FLAG_VIRELIA_MOM_MET; flag <= FLAG_VIRELIA_HIDE_FIRE_STARTER; flag++)
         FlagClear(flag);
     FlagSet(FLAG_VIRELIA_HIDE_DEV_GUIDE);
     FlagSet(FLAG_VIRELIA_HIDE_POLICEMAN);
@@ -75,6 +78,71 @@ void InitVireliaPrologueNewGame(void)
     SetWarpDestination(MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE),
                        MAP_NUM(MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE), WARP_ID_NONE, 5, 6);
     WarpIntoMap();
+#endif
+}
+
+#if !IS_FRLG
+static void SyncLabStarterBallObjects(void)
+{
+    if (gSaveBlock1Ptr->location.mapGroup != MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY)
+     || gSaveBlock1Ptr->location.mapNum != MAP_NUM(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY)
+     || gMapHeader.events == NULL)
+        return;
+
+    for (u32 i = 0; i < gMapHeader.events->objectEventCount; i++)
+    {
+        const struct ObjectEventTemplate *mapTemplate = &gMapHeader.events->objectEvents[i];
+        u8 objectEventId;
+        if (mapTemplate->localId != LOCALID_VIRELIA_LAB_GRASS_STARTER
+         && mapTemplate->localId != LOCALID_VIRELIA_LAB_WATER_STARTER
+         && mapTemplate->localId != LOCALID_VIRELIA_LAB_FIRE_STARTER)
+            continue;
+
+        // Continue refreshes saved script pointers, but retains old flag IDs.
+        // Repair only the three displays; preserve NPC positions and movement.
+        for (u32 j = 0; j < OBJECT_EVENT_TEMPLATES_COUNT; j++)
+            if (gSaveBlock1Ptr->objectEventTemplates[j].localId == mapTemplate->localId)
+                gSaveBlock1Ptr->objectEventTemplates[j].flagId = mapTemplate->flagId;
+
+        // This helper runs during ON_LOAD, before field sprites are created.
+        // Continue respawns active saved objects without checking hide flags,
+        // so clear their object state without touching stale sprite IDs.
+        if (FlagGet(mapTemplate->flagId)
+         && !TryGetObjectEventIdByLocalIdAndMap(mapTemplate->localId,
+                                               gSaveBlock1Ptr->location.mapNum,
+                                               gSaveBlock1Ptr->location.mapGroup,
+                                               &objectEventId))
+            ClearObjectEvent(&gObjectEvents[objectEventId]);
+    }
+}
+#endif
+
+void VireliaPrologue_SyncStarterBallFlags(void)
+{
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+    static const u16 sBallFlags[VIRELIA_STARTER_COUNT] =
+    {
+        [VIRELIA_STARTER_GRASS] = FLAG_VIRELIA_HIDE_GRASS_STARTER,
+        [VIRELIA_STARTER_WATER] = FLAG_VIRELIA_HIDE_WATER_STARTER,
+        [VIRELIA_STARTER_FIRE] = FLAG_VIRELIA_HIDE_FIRE_STARTER,
+    };
+    u32 choice = VarGet(VAR_VIRELIA_STARTER);
+    if (FlagGet(FLAG_VIRELIA_STARTER_RECEIVED) && choice < ARRAY_COUNT(sBallFlags))
+    {
+        // Recover visibility for older saves. Never clear a story flag here:
+        // the rival's pickup persists before the battle is completed.
+        FlagSet(sBallFlags[choice]);
+        if (FlagGet(FLAG_VIRELIA_RIVAL_COMPLETE))
+            FlagSet(sBallFlags[sRivalChoices[choice]]);
+    }
+#else
+    // The development exhibition always offers all three starter previews.
+    FlagClear(FLAG_VIRELIA_HIDE_GRASS_STARTER);
+    FlagClear(FLAG_VIRELIA_HIDE_WATER_STARTER);
+    FlagClear(FLAG_VIRELIA_HIDE_FIRE_STARTER);
+#endif
+#if !IS_FRLG
+    SyncLabStarterBallObjects();
 #endif
 }
 

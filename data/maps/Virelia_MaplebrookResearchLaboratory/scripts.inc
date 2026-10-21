@@ -1,9 +1,14 @@
 Virelia_MaplebrookResearchLaboratory_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, Virelia_MaplebrookResearchLaboratory_OnLoad
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
 	map_script MAP_SCRIPT_ON_TRANSITION, Virelia_MaplebrookResearchLaboratory_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, Virelia_MaplebrookResearchLaboratory_OnFrame
 #endif
 	.byte 0
+
+Virelia_MaplebrookResearchLaboratory_OnLoad:
+	callnative VireliaPrologue_SyncStarterBallFlags
+	end
 
 Virelia_MaplebrookResearchLaboratory_OnTransition:
 	setvar VAR_TEMP_0, 0
@@ -85,21 +90,21 @@ Virelia_MaplebrookResearchLaboratory_EventScript_Assistant::
 	end
 
 Virelia_MaplebrookResearchLaboratory_EventScript_GrassStarter::
-	lock
+	lockall
 	faceplayer
 	setvar VAR_0x8004, VIRELIA_STARTER_GRASS
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_GrassStarter, MSGBOX_DEFAULT
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
 
 Virelia_MaplebrookResearchLaboratory_EventScript_WaterStarter::
-	lock
+	lockall
 	faceplayer
 	setvar VAR_0x8004, VIRELIA_STARTER_WATER
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_WaterStarter, MSGBOX_DEFAULT
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
 
 Virelia_MaplebrookResearchLaboratory_EventScript_FireStarter::
-	lock
+	lockall
 	faceplayer
 	setvar VAR_0x8004, VIRELIA_STARTER_FIRE
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_FireStarter, MSGBOX_DEFAULT
@@ -115,9 +120,14 @@ Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter:
 	goto_if_eq VAR_RESULT, NO, Virelia_MaplebrookResearchLaboratory_EventScript_CancelChoice
 	call VireliaPrologue_EventScript_TryGiveStarter
 	goto_if_eq VAR_RESULT, FALSE, Virelia_MaplebrookResearchLaboratory_EventScript_StarterFailed
+	closemessage
+	getobjectfacingdirection LOCALID_PLAYER, VAR_0x8006
+	call Virelia_MaplebrookResearchLaboratory_EventScript_RemoveChosenStarter
 	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_ReceivedStarter, MSGBOX_DEFAULT
+	closemessage
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_StarterScene
 #else
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_Exhibition, MSGBOX_DEFAULT
 #endif
@@ -139,7 +149,278 @@ Virelia_MaplebrookResearchLaboratory_EventScript_StarterFailed:
 	release
 	end
 
+@ A ball disappears only after its Pokemon was successfully given.
+Virelia_MaplebrookResearchLaboratory_EventScript_RemoveChosenStarter:
+	switch VAR_VIRELIA_STARTER
+	case VIRELIA_STARTER_GRASS, Virelia_MaplebrookResearchLaboratory_EventScript_RemoveGrassStarter
+	case VIRELIA_STARTER_WATER, Virelia_MaplebrookResearchLaboratory_EventScript_RemoveWaterStarter
+	case VIRELIA_STARTER_FIRE, Virelia_MaplebrookResearchLaboratory_EventScript_RemoveFireStarter
+	return
+
+Virelia_MaplebrookResearchLaboratory_EventScript_RemoveGrassStarter:
+	removeobject LOCALID_VIRELIA_LAB_GRASS_STARTER
+	return
+
+Virelia_MaplebrookResearchLaboratory_EventScript_RemoveWaterStarter:
+	removeobject LOCALID_VIRELIA_LAB_WATER_STARTER
+	return
+
+Virelia_MaplebrookResearchLaboratory_EventScript_RemoveFireStarter:
+	removeobject LOCALID_VIRELIA_LAB_FIRE_STARTER
+	return
+
+@ Stage the player below their own display, from every accessible side.
+@ The removed ball's tile is now clear; no character is teleported.
+Virelia_MaplebrookResearchLaboratory_EventScript_StarterScene:
+	hidefollower
+	switch VAR_0x8006
+	case DIR_NORTH, Virelia_MaplebrookResearchLaboratory_EventScript_StageFromBelow
+	case DIR_SOUTH, Virelia_MaplebrookResearchLaboratory_EventScript_StageFromAbove
+	case DIR_EAST, Virelia_MaplebrookResearchLaboratory_EventScript_StageFromLeft
+	case DIR_WEST, Virelia_MaplebrookResearchLaboratory_EventScript_StageFromRight
+	releaseall
+	end
+
+Virelia_MaplebrookResearchLaboratory_EventScript_StageFromBelow:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_Down1
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_WaitForStaging
+
+Virelia_MaplebrookResearchLaboratory_EventScript_StageFromAbove:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_Down3
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_WaitForStaging
+
+Virelia_MaplebrookResearchLaboratory_EventScript_StageFromLeft:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_RightDown2
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_WaitForStaging
+
+Virelia_MaplebrookResearchLaboratory_EventScript_StageFromRight:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_LeftDown2
+
+Virelia_MaplebrookResearchLaboratory_EventScript_WaitForStaging:
+	waitmovement LOCALID_PLAYER
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_PickRivalStarter
+
+@ Legacy saves can still reach the old exit gate or talk to Viktor before
+@ their first battle. Route these six positions through the open aisle.
 Virelia_MaplebrookResearchLaboratory_EventScript_RivalGate::
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+	lockall
+	checkflag FLAG_VIRELIA_STARTER_RECEIVED
+	goto_if FALSE, Virelia_MaplebrookResearchLaboratory_EventScript_EndScene
+	checkflag FLAG_VIRELIA_RIVAL_COMPLETE
+	goto_if TRUE, Virelia_MaplebrookResearchLaboratory_EventScript_EndScene
+	closemessage
+	hidefollower
+	call Virelia_MaplebrookResearchLaboratory_EventScript_RemoveChosenStarter
+	getplayerxy VAR_0x8006, VAR_0x8007
+	switch VAR_0x8007
+	case 11, Virelia_MaplebrookResearchLaboratory_EventScript_LegacyFromExit
+	case 8, Virelia_MaplebrookResearchLaboratory_EventScript_LegacyAboveViktor
+	case 9, Virelia_MaplebrookResearchLaboratory_EventScript_LegacyBesideViktor
+	case 10, Virelia_MaplebrookResearchLaboratory_EventScript_LegacyBelowViktor
+#endif
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_EndScene
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LegacyFromExit:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_Up3
+	waitmovement LOCALID_PLAYER
+	goto_if_eq VAR_0x8006, 6, Virelia_MaplebrookResearchLaboratory_EventScript_LegacyStageByChoice
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_Left1
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_LegacyWaitForAisle
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LegacyAboveViktor:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_Right2
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_LegacyWaitForAisle
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LegacyBesideViktor:
+	goto_if_eq VAR_0x8006, 3, Virelia_MaplebrookResearchLaboratory_EventScript_LegacyLeftOfViktor
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_LegacyFromRight
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_LegacyWaitForAisle
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LegacyLeftOfViktor:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_LegacyFromLeft
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_LegacyWaitForAisle
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LegacyBelowViktor:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_LegacyFromBelow
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LegacyWaitForAisle:
+	waitmovement LOCALID_PLAYER
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LegacyStageByChoice:
+	switch VAR_VIRELIA_STARTER
+	case VIRELIA_STARTER_GRASS, Virelia_MaplebrookResearchLaboratory_EventScript_LegacyStageGrass
+	case VIRELIA_STARTER_WATER, Virelia_MaplebrookResearchLaboratory_EventScript_PickRivalStarter
+	case VIRELIA_STARTER_FIRE, Virelia_MaplebrookResearchLaboratory_EventScript_LegacyStageFire
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_EndScene
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LegacyStageGrass:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_Left2
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_WaitForStaging
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LegacyStageFire:
+	applymovement LOCALID_PLAYER, Virelia_MaplebrookResearchLaboratory_Movement_Right2
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_WaitForStaging
+
+Virelia_MaplebrookResearchLaboratory_EventScript_PickRivalStarter:
+	msgbox Virelia_MaplebrookResearchLaboratory_Text_RivalChoosing, MSGBOX_DEFAULT
+	closemessage
+	switch VAR_VIRELIA_STARTER
+	case VIRELIA_STARTER_GRASS, Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesFire
+	case VIRELIA_STARTER_WATER, Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesGrass
+	case VIRELIA_STARTER_FIRE, Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesWater
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_EndScene
+
+Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesFire:
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_ToFire
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	delay 16
+	playse SE_BALL_OPEN
+	removeobject LOCALID_VIRELIA_LAB_FIRE_STARTER
+	delay 16
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_FromFireToPlayer
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 5, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_LEFT
+	turnobject LOCALID_PLAYER, DIR_EAST
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_RivalBattle
+
+Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesGrass:
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_ToGrass
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	delay 16
+	playse SE_BALL_OPEN
+	removeobject LOCALID_VIRELIA_LAB_GRASS_STARTER
+	delay 16
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_FromCounterToPlayer
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 5, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_RIGHT
+	turnobject LOCALID_PLAYER, DIR_WEST
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_RivalBattle
+
+Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesWater:
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_ToWater
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	delay 16
+	playse SE_BALL_OPEN
+	removeobject LOCALID_VIRELIA_LAB_WATER_STARTER
+	delay 16
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_FromCounterToPlayer
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 7, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_RIGHT
+	turnobject LOCALID_PLAYER, DIR_WEST
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_RivalBattle
+
+Virelia_MaplebrookResearchLaboratory_EventScript_EndScene:
+	releaseall
+	end
+
+Virelia_MaplebrookResearchLaboratory_Movement_Down1:
+	walk_down
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_Down3:
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_RightDown2:
+	walk_right
+	walk_down
+	walk_down
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_LeftDown2:
+	walk_left
+	walk_down
+	walk_down
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_Right2:
+	walk_right
+	walk_right
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_Left1:
+	walk_left
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_Left2:
+	walk_left
+	walk_left
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_Up3:
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_LegacyFromRight:
+	walk_down
+	walk_right
+	walk_up
+	walk_up
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_LegacyFromLeft:
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_LegacyFromBelow:
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_ToFire:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	face_up
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_ToGrass:
+	walk_up
+	walk_up
+	face_up
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_ToWater:
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	face_up
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_FromFireToPlayer:
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	face_left
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_FromCounterToPlayer:
+	walk_down
+	walk_right
+	face_right
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_EventScript_RivalBattle:
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
 	lockall
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_RivalIntro, MSGBOX_DEFAULT
@@ -171,15 +452,15 @@ Virelia_MaplebrookResearchLaboratory_EventScript_RivalWaiting:
 	end
 
 Virelia_MaplebrookResearchLaboratory_EventScript_RivalGrass:
-	trainerbattle_earlyrival TRAINER_VIRELIA_VIKTOR_GRASS, RIVAL_BATTLE_HEAL_AFTER, Virelia_MaplebrookResearchLaboratory_Text_RivalLost, Virelia_MaplebrookResearchLaboratory_Text_RivalWon
+	trainerbattle_earlyrival TRAINER_VIRELIA_VIKTOR_GRASS, RIVAL_BATTLE_HEAL_AFTER, Virelia_MaplebrookResearchLaboratory_Text_RivalLost, Virelia_MaplebrookResearchLaboratory_Text_RivalWon, LOCALID_VIRELIA_LAB_VIKTOR
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_AfterRival
 
 Virelia_MaplebrookResearchLaboratory_EventScript_RivalWater:
-	trainerbattle_earlyrival TRAINER_VIRELIA_VIKTOR_WATER, RIVAL_BATTLE_HEAL_AFTER, Virelia_MaplebrookResearchLaboratory_Text_RivalLost, Virelia_MaplebrookResearchLaboratory_Text_RivalWon
+	trainerbattle_earlyrival TRAINER_VIRELIA_VIKTOR_WATER, RIVAL_BATTLE_HEAL_AFTER, Virelia_MaplebrookResearchLaboratory_Text_RivalLost, Virelia_MaplebrookResearchLaboratory_Text_RivalWon, LOCALID_VIRELIA_LAB_VIKTOR
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_AfterRival
 
 Virelia_MaplebrookResearchLaboratory_EventScript_RivalFire:
-	trainerbattle_earlyrival TRAINER_VIRELIA_VIKTOR_FIRE, RIVAL_BATTLE_HEAL_AFTER, Virelia_MaplebrookResearchLaboratory_Text_RivalLost, Virelia_MaplebrookResearchLaboratory_Text_RivalWon
+	trainerbattle_earlyrival TRAINER_VIRELIA_VIKTOR_FIRE, RIVAL_BATTLE_HEAL_AFTER, Virelia_MaplebrookResearchLaboratory_Text_RivalLost, Virelia_MaplebrookResearchLaboratory_Text_RivalWon, LOCALID_VIRELIA_LAB_VIKTOR
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_AfterRival
 
 Virelia_MaplebrookResearchLaboratory_EventScript_AfterRival:
@@ -265,13 +546,19 @@ Virelia_MaplebrookResearchLaboratory_Text_SeeViktor:
 	.string "souboj. Pak vás oba uzdravím.$"
 
 Virelia_MaplebrookResearchLaboratory_Text_RivalWaiting:
-	.string "VIKTOR: Vyber si v klidu.\n"
-	.string "Já už mám taktiku. Snad i plán.$"
+	.string "VIKTOR: Hej v klidu si vyber.\n"
+	.string "Já zkusím takovou taktiku.$"
+
+Virelia_MaplebrookResearchLaboratory_Text_RivalChoosing:
+	.string "VIKTOR: Tak teď jsem na řadě já.\n"
+	.string "Už vím, kdo půjde se mnou.$"
 
 Virelia_MaplebrookResearchLaboratory_Text_RivalIntro:
 	.string "VIKTOR: Tak už jsme trenéři!\n"
 	.string "Zkusíme, co naši parťáci umí?\p"
-	.string "Já si vzal typovou výhodu.\n"
+	.string "Hej teď ti řeknu takovou věc,\n"
+	.string "co asi nikdo nečekal.\p"
+	.string "Vzal jsem si typovou výhodu.\n"
 	.string "Pro jistotu. Věřím totiž v sebe.\p"
 	.string "JAVOROVÁ: Jen cvičně. A prosím\n"
 	.string "bez zásahu do grantové žádosti.$"
@@ -292,7 +579,7 @@ Virelia_MaplebrookResearchLaboratory_Text_RivalAfter:
 
 Virelia_MaplebrookResearchLaboratory_Text_Supplies:
 	.string "JAVOROVÁ: Tady máš POKéDEX,\n"
-	.string "5 Poké Ballů a 3 Lektvary.\p"
+	.string "5 Poké Ballů a 3 Potiony.\p"
 	.string "Divokého Pokémona nejdřív oslab\n"
 	.string "a pak ho zkus chytit Ballem.\p"
 	.string "Pokédex zaznamená tvoje objevy.\n"

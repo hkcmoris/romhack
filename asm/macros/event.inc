@@ -830,8 +830,9 @@
 	.endm
 
 	@ Starts a trainer battle with victory text if the player loses. If flags is nonzero, the player will be healed after battle (and its assumed to be the tutorial battle)
-	.macro trainerbattle_earlyrival trainer:req, flags:req, lose_text:req, victory_text:req
-	trainerbattle OBJ_ID_NONE, \trainer, NULL, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, \victory_text, NULL, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, \flags
+	@ Pass localId when a cutscene changes the selected object before battle.
+	.macro trainerbattle_earlyrival trainer:req, flags:req, lose_text:req, victory_text:req, localId=OBJ_ID_NONE
+	trainerbattle \localId, \trainer, NULL, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, \victory_text, NULL, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, \flags
 	.endm
 
 	@ Starts a lavaridge gym battle

@@ -148,10 +148,15 @@ the sage fur deep blue while retaining the same sprite pixels.
 | Virelian Mightyena | `graphics/pokemon/mightyena/virelia/` |
 | Wraithena | `graphics/pokemon/wraithena/` |
 
-The other two families still use placeholder battle sprites and palettes. Party
-icons, footprints, cries and applicable overworld graphics for all three families
-continue to reference these existing assets. Original image files are not
-recolored or overwritten.
+The grass family's party icons are separate copies of the original Poochyena
+and Mightyena icons, recolored and adapted to match the new battle sprites.
+Each `icon.png` in the directories above is a 32x64 indexed sheet with two 32x32
+animation frames. The icons use the existing green icon palette (index 1).
+
+The other two families still use placeholder battle sprites, palettes and party
+icons. Footprints, cries and applicable overworld graphics for all three families
+continue to reference the sources below. Original image files are not recolored
+or overwritten.
 
 | Prototype stages | Placeholder asset source |
 | --- | --- |
@@ -277,6 +282,7 @@ remain a playtest task; no completed emulator playthrough is claimed here.
 
 Remaining work: starter-vs-starter and campaign balance, per-stage move pacing,
 TM/egg-move review, final names (especially the provisional fire family), custom
-battle sprites/palettes for the Water and Fire families, custom icons, footprints,
-cries and overworld graphics for all families, final physical dimensions and dex
-prose, signature mechanic design/testing, and a future Virelia regional dex.
+battle sprites/palettes and party icons for the Water and Fire families, custom
+footprints, cries and overworld graphics for all families, final physical
+dimensions and dex prose, signature mechanic design/testing, and a future
+Virelia regional dex.

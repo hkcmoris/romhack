@@ -1140,9 +1140,9 @@ bool32 CanThrowBall(void)
     return (GetBallThrowableState() == BALL_THROW_ABLE);
 }
 
-static const u8 sText_CantThrowPokeBall_TwoMons[] = _(LOCALIZED_TEXT("Cannot throw a ball!\nThere are two Pokémon out there!\p", "Nelze hodit Pokéball!\nJsou tu dva Pokémoni!\p"));
-static const u8 sText_CantThrowPokeBall_SemiInvulnerable[] = _(LOCALIZED_TEXT("Cannot throw a ball!\nThere's no Pokémon in sight!\p", "Nelze hodit Pokéball!\nNení vidět žádného Pokémona!\p"));
-static const u8 sText_CantThrowPokeBall_Disabled[] = _(LOCALIZED_TEXT("POKé BALLS cannot be used\nright now!\p", "Teď nelze použít\nPokébally!\p"));
+static const u8 sText_CantThrowPokeBall_TwoMons[] = _(LOCALIZED_TEXT("Cannot throw a ball!\nThere are two Pokémon out there!\p", "Nelze hodit Poké Ball!\nJsou tu dva Pokémoni!\p"));
+static const u8 sText_CantThrowPokeBall_SemiInvulnerable[] = _(LOCALIZED_TEXT("Cannot throw a ball!\nThere's no Pokémon in sight!\p", "Nelze hodit Poké Ball!\nNení vidět žádného Pokémona!\p"));
+static const u8 sText_CantThrowPokeBall_Disabled[] = _(LOCALIZED_TEXT("POKé BALLS cannot be used\nright now!\p", "Teď nelze použít\nPoké Bally!\p"));
 
 static void ItemUseInBattle_ShowPartyMenu(u8 taskId)
 {

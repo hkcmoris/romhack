@@ -1,5 +1,5 @@
-// The Poochyena line has custom two-frame battle art and normal/shiny palettes.
-// Other battle art, icons, footprints, cries and overworld graphics reuse originals.
+// The Poochyena line has custom battle art, normal/shiny palettes and party icons.
+// The other families and the remaining asset types reuse originals.
 #if P_VIRELIA_STARTERS
 
     [SPECIES_POOCHYENA_VIRELIA] =
@@ -49,8 +49,8 @@
         .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
         .palette = gMonPalette_PoochyenaVirelia,
         .shinyPalette = gMonShinyPalette_PoochyenaVirelia,
-        .iconSprite = gMonIcon_Poochyena,
-        .iconPalIndex = 2,
+        .iconSprite = gMonIcon_PoochyenaVirelia,
+        .iconPalIndex = 1,
         .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(0, 2, SHADOW_SIZE_M)
         FOOTPRINT(Poochyena)
@@ -118,8 +118,8 @@
         .backAnimId = BACK_ANIM_H_SHAKE,
         .palette = gMonPalette_MightyenaVirelia,
         .shinyPalette = gMonShinyPalette_MightyenaVirelia,
-        .iconSprite = gMonIcon_Mightyena,
-        .iconPalIndex = 2,
+        .iconSprite = gMonIcon_MightyenaVirelia,
+        .iconPalIndex = 1,
         .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 6, SHADOW_SIZE_L)
         FOOTPRINT(Mightyena)
@@ -187,8 +187,8 @@
         .backAnimId = BACK_ANIM_H_SHAKE,
         .palette = gMonPalette_Wraithena,
         .shinyPalette = gMonShinyPalette_Wraithena,
-        .iconSprite = gMonIcon_Mightyena,
-        .iconPalIndex = 2,
+        .iconSprite = gMonIcon_Wraithena,
+        .iconPalIndex = 1,
         .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 6, SHADOW_SIZE_L)
         FOOTPRINT(Mightyena)

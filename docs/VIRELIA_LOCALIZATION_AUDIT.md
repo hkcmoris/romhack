@@ -2,6 +2,10 @@
 
 Zdrojová kontrola i nativní kontrola níže uvedených obrazovek prošly. Samotný počet přeložených řetězců nepotvrzuje úplnou lokalizaci ani celý herní průchod.
 
+Názvy všech útoků musí zůstat anglicky i v české hře: například `Tackle`, `Growl` a `Struggle`. Popisy útoků a okolní hlášky zůstávají české. Trenérská třída rivala používá `Rival` (ve verzálkových popiscích `RIVAL`), nikoli `Soupeř`. Tato oprava po playtestu `0.2.40` prošla zdrojovou kontrolou; níže uvedené nativní snímky pocházejí ze starších sestavení.
+
+Názvy všech předmětů musí také zachovat anglický základ: například `Potion`, `Great Ball` a `Rare Candy`. České dialogy mohou názvy skloňovat (`Potiony`, `Potionů`, `Poké Ballů`). Hlášky s počtem kusů používají základní název, například `3× Potion`. České popisy účinků se nemění.
+
 Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localization.json). Kontrolu spouští `python tools/validate_virelia_prologue_text.py`. Používá skutečné šířky znaků z `src/fonts.c` a mapování znaků z `charmap.txt`. U prvního řádku popisu útoku načítá také pozice sloupců, kategorii a její ikonu, písmo a šířku okna přímo ze zdrojů. Dvanáct případů s hodnotami `100`, `999` a `---` kontroluje mezery mezi sloupci i pravý okraj 144 pixelů. Makro `LOCALIZED_TEXT` zachovává původní anglické texty pro sestavení `TESTING`.
 
 ```json
@@ -12,12 +16,16 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
   "manifest": "tools/virelia_prologue_localization.json",
   "level_bound": 15,
   "manifest_entries": 710,
-  "map_script_texts": 76,
+  "map_script_texts": 77,
   "expanded_ui_cases": 115,
   "move_stat_layout_cases": 12,
   "move_names": 64,
+  "move_name_language": "en",
+  "move_name_policy": "english_in_all_builds",
   "ability_names": 28,
   "item_names": 28,
+  "item_name_language": "en",
+  "item_quantity_names": "english_base_name",
   "nature_names": 25,
   "type_names": 21,
   "normal_dex_entries": 14,
@@ -44,9 +52,11 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
 }
 ```
 
-Audit zahrnuje hlavní nabídku včetně poškozené uložené hry a baterie, nastavení, batoh, party, souhrn Pokémona, změnu přezdívky, opětovné učení útoků, Pokédex a kartu trenéra. Zahrnuje také použití léků a repelentů, účinky předmětů bez výsledku, získání úrovně po vzácném bonbonu, evoluci a návrat domů po porážce. Popisy soutěžních účinků jsou přeloženy, protože hráč může otevřít soutěžní záložku souhrnu, i když nemůže vstoupit do soutěže.
+Audit zahrnuje hlavní nabídku včetně poškozené uložené hry a baterie, nastavení, batoh, party, souhrn Pokémona, změnu přezdívky, opětovné učení útoků, Pokédex a kartu trenéra. Zahrnuje také použití léků a repelentů, účinky předmětů bez výsledku, získání úrovně po použití Rare Candy, evoluci a návrat domů po porážce. Popisy soutěžních účinků jsou přeloženy, protože hráč může otevřít soutěžní záložku souhrnu, i když nemůže vstoupit do soutěže.
 
-Data pokrývají výše uvedené druhy do úrovně 15, jejich útoky a schopnosti, odměny schopnosti Sběr na úrovních 1 až 15 a dosažitelné držené předměty. Útoky zahrnují i nabídku opětovného učení a náhradní útok Zápasení. Anglické vlastní názvy druhů a míst zůstávají zachovány. HP, PP, ID a názvy tlačítek zachovávají běžné herní značení.
+Data pokrývají výše uvedené druhy do úrovně 15, jejich útoky a schopnosti, odměny schopnosti Sběr na úrovních 1 až 15 a dosažitelné držené předměty. Útoky zahrnují i nabídku opětovného učení a náhradní útok Struggle. Anglické názvy útoků, předmětů, druhů a míst zůstávají zachovány. HP, PP, ID a názvy tlačítek zachovávají běžné herní značení.
+
+Kontrola odmítne lokalizační makro u názvu kteréhokoli útoku nebo předmětu v jejich tabulkách. U 64 útoků a 28 předmětů v manifestu navíc ověřuje shodu s anglickým názvem v odpovídajícím záznamu a měří jeho šířku. U 28 názvů pro hlášky s počtem kusů kontroluje zachování základního anglického názvu.
 
 Kontrola používá nejdelší možné jméno hráče o sedmi znacích a přezdívku o dvanácti znacích. Dále rozbaluje názvy předmětů, útoků, povah, míst a číselné hodnoty podle kontextu hlášky. Žádný překročený limit se nevynechává. Pevná pole kontroluje i v zakódovaných bajtech včetně koncové značky. Zvlášť měří 144 px pro popis schopnosti v souhrnu, 208 px v běžném dialogu a v Pokédexu, 102 px pro popis předmětu a 86 px pro záhlaví souhrnu. Pro Pokédex používá skutečný `FONT_NORMAL`; tento tisk se automaticky nezmenšuje.
 
@@ -88,4 +98,4 @@ Při kontrole `ee05868` prošly výhra nad Rocketem, všechny tři stránky poli
 
 Na uvedených nativně ověřených obrazovkách nezůstal anglický popisek ani známý ořez textu. Chybové obrazovky poškozené uložené hry, všechny kombinace léčiv a všechny větve učení útoků mají zdrojovou kontrolu; každá jejich obrazovka nebyla ručně vyvolána. Toto omezení platí i po úspěšné kompilaci a automatických testech.
 
-Vyšší úrovně lze získat opakovanými souboji. Tento audit proto nepotvrzuje překlad všech útoků a evolucí při neomezeném trénování. Nepokrývá jiné oblasti, multiplayer ani předměty a útoky dostupné až mimo uvedený rozsah. Úplná česká lokalizace celé hry není cílem tohoto seznamu. Nativní průchod s travním startérem skončil v čase 14:03 bez odchytu; kontrola stadionu a návratu do města jej prodloužila na 14:55. Jde o herní hodiny při automatizovaném ovládání. Cílových 15 až 20 minut s odchytem zatím nebylo změřeno lidským hráčem.
+Vyšší úrovně lze získat opakovanými souboji. Tento audit proto nepotvrzuje překlad všech popisů útoků a textů evolucí při neomezeném trénování. Nepokrývá jiné oblasti, multiplayer ani předměty a útoky dostupné až mimo uvedený rozsah. Úplná česká lokalizace celé hry není cílem tohoto seznamu. Nativní průchod s travním startérem skončil v čase 14:03 bez odchytu; kontrola stadionu a návratu do města jej prodloužila na 14:55. Jde o herní hodiny při automatizovaném ovládání. Cílových 15 až 20 minut s odchytem zatím nebylo změřeno lidským hráčem.

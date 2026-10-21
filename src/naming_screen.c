@@ -201,7 +201,7 @@ static const u8 *const sTransferredToPCMessages[] =
 };
 
 
-static const u8 sText_RivalsName[] = _(LOCALIZED_TEXT("RIVAL's NAME?", "JMÉNO SOUPEŘE?"));
+static const u8 sText_RivalsName[] = _(LOCALIZED_TEXT("RIVAL's NAME?", "JMÉNO RIVALA?"));
 static const u8 sText_AlphabetUpperLower[] = _("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!");
 
 static const struct BgTemplate sBgTemplates[] =

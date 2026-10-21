@@ -5,6 +5,7 @@
 #include "battle_transition.h"
 #include "data.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "heal_location.h"
 #include "graphics.h"
 #include "item.h"
@@ -21,6 +22,7 @@
 #include "trainer_pools.h"
 #include "virelia_prologue.h"
 #include "test/test.h"
+#include "constants/event_objects.h"
 #include "constants/heal_locations.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
@@ -89,6 +91,9 @@ TEST("Virelia prologue starts at home without prefilled Pokemon or development g
     EXPECT(FlagGet(FLAG_VIRELIA_HIDE_DEV_GUIDE));
     EXPECT(FlagGet(FLAG_VIRELIA_HIDE_POLICEMAN));
     EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_STORY_ACTORS));
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER));
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER));
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_FIRE_STARTER));
     EXPECT(!FlagGet(FLAG_SYS_POKEMON_GET));
     EXPECT_EQ(GetHealLocationIndexByWarpData(&gSaveBlock1Ptr->lastHealLocation),
               HEAL_LOCATION_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE);
@@ -126,6 +131,182 @@ TEST("Virelia normal NEW GAME uses the story initializer and keeps selected play
     EXPECT(!FlagGet(FLAG_VIRELIA_STARTER_RECEIVED));
 }
 #endif
+
+TEST("Virelia new game restores all three starter Balls")
+{
+    InitPrologueTest();
+    FlagSet(FLAG_VIRELIA_HIDE_GRASS_STARTER);
+    FlagSet(FLAG_VIRELIA_HIDE_WATER_STARTER);
+    FlagSet(FLAG_VIRELIA_HIDE_FIRE_STARTER);
+    InitVireliaPrologueNewGame();
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER));
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER));
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_FIRE_STARTER));
+}
+
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE
+TEST("Virelia lab restores old-save Ball visibility for every starter before and after the rival")
+{
+    u32 choice = VIRELIA_STARTER_GRASS;
+    bool32 rivalComplete = FALSE;
+    for (u32 i = 0; i < VIRELIA_STARTER_COUNT; i++)
+    {
+        PARAMETRIZE { choice = i; rivalComplete = FALSE; }
+        PARAMETRIZE { choice = i; rivalComplete = TRUE; }
+    }
+    InitPrologueTest();
+    FlagSet(FLAG_VIRELIA_STARTER_RECEIVED);
+    VarSet(VAR_VIRELIA_STARTER, choice);
+    if (rivalComplete)
+        FlagSet(FLAG_VIRELIA_RIVAL_COMPLETE);
+    for (u32 visit = 0; visit < 2; visit++)
+    {
+        VireliaPrologue_SyncStarterBallFlags();
+        EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER),
+                  choice == VIRELIA_STARTER_GRASS || (rivalComplete && choice == VIRELIA_STARTER_WATER));
+        EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER),
+                  choice == VIRELIA_STARTER_WATER || (rivalComplete && choice == VIRELIA_STARTER_FIRE));
+        EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_FIRE_STARTER),
+                  choice == VIRELIA_STARTER_FIRE || (rivalComplete && choice == VIRELIA_STARTER_GRASS));
+    }
+}
+
+TEST("Virelia lab does not hide a Ball without a received valid starter")
+{
+    u32 choice = VIRELIA_STARTER_NONE;
+    bool32 starterReceived = FALSE;
+    PARAMETRIZE { choice = VIRELIA_STARTER_NONE; starterReceived = FALSE; }
+    for (u32 i = 0; i < VIRELIA_STARTER_COUNT; i++)
+        PARAMETRIZE { choice = i; starterReceived = FALSE; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_NONE; starterReceived = TRUE; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_COUNT; starterReceived = TRUE; }
+    InitPrologueTest();
+    VarSet(VAR_VIRELIA_STARTER, choice);
+    if (starterReceived)
+        FlagSet(FLAG_VIRELIA_STARTER_RECEIVED);
+    FlagSet(FLAG_VIRELIA_RIVAL_COMPLETE);
+    VireliaPrologue_SyncStarterBallFlags();
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER));
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER));
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_FIRE_STARTER));
+}
+
+TEST("Virelia lab preserves the rival Ball pickup before the battle completes")
+{
+    u32 choice = VIRELIA_STARTER_GRASS;
+    u32 rivalFlag = FLAG_VIRELIA_HIDE_FIRE_STARTER;
+    PARAMETRIZE { choice = VIRELIA_STARTER_GRASS; rivalFlag = FLAG_VIRELIA_HIDE_FIRE_STARTER; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_WATER; rivalFlag = FLAG_VIRELIA_HIDE_GRASS_STARTER; }
+    PARAMETRIZE { choice = VIRELIA_STARTER_FIRE; rivalFlag = FLAG_VIRELIA_HIDE_WATER_STARTER; }
+    InitPrologueTest();
+    FlagSet(FLAG_VIRELIA_STARTER_RECEIVED);
+    VarSet(VAR_VIRELIA_STARTER, choice);
+    FlagSet(rivalFlag);
+    for (u32 visit = 0; visit < 2; visit++)
+    {
+        VireliaPrologue_SyncStarterBallFlags();
+        EXPECT(FlagGet(rivalFlag));
+        EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER), choice != VIRELIA_STARTER_FIRE);
+        EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER), choice != VIRELIA_STARTER_GRASS);
+        EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_FIRE_STARTER), choice != VIRELIA_STARTER_WATER);
+        EXPECT(!FlagGet(FLAG_VIRELIA_RIVAL_COMPLETE));
+    }
+}
+#endif
+
+TEST("Virelia lab migrates saved Ball templates and active objects without moving other actors")
+{
+    u32 choice = VIRELIA_STARTER_NONE;
+    bool32 rivalComplete = FALSE;
+    PARAMETRIZE { choice = VIRELIA_STARTER_NONE; rivalComplete = FALSE; }
+    for (u32 i = 0; i < VIRELIA_STARTER_COUNT; i++)
+    {
+        PARAMETRIZE { choice = i; rivalComplete = FALSE; }
+        PARAMETRIZE { choice = i; rivalComplete = TRUE; }
+    }
+    static const u8 ballIds[] =
+    {
+        LOCALID_VIRELIA_LAB_GRASS_STARTER,
+        LOCALID_VIRELIA_LAB_WATER_STARTER,
+        LOCALID_VIRELIA_LAB_FIRE_STARTER,
+    };
+    static const u16 ballFlags[] =
+    {
+        FLAG_VIRELIA_HIDE_GRASS_STARTER,
+        FLAG_VIRELIA_HIDE_WATER_STARTER,
+        FLAG_VIRELIA_HIDE_FIRE_STARTER,
+    };
+    InitPrologueTest();
+    struct MapHeader originalHeader = gMapHeader;
+    struct ObjectEvent originalObjects[OBJECT_EVENTS_COUNT];
+    struct ObjectEventTemplate originalTemplates[OBJECT_EVENT_TEMPLATES_COUNT];
+    memcpy(originalObjects, gObjectEvents, sizeof(originalObjects));
+    memcpy(originalTemplates, gSaveBlock1Ptr->objectEventTemplates, sizeof(originalTemplates));
+    struct WarpData originalLocation = gSaveBlock1Ptr->location;
+    gSaveBlock1Ptr->location.mapGroup = MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY);
+    gSaveBlock1Ptr->location.mapNum = MAP_NUM(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY);
+    gMapHeader = *Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup,
+                                                   gSaveBlock1Ptr->location.mapNum);
+    LoadObjEventTemplatesFromHeader();
+    for (u32 i = 0; i < OBJECT_EVENTS_COUNT; i++)
+        ClearObjectEvent(&gObjectEvents[i]);
+    for (u32 i = 0; i < ARRAY_COUNT(ballIds); i++)
+    {
+        gObjectEvents[i] = (struct ObjectEvent)
+        {
+            .active = TRUE,
+            .localId = ballIds[i],
+            .mapGroup = gSaveBlock1Ptr->location.mapGroup,
+            .mapNum = gSaveBlock1Ptr->location.mapNum,
+        };
+        for (u32 j = 0; j < OBJECT_EVENT_TEMPLATES_COUNT; j++)
+            if (gSaveBlock1Ptr->objectEventTemplates[j].localId == ballIds[i])
+                gSaveBlock1Ptr->objectEventTemplates[j].flagId = 0;
+    }
+    // A matching local ID from another map must remain untouched.
+    gObjectEvents[3] = gObjectEvents[0];
+    gObjectEvents[3].mapNum = MAP_NUM(MAP_VIRELIA_MAPLEBROOK_TOWN);
+    gObjectEvents[3].mapGroup = MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_TOWN);
+    gObjectEvents[4] = gObjectEvents[0];
+    gObjectEvents[4].localId = LOCALID_VIRELIA_LAB_VIKTOR;
+    const struct ObjectEventTemplate *viktor = GetObjectEventTemplateByLocalIdAndMap(
+        LOCALID_VIRELIA_LAB_VIKTOR, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+    struct ObjectEventTemplate originalViktor = *viktor;
+    if (choice != VIRELIA_STARTER_NONE)
+    {
+        VarSet(VAR_VIRELIA_STARTER, choice);
+        FlagSet(FLAG_VIRELIA_STARTER_RECEIVED);
+    }
+    if (rivalComplete)
+        FlagSet(FLAG_VIRELIA_RIVAL_COMPLETE);
+    VireliaPrologue_SyncStarterBallFlags();
+    VireliaPrologue_SyncStarterBallFlags();
+    bool32 active[ARRAY_COUNT(ballIds)], hidden[ARRAY_COUNT(ballIds)];
+    u16 migratedFlags[ARRAY_COUNT(ballIds)];
+    for (u32 i = 0; i < ARRAY_COUNT(ballIds); i++)
+    {
+        active[i] = gObjectEvents[i].active;
+        hidden[i] = FlagGet(ballFlags[i]);
+        migratedFlags[i] = GetObjectEventFlagIdByLocalIdAndMap(ballIds[i],
+            gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+    }
+    bool32 otherMapActive = gObjectEvents[3].active;
+    bool32 viktorActive = gObjectEvents[4].active;
+    bool32 viktorUnchanged = memcmp(viktor, &originalViktor, sizeof(originalViktor)) == 0;
+    // Restore global map/object state before an assertion can exit the test.
+    gMapHeader = originalHeader;
+    gSaveBlock1Ptr->location = originalLocation;
+    memcpy(gObjectEvents, originalObjects, sizeof(originalObjects));
+    memcpy(gSaveBlock1Ptr->objectEventTemplates, originalTemplates, sizeof(originalTemplates));
+    for (u32 i = 0; i < ARRAY_COUNT(ballIds); i++)
+    {
+        EXPECT_EQ(migratedFlags[i], ballFlags[i]);
+        EXPECT_EQ(active[i], !hidden[i]);
+    }
+    EXPECT(otherMapActive);
+    EXPECT(viktorActive);
+    EXPECT(viktorUnchanged);
+}
 
 TEST("Virelia starters are unique native local-owned level 5 gifts after speaking to Mom")
 {
@@ -513,6 +694,15 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
         SetTrainerFlag(TRAINER_VIRELIA_ELA);
         SetTrainerFlag(TRAINER_VIRELIA_OTA);
     }
+    VireliaPrologue_SyncStarterBallFlags();
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE
+    EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER), checkpoint >= 1);
+    EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER), checkpoint >= 2);
+#else
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER));
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER));
+#endif
+    EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_FIRE_STARTER));
     // Exercise the actual saved map fields at four distinct story locations.
     // Only update save data here; the test runner's loaded map stays untouched.
     static const u16 checkpointMaps[] =
@@ -543,7 +733,7 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
     u32 originalStarter = VarGet(VAR_VIRELIA_STARTER);
     u32 originalRivalResult = VarGet(VAR_VIRELIA_RIVAL_RESULT);
     u32 originalState = VarGet(VAR_VIRELIA_PROLOGUE_STATE);
-    bool8 originalFlags[FLAG_VIRELIA_PROFESSOR_MET - FLAG_VIRELIA_MOM_MET + 1];
+    bool8 originalFlags[FLAG_VIRELIA_HIDE_FIRE_STARTER - FLAG_VIRELIA_MOM_MET + 1];
     for (u32 i = 0; i < ARRAY_COUNT(originalFlags); i++)
         originalFlags[i] = FlagGet(FLAG_VIRELIA_MOM_MET + i);
     u32 originalBalls = CountTotalItemQuantityInBag(ITEM_POKE_BALL);
@@ -620,3 +810,23 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
 }
 
 #endif // !IS_FRLG && P_VIRELIA_STARTERS
+
+#if !VIRELIA_PROLOGUE || VIRELIA_DEVELOPMENT_MODE || IS_FRLG
+TEST("Virelia nonstory lab restores all starter exhibition Balls")
+{
+    InitEventData();
+    FlagSet(FLAG_VIRELIA_STARTER_RECEIVED);
+    FlagSet(FLAG_VIRELIA_RIVAL_COMPLETE);
+    VarSet(VAR_VIRELIA_STARTER, VIRELIA_STARTER_WATER);
+    FlagSet(FLAG_VIRELIA_HIDE_GRASS_STARTER);
+    FlagSet(FLAG_VIRELIA_HIDE_WATER_STARTER);
+    FlagSet(FLAG_VIRELIA_HIDE_FIRE_STARTER);
+    for (u32 visit = 0; visit < 2; visit++)
+    {
+        VireliaPrologue_SyncStarterBallFlags();
+        EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER));
+        EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER));
+        EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_FIRE_STARTER));
+    }
+}
+#endif

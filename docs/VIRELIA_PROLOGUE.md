@@ -29,18 +29,21 @@ species. This document supersedes their development-start instructions.
 4. Choose exactly one level-5 regional Pokémon. The normal gift-Pokémon routine
    creates its local OT, personality, IVs, normal ability, eligible moves, HP/PP,
    met location and Pokédex records. Re-entering or choosing another display
-   cannot grant another starter.
-5. Meet **Viktor** at the laboratory exit. He battles with the regional starter
-   whose primary type has the advantage. Either result advances the story and
+   cannot grant another starter. The chosen Ball disappears immediately after
+   the successful gift; cancellation or a failed gift leaves it in place.
+5. The player steps into the open aisle. **Viktor** walks to the Ball with the
+   primary type advantage, takes it, and walks up to the player. His Ball also
+   disappears; the unused third Ball remains. He challenges the player and the
+   first battle starts immediately. Either result advances the story and
    restores the player's party. The saved result records the first outcome.
-6. Javorová gives the player a Pokédex, **5 Poké Balls and 3 Lektvary**. This
+6. Javorová gives the player a Pokédex, **5 Poké Balls and 3 Potions**. This
    bundle is granted once. If either Bag pocket lacks space, the entire bundle
    waits until the player returns with space. The player can then catch wild
    Pokémon, use the party and Bag, save, heal and return home freely.
 7. Follow **Whisperwood Trail** north. Battle two ordinary trainers, explore
    existing tall grass and find the optional item detour. **Hana** asks about
    her missing Zigzagoon; investigating its secluded spot reveals territorial
-   behavior. Return to Hana for one extra Lektvar. This event is optional.
+   behavior. Return to Hana for one extra Potion. This event is optional.
 8. Reach **Slateford City**. Miners report missing conductive mineral samples.
    Investigate the suspicious maintenance worker near the mining area, expose
    his Team Rocket uniform and win a normal single battle. Losing permits a
@@ -148,6 +151,9 @@ Definitions live in `include/constants/virelia_prologue.h`.
 | `FLAG_VIRELIA_HIDE_STORY_ACTORS` | `0x2C` | Story actors hidden in development mode |
 | `FLAG_VIRELIA_MINER_REPORT` | `0x2D` | Mineral theft reported by miners |
 | `FLAG_VIRELIA_PROFESSOR_MET` | `0x2E` | First laboratory explanation heard |
+| `FLAG_VIRELIA_HIDE_GRASS_STARTER` | `0x2F` | Grass starter Ball taken |
+| `FLAG_VIRELIA_HIDE_WATER_STARTER` | `0x30` | Water starter Ball taken |
+| `FLAG_VIRELIA_HIDE_FIRE_STARTER` | `0x31` | Fire starter Ball taken |
 
 | Variable | Slot | Values |
 | --- | --- | --- |
@@ -161,24 +167,35 @@ repeating dialogue, declining a choice or loading a checkpoint cannot grant
 additional starters or bundles. Hana's reward flag is set only after the item
 fits into the Bag. The full Bag case leaves the reward available for a retry.
 
+The laboratory synchronizes Ball visibility before spawning its objects. Older
+story saves hide the player's chosen Ball and, if the first battle is complete,
+the rival's Ball. Existing pickup flags are never cleared in story mode. An
+older save between the gift and battle can resume the pickup scene by speaking
+to Viktor or approaching the exit. Completed saves do not replay it.
+Development and nonstory builds retain all three exhibition Balls.
+
 ## Czech localization
 
 All authored story dialogue, choices, signs, trainer reactions, gifts and object
 messages are Czech. Proper Pokémon names and Maplebrook Town, Whisperwood Trail,
-Slateford City and Virelia remain unchanged. Text reuses the existing Czech
+Slateford City and Virelia remain unchanged. Move and item names retain their
+English spelling in every build; their descriptions and surrounding messages
+are localized. Czech dialogue inflects item names where needed (`Potiony`,
+`Potionů`); quantity labels use the base name (`3× Potion`). The rival class
+uses `Rival` (`RIVAL` in uppercase labels). Text reuses the existing Czech
 charmap and fonts, including accented uppercase characters.
 
 The shared resources reachable through this slice include battle messages,
-menus, saving, Bag, party, summary, naming, Pokédex, relevant items, moves,
-abilities, types and statuses. The detailed coverage, exceptions and outstanding
+menus, saving, Bag, party, summary, naming, Pokédex, relevant items, move
+descriptions, abilities, types and statuses. The detailed coverage, exceptions and outstanding
 visual checks are maintained in the
 [localization audit](VIRELIA_LOCALIZATION_AUDIT.md). That audit is the authority
 for localization status; a compiled ROM alone does not certify complete Czech
 coverage or correct on-screen wrapping.
 
 Shared battle and data strings retain English test fixtures under `TESTING`
-where necessary. Normal and release ROMs select Czech at preprocessing time.
-This keeps the upstream behavior tests meaningful without duplicating either
+where necessary. Localized strings in normal and release ROMs select Czech at
+preprocessing time. This keeps the upstream behavior tests meaningful without duplicating either
 language in a playable ROM. Development-only test notices are hidden in story.
 The story Pokédex uses metres, kilograms and a decimal comma. Development mode,
 FireRed/LeafGreen and upstream test fixtures retain their original unit settings.
@@ -272,10 +289,18 @@ Source checks runnable without an ARM toolchain:
 
 ```sh
 python tools/validate_virelia_world.py
+python tools/validate_virelia_lab_scene.py
 python tools/validate_virelia_prologue_text.py
 python .github/docs_validate/inclusive_summary.py
 git diff --check
 ```
+
+The laboratory scene validator follows the actual map script and movement
+commands against the map collision data. It covers every reachable side of
+each Ball, both legacy exit triggers and approaches to Viktor, pickup order,
+type advantage, dialogue, final facing, and canceled or failed gifts. The
+post-`0.2.40` pickup scene has source validation; native ROM/emulator validation
+is still required for its animation and battle return.
 
 The native suites `test/virelia_prologue.c`,
 `test/virelia_prologue_events.c`, `test/virelia_world.c` and
@@ -291,6 +316,10 @@ with **each** starter and record the ROM commit, emulator and elapsed time:
   opening conversation with mother and repeatable free healing.
 - Inspect all displays, decline once, choose once, then revisit and try all
   displays again. Check species, level, OT, moves, HP/PP and Pokédex registration.
+- Choose each starter from every accessible side. Check that its Ball vanishes,
+  Viktor walks to and takes the counter-type Ball, then faces the player before
+  the challenge and battle. After returning and reloading, only the unused Ball
+  should remain. Confirm cancellation keeps all three Balls.
 - Win and lose separate rival battles; verify the expected opposing species,
   restored party, Pokédex, five Balls and three Potions without duplicate gifts.
 - Catch an ordinary wild Pokémon, inspect its Pokédex entry and summary, use
@@ -299,8 +328,10 @@ with **each** starter and record the ROM commit, emulator and elapsed time:
   order, including revisits and a full Bag reward retry.
 - Lose once to Rocket, heal and retry. Win, read the clue and policeman scene,
   leave and return; the conclusion must not repeat and the Gym must stay closed.
-- Save and reload at home, after starter selection, after rival, on the route
-  and after Rocket. Confirm party, items, position and story/trainer flags.
+- Save and reload at home, after rival, on the route and after Rocket. Confirm
+  party, items, position and story/trainer flags. Also load an older checkpoint
+  between starter selection and the rival battle, then trigger the scene by
+  talking to Viktor or walking to either exit tile.
 - Inspect every reachable screen listed in the localization audit. Check actual
   GBA text windows for clipping, accents, substitutions and remaining English.
 - Separately start a mode-1 build and check the original test facilities. Link

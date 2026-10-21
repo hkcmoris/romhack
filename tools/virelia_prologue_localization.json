@@ -188,7 +188,7 @@
       "key": "gText_RepelEffectsLingered",
       "kind": "ui",
       "english": "But the effects of a REPEL\\nlingered from earlier.{PAUSE_UNTIL_PRESS}",
-      "czech": "Předchozí repelent stále působí.{PAUSE_UNTIL_PRESS}",
+      "czech": "Předchozí Repel stále působí.{PAUSE_UNTIL_PRESS}",
       "font": "Normal",
       "width": 208
     },
@@ -197,7 +197,7 @@
       "key": "gText_LureEffectsLingered",
       "kind": "ui",
       "english": "But the effects of a Lure\\nlingered from earlier.{PAUSE_UNTIL_PRESS}",
-      "czech": "Předchozí lákadlo stále působí.{PAUSE_UNTIL_PRESS}",
+      "czech": "Předchozí Lure stále působí.{PAUSE_UNTIL_PRESS}",
       "font": "Normal",
       "width": 208
     },
@@ -1088,8 +1088,8 @@
       "width": 208,
       "replacements": {
         "{STR_VAR_1}": "WWWWWWWWWWWW",
-        "{STR_VAR_2}": "Roztomilý pohled",
-        "{STR_VAR_3}": "Roztomilý pohled"
+        "{STR_VAR_2}": "Disarming Voice",
+        "{STR_VAR_3}": "Disarming Voice"
       }
     },
     {
@@ -1178,7 +1178,7 @@
       "key": "MOVE_ABSORB.name.0",
       "kind": "move_name",
       "english": "Absorb",
-      "czech": "Vysátí",
+      "czech": "Absorb",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1198,7 +1198,7 @@
       "key": "MOVE_ACID.name.0",
       "kind": "move_name",
       "english": "Acid",
-      "czech": "Kyselina",
+      "czech": "Acid",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1208,7 +1208,7 @@
       "key": "MOVE_ACID_SPRAY.name.0",
       "kind": "move_name",
       "english": "Acid Spray",
-      "czech": "Kyselý sprej",
+      "czech": "Acid Spray",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1228,7 +1228,7 @@
       "key": "MOVE_AIR_CUTTER.name.0",
       "kind": "move_name",
       "english": "Air Cutter",
-      "czech": "Vzdušná čepel",
+      "czech": "Air Cutter",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1248,7 +1248,7 @@
       "key": "MOVE_AQUA_JET.name.0",
       "kind": "move_name",
       "english": "Aqua Jet",
-      "czech": "Vodní trysk",
+      "czech": "Aqua Jet",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1268,7 +1268,7 @@
       "key": "MOVE_ASTONISH.name.0",
       "kind": "move_name",
       "english": "Astonish",
-      "czech": "Úlek",
+      "czech": "Astonish",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1288,7 +1288,7 @@
       "key": "MOVE_BABY_DOLL_EYES.name.0",
       "kind": "move_name",
       "english": "Baby-Doll Eyes",
-      "czech": "Roztomilý pohled",
+      "czech": "Baby-Doll Eyes",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1308,7 +1308,7 @@
       "key": "MOVE_BIDE.name.0",
       "kind": "move_name",
       "english": "Bide",
-      "czech": "Vyčkání",
+      "czech": "Bide",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1328,7 +1328,7 @@
       "key": "MOVE_BITE.name.0",
       "kind": "move_name",
       "english": "Bite",
-      "czech": "Kousnutí",
+      "czech": "Bite",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1348,7 +1348,7 @@
       "key": "MOVE_BUG_BITE.name.0",
       "kind": "move_name",
       "english": "Bug Bite",
-      "czech": "Hmyzí kousnutí",
+      "czech": "Bug Bite",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1368,7 +1368,7 @@
       "key": "MOVE_CONFUSION.name.0",
       "kind": "move_name",
       "english": "Confusion",
-      "czech": "Zmatení",
+      "czech": "Confusion",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1388,7 +1388,7 @@
       "key": "MOVE_COVET.name.0",
       "kind": "move_name",
       "english": "Covet",
-      "czech": "Žadonění",
+      "czech": "Covet",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1408,7 +1408,7 @@
       "key": "MOVE_DISARMING_VOICE.name.0",
       "kind": "move_name",
       "english": "Disarming Voice",
-      "czech": "Kouzelný hlas",
+      "czech": "Disarming Voice",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1428,7 +1428,7 @@
       "key": "MOVE_DOUBLE_TEAM.name.0",
       "kind": "move_name",
       "english": "Double Team",
-      "czech": "Dvojník",
+      "czech": "Double Team",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1448,7 +1448,7 @@
       "key": "MOVE_DRAINING_KISS.name.0",
       "kind": "move_name",
       "english": "Draining Kiss",
-      "czech": "Savý polibek",
+      "czech": "Draining Kiss",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1468,7 +1468,7 @@
       "key": "MOVE_EMBER.name.0",
       "kind": "move_name",
       "english": "Ember",
-      "czech": "Žhavík",
+      "czech": "Ember",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1488,7 +1488,7 @@
       "key": "MOVE_EXPLOSION.name.0",
       "kind": "move_name",
       "english": "Explosion",
-      "czech": "Exploze",
+      "czech": "Explosion",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1508,7 +1508,7 @@
       "key": "MOVE_FAKE_OUT.name.0",
       "kind": "move_name",
       "english": "Fake Out",
-      "czech": "Překvapení",
+      "czech": "Fake Out",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1528,7 +1528,7 @@
       "key": "MOVE_FLIP_TURN.name.0",
       "kind": "move_name",
       "english": "Flip Turn",
-      "czech": "Vodní obrat",
+      "czech": "Flip Turn",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1548,7 +1548,7 @@
       "key": "MOVE_FOCUS_ENERGY.name.0",
       "kind": "move_name",
       "english": "Focus Energy",
-      "czech": "Soustředění",
+      "czech": "Focus Energy",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1568,7 +1568,7 @@
       "key": "MOVE_GROWL.name.0",
       "kind": "move_name",
       "english": "Growl",
-      "czech": "Vrčení",
+      "czech": "Growl",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1588,7 +1588,7 @@
       "key": "MOVE_GROWTH.name.0",
       "kind": "move_name",
       "english": "Growth",
-      "czech": "Růst",
+      "czech": "Growth",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1598,7 +1598,7 @@
       "key": "MOVE_GUST.name.0",
       "kind": "move_name",
       "english": "Gust",
-      "czech": "Poryv",
+      "czech": "Gust",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1618,7 +1618,7 @@
       "key": "MOVE_HARDEN.name.0",
       "kind": "move_name",
       "english": "Harden",
-      "czech": "Zpevnění",
+      "czech": "Harden",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1638,7 +1638,7 @@
       "key": "MOVE_HEADBUTT.name.0",
       "kind": "move_name",
       "english": "Headbutt",
-      "czech": "Úder hlavou",
+      "czech": "Headbutt",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1658,7 +1658,7 @@
       "key": "MOVE_HOWL.name.0",
       "kind": "move_name",
       "english": "Howl",
-      "czech": "Vytí",
+      "czech": "Howl",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1668,7 +1668,7 @@
       "key": "MOVE_HYPER_FANG.name.0",
       "kind": "move_name",
       "english": "Hyper Fang",
-      "czech": "Silný tesák",
+      "czech": "Hyper Fang",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1688,7 +1688,7 @@
       "key": "MOVE_HYPNOSIS.name.0",
       "kind": "move_name",
       "english": "Hypnosis",
-      "czech": "Hypnóza",
+      "czech": "Hypnosis",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1708,7 +1708,7 @@
       "key": "MOVE_INCINERATE.name.0",
       "kind": "move_name",
       "english": "Incinerate",
-      "czech": "Spálení",
+      "czech": "Incinerate",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1718,7 +1718,7 @@
       "key": "MOVE_LASER_FOCUS.name.0",
       "kind": "move_name",
       "english": "Laser Focus",
-      "czech": "Přesné zaměření",
+      "czech": "Laser Focus",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1738,7 +1738,7 @@
       "key": "MOVE_LEAFAGE.name.0",
       "kind": "move_name",
       "english": "Leafage",
-      "czech": "Lístky",
+      "czech": "Leafage",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1758,7 +1758,7 @@
       "key": "MOVE_LEECH_LIFE.name.0",
       "kind": "move_name",
       "english": "Leech Life",
-      "czech": "Sání života",
+      "czech": "Leech Life",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1778,7 +1778,7 @@
       "key": "MOVE_LEECH_SEED.name.0",
       "kind": "move_name",
       "english": "Leech Seed",
-      "czech": "Savé semínko",
+      "czech": "Leech Seed",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1798,7 +1798,7 @@
       "key": "MOVE_LEER.name.0",
       "kind": "move_name",
       "english": "Leer",
-      "czech": "Zlý pohled",
+      "czech": "Leer",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1818,7 +1818,7 @@
       "key": "MOVE_LUCKY_CHANT.name.0",
       "kind": "move_name",
       "english": "Lucky Chant",
-      "czech": "Šťastný zpěv",
+      "czech": "Lucky Chant",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1838,7 +1838,7 @@
       "key": "MOVE_MEAN_LOOK.name.0",
       "kind": "move_name",
       "english": "Mean Look",
-      "czech": "Upřený pohled",
+      "czech": "Mean Look",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1858,7 +1858,7 @@
       "key": "MOVE_MEGA_DRAIN.name.0",
       "kind": "move_name",
       "english": "Mega Drain",
-      "czech": "Megavysátí",
+      "czech": "Mega Drain",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1878,7 +1878,7 @@
       "key": "MOVE_MUD_SLAP.name.0",
       "kind": "move_name",
       "english": "Mud-Slap",
-      "czech": "Blátivý políček",
+      "czech": "Mud-Slap",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1898,7 +1898,7 @@
       "key": "MOVE_NATURE_POWER.name.0",
       "kind": "move_name",
       "english": "Nature Power",
-      "czech": "Síla přírody",
+      "czech": "Nature Power",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1918,7 +1918,7 @@
       "key": "MOVE_ODOR_SLEUTH.name.0",
       "kind": "move_name",
       "english": "Odor Sleuth",
-      "czech": "Stopování",
+      "czech": "Odor Sleuth",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1938,7 +1938,7 @@
       "key": "MOVE_PECK.name.0",
       "kind": "move_name",
       "english": "Peck",
-      "czech": "Klovnutí",
+      "czech": "Peck",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1958,7 +1958,7 @@
       "key": "MOVE_POISON_FANG.name.0",
       "kind": "move_name",
       "english": "Poison Fang",
-      "czech": "Jedový tesák",
+      "czech": "Poison Fang",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1978,7 +1978,7 @@
       "key": "MOVE_POISON_POWDER.name.0",
       "kind": "move_name",
       "english": "Poison Powder",
-      "czech": "Jedový prach",
+      "czech": "Poison Powder",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -1998,7 +1998,7 @@
       "key": "MOVE_POISON_STING.name.0",
       "kind": "move_name",
       "english": "Poison Sting",
-      "czech": "Jedové žihadlo",
+      "czech": "Poison Sting",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2018,7 +2018,7 @@
       "key": "MOVE_POUNCE.name.0",
       "kind": "move_name",
       "english": "Pounce",
-      "czech": "Skok",
+      "czech": "Pounce",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2038,7 +2038,7 @@
       "key": "MOVE_POUND.name.0",
       "kind": "move_name",
       "english": "Pound",
-      "czech": "Bouchnutí",
+      "czech": "Pound",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2058,7 +2058,7 @@
       "key": "MOVE_PURSUIT.name.0",
       "kind": "move_name",
       "english": "Pursuit",
-      "czech": "Pronásledování",
+      "czech": "Pursuit",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2078,7 +2078,7 @@
       "key": "MOVE_QUICK_ATTACK.name.0",
       "kind": "move_name",
       "english": "Quick Attack",
-      "czech": "Rychlý útok",
+      "czech": "Quick Attack",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2098,7 +2098,7 @@
       "key": "MOVE_RAZOR_LEAF.name.0",
       "kind": "move_name",
       "english": "Razor Leaf",
-      "czech": "Ostrý list",
+      "czech": "Razor Leaf",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2118,7 +2118,7 @@
       "key": "MOVE_ROLLOUT.name.0",
       "kind": "move_name",
       "english": "Rollout",
-      "czech": "Kutálení",
+      "czech": "Rollout",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2138,7 +2138,7 @@
       "key": "MOVE_SAND_ATTACK.name.0",
       "kind": "move_name",
       "english": "Sand Attack",
-      "czech": "Písek do očí",
+      "czech": "Sand Attack",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2158,7 +2158,7 @@
       "key": "MOVE_SHADOW_SNEAK.name.0",
       "kind": "move_name",
       "english": "Shadow Sneak",
-      "czech": "Stínový úskok",
+      "czech": "Shadow Sneak",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2178,7 +2178,7 @@
       "key": "MOVE_SMOKESCREEN.name.0",
       "kind": "move_name",
       "english": "Smokescreen",
-      "czech": "Kouřová clona",
+      "czech": "Smokescreen",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2198,7 +2198,7 @@
       "key": "MOVE_STRING_SHOT.name.0",
       "kind": "move_name",
       "english": "String Shot",
-      "czech": "Lepivé vlákno",
+      "czech": "String Shot",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2208,7 +2208,7 @@
       "key": "MOVE_STUN_SPORE.name.0",
       "kind": "move_name",
       "english": "Stun Spore",
-      "czech": "Omračující pyl",
+      "czech": "Stun Spore",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2228,7 +2228,7 @@
       "key": "MOVE_SUPERSONIC.name.0",
       "kind": "move_name",
       "english": "Supersonic",
-      "czech": "Ultrazvuk",
+      "czech": "Supersonic",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2248,7 +2248,7 @@
       "key": "MOVE_SWAGGER.name.0",
       "kind": "move_name",
       "english": "Swagger",
-      "czech": "Vychloubání",
+      "czech": "Swagger",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2268,7 +2268,7 @@
       "key": "MOVE_SYNTHESIS.name.0",
       "kind": "move_name",
       "english": "Synthesis",
-      "czech": "Syntéza",
+      "czech": "Synthesis",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2288,7 +2288,7 @@
       "key": "MOVE_TACKLE.name.0",
       "kind": "move_name",
       "english": "Tackle",
-      "czech": "Náraz",
+      "czech": "Tackle",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2308,7 +2308,7 @@
       "key": "MOVE_TAIL_WHIP.name.0",
       "kind": "move_name",
       "english": "Tail Whip",
-      "czech": "Vrtění ocasem",
+      "czech": "Tail Whip",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2338,7 +2338,7 @@
       "key": "MOVE_TORMENT.name.0",
       "kind": "move_name",
       "english": "Torment",
-      "czech": "Trýzeň",
+      "czech": "Torment",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2358,7 +2358,7 @@
       "key": "MOVE_WING_ATTACK.name.0",
       "kind": "move_name",
       "english": "Wing Attack",
-      "czech": "Úder křídly",
+      "czech": "Wing Attack",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2378,7 +2378,7 @@
       "key": "MOVE_STRUGGLE.name.0",
       "kind": "move_name",
       "english": "Struggle",
-      "czech": "Zápasení",
+      "czech": "Struggle",
       "font": "Narrower",
       "width": 64,
       "lines": 0
@@ -2958,7 +2958,7 @@
       "key": "ITEM_POKE_BALL.name.0",
       "kind": "item_name",
       "english": "Poké Ball",
-      "czech": "Pokéball",
+      "czech": "Poké Ball",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -2978,7 +2978,7 @@
       "key": "ITEM_GREAT_BALL.name.0",
       "kind": "item_name",
       "english": "Great Ball",
-      "czech": "Superball",
+      "czech": "Great Ball",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -2998,7 +2998,7 @@
       "key": "ITEM_POTION.name.0",
       "kind": "item_name",
       "english": "Potion",
-      "czech": "Lektvar",
+      "czech": "Potion",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3018,7 +3018,7 @@
       "key": "ITEM_SUPER_POTION.name.0",
       "kind": "item_name",
       "english": "Super Potion",
-      "czech": "Silný lektvar",
+      "czech": "Super Potion",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3028,7 +3028,7 @@
       "key": "ITEM_HYPER_POTION.name.0",
       "kind": "item_name",
       "english": "Hyper Potion",
-      "czech": "Hyperlektvar",
+      "czech": "Hyper Potion",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3038,7 +3038,7 @@
       "key": "ITEM_REVIVE.name.0",
       "kind": "item_name",
       "english": "Revive",
-      "czech": "Oživení",
+      "czech": "Revive",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3058,7 +3058,7 @@
       "key": "ITEM_FULL_HEAL.name.0",
       "kind": "item_name",
       "english": "Full Heal",
-      "czech": "Všelék",
+      "czech": "Full Heal",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3078,7 +3078,7 @@
       "key": "ITEM_ANTIDOTE.name.0",
       "kind": "item_name",
       "english": "Antidote",
-      "czech": "Protijed",
+      "czech": "Antidote",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3098,7 +3098,7 @@
       "key": "ITEM_PARALYZE_HEAL.name.0",
       "kind": "item_name",
       "english": "Paralyze Heal",
-      "czech": "Lék na ochrnutí",
+      "czech": "Paralyze Heal",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3118,7 +3118,7 @@
       "key": "ITEM_AWAKENING.name.0",
       "kind": "item_name",
       "english": "Awakening",
-      "czech": "Budíček",
+      "czech": "Awakening",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3138,7 +3138,7 @@
       "key": "ITEM_BURN_HEAL.name.0",
       "kind": "item_name",
       "english": "Burn Heal",
-      "czech": "Lék na popálení",
+      "czech": "Burn Heal",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3158,7 +3158,7 @@
       "key": "ITEM_ICE_HEAL.name.0",
       "kind": "item_name",
       "english": "Ice Heal",
-      "czech": "Lék na mráz",
+      "czech": "Ice Heal",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3168,7 +3168,7 @@
       "key": "ITEM_REPEL.name.0",
       "kind": "item_name",
       "english": "Repel",
-      "czech": "Repelent",
+      "czech": "Repel",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3188,7 +3188,7 @@
       "key": "ITEM_SUPER_REPEL.name.0",
       "kind": "item_name",
       "english": "Super Repel",
-      "czech": "Silný repelent",
+      "czech": "Super Repel",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3208,7 +3208,7 @@
       "key": "ITEM_MAX_REPEL.name.0",
       "kind": "item_name",
       "english": "Max Repel",
-      "czech": "Maxirepelent",
+      "czech": "Max Repel",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3228,7 +3228,7 @@
       "key": "ITEM_POKE_DOLL.name.0",
       "kind": "item_name",
       "english": "Poké Doll",
-      "czech": "Poképanenka",
+      "czech": "Poké Doll",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3248,7 +3248,7 @@
       "key": "ITEM_TINY_MUSHROOM.name.0",
       "kind": "item_name",
       "english": "Tiny Mushroom",
-      "czech": "Malá houba",
+      "czech": "Tiny Mushroom",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3268,7 +3268,7 @@
       "key": "ITEM_BIG_MUSHROOM.name.0",
       "kind": "item_name",
       "english": "Big Mushroom",
-      "czech": "Velká houba",
+      "czech": "Big Mushroom",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3288,7 +3288,7 @@
       "key": "ITEM_ETHER.name.0",
       "kind": "item_name",
       "english": "Ether",
-      "czech": "Éter",
+      "czech": "Ether",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3308,7 +3308,7 @@
       "key": "ITEM_MOON_STONE.name.0",
       "kind": "item_name",
       "english": "Moon Stone",
-      "czech": "Měsíční kámen",
+      "czech": "Moon Stone",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3328,7 +3328,7 @@
       "key": "ITEM_SUN_STONE.name.0",
       "kind": "item_name",
       "english": "Sun Stone",
-      "czech": "Sluneční kámen",
+      "czech": "Sun Stone",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3348,7 +3348,7 @@
       "key": "ITEM_RARE_CANDY.name.0",
       "kind": "item_name",
       "english": "Rare Candy",
-      "czech": "Vzácný bonbon",
+      "czech": "Rare Candy",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3368,7 +3368,7 @@
       "key": "ITEM_PECHA_BERRY.name.0",
       "kind": "item_name",
       "english": "Pecha Berry",
-      "czech": "Bobule Pecha",
+      "czech": "Pecha Berry",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3388,7 +3388,7 @@
       "key": "ITEM_ORAN_BERRY.name.0",
       "kind": "item_name",
       "english": "Oran Berry",
-      "czech": "Bobule Oran",
+      "czech": "Oran Berry",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3408,7 +3408,7 @@
       "key": "ITEM_BRIGHT_POWDER.name.0",
       "kind": "item_name",
       "english": "Bright Powder",
-      "czech": "Zářivý prach",
+      "czech": "Bright Powder",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3428,7 +3428,7 @@
       "key": "ITEM_POWER_HERB.name.0",
       "kind": "item_name",
       "english": "Power Herb",
-      "czech": "Silová bylina",
+      "czech": "Power Herb",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3448,7 +3448,7 @@
       "key": "ITEM_SHED_SHELL.name.0",
       "kind": "item_name",
       "english": "Shed Shell",
-      "czech": "Prázdná ulita",
+      "czech": "Shed Shell",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3468,7 +3468,7 @@
       "key": "ITEM_EXP_SHARE.name.0",
       "kind": "item_name",
       "english": "Exp. Share",
-      "czech": "Sdílení zkuš.",
+      "czech": "Exp. Share",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3868,7 +3868,7 @@
       "key": "ITEM_RARE_CANDY.pluralName.0",
       "kind": "item_plural_name",
       "english": "Rare Candies",
-      "czech": "Vzácný bonbon",
+      "czech": "Rare Candy",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3878,7 +3878,7 @@
       "key": "ITEM_PECHA_BERRY.pluralName.0",
       "kind": "item_plural_name",
       "english": "Pecha Berries",
-      "czech": "Bobule Pecha",
+      "czech": "Pecha Berry",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -3888,7 +3888,7 @@
       "key": "ITEM_ORAN_BERRY.pluralName.0",
       "kind": "item_plural_name",
       "english": "Oran Berries",
-      "czech": "Bobule Oran",
+      "czech": "Oran Berry",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4377,8 +4377,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_POKE_BALL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Pokéball",
-      "czech": "Pokéball",
+      "english": "Poké Balls",
+      "czech": "Poké Ball",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4387,8 +4387,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_GREAT_BALL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Superball",
-      "czech": "Superball",
+      "english": "Great Balls",
+      "czech": "Great Ball",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4397,8 +4397,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_POTION.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Lektvar",
-      "czech": "Lektvar",
+      "english": "Potions",
+      "czech": "Potion",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4417,8 +4417,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_SUPER_POTION.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Silný lektvar",
-      "czech": "Silný lektvar",
+      "english": "Super Potions",
+      "czech": "Super Potion",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4437,8 +4437,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_HYPER_POTION.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Hyperlektvar",
-      "czech": "Hyperlektvar",
+      "english": "Hyper Potions",
+      "czech": "Hyper Potion",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4447,8 +4447,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_REVIVE.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Oživení",
-      "czech": "Oživení",
+      "english": "Revives",
+      "czech": "Revive",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4457,8 +4457,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_FULL_HEAL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Všelék",
-      "czech": "Všelék",
+      "english": "Full Heals",
+      "czech": "Full Heal",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4467,8 +4467,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_ANTIDOTE.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Protijed",
-      "czech": "Protijed",
+      "english": "Antidotes",
+      "czech": "Antidote",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4477,8 +4477,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_PARALYZE_HEAL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Lék na ochrnutí",
-      "czech": "Lék na ochrnutí",
+      "english": "Paralyze Heals",
+      "czech": "Paralyze Heal",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4487,8 +4487,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_AWAKENING.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Budíček",
-      "czech": "Budíček",
+      "english": "Awakenings",
+      "czech": "Awakening",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4497,8 +4497,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_BURN_HEAL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Lék na popálení",
-      "czech": "Lék na popálení",
+      "english": "Burn Heals",
+      "czech": "Burn Heal",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4517,8 +4517,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_ICE_HEAL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Lék na mráz",
-      "czech": "Lék na mráz",
+      "english": "Ice Heals",
+      "czech": "Ice Heal",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4527,8 +4527,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_REPEL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Repelent",
-      "czech": "Repelent",
+      "english": "Repels",
+      "czech": "Repel",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4537,8 +4537,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_SUPER_REPEL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Silný repelent",
-      "czech": "Silný repelent",
+      "english": "Super Repels",
+      "czech": "Super Repel",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4547,8 +4547,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_MAX_REPEL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Maxirepelent",
-      "czech": "Maxirepelent",
+      "english": "Max Repels",
+      "czech": "Max Repel",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4557,8 +4557,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_POKE_DOLL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Poképanenka",
-      "czech": "Poképanenka",
+      "english": "Poké Dolls",
+      "czech": "Poké Doll",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4567,8 +4567,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_TINY_MUSHROOM.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Malá houba",
-      "czech": "Malá houba",
+      "english": "Tiny Mushrooms",
+      "czech": "Tiny Mushroom",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4577,8 +4577,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_BIG_MUSHROOM.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Velká houba",
-      "czech": "Velká houba",
+      "english": "Big Mushrooms",
+      "czech": "Big Mushroom",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4587,8 +4587,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_ETHER.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Éter",
-      "czech": "Éter",
+      "english": "Ethers",
+      "czech": "Ether",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4597,8 +4597,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_MOON_STONE.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Měsíční kámen",
-      "czech": "Měsíční kámen",
+      "english": "Moon Stones",
+      "czech": "Moon Stone",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4607,8 +4607,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_SUN_STONE.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Sluneční kámen",
-      "czech": "Sluneční kámen",
+      "english": "Sun Stones",
+      "czech": "Sun Stone",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4617,8 +4617,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_BRIGHT_POWDER.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Zářivý prach",
-      "czech": "Zářivý prach",
+      "english": "Bright Powders",
+      "czech": "Bright Powder",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4627,8 +4627,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_POWER_HERB.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Silová bylina",
-      "czech": "Silová bylina",
+      "english": "Power Herbs",
+      "czech": "Power Herb",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4637,8 +4637,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_SHED_SHELL.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Prázdná ulita",
-      "czech": "Prázdná ulita",
+      "english": "Shed Shells",
+      "czech": "Shed Shell",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4647,8 +4647,8 @@
       "path": "src/data/items.h",
       "key": "ITEM_EXP_SHARE.pluralName.0",
       "kind": "item_plural_name",
-      "english": "Sdílení zkuš.",
-      "czech": "Sdílení zkuš.",
+      "english": "Exp. Shares",
+      "czech": "Exp. Share",
       "font": "Narrower",
       "width": 88,
       "lines": 0
@@ -4766,7 +4766,7 @@
       "key": "literal:RIVAL's NAME?:0",
       "kind": "ui",
       "english": "RIVAL's NAME?",
-      "czech": "JMÉNO SOUPEŘE?",
+      "czech": "JMÉNO RIVALA?",
       "font": "Normal",
       "width": 208
     },
@@ -5491,7 +5491,7 @@
       "key": "TRAINER_CLASS_RIVAL",
       "kind": "trainer_class",
       "english": "{PKMN} TRAINER",
-      "czech": "{PKMN} SOUPEŘ",
+      "czech": "{PKMN} RIVAL",
       "font": "Normal",
       "width": 78
     },
@@ -5545,7 +5545,7 @@
       "key": "TRAINER_CLASS_RIVAL_EARLY_FRLG",
       "kind": "trainer_class",
       "english": "RIVAL",
-      "czech": "SOUPEŘ",
+      "czech": "RIVAL",
       "font": "Normal",
       "width": 78
     },
@@ -5554,7 +5554,7 @@
       "key": "TRAINER_CLASS_RIVAL_LATE_FRLG",
       "kind": "trainer_class",
       "english": "RIVAL",
-      "czech": "SOUPEŘ",
+      "czech": "RIVAL",
       "font": "Normal",
       "width": 78
     },
@@ -6406,7 +6406,7 @@
       "key": "sText_CantThrowPokeBall_TwoMons",
       "kind": "ui",
       "english": "Cannot throw a ball!\\nThere are two Pokémon out there!\\p",
-      "czech": "Nelze hodit Pokéball!\\nJsou tu dva Pokémoni!\\p",
+      "czech": "Nelze hodit Poké Ball!\\nJsou tu dva Pokémoni!\\p",
       "font": "Normal",
       "width": 208
     },
@@ -6415,7 +6415,7 @@
       "key": "sText_CantThrowPokeBall_SemiInvulnerable",
       "kind": "ui",
       "english": "Cannot throw a ball!\\nThere's no Pokémon in sight!\\p",
-      "czech": "Nelze hodit Pokéball!\\nNení vidět žádného Pokémona!\\p",
+      "czech": "Nelze hodit Poké Ball!\\nNení vidět žádného Pokémona!\\p",
       "font": "Normal",
       "width": 208
     },
@@ -6424,7 +6424,7 @@
       "key": "sText_CantThrowPokeBall_Disabled",
       "kind": "ui",
       "english": "POKé BALLS cannot be used\\nright now!\\p",
-      "czech": "Teď nelze použít\\nPokébally!\\p",
+      "czech": "Teď nelze použít\\nPoké Bally!\\p",
       "font": "Normal",
       "width": 208
     },
@@ -6526,7 +6526,7 @@
       "key": "gText_MonsHealedShouldBuyPotions",
       "kind": "shared_script",
       "english": "Your POKéMON have been healed\\nto perfect health.\\pIf your POKéMON's energy, HP,\\nis down, please come see us.\\pIf you're planning to go far in the\\nfield, you should buy some POTIONS\\lat the POKéMON MART.\\pWe hope you excel!$",
-      "czech": "Tvoji Pokémoni jsou zase\\nv plné síle.\\pKdyž ztratí HP,\\npřijď je sem vyléčit.\\pNa delší cestu si v obchodě\\nnakup lektvary.\\pAť se ti daří!$",
+      "czech": "Tvoji Pokémoni jsou zase\\nv plné síle.\\pKdyž ztratí HP,\\npřijď je sem vyléčit.\\pNa delší cestu si v obchodě\\nnakup Potiony.\\pAť se ti daří!$",
       "font": "Normal",
       "width": 208,
       "conditional": true
@@ -6556,7 +6556,7 @@
       "key": "gText_MomExplainHPGetPotions",
       "kind": "shared_script",
       "english": "MOM: Oh, good! You and your\\nPOKéMON are looking great.\\pI just heard from {STR_VAR_1}.\\pHe said that POKéMON's energy is\\nmeasured in HP.\\pIf your POKéMON lose their HP,\\nyou can restore them at any\\lPOKéMON CENTER.\\pIf you're going to travel far away,\\nthe smart TRAINER stocks up on\\lPOTIONS at the POKéMON MART.\\pMake me proud, honey!\\pTake care!$",
-      "czech": "MÁMA: Výborně! Ty i tvoji\\nPokémoni zase vypadáte zdravě.\\pPrávě se mi ozval {STR_VAR_1}.\\pSílu Pokémona vyjadřují HP.\\pKdyž Pokémoni ztratí HP,\\nv centru je zase vyléčí.\\pNa delší cesty si nakup\\ndost lektvarů.\\pDávej na sebe pozor!\\pTěším se na tvoje zážitky!$",
+      "czech": "MÁMA: Výborně! Ty i tvoji\\nPokémoni zase vypadáte zdravě.\\pPrávě se mi ozval {STR_VAR_1}.\\pSílu Pokémona vyjadřují HP.\\pKdyž Pokémoni ztratí HP,\\nv centru je zase vyléčí.\\pNa delší cesty si nakup\\ndost Potionů.\\pDávej na sebe pozor!\\pTěším se na tvoje zážitky!$",
       "font": "Normal",
       "width": 208,
       "conditional": true
@@ -6625,7 +6625,7 @@
       "key": "gText_ExpShareOn",
       "kind": "ui",
       "english": "The Exp. Share has been turned on.{PAUSE_UNTIL_PRESS}",
-      "czech": "Sdílení zkušeností zapnuto.{PAUSE_UNTIL_PRESS}",
+      "czech": "Exp. Share zapnuto.{PAUSE_UNTIL_PRESS}",
       "font": "Normal",
       "width": 208
     },
@@ -6634,7 +6634,7 @@
       "key": "gText_ExpShareOff",
       "kind": "ui",
       "english": "The Exp. Share has been turned off.{PAUSE_UNTIL_PRESS}",
-      "czech": "Sdílení zkušeností vypnuto.{PAUSE_UNTIL_PRESS}",
+      "czech": "Exp. Share vypnuto.{PAUSE_UNTIL_PRESS}",
       "font": "Normal",
       "width": 208
     },

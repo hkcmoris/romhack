@@ -226,7 +226,7 @@ VireliaStarterTest_Text_CandiesGiven:
 	.string "Zvýší Pokémonovi úroveň.\n"
 	.string "Vývoj probíhá při zvýšení úrovně.$"
 VireliaStarterTest_Text_BagFull:
-	.string "Na 10 bonbonů není místo.\n"
+	.string "Na 10 Rare Candy není místo.\n"
 	.string "Uvolni místo v batohu a vrať se.$"
 VireliaStarterTest_Text_POOCHYENA_VIRELIA:
 	.string "POOCHYENA$"

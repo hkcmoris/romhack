@@ -2,6 +2,7 @@
 #define GUARD_VIRELIA_PROLOGUE_H
 
 void InitVireliaPrologueNewGame(void);
+void VireliaPrologue_SyncStarterBallFlags(void);
 u32 GetVireliaStarterSpecies(u32 choice);
 u32 GetVireliaRivalSpecies(u32 choice);
 void VireliaPrologue_MeetMom(void);

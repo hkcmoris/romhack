@@ -57,11 +57,11 @@ Virelia_Route01_Text_Naturalist:
 	.string "Stojí za malou zacházku.$"
 
 Virelia_Route01_Text_Potion:
-	.string "V trávě ležel Lektvar.\n"
+	.string "V trávě ležel Potion.\n"
 	.string "Ukládáš ho do batohu.$"
 
 Virelia_Route01_Text_PotionBagFull:
-	.string "V batohu není na Lektvar místo.\n"
+	.string "V batohu není na Potion místo.\n"
 	.string "Vrať se pro něj později.$"
 
 Virelia_Route01_Text_ElaIntro:

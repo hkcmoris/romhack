@@ -1435,7 +1435,7 @@ gText_MonsHealedShouldBuyPotions::
 	.string "at the POKéMON MART.\p"
 	.string "We hope you excel!$"
 #else
-	.string "Tvoji Pokémoni jsou zase\nv plné síle.\pKdyž ztratí HP,\npřijď je sem vyléčit.\pNa delší cestu si v obchodě\nnakup lektvary.\pAť se ti daří!$"
+	.string "Tvoji Pokémoni jsou zase\nv plné síle.\pKdyž ztratí HP,\npřijď je sem vyléčit.\pNa delší cestu si v obchodě\nnakup Potiony.\pAť se ti daří!$"
 #endif
 
 gText_MonsHealed::
@@ -1475,7 +1475,7 @@ gText_MomExplainHPGetPotions::
 	.string "Make me proud, honey!\p"
 	.string "Take care!$"
 #else
-	.string "MÁMA: Výborně! Ty i tvoji\nPokémoni zase vypadáte zdravě.\pPrávě se mi ozval {STR_VAR_1}.\pSílu Pokémona vyjadřují HP.\pKdyž Pokémoni ztratí HP,\nv centru je zase vyléčí.\pNa delší cesty si nakup\ndost lektvarů.\pDávej na sebe pozor!\pTěším se na tvoje zážitky!$"
+	.string "MÁMA: Výborně! Ty i tvoji\nPokémoni zase vypadáte zdravě.\pPrávě se mi ozval {STR_VAR_1}.\pSílu Pokémona vyjadřují HP.\pKdyž Pokémoni ztratí HP,\nv centru je zase vyléčí.\pNa delší cesty si nakup\ndost Potionů.\pDávej na sebe pozor!\pTěším se na tvoje zážitky!$"
 #endif
 
 gText_RegisteredTrainerinPokeNav::

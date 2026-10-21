@@ -18,7 +18,7 @@ static void ResetPrologueEvents(void)
     ResetPokemonStorageSystem();
     SetBagItemsPointers();
     ClearBag();
-    for (u32 flag = FLAG_VIRELIA_MOM_MET; flag <= FLAG_VIRELIA_PROFESSOR_MET; flag++)
+    for (u32 flag = FLAG_VIRELIA_MOM_MET; flag <= FLAG_VIRELIA_HIDE_FIRE_STARTER; flag++)
         FlagClear(flag);
     FlagClear(FLAG_ITEM_VIRELIA_ROUTE01_POTION);
     FlagClear(FLAG_SYS_POKEMON_GET);
