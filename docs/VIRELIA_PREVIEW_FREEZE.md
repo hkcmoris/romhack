@@ -240,8 +240,15 @@ skutečných dat nové ROM opět odpovídá všem předním i zadním PNG a obě
 paletám všech tří startérů. Vývojové symboly se nepoužívaly jako adresy
 odlišně optimalizované release ROM.
 
-Výsledek My Boy! pro 0.3.58 a konečné nativní CI výsledky zatím čekají
-na dokončení. Úspěch těchto nativních kroků není potvrzením Android opravy.
+**Android 0.3.58: neúspěšné.** Uživatel hlásil zamrznutí po stisku A u
+Ekansova Poké Ballu. Další čistý pokus zamrzl už při prvním opuštění domova,
+před jakýmkoli náhledem startéra. Menu My Boy! dále funguje a hudba glitchuje.
+Přesun grafických kernelů do ROM tedy problém na tomto telefonu neodstranil;
+nelze jej označit za opravu Androidu ani příčinu omezit na Poochyenin obrázek.
+Pro pokračování je potřeba zachytit skutečný save state zmrazené emulace.
+
+Prologové CI59 již prošlo celé. CI58 prvního Gymu prošlo celé: story 5494 / 5942 a development 5492 / 5940,
+se zděděnými 18 known / 421 TODO / 9 expected v každé sadě, bez nového selhání. Nativní a CI úspěchy výše tento negativní Android výsledek nemění.
 
 ![0.3.58: Ekans po odmítnutí Spinaraka](images/virelia-preview/rom58-ekans-after-spinarak.png)
 ![0.3.58: následný první souboj](images/virelia-preview/rom58-first-battle.png)
@@ -259,6 +266,18 @@ na dokončení. Úspěch těchto nativních kroků není potvrzením Android opr
   krátký/NULL/nezarovnaný cíl a SMOL scratch OOM.
 - `test/battle/virelia_preview_graphics.c`: běžný bojový engine načte každého
   startéra současně na straně hráče i soupeře a dokončí tah s poškozením.
+
+ROM režim současně využívá existující `test/compression/smol.c`: byte po
+bytu porovnává nezávislé nekomprimované vzory pro SMOL režimy 0–5 ve třech
+velikostech, FastLZ, původní LZ, tilesety a tilemapy do WRAM i VRAM.
+[Prologové CI59](https://github.com/hkcmoris/romhack/actions/runs/39664065194)
+je celé zelené včetně aggregate build. Story prošlo 5476 / 5924 a development
+5482 / 5930. Oba logy potvrzují všech 107 kompresních skupin a 22 nových
+skupin. Každý režim zachovává 18 KNOWN_FAILING, 421 TODO a 9 EXPECT_FAILING,
+bez nového selhání. [CI58 prvního Gymu](https://github.com/hkcmoris/romhack/actions/runs/39664056834)
+také prošlo celé včetně aggregate build, story 5494 / 5942 a development
+5492 / 5940. Všechny čtyři sady obou větví potvrzují 22 nových a 107
+kompresních skupin bez nového selhání. Android problém zůstává nevyřešený.
 
 Existující CI nadále sestavuje Emerald, release, FireRed i LeafGreen,
 spouští příběhové a vývojové testy včetně původních regresí a kontrolu dokumentace.

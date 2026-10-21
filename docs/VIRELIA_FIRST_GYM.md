@@ -234,8 +234,10 @@ See [the investigation](VIRELIA_PREVIEW_FREEZE.md) for exact commits, checks,
 remaining uncertainty and the required My Boy! test. The first corrected release `0.3.56` still failed on My Boy!: after a
 Spinarak preview, examining Ekans triggered a corrupted wild battle. The next
 controlled comparison runs the unchanged graphics decoder from immutable ROM.
-Android acceptance remains pending until that comparison succeeds on the
-affected device.
+The ROM-mode release `0.3.58` also froze on the affected device, once at Ekans
+and once on the first exit from the player home, before any preview. Android
+acceptance is unresolved despite both complete CI modes passing; investigation
+now requires a freeze-state captured on the phone.
 
 ## Validation status and manual checklist
 
