@@ -27518,6 +27518,42 @@ const u32 gObjectEventPic_Substitute[] = INCGFX_COMP("graphics/pokemon/question_
     const u16 gMonPalette_Wraithena[] = INCGFX_U16("graphics/pokemon/wraithena/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_Wraithena[] = INCGFX_U16("graphics/pokemon/wraithena/shiny.pal", ".gbapal");
     const u8 gMonIcon_Wraithena[] = INCGFX_U8("graphics/pokemon/wraithena/icon.png", ".4bpp");
+
+    const u32 gMonFrontPic_SpinarakVirelia[] = INCGFX_U32("graphics/pokemon/spinarak/virelia/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_SpinarakVirelia[] = INCGFX_U32("graphics/pokemon/spinarak/virelia/back.png", ".4bpp.smol");
+    const u16 gMonPalette_SpinarakVirelia[] = INCGFX_U16("graphics/pokemon/spinarak/virelia/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_SpinarakVirelia[] = INCGFX_U16("graphics/pokemon/spinarak/virelia/shiny.pal", ".gbapal");
+    const u8 gMonIcon_SpinarakVirelia[] = INCGFX_U8("graphics/pokemon/spinarak/virelia/icon.png", ".4bpp");
+
+    const u32 gMonFrontPic_AriadosVirelia[] = INCGFX_U32("graphics/pokemon/ariados/virelia/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_AriadosVirelia[] = INCGFX_U32("graphics/pokemon/ariados/virelia/back.png", ".4bpp.smol");
+    const u16 gMonPalette_AriadosVirelia[] = INCGFX_U16("graphics/pokemon/ariados/virelia/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_AriadosVirelia[] = INCGFX_U16("graphics/pokemon/ariados/virelia/shiny.pal", ".gbapal");
+    const u8 gMonIcon_AriadosVirelia[] = INCGFX_U8("graphics/pokemon/ariados/virelia/icon.png", ".4bpp");
+
+    const u32 gMonFrontPic_Arachnaut[] = INCGFX_U32("graphics/pokemon/arachnaut/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_Arachnaut[] = INCGFX_U32("graphics/pokemon/arachnaut/back.png", ".4bpp.smol");
+    const u16 gMonPalette_Arachnaut[] = INCGFX_U16("graphics/pokemon/arachnaut/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_Arachnaut[] = INCGFX_U16("graphics/pokemon/arachnaut/shiny.pal", ".gbapal");
+    const u8 gMonIcon_Arachnaut[] = INCGFX_U8("graphics/pokemon/arachnaut/icon.png", ".4bpp");
+
+    const u32 gMonFrontPic_EkansVirelia[] = INCGFX_U32("graphics/pokemon/ekans/virelia/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_EkansVirelia[] = INCGFX_U32("graphics/pokemon/ekans/virelia/back.png", ".4bpp.smol");
+    const u16 gMonPalette_EkansVirelia[] = INCGFX_U16("graphics/pokemon/ekans/virelia/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_EkansVirelia[] = INCGFX_U16("graphics/pokemon/ekans/virelia/shiny.pal", ".gbapal");
+    const u8 gMonIcon_EkansVirelia[] = INCGFX_U8("graphics/pokemon/ekans/virelia/icon.png", ".4bpp");
+
+    const u32 gMonFrontPic_ArbokVirelia[] = INCGFX_U32("graphics/pokemon/arbok/virelia/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_ArbokVirelia[] = INCGFX_U32("graphics/pokemon/arbok/virelia/back.png", ".4bpp.smol");
+    const u16 gMonPalette_ArbokVirelia[] = INCGFX_U16("graphics/pokemon/arbok/virelia/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_ArbokVirelia[] = INCGFX_U16("graphics/pokemon/arbok/virelia/shiny.pal", ".gbapal");
+    const u8 gMonIcon_ArbokVirelia[] = INCGFX_U8("graphics/pokemon/arbok/virelia/icon.png", ".4bpp");
+
+    const u32 gMonFrontPic_Infernabra[] = INCGFX_U32("graphics/pokemon/infernabra/anim_front.png", ".4bpp.smol");
+    const u32 gMonBackPic_Infernabra[] = INCGFX_U32("graphics/pokemon/infernabra/back.png", ".4bpp.smol");
+    const u16 gMonPalette_Infernabra[] = INCGFX_U16("graphics/pokemon/infernabra/normal.pal", ".gbapal");
+    const u16 gMonShinyPalette_Infernabra[] = INCGFX_U16("graphics/pokemon/infernabra/shiny.pal", ".gbapal");
+    const u8 gMonIcon_Infernabra[] = INCGFX_U8("graphics/pokemon/infernabra/icon.png", ".4bpp");
 #endif //P_VIRELIA_STARTERS
 
     const u32 gMonFrontPic_Egg[] = INCGFX_U32("graphics/pokemon/egg/anim_front.png", ".4bpp.smol");

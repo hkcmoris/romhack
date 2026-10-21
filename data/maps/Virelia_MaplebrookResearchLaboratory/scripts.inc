@@ -93,31 +93,55 @@ Virelia_MaplebrookResearchLaboratory_EventScript_GrassStarter::
 	lockall
 	faceplayer
 	setvar VAR_0x8004, VIRELIA_STARTER_GRASS
-	msgbox Virelia_MaplebrookResearchLaboratory_Text_GrassStarter, MSGBOX_DEFAULT
-	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_ExamineStarter
 
 Virelia_MaplebrookResearchLaboratory_EventScript_WaterStarter::
 	lockall
 	faceplayer
 	setvar VAR_0x8004, VIRELIA_STARTER_WATER
-	msgbox Virelia_MaplebrookResearchLaboratory_Text_WaterStarter, MSGBOX_DEFAULT
-	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_ExamineStarter
 
 Virelia_MaplebrookResearchLaboratory_EventScript_FireStarter::
 	lockall
 	faceplayer
 	setvar VAR_0x8004, VIRELIA_STARTER_FIRE
-	msgbox Virelia_MaplebrookResearchLaboratory_Text_FireStarter, MSGBOX_DEFAULT
-	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_ExamineStarter
 
-Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter:
+@ Guard remaining displays before opening a Pokemon preview.
+Virelia_MaplebrookResearchLaboratory_EventScript_ExamineStarter:
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
 	checkflag FLAG_VIRELIA_STARTER_RECEIVED
 	goto_if TRUE, Virelia_MaplebrookResearchLaboratory_EventScript_AlreadyChosen
 	checkflag FLAG_VIRELIA_MOM_MET
 	goto_if FALSE, Virelia_MaplebrookResearchLaboratory_EventScript_SeeMom
+#endif
+	switch VAR_0x8004
+	case VIRELIA_STARTER_GRASS, Virelia_MaplebrookResearchLaboratory_EventScript_PreviewGrassStarter
+	case VIRELIA_STARTER_WATER, Virelia_MaplebrookResearchLaboratory_EventScript_PreviewWaterStarter
+	case VIRELIA_STARTER_FIRE, Virelia_MaplebrookResearchLaboratory_EventScript_PreviewFireStarter
+	releaseall
+	end
+
+Virelia_MaplebrookResearchLaboratory_EventScript_PreviewGrassStarter:
+	showmonpic SPECIES_POOCHYENA_VIRELIA, 10, 3
+	msgbox Virelia_MaplebrookResearchLaboratory_Text_GrassStarter, MSGBOX_DEFAULT
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
+
+Virelia_MaplebrookResearchLaboratory_EventScript_PreviewWaterStarter:
+	showmonpic SPECIES_SPINARAK_VIRELIA, 10, 3
+	msgbox Virelia_MaplebrookResearchLaboratory_Text_WaterStarter, MSGBOX_DEFAULT
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
+
+Virelia_MaplebrookResearchLaboratory_EventScript_PreviewFireStarter:
+	showmonpic SPECIES_EKANS_VIRELIA, 10, 3
+	msgbox Virelia_MaplebrookResearchLaboratory_Text_FireStarter, MSGBOX_DEFAULT
+	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
+
+Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter:
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_ConfirmStarter, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, Virelia_MaplebrookResearchLaboratory_EventScript_CancelChoice
+	hidemonpic
+	goto_if_ne VAR_RESULT, YES, Virelia_MaplebrookResearchLaboratory_EventScript_CancelChoice
 	call VireliaPrologue_EventScript_TryGiveStarter
 	goto_if_eq VAR_RESULT, FALSE, Virelia_MaplebrookResearchLaboratory_EventScript_StarterFailed
 	closemessage
@@ -129,6 +153,7 @@ Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter:
 	closemessage
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_StarterScene
 #else
+	hidemonpic
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_Exhibition, MSGBOX_DEFAULT
 #endif
 	release

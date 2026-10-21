@@ -29,10 +29,12 @@ species IDs are unchanged. The grass family's first stage differs from its evolu
 | `SPECIES_ARIADOS_VIRELIA` | 1577 | Water/Bug | Arachnaut | 34 | 168 |
 | `SPECIES_ARACHNAUT` | 1578 | Water/Bug | Final stage | — | 1027 |
 | `SPECIES_EKANS_VIRELIA` | 1579 | Fire/Poison | Virelian Arbok | 16 | 23 |
-| `SPECIES_ARBOK_VIRELIA` | 1580 | Fire/Poison | Cindracoil | 36 | 24 |
+| `SPECIES_ARBOK_VIRELIA` | 1580 | Fire/Poison | Infernabra | 36 | 24 |
 | `SPECIES_CINDRACOIL` | 1581 | Fire/Poison | Final stage | — | 1028 |
 
-Wraithena and Cindracoil are temporary names; Arachnaut is a working name.
+The Fire/Poison final stage is named Infernabra. Its internal
+`SPECIES_CINDRACOIL` and `NATIONAL_DEX_CINDRACOIL` identifiers remain internal
+names. Wraithena and Arachnaut retain their working names.
 Regional forms retain the short original species names in the game's name fields;
 use their types, description, or the test NPC's family selection to identify them.
 The form tables pair each original with its regional variant, with the original
@@ -60,7 +62,7 @@ These are base stats, not the calculated stats shown on an individual Pokemon.
 | Arachnaut | 94 | 102 | 100 | 58 | 98 | 78 | 530 |
 | Virelian Ekans | 45 | 40 | 45 | 70 | 45 | 65 | 310 |
 | Virelian Arbok | 60 | 55 | 60 | 90 | 65 | 85 | 415 |
-| Cindracoil | 78 | 72 | 75 | 119 | 88 | 98 | 530 |
+| Infernabra | 78 | 72 | 75 | 119 | 88 | 98 | 530 |
 
 | Family | Normal ability | Hidden ability | Intended role |
 | --- | --- | --- | --- |
@@ -135,41 +137,79 @@ Teachable moves temporarily reuse each source species' existing compatibility
 list; finals reuse the original second stage's list. These lists need a later
 balance pass. No new TM or egg move is introduced.
 
-## Battle graphics and placeholder assets
+## Battle graphics and reused assets
 
-Virelian Poochyena, Virelian Mightyena and Wraithena use custom battle graphics
-and normal/shiny palettes. Each `anim_front.png` contains two vertically stacked
-64x64 frames (a 64x128 sheet); each `back.png` is 64x64. The shiny palettes color
-the sage fur deep blue while retaining the same sprite pixels.
+All three starter families use custom battle graphics, normal/shiny palettes
+and party icons, including their final stages Wraithena, Arachnaut and Infernabra.
+Each `anim_front.png` contains two vertically stacked 64x64 frames (a 64x128
+sheet); each `back.png` is 64x64. Shiny forms use the same pixel indices with
+a different palette. The grass family's shiny palette colors its sage fur
+deep blue. The fire family uses purple scales and a tan underside; its shiny
+palette changes the purple scales to charcoal while keeping the warm lava colors.
+The water family uses aquatic colors with pink/purple shiny bodies. Its air
+sacs retain blue/cyan shades in both normal and shiny palettes.
 
 | Species | Battle graphics directory |
 | --- | --- |
 | Virelian Poochyena | `graphics/pokemon/poochyena/virelia/` |
 | Virelian Mightyena | `graphics/pokemon/mightyena/virelia/` |
 | Wraithena | `graphics/pokemon/wraithena/` |
+| Virelian Spinarak | `graphics/pokemon/spinarak/virelia/` |
+| Virelian Ariados | `graphics/pokemon/ariados/virelia/` |
+| Arachnaut | `graphics/pokemon/arachnaut/` |
+| Virelian Ekans | `graphics/pokemon/ekans/virelia/` |
+| Virelian Arbok | `graphics/pokemon/arbok/virelia/` |
+| Infernabra | `graphics/pokemon/infernabra/` |
 
 The grass family's party icons are separate copies of the original Poochyena
 and Mightyena icons, recolored and adapted to match the new battle sprites.
+The fire family follows the same original-sprite-first approach with Ekans
+and Arbok, then adds the concept's volcanic cracks, flames and hood markings.
+Infernabra has a larger, rocky hood and its own final-stage silhouette.
+The water family starts from recolored original Spinarak and Ariados sprites,
+then adapts them to the aquatic concept. Its final stage keeps the name
+Arachnaut and has its own battle silhouette.
+Fire-family back sprites follow the original GBA battle framing: Ekans shows
+its rear head and upper neck; Arbok and Infernabra show their rear head and hood.
+They do not include the full coiled body or tail. Water-family back sprites
+likewise use close-up rear views of the head and thorax, with the dorsal air
+sacs exposed on the camera-facing side of the carapace.
 Each `icon.png` in the directories above is a 32x64 indexed sheet with two 32x32
-animation frames. The icons use the existing green icon palette (index 1).
+animation frames. The grass icons use the existing green icon palette (index 1);
+the water icons use palette 3, and the fire icons use the existing purple/orange
+icon palette (index 5).
 
-The other two families still use placeholder battle sprites, palettes and party
-icons. Footprints, cries and applicable overworld graphics for all three families
+Fire-family artwork was prepared with the built-in image generator: recolor the
+original Ekans and Arbok sheets first, then adapt them using the supplied concept.
+The local authoring sheets and exact prompts are saved under
+`outputs/virelia/fire-sprites/`; they are not needed to compile the game.
+`python tools/virelia/build_fire_sprite_assets.py` re-exports the local sheets
+and standalone corrected back views into indexed 4-bit PNGs and 16-entry palettes. It checks transparency, palette
+indices, frame differences and canvas bounds, and writes a scaled review sheet
+and exact sprite bounds to the same output directory.
+
+Water-family artwork follows the same recolor-first, concept-adaptation process.
+Its local authoring sheets and prompts are under `outputs/virelia/water-sprites/`.
+`python tools/virelia/build_water_sprite_assets.py` exports the native front
+frames, cropped back views, normal/shiny palettes and party icons. These authoring
+files are not needed to compile the game.
+
+Footprints, cries and applicable overworld graphics for all three families
 continue to reference the sources below. Original image files are not recolored
 or overwritten.
 
-| Prototype stages | Placeholder asset source |
+| Prototype stages | Reused asset source |
 | --- | --- |
 | Virelian Poochyena | Poochyena |
 | Virelian Mightyena, Wraithena | Mightyena |
 | Virelian Spinarak | Spinarak |
 | Virelian Ariados, Arachnaut | Ariados |
 | Virelian Ekans | Ekans |
-| Virelian Arbok, Cindracoil | Arbok |
+| Virelian Arbok, Infernabra | Arbok |
 
-Arachnaut and Cindracoil consequently still look like their second stages in
-battle; Wraithena has its own final-stage art. Height, weight and display scale
-remain provisional: Wraithena 1.0 m/37.0 kg, Arachnaut 1.1 m/33.5 kg, Cindracoil
+Wraithena, Arachnaut and Infernabra each have their own final-stage battle art.
+Height, weight and display scale remain
+provisional: Wraithena 1.0 m/37.0 kg, Arachnaut 1.1 m/33.5 kg, Infernabra
 3.5 m/65.0 kg.
 
 ## Development access and testing
@@ -189,8 +229,7 @@ normal species and dex behavior and do not expose the test NPC.
 2. Choose **NEW GAME**, select gender and name, then finish the existing Duo team
    prompt. The quick start places you at Littleroot `(17, 13)`.
 3. Speak to the separate scientist at `(18, 12)`, immediately east of the Duo
-   guide at `(17, 12)`. Approach from `(18, 13)`. If continuing an older save
-   inside Littleroot, leave and re-enter town once to load the new NPC template.
+   guide at `(17, 12)`. Approach from `(18, 13)`.
 4. Choose a family, a stage, and a level. Available levels are **5, 10, 14, 16, 18,
    20, 30, 34, 36, 38, 40, 50**. Scroll the menu to see later entries.
 5. Open **POKEMON → SUMMARY** to inspect name, types, calculated stats, ability,
@@ -216,7 +255,7 @@ evolve it. Cancel with **B** only when deliberately testing cancellation.
 | Virelian Spinarak, level 10 | Level 13 (3 candies) | Level 14: Virelian Ariados |
 | Virelian Ariados, level 30 | Level 33 (3 candies) | Level 34: Arachnaut |
 | Virelian Ekans, level 10 | Level 15 (5 candies) | Level 16: Virelian Arbok |
-| Virelian Arbok, level 30 | Level 35 (5 candies) | Level 36: Cindracoil |
+| Virelian Arbok, level 30 | Level 35 (5 candies) | Level 36: Infernabra |
 
 After each evolution, recheck the two types and moves. Also create first stages
 at the exact threshold and one of the offered higher levels: they should retain
@@ -228,7 +267,7 @@ same feature ROM; old ROMs and FireRed/LeafGreen builds do not define these new
 species. Do not trade them to a ROM that lacks their IDs. No link protocol,
 Link Battle, or Battle Tower code is changed.
 
-## Engine adaptations and save compatibility
+## Engine adaptations and playtest save policy
 
 - New IDs 1573–1581 fit the existing 11-bit stored species field (maximum 2047).
   Native `Pokemon` and `BoxPokemon` layouts and encryption remain unchanged.
@@ -248,12 +287,12 @@ Link Battle, or Battle Tower code is changed.
   Boolean context, then restores the previous macros. This keeps the guide
   enabled when its species exist without changing unrelated script conditions.
 - No new persistent development flags or variables are allocated. NPC visibility
-  uses a map-local temporary flag. Existing saves can use the added NPC when they
-  reach Littleroot; the inherited quick start itself applies to new games.
-- Save compatibility is with the selected expansion baseline and configuration,
-  not retail Emerald or unrelated hacks. Back up a save before changing ROMs.
-  Once it contains custom species, loading it in an older build that lacks those
-  definitions is unsupported even though the serialized structure size is equal.
+  uses a map-local temporary flag; the inherited quick start applies to new games.
+- Before the stable release, discard saves from previous playtest versions and
+  choose **NEW GAME** whenever switching versions. Cross-version save
+  compatibility is not promised, even when serialized structure sizes match.
+  Saving and loading within the current build must still preserve Pokemon,
+  items and progression correctly.
 
 ## Planned mechanics: not implemented
 
@@ -281,8 +320,7 @@ checks of the NPC menus, summary pages, battle sprites, and evolution animations
 remain a playtest task; no completed emulator playthrough is claimed here.
 
 Remaining work: starter-vs-starter and campaign balance, per-stage move pacing,
-TM/egg-move review, final names (especially the provisional fire family), custom
-battle sprites/palettes and party icons for the Water and Fire families, custom
-footprints, cries and overworld graphics for all families, final physical
+TM/egg-move review, remaining working names, custom footprints, cries and
+overworld graphics for all families, final physical
 dimensions and dex prose, signature mechanic design/testing, and a future
 Virelia regional dex.

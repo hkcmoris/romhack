@@ -24,8 +24,10 @@ species. This document supersedes their development-start instructions.
    automatically. She sends the player to the research laboratory and later provides
    unlimited free healing. The home also serves as the blackout destination.
 3. Visit **profesorka Javorová**. Her laboratory studies adaptations to Virelia's
-   ecosystems. Three separate Poké Ball displays describe the regional starters.
-   Each asks for confirmation; cancellation leaves all choices available.
+   ecosystems. Examining each starter Poké Ball shows that regional Pokemon's
+   front sprite alongside its description and selection prompt, using the native
+   picture window. Confirming or declining closes the preview; pressing B counts
+   as declining and leaves all choices available.
 4. Choose exactly one level-5 regional Pokémon. The normal gift-Pokémon routine
    creates its local OT, personality, IVs, normal ability, eligible moves, HP/PP,
    met location and Pokédex records. Re-entering or choosing another display
@@ -127,11 +129,14 @@ starters do not replace those encounters. A Potion item ball uses the existing
 
 ## Saved state and idempotency
 
-All state uses existing unused flag/variable slots. No field is added to either
-save block, and no existing save is deleted, reset or converted by loading it.
-The story initializer runs only for a newly created game. An old development
-save does not automatically become a Virelia story save; start a separate new
-game to test the story and retain a backup of existing saves.
+Before the stable release, discard saves from previous playtest versions and
+choose **NEW GAME** whenever switching versions. Cross-version save compatibility
+is not promised. Saving and loading within the current build must still preserve
+Pokemon, items, position and story state correctly.
+
+Story state uses existing unused flag/variable slots. The story initializer runs
+only for a newly created game. Development and story playtests use separate new
+games.
 
 Definitions live in `include/constants/virelia_prologue.h`.
 
@@ -167,12 +172,11 @@ repeating dialogue, declining a choice or loading a checkpoint cannot grant
 additional starters or bundles. Hana's reward flag is set only after the item
 fits into the Bag. The full Bag case leaves the reward available for a retry.
 
-The laboratory synchronizes Ball visibility before spawning its objects. Older
-story saves hide the player's chosen Ball and, if the first battle is complete,
-the rival's Ball. Existing pickup flags are never cleared in story mode. An
-older save between the gift and battle can resume the pickup scene by speaking
-to Viktor or approaching the exit. Completed saves do not replay it.
-Development and nonstory builds retain all three exhibition Balls.
+The laboratory synchronizes Ball visibility before spawning its objects.
+Existing pickup flags are never cleared in story mode, and completed story
+states do not replay the scene. Legacy recovery code remains an implementation
+fallback, not a cross-version save compatibility commitment. Development and
+nonstory builds retain all three exhibition Balls.
 
 ## Czech localization
 
@@ -328,10 +332,8 @@ with **each** starter and record the ROM commit, emulator and elapsed time:
   order, including revisits and a full Bag reward retry.
 - Lose once to Rocket, heal and retry. Win, read the clue and policeman scene,
   leave and return; the conclusion must not repeat and the Gym must stay closed.
-- Save and reload at home, after rival, on the route and after Rocket. Confirm
-  party, items, position and story/trainer flags. Also load an older checkpoint
-  between starter selection and the rival battle, then trigger the scene by
-  talking to Viktor or walking to either exit tile.
+- Save and reload within the same build at home, after rival, on the route and
+  after Rocket. Confirm party, items, position and story/trainer flags.
 - Inspect every reachable screen listed in the localization audit. Check actual
   GBA text windows for clipping, accents, substitutions and remaining English.
 - Separately start a mode-1 build and check the original test facilities. Link

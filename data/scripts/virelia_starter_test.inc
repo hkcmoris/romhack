@@ -245,7 +245,7 @@ VireliaStarterTest_Text_EKANS_VIRELIA:
 VireliaStarterTest_Text_ARBOK_VIRELIA:
 	.string "ARBOK$"
 VireliaStarterTest_Text_CINDRACOIL:
-	.string "CINDRACOIL$"
+	.string "INFERNABRA$"
 VireliaStarterTest_Text_Level5:
 	.string "Úr. 5$"
 VireliaStarterTest_Text_Level10:

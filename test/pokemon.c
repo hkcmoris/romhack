@@ -10,6 +10,20 @@
 #include "constants/daycare.h"
 #include "constants/move_relearner.h"
 
+TEST("ZeroMonData clears lost HP when reusing a populated slot")
+{
+    struct Pokemon mon = {0};
+    mon.maxHP = 198;
+    mon.hp = 150;
+    ZeroMonData(&mon);
+    EXPECT_EQ(GetMonData(&mon, MON_DATA_SPECIES), SPECIES_NONE);
+    EXPECT_EQ(GetMonData(&mon, MON_DATA_HP), 0);
+    EXPECT_EQ(GetMonData(&mon, MON_DATA_MAX_HP), 0);
+    EXPECT_EQ(GetMonData(&mon, MON_DATA_HP_LOST), 0);
+    EXPECT_EQ(GetMonData(&mon, MON_DATA_STATUS), STATUS1_NONE);
+    EXPECT_EQ(GetMonData(&mon, MON_DATA_MAIL), MAIL_NONE);
+}
+
 TEST("Nature independent from Hidden Nature")
 {
     u32 i, j, nature = 0, hiddenNature = 0;

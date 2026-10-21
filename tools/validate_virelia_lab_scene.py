@@ -22,6 +22,8 @@ PLAYER = "LOCALID_PLAYER"
 VIKTOR = "LOCALID_VIRELIA_LAB_VIKTOR"
 CHOICES = ("GRASS", "WATER", "FIRE")
 COUNTER = {"GRASS": "FIRE", "WATER": "GRASS", "FIRE": "WATER"}
+STARTER_SPECIES = {"GRASS": "SPECIES_POOCHYENA_VIRELIA",
+                   "WATER": "SPECIES_SPINARAK_VIRELIA", "FIRE": "SPECIES_EKANS_VIRELIA"}
 DIRECTIONS = {"DIR_SOUTH": (0, 1), "DIR_NORTH": (0, -1),
               "DIR_WEST": (-1, 0), "DIR_EAST": (1, 0)}
 ACTION_DIRECTIONS = {"down": "DIR_SOUTH", "up": "DIR_NORTH",
@@ -183,7 +185,7 @@ def facing_between(source, target):
 
 class Scene:
     def __init__(self, world, program, choice, start, selected, *, legacy=False,
-                 hidden=False, completed=False, accepted=True, gift_success=True):
+                 hidden=False, completed=False, accepted=True, gift_success=True, met_mom=True):
         self.world, self.program, self.choice = world, program, choice
         self.legacy, self.accepted, self.gift_success = legacy, accepted, gift_success
         self.positions = {key: (obj["x"], obj["y"]) for key, obj in world.objects.items()}
@@ -194,7 +196,9 @@ class Scene:
                         for key, obj in world.objects.items()}
         self.facings[PLAYER] = facing_between(start, self.positions[selected]) if selected else "DIR_SOUTH"
         self.selected = selected
-        self.flags = {"FLAG_VIRELIA_MOM_MET", "FLAG_VIRELIA_PROFESSOR_MET"}
+        self.flags = {"FLAG_VIRELIA_PROFESSOR_MET"}
+        if met_mom:
+            self.flags.add("FLAG_VIRELIA_MOM_MET")
         self.variables = {"VAR_VIRELIA_STARTER": world.constants["VIRELIA_STARTER_" + choice],
                           "VAR_RESULT": 0}
         self.given = legacy
@@ -211,6 +215,11 @@ class Scene:
         self.removals = []
         self.battles = []
         self.steps = 0
+        self.preview_species = None
+        self.preview_count = 0
+        self.expect_preview = selected in world.balls.values() and not legacy and met_mom
+        self.starter_description_seen = False
+        self.confirmation_seen = False
         self.dialogue_ready = False
         self.locked = False
         self.compare = None
@@ -281,6 +290,8 @@ class Scene:
         # Only native state transitions are stubbed; all event control flow and
         # movement remain the real sources. The C suite checks these contracts.
         if name == "VireliaPrologue_GiveStarter":
+            require(self.confirmation_seen and self.accepted is True, "starter gift was not confirmed")
+            require(self.preview_species is None, "starter preview remains open when giving the Pokemon")
             self.variables["VAR_RESULT"] = int(self.gift_success)
             if self.gift_success:
                 self.given = True
@@ -311,6 +322,9 @@ class Scene:
                     self.settled()
                     require(not stack, "script ends inside a subroutine")
                     require(not self.locked, "script ends with the player locked")
+                    require(self.preview_species is None, "script ends with the starter preview open")
+                    require(self.preview_count == int(self.expect_preview), "starter examination did not show exactly one preview")
+                    require(self.confirmation_seen == self.expect_preview, "starter examination skipped its confirmation")
                     require(len(self.battles) == int(expect_battle), f"expected {int(expect_battle)} battle, got {len(self.battles)}")
                     if expect_battle:
                         require(RIVAL_FLAG in self.flags, "script ends without recording rival completion")
@@ -360,14 +374,32 @@ class Scene:
                 elif command in ("release", "releaseall"):
                     self.settled()
                     require(not expect_battle or self.battles, "scene releases control before the rival battle")
+                    require(self.preview_species is None, "script releases control with the starter preview open")
                     self.locked = False
+                elif command == "showmonpic":
+                    require(self.locked and self.preview_species is None, "preview needs a locked scene and no existing picture")
+                    require(STARTER_FLAG not in self.flags and "FLAG_VIRELIA_MOM_MET" in self.flags,
+                            "starter preview opened before its availability guards")
+                    require(self.value(args[0]) == STARTER_SPECIES[self.choice], "preview shows the wrong regional starter")
+                    self.preview_species = self.value(args[0])
+                    self.preview_count += 1
+                elif command == "hidemonpic":
+                    self.preview_species = None
                 elif command == "faceplayer":
                     if self.selected in self.visible:
                         self.facings[self.selected] = facing_between(self.positions[self.selected], self.positions[PLAYER])
                 elif command == "msgbox":
                     self.settled()
+                    if args[0] == MAP + "_Text_" + self.choice.title() + "Starter":
+                        require(self.preview_species == STARTER_SPECIES[self.choice], "starter description has no correct preview")
+                        self.starter_description_seen = True
+                    if args[0] == MAP + "_Text_ConfirmStarter":
+                        require(self.starter_description_seen and self.preview_species == STARTER_SPECIES[self.choice],
+                                "starter confirmation has no correct preview or description")
+                        self.confirmation_seen = True
                     if args[-1] == "MSGBOX_YESNO":
-                        self.variables["VAR_RESULT"] = int(self.accepted)
+                        # Native Task_HandleYesNoInput maps both No and B to 0.
+                        self.variables["VAR_RESULT"] = int(self.accepted is True)
                     if args[0] == MAP + "_Text_RivalIntro":
                         require(len(self.removals) == 2, "battle invitation precedes both pickups")
                         self.adjacent()
@@ -383,6 +415,7 @@ class Scene:
                     self.facings[self.actor(args[0])] = self.value(args[1])
                 elif command == "applymovement":
                     require(self.locked, "scripted walking starts without locking the scene")
+                    require(self.preview_species is None, "scripted walking starts with the starter preview open")
                     self.settled()  # Concurrent movement needs a frame-timing model.
                     actor = self.actor(args[0])
                     require(actor in self.visible, f"movement applied to absent {actor}")
@@ -427,7 +460,7 @@ class Scene:
 def validate(root=ROOT, script_source=None):
     """Return a JSON-safe report; optionally validate an in-memory script variant."""
     report = {"passed": False, "fresh_routes": 0, "legacy_routes": 0,
-              "guard_cases": 0, "walked_tiles": 0, "errors": []}
+              "guard_cases": 0, "preview_cases": 0, "walked_tiles": 0, "errors": []}
     try:
         world, program = World(Path(root)), Program(Path(root), script_source)
         reachable = world.reachable()
@@ -444,6 +477,7 @@ def validate(root=ROOT, script_source=None):
                 scene = Scene(world, program, choice, position, selected, **options)
                 scene.run(entry, battle)
                 report["walked_tiles"] += scene.steps
+                report["preview_cases"] += scene.preview_count
             except (SceneError, KeyError, StopIteration) as error:
                 report["errors"].append(f"{name}: {error}")
 
@@ -456,7 +490,13 @@ def validate(root=ROOT, script_source=None):
                 name = f"{choice} fresh from {position}"
                 check("fresh_routes", name, ball["script"], choice, position, ball_id, True)
                 check("guard_cases", name + " declined", ball["script"], choice, position, ball_id, False, accepted=False)
+                check("guard_cases", name + " B cancelled", ball["script"], choice, position, ball_id, False, accepted="cancel")
                 check("guard_cases", name + " gift failed", ball["script"], choice, position, ball_id, False, gift_success=False)
+                check("guard_cases", name + " before meeting Mom", ball["script"], choice, position, ball_id, False, met_mom=False)
+                for prior_choice in CHOICES:
+                    if prior_choice != choice:
+                        check("guard_cases", name + " after choosing " + prior_choice, ball["script"], prior_choice,
+                              position, ball_id, False, legacy=True)
             for entry, position, selected in legacy_entries:
                 require(position in reachable, f"legacy entrance {position} is unreachable")
                 for hidden in (False, True):
@@ -476,6 +516,10 @@ def mutation_checks(root=ROOT):
     source = (Path(root) / f"data/maps/{MAP}/scripts.inc").read_text(encoding="utf-8")
     movement = MAP + "_Movement_"
     mutations = {
+        "missing_preview": ("showmonpic SPECIES_POOCHYENA_VIRELIA, 10, 3", "delay 1"),
+        "wrong_preview_species": ("showmonpic SPECIES_SPINARAK_VIRELIA, 10, 3", "showmonpic SPECIES_SPINARAK, 10, 3"),
+        "early_preview_close": ("showmonpic SPECIES_EKANS_VIRELIA, 10, 3", "showmonpic SPECIES_EKANS_VIRELIA, 10, 3\n\thidemonpic"),
+        "missing_preview_close": ("\thidemonpic\n", "\tdelay 1\n"),
         "wall": (movement + "Down3:\n\twalk_down", movement + "Down3:\n\twalk_left"),
         "npc": (movement + "ToFire:\n", movement + "ToFire:\n\twalk_right\n"),
         "ball": (movement + "ToWater:\n", movement + "ToWater:\n\twalk_up\n"),

@@ -674,6 +674,9 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
     PARAMETRIZE { checkpoint = 1; } // Starter chosen, rival not fought.
     PARAMETRIZE { checkpoint = 2; } // Rival lost, party healed, supplies obtained.
     PARAMETRIZE { checkpoint = 3; } // Rocket/finale, optional quest and trainers done.
+    // Reuse an occupied slot so the pre-starter save also checks party clearing,
+    // independently of which test ran before this one.
+    gParties[B_TRAINER_PLAYER][0].maxHP = 198;
     InitPrologueTest();
     if (checkpoint >= 1)
         ReceivePrologueStarter(VIRELIA_STARTER_WATER);

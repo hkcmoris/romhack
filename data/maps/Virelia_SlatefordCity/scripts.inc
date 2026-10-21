@@ -163,8 +163,9 @@ Virelia_SlatefordCity_Text_MinerReport:
 	.string "vodivých minerálů z lomu.\p"
 	.string "Někdo se vydává za údržbáře\n"
 	.string "a ptá se na další zásilku.\p"
-	.string "Stojí u cesty k lomu. Poznáš ho.\n"
-	.string "Má čisté boty. Tady podezřelé.$"
+	.string "Stojí u cesty k lomu. Poznáš ho.\p"
+	.string "Má čisté boty.\n"
+	.string "To je hodně podezřelé.$"
 
 Virelia_SlatefordCity_Text_MinerAfter:
 	.string "Horník: Za vzorek díky. Až se\n"
@@ -173,14 +174,15 @@ Virelia_SlatefordCity_Text_MinerAfter:
 	.string "Jedna výprava za druhou, dobře?$"
 
 Virelia_SlatefordCity_Text_Resident:
-	.string "Maplebrook Town leží jižně,\n"
-	.string "za Whisperwood Trail.\p"
+	.string "Městečko Maplebrook leží jižně,\n"
+	.string "za stezkou Whisperwood Trail.\p"
 	.string "Máma i profesorka tam tvým\n"
 	.string "Pokémonům dopřejí odpočinek.$"
 
 Virelia_SlatefordCity_Text_WorkerBusy:
-	.string "ÚDRŽBÁŘ: Mám práci. Zeptej se\n"
-	.string "horníka u lomu, ten ví všechno.$"
+	.string "ÚDRŽBÁŘ: Neotravuj, mám práci.\p"
+	.string "Zeptej se horníka u lomu,\n"
+	.string "ten ví všechno.$"
 
 Virelia_SlatefordCity_Text_Maintenance:
 	.string "ÚDRŽBÁŘ: Probíhá průzkum lomu.\n"
@@ -189,11 +191,11 @@ Virelia_SlatefordCity_Text_Maintenance:
 Virelia_SlatefordCity_Text_Worker:
 	.string "ÚDRŽBÁŘ: Ukradené minerály?\n"
 	.string "Já jen kontroluji jejich odvoz.\p"
-	.string "To R na rukávu? Revize.\n"
+	.string "To R na rukávu? To je jen Revize.\n"
 	.string "Velmi důkladná revize…$"
 
 Virelia_SlatefordCity_Text_RocketIntro:
-	.string "POSKOK: Dobře. Tým Rocket.\n"
+	.string "POSKOK: No dobře. Rakeťáci!\n"
 	.string "A ten náklad si necháme!$"
 
 Virelia_SlatefordCity_Text_RocketDefeat:
@@ -210,7 +212,8 @@ Virelia_SlatefordCity_Text_Policeman:
 	.string "Ty řešíš souboje.\n"
 	.string "Já papíry. Dobrá spolupráce.\p"
 	.string "Vzorek předám lidem z lomu.\n"
-	.string "Ten štítek si zaslouží prověřit.$"
+	.string "Ten štítek si zaslouží prověřit.\p"
+	.string "Já jsem tak dobrej…$"
 
 Virelia_SlatefordCity_Text_PrologueComplete:
 	.string "První výprava je za tebou!\p"

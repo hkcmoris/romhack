@@ -805,8 +805,9 @@ void ZeroMonData(struct Pokemon *mon)
     arg = 0;
     SetMonData(mon, MON_DATA_STATUS, &arg);
     SetMonData(mon, MON_DATA_LEVEL, &arg);
-    SetMonData(mon, MON_DATA_HP, &arg);
+    // Setting HP also updates box.hpLost, so clear maxHP before it is read.
     SetMonData(mon, MON_DATA_MAX_HP, &arg);
+    SetMonData(mon, MON_DATA_HP, &arg);
     SetMonData(mon, MON_DATA_ATK, &arg);
     SetMonData(mon, MON_DATA_DEF, &arg);
     SetMonData(mon, MON_DATA_SPEED, &arg);
