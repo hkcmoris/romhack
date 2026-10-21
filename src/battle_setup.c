@@ -1,4 +1,5 @@
 #include "global.h"
+#include "myboy_diag.h"
 #include "virelia_first_gym.h"
 #include "data.h"
 #include "main.h"
@@ -248,6 +249,7 @@ static void Task_BattleStart(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
 
+    MyBoyDiag_Battle(tTransition, tState);
     switch (tState)
     {
     case 0:
@@ -275,6 +277,7 @@ static void Task_BattleStart(u8 taskId)
 
 static void CreateBattleStartTask(enum BattleTransition transition, u16 song)
 {
+    MyBoyDiag_Battle(transition, 0xFFFFFFFF);
     u8 taskId = CreateTask(Task_BattleStart, 1);
 
     gTasks[taskId].tTransition = transition;

@@ -22,6 +22,7 @@
 #include "text.h"
 #include "intro.h"
 #include "main.h"
+#include "myboy_diag.h"
 #include "trainer_hill.h"
 #include "test_runner.h"
 #include "constants/rgb.h"
@@ -91,6 +92,7 @@ void EnableVCountIntrAtLine150(void);
 
 void AgbMain(void)
 {
+    MyBoyDiag_Init();
     *(vu16 *)BG_PLTT = RGB_WHITE; // Set the backdrop to white on startup
     InitGpuRegManager();
     REG_WAITCNT = WAITCNT_PREFETCH_ENABLE
@@ -193,14 +195,25 @@ static void InitMainCallbacks(void)
 static void CallCallbacks(void)
 {
     if (gMain.callback1)
+    {
+        MyBoyDiag_CheckCallback((uintptr_t)gMain.callback1, 5);
         gMain.callback1();
+    }
 
     if (gMain.callback2)
+    {
+        MyBoyDiag_CheckCallback((uintptr_t)gMain.callback2, 6);
         gMain.callback2();
+    }
 }
 
 void SetMainCallback2(MainCallback callback)
 {
+    MyBoyDiag_CheckCallback((uintptr_t)callback, 3);
+    MyBoyDiag_Record(MYBOY_EVENT_CALLBACK, (uintptr_t)callback, (uintptr_t)gMain.callback2);
+#if MYBOY_DIAGNOSTIC_MODE
+    gMyBoyDiagBuffer.lastCallback = (uintptr_t)callback;
+#endif
     gMain.callback2 = callback;
     gMain.state = 0;
 }

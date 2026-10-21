@@ -8,6 +8,7 @@
 - [Virelia playable prologue](./VIRELIA_PROLOGUE.md)
 - [Virelia first Gym](./VIRELIA_FIRST_GYM.md)
 - [Virelia preview freeze investigation](./VIRELIA_PREVIEW_FREEZE.md)
+- [My Boy! compatibility investigation](./MYBOY_COMPATIBILITY.md)
 - [Virelia Czech localization audit](./VIRELIA_LOCALIZATION_AUDIT.md)
 - [FEATURES](./FEATURES.md)
 - [Installation](./INSTALL.md)

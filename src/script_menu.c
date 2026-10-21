@@ -8,6 +8,7 @@
 #include "palette.h"
 #include "script.h"
 #include "script_menu.h"
+#include "myboy_diag.h"
 #include "sound.h"
 #include "string_util.h"
 #include "strings.h"
@@ -982,7 +983,9 @@ static void Task_PokemonPicWindow(u8 taskId)
         break;
     case 3:
         ClearToTransparentAndRemoveWindow(task->tWindowId);
+        MyBoyDiag_Record(MYBOY_EVENT_PREVIEW_CLOSED, task->tMonSpecies, task->tWindowId);
         DestroyTask(taskId);
+        MyBoyDiag_Resources();
         break;
     }
 }
@@ -994,6 +997,11 @@ bool8 ScriptMenu_ShowPokemonPic(enum Species species, u8 x, u8 y)
     u8 spriteId;
     u8 windowId;
 
+    MyBoyDiag_Record(MYBOY_EVENT_PREVIEW_REQUEST, species, x | (y << 16));
+#if MYBOY_DIAGNOSTIC_MODE
+    gMyBoyDiagBuffer.lastPreview = species;
+#endif
+    MyBoyDiag_Resources();
     if (FindTaskIdByFunc(Task_PokemonPicWindow) != TASK_NONE)
         return FALSE;
 
@@ -1005,13 +1013,17 @@ bool8 ScriptMenu_ShowPokemonPic(enum Species species, u8 x, u8 y)
             break;
     }
     if (taskId == NUM_TASKS)
+    {
+        MyBoyDiag_Record(MYBOY_EVENT_PREVIEW_FAILED, species, 1);
         return FALSE;
+    }
 
     taskId = CreateTask(Task_PokemonPicWindow, 0x50);
     windowTemplate = CreateWindowTemplate(0, x + 1, y + 1, 8, 8, 15, 100);
     windowId = AddWindow(&windowTemplate);
     if (windowId == WINDOW_NONE)
     {
+        MyBoyDiag_Record(MYBOY_EVENT_PREVIEW_FAILED, species, 2);
         DestroyTask(taskId);
         return FALSE;
     }
@@ -1019,6 +1031,7 @@ bool8 ScriptMenu_ShowPokemonPic(enum Species species, u8 x, u8 y)
     spriteId = CreateMonSprite_PicBox(species, x * 8 + 40, y * 8 + 40, 0);
     if (spriteId >= MAX_SPRITES)
     {
+        MyBoyDiag_Record(MYBOY_EVENT_PREVIEW_FAILED, species, 3);
         // Nothing has been drawn yet; removing the buffer is sufficient.
         RemoveWindow(windowId);
         DestroyTask(taskId);
@@ -1034,6 +1047,7 @@ bool8 ScriptMenu_ShowPokemonPic(enum Species species, u8 x, u8 y)
     PutWindowTilemap(windowId);
     SetStandardWindowBorderStyle(windowId, TRUE);
     ScheduleBgCopyTilemapToVram(0);
+    MyBoyDiag_Record(MYBOY_EVENT_PREVIEW_CREATED, species, spriteId | (windowId << 16));
     return TRUE;
 }
 

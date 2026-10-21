@@ -38,6 +38,7 @@
 #include "money.h"
 #include "move.h"
 #include "move_relearner.h"
+#include "myboy_diag.h"
 #include "mystery_event_script.h"
 #include "palette.h"
 #include "party_menu.h"
@@ -140,6 +141,14 @@ bool8 ScrCmd_special(struct ScriptContext *ctx)
     u16 index = ScriptReadHalfword(ctx);
     SpecialFunc executableFunc;
 
+#if MYBOY_DIAGNOSTIC_MODE
+    // gStdScripts immediately follows the specials table in event_scripts.s.
+    // Check before the effect helper itself indexes gSpecials.
+    if (index >= ((uintptr_t)gStdScripts - (uintptr_t)gSpecials) / sizeof(gSpecials[0]))
+        MyBoyDiag_Fail(MYBOY_FAULT_CALLBACK, index, (uintptr_t)gSpecials);
+    MyBoyDiag_CheckCallback((uintptr_t)gSpecials[index], 7);
+    MyBoyDiag_Record(MYBOY_EVENT_SPECIAL, index, (uintptr_t)gSpecials[index]);
+#endif
     Script_RequestEffects(SCREFF_V1);
     Script_CheckEffectInstrumentedSpecial(index);
 
@@ -155,6 +164,12 @@ bool8 ScrCmd_specialvar(struct ScriptContext *ctx)
     u16 *ptr = GetVarPointer(varId);
     SpecialFunc executableFunc;
 
+#if MYBOY_DIAGNOSTIC_MODE
+    if (index >= ((uintptr_t)gStdScripts - (uintptr_t)gSpecials) / sizeof(gSpecials[0]))
+        MyBoyDiag_Fail(MYBOY_FAULT_CALLBACK, index, (uintptr_t)gSpecials);
+    MyBoyDiag_CheckCallback((uintptr_t)gSpecials[index], 7);
+    MyBoyDiag_Record(MYBOY_EVENT_SPECIAL, index, (uintptr_t)gSpecials[index]);
+#endif
     Script_RequestEffects(SCREFF_V1);
     Script_RequestWriteVar(varId);
     Script_CheckEffectInstrumentedSpecial(index);
@@ -169,6 +184,8 @@ bool8 ScrCmd_callnative(struct ScriptContext *ctx)
     NativeFunc func = (NativeFunc)ScriptReadWord(ctx);
     NativeFunc executableFunc;
 
+    MyBoyDiag_CheckCallback((uintptr_t)func, 8);
+    MyBoyDiag_Record(MYBOY_EVENT_NATIVE, (uintptr_t)func, (uintptr_t)ctx->scriptPtr);
     Script_RequestEffects(SCREFF_V1);
     Script_CheckEffectInstrumentedCallNative(func);
 
@@ -1996,6 +2013,20 @@ bool8 ScrCmd_showmonpic(struct ScriptContext *ctx)
     u8 y = ScriptReadByte(ctx);
 
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
+
+#if MYBOY_DIAGNOSTIC_MODE == 2
+    // Keep the bytecode, arguments, effect tags and Czech selection unchanged.
+    // Only the starter picture side effect is removed from this experiment.
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY)
+     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY)
+     && (species == SPECIES_POOCHYENA_VIRELIA
+      || species == SPECIES_SPINARAK_VIRELIA
+      || species == SPECIES_EKANS_VIRELIA))
+    {
+        MyBoyDiag_Record(MYBOY_EVENT_PREVIEW_SKIPPED, species, 0);
+        return FALSE;
+    }
+#endif
 
     ScriptMenu_ShowPokemonPic(species, x, y);
     return FALSE;

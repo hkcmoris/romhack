@@ -1,5 +1,6 @@
 #include "global.h"
 #include "script.h"
+#include "myboy_diag.h"
 #include "event_data.h"
 #include "field_screen_effect.h"
 #include "mystery_gift.h"
@@ -69,6 +70,7 @@ void InitScriptContext(struct ScriptContext *ctx, void *cmdTable, void *cmdTable
 
 u8 SetupBytecodeScript(struct ScriptContext *ctx, const u8 *ptr)
 {
+    MyBoyDiag_Record(MYBOY_EVENT_SCRIPT_START, (uintptr_t)ptr, (uintptr_t)ctx);
     ctx->scriptPtr = ptr;
     ctx->mode = SCRIPT_MODE_BYTECODE;
     return 1;
@@ -76,6 +78,9 @@ u8 SetupBytecodeScript(struct ScriptContext *ctx, const u8 *ptr)
 
 void SetupNativeScript(struct ScriptContext *ctx, bool8 (*ptr)(void))
 {
+    if (ptr != NULL)
+        MyBoyDiag_CheckCallback((uintptr_t)ptr, 2);
+    MyBoyDiag_Record(MYBOY_EVENT_NATIVE, (uintptr_t)ptr, (uintptr_t)ctx);
     ctx->mode = SCRIPT_MODE_NATIVE;
     ctx->nativePtr = ptr;
 }
@@ -98,6 +103,8 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
         // Continue to bytecode if no function or it returns TRUE
         if (ctx->nativePtr)
         {
+            MyBoyDiag_CheckCallback((uintptr_t)ctx->nativePtr, 2);
+            MyBoyDiag_Record(MYBOY_EVENT_NATIVE, (uintptr_t)ctx->nativePtr, (uintptr_t)ctx->scriptPtr);
             bool8 (*executableFunc)(void) = (bool8 (*)(void))Script_GetExecutableAddress((uintptr_t)ctx->nativePtr);
 
             if (executableFunc() == TRUE)
@@ -119,6 +126,7 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
                 return FALSE;
             }
 
+            MyBoyDiag_Script(ctx, FALSE);
             cmdCode = *(ctx->scriptPtr);
             ctx->scriptPtr++;
             func = &ctx->cmdTable[cmdCode];
@@ -131,10 +139,18 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
 
             executableFunc = (ScrCmdFunc)Script_GetExecutableAddress((uintptr_t)*func);
             if (executableFunc(ctx) == TRUE)
+            {
+                MyBoyDiag_Record(MYBOY_EVENT_OPCODE_RETURN, (uintptr_t)ctx->scriptPtr, cmdCode | 0x10000);
                 return TRUE;
+            }
+            MyBoyDiag_Record(MYBOY_EVENT_OPCODE_RETURN, (uintptr_t)ctx->scriptPtr, cmdCode);
         }
     }
 
+#if MYBOY_DIAGNOSTIC_MODE
+    if (ctx->mode > SCRIPT_MODE_NATIVE)
+        MyBoyDiag_Fail(MYBOY_FAULT_SCRIPT, ctx->mode, (uintptr_t)ctx->scriptPtr);
+#endif
     return TRUE;
 }
 
@@ -637,6 +653,7 @@ static bool32 RunScriptImmediatelyUntilEffect_InternalLoop(struct ScriptContext 
             if (!ctx->scriptPtr)
                 return FALSE;
 
+            MyBoyDiag_Script(ctx, TRUE);
             cmdCode = *ctx->scriptPtr;
             ctx->scriptPtr++;
             func = &ctx->cmdTable[cmdCode];

@@ -1,0 +1,89 @@
+name: My Boy diagnostics
+
+on:
+  push:
+    branches:
+      - codex/myboy-compatibility
+  workflow_dispatch:
+    inputs:
+      variant:
+        description: Controlled comparison to build (same runtime diagnostics in both)
+        type: choice
+        required: true
+        default: event-only
+        options:
+          - event-only
+          - control
+          - both
+
+permissions:
+  contents: read
+
+concurrency:
+  group: myboy-${{ github.ref }}-${{ inputs.variant || 'both' }}
+  cancel-in-progress: true
+
+env:
+  ROM_VERSION: 0.3.myboy-${{ github.run_number }}
+  GAME_VERSION: EMERALD
+  GAME_REVISION: 0
+  GAME_LANGUAGE: ENGLISH
+  COMPARE: 0
+  UNUSED_ERROR: 1
+  DEPRECATED_ERROR: 1
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJSON(inputs.variant == 'control' && '["control"]' || inputs.variant == 'event-only' && '["event-only"]' || '["event-only", "control"]') }}
+    env:
+      VARIANT: ${{ matrix.variant }}
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+
+      - name: Install existing build toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends binutils-arm-none-eabi gcc-arm-none-eabi libnewlib-arm-none-eabi libpng-dev python3
+
+      - name: Select the single experiment
+        run: |
+          case "$VARIANT" in
+            control) echo 'MYBOY_DIAGNOSTIC_MODE=1' >> "$GITHUB_ENV" ;;
+            event-only) echo 'MYBOY_DIAGNOSTIC_MODE=2' >> "$GITHUB_ENV" ;;
+            *) exit 1 ;;
+          esac
+
+      - name: Python diagnostics decoder regressions
+        run: python3 -m unittest discover -s tools/myboy -p 'test_*.py' -v
+
+      - name: Build optimized diagnostic ROM and matching symbols
+        run: |
+          make -j$(nproc) release syms MYBOY_DIAGNOSTIC_MODE="$MYBOY_DIAGNOSTIC_MODE" 2>&1 | tee diagnostic-build.log
+          python3 tools/myboy/package_artifacts.py --variant "$VARIANT" --rom "oraculum-myboy-$VARIANT-v$ROM_VERSION-release.gba" --output "outputs/myboy-$VARIANT"
+          cp diagnostic-build.log "outputs/myboy-$VARIANT/"
+          cp docs/MYBOY_COMPATIBILITY.md "outputs/myboy-$VARIANT/"
+
+      - name: Full native regression suite for this diagnostic configuration
+        run: make -j$(nproc) check MYBOY_DIAGNOSTIC_MODE="$MYBOY_DIAGNOSTIC_MODE" 2>&1 | tee diagnostic-tests.log
+
+      - name: Collect test log
+        if: always()
+        run: |
+          if [ -f diagnostic-tests.log ]; then
+            mkdir -p "outputs/myboy-$VARIANT"
+            cp diagnostic-tests.log "outputs/myboy-$VARIANT/"
+          fi
+
+      - name: Upload isolated diagnostic ROM and exact evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: myboy-${{ matrix.variant }}-${{ github.sha }}
+          path: outputs/myboy-${{ matrix.variant }}/
+          if-no-files-found: error
+          retention-days: 30
