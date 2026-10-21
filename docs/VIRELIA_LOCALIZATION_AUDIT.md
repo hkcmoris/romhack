@@ -1,14 +1,33 @@
 # Lokalizační audit Virelie
 
-Rozšíření v0.3 má zdrojovou kontrolu českých textů do úrovně 20. Dřívější nativní kontrola platí jen pro níže uvedené obrazovky prologu. Nová léčebna, obchod, PC, lom a stadion vyžadují vlastní nativní průchod; tento audit jejich ruční kontrolu nepotvrzuje. Samotný počet přeložených řetězců nepotvrzuje úplnou lokalizaci ani celý herní průchod.
+Rozšíření v0.3 má zdrojovou kontrolu českých textů do úrovně 20 a nativní kontrolu služeb Slatefordu v optimalizované release ROM `0.3.49`, commit `6f3fa01bd8`. Kontrola ověřila léčení, následné zprávy, běžné Pokémon Storage, nákup a uložení i načtení uvnitř obou budov. Dřívější nativní kontrola prologu zůstává uvedena samostatně. Samotný počet přeložených řetězců nepotvrzuje úplnou lokalizaci ani celý herní průchod.
 
-Rozsah v0.3 zahrnuje Geodude, Roggenrola, Sandshrew, Makuhita, Aron a trenérského Nosepass. Zahrnuje také dosažitelné evoluce původních druhů do úrovně 20, včetně Linoone, Mightyena, Kirlia a všech tří prostředních forem regionálních startérů. Konzervativně kontroluje i Raticate jako evoluci druhu použitého Rocketem. Level-up, evoluce a učení TM používají již přeložené společné obrazovky.
+Rozsah v0.3 zahrnuje Geodude, Roggenrola, Sandshrew, Makuhita, Aron a Nosepass. Nosepass je také vzácné divoké setkání v obou částech lomu. Zahrnuje také dosažitelné evoluce původních druhů do úrovně 20, včetně Linoone, Mightyena, Kirlia a všech tří prostředních forem regionálních startérů. Konzervativně kontroluje i Raticate jako evoluci druhu použitého Rocketem. Level-up, evoluce a učení TM používají již přeložené společné obrazovky.
 
 Pomocný modul `tools/virelia_localization_coverage.py` načítá skutečná setkání, trenérské týmy, předměty map, level-up learnsety, schopnosti, držené předměty a tabulku Pickup. Kontroluje všechny zapsané generační větve learnsetů. Validátor odmítne chybějící názvy a popisy i nesoulad odvozeného rozsahu s manifestem. Místní evoluce v New Mauville do tohoto rozsahu nepatří. Odměny Pickup zahrnují úrovně 1 až 20; jejich možné předměty jsou přeložené.
 
 Validátor vyžaduje záznam také pro sdílené zprávy přímo volané z map Virelie; patří sem pozdrav a rozloučení prodavače. Standardní služby používají české nabídky nákupu, prodeje, úložiště Pokémonů a hráčova PC. České jsou také dialogy sestry Joy, zprávy plného boxu, přesun po odchytu a hlášky Pokérus. Zprávy uvnitř boxu mají vlastní limit 144 px a jeden řádek; kontrola dosazuje nejdelší přezdívku. Police, knihovny a koše ve standardních interiérech mají české zprávy. Obchod má grafický štítek `PENÍZE`. Pevné grafické štítky PC nyní zobrazují `ÚDAJE`, `TÝM`, `ZPĚT` a `ZAVŘÍT BOX`. Generátor je skládá podle původních dlaždicových map a zachovává rozměry, palety i čísla dlaždic.
 
 Nové trenérské třídy používají `HORNÍK` a `VEDOUCÍ`; původní `DÍVKA` zůstává zachována. Hláška s Lomovým odznakem, odměna TM39 a všechny nové mapové dialogy podléhají kontrole skutečné šířky písma. Názvy `Rock Tomb`, `TM39`, `Escape Rope` a ostatních útoků či předmětů zůstávají anglicky.
+
+## Nativní kontrola služeb v0.3.49
+
+Kontrola používala skutečné stisky tlačítek v nativním mGBA libretro. Začala z herní paměti FLASH dokončeného prologu. Pro úložiště použila samostatnou kopii skutečně uložené hry s Roggenrola chyceným v lomu běžným Poké Ballem. Nevytvářela testovací Pokémony ani předměty a neprováděla přímé zápisy do herní RAM, příznaků nebo peněz. Stav emulátoru se nepřenášel mezi verzemi ROM. Každá kontrola načtení začala novým spuštěním pouze z FLASH.
+
+| Kontrola | Ověřený výsledek | Nativní snímek |
+| --- | --- | --- |
+| Sestra Joy | Spinarak na úr. 8: před léčením 18/27 HP, po léčení 27/27 HP; následná zpráva i Start menu zůstaly čitelné | [Před léčením](images/virelia-first-gym/service-heal-before.png), [po léčení](images/virelia-first-gym/service-heal-after.png) |
+| Uložení v centru | Běžná volba ULOŽIT a potvrzení přepsání; restart jen z FLASH obnovil mapu 76,2, pozici 7,4 a 27/27 HP | [Vyléčený tým](images/virelia-first-gym/service-heal-after.png) |
+| Běžné Pokémon Storage | Roggenrola na úr. 11 přešel z týmu do BOX1 a volbou VYBRAT POKÉMONA zpět do týmu | [Roggenrola v boxu](images/virelia-first-gym/service-pc-box.png) |
+| Uložení po vybrání | Po skutečném uložení v centru a restartu jen z FLASH zůstali v týmu právě Spinarak a Roggenrola | [Tým po načtení](images/virelia-first-gym/service-pc-party-after-reload.png) |
+| Mart | Obě stránky pozdravu, nabídky KOUPIT/PRODAT/ZPĚT, popis Potionu, volba množství, cena i štítek PENÍZE jsou česky | [Pozdrav](images/virelia-first-gym/service-mart-greeting.png) |
+| Nákup a uložení v Martu | Jeden Potion zvýšil počet ze 3 na 4 a snížil peníze z 3146 na 2946. Uložení a restart jen z FLASH obnovily mapu 76,3, pozici 3,3, čtyři Potiony i 2946 peněz | [Nákup po načtení](images/virelia-first-gym/service-mart-after-reload.png) |
+
+Prodej jednoho Potionu byl navíc nativně ověřen v release `0.3.48`: počet klesl ze 4 na 3, peníze vzrostly z 3096 na 3146 a změna přežila restart z FLASH. V této verzi kontrola odhalila anglický pozdrav obchodu a prázdný dialog po léčení. Verze `0.3.49` má český pozdrav a opakované léčení již text nezablokovalo. Nativní snímky v tabulce pocházejí výhradně z opravené verze `0.3.49`.
+
+Samostatná nativní kontrola divokého souboje s Geodude ve stejné release ROM zobrazila všechny čtyři české příkazy: `Boj`, `Batoh`, `Pokémon` a `Útěk`. Souboj vznikl běžným pohybem v lomu z kopie skutečné uložené hry; po volbě Útěk se hráč vrátil do mapy. [Snímek celé nabídky](images/virelia-first-gym/battle-action-menu.png) potvrzuje také pravý sloupec.
+
+ROM měla SHA-256 `6da20d314629a94b26b1d2147ac696d9a96f4fc58b216ef3aef931b0279941a9`. Místní podrobnosti kontroly jsou v `outputs/emulator/services-fixed-release/native-service-evidence.json`. Tato kontrola nepotvrzuje Android/My Boy!, všechny vzácné větve služeb, přejmenování a tapety boxů ani všechny evoluční a level-up obrazovky do úrovně 20. Herní průchod lomem a stadionem dokumentuje [milník v0.3](VIRELIA_FIRST_GYM.md).
 
 Názvy všech útoků musí zůstat anglicky i v české hře: například `Tackle`, `Growl` a `Struggle`. Popisy útoků a okolní hlášky zůstávají české. Trenérská třída rivala používá `Rival` (ve verzálkových popiscích `RIVAL`), nikoli `Soupeř`. Tato oprava po playtestu `0.2.40` prošla zdrojovou kontrolou; níže uvedené nativní snímky pocházejí ze starších sestavení.
 
@@ -20,7 +39,7 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
 {
   "schema": 1,
   "language": "cs",
-  "status": "source_checked_native_prologue_scope_only",
+  "status": "source_and_service_native_checked",
   "manifest": "tools/virelia_prologue_localization.json",
   "level_bound": 20,
   "manifest_entries": 1059,
@@ -50,7 +69,8 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
     "ROGGENROLA",
     "SANDSHREW",
     "MAKUHITA",
-    "ARON"
+    "ARON",
+    "NOSEPASS"
   ],
   "normal_evolutions": [
     "SILCOON",
@@ -105,6 +125,23 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
     "moves": 124,
     "abilities": 40,
     "items": 31
+  },
+  "first_gym_service_native": {
+    "build": "0.3.49 release",
+    "commit": "6f3fa01bd8",
+    "real_inputs_only": true,
+    "fresh_flash_restarts": true,
+    "passed": [
+      "nurse_heal_18_to_27_hp",
+      "post_heal_text_and_start_menu",
+      "center_save_flash_reload",
+      "ordinary_pc_deposit_and_withdraw",
+      "storage_party_flash_reload",
+      "mart_czech_greeting",
+      "mart_buy_and_flash_reload",
+      "battle_action_four_czech_commands"
+    ],
+    "android_tested": false
   }
 }
 ```
@@ -155,6 +192,11 @@ Při kontrole `ee05868` prošly výhra nad Rocketem, všechny tři stránky poli
 
 Na uvedených nativně ověřených obrazovkách nezůstal anglický popisek ani známý ořez textu. Chybové obrazovky poškozené uložené hry, všechny kombinace léčiv a všechny větve učení útoků mají zdrojovou kontrolu; každá jejich obrazovka nebyla ručně vyvolána. Toto omezení platí i po úspěšné kompilaci a automatických testech.
 
-Ruční kontrola v0.3 musí ověřit léčení, návrat po porážce, nákup a prodej, přesun Pokémona mezi týmem a boxem, přejmenování boxu a návrat do mapy. Musí ověřit také evoluce startérů na úrovních 14, 16 a 18, učení útoků do úrovně 20 a obrazovky odznaku a TM. Uložení a nové načtení musí fungovat uvnitř obou služeb. Výsledek kompilace ani zdrojového validátoru tento průchod nenahrazuje. Android/My Boy! se ověřuje zvlášť.
+Navazující ruční kontrola musí doplnit přejmenování a tapety boxů, vzácné větve služeb, evoluce startérů na úrovních 14, 16 a 18 a všechny větve učení útoků do úrovně 20. V release `0.3.49` prošel také přirozený návrat po porážce do Slateford Center,
+oba hlavolamy, pět vítězství nad trenéry a česká obrazovka odměny TM Rock Tomb.
+Opakovaný rozhovor s Marou a nové spuštění pouze z FLASH ponechaly jedinou TM.
+Snímky a přesný rozsah jsou v [dokumentaci prvního Gymu](VIRELIA_FIRST_GYM.md).
+Samotný snímek fanfáry při získání odznaku nebyl zachycen; nezávislý příznak,
+text a jeho šířku ověřují automatické kontroly. Výsledek kompilace ani zdrojového validátoru tyto obrazovky nepotvrzuje. Android/My Boy! se ověřuje zvlášť.
 
 Vyšší úrovně lze získat opakovanými souboji. Tento audit proto nepotvrzuje překlad všech popisů útoků a textů evolucí při neomezeném trénování. Nepokrývá jiné oblasti, multiplayer ani předměty a útoky dostupné až mimo uvedený rozsah. Úplná česká lokalizace celé hry není cílem tohoto seznamu. Nativní průchod s travním startérem skončil v čase 14:03 bez odchytu; kontrola stadionu a návratu do města jej prodloužila na 14:55. Jde o herní hodiny při automatizovaném ovládání. Cílových 15 až 20 minut s odchytem zatím nebylo změřeno lidským hráčem.

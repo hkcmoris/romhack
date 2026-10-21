@@ -9,12 +9,15 @@
 #include "script.h"
 #include "heal_location.h"
 #include "item.h"
+#include "main.h"
+#include "task.h"
 #include "new_game.h"
 #include "overworld.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
 #include "save.h"
 #include "script_pokemon_util.h"
+#include "sound.h"
 #include "string_util.h"
 #include "text.h"
 #include "trainer_pools.h"
@@ -89,6 +92,85 @@ TEST("Virelia appended trainers preserve the Hoenn flag bank and partner IDs")
         ClearTrainerFlag(trainer);
         EXPECT(!HasTrainerBeenFought(trainer));
     }
+}
+
+// Exercise the actual callback registered by ordinary trainer setup, rather
+// than setting the defeated flag from a test helper. Cancel only the pending
+// visual transition; neither battle-end branching nor flag writes are mocked.
+static MainCallback FinishNativeChapterTrainerBattle(u16 trainerId, u32 outcome)
+{
+    TrainerBattleParameter originalParams = gTrainerBattleParameter;
+    MainCallback originalSavedCallback = gMain.savedCallback;
+    MainCallback originalMainCallback = gMain.callback2;
+    u8 originalState = gMain.state;
+    u32 originalFlags = gBattleTypeFlags;
+    u32 originalOutcome = gBattleOutcome;
+    bool32 originalDebug = gIsDebugBattle;
+    u32 originalApproaching = gNoOfApproachingTrainers;
+    u16 originalMusic = GetCurrentMapMusic();
+    bool32 originalControlsLocked = ArePlayerFieldControlsLocked();
+    InitTrainerBattleParameter();
+    TRAINER_BATTLE_PARAM.opponentA = trainerId;
+    gNoOfApproachingTrainers = 0;
+    gIsDebugBattle = FALSE;
+    BattleSetup_StartTrainerBattle();
+    MainCallback battleEnd = gMain.savedCallback;
+    ResetTasks();
+    gBattleOutcome = outcome;
+    battleEnd();
+    MainCallback nextCallback = gMain.callback2;
+    ResetTasks();
+    gMain.savedCallback = originalSavedCallback;
+    gMain.callback2 = originalMainCallback;
+    gMain.state = originalState;
+    gTrainerBattleParameter = originalParams;
+    gBattleTypeFlags = originalFlags;
+    gBattleOutcome = originalOutcome;
+    gIsDebugBattle = originalDebug;
+    gNoOfApproachingTrainers = originalApproaching;
+    ResetMapMusic();
+    if (originalMusic)
+    {
+        PlayNewMapMusic(originalMusic);
+        PlayBGM(originalMusic);
+    }
+    if (originalControlsLocked) LockPlayerFieldControls();
+    else UnlockPlayerFieldControls();
+    return nextCallback;
+}
+
+TEST("Virelia all five trainers white out on defeat and persist only a successful native retry")
+{
+    u32 index = 0;
+    for (u32 i = 0; i < ARRAY_COUNT(sChapterTrainers); i++)
+        PARAMETRIZE { index = i; }
+    ResetFirstGymTest();
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_CITY),
+                       MAP_NUM(MAP_VIRELIA_SLATEFORD_CITY), WARP_ID_NONE, 14, 27);
+    WarpIntoMap();
+    InitMap();
+    CreateRandomMonWithIVs(&gParties[B_TRAINER_PLAYER][0], SPECIES_EKANS_VIRELIA, 12, 10);
+    gPartiesCount[B_TRAINER_PLAYER] = 1;
+    SetLastHealLocationWarp(HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER);
+    u16 trainer = sChapterTrainers[index];
+    MainCallback afterLoss = FinishNativeChapterTrainerBattle(trainer, B_OUTCOME_LOST);
+    EXPECT(afterLoss == CB2_WhiteOut);
+    EXPECT(!HasTrainerBeenFought(trainer));
+    EXPECT(!FlagGet(FLAG_VIRELIA_TRAINER_BRUNO + index));
+    EXPECT(!FlagGet(FLAG_VIRELIA_QUARRY_EVIDENCE));
+    EXPECT(!FlagGet(FLAG_VIRELIA_BADGE_QUARRY));
+    EXPECT(!FlagGet(FLAG_VIRELIA_TM_ROCK_TOMB_RECEIVED));
+    EXPECT_EQ(GetHealLocationIndexByWarpData(&gSaveBlock1Ptr->lastHealLocation),
+              HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER);
+    MainCallback afterWin = FinishNativeChapterTrainerBattle(trainer, B_OUTCOME_WON);
+    EXPECT(afterWin == CB2_ReturnToFieldContinueScriptPlayMapMusic);
+    EXPECT(HasTrainerBeenFought(trainer));
+    EXPECT(FlagGet(FLAG_VIRELIA_TRAINER_BRUNO + index));
+    EXPECT(!FlagGet(TRAINER_FLAGS_START + trainer));
+    for (u32 i = 0; i < ARRAY_COUNT(sChapterTrainers); i++)
+        EXPECT_EQ(HasTrainerBeenFought(sChapterTrainers[i]), i == index);
+    for (u32 flag = FLAG_BADGE01_GET; flag <= FLAG_BADGE08_GET; flag++)
+        EXPECT(!FlagGet(flag));
 }
 
 TEST("Virelia actual city map load keeps chapter entrances locked until their independent prerequisites")

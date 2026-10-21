@@ -336,7 +336,7 @@ Screenshots and exact reproduction steps for failures:
   scripts. Making it reachable as a paced postgame requires a later campaign
   design. The inherited test quick start is not a full Hoenn story unlock.
 
-## Planned expansion
+## Historical foundation plan
 
 After the first-area playtest is accepted, expand Virelia in small connected
 milestones: complete Maplebrook interiors, add Slateford services and mine
@@ -361,3 +361,14 @@ quarry maps and Mara's Rock Gym to the completed prologue. The original map and
 species IDs remain fixed. Its independent Virelia badge flag does not repurpose
 Hoenn badges or imply that the eight-slot Trainer Card covers sixteen badges.
 The earlier foundation expansion notes above describe historical scope.
+
+The current playable boundary ends after Mara awards the Lomový odznak and
+Rock Tomb. Completed prologue saves retain their identifiers and cross a new
+chapter flag boundary. Quarry power, freight evidence, the manager's reopening,
+Gym puzzle, five trainer victories, badge and TM each have independent progress.
+Normal Center healing/whiteout, ordinary Pokemon Storage and Mart service are
+available before challenging the Gym. See the milestone document for map IDs,
+encounters, puzzle order, level curve, save tests and native verification.
+
+Later settlements, the second Gym, Storage lockdown, Porygon experiments,
+Mega Evolution and multiplayer work remain outside this milestone.

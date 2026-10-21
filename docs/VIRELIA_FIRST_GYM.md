@@ -55,12 +55,13 @@ map section; no world-map cell is repurposed.
 | --- | --- | --- | --- |
 | Pokémon Center | `MAP_VIRELIA_SLATEFORD_POKEMON_CENTER` | 76, 2 | Nurse Joy, ordinary PC, save/load and whiteout |
 | Poké Mart | `MAP_VIRELIA_SLATEFORD_MART` | 76, 3 | Ordinary buy/sell service |
-| Slateford Quarry entrance | `MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE` | 76, 4 | Miners, exploration and first electrical control |
-| Slateford Quarry depths | `MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS` | 76, 5 | Second control, freight evidence and optional item |
+| Slateford Quarry entrance | `MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE` | 76, 4 | Miners, exploration and optional Super Potion |
+| Slateford Quarry depths | `MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS` | 76, 5 | Both electrical controls and freight evidence |
 | Slateford Gym | `MAP_VIRELIA_SLATEFORD_GYM` | 76, 6 | Geological puzzle, two trainers and Mara |
 
 The new layouts copy Emerald tiles, palettes and existing service furnishings.
-Original Hoenn maps, layouts and graphics remain intact. Layout IDs append to
+Original Hoenn maps and layouts remain intact. Existing tilesets and sprites
+are reused; shared service UI graphics receive Czech labels. Layout IDs append to
 `data/layouts/layouts.json`; the source validator checks their concrete order.
 `tools/virelia/build_first_gym_maps.py` documents the authored layout construction.
 Do not run the old world generator over later Porymap edits.
@@ -70,8 +71,15 @@ Entering the Center records its ordinary healing/whiteout destination.
 Nurse local ID is 1; whiteout position is (7, 4).
 The ordinary PC uses native storage; no storage lockdown is implemented.
 The upstairs communication area is closed and has no warp.
+The local nurse uses the standard healing effect, party/PP/status restoration,
+follower update, Pokerus explanation and normal return/bow messages. She does
+not enter the shared Trainer Hill/Union Room continuation. That continuation
+assumes a full Center initialized the Union Room name buffer; without it, a
+native test found a 369-byte copy into the 256-byte name buffer, corrupting
+font globals after healing. The local path and its call-graph regression avoid
+that assumption without changing multiplayer code.
 The Mart stocks Poké Ball, Potion, Super Potion, Antidote, Paralyze Heal,
-Escape Rope and Repel. Item names remain English.
+Awakening, Escape Rope and Repel. Item names remain English.
 
 ## Story and chapter boundary
 
@@ -130,8 +138,9 @@ No save structure or link-state layout changes.
 
 The prologue ends around levels 7–9. The entrance offers levels 8–11, depths
 10–13, Gym trainers 13–14, and the leader 14/16. A small party should reach
-roughly 11–17 through exploration and normal battles. Actual no-grind pacing
-and every starter's combat difficulty require the native/human checks below.
+roughly 11–17 through exploration and normal battles. The native Water run reached the Gym with Spinarak 14, Roggenrola 11 and
+Sandshrew 10. No repeated experience farming was needed. Human pacing and
+complete Fire/Grass combat runs remain separate checks below.
 
 The fixed starter thresholds remain Spinarak 14, Ekans 16 and Poochyena 18.
 Poochyena starts Grass/Dark and evolves to Grass/Ghost Mightyena.
@@ -213,9 +222,76 @@ party, storage, money, purchases, trainer victories and story completion.
 
 ## Validation status and manual checklist
 
-Source checks and GitHub Actions results must be recorded for the final commit.
-Until those results and native checks below are populated, this document does
-not certify a completed playtest or balanced 20–30 minute session.
+The gameplay revision `6f3fa01bd8` passed all jobs in
+[CI run 39591699117](https://github.com/hkcmoris/romhack/actions/runs/39591699117):
+Emerald normal/release, story tests, development-mode tests, FireRed, LeafGreen,
+documentation and the aggregate check. The story suite reported 5,471 passed
+of 5,919 total; development mode reported 5,469 of 5,917. The inherited
+18 known failures, 421 TODOs and 9 expected failures match the baseline;
+they are not new chapter regressions. Final documentation and the additional
+five-trainer native loss/retry callback regression are validated by the latest
+[branch workflow](https://github.com/hkcmoris/romhack/actions?query=branch%3Acodex%2Fvirelia-first-gym).
+
+The source validators passed against baseline `14a30dafeb`: 3,434 legacy
+map/layout files and existing IDs retained, reciprocal warps, locked/open
+collision graphs, trainer/reward gates, the laboratory scene and 1,059 Czech
+manifest entries through level 20. Native tests load the actual city, quarry,
+Gym and service map data, exercise all three starter chapter transitions,
+trainer loss/retry callbacks, ordinary storage/purchases, and native FLASH
+save/load. A full TM pocket leaves the reward pending in the native test;
+collecting later grants exactly one TM.
+
+Native controller checks used release `0.3.49` from `6f3fa01bd8`, SHA-256
+`6da20d314629a94b26b1d2147ac696d9a96f4fc58b216ef3aef931b0279941a9`.
+The official mGBA libretro core SHA-256 was
+`083acf829e6552348e6b8c80bd3414e817d86bc31d0f63de69a5af965e5a3556`.
+These runs used real button inputs and genuine FLASH saves. Gameplay RAM,
+party, items, experience and flags were never injected. Local savestates
+accelerated work within one ROM; version changes and persistence checks
+booted a fresh core from FLASH without transferring emulator state.
+
+| Native check | Observed result |
+| --- | --- |
+| Completed baseline transition | Exact old position, party and completed prologue; no Rocket finale replay |
+| Center | Spinarak healed from 18/27 to 27/27 HP; readable nurse follow-up and menus; in-building save and FLASH Continue |
+| Ordinary PC | Naturally captured Roggenrola deposited in BOX1 and withdrawn; exact party retained after FLASH restart |
+| Mart | Czech buy/sell conversation; Potion purchase and money delta persisted after an in-building save/restart |
+| Quarry | Both sections, capture, optional Super Potion, Bruno and Lenka victories, wrong input, partial puzzle save/load/reset, permanent power and freight evidence |
+| Whiteout/retry | Natural quarry defeat returned to Joy at Center (7, 4); earlier victories persisted and retry succeeded |
+| Gym | Manager unlocked entrance; Ivan and Dana victories; partial puzzle reset on exit; solved gate persisted through healing/reentry |
+| Mara | Both leader Pokemon defeated; ordinary badge/TM flags set, post-victory dialogue shown, chapter completion retained |
+| Reward persistence | Repeated Mara conversation and a fresh FLASH Continue retained one Rock Tomb TM; all eight Hoenn badge flags remained false |
+
+The party used for Mara was Spinarak 14, Roggenrola 11 and Sandshrew 10
+(reaching 12 during the leader battle). Spinarak's natural level-14 evolution
+had accidentally been cancelled with B during the automated capture flow;
+its evolution threshold was not changed. Sandshrew used its ordinary
+Defense Curl/Rollout combination. This demonstrates obtainable team support;
+it does not certify human difficulty for all three starters. Failed move
+selection and repeated menu inspection in this automated run are unsuitable
+for a pacing measurement.
+
+The genuine completed-chapter save is kept locally as
+`outputs/emulator/completed-first-gym-6f3fa01bd8.sav`. It resumes at Gym (6, 3),
+map (76, 6), with chapter flags 0x32–0x3A and trainer flags 0x40–0x44 set.
+ROMs, save files and emulator dumps are untracked local QA outputs.
+The following small native screenshots are tracked for review.
+
+![Quarry power restored](images/virelia-first-gym/quarry-power.png)
+![Freight evidence](images/virelia-first-gym/quarry-evidence.png)
+![Nurse follow-up after healing](images/virelia-first-gym/service-heal-after.png)
+![Ordinary storage](images/virelia-first-gym/service-pc-box.png)
+![Mart purchase after FLASH Continue](images/virelia-first-gym/service-mart-after-reload.png)
+![Gym puzzle](images/virelia-first-gym/gym-puzzle.png)
+![Mara introduction](images/virelia-first-gym/gym-mara-intro.png)
+![Czech TM reward](images/virelia-first-gym/gym-tm-reward.png)
+![Exactly one TM after repeat conversation and FLASH Continue](images/virelia-first-gym/gym-tm-after-reload.png)
+
+Known manual limits: the complete Fire and Grass chapter routes, every
+level-up/evolution/menu branch through level 20, the badge acquisition fanfare
+frame itself, human 20–30 minute pacing and Android/My Boy! have not all been
+manually observed. Source width and native progression tests cover their
+specified data/state paths, but do not replace those screen/device checks.
 
 Run:
 

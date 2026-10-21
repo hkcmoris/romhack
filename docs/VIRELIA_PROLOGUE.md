@@ -242,7 +242,8 @@ those tools hidden. FireRed/LeafGreen retain their existing configuration.
 
 CI retains Emerald, FireRed, LeafGreen, optimized release and documentation
 checks. It runs story and explicit development-mode tests in separate jobs.
-The ROM file version is now `0.2.N`, where `N` is the Actions run number.
+The prologue used ROM version `0.2.N`, where `N` is the Actions run number.
+The first Gym branch advances that version to `0.3.N`.
 
 ## Validation and manual playtest
 
@@ -307,8 +308,11 @@ The laboratory scene validator follows the actual map script and movement
 commands against the map collision data. It covers every reachable side of
 each Ball, both legacy exit triggers and approaches to Viktor, pickup order,
 type advantage, dialogue, final facing, and canceled or failed gifts. The
-post-`0.2.40` pickup scene has source validation; native ROM/emulator validation
-is still required for its animation and battle return.
+post-`0.2.40` pickup scene has source validation. The first Gym milestone also
+replayed the latest `14a30dafeb` baseline natively with Water selection, preview
+cancellation, both pickups, Viktor's movement and battle return. See its
+[baseline evidence](VIRELIA_FIRST_GYM.md#baseline-native-verification); this does
+not replace the separate fresh-run checklist for every starter.
 
 The native suites `test/virelia_prologue.c`,
 `test/virelia_prologue_events.c`, `test/virelia_world.c` and
@@ -364,9 +368,10 @@ Actions are the applicable checks. No JavaScript or dependency was added.
 
 ## Remaining milestones
 
-The quarry interior, first Gym battle, further cities, full Rocket plot, Porygon
-experiments and storage incident are reserved for later milestones. Mega
-Evolution remains locked. No new signature ability, cooperative story gate,
+The [v0.3 milestone](VIRELIA_FIRST_GYM.md) implements the quarry and first Gym
+after this prologue. Further cities, the full Rocket plot, Porygon experiments
+and storage incident remain reserved for later milestones. Mega Evolution
+remains locked. No new signature ability, cooperative story gate,
 PvP reward, network synchronization or Duo Adventure feature is introduced.
 
 Temporary art and names remain documented in the starter prototype. The native
