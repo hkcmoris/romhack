@@ -200,13 +200,18 @@ TEST("Pic sprites: exhausted OBJ tiles release heap and the newly allocated pale
     PARAMETRIZE { affine = TRUE; }
 
     InitPicTest();
-    gReservedSpriteTileCount = 1024;
+    // Exhaust the allocator through its public API. A reserved count equal
+    // to the array capacity is not a supported state: its search starts by
+    // reading that tile before checking the upper bound.
+    EXPECT_EQ(AllocSpriteTiles(TOTAL_OBJ_TILE_COUNT), 0);
+    EXPECT(!CanAllocSpriteTiles(MON_PIC_SIZE / TILE_SIZE_4BPP));
     struct HeapUsage before = GetHeapUsage();
     EXPECT_EQ(CreateTestPic(affine, TEST_PALETTE_TAG), PIC_FAILURE);
     EXPECT_EQ(IndexOfSpritePaletteTag(TEST_PALETTE_TAG), 0xFF);
     ExpectNoActiveSprites();
     ExpectSameHeapUsage(before);
-    gReservedSpriteTileCount = 0;
+    EXPECT_EQ(AllocSpriteTiles(0), 0);
+    EXPECT(CanAllocSpriteTiles(MON_PIC_SIZE / TILE_SIZE_4BPP));
     u16 spriteId = CreateTestPic(affine, TEST_PALETTE_TAG);
     EXPECT_LT(spriteId, MAX_SPRITES);
     EXPECT_EQ(FreeAndDestroyMonPicSprite(spriteId), 0);
