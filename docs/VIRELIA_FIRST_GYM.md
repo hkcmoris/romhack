@@ -241,10 +241,12 @@ Android freeze-state confirms correctly decoded and released Spinarak graphics,
 but corrupt battle state during the starter switch. A candidate now canonicalizes
 effect-tagged script callbacks before execution; release 0.3.60 still froze at
 Ekans on My Boy!, this time including the emulator UI. This is not a verified
-Android fix. The same phone and ROM pass the reported preview sequence in
-Lemuroid; My Boy! still fails with both external and built-in BIOS. This confirms
-a compatibility difference, not a full Android chapter playtest. See the
-investigation for exact evidence and remaining uncertainty.
+Android fix. My Boy! 1.8.0 fails with both external and built-in BIOS; updating
+to 2.1.1 also failed (BIOS mode for that attempt unspecified). On the same phone,
+the same ROM passes the previews, Poochyena selection and the previously failing
+transition into battle in Lemuroid. This confirms a compatibility difference,
+not battle completion or a full Android chapter playtest. See the investigation
+for exact evidence and remaining uncertainty.
 
 ## Validation status and manual checklist
 
