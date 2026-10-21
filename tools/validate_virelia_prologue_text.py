@@ -142,6 +142,13 @@ def validate_coverage(manifest):
             for kind in kinds:
                 if record not in by_kind[kind]:
                     errors.append(f"{record}: missing {kind} in bounded localization coverage")
+    # Direct calls to shared messages must have an explicit translation entry.
+    # Map-local text scanning alone cannot detect English shared shop greetings.
+    declared_labels = {entry["key"] for entry in manifest["entries"]}
+    for path in sorted((ROOT / "data/maps").glob("Virelia_*/scripts.inc")):
+        for label in re.findall(r"\b(?:message|msgbox)\s+(gText_\w+)", path.read_text(encoding="utf8")):
+            if label not in declared_labels:
+                errors.append(f"{path.relative_to(ROOT)}:{label}: shared message missing from localization manifest")
     return {key: len(values) for key, values in coverage.items()}, errors
 
 

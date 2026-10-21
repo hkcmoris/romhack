@@ -16,6 +16,7 @@
 #include "save.h"
 #include "script_pokemon_util.h"
 #include "string_util.h"
+#include "text.h"
 #include "trainer_pools.h"
 #include "virelia_prologue.h"
 #include "virelia_first_gym.h"
@@ -201,7 +202,10 @@ TEST("Virelia Slateford healing sets the native whiteout destination and healer"
     SetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_HP, &zero);
     SetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_STATUS, &status);
     SetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_PP1, &zero);
+    SetDefaultFontsPointer();
+    const struct FontInfo *originalFonts = gFonts;
     HealPlayerParty();
+    EXPECT(gFonts == originalFonts);
     EXPECT_EQ(GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_HP),
               GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_MAX_HP));
     EXPECT_EQ(GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_STATUS), 0);

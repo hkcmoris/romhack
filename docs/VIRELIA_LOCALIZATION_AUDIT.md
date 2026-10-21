@@ -6,7 +6,7 @@ Rozsah v0.3 zahrnuje Geodude, Roggenrola, Sandshrew, Makuhita, Aron a trenérsk�
 
 Pomocný modul `tools/virelia_localization_coverage.py` načítá skutečná setkání, trenérské týmy, předměty map, level-up learnsety, schopnosti, držené předměty a tabulku Pickup. Kontroluje všechny zapsané generační větve learnsetů. Validátor odmítne chybějící názvy a popisy i nesoulad odvozeného rozsahu s manifestem. Místní evoluce v New Mauville do tohoto rozsahu nepatří. Odměny Pickup zahrnují úrovně 1 až 20; jejich možné předměty jsou přeložené.
 
-Standardní služby používají české nabídky nákupu, prodeje, úložiště Pokémonů a hráčova PC. České jsou také dialogy sestry Joy, zprávy plného boxu, přesun po odchytu a hlášky Pokérus. Zprávy uvnitř boxu mají vlastní limit 144 px a jeden řádek; kontrola dosazuje nejdelší přezdívku. Police, knihovny a koše ve standardních interiérech mají české zprávy. Obchod má grafický štítek `PENÍZE`. Pevné grafické štítky PC nyní zobrazují `ÚDAJE`, `TÝM`, `ZPĚT` a `ZAVŘÍT BOX`. Generátor je skládá podle původních dlaždicových map a zachovává rozměry, palety i čísla dlaždic.
+Validátor vyžaduje záznam také pro sdílené zprávy přímo volané z map Virelie; patří sem pozdrav a rozloučení prodavače. Standardní služby používají české nabídky nákupu, prodeje, úložiště Pokémonů a hráčova PC. České jsou také dialogy sestry Joy, zprávy plného boxu, přesun po odchytu a hlášky Pokérus. Zprávy uvnitř boxu mají vlastní limit 144 px a jeden řádek; kontrola dosazuje nejdelší přezdívku. Police, knihovny a koše ve standardních interiérech mají české zprávy. Obchod má grafický štítek `PENÍZE`. Pevné grafické štítky PC nyní zobrazují `ÚDAJE`, `TÝM`, `ZPĚT` a `ZAVŘÍT BOX`. Generátor je skládá podle původních dlaždicových map a zachovává rozměry, palety i čísla dlaždic.
 
 Nové trenérské třídy používají `HORNÍK` a `VEDOUCÍ`; původní `DÍVKA` zůstává zachována. Hláška s Lomovým odznakem, odměna TM39 a všechny nové mapové dialogy podléhají kontrole skutečné šířky písma. Názvy `Rock Tomb`, `TM39`, `Escape Rope` a ostatních útoků či předmětů zůstávají anglicky.
 
@@ -23,7 +23,7 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
   "status": "source_checked_native_prologue_scope_only",
   "manifest": "tools/virelia_prologue_localization.json",
   "level_bound": 20,
-  "manifest_entries": 1057,
+  "manifest_entries": 1059,
   "map_script_texts": 166,
   "expanded_ui_cases": 151,
   "move_stat_layout_cases": 12,
@@ -117,7 +117,7 @@ Kontrola odmítne lokalizační makro u názvu kteréhokoli útoku nebo předmě
 
 Kontrola používá nejdelší možné jméno hráče o sedmi znacích a přezdívku o dvanácti znacích. Dále rozbaluje názvy předmětů, útoků, povah, míst a číselné hodnoty podle kontextu hlášky. Žádný překročený limit se nevynechává. Pevná pole kontroluje i v zakódovaných bajtech včetně koncové značky. Zvlášť měří 144 px pro popis schopnosti v souhrnu, 208 px v běžném dialogu a v Pokédexu, 102 px pro popis předmětu a 86 px pro záhlaví souhrnu. Pro Pokédex používá skutečný `FONT_NORMAL`; tento tisk se automaticky nezmenšuje.
 
-Samostatný překlad 859 bojových řetězců v `src/battle_message.c` není součástí 1057 položek manifestu. Funkce `BattleStringExpandPlaceholders` po rozbalení předává text funkci `BreakStringAutomatic` s limity `BATTLE_MSG_MAX_WIDTH` a `BATTLE_MSG_MAX_LINES`. Nativní souboje se startéry a trenéry ověřily použité výzvy, útoky, změny statistik, vítězství, porážku a získání úrovně. Tato kontrola nepotvrzuje šířku všech bojových řetězců ani všechny kombinace jejich zástupných hodnot.
+Samostatný překlad 859 bojových řetězců v `src/battle_message.c` není součástí 1059 položek manifestu. Funkce `BattleStringExpandPlaceholders` po rozbalení předává text funkci `BreakStringAutomatic` s limity `BATTLE_MSG_MAX_WIDTH` a `BATTLE_MSG_MAX_LINES`. Nativní souboje se startéry a trenéry ověřily použité výzvy, útoky, změny statistik, vítězství, porážku a získání úrovně. Tato kontrola nepotvrzuje šířku všech bojových řetězců ani všechny kombinace jejich zástupných hodnot.
 
 Texty v grafice vytvářejí následující skripty z původních herních bitmapových písem. Zachovávají rozměry obrázků a indexované palety. Osmiřádkové popisky ponechávají dva řádky pro rozlišení háčku a čárky.
 

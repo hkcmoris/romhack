@@ -10404,6 +10404,26 @@
       "font": "Normal",
       "width": 208,
       "conditional": true
+    },
+    {
+      "path": "data/scripts/mart_clerk.inc",
+      "key": "gText_HowMayIServeYou",
+      "kind": "shared_script",
+      "english": "Welcome!\\pHow may I serve you?$",
+      "czech": "Vítej!\\pCo pro tebe mohu udělat?$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/scripts/mart_clerk.inc",
+      "key": "gText_PleaseComeAgain",
+      "kind": "shared_script",
+      "english": "Please come again!$",
+      "czech": "Zase se zastav!$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
     }
   ],
   "coverage": {

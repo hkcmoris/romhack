@@ -63,6 +63,48 @@ def adjacent(point):
     return {(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)}
 
 
+def validate_nurse_path(center):
+    """Follow the actual nurse script and shared helpers, including fallthrough.
+
+    The shared full-center entry reaches the Union Room name buffer. This local
+    Center has no Union Room initialization, so using that entry can copy an
+    unterminated name into gStringVar1 and corrupt later globals such as gFonts.
+    """
+    source = read("data/scripts/pkmn_center_nurse.inc") + "\n" + center
+    labels = list(re.finditer(r"(?m)^([A-Za-z_][A-Za-z0-9_]*):{1,2}\s*$", source))
+    blocks = {}
+    for index, label in enumerate(labels):
+        body = source[label.end():labels[index + 1].start() if index + 1 < len(labels) else len(source)]
+        instructions = [line.strip() for line in body.splitlines()
+                        if line.strip() and not line.lstrip().startswith(("@", ".", "#"))]
+        targets = [args.split(",")[-1].strip() for args in
+                   re.findall(r"(?m)^\s*(?:call|goto)(?:_[a-z_]+)*\s+([^\n]+)", body)]
+        if instructions and index + 1 < len(labels):
+            last = instructions[-1]
+            if last not in ("end", "return") and not last.startswith("goto "):
+                targets.append(labels[index + 1].group(1))
+        blocks[label.group(1)] = body, targets
+    start = "Virelia_Slateford_PokemonCenter_EventScript_Nurse"
+    require(start in blocks, "Local Center nurse event is missing")
+    queue, visited = [start], set()
+    while queue:
+        label = queue.pop()
+        if label in visited or label not in blocks:
+            continue
+        visited.add(label)
+        body, targets = blocks[label]
+        require("BufferUnionRoomPlayerName" not in body
+                and "CheckTrainerHillAndUnionRoom" not in label,
+                "Local nurse reaches an uninitialized Union Room name buffer")
+        queue.extend(targets)
+    reachable_source = "\n".join(blocks[label][0] for label in visited)
+    require("dofieldeffect FLDEFF_POKECENTER_HEAL" in reachable_source
+            and "special HealPlayerParty" in reachable_source,
+            "Local nurse must use the ordinary healing animation and HealPlayerParty")
+    require("EventScript_PkmnCenterNurse_ReturnPkmn" in visited,
+            "Local nurse must return Pokemon through the ordinary message and bow helper")
+
+
 def validate():
     groups = load("data/maps/map_groups.json")
     require(groups["gMapGroup_VireliaOverworld"] == [
@@ -113,7 +155,7 @@ def validate():
         require(re.search(rf"setmetatile\s+{gate[0]},\s*{gate[1]},\s*0x201,\s*0", scripts[name]),
                 f"{name}: native gate does not open with passable floor")
     center = scripts[NEW_NAMES[0]]
-    require("EventScript_PkmnCenterNurse" in center, "Center does not use standard healing")
+    validate_nurse_path(center)
     require("setrespawn HEAL_LOCATION_VIRELIA_SLATEFORD" in center,
             "Center does not register its own whiteout destination")
     require("EventScript_PC" in center or any(obj.get("script") == "EventScript_PC"

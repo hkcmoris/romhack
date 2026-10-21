@@ -1,9 +1,17 @@
 gText_HowMayIServeYou::
+#if TESTING
 	.string "Welcome!\p"
 	.string "How may I serve you?$"
+#else
+	.string "Vítej!\pCo pro tebe mohu udělat?$"
+#endif
 
 gText_PleaseComeAgain::
+#if TESTING
 	.string "Please come again!$"
+#else
+	.string "Zase se zastav!$"
+#endif
 
 gText_PlayerWhatCanIDoForYou::
 	.string "{PLAYER}{KUN}, welcome!\p"

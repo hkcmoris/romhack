@@ -126,7 +126,7 @@ def main():
         center[y][0] = 0x3220
         center[y][1] = 0x3202
         center[y][2] = 0x3202
-    lc = add_layout('PokemonCenter', center, 'Building', 'PokemonCenter', (0x0608,) * 4)
+    lc = add_layout('PokemonCenter', center, 'Building', 'PokemonCenter', (0x0201,) * 4)
     cp = PREFIX + 'PokemonCenter_'
     new_map('PokemonCenter', lc,
             [actor('NURSE', 7, 2, cp + 'EventScript_Nurse', local_id='LOCALID_VIRELIA_SLATEFORD_NURSE'),
@@ -135,7 +135,7 @@ def main():
             [warp(7, 8, CITY, 0), warp(6, 8, CITY, 0)])
 
     mart = grid_for('LAYOUT_MART')
-    lm = add_layout('Mart', mart, 'Building', 'Shop', (0x0610,) * 4)
+    lm = add_layout('Mart', mart, 'Building', 'Shop', (0x0001,) * 4)
     mp = PREFIX + 'Mart_'
     new_map('Mart', lm,
             [actor('MART_EMPLOYEE', 1, 3, mp + 'EventScript_Clerk', facing='RIGHT'),
@@ -150,7 +150,7 @@ def main():
     entrance[17][3] = 0x3207
     entrance[4][20] = 0x3214
     entrance[15][5] = 0x3202
-    le = add_layout('QuarryEntrance', entrance, 'General', 'RusturfTunnel', (0x0611,) * 4)
+    le = add_layout('QuarryEntrance', entrance, 'General', 'RusturfTunnel', (0x0211,) * 4)
     ep = PREFIX + 'QuarryEntrance_'
     new_map('QuarryEntrance', le,
             [actor('HIKER', 8, 12, ep + 'EventScript_Bruno', trainer=True),
@@ -174,7 +174,7 @@ def main():
         depths[y][x] = 0x3403
     for x, y in [(6, 15), (8, 10), (18, 17), (15, 4)]:
         depths[y][x] = 0x0603
-    ld = add_layout('QuarryDepths', depths, 'General', 'RusturfTunnel', (0x0611,) * 4)
+    ld = add_layout('QuarryDepths', depths, 'General', 'RusturfTunnel', (0x0211,) * 4)
     dp = PREFIX + 'QuarryDepths_'
     new_map('QuarryDepths', ld,
             [actor('WOMAN_2', 13, 12, dp + 'EventScript_Lenka', trainer=True),
@@ -210,7 +210,7 @@ def main():
     gym[19][5], gym[19][6] = 0x3006, 0x3007
     # Leader dais and a clear return route through every training bay.
     rect(gym, 4, 2, 5, 2, 0x3203)
-    lg = add_layout('Gym', gym, 'Building', 'RustboroGym', (0x0623,) * 4)
+    lg = add_layout('Gym', gym, 'Building', 'RustboroGym', (0x0001,) * 4)
     gp = PREFIX + 'Gym_'
     new_map('Gym', lg,
             [actor('ROXANNE', 6, 2, gp + 'EventScript_Mara'),
