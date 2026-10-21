@@ -6,6 +6,7 @@
 - [Virelia regional starter prototype](./VIRELIA_STARTERS.md)
 - [Virelia world foundation](./VIRELIA_WORLD.md)
 - [Virelia playable prologue](./VIRELIA_PROLOGUE.md)
+- [Virelia preview freeze investigation](./VIRELIA_PREVIEW_FREEZE.md)
 - [Virelia Czech localization audit](./VIRELIA_LOCALIZATION_AUDIT.md)
 - [FEATURES](./FEATURES.md)
 - [Installation](./INSTALL.md)

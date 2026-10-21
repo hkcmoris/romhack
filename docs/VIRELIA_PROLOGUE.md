@@ -368,3 +368,10 @@ PvP reward, network synchronization or Duo Adventure feature is introduced.
 Temporary art and names remain documented in the starter prototype. The native
 engine's broader postgame, PC and multiplayer facilities are retained; their
 full-game localization and manual acceptance are outside this opening slice.
+
+## Android preview investigation
+
+See [the preview freeze investigation](VIRELIA_PREVIEW_FREEZE.md) for checked
+sprite allocation, cleanup regressions, unchanged artwork evidence, the
+separate battle path and the exact My Boy! verification procedure. A successful
+CI or native mGBA run does not certify the affected Android device.

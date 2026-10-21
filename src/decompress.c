@@ -16,6 +16,7 @@
 //  === WARNING === WARNING === WARNING ===
 
 static void SmolDecompressData(const struct SmolHeader *header, const u32 *data, void *dest);
+static bool32 TrySmolDecompressData(const struct SmolHeader *header, const u32 *data, void *dest, bool32 allowFailure);
 static void SmolDecompressTilemap(const struct SmolTilemapHeader *header, const u32 *data, u16 *dest);
 
 static bool32 isModeLoEncoded(enum CompressionMode mode);
@@ -944,9 +945,15 @@ static void DecodeInstructionsIwram(u32 headerLoSize, const u8 *loVec, const u16
 //  Entrance point for smol compressed data
 static void SmolDecompressData(const struct SmolHeader *header, const u32 *data, void *dest)
 {
+    // Keep existing callers fail-fast. Picture menus use the checked entry point.
+    TrySmolDecompressData(header, data, dest, FALSE);
+}
+
+static bool32 TrySmolDecompressData(const struct SmolHeader *header, const u32 *data, void *dest, bool32 allowFailure)
+{
     //  This is apparently needed due to Game Freak sending bullshit down the decompression pipeline
     if (header->loSize == 0 || header->symSize == 0)
-        return;
+        return TRUE;
     const u8 *leftoverPos = (u8 *)data;
 
     sCurrState = header->initialState;
@@ -962,7 +969,7 @@ static void SmolDecompressData(const struct SmolHeader *header, const u32 *data,
     {
     case BASE_ONLY: // Used by .fastSmol, there is no encoding there, so we can quickly decode all the instructions and quit.
         DecodeInstructionsIwram(headerLoSize, leftoverPos + headerSymSize*2, (void *) leftoverPos, dest);
-        return;
+        return TRUE;
     case ENCODE_LO:
         pLoFreqs = &data[0];
         sDataPtr = &data[3];
@@ -987,7 +994,10 @@ static void SmolDecompressData(const struct SmolHeader *header, const u32 *data,
     // Everything needs to be aligned.
     u32 alignedLoSize = header->loSize % 2 == 1 ? headerLoSize + 1 : headerLoSize;
     u32 alignedSymSize = header->symSize % 2 == 1 ? headerSymSize + 1 : headerSymSize;
-    void *memoryAlloced = Alloc((alignedSymSize*2) + alignedLoSize);
+    u32 scratchSize = (alignedSymSize*2) + alignedLoSize;
+    void *memoryAlloced = allowFailure ? AllocUnchecked(scratchSize) : Alloc(scratchSize);
+    if (memoryAlloced == NULL)
+        return FALSE;
     u16 *symVec = memoryAlloced;
     u8 *loVec = memoryAlloced + alignedSymSize*2;
 
@@ -1034,6 +1044,7 @@ static void SmolDecompressData(const struct SmolHeader *header, const u32 *data,
     DecodeInstructionsIwram(headerLoSize, loVec, symVec, dest);
 
     Free(memoryAlloced);
+    return TRUE;
 }
 
 ARM_FUNC __attribute__((flatten, noinline, no_reorder)) __attribute__((optimize("-O3"))) static void DeltaDecodeTileNumbers(u16 *tileNumbers, u32 arraySize)
@@ -1125,6 +1136,84 @@ static bool32 isModeSymDelta(enum CompressionMode mode)
     return FALSE;
 }
 
+// Resolve the same species, gender and fallback artwork for ordinary loading
+// and the recoverable picture-menu path.
+static const u32 *GetSpecialPokePicSource(enum Species *picSpecies, u32 personality, bool8 isFrontPic, bool32 isEgg)
+{
+    enum Species species = SanitizeSpeciesId(*picSpecies);
+    if (species == SPECIES_UNOWN)
+        species = GetUnownSpeciesId(personality);
+    *picSpecies = species;
+
+    if (isEgg)
+    {
+        if (gSpeciesInfo[species].eggId != EGG_ID_NONE)
+            return gEggDatas[gSpeciesInfo[species].eggId].eggSprite;
+        else
+            return gSpeciesInfo[SPECIES_EGG].frontPic;
+    }
+    else if (isFrontPic)
+    {
+    #if P_GENDER_DIFFERENCES
+        if (gSpeciesInfo[species].frontPicFemale != NULL && IsPersonalityFemale(species, personality))
+            return gSpeciesInfo[species].frontPicFemale;
+    #endif
+        if (gSpeciesInfo[species].frontPic != NULL)
+            return gSpeciesInfo[species].frontPic;
+        else
+            return gSpeciesInfo[SPECIES_NONE].frontPic;
+    }
+    else
+    {
+    #if P_GENDER_DIFFERENCES
+        if (gSpeciesInfo[species].backPicFemale != NULL && IsPersonalityFemale(species, personality))
+            return gSpeciesInfo[species].backPicFemale;
+    #endif
+        if (gSpeciesInfo[species].backPic != NULL)
+            return gSpeciesInfo[species].backPic;
+        else
+            return gSpeciesInfo[SPECIES_NONE].backPic;
+    }
+}
+
+static bool32 TryDecompressPicWram(const u32 *src, void *dest, u32 capacity)
+{
+    union CompressionHeader header;
+    u32 size;
+
+    if (src == NULL || dest == NULL || ((uintptr_t)src & 3) || ((uintptr_t)dest & 3))
+        return FALSE;
+    CpuCopy32(src, &header, sizeof(header));
+    switch (header.smol.mode)
+    {
+    case MODE_LZ77:
+        if (!IsLZ77Data(src, TILE_SIZE_4BPP, capacity))
+            return FALSE;
+        FastLZ77UnCompWram(src, dest);
+        return TRUE;
+    case BASE_ONLY:
+    case ENCODE_SYMS:
+    case ENCODE_DELTA_SYMS:
+    case ENCODE_LO:
+    case ENCODE_BOTH:
+    case ENCODE_BOTH_DELTA_SYMS:
+        size = header.smol.imageSize * SMOL_IMAGE_SIZE_MULTIPLIER;
+        if (size < TILE_SIZE_4BPP || size > capacity || size % TILE_SIZE_4BPP != 0
+         || header.smol.symSize == 0 || header.smol.loSize < 2)
+            return FALSE;
+        if ((isModeLoEncoded(header.smol.mode) || isModeSymEncoded(header.smol.mode))
+         && header.smol.bitstreamSize == 0)
+            return FALSE;
+        // The optimized entropy loops store at least one pair of symbols.
+        if (isModeSymDelta(header.smol.mode) && header.smol.symSize < 2)
+            return FALSE;
+        return TrySmolDecompressData(&header.smol, &src[2], dest, TRUE);
+    default:
+        // A tilemap/frame-container header cannot describe a Pokemon picture.
+        return FALSE;
+    }
+}
+
 void LoadSpecialPokePic(void *dest, enum Species species, u32 personality, bool8 isFrontPic)
 {
     LoadSpecialPokePicIsEgg(dest, species, personality, isFrontPic, FALSE);
@@ -1132,46 +1221,25 @@ void LoadSpecialPokePic(void *dest, enum Species species, u32 personality, bool8
 
 void LoadSpecialPokePicIsEgg(void *dest, enum Species species, u32 personality, bool8 isFrontPic, bool32 isEgg)
 {
-    species = SanitizeSpeciesId(species);
-    if (species == SPECIES_UNOWN)
-        species = GetUnownSpeciesId(personality);
-
-    if (isEgg)
-    {
-        if (gSpeciesInfo[species].eggId != EGG_ID_NONE)
-            DecompressDataWithHeaderWram(gEggDatas[gSpeciesInfo[species].eggId].eggSprite, dest);
-        else
-            DecompressDataWithHeaderWram(gSpeciesInfo[SPECIES_EGG].frontPic, dest);
-    }
-    else if (isFrontPic)
-    {
-    #if P_GENDER_DIFFERENCES
-        if (gSpeciesInfo[species].frontPicFemale != NULL && IsPersonalityFemale(species, personality))
-            DecompressDataWithHeaderWram(gSpeciesInfo[species].frontPicFemale, dest);
-        else
-    #endif
-        if (gSpeciesInfo[species].frontPic != NULL)
-            DecompressDataWithHeaderWram(gSpeciesInfo[species].frontPic, dest);
-        else
-            DecompressDataWithHeaderWram(gSpeciesInfo[SPECIES_NONE].frontPic, dest);
-    }
-    else
-    {
-    #if P_GENDER_DIFFERENCES
-        if (gSpeciesInfo[species].backPicFemale != NULL && IsPersonalityFemale(species, personality))
-            DecompressDataWithHeaderWram(gSpeciesInfo[species].backPicFemale, dest);
-        else
-    #endif
-        if (gSpeciesInfo[species].backPic != NULL)
-            DecompressDataWithHeaderWram(gSpeciesInfo[species].backPic, dest);
-        else
-            DecompressDataWithHeaderWram(gSpeciesInfo[SPECIES_NONE].backPic, dest);
-    }
+    const u32 *src = GetSpecialPokePicSource(&species, personality, isFrontPic, isEgg);
+    DecompressDataWithHeaderWram(src, dest);
 
     if (ShouldDrawSpotsOnSpecies(species) && isFrontPic && !isEgg)
-    {
         DrawPokemonSpotsBothFrames(personality, species, dest);
-    }
+}
+
+bool32 TryLoadSpecialPokePic(void *dest, enum Species species, u32 personality, bool8 isFrontPic, u32 capacity)
+{
+    const u32 *src = GetSpecialPokePicSource(&species, personality, isFrontPic, FALSE);
+    bool32 drawSpots = ShouldDrawSpotsOnSpecies(species) && isFrontPic;
+
+    if (drawSpots && capacity < MON_PIC_SIZE * MAX_MON_PIC_FRAMES)
+        return FALSE;
+    if (!TryDecompressPicWram(src, dest, capacity))
+        return FALSE;
+    if (drawSpots)
+        DrawPokemonSpotsBothFrames(personality, species, dest);
+    return TRUE;
 }
 
 void Unused_DecompressDataWithHeaderWramIndirect(const void **src, void *dest)

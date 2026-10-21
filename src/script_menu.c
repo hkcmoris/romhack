@@ -989,27 +989,52 @@ static void Task_PokemonPicWindow(u8 taskId)
 
 bool8 ScriptMenu_ShowPokemonPic(enum Species species, u8 x, u8 y)
 {
+    struct WindowTemplate windowTemplate;
     u8 taskId;
     u8 spriteId;
+    u8 windowId;
 
     if (FindTaskIdByFunc(Task_PokemonPicWindow) != TASK_NONE)
+        return FALSE;
+
+    // CreateTask returns 0 when full, which is also a valid task ID. Check
+    // capacity first so a failed preview cannot overwrite an unrelated task.
+    for (taskId = 0; taskId < NUM_TASKS; taskId++)
     {
+        if (!gTasks[taskId].isActive)
+            break;
+    }
+    if (taskId == NUM_TASKS)
+        return FALSE;
+
+    taskId = CreateTask(Task_PokemonPicWindow, 0x50);
+    windowTemplate = CreateWindowTemplate(0, x + 1, y + 1, 8, 8, 15, 100);
+    windowId = AddWindow(&windowTemplate);
+    if (windowId == WINDOW_NONE)
+    {
+        DestroyTask(taskId);
         return FALSE;
     }
-    else
+
+    spriteId = CreateMonSprite_PicBox(species, x * 8 + 40, y * 8 + 40, 0);
+    if (spriteId >= MAX_SPRITES)
     {
-        spriteId = CreateMonSprite_PicBox(species, x * 8 + 40, y * 8 + 40, 0);
-        taskId = CreateTask(Task_PokemonPicWindow, 0x50);
-        gTasks[taskId].tWindowId = CreateWindowFromRect(x, y, 8, 8);
-        gTasks[taskId].tState = 0;
-        gTasks[taskId].tMonSpecies = species;
-        gTasks[taskId].tMonSpriteId = spriteId;
-        gSprites[spriteId].callback = SpriteCallbackDummy;
-        gSprites[spriteId].oam.priority = 0;
-        SetStandardWindowBorderStyle(gTasks[taskId].tWindowId, TRUE);
-        ScheduleBgCopyTilemapToVram(0);
-        return TRUE;
+        // Nothing has been drawn yet; removing the buffer is sufficient.
+        RemoveWindow(windowId);
+        DestroyTask(taskId);
+        return FALSE;
     }
+
+    gTasks[taskId].tWindowId = windowId;
+    gTasks[taskId].tState = 0;
+    gTasks[taskId].tMonSpecies = species;
+    gTasks[taskId].tMonSpriteId = spriteId;
+    gSprites[spriteId].callback = SpriteCallbackDummy;
+    gSprites[spriteId].oam.priority = 0;
+    PutWindowTilemap(windowId);
+    SetStandardWindowBorderStyle(windowId, TRUE);
+    ScheduleBgCopyTilemapToVram(0);
+    return TRUE;
 }
 
 bool8 (*ScriptMenu_HidePokemonPic(void))(void)
@@ -1018,7 +1043,10 @@ bool8 (*ScriptMenu_HidePokemonPic(void))(void)
 
     if (taskId == TASK_NONE)
         return NULL;
-    gTasks[taskId].tState++;
+    // Hiding immediately after show (or more than once) must still release both
+    // resources. Incrementing could leave state 0 waiting or skip sprite cleanup.
+    if (gTasks[taskId].tState < 2)
+        gTasks[taskId].tState = 2;
     return IsPicboxClosed;
 }
 
