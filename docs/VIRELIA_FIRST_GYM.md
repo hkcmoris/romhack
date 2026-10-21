@@ -94,6 +94,7 @@ eligible only at state 4, so a completed save cannot replay it.
 2. Explore two connected working areas with equipment, mineral seams, side
    paths and wild Pokémon. Bruno and Lenka offer ordinary trainer battles.
 3. Restore the electrical installation by following its labeled control order.
+   Operate the pump first, then the electrical feed.
    Wrong input and leaving the puzzle area reset partial input. Once restored,
    power stays restored across reentry, losses, saving and loading.
 4. Inspect the abandoned freight after power is restored and both quarry
@@ -103,7 +104,8 @@ eligible only at state 4, so a completed save cannot replay it.
 5. Report the evidence to the manager. The manager authorizes reopening the Gym.
    Repeated conversation grants no repeat reward.
 6. In the Gym, read the geological clues, operate its two controls in order and
-   defeat Ivan and Dana. Then challenge Mara.
+   defeat Ivan and Dana. The older-layer control comes before the younger-layer
+   control. Then challenge Mara.
 7. Win, receive the Lomový odznak and collect Rock Tomb's TM. A full Bag leaves
    the TM pending; talk to Mara again after making space. Then save and Continue.
 
@@ -188,7 +190,8 @@ The original Whisperwood encounter table and starter learnsets remain unchanged.
 | Trainer flags Bruno–Mara | 0x40–0x44 | Five independent victories |
 
 Partial puzzle inputs use temporary vars 0x400C and 0x400D.
-They are not chapter progress and may reset on map entry/Continue.
+They are not chapter progress: leaving/reentering the puzzle map resets them.
+An in-map native FLASH Continue preserved quarry stage 1 during this test.
 Completed puzzle flags always restore the open passage.
 
 The badge intentionally grants recognition and chapter progression only.
@@ -229,7 +232,7 @@ documentation and the aggregate check. The story suite reported 5,471 passed
 of 5,919 total; development mode reported 5,469 of 5,917. The inherited
 18 known failures, 421 TODOs and 9 expected failures match the baseline;
 they are not new chapter regressions. Final documentation and the additional
-five-trainer native loss/retry callback regression are validated by the latest
+five-trainer native loss/retry callback regression are covered by the latest
 [branch workflow](https://github.com/hkcmoris/romhack/actions?query=branch%3Acodex%2Fvirelia-first-gym).
 
 The source validators passed against baseline `14a30dafeb`: 3,434 legacy
@@ -237,8 +240,8 @@ map/layout files and existing IDs retained, reciprocal warps, locked/open
 collision graphs, trainer/reward gates, the laboratory scene and 1,059 Czech
 manifest entries through level 20. Native tests load the actual city, quarry,
 Gym and service map data, exercise all three starter chapter transitions,
-trainer loss/retry callbacks, ordinary storage/purchases, and native FLASH
-save/load. A full TM pocket leaves the reward pending in the native test;
+trainer loss/retry callbacks, ordinary storage, and native FLASH save/load.
+Controller tests additionally verify ordinary Mart purchases and persistence. A full TM pocket leaves the reward pending in the native test;
 collecting later grants exactly one TM.
 
 Native controller checks used release `0.3.49` from `6f3fa01bd8`, SHA-256
