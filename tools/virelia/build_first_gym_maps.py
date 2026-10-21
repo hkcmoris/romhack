@@ -154,7 +154,7 @@ def main():
     ep = PREFIX + 'QuarryEntrance_'
     new_map('QuarryEntrance', le,
             [actor('HIKER', 8, 12, ep + 'EventScript_Bruno', trainer=True),
-             actor('ITEM_BALL', 5, 4, ep + 'EventScript_Item', local_id='2', flag='FLAG_VIRELIA_ITEM_QUARRY_SUPER_POTION'),
+             actor('ITEM_BALL', 5, 4, ep + 'EventScript_Item', flag='FLAG_VIRELIA_ITEM_QUARRY_SUPER_POTION'),
              actor('HIKER', 5, 15, ep + 'EventScript_Guide')],
             [warp(3, 17, CITY, 3), warp(20, 4, 'MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS', 0)],
             [sign(17, 5, ep + 'EventScript_Equipment')], cave=True)
@@ -178,7 +178,7 @@ def main():
     dp = PREFIX + 'QuarryDepths_'
     new_map('QuarryDepths', ld,
             [actor('WOMAN_2', 13, 12, dp + 'EventScript_Lenka', trainer=True),
-             actor('MOVING_BOX', 12, 3, dp + 'EventScript_Evidence', local_id='2'),
+             actor('MOVING_BOX', 12, 3, dp + 'EventScript_Evidence'),
              actor('MOVING_BOX', 17, 16, dp + 'EventScript_Crate')],
             [warp(3, 19, 'MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE', 1)],
             [sign(20, 14, dp + 'EventScript_Pump'), sign(4, 9, dp + 'EventScript_Feed'),

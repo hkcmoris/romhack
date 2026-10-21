@@ -28,6 +28,11 @@ static const u16 sVireliaMaps[] =
     MAP_VIRELIA_ROUTE01,
     MAP_VIRELIA_SLATEFORD_CITY,
     MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE,
+    MAP_VIRELIA_SLATEFORD_POKEMON_CENTER,
+    MAP_VIRELIA_SLATEFORD_MART,
+    MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE,
+    MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS,
+    MAP_VIRELIA_SLATEFORD_GYM,
 };
 
 static const struct MapHeader *WorldHeader(u16 map)
@@ -98,9 +103,9 @@ TEST("Virelia object graphics include hidden story actors in Emerald")
 TEST("Virelia building warps resolve through the native warp loader in both directions")
 {
     u32 index = 0;
-    PARAMETRIZE { index = 0; }
-    PARAMETRIZE { index = 1; }
-    PARAMETRIZE { index = 4; }
+    for (u32 i = 0; i < ARRAY_COUNT(sVireliaMaps); i++)
+        if (i != 2)
+            PARAMETRIZE { index = i; }
 
     const struct MapHeader *source = WorldHeader(sVireliaMaps[index]);
     EXPECT_GT(source->events->warpCount, 0);

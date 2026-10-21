@@ -72,6 +72,11 @@ def validate():
         "Virelia_MaplebrookResearchLaboratory", "Virelia_MaplebrookPlayersHouse", *NEW_NAMES],
         "Interior map IDs must be append-only")
     maps = {name: load(f"data/maps/{name}/map.json") for name in NEW_NAMES}
+    for name, entry in maps.items():
+        for obj in entry["object_events"]:
+            if "local_id" in obj:
+                require(re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", obj["local_id"]) is not None,
+                        f"{name}: local_id must be a C identifier, never a numeric string")
     layouts = {entry["id"]: entry for entry in load("data/layouts/layouts.json")["layouts"]}
     scripts = {name: read(f"data/maps/{name}/scripts.inc") for name in NEW_NAMES}
     city = read("data/maps/Virelia_SlatefordCity/scripts.inc")

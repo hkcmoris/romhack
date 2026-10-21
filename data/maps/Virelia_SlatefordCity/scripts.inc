@@ -9,7 +9,7 @@ Virelia_SlatefordCity_MapScripts::
 @ derived from independent persistent flags and never reset the prologue.
 Virelia_SlatefordCity_FirstGymOnLoad:
 	callnative VireliaFirstGym_BeginChapter
-	setmetatile 22, 9, 0x2BB, 1
+	setmetatile 22, 9, 0x1C4, 1
 	setmetatile 25, 16, METATILE_General_RockWall_RockBase, 1
 	call_if_set FLAG_VIRELIA_PROLOGUE_COMPLETE, Virelia_SlatefordCity_OpenQuarry
 	call_if_set FLAG_VIRELIA_QUARRY_COMPLETE, Virelia_SlatefordCity_OpenGym
