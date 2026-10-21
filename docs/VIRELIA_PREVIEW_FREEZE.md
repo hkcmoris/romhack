@@ -2,7 +2,8 @@
 
 ## Rozsah a jistota závěru
 
-Oprava patří do větve `codex/virelia-prologue`, základ `14a30dafeb`.
+Oprava vznikla ve větvi `codex/virelia-prologue`, základ `14a30dafeb`.
+Stejnou opravu přebírá navazující větev `codex/virelia-first-gym`.
 Hlášený problém: stisk A u Poochyeny v laboratoři profesorky Javorové
 zastaví hru na Androidu/My Boy! ještě před zobrazením obrázku či textu.
 Spinarak a Ekans údajně fungují; Windows a iPhone problém údajně nemají.
@@ -12,6 +13,36 @@ Zdrojová analýza prokázala několik nezávislých chyb v obsluze prostředků
 Oprava je odstraňuje. Konkrétní příčinu Android freeze zatím nelze potvrdit:
 není k dispozici postižený telefon, jeho nastavení ani diagnostický záznam.
 Úspěch CI nebo mGBA nelze vydávat za úspěšný test My Boy!.
+
+## Upřesnění Android hlášení: 0.3.52
+
+Uživatel následně ověřil čistou novou hru v release **0.3.52**, bez savu
+nebo save state. Náhled a volba Poochyeny tentokrát proběhly; hra se zastavila
+po větě „Viktor už čeká na váš první cvičný souboj“. Toto místo je jiné
+než původní zastavení před náhledem.
+
+Release 0.3.52 je CI běh 39607864919, větev `codex/virelia-first-gym`,
+commit `5f72765456528cf32500be956dfa8b0fdb89c847`.
+SHA-256 ROM je `6da20d314629a94b26b1d2147ac696d9a96f4fc58b216ef3aef931b0279941a9`.
+Toto sestavení ještě neobsahuje opravu náhledů z commitů `f1e6c8ffda`
+a `656fb86e25`. Jeho laboratorní skript, pohybový engine a relevantní
+konfigurace jsou shodné s prologovým základem `14a30dafeb`.
+
+Po uvedené větě následuje `closemessage`, `hidefollower`, směrová volba
+pohybu hráče, `applymovement`, `waitmovement` a Viktorův další dialog.
+`OW_FOLLOWERS_ENABLED` je FALSE; po získání startéra se follower nevytváří.
+Bez follower objektu skrytí pouze předá řízení dalšímu snímku. Uložený směr
+se mezi zachycením a pohybem nepřepisuje. Přístupné cesty u Poochyeny
+končí na volném poli (4, 8). Nezávislé dekódování původních overworld
+snímků všech tří druhů také odpovídá PNG, ale tato vypnutá funkce je zde
+nepoužívá.
+
+Nové hlášení vylučuje starý save jako příčinu tohoto pokusu. Nepotvrzuje
+však konkrétní chybu alokace ani úspěch připravené opravy na Androidu.
+Při dalším testu je nutné zvlášť zaznamenat uzavření posledního dialogu,
+pohyb hráče, Viktorův dialog a zahájení boje. Pokud se opravená ROM zastaví
+ve stejném místě, bude potřeba záznam z My Boy!; mGBA tento freeze dosud
+nereprodukovala.
 
 ## Cesta od skriptu ke grafice
 
@@ -33,8 +64,9 @@ chování při nedostatku pomocné paměti; nová obnovitelná cesta patří Pic
 - `CreateSprite` a `Alloc` jsou fail-fast obálky. Původní následné kontroly
   nedokázaly zachytit jejich selhání. Oba tvůrci PicSprite používají skutečné
   unchecked alokace, kontrolují sentinel a při chybě uvolní částečné prostředky.
-- Původní kód mohl indexovat `gSprites[MAX_SPRITES]` nebo `gSprites[0xFFFF]`.
-  PicBox i field-move helper nyní ověřují ID před přístupem k paletě.
+- Původní kód mohl považovat `gSprites[MAX_SPRITES]` za živý sprite nebo
+  indexovat `gSprites[0xFFFF]`. MAX_SPRITES označuje pomocný slot, který není
+  platným živým sprite; 0xFFFF je mimo pole. PicBox i field-move helper nyní ověřují ID před přístupem k paletě.
   Do PicData se uloží pouze platný sprite.
 - SMOL potřebuje další dočasnou alokaci až po rámech a jejich tabulce.
   `TryLoadSpecialPokePic` kontroluje hlavičku, kapacitu a zarovnání cíle;
@@ -43,9 +75,11 @@ chování při nedostatku pomocné paměti; nová obnovitelná cesta patří Pic
 - Tabulky snímků měly neinicializované `relativeFrames`. Každý záznam se
   nyní nastaví výslovně. U náhledového snímku 0 jsou obě větve kopírování
   ekvivalentní; tento nález sám nevysvětluje hlášené okamžité zamrznutí.
-- Načtená paleta používala druhový tag, zatímco sprite požadoval jiný tag.
+- Při požadovaném tagu odlišném od druhu se paleta načetla pod jiným tagem.
   Nově se používá požadovaný tag, kontroluje se kapacita a rozlišuje vlastní
   a vypůjčená paleta. Sdílená paleta přežije zánik prvního PicSprite.
+  Laboratorní náhled předává druhový tag, takže tento nesoulad sám jeho
+  hlášené zamrznutí nevysvětluje.
 - Úklid ignoruje neplatná a neaktivní ID, chrání cizí znovupoužitý sprite,
   uvolní rámce, tabulku, vlastní paletu a affine matici. Při plné tabulce
   affine matic se nepoškodí matice 0 jiného sprite.
@@ -83,6 +117,39 @@ odlišný kompresní režim. Není prokázaný důvod měnit artwork nebo kompre
 SMOL i rychlé LZ77 kopírují ARM instrukce do pracovní paměti a vykonávají je.
 Neshoda s dynamickou rekompilací emulátoru je pouze hypotéza, nikoli potvrzená
 příčina ani tvrzení o známé chybě konkrétní verze My Boy!.
+
+## Nativně ověřené chování
+
+Ověření proběhlo v oficiálním mGBA libretro na Windows, skutečnými stisky
+ovladače. Test nepřidával Pokémony, příznaky, předměty ani zkušenosti do RAM.
+Použil novou hru a skutečný FLASH save před výběrem startéra. Mezi různými
+ROM se nepřenášel save state.
+
+Původní release 0.2.43 také zobrazil Poochyenu správně. Hlášený Android freeze
+se tedy v tomto prostředí nepodařilo reprodukovat. Opravené release 0.2.53
+a finální 0.2.54 jsou byte po bytu shodné; jejich SHA-256 je
+`1086757b7a4abc6f539e73767921c9a96538a425597cb83efd50e16162cc34c0`.
+Gameplay kód odpovídá commitu `656fb86e25`.
+
+Prošly všechny tři náhledy s českým popisem a jejich odmítnutí přes B.
+Každý startér prošel dvaceti dalšími otevřeními a odmítnutími, celkem 60.
+Při každém otevření se porovnal výřez vykresleného sprite s prvním nativním
+snímkem; pixely se shodovaly. Poté skutečná volba Poochyeny spustila první
+souboj, vykreslila její zadní bitmapu a po přirozené porážce vrátila hráče
+do laboratoře. Samostatné čisté načtení předvýběrového FLASH savu a volba
+Spinaraka ověřily soupeřovu přední Poochyenu v běžném souboji.
+
+Běžné uložení po prvním souboji a nové spuštění finální ROM zachovaly mapu
+(76, 0), pozici (4, 8), příběhový stav 3, travní volbu a jednoho Pokémona.
+Hash uložených dat celého týmu byl před a po načtení totožný.
+Nativní výsledky potvrzují tyto cesty v mGBA; neprokazují úspěch My Boy!.
+
+![Původní Poochyena v kontrolní ROM](images/virelia-preview/baseline-poochyena.png)
+![Opravený náhled Poochyeny](images/virelia-preview/poochyena.png)
+![Spinarak](images/virelia-preview/spinarak.png)
+![Ekans](images/virelia-preview/ekans.png)
+![Poochyena zezadu v běžném boji](images/virelia-preview/poochyena-back-battle.png)
+![Poochyena zepředu v běžném boji](images/virelia-preview/poochyena-front-battle.png)
 
 ## Regresní pokrytí
 
