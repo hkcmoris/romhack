@@ -138,11 +138,13 @@ bool8 ScrCmd_gotonative(struct ScriptContext *ctx)
 bool8 ScrCmd_special(struct ScriptContext *ctx)
 {
     u16 index = ScriptReadHalfword(ctx);
+    SpecialFunc executableFunc;
 
     Script_RequestEffects(SCREFF_V1);
     Script_CheckEffectInstrumentedSpecial(index);
 
-    gSpecials[index]();
+    executableFunc = (SpecialFunc)Script_GetExecutableAddress((uintptr_t)gSpecials[index]);
+    executableFunc();
     return FALSE;
 }
 
@@ -151,24 +153,28 @@ bool8 ScrCmd_specialvar(struct ScriptContext *ctx)
     u32 varId = ScriptReadHalfword(ctx);
     u16 index = ScriptReadHalfword(ctx);
     u16 *ptr = GetVarPointer(varId);
+    SpecialFunc executableFunc;
 
     Script_RequestEffects(SCREFF_V1);
     Script_RequestWriteVar(varId);
     Script_CheckEffectInstrumentedSpecial(index);
 
-    *ptr = gSpecials[index]();
+    executableFunc = (SpecialFunc)Script_GetExecutableAddress((uintptr_t)gSpecials[index]);
+    *ptr = executableFunc();
     return FALSE;
 }
 
 bool8 ScrCmd_callnative(struct ScriptContext *ctx)
 {
     NativeFunc func = (NativeFunc)ScriptReadWord(ctx);
+    NativeFunc executableFunc;
 
     Script_RequestEffects(SCREFF_V1);
     Script_CheckEffectInstrumentedCallNative(func);
 
     ctx->waitAfterCallNative = FALSE;
-    func(ctx);
+    executableFunc = (NativeFunc)Script_GetExecutableAddress((uintptr_t)func);
+    executableFunc(ctx);
     return ctx->waitAfterCallNative;
 }
 
