@@ -22,6 +22,29 @@ Viktor, starter selection and prologue progression remain unchanged.
 Link Multi, Duo Adventure, network synchronization and multiplayer missions
 receive no gameplay or protocol changes and remain unverified on My Boy! Wi-Fi.
 
+## Baseline native verification
+
+The baseline release `oraculum-v0.2.43-release.gba` from commit `14a30dafeb`
+was replayed in the official native mGBA libretro core with real controller
+inputs. Gameplay RAM, Pokemon, items and flags were not injected.
+
+Verified: starter preview, B cancellation, successful Water selection, both Ball
+pickups, Viktor's movement, natural rival loss and battle return/healing; both
+route trainers, an Ota loss returning to mother and a successful retry; Rocket
+victory, the officer and the completed finale. An ordinary in-game save at
+Slateford (19, 20), map (75, 2), was loaded by a fresh core from FLASH only.
+It restored the exact position, hidden Rocket, visible officer and completed
+story without replay. This closes the latest prologue's recorded native gap.
+
+The genuine transition fixture is
+`outputs/emulator/baseline/completed-prologue-14a30daf.sav`,
+SHA-256 `3d18fa3360199854208c2629af58d2c12d6bbe59fef7181f18b36318038ff3b2`.
+Local input/evidence metadata is in `native-baseline-evidence.json` beside it.
+The automated in-game clock read 0:21; it is not a human pacing measurement.
+
+![Latest starter preview](images/virelia-first-gym/baseline-starter-preview.png)
+![Fresh FLASH Continue at the completed prologue](images/virelia-first-gym/baseline-flash-continue.png)
+
 ## Append-only map registry
 
 Existing group/map, layout, species, trainer, heal location and story IDs keep

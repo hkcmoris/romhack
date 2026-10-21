@@ -153,6 +153,8 @@ def validate():
         portrait_id = "TRAINER_PIC_" + portrait[1].strip().upper().replace(" ", "_")
         require(re.search(r"\b" + portrait_id + r"\b", trainer_constants) is not None,
                 f"{trainer}: unregistered stock portrait {portrait_id}")
+    require('#include "constants/virelia_first_gym.h"' in read("data/map_events.s"),
+            "Map object flags require chapter constants during assembly")
     core = read("src/virelia_first_gym.c")
     require(not re.search(r"Flag(?:Set|Clear)\(FLAG_(?:BADGE\d|SYS_)", core),
             "Chapter writes original Hoenn badges/system flags")

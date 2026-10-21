@@ -42,6 +42,7 @@ SINGLE_BATTLE_TEST("Virelia first Gym starter stages survive one Rock Tomb witho
     }
 }
 
+// The harness defaults to the lowest damage roll (85 percent).
 SINGLE_BATTLE_TEST("Virelia quarry Makuhita at level fifteen can defeat the leader ace with obtainable Vital Throw")
 {
     GIVEN {
@@ -58,7 +59,10 @@ SINGLE_BATTLE_TEST("Virelia quarry Makuhita at level fifteen can defeat the lead
     } WHEN {
         TURN { MOVE(player, MOVE_VITAL_THROW); MOVE(opponent, MOVE_ROCK_TOMB); }
         TURN { MOVE(player, MOVE_VITAL_THROW); MOVE(opponent, MOVE_ROCK_TOMB); }
+        TURN { MOVE(player, MOVE_VITAL_THROW); MOVE(opponent, MOVE_ROCK_TOMB); }
     } SCENE {
+        HP_BAR(player);
+        HP_BAR(opponent);
         HP_BAR(player);
         HP_BAR(opponent);
         HP_BAR(player);
