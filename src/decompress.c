@@ -399,6 +399,7 @@ static IWRAM_DATA u8 sBitIndex = 0;
 static IWRAM_DATA const u32 *sDataPtr = 0;
 static IWRAM_DATA u32 sCurrState = 0;
 
+#if !GFX_DECOMPRESS_FROM_ROM
 // 33 because of FastUnsafeCopy32, we divide by 4 because the buffer is an array of u32
 #define FUNC_BUFFER_SIZE(funcStart, funcEnd)(((u32)(funcEnd) - (u32)(funcStart) + 33) / 4)
 
@@ -409,6 +410,7 @@ static inline void CopyFuncToIwram(void *funcBuffer, const void *funcStartAddres
 {
     FastUnsafeCopy32(funcBuffer, funcStartAddress, funcEndAdress - funcStartAddress);
 }
+#endif // !GFX_DECOMPRESS_FROM_ROM
 
 // The reason for macros and unrolling the loops stems from the following:
 // currK can be max 6, meaning in the worst case scenario it takes minimum 4 loop iterations, where we don't need to check if bitIndex is >= 32, because it's mathematically impossible for it to be.
@@ -525,10 +527,14 @@ static void DecodeLOtANS(const u32 *data, const u32 *pFreqs, u8 *resultVec, u32 
     // We want to store in packs of 2, so count needs to be divisible by 2
     u32 remainingCount = count % 2;
 
+#if GFX_DECOMPRESS_FROM_ROM
+    SwitchToArmCallLOtANS(data, sWorkingYkTable, resultVec, &resultVec[count - remainingCount], (void *) DecodeLOtANSLoop);
+#else
     u32 funcBuffer[FUNC_BUFFER_SIZE(DecodeLOtANSLoop, SwitchToArmCallLOtANS)];
 
     CopyFuncToIwram(funcBuffer, DecodeLOtANSLoop, SwitchToArmCallLOtANS);
     SwitchToArmCallLOtANS(data, sWorkingYkTable, resultVec, &resultVec[count - remainingCount], (void *) funcBuffer);
+#endif
 
     if (remainingCount)
     {
@@ -601,10 +607,15 @@ static void DecodeSymtANS(const u32 *data, const u32 *pFreqs, u16 *resultVec, u3
 {
     BuildDecompressionTable(pFreqs, sWorkingYkTable);
 
+#if GFX_DECOMPRESS_FROM_ROM
+    // As in the copied implementation, non-delta symbols use the LO kernel.
+    SwitchToArmCallDecodeSymtANS(data, sWorkingYkTable, resultVec, &resultVec[count], (void *) DecodeLOtANSLoop);
+#else
     u32 funcBuffer[FUNC_BUFFER_SIZE(DecodeLOtANSLoop, SwitchToArmCallLOtANS)];
     // CopyFuncToIwram(funcBuffer, DecodeSymtANSLoop, SwitchToArmCallDecodeSymtANS);
     CopyFuncToIwram(funcBuffer, DecodeLOtANSLoop, SwitchToArmCallLOtANS);
     SwitchToArmCallDecodeSymtANS(data, sWorkingYkTable, resultVec, &resultVec[count], (void *) funcBuffer);
+#endif
 }
 
 #define ANS_LOOP_MAIN(nibble)   \
@@ -780,9 +791,13 @@ static void DecodeSymDeltatANS(const u32 *data, const u32 *pFreqs, u16 *resultVe
     // We want to store in packs of 2, so count needs to be divisible by 2
     u32 remainingCount = count % 2;
 
+#if GFX_DECOMPRESS_FROM_ROM
+    u32 currSymbol = SwitchToArmCallSymDeltaANS(data, sWorkingYkTable, resultVec, &resultVec[count - remainingCount], (void *) DecodeSymDeltatANSLoop);
+#else
     u32 funcBuffer[FUNC_BUFFER_SIZE(DecodeSymDeltatANSLoop, SwitchToArmCallSymDeltaANS)];
     CopyFuncToIwram(funcBuffer, DecodeSymDeltatANSLoop, SwitchToArmCallSymDeltaANS);
     u32 currSymbol = SwitchToArmCallSymDeltaANS(data, sWorkingYkTable, resultVec, &resultVec[count - remainingCount], (void *) funcBuffer);
+#endif
 
     if (remainingCount)
     {
@@ -936,10 +951,14 @@ ARM_FUNC __attribute__((no_reorder)) static void SwitchToArmCallDecodeInstructio
 //  Dark Egg magic
 static void DecodeInstructionsIwram(u32 headerLoSize, const u8 *loVec, const u16 *symVec, void *dest)
 {
+#if GFX_DECOMPRESS_FROM_ROM
+    SwitchToArmCallDecodeInstructions(headerLoSize, loVec, symVec, dest, (void *) DecodeInstructions);
+#else
     u32 funcBuffer[FUNC_BUFFER_SIZE(DecodeInstructions, SwitchToArmCallDecodeInstructions)];
 
     CopyFuncToIwram(funcBuffer, DecodeInstructions, SwitchToArmCallDecodeInstructions);
     SwitchToArmCallDecodeInstructions(headerLoSize, loVec, symVec, dest, (void *) funcBuffer);
+#endif
 }
 
 //  Entrance point for smol compressed data
@@ -1102,10 +1121,14 @@ static void SmolDecompressTilemap(const struct SmolTilemapHeader *header, const 
     DecodeInstructionsIwram(header->tileNumberSize, loVec, symVec, dest);
     u32 arraySize = header->tilemapSize/2;
 
+#if GFX_DECOMPRESS_FROM_ROM
+    SwitchToArmCallDecodeTileNumbers(deltaDest, arraySize, (void *) DeltaDecodeTileNumbers);
+#else
     u32 funcBuffer[FUNC_BUFFER_SIZE(DeltaDecodeTileNumbers, SwitchToArmCallDecodeTileNumbers)];
 
     CopyFuncToIwram(funcBuffer, DeltaDecodeTileNumbers, SwitchToArmCallDecodeTileNumbers);
     SwitchToArmCallDecodeTileNumbers(deltaDest, arraySize, (void *) funcBuffer);
+#endif
 }
 
 //  Helper functions for determining modes
@@ -1466,8 +1489,12 @@ ARM_FUNC static void SwitchToArmCallFastLZ77(const u32 *src, void *dest, void (*
 
 void FastLZ77UnCompWram(const u32 *src, void *dest)
 {
+#if GFX_DECOMPRESS_FROM_ROM
+    SwitchToArmCallFastLZ77(src, dest, (void *) LZ77UnCompWRAMOptimized);
+#else
     u32 funcBuffer[200];
 
     CopyFuncToIwram(funcBuffer, LZ77UnCompWRAMOptimized, LZ77UnCompWRAMOptimized_end);
     SwitchToArmCallFastLZ77(src, dest, (void *) funcBuffer);
+#endif
 }

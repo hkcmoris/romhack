@@ -94,6 +94,14 @@
 // Development travel is separate from the playable Virelia story.
 #define VIRELIA_WORLD_TEST (VIRELIA_DEVELOPMENT_MODE && !IS_FRLG)
 #endif
+// Execute decompression kernels at their immutable ROM addresses in Virelia.
+// This avoids repeatedly replacing executable stack memory on emulators that
+// translate ARM code. The decoder algorithms/data are identical; ROM reads
+// can be slower. Set to 0 explicitly for a controlled compatibility comparison.
+#ifndef GFX_DECOMPRESS_FROM_ROM
+#define GFX_DECOMPRESS_FROM_ROM (!IS_FRLG && (VIRELIA_PROLOGUE || VIRELIA_DEVELOPMENT_MODE))
+#endif
+
 #define EXPANSION_INTRO              TRUE    // If TRUE, a custom RHH intro will play after the vanilla copyright screen.
 #define PHONEMES_SHARED              FALSE   // If TRUE, bard phonemes all reference the same sound (sound/direct_sound_samples/phonemes/shared.bin) to save ROM space.
 
