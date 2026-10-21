@@ -16,9 +16,9 @@ def records():
 def derive_coverage(level_bound=20):
     species_records = records()
     learnsets = {}
-    for path in (ROOT / 'src/data/pokemon/level_up_learnsets').glob('*.h'):
+    for path in sorted((ROOT / 'src/data/pokemon/level_up_learnsets').glob('*.h')):
         for match in re.finditer(r'struct LevelUpMove (\w+)\[\]\s*=\s*\{(.*?)\n\};', path.read_text(encoding='utf-8'), re.S):
-            learnsets[match[1]] = [(int(level), move) for level, move in re.findall(r'LEVEL_UP_MOVE\(\s*(\d+),\s*(MOVE_\w+)\)', match[2])]
+            learnsets.setdefault(match[1], set()).update((int(level), move) for level, move in re.findall(r'LEVEL_UP_MOVE\(\s*(\d+),\s*(MOVE_\w+)\)', match[2]))
     species = {'SPECIES_' + name for name in BASE_SPECIES}
     wild = json.loads((ROOT / 'src/data/wild_encounters.json').read_text(encoding='utf8'))
     for group in wild['wild_encounter_groups']:

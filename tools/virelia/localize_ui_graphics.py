@@ -70,6 +70,9 @@ def main():
             start += widths[code]
 
     assets = {
+        "graphics/shop/money.png": [
+            ((0, 0, 32, 16), "PENÍZE", 14),
+        ],
         "graphics/pokedex/menu.png": [
             ((16, 16, 24, 16), "OBLAST", 15),
             ((58, 16, 24, 16), "HLAS", 15),

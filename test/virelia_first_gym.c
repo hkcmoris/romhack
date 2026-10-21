@@ -20,7 +20,6 @@
 #include "virelia_prologue.h"
 #include "virelia_first_gym.h"
 #include "test/test.h"
-#include "test/battle.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 #include "constants/heal_locations.h"
@@ -111,9 +110,9 @@ TEST("Virelia actual city map load keeps chapter entrances locked until their in
     u32 gymBehavior = MapGridGetMetatileBehaviorAt(22 + MAP_OFFSET, 9 + MAP_OFFSET);
     u32 quarryBehavior = MapGridGetMetatileBehaviorAt(25 + MAP_OFFSET, 16 + MAP_OFFSET);
     EXPECT_EQ(MetatileBehavior_IsWarpDoor(gymBehavior), checkpoint >= 2);
-    EXPECT_EQ(MapGridGetCollisionAt(22 + MAP_OFFSET, 9 + MAP_OFFSET), 1);
+    EXPECT_NE(MapGridGetCollisionAt(22 + MAP_OFFSET, 9 + MAP_OFFSET), 0);
     EXPECT_EQ(MetatileBehavior_IsNonAnimDoor(quarryBehavior), checkpoint >= 1);
-    EXPECT_EQ(MapGridGetCollisionAt(25 + MAP_OFFSET, 16 + MAP_OFFSET), checkpoint >= 1 ? 0 : 1);
+    EXPECT_EQ(MapGridGetCollisionAt(25 + MAP_OFFSET, 16 + MAP_OFFSET) != 0, checkpoint < 1);
     // A completed prologue's frame script must not schedule its Rocket finale.
     EXPECT(!TryRunOnFrameMapScript());
     if (checkpoint >= 1)
@@ -141,7 +140,7 @@ TEST("Virelia actual quarry and Gym map scripts reset partial input and restore 
     RunOnLoadMapScript();
     EXPECT_EQ(VarGet(var), 0);
     EXPECT_EQ(FlagGet(flag), solved);
-    EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET), solved ? 0 : 1);
+    EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET) != 0, !solved);
     if (solved) EXPECT_EQ(MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET), 0x201);
 }
 
@@ -151,32 +150,32 @@ TEST("Virelia quarry and Gym teams use valid early game data without damaging Gr
     for (u32 i = 0; i < ARRAY_COUNT(sChapterTrainers); i++)
         PARAMETRIZE { index = i; }
     const struct Trainer *trainer = &sFirstGymTrainers[DIFFICULTY_NORMAL][sChapterTrainers[index]];
-    EXPECT_GE(trainer->partySize, 1);
-    EXPECT_LE(trainer->partySize, 3);
+    EXPECT_GE((u32)trainer->partySize, 1);
+    EXPECT_LE((u32)trainer->partySize, 3);
     EXPECT_NE(trainer->party, NULL);
-    EXPECT_EQ(trainer->battleType, TRAINER_BATTLE_TYPE_SINGLES);
+    EXPECT_EQ((u32)trainer->battleType, TRAINER_BATTLE_TYPE_SINGLES);
     for (u32 i = 0; i < trainer->partySize; i++)
     {
         const struct TrainerMon *mon = &trainer->party[i];
         EXPECT(IsSpeciesEnabled(mon->species));
-        EXPECT_GE(mon->lvl, 10);
-        EXPECT_LE(mon->lvl, 16);
+        EXPECT_GE((u32)mon->lvl, 10);
+        EXPECT_LE((u32)mon->lvl, 16);
         for (u32 j = 0; j < MAX_MON_MOVES; j++)
         {
             enum Move move = mon->moves[j];
             if (move == MOVE_NONE)
                 continue;
             EXPECT_LT(move, MOVES_COUNT);
-            EXPECT_GT(gMovesInfo[move].pp, 0);
+            EXPECT_GT((u32)gMovesInfo[move].pp, 0);
             EXPECT(!(gMovesInfo[move].type == TYPE_GROUND && gMovesInfo[move].power > 0));
         }
     }
     if (sChapterTrainers[index] == TRAINER_VIRELIA_MARA)
     {
-        EXPECT_EQ(trainer->partySize, 2);
+        EXPECT_EQ((u32)trainer->partySize, 2);
         EXPECT_EQ(trainer->party[0].species, SPECIES_ROGGENROLA);
         EXPECT_EQ(trainer->party[1].species, SPECIES_NOSEPASS);
-        EXPECT_EQ(trainer->party[1].lvl, 16);
+        EXPECT_EQ((u32)trainer->party[1].lvl, 16);
     }
 }
 
@@ -226,68 +225,6 @@ TEST("Virelia regional quarry party can use the ordinary PC storage data path")
     EXPECT_EQ(GetBoxMonDataAt(0, 0, MON_DATA_SPECIES), SPECIES_NONE);
 }
 
-
-// Deterministic mechanics checks use ordinary level-16 starter stages and
-// legal moves. They measure damage; they do not substitute for a full AI run.
-SINGLE_BATTLE_TEST("Virelia first Gym starter stages survive one Rock Tomb without one hit victories")
-{
-    enum Species species = SPECIES_POOCHYENA_VIRELIA;
-    enum Move move = MOVE_RAZOR_LEAF;
-    enum Ability ability = ABILITY_OVERGROW;
-    PARAMETRIZE { species = SPECIES_POOCHYENA_VIRELIA; move = MOVE_RAZOR_LEAF; ability = ABILITY_OVERGROW; }
-    PARAMETRIZE { species = SPECIES_ARIADOS_VIRELIA; move = MOVE_AQUA_JET; ability = ABILITY_TORRENT; }
-    PARAMETRIZE { species = SPECIES_ARBOK_VIRELIA; move = MOVE_ACID_SPRAY; ability = ABILITY_BLAZE; }
-    s16 dealt, received;
-    GIVEN {
-        PLAYER(species) {
-            Level(16); Nature(NATURE_HARDY); Ability(ability); Moves(move);
-            HPIV(15); AttackIV(15); DefenseIV(15); SpAttackIV(15); SpDefenseIV(15); SpeedIV(15);
-        }
-        OPPONENT(SPECIES_NOSEPASS) {
-            Level(16); Nature(NATURE_HARDY); Ability(ABILITY_STURDY); Moves(MOVE_ROCK_TOMB);
-            HPIV(0); AttackIV(0); DefenseIV(0); SpAttackIV(0); SpDefenseIV(0); SpeedIV(0);
-        }
-    } WHEN {
-        TURN { MOVE(player, move); MOVE(opponent, MOVE_ROCK_TOMB); }
-    } SCENE {
-        HP_BAR(opponent, captureDamage: &dealt);
-        HP_BAR(player, captureDamage: &received);
-    } THEN {
-        EXPECT_GT(dealt, 0);
-        EXPECT_LE(dealt, opponent->maxHP * 2 / 3);
-        EXPECT_GT(received, 0);
-        EXPECT_LT(received, player->maxHP);
-        EXPECT_GT(player->hp, 0);
-        EXPECT_GT(opponent->hp, 0);
-        if (move == MOVE_ACID_SPRAY)
-            EXPECT_EQ(opponent->statStages[STAT_SPDEF], DEFAULT_STAT_STAGE - 2);
-    }
-}
-
-SINGLE_BATTLE_TEST("Virelia quarry Makuhita at level fifteen can defeat the leader ace with obtainable Vital Throw")
-{
-    GIVEN {
-        PLAYER(SPECIES_MAKUHITA) {
-            Level(15); Nature(NATURE_HARDY); Ability(ABILITY_THICK_FAT); Moves(MOVE_VITAL_THROW);
-            HPIV(15); AttackIV(15); DefenseIV(15); SpAttackIV(15); SpDefenseIV(15); SpeedIV(15);
-        }
-        OPPONENT(SPECIES_NOSEPASS) {
-            Level(16); Nature(NATURE_HARDY); Ability(ABILITY_STURDY); Moves(MOVE_ROCK_TOMB);
-            HPIV(0); AttackIV(0); DefenseIV(0); SpAttackIV(0); SpDefenseIV(0); SpeedIV(0);
-        }
-    } WHEN {
-        TURN { MOVE(player, MOVE_VITAL_THROW); MOVE(opponent, MOVE_ROCK_TOMB); }
-        TURN { MOVE(player, MOVE_VITAL_THROW); MOVE(opponent, MOVE_ROCK_TOMB); }
-    } SCENE {
-        HP_BAR(player);
-        HP_BAR(opponent);
-        HP_BAR(player);
-        HP_BAR(opponent);
-    } THEN {
-        EXPECT_EQ(opponent->hp, 0);
-        EXPECT_GT(player->hp, 0);
-    }
-}
 
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE
 

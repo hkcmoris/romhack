@@ -143,6 +143,16 @@ def validate():
             "Changing the original trainer flag bank shifts every Hoenn system flag")
     require("max(TRAINERS_COUNT, TRAINER_PARTNER(PARTNER_COUNT))" in read("src/trainer_slide.c"),
             "Trainer slide table cannot safely index appended trainers")
+    party_source = read("src/data/trainers.party")
+    trainer_constants = read("include/constants/trainers.h")
+    for trainer in TRAINERS:
+        team = re.search(r"=== " + trainer + r" ===\n(.*?)(?=\n=== |\Z)", party_source, re.S)
+        require(team is not None, f"{trainer}: missing trainer party definition")
+        portrait = re.search(r"^Pic: (.+)$", team[1], re.M)
+        require(portrait is not None, f"{trainer}: missing stock portrait")
+        portrait_id = "TRAINER_PIC_" + portrait[1].strip().upper().replace(" ", "_")
+        require(re.search(r"\b" + portrait_id + r"\b", trainer_constants) is not None,
+                f"{trainer}: unregistered stock portrait {portrait_id}")
     core = read("src/virelia_first_gym.c")
     require(not re.search(r"Flag(?:Set|Clear)\(FLAG_(?:BADGE\d|SYS_)", core),
             "Chapter writes original Hoenn badges/system flags")
