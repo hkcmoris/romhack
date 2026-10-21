@@ -2,9 +2,11 @@
 
 ## Rozsah a jistota závěru
 
-**Aktuální stav:** My Boy! 1.8.0 na Galaxy J6 / Androidu 9 zamrzá i v 0.3.60,
-s vlastním i vestavěným BIOSem. Stejná ROM a telefon prošly hlášeným postupem
-Spinarak → B → Ekans v Lemuroidu. Dodaný BIOS má správný standardní hash.
+**Aktuální stav:** My Boy! na Galaxy J6 / Androidu 9 zamrzá i v ROM 0.3.60.
+Verze 1.8.0 selhala s vlastním i vestavěným BIOSem; uživatel následně
+aktualizoval My Boy! na 2.1.1 a freeze přetrval. Stejná ROM a telefon prošly
+v Lemuroidu náhledy i výběrem Poochyeny a původně problémovým přechodem
+po profesorkině větě až do bitvy. Dodaný BIOS má správný standardní hash.
 Konkrétní příčina ani oprava My Boy! nejsou prokázané; úplný Gym tím na
 Androidu ověřen není. Podrobná matice a důkazy jsou níže.
 
@@ -394,6 +396,13 @@ Android emulátorů. [Lemuroid](https://github.com/Swordfish90/Lemuroid) podle
 svého README používá pro GBA mGBA. Uživatel zároveň vypnul vlastní BIOS
 v My Boy! a čistý test zopakoval s vestavěnou emulací BIOSu: znovu freeze.
 
+Další hlášení potvrzuje, že aktualizace My Boy! na **2.1.1** freeze
+neodstranila. Konkrétní režim BIOSu tohoto nového pokusu nebyl uveden;
+výsledek proto nelze automaticky připsat oběma režimům BIOSu i ve verzi 2.1.1.
+V Lemuroidu uživatel navíc vybral Poochyenu a potvrdil postup přes původně
+problémový přechod až do bitvy. Dokončení souboje ani samostatné vizuální
+potvrzení obou bojových obrázků tímto hlášením doloženo není.
+
 Dodaný `gba_bios.bin` má 16384 B, MD5 `a860e8c0b6d573d191e4ec7db1b1e4f6`
 a SHA-256 `fd2547724b505f487e6dcb29ec2ecff3af35a841a77ab2e85fd87350abd36570`.
 MD5 přesně odpovídá referenci pro standardní GBA BIOS v
@@ -403,8 +412,9 @@ Soubor nebyl přidán do repozitáře ani distribuován s ROM.
 | Prostředí / ROM 0.3.60 | Ověřený výsledek |
 | --- | --- |
 | Galaxy J6, My Boy! 1.8.0, dodaný BIOS | Freeze u Ekanse včetně ovládání emulátoru, hlásí uživatel |
-| Stejný telefon, My Boy!, vestavěná emulace BIOSu | Freeze přetrval, hlásí uživatel |
-| Stejný telefon, Lemuroid | Postup Spinarak → B → Ekans prošel, hlásí uživatel |
+| Stejný telefon, My Boy! 1.8.0, vestavěná emulace BIOSu | Freeze přetrval, hlásí uživatel |
+| Stejný telefon, My Boy! aktualizovaný na 2.1.1 | Freeze přetrval; režim BIOSu tohoto pokusu neuveden, hlásí uživatel |
+| Stejný telefon, Lemuroid | Náhledy, výběr Poochyeny a přechod po profesorkině větě do bitvy prošly, hlásí uživatel |
 | Windows mGBA, vestavěný BIOS | Nová hra, tři náhledy, první boj, save/load i 60 odmítnutí prošly |
 | Windows mGBA, přesný dodaný BIOS | Nová hra, tři náhledy, profesorkina věta, přesun a skutečný první boj prošly |
 
@@ -414,9 +424,9 @@ načítal z původního umístění; test nevkládal herní RAM ani nepřenáše
 mezi různými ROM. Výsledek tedy nelze připsat pouze použití náhradního BIOSu
 v dosavadních nativních testech.
 
-Prakticky je pro tento telefon potvrzen Lemuroid pro uvedený krátký postup;
-celý nový Gym tím na Androidu otestován není. My Boy! 1.8.0 zůstává známou
-nevyřešenou kombinací. Nelze označit za prokázanou chybu BIOS souboru,
+Prakticky je pro tento telefon potvrzen Lemuroid pro uvedené náhledy a přechod
+s Poochyenou do bitvy; celý nový Gym tím na Androidu otestován není.
+My Boy! 1.8.0 i 2.1.1 zůstávají známými nevyřešenými kombinacemi. Nelze označit za prokázanou chybu BIOS souboru,
 konkrétní JIT chybu ani bezchybnost ROM na skutečném GBA. My Boy! podle
 [oficiálního popisu](https://play.google.com/store/apps/details?id=com.fastemulator.gba)
 používá JIT i vysokoúrovňovou emulaci BIOSu; tento obecný popis sám příčinu

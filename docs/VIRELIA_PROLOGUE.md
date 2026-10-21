@@ -378,7 +378,9 @@ CI or native mGBA run does not certify the affected Android device.
 
 The affected Galaxy J6 / Android 9 still freezes in My Boy! 1.8.0 with both
 external and built-in BIOS, including the 0.3.60 candidate. The user's BIOS
-matches the standard checksum. On the same phone the same ROM passes the
-reported Spinarak → B → Ekans sequence in Lemuroid. This is a confirmed
-compatibility difference, not a completed My Boy! fix or a full Android
-chapter playtest; see the investigation for the captured state and native proof.
+matches the standard checksum. Updating My Boy! to 2.1.1 did not resolve the
+freeze; the BIOS mode of that later attempt was not specified. On the same phone
+the same ROM passes the previews, Poochyena selection and the previously failing
+transition into battle in Lemuroid. Battle completion and the full Android
+chapter remain unverified. This is a confirmed compatibility difference, not a
+completed My Boy! fix; see the investigation for the captured state and native proof.
