@@ -42,7 +42,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_STURDY] =
     {
         .name = _(LOCALIZED_TEXT("Sturdy", "Odolnost")),
-        .description = COMPOUND_STRING(LOCALIZED_TEXT("Negates 1-hit KO attacks.", "Při plných HP přežije jedním HP.")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Negates 1-hit KO attacks.", "Přežije úder z plných HP s 1 HP.")),
         .aiRating = 6,
         .breakable = TRUE,
     },
@@ -993,7 +993,7 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
     [ABILITY_SHEER_FORCE] =
     {
         .name = _(LOCALIZED_TEXT("Sheer Force", "Hrubá síla")),
-        .description = COMPOUND_STRING(LOCALIZED_TEXT("Trades effects for power.", "Zesílí útoky bez vedlejších účinků.")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Trades effects for power.", "Zesílí útoky; ruší vedlejší účinky.")),
         .aiRating = 8,
     },
 

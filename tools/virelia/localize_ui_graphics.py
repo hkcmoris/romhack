@@ -8,6 +8,7 @@ pixel labels share a baseline and compress only the high accent area.
 from collections import Counter
 from pathlib import Path
 import re
+import struct
 import sys
 import tempfile
 from localize_type_icons import read_png, write_png as encode_png
@@ -177,7 +178,49 @@ def main():
         pixels, depth, chunks = read_png(path)
         label(pixels, (5, 10, 22, 13), "POPIS", 5, background=13, centered=True)
         write_png(path, pixels, depth, chunks)
-    print("Rendered Czech Pokédex, summary, status and battle labels with native font glyphs.")
+    # Storage labels span non-adjacent source tiles. Render them in their
+    # native screen layout, then scatter changed pixels back to the shared
+    # menu tiles. Tile IDs, palettes and storage/save layouts stay unchanged.
+    path = ROOT / "graphics/pokemon_storage/menu.png"
+    pixels, depth, chunks = read_png(path)
+    for tilemap, columns, labels in [
+        ("pkmn_data.bin", 8, [
+            ((4, 2, 56, 11), "ÚDAJE", 14, 2),
+            ((4, 18, 56, 11), "ÚDAJE", 14, 2),
+        ]),
+        ("close_box_button.bin", 9, [
+            ((5, 2, 61, 11), "ZAVŘÍT BOX", 14, 8),
+            ((5, 18, 61, 11), "ZAVŘÍT BOX", 9, 8),
+        ]),
+        ("party_menu.bin", 12, [
+            ((56, 138, 32, 12), "ZPĚT", 24, 23),
+            ((4, 162, 62, 11), "TÝM", 24, 23),
+        ]),
+    ]:
+        raw = (ROOT / "graphics/pokemon_storage" / tilemap).read_bytes()
+        tiles = struct.unpack("<" + "H" * (len(raw) // 2), raw)
+        height, width = len(tiles) // columns * 8, columns * 8
+        frame = [[0] * width for _ in range(height)]
+        locations = {}
+        for y in range(height):
+            for x in range(width):
+                tile = tiles[y // 8 * columns + x // 8]
+                index = (tile & 0x3FF) - 0x100
+                tx = 7 - x % 8 if tile & 0x400 else x % 8
+                ty = 7 - y % 8 if tile & 0x800 else y % 8
+                sx, sy = index % 16 * 8 + tx, index // 16 * 8 + ty
+                frame[y][x] = pixels[sy][sx]
+                locations[x, y] = sx, sy
+        before = [row[:] for row in frame]
+        for box, text, ink, background in labels:
+            label(frame, box, text, ink, background=background, centered=True)
+        for y in range(height):
+            for x in range(width):
+                if frame[y][x] != before[y][x]:
+                    sx, sy = locations[x, y]
+                    pixels[sy][sx] = frame[y][x]
+    write_png(path, pixels, depth, chunks)
+    print("Rendered Czech Pokédex, summary, status, battle and storage labels with native font glyphs.")
 
 
 if __name__ == "__main__":

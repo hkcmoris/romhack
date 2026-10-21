@@ -8041,7 +8041,7 @@
       "key": "ABILITY_SHEER_FORCE.description.0",
       "kind": "ability_description",
       "english": "Trades effects for power.",
-      "czech": "Zesílí útoky bez vedlejších účinků.",
+      "czech": "Zesílí útoky; ruší vedlejší účinky.",
       "font": "Narrower",
       "width": 144,
       "lines": 2
@@ -8061,7 +8061,7 @@
       "key": "ABILITY_STURDY.description.0",
       "kind": "ability_description",
       "english": "Negates 1-hit KO attacks.",
-      "czech": "Při plných HP přežije jedním HP.",
+      "czech": "Přežije úder z plných HP s 1 HP.",
       "font": "Narrower",
       "width": 144,
       "lines": 2
@@ -8271,7 +8271,7 @@
       "key": "SPECIES_ARON.categoryName.0",
       "kind": "dex_category",
       "english": "Iron Armor",
-      "czech": "Železný krun",
+      "czech": "Kovová zbroj",
       "font": "Normal",
       "width": 96,
       "lines": 0
@@ -9923,6 +9923,117 @@
       "width": 208,
       "lines": 0,
       "conditional": true
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_HIKER",
+      "kind": "trainer_class",
+      "english": "HIKER",
+      "czech": "HORNÍK",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "src/battle_main.c",
+      "key": "TRAINER_CLASS_LEADER",
+      "kind": "trainer_class",
+      "english": "LEADER",
+      "czech": "VEDOUCÍ",
+      "font": "Normal",
+      "width": 208
+    },
+    {
+      "path": "data/event_scripts.s",
+      "key": "gText_PokerusExplanation",
+      "kind": "shared_script",
+      "english": "Your POKéMON may be infected with\\nPOKéRUS.\\pLittle is known about the POKéRUS\\nexcept that they are microscopic life-\\lforms that attach to POKéMON.\\pWhile infected, POKéMON are said to\\ngrow exceptionally well.$",
+      "czech": "U tvých Pokémonů se možná\\nobjevil Pokérus.\\pJsou to drobné organismy,\\nkteré žijí na Pokémonech.\\pNakažení Pokémoni při tréninku\\nzískávají více úsilí.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/text/pc_transfer.inc",
+      "key": "gText_PkmnTransferredSomeonesPC",
+      "kind": "shared_script",
+      "english": "{STR_VAR_2} was transferred to\\nSOMEONE'S PC.\\pIt was placed in \\nBOX “{STR_VAR_1}.”$",
+      "czech": "{STR_VAR_2} odchází do PC.\\pNový box: {STR_VAR_1}.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/text/pc_transfer.inc",
+      "key": "gText_PkmnTransferredLanettesPC",
+      "kind": "shared_script",
+      "english": "{STR_VAR_2} was transferred to\\nBILL'S PC.\\pLANETTE'S PC.\\pIt was placed in \\nBOX “{STR_VAR_1}.”$",
+      "czech": "{STR_VAR_2} odchází do PC.\\pNový box: {STR_VAR_1}.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/text/pc_transfer.inc",
+      "key": "gText_PkmnTransferredSomeonesPCBoxFull",
+      "kind": "shared_script",
+      "english": "BOX “{STR_VAR_3}” on\\nSOMEONE'S PC was full.\\p{STR_VAR_2} was transferred to\\nBOX “{STR_VAR_1}.”$",
+      "czech": "Box {STR_VAR_3} je plný.\\p{STR_VAR_2} odchází do PC.\\nNový box: {STR_VAR_1}.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/text/pc_transfer.inc",
+      "key": "gText_PkmnTransferredLanettesPCBoxFull",
+      "kind": "shared_script",
+      "english": "BOX “{STR_VAR_3}” on\\nBILL'S PC was full.\\pLANETTE'S PC was full.\\p{STR_VAR_2} was transferred to\\nBOX “{STR_VAR_1}.”$",
+      "czech": "Box {STR_VAR_3} je plný.\\p{STR_VAR_2} odchází do PC.\\nNový box: {STR_VAR_1}.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/text/pc_transfer.inc",
+      "key": "gText_PkmnSentToPCAfterCatch",
+      "kind": "shared_script",
+      "english": "{STR_VAR_2} was sent to\\n{B_PC_CREATOR_NAME} PC.\\pIt was placed in \\nBOX “{STR_VAR_1}”.$",
+      "czech": "{STR_VAR_2} odchází do\\n{B_PC_CREATOR_NAME} PC.\\pNový box: {STR_VAR_1}.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true,
+      "replacements": {
+        "{B_PC_CREATOR_NAME}": "úložiště"
+      }
+    },
+    {
+      "path": "data/text/pc_transfer.inc",
+      "key": "gText_PlayerObtainedTheMon",
+      "kind": "shared_script",
+      "english": "{PLAYER} obtained\\nthe {STR_VAR_1}!$",
+      "czech": "{PLAYER} získává\\nPokémona {STR_VAR_1}!$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/text/pc_transfer.inc",
+      "key": "gText_NoMoreRoomForPokemon",
+      "kind": "shared_script",
+      "english": "There's no more room for POKéMON!\\pThe POKéMON BOXES are full and\\ncan't accept any more!$",
+      "czech": "Pro další Pokémony není místo!\\pVšechny boxy jsou plné.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
+    },
+    {
+      "path": "data/text/pc_transfer.inc",
+      "key": "gText_NicknameThisPokemon",
+      "kind": "shared_script",
+      "english": "Do you want to give a nickname to\\nthis {STR_VAR_1}?$",
+      "czech": "{STR_VAR_1}: chceš mu\\ndát přezdívku?$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true
     }
   ],
   "coverage": {
@@ -10105,6 +10216,7 @@
     ],
     "items": [
       "ITEM_ANTIDOTE",
+      "ITEM_AWAKENING",
       "ITEM_BIG_MUSHROOM",
       "ITEM_BLACK_BELT",
       "ITEM_BRIGHT_POWDER",

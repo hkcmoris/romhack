@@ -1,6 +1,14 @@
-# Lokalizační audit prologu Virelia
+# Lokalizační audit Virelie
 
-Zdrojová kontrola i nativní kontrola níže uvedených obrazovek prošly. Samotný počet přeložených řetězců nepotvrzuje úplnou lokalizaci ani celý herní průchod.
+Rozšíření v0.3 má zdrojovou kontrolu českých textů do úrovně 20. Dřívější nativní kontrola platí jen pro níže uvedené obrazovky prologu. Nová léčebna, obchod, PC, lom a stadion vyžadují vlastní nativní průchod; tento audit jejich ruční kontrolu nepotvrzuje. Samotný počet přeložených řetězců nepotvrzuje úplnou lokalizaci ani celý herní průchod.
+
+Rozsah v0.3 zahrnuje Geodude, Roggenrola, Sandshrew, Makuhita, Aron a trenérského Nosepass. Zahrnuje také dosažitelné evoluce původních druhů do úrovně 20, včetně Linoone, Mightyena, Kirlia a všech tří prostředních forem regionálních startérů. Konzervativně kontroluje i Raticate jako evoluci druhu použitého Rocketem. Level-up, evoluce a učení TM používají již přeložené společné obrazovky.
+
+Pomocný modul `tools/virelia_localization_coverage.py` načítá skutečná setkání, trenérské týmy, předměty map, level-up learnsety, schopnosti, držené předměty a tabulku Pickup. Kontroluje všechny zapsané generační větve learnsetů. Validátor odmítne chybějící názvy a popisy i nesoulad odvozeného rozsahu s manifestem. Místní evoluce v New Mauville do tohoto rozsahu nepatří. Odměny Pickup zahrnují úrovně 1 až 20; jejich možné předměty jsou přeložené.
+
+Standardní služby používají české nabídky nákupu, prodeje, úložiště Pokémonů a hráčova PC. České jsou také dialogy sestry Joy, zprávy plného boxu, přesun po odchytu a hlášky Pokérus. Zprávy uvnitř boxu mají vlastní limit 144 px a jeden řádek; kontrola dosazuje nejdelší přezdívku. Pevné grafické štítky PC nyní zobrazují `ÚDAJE`, `TÝM`, `ZPĚT` a `ZAVŘÍT BOX`. Generátor je skládá podle původních dlaždicových map a zachovává rozměry, palety i čísla dlaždic.
+
+Nové trenérské třídy používají `HORNÍK` a `VEDOUCÍ`; původní `DÍVKA` zůstává zachována. Hláška s Lomovým odznakem, odměna TM39 a všechny nové mapové dialogy podléhají kontrole skutečné šířky písma. Názvy `Rock Tomb`, `TM39`, `Escape Rope` a ostatních útoků či předmětů zůstávají anglicky.
 
 Názvy všech útoků musí zůstat anglicky i v české hře: například `Tackle`, `Growl` a `Struggle`. Popisy útoků a okolní hlášky zůstávají české. Trenérská třída rivala používá `Rival` (ve verzálkových popiscích `RIVAL`), nikoli `Soupeř`. Tato oprava po playtestu `0.2.40` prošla zdrojovou kontrolou; níže uvedené nativní snímky pocházejí ze starších sestavení.
 
@@ -12,32 +20,75 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
 {
   "schema": 1,
   "language": "cs",
-  "status": "source_and_scoped_native_checked",
+  "status": "source_checked_native_prologue_scope_only",
   "manifest": "tools/virelia_prologue_localization.json",
-  "level_bound": 15,
-  "manifest_entries": 710,
-  "map_script_texts": 77,
-  "expanded_ui_cases": 115,
+  "level_bound": 20,
+  "manifest_entries": 1020,
+  "map_script_texts": 166,
+  "expanded_ui_cases": 151,
   "move_stat_layout_cases": 12,
-  "move_names": 64,
+  "move_names": 110,
   "move_name_language": "en",
   "move_name_policy": "english_in_all_builds",
-  "ability_names": 28,
-  "item_names": 28,
+  "ability_names": 40,
+  "item_names": 36,
   "item_name_language": "en",
   "item_quantity_names": "english_base_name",
   "nature_names": 25,
   "type_names": 21,
-  "normal_dex_entries": 14,
+  "normal_dex_entries": 24,
   "regional_dex_entries": 9,
-  "wild_species": ["WURMPLE", "ZIGZAGOON", "POOCHYENA", "SEEDOT", "TAILLOW", "SHROOMISH", "RALTS"],
-  "normal_evolutions": ["SILCOON", "CASCOON", "BEAUTIFLY", "DUSTOX", "NUZLEAF"],
-  "trainer_species": ["RATTATA", "ZUBAT"],
+  "wild_species": [
+    "WURMPLE",
+    "ZIGZAGOON",
+    "POOCHYENA",
+    "SEEDOT",
+    "TAILLOW",
+    "SHROOMISH",
+    "RALTS",
+    "GEODUDE",
+    "ROGGENROLA",
+    "SANDSHREW",
+    "MAKUHITA",
+    "ARON"
+  ],
+  "normal_evolutions": [
+    "SILCOON",
+    "CASCOON",
+    "BEAUTIFLY",
+    "DUSTOX",
+    "NUZLEAF",
+    "LINOONE",
+    "MIGHTYENA",
+    "KIRLIA"
+  ],
+  "trainer_species": [
+    "RATTATA",
+    "ZUBAT",
+    "GEODUDE",
+    "MAKUHITA",
+    "SANDSHREW",
+    "ARON",
+    "ROGGENROLA",
+    "NOSEPASS"
+  ],
   "regional_species_owner": "Virelia core implementation",
   "native_screenshot_verification": {
     "build": "7c120",
     "method": "mGBA libretro, real buttons, fresh Grass playthrough, no RAM writes",
-    "passed": ["new_game_naming", "options", "party", "summary", "stats", "battle_moves", "contest_moves", "move_descriptions", "nickname_title", "trainer_card_front", "trainer_card_back"],
+    "passed": [
+      "new_game_naming",
+      "options",
+      "party",
+      "summary",
+      "stats",
+      "battle_moves",
+      "contest_moves",
+      "move_descriptions",
+      "nickname_title",
+      "trainer_card_front",
+      "trainer_card_back"
+    ],
     "regional_dex": "Fire2 native playthrough, National Dex and Ekans entry readable",
     "metric_measurement_followup": "ee05868 native_pass: 0,5 m and 13,6 kg",
     "pokedex_lifecycle_followup": "ee05868 native_pass: close full Dex, uncaught capture, nickname, next wild battle and return",
@@ -48,19 +99,25 @@ Strojový seznam překladů je v [manifestu](../tools/virelia_prologue_localizat
   },
   "expanded_placeholder_layout": "source_pass",
   "baked_ui_graphics": "native_pass_on_listed_screens",
-  "unbounded_grinding": "outside_audit_boundary"
+  "unbounded_grinding": "outside_audit_boundary",
+  "bounded_coverage": {
+    "species": 30,
+    "moves": 101,
+    "abilities": 40,
+    "items": 31
+  }
 }
 ```
 
 Audit zahrnuje hlavní nabídku včetně poškozené uložené hry a baterie, nastavení, batoh, party, souhrn Pokémona, změnu přezdívky, opětovné učení útoků, Pokédex a kartu trenéra. Zahrnuje také použití léků a repelentů, účinky předmětů bez výsledku, získání úrovně po použití Rare Candy, evoluci a návrat domů po porážce. Popisy soutěžních účinků jsou přeloženy, protože hráč může otevřít soutěžní záložku souhrnu, i když nemůže vstoupit do soutěže.
 
-Data pokrývají výše uvedené druhy do úrovně 15, jejich útoky a schopnosti, odměny schopnosti Sběr na úrovních 1 až 15 a dosažitelné držené předměty. Útoky zahrnují i nabídku opětovného učení a náhradní útok Struggle. Anglické názvy útoků, předmětů, druhů a míst zůstávají zachovány. HP, PP, ID a názvy tlačítek zachovávají běžné herní značení.
+Data pokrývají výše uvedené druhy do úrovně 20, jejich útoky a schopnosti, odměny schopnosti Sběr na úrovních 1 až 20 a dosažitelné držené předměty. Útoky zahrnují i nabídku opětovného učení a náhradní útok Struggle. Anglické názvy útoků, předmětů, druhů a míst zůstávají zachovány. HP, PP, ID a názvy tlačítek zachovávají běžné herní značení.
 
-Kontrola odmítne lokalizační makro u názvu kteréhokoli útoku nebo předmětu v jejich tabulkách. U 64 útoků a 28 předmětů v manifestu navíc ověřuje shodu s anglickým názvem v odpovídajícím záznamu a měří jeho šířku. U 28 názvů pro hlášky s počtem kusů kontroluje zachování základního anglického názvu.
+Kontrola odmítne lokalizační makro u názvu kteréhokoli útoku nebo předmětu v jejich tabulkách. U 110 útoků a 36 předmětů v manifestu navíc ověřuje shodu s anglickým názvem v odpovídajícím záznamu a měří jeho šířku. U 28 názvů pro hlášky s počtem kusů kontroluje zachování základního anglického názvu.
 
 Kontrola používá nejdelší možné jméno hráče o sedmi znacích a přezdívku o dvanácti znacích. Dále rozbaluje názvy předmětů, útoků, povah, míst a číselné hodnoty podle kontextu hlášky. Žádný překročený limit se nevynechává. Pevná pole kontroluje i v zakódovaných bajtech včetně koncové značky. Zvlášť měří 144 px pro popis schopnosti v souhrnu, 208 px v běžném dialogu a v Pokédexu, 102 px pro popis předmětu a 86 px pro záhlaví souhrnu. Pro Pokédex používá skutečný `FONT_NORMAL`; tento tisk se automaticky nezmenšuje.
 
-Samostatný překlad 859 bojových řetězců v `src/battle_message.c` není součástí 710 položek manifestu. Funkce `BattleStringExpandPlaceholders` po rozbalení předává text funkci `BreakStringAutomatic` s limity `BATTLE_MSG_MAX_WIDTH` a `BATTLE_MSG_MAX_LINES`. Nativní souboje se startéry a trenéry ověřily použité výzvy, útoky, změny statistik, vítězství, porážku a získání úrovně. Tato kontrola nepotvrzuje šířku všech bojových řetězců ani všechny kombinace jejich zástupných hodnot.
+Samostatný překlad 859 bojových řetězců v `src/battle_message.c` není součástí 1020 položek manifestu. Funkce `BattleStringExpandPlaceholders` po rozbalení předává text funkci `BreakStringAutomatic` s limity `BATTLE_MSG_MAX_WIDTH` a `BATTLE_MSG_MAX_LINES`. Nativní souboje se startéry a trenéry ověřily použité výzvy, útoky, změny statistik, vítězství, porážku a získání úrovně. Tato kontrola nepotvrzuje šířku všech bojových řetězců ani všechny kombinace jejich zástupných hodnot.
 
 Texty v grafice vytvářejí následující skripty z původních herních bitmapových písem. Zachovávají rozměry obrázků a indexované palety. Osmiřádkové popisky ponechávají dva řádky pro rozlišení háčku a čárky.
 
@@ -97,5 +154,7 @@ Snímky jsou místní pracovní výstupy v ignorovaném adresáři `outputs`. Ko
 Při kontrole `ee05868` prošly výhra nad Rocketem, všechny tři stránky policistova dialogu a závěrečný cíl. Policista používá původní grafiku, nově dostupnou i v Emerald. Dokončení nastavilo stav 5 a trvalý příznak. Stadion zůstal zavřený. Přechod město → trasa → město neopakoval scénu. Uložení a nové spuštění pouze z FLASH obnovily pozici, tým, předměty i dokončení. Závěr a načtení prošly také v optimalizované release ROM `0.2.36`.
 
 Na uvedených nativně ověřených obrazovkách nezůstal anglický popisek ani známý ořez textu. Chybové obrazovky poškozené uložené hry, všechny kombinace léčiv a všechny větve učení útoků mají zdrojovou kontrolu; každá jejich obrazovka nebyla ručně vyvolána. Toto omezení platí i po úspěšné kompilaci a automatických testech.
+
+Ruční kontrola v0.3 musí ověřit léčení, návrat po porážce, nákup a prodej, přesun Pokémona mezi týmem a boxem, přejmenování boxu a návrat do mapy. Musí ověřit také evoluce startérů na úrovních 14, 16 a 18, učení útoků do úrovně 20 a obrazovky odznaku a TM. Uložení a nové načtení musí fungovat uvnitř obou služeb. Výsledek kompilace ani zdrojového validátoru tento průchod nenahrazuje. Android/My Boy! se ověřuje zvlášť.
 
 Vyšší úrovně lze získat opakovanými souboji. Tento audit proto nepotvrzuje překlad všech popisů útoků a textů evolucí při neomezeném trénování. Nepokrývá jiné oblasti, multiplayer ani předměty a útoky dostupné až mimo uvedený rozsah. Úplná česká lokalizace celé hry není cílem tohoto seznamu. Nativní průchod s travním startérem skončil v čase 14:03 bez odchytu; kontrola stadionu a návratu do města jej prodloužila na 14:55. Jde o herní hodiny při automatizovaném ovládání. Cílových 15 až 20 minut s odchytem zatím nebylo změřeno lidským hráčem.

@@ -16,7 +16,7 @@ Virelia_SlatefordCity_FirstGymOnLoad:
 	end
 
 Virelia_SlatefordCity_OpenQuarry:
-	setmetatile 25, 16, METATILE_General_CaveEntrance_Bottom, 1
+	setmetatile 25, 16, METATILE_General_CaveEntrance_Bottom, 0
 	return
 
 Virelia_SlatefordCity_OpenGym:

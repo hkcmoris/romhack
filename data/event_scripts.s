@@ -1493,6 +1493,7 @@ gText_ComeBackWithSecretPower::
 	.string "you good stuff in secrecy.$"
 
 gText_PokerusExplanation::
+#if TESTING
 	.string "Your POKéMON may be infected with\n"
 	.string "POKéRUS.\p"
 	.string "Little is known about the POKéRUS\n"
@@ -1500,6 +1501,9 @@ gText_PokerusExplanation::
 	.string "forms that attach to POKéMON.\p"
 	.string "While infected, POKéMON are said to\n"
 	.string "grow exceptionally well.$"
+#else
+	.string "U tvých Pokémonů se možná\nobjevil Pokérus.\pJsou to drobné organismy,\nkteré žijí na Pokémonech.\pNakažení Pokémoni při tréninku\nzískávají více úsilí.$"
+#endif
 
 	.include "data/text/surf.inc"
 

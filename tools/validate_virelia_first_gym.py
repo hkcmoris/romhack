@@ -81,6 +81,8 @@ def validate():
     scripts = {name: read(f"data/maps/{name}/scripts.inc") for name in NEW_NAMES}
     city = read("data/maps/Virelia_SlatefordCity/scripts.inc")
     require("FLAG_VIRELIA_PROLOGUE_COMPLETE" in city, "Quarry entrance lacks prologue gate")
+    require(re.search(r"setmetatile\s+25,\s*16,\s*METATILE_General_CaveEntrance_Bottom,\s*0", city),
+            "Opened non-animated quarry entrance must be walkable for native step warp")
     require("FLAG_VIRELIA_QUARRY_COMPLETE" in city, "Gym entrance lacks quarry completion gate")
     require("VireliaFirstGym_BeginChapter" in city, "Completed saves cannot enter chapter on city load")
     scripts_all = "\n".join(scripts.values())
@@ -139,7 +141,7 @@ def validate():
     require(ids == list(range(866, 871)), "Chapter trainer IDs overlap old trainers or partner bank")
     require(re.search(r"#define\s+MAX_TRAINERS_COUNT_EMERALD\s+864\b", opponents),
             "Changing the original trainer flag bank shifts every Hoenn system flag")
-    require("MAX(TRAINERS_COUNT, TRAINER_PARTNER(PARTNER_COUNT))" in read("src/trainer_slide.c"),
+    require("max(TRAINERS_COUNT, TRAINER_PARTNER(PARTNER_COUNT))" in read("src/trainer_slide.c"),
             "Trainer slide table cannot safely index appended trainers")
     core = read("src/virelia_first_gym.c")
     require(not re.search(r"Flag(?:Set|Clear)\(FLAG_(?:BADGE\d|SYS_)", core),

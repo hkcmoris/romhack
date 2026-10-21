@@ -860,9 +860,10 @@
 #define TRAINER_BRENDAN_PLACEHOLDER         853
 #define TRAINER_MAY_PLACEHOLDER             854
 
-// NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 3 additional trainers before trainer flag space overflows
-//       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
-//       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
+// The original trainer flag bank ends at 0x85F. IDs 861-863 remain unused;
+// 864-865 belong to the existing partner bank. Appended Virelia opponents use
+// reserved low story flags through VireliaFirstGym_TrainerFlag. Do not increase
+// MAX_TRAINERS_COUNT: that would renumber partner and Hoenn system/save flags.
 
 #define TRAINER_VIRELIA_VIKTOR_GRASS       855
 #define TRAINER_VIRELIA_VIKTOR_WATER       856

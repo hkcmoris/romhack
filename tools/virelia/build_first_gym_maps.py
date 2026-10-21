@@ -239,7 +239,7 @@ def main():
     rect(city, 3, 15, 7, 6, 0x3001)
     copy_rect(city, stock_city, 15, 42, 4, 4, 5, 17) # Mart door (6,20).
     city[11][6] = city[21][6] = 0x32bb
-    city[15][25], city[16][25] = 0x049f, 0x04a7
+    city[15][25], city[16][25] = 0x049f, 0x00a7
     city[17][25] = 0x3121
     write_grid(ROOT / 'data/layouts/Virelia_SlatefordCity/map.bin', city)
     city_path = ROOT / 'data/maps/Virelia_SlatefordCity/map.json'

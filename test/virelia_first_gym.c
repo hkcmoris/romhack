@@ -4,6 +4,9 @@
 #include "battle_setup.h"
 #include "data.h"
 #include "event_data.h"
+#include "fieldmap.h"
+#include "metatile_behavior.h"
+#include "script.h"
 #include "heal_location.h"
 #include "item.h"
 #include "new_game.h"
@@ -86,6 +89,60 @@ TEST("Virelia appended trainers preserve the Hoenn flag bank and partner IDs")
         ClearTrainerFlag(trainer);
         EXPECT(!HasTrainerBeenFought(trainer));
     }
+}
+
+TEST("Virelia actual city map load keeps chapter entrances locked until their independent prerequisites")
+{
+    u32 checkpoint = 0;
+    for (u32 i = 0; i < 3; i++)
+        PARAMETRIZE { checkpoint = i; }
+    ResetFirstGymTest();
+    if (checkpoint >= 1)
+    {
+        FlagSet(FLAG_VIRELIA_PROLOGUE_COMPLETE);
+        VarSet(VAR_VIRELIA_PROLOGUE_STATE, VIRELIA_STATE_COMPLETE);
+    }
+    if (checkpoint >= 2) FlagSet(FLAG_VIRELIA_QUARRY_COMPLETE);
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_CITY),
+                       MAP_NUM(MAP_VIRELIA_SLATEFORD_CITY), WARP_ID_NONE, 14, 27);
+    WarpIntoMap();
+    InitMap();
+    RunOnLoadMapScript();
+    u32 gymBehavior = MapGridGetMetatileBehaviorAt(22 + MAP_OFFSET, 9 + MAP_OFFSET);
+    u32 quarryBehavior = MapGridGetMetatileBehaviorAt(25 + MAP_OFFSET, 16 + MAP_OFFSET);
+    EXPECT_EQ(MetatileBehavior_IsWarpDoor(gymBehavior), checkpoint >= 2);
+    EXPECT_EQ(MapGridGetCollisionAt(22 + MAP_OFFSET, 9 + MAP_OFFSET), 1);
+    EXPECT_EQ(MetatileBehavior_IsNonAnimDoor(quarryBehavior), checkpoint >= 1);
+    EXPECT_EQ(MapGridGetCollisionAt(25 + MAP_OFFSET, 16 + MAP_OFFSET), checkpoint >= 1 ? 0 : 1);
+    // A completed prologue's frame script must not schedule its Rocket finale.
+    EXPECT(!TryRunOnFrameMapScript());
+    if (checkpoint >= 1)
+        EXPECT_EQ(VarGet(VAR_VIRELIA_PROLOGUE_STATE), VIRELIA_STATE_COMPLETE);
+}
+
+TEST("Virelia actual quarry and Gym map scripts reset partial input and restore persistent gates")
+{
+    u32 puzzle = 0, solved = FALSE;
+    PARAMETRIZE { puzzle = 0; solved = FALSE; }
+    PARAMETRIZE { puzzle = 0; solved = TRUE; }
+    PARAMETRIZE { puzzle = 1; solved = FALSE; }
+    PARAMETRIZE { puzzle = 1; solved = TRUE; }
+    ResetFirstGymTest();
+    u16 map = puzzle ? MAP_VIRELIA_SLATEFORD_GYM : MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS;
+    u16 flag = puzzle ? FLAG_VIRELIA_GYM_PUZZLE_COMPLETE : FLAG_VIRELIA_QUARRY_POWER_RESTORED;
+    u16 var = puzzle ? VAR_VIRELIA_GYM_SWITCH : VAR_VIRELIA_QUARRY_SWITCH;
+    u32 x = puzzle ? 6 : 11, y = 6;
+    if (solved) FlagSet(flag);
+    SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), WARP_ID_NONE, puzzle ? 5 : 3, puzzle ? 18 : 19);
+    WarpIntoMap();
+    InitMap();
+    VarSet(var, 1);
+    RunOnTransitionMapScript();
+    RunOnLoadMapScript();
+    EXPECT_EQ(VarGet(var), 0);
+    EXPECT_EQ(FlagGet(flag), solved);
+    EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET), solved ? 0 : 1);
+    if (solved) EXPECT_EQ(MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET), 0x201);
 }
 
 TEST("Virelia quarry and Gym teams use valid early game data without damaging Ground attacks")
@@ -197,7 +254,7 @@ SINGLE_BATTLE_TEST("Virelia first Gym starter stages survive one Rock Tomb witho
         HP_BAR(player, captureDamage: &received);
     } THEN {
         EXPECT_GT(dealt, 0);
-        EXPECT_LT(dealt, opponent->maxHP);
+        EXPECT_LE(dealt, opponent->maxHP * 2 / 3);
         EXPECT_GT(received, 0);
         EXPECT_LT(received, player->maxHP);
         EXPECT_GT(player->hp, 0);

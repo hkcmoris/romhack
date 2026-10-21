@@ -2,6 +2,10 @@
 
 ## Scope and baseline
 
+The [v0.3 first Gym chapter](VIRELIA_FIRST_GYM.md) continues completed prologue
+saves through independent chapter flags. Its maps append to the existing registry;
+the historical v0.2 scope and native evidence below remain the prologue record.
+
 The normal Emerald new game now starts the Virelia campaign. This milestone
 ends after the first Team Rocket encounter in Slateford City. It preserves the
 existing title screen, species identifiers, Hoenn maps, save structures and

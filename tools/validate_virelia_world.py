@@ -205,9 +205,19 @@ def validate(base=None):
         require(walkable(node), f"{name}: inaccessible door/warp {warp}")
         return node
 
+    warp_behaviors = {behavior_names.index(name) for name in (
+        "MB_ANIMATED_DOOR", "MB_NON_ANIMATED_DOOR", "MB_LADDER",
+        "MB_EAST_ARROW_WARP", "MB_WEST_ARROW_WARP", "MB_NORTH_ARROW_WARP", "MB_SOUTH_ARROW_WARP",
+    )}
+    animated_door = behavior_names.index("MB_ANIMATED_DOOR")
     warp_points = []
     for name, entry in maps.items():
         for warp in entry["warp_events"]:
+            behavior = tile_behavior(name, warp["x"], warp["y"])
+            require(behavior in warp_behaviors,
+                    f"{name}: warp tile has no native walking/door behavior: {warp}")
+            require(behavior == animated_door or not block(name, warp["x"], warp["y"]) & 0xC00,
+                    f"{name}: non-animated warp tile is blocked: {warp}")
             require(warp["dest_map"] in by_id, f"{name}: unexpected external warp")
             target_name = by_id[warp["dest_map"]]
             target_warps = maps[target_name]["warp_events"]
@@ -275,6 +285,16 @@ def validate(base=None):
     grass = [node for node in seen if node[0] == ROUTE and (block(*node) & 0x3FF) < len(attrs)
              and attrs[block(*node) & 0x3FF] & 0xFF == 0x02]
     require(grass, "No reachable native tall grass on Route 01")
+    behavior_source = (ROOT / "src/metatile_behavior.c").read_text(encoding="utf-8")
+    encounter_behaviors = {
+        behavior_names.index(name) for name, flags in
+        re.findall(r"\[(MB_[A-Z0-9_]+)\]\s*=([^,]+),", behavior_source)
+        if "TILE_FLAG_HAS_ENCOUNTERS" in flags and "TILE_FLAG_SURFABLE" not in flags
+    }
+    for cave in ("Virelia_Slateford_QuarryEntrance", "Virelia_Slateford_QuarryDepths"):
+        floors = [node for node in seen if node[0] == cave and tile_behavior(*node) in encounter_behaviors]
+        require(floors, f"{cave}: no reachable native land-encounter floor")
+        print(f"PASS: {cave}: {len(floors)} reachable encounter-enabled floor tiles")
     encounter_groups = read_json("src/data/wild_encounters.json")["wild_encounter_groups"]
     route_encounters = [entry for group in encounter_groups if group.get("for_maps")
                         for entry in group["encounters"] if entry["map"] == maps[ROUTE]["id"]]
