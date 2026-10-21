@@ -3,7 +3,6 @@
   "name": "Virelia_SlatefordCity",
   "layout": "LAYOUT_VIRELIA_SLATEFORD_CITY",
   "music": "MUS_RUSTBORO",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_VIRELIA_SLATEFORD_CITY",
   "requires_flash": false,
   "weather": "WEATHER_SUNNY",
@@ -174,5 +173,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_SlatefordCity_EventScript_ClosedOffice"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }

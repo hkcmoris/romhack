@@ -3,7 +3,6 @@
   "name": "Virelia_MaplebrookResearchLaboratory",
   "layout": "LAYOUT_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY",
   "music": "MUS_BIRCH_LAB",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_VIRELIA_MAPLEBROOK_TOWN",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -42,6 +41,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_VIRELIA_LAB_GRASS_STARTER",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 4,
       "y": 6,
@@ -52,10 +52,10 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_MaplebrookResearchLaboratory_EventScript_GrassStarter",
-      "flag": "FLAG_VIRELIA_HIDE_GRASS_STARTER",
-      "local_id": "LOCALID_VIRELIA_LAB_GRASS_STARTER"
+      "flag": "FLAG_VIRELIA_HIDE_GRASS_STARTER"
     },
     {
+      "local_id": "LOCALID_VIRELIA_LAB_WATER_STARTER",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 6,
       "y": 6,
@@ -66,10 +66,10 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_MaplebrookResearchLaboratory_EventScript_WaterStarter",
-      "flag": "FLAG_VIRELIA_HIDE_WATER_STARTER",
-      "local_id": "LOCALID_VIRELIA_LAB_WATER_STARTER"
+      "flag": "FLAG_VIRELIA_HIDE_WATER_STARTER"
     },
     {
+      "local_id": "LOCALID_VIRELIA_LAB_FIRE_STARTER",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 8,
       "y": 6,
@@ -80,8 +80,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_MaplebrookResearchLaboratory_EventScript_FireStarter",
-      "flag": "FLAG_VIRELIA_HIDE_FIRE_STARTER",
-      "local_id": "LOCALID_VIRELIA_LAB_FIRE_STARTER"
+      "flag": "FLAG_VIRELIA_HIDE_FIRE_STARTER"
     },
     {
       "local_id": "LOCALID_VIRELIA_LAB_VIKTOR",
@@ -134,5 +133,6 @@
       "script": "Virelia_MaplebrookResearchLaboratory_EventScript_RivalGate"
     }
   ],
-  "bg_events": []
+  "bg_events": [],
+  "region": "REGION_HOENN"
 }
