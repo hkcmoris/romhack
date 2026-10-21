@@ -10,7 +10,7 @@ by the implementation of these experiments alone.
 
 **Test `myboy-event-only` first, followed by its matching `myboy-control`.**
 The first removes laboratory starter picture creation while retaining the same
-event bytecode, Czech descriptions, confirmation, selection flags, Viktor's
+event script instructions, Czech descriptions, confirmation, selection flags, Viktor's
 movement and first battle. The control retains pictures and uses the same
 diagnostics. This pair asks whether the reported failure requires the skipped
 picture path. A single successful run cannot answer that question.
@@ -32,8 +32,9 @@ The archived baseline artifact was downloaded to local QA output
 `outputs/myboy/baseline-0.3.60`; its ROM hash matches that identity exactly.
 Its exact source revision was read. The starting branch tip `eaadd84a84` adds
 documentation after that revision; its gameplay and build sources are unchanged.
-Addresses below are from the previously documented exact release audit, unless
-expressly described as source analysis. Development symbols must never be used
+Baseline 0.3.60's `copyvar` table slot was also read from the downloaded ROM:
+`0x082CE8FC + 0x19 * 4` contains `0x0A223381`, as previously recorded.
+Development symbols must never be used
 as addresses for a differently optimized release ROM.
 
 | Release | Exact source commit | ROM SHA-256 | Executed-path change and Android evidence |
@@ -94,9 +95,19 @@ The previous investigation used the real `oraculum-v0.3.58-release.st1`:
 `87110085dd480b1e24892e2402ae9ed258b2b0675243659c8933514cd54fa865`.
 Its expanded state was 527,992 bytes, SHA-256
 `b063c3bdc8cdbddde5c1635fa901e16b759468de86090a08855d49c87a59a965`.
-**That original binary state and BIOS file were not available in the known local
-QA directories during this investigation.** The following preserves the earlier
-analysis; it is not a newly decoded state or invented instruction trace.
+The original state was initially absent from the known QA directories. The user
+then supplied `C:/Users/morav/Downloads/oraculum-v0.3.58-release.st1`; its original
+and expanded hashes match those above exactly. It was reexamined read-only
+against the downloaded, hash-verified **0.3.58** ROM. The observations below were
+reconfirmed from actual bytes. The BIOS file itself remains unavailable in this
+session; the earlier comparison with its instructions is preserved as earlier
+evidence. No instruction trace is reconstructed.
+
+The expanded file begins with `GBASTATE`, followed by big-endian version 4.
+The register words at file offset `0x20` and CPSR at `0x60` reproduce the earlier
+PC/SP/CPSR values. IWRAM begins at expanded offset `0xB8` and EWRAM at `0x80B8`;
+these mappings were checked against actual ROM code, script structures and heap
+links, rather than copied from a different emulator's format.
 
 | Recorded location/state | Recorded value and interpretation |
 | --- | --- |
@@ -111,13 +122,44 @@ analysis; it is not a newly decoded state or invented instruction trace.
 | Heap | Six linked blocks covering `HEAP_SIZE`, 11,648 live bytes, 104,224 bytes in one free block; all eight PicData entries zero. |
 | Graphics | All 4,096 Spinarak front-picture bytes at `0x02004EB4` match the source pixels; SMOL data pointer `0x0856155C` points into that picture's compressed data. |
 
+The new analysis also compares the complete 2,176-byte initialized IWRAM image
+at `0x03000000..0x0300087F` against the exact ROM image at file offset
+`0x019B4330`: **zero mismatches**. This includes the IRQ dispatcher. The IRQ
+vector at `0x03007FFC` is `0x03000020`, the correct dispatcher address. Thirteen
+of fourteen interrupt-table slots match the ROM template; the Timer2 slot is
+consistent with the engine's normal flash-timer installation. This snapshot
+does not show persistent corruption of that code or vector, and does not rule
+out an earlier transient or timing fault.
+
+The serialized MMIO block at expanded offset `0x608B8` contains IE=`0x0005`,
+IF=`0x0005`, IME=`0x0001`, WAITCNT=`0x40B7`. IME being enabled is distinct from
+the CPU's masked IRQ bit. The final DMA3 register values describe a disabled
+transfer from `0x08D59F2C` to VRAM `0x06003E00`; they do not show a malformed
+current RAM destination. OAM and palette offsets preceding this block were
+cross-checked against their corresponding RAM buffers. These registers retain
+no DMA or interrupt timing history. A retained `0x0800030C` matches the exact
+ROM's return site after `swi 5`; its presence alone does not establish the
+originating exception or the last executed SWI.
+
 The old audit compared the supplied BIOS instructions at `0x1C` and `0x68`
 with its reset/reserved-handler loop. PC, SP and the BIOS stack supported an
 unexpected control transfer into that loop. They do not identify the initiating
-branch, SWI, IRQ or overwrite. IRQ return registers, banked registers and the
-earlier instruction sequence cannot be recovered here from an unavailable
-binary. The first-home-exit failure was a separate report and is not represented
+branch, SWI, IRQ or overwrite. Additional header words are retained as raw data
+unless their meaning is independently established; they are not assigned an
+invented banked-register history. The first-home-exit failure was a separate
+report and is not represented
 by this laboratory state.
+
+The stale stack contains `0x083BFC99` at `0x03007C58` (inside `copyvar`'s
+operands), `0x02021BF0` at `0x03007C5C` (its destination), `0x23682368` at
+`0x03007C60/64`, a battle-start call-site return address `0x0822B1FF` at
+`0x03007C68`, and the interpreter dispatch return address `0x0822A251` at
+`0x03007C78`. Matching disassembly confirms these call sites. These are stack
+residues, **not a validated unwind or ordered trace**. The repeated corrupt
+word is absent from the exact 32 MiB ROM. Its resemblance to the low half of
+an ordinary pointer literal is insufficient to identify an initiating fault.
+The analysis outputs and disassembly are retained locally under
+`outputs/myboy/original-state-*`; the user's original was not changed.
 
 ## 4. Relevant source and assembly evidence
 
@@ -188,9 +230,11 @@ Two source hazards merit targeted follow-up without being called the cause:
 Modes 1 and 2 include variant D instrumentation. Mode 2 implements variant A
 by consuming the existing `showmonpic` arguments and omitting its side effect
 only for the three regional starters in the research laboratory. Its unchanged
-`hidemonpic` finds no picture task and installs no wait. The laboratory event
-bytecode, branching, callbacks for other operations and all ordinary battle
-graphics remain unchanged. Other species/maps retain picture handling.
+`hidemonpic` finds no picture task and installs no wait. The laboratory script
+source, opcodes, branching, callbacks for other operations and all ordinary
+battle graphics remain unchanged. Linked address operands can relocate with
+the changed ROM layout; raw byte identity between variants is not claimed.
+Other species/maps retain picture handling.
 
 Variants B (isolated graphics NPC/map) and C (conventional decoder) are deferred
 until the first paired results. A separate pre-preview failure is already
@@ -380,26 +424,112 @@ cover rendered interaction and actual affected-emulator execution.
 
 ### Current-build evidence ledger
 
-Build hashes and results must come from the exact workflow artifacts, not a
-predicted hash or an earlier green run. This ledger is intentionally pending
-until the compatibility branch has been built:
+Build hashes and results below come from the exact workflow artifacts. Both
+diagnostics use source `560ae9317524d1c419bfc0803001db4d75a61448`, optimized
+Emerald story, GCC 13.2.1, binutils 2.42, LTO enabled. Every downloaded ROM,
+ELF, map and symbol file was independently checked against its manifest hash.
 
 | Evidence | Current status |
 | --- | --- |
-| Compatibility source commit / workflow URLs | Pending build publication |
-| `myboy-event-only` ROM SHA-256 | Pending `manifest.json` / `SHA256SUMS` |
-| `myboy-control` ROM SHA-256 | Pending `manifest.json` / `SHA256SUMS` |
-| Normal full pipeline: release/development and all other jobs | Pending |
-| Diagnostic modes 1 and 2: full native suites | Pending |
+| Compatibility source commit / workflow URLs | `560ae9317524d1c419bfc0803001db4d75a61448`; [normal CI](https://github.com/hkcmoris/romhack/actions/runs/39680969855), [diagnostic pair](https://github.com/hkcmoris/romhack/actions/runs/39680969944) |
+| `myboy-event-only` ROM SHA-256 | `8cbf23e587ed9d97204f7b45f98992bcfade165fda9b278a74636615fdae4469` |
+| `myboy-control` ROM SHA-256 | `8c2a22f370b3d0247f900eae428aa11b16b9f078a8e1a64283d54c8816956b33` |
+| Normal full pipeline: release/development and all other jobs | All required jobs and aggregate passed. Story 5,499 / 5,947; development 5,497 / 5,945. Emerald normal/release, FireRed, LeafGreen and documentation passed. |
+| Diagnostic modes 1 and 2: full native suites | Both passed. Control 5,504 / 5,952; event-only 5,506 / 5,954. All four suites retain 18 KNOWN_FAILING, 421 TO_DO and 9 EXPECT_FAILING; no new failure. |
 | Recovery-tool regressions | 11 synthetic Python tests passed; not evidence of an actual My Boy! capture or Android pass |
-| Source validators | Pending final validation record |
+| Source validators | World/IDs against `14a30dafeb`, lab scene, Czech prologue, First Gym, documentation index and whitespace checks passed. |
 | Affected Android matrix | NOT RUN |
+
+Download **[event-only first](https://github.com/hkcmoris/romhack/actions/runs/39680969944/artifacts/12384418802)**
+and then the **[matching control](https://github.com/hkcmoris/romhack/actions/runs/39680969944/artifacts/12385662154)**.
+Their ROM filenames are `oraculum-myboy-event-only-v0.3.myboy-1-release.gba`
+and `oraculum-myboy-control-v0.3.myboy-1-release.gba`. Artifacts have 30-day
+retention; the workflow can rebuild explicitly selected variants later.
+The source commit above identifies the executable; later evidence-only
+documentation commits do not change that build identity.
+The procedure bundled in the artifacts is the build-time snapshot; this page
+also includes the subsequent original-state reanalysis and completed QA.
+
+The event-only release's exact map reserves `gMyBoyDiagBuffer` at `0x020209DC`,
+size `0x658`, separately from `gHeap` at `0x020018C4`, size `0x1C500`, and
+the save/storage objects. Its EWRAM section ends at `0x02037AF6`, inside
+the hardware's `0x02040000` limit. Use each variant's own map rather than
+assuming this address for a different build.
 
 The repository is C/assembly with no npm package/scripts. Required `npm format`
 and `npm lint` commands are attempted as requested; unsupported npm commands
 are not successful format/lint checks. No JavaScript or new production
 dependency is needed. Applicable Python validators, native build/tests and
 GitHub Actions results must be recorded independently.
+
+### Native controller comparison, 22 October 2026 (Europe/Prague)
+
+Both exact optimized diagnostic ROMs passed the same controller sequence in
+the local mGBA libretro reference core, SHA-256
+`7ebe8776ff4c8a13fe279b6f87b2b97282bb0e096905da3871a425e0b8d9b22d`.
+This core identity differs from the older historical QA core; those records
+are retained separately. A genuine new-game pre-selection FLASH checkpoint,
+SHA-256 `d3c8fbee73b94ada9476ee6d2ff039c15c6112c7bd8c10a3937787fbf5b06217`,
+was created through normal play and ordinary saving, then independently
+cold-booted before being copied for each ROM. No gameplay RAM, Pokemon,
+story flags or battle outcomes were injected. Symbol reads used each
+optimized ROM's matching symbols. Emulator states were confined to one ROM;
+persistence checks restarted a fresh core from FLASH only.
+
+| Controller check | Event-only | Control |
+| --- | --- | --- |
+| Spinarak → B → Ekans → B → Poochyena → B | Three Czech descriptions/choices, no pictures, party remains empty | Three correct pictures and Czech descriptions/choices, party remains empty |
+| Poochyena selection and professor sentence | One starter; player and Viktor move correctly | Same progression |
+| Real rival battle | Correct back Poochyena/front Ekans; natural loss and laboratory return | Same rendered species and battle return |
+| Ordinary save and cold FLASH Continue | Position `(4,8)`, party count 1, all 600 party bytes preserved | Same persistence checks pass |
+| Laboratory exit and reentry | Town then laboratory, party retained | Same map transition checks pass |
+| Recovered buffers | 22, mode 2, fault code 0 | 22, mode 1, fault code 0 |
+
+Randomized party bytes were compared before and after saving within each run.
+The independently generated Pokemon have different personalities/IVs; this
+comparison does not require the two runs to produce identical RNG results.
+The respective persistence hashes are
+`18b8d63472e9e36c4f768e01b908eab627cb788e45afb421e9e1c961c01f15e6`
+and `9f1d6e5e5c737a831d1bfeb1cc53a9603cdeacd9e4e31a3765cb75c5a62f34b0`.
+Local actions, source/ROM/core identities, states, saves, screenshots and result
+JSON remain under `outputs/myboy/qa/`. Only the small screenshots below are
+tracked. The native controller run used Poochyena's battle route; all-three
+starter choices and repeated resource lifecycles also retain automated test
+coverage. Additional manual Android routes remain in the checklist.
+
+**These are reference-emulator results. No My Boy! Android result is inferred.**
+
+Event-only: the original Czech description with the picture side effect omitted.
+
+![Event-only Ekans description](images/myboy/event-only-ekans.png)
+
+Control: the matching picture-enabled interaction.
+
+![Control Ekans preview](images/myboy/control-ekans.png)
+
+Event-only still uses ordinary battle graphics and the real rival battle.
+
+![Event-only first rival battle](images/myboy/event-only-battle.png)
+
+### Ordinary release binary comparison
+
+The mode-0 release from source `560ae9317524d1c419bfc0803001db4d75a61448`
+has SHA-256 `e93804dd925c4b2acdf55a2d9660d3dfcf37668c301f44746fd98d0d38db8116`.
+It is **not byte-identical** to baseline 0.3.60. Both are 32 MiB; all 1,822
+differing bytes were accounted for by the binary audit: 211 bytes in the
+interworking-veneer area `0x0828DF40..0x0828E093`, and 1,611 displacement bytes
+in 1,222 branches (1,217 Thumb BL, five ARM B). All changed branches resolve
+through their respective veneers to the same ultimate destination and state.
+Both images contain the same multiset of 41 veneer targets/state transitions.
+
+The script callback table at `0x082CE8FC`, `copyvar` at
+`0x08223380..0x08223453`, and `RunScriptCommand` at
+`0x0822A2A4..0x0822A333` are byte-identical. All bytes from `0x08300000` onward
+are also identical. No diagnostic signature appears in either mode-0 ROM.
+This accounts for changed executable encodings rather than claiming all
+differences are nonexecutable data. It does not prove timing equivalence,
+My Boy! equivalence, or the particular build/LTO detail responsible for the
+veneer ordering. Local audit evidence is under `outputs/myboy/`.
 
 ## 10. Root cause, proposed correction and remaining work
 
