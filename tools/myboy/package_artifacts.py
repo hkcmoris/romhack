@@ -30,6 +30,11 @@ def main():
         content = source.read_bytes()
         files[source.name] = {"bytes": len(content), "sha256": hashlib.sha256(content).hexdigest()}
         shutil.copy2(source, args.output / source.name)
+    for name in ("decode_state.py", "README_ROLLBACK_CS.txt"):
+        source = Path(__file__).parent / name
+        content = source.read_bytes()
+        files[name] = {"bytes": len(content), "sha256": hashlib.sha256(content).hexdigest()}
+        shutil.copy2(source, args.output / name)
     manifest = {
         "source_commit": command("git", "rev-parse", "HEAD"),
         "variant": args.variant,
@@ -48,11 +53,13 @@ def main():
             "gcc": command("arm-none-eabi-gcc", "--version").splitlines()[0],
             "ld": command("arm-none-eabi-ld", "--version").splitlines()[0],
         },
+        "callback_address_policy": "raw tagged ROM callbacks, matching 0.3.58; no primary-ROM normalization",
+        "preserved_fixes": ["checked picture allocations and cleanup", "graphics decompression from ROM", "existing runtime diagnostics"],
         "hypothesis": (
             "Determine whether the known failure requires creation of laboratory starter pictures; "
             "compare against the control built at the same source revision with the same diagnostics."
             if mode == 2 else
-            "Establish whether the baseline failure still occurs with diagnostics enabled and pictures intact."
+            "Test the narrow rollback of callback address normalization to 0.3.58 behavior, with diagnostics and original pictures intact. Other fixes are preserved; Android menu recovery is not guaranteed."
         ),
         "expected_behavior": (
             "Original Czech descriptions and YES/NO selection, no laboratory starter picture; original rival battle."

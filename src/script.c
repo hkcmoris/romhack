@@ -105,9 +105,7 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
         {
             MyBoyDiag_CheckCallback((uintptr_t)ctx->nativePtr, 2);
             MyBoyDiag_Record(MYBOY_EVENT_NATIVE, (uintptr_t)ctx->nativePtr, (uintptr_t)ctx->scriptPtr);
-            bool8 (*executableFunc)(void) = (bool8 (*)(void))Script_GetExecutableAddress((uintptr_t)ctx->nativePtr);
-
-            if (executableFunc() == TRUE)
+            if (ctx->nativePtr() == TRUE)
                 ctx->mode = SCRIPT_MODE_BYTECODE;
             return TRUE;
         }
@@ -118,7 +116,6 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
         {
             u8 cmdCode;
             ScrCmdFunc *func;
-            ScrCmdFunc executableFunc;
 
             if (ctx->scriptPtr == NULL)
             {
@@ -137,8 +134,7 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
                 return FALSE;
             }
 
-            executableFunc = (ScrCmdFunc)Script_GetExecutableAddress((uintptr_t)*func);
-            if (executableFunc(ctx) == TRUE)
+            if ((*func)(ctx) == TRUE)
             {
                 MyBoyDiag_Record(MYBOY_EVENT_OPCODE_RETURN, (uintptr_t)ctx->scriptPtr, cmdCode | 0x10000);
                 return TRUE;
@@ -646,7 +642,6 @@ static bool32 RunScriptImmediatelyUntilEffect_InternalLoop(struct ScriptContext 
         {
             u32 cmdCode;
             ScrCmdFunc *func;
-            ScrCmdFunc executableFunc;
 
             gScriptEffectContext->nextCmd = ctx->scriptPtr;
 
@@ -665,11 +660,8 @@ static bool32 RunScriptImmediatelyUntilEffect_InternalLoop(struct ScriptContext 
             if (!Script_IsEffectInstrumentedCommand(*func))
                 return TRUE;
 
-            // Check the tagged pointer before normalizing it for execution.
-            executableFunc = (ScrCmdFunc)Script_GetExecutableAddress((uintptr_t)*func);
-
             // Command which waits for a frame.
-            if (executableFunc(ctx))
+            if ((*func)(ctx))
             {
                 gScriptEffectContext->nextCmd = ctx->scriptPtr;
                 return TRUE;

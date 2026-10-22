@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
     inputs:
       variant:
-        description: Controlled comparison to build (same runtime diagnostics in both)
+        description: Address rollback with original pictures (control); optional historical comparison
         type: choice
         required: true
-        default: event-only
+        default: control
         options:
           - event-only
           - control
@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: myboy-${{ github.ref }}-${{ inputs.variant || 'both' }}
+  group: myboy-${{ github.ref }}-${{ inputs.variant || 'control' }}
   cancel-in-progress: true
 
 env:
@@ -38,7 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: ${{ fromJSON(inputs.variant == 'control' && '["control"]' || inputs.variant == 'event-only' && '["event-only"]' || '["event-only", "control"]') }}
+        variant: ${{ fromJSON(inputs.variant == 'both' && '["control", "event-only"]' || inputs.variant == 'event-only' && '["event-only"]' || '["control"]') }}
     env:
       VARIANT: ${{ matrix.variant }}
     steps:
@@ -66,7 +66,6 @@ jobs:
           make -j$(nproc) release syms MYBOY_DIAGNOSTIC_MODE="$MYBOY_DIAGNOSTIC_MODE" 2>&1 | tee diagnostic-build.log
           python3 tools/myboy/package_artifacts.py --variant "$VARIANT" --rom "oraculum-myboy-$VARIANT-v$ROM_VERSION-release.gba" --output "outputs/myboy-$VARIANT"
           cp diagnostic-build.log "outputs/myboy-$VARIANT/"
-          cp docs/MYBOY_COMPATIBILITY.md "outputs/myboy-$VARIANT/"
 
       - name: Full native regression suite for this diagnostic configuration
         run: make -j$(nproc) check MYBOY_DIAGNOSTIC_MODE="$MYBOY_DIAGNOSTIC_MODE" 2>&1 | tee diagnostic-tests.log
