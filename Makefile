@@ -187,6 +187,9 @@ CC1 := $(shell $(PATH_ARMCC) --print-prog-name=cc1) -quiet
 
 override CFLAGS += -mthumb -mthumb-interwork -O$(O_LEVEL) -mabi=apcs-gnu -mtune=arm7tdmi -march=armv4t -Wno-pointer-to-int-cast -std=gnu17 -Werror -Wall -Wno-strict-aliasing -Wno-attribute-alias -Woverride-init -Wnonnull -Wenum-conversion
 
+# Avoid GCC-generated Thumb UDF traps that corrupt old My Boy! JIT branches.
+override CFLAGS += -fno-isolate-erroneous-paths-dereference
+
 ifneq ($(LTO),0)
   ifneq ($(TEST),1)
     override CFLAGS += -flto=auto -fno-fat-lto-objects -fno-asynchronous-unwind-tables -ffunction-sections -fdata-sections
@@ -590,6 +593,8 @@ libagbsyscall:
 # Enable LTO LDFLAGS if set
 ifneq ($(LTO),0)
 LDFLAGS := -march=armv4t -mabi=apcs-gnu -mcpu=arm7tdmi -Xlinker -Map=../../$(MAP) -Xlinker --print-memory-usage -Xassembler -meabi=5 -Xassembler -march=armv4t -Xassembler -mcpu=arm7tdmi -Xlinker --gc-sections
+# Apply the same trap policy during release LTO code generation.
+LDFLAGS += -fno-isolate-erroneous-paths-dereference
 LDFLAGS += -Xlinker -flto=auto
 $(ELF): $(LD_SCRIPT) $(OBJS) libagbsyscall
 	@echo "cd $(OBJ_DIR) && $(ARMCC) $(LDFLAGS) -T ../../$< -o ../../$@ <objs> <libs>"
