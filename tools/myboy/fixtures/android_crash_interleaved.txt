@@ -1,0 +1,50 @@
+--------- beginning of crash
+[ 10-22 10:00:00.000  900: 900 F/DEBUG ]
+*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+
+[ 10-22 10:00:00.001  900: 900 F/DEBUG ]
+Build fingerprint: 'FAKE_DEVICE_MODEL_SERIAL_SECRET'
+ABI: 'arm'
+
+[ 10-22 10:00:00.002  901: 901 F/DEBUG ]
+*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+
+[ 10-22 10:00:00.003  901: 901 F/DEBUG ]
+pid: 9999, tid: 9999, name: foreign >>> com.example.foreign <<<
+signal 6 (SIGABRT), FOREIGN_NATIVE_SECRET
+
+[ 10-22 10:00:00.004  900: 900 F/DEBUG ]
+pid: 2345, tid: 2350, name: emulation >>> com.fastemulator.gba <<<
+signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x1234
+
+[ 10-22 10:00:00.005  900: 900 F/DEBUG ]
+    r0 00000000 r1 00000001 sp 7ffff000 pc aabbccdd
+backtrace:
+
+[ 10-22 10:00:00.006  901: 901 F/DEBUG ]
+    #00 pc 0000aaaa /data/app/com.example.foreign/lib/arm/FOREIGN_FRAME_SECRET.so
+
+[ 10-22 10:00:00.007  900: 900 F/DEBUG ]
+    #00 pc 00001234 /data/app/com.fastemulator.gba/lib/arm/libgba.so (emulate+12)
+    #01 pc 00005678 /system/lib/libc.so (thread_start+4)
+
+[ 10-22 10:00:01.000  2345: 2345 E/AndroidRuntime ]
+FATAL EXCEPTION: main
+
+[ 10-22 10:00:01.001  7777: 7777 E/AndroidRuntime ]
+FATAL EXCEPTION: main
+Process: com.example.foreign, PID: 7777
+java.lang.IllegalStateException: FOREIGN_JAVA_SECRET
+
+[ 10-22 10:00:01.002  2345: 2345 E/AndroidRuntime ]
+Process: com.fastemulator.gba, PID: 2345
+java.lang.IllegalStateException: MYBOY_JAVA_MARKER
+    at com.fastemulator.gba.Emulator.run(Emulator.java:42)
+
+[ 10-22 10:00:01.003  7777: 7777 E/AndroidRuntime ]
+    at com.example.foreign.FOREIGN_STACK_SECRET.run(Foreign.java:10)
+
+[ 10-22 10:00:02.000  902: 902 F/DEBUG ]
+*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+pid: 2222, tid: 2222, name: gbc >>> com.fastemulator.gbc <<<
+    #00 pc 0000cccc /data/app/GBC_SECRET.so
