@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
     inputs:
       variant:
-        description: Address rollback with original pictures (control); optional historical comparison
+        description: Picture-path isolation (event-only) or pictures-intact control
         type: choice
         required: true
-        default: control
+        default: event-only
         options:
           - event-only
           - control
@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: myboy-${{ github.ref }}-${{ inputs.variant || 'control' }}
+  group: myboy-${{ github.ref }}-${{ inputs.variant || 'event-only' }}
   cancel-in-progress: true
 
 env:
@@ -38,7 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: ${{ fromJSON(inputs.variant == 'both' && '["control", "event-only"]' || inputs.variant == 'event-only' && '["event-only"]' || '["control"]') }}
+        variant: ${{ fromJSON(inputs.variant == 'both' && '["control", "event-only"]' || inputs.variant == 'control' && '["control"]' || '["event-only"]') }}
     env:
       VARIANT: ${{ matrix.variant }}
     steps:

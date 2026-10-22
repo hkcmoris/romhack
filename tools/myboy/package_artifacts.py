@@ -30,7 +30,8 @@ def main():
         content = source.read_bytes()
         files[source.name] = {"bytes": len(content), "sha256": hashlib.sha256(content).hexdigest()}
         shutil.copy2(source, args.output / source.name)
-    for name in ("decode_state.py", "README_ROLLBACK_CS.txt"):
+    readme = "README_ROLLBACK_CS.txt" if mode == 1 else "README_EVENT_ONLY_CS.txt"
+    for name in ("decode_state.py", readme):
         source = Path(__file__).parent / name
         content = source.read_bytes()
         files[name] = {"bytes": len(content), "sha256": hashlib.sha256(content).hexdigest()}
@@ -57,7 +58,7 @@ def main():
         "preserved_fixes": ["checked picture allocations and cleanup", "graphics decompression from ROM", "existing runtime diagnostics"],
         "hypothesis": (
             "Determine whether the known failure requires creation of laboratory starter pictures; "
-            "compare against the control built at the same source revision with the same diagnostics."
+            "compare against the raw-callback control with the same production source and diagnostics; packaging-only changes do not alter engine code."
             if mode == 2 else
             "Test the narrow rollback of callback address normalization to 0.3.58 behavior, with diagnostics and original pictures intact. Other fixes are preserved; Android menu recovery is not guaranteed."
         ),
