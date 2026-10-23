@@ -1,0 +1,24 @@
+{
+  "edit_rectangle": [
+    20,
+    30,
+    44,
+    51
+  ],
+  "changed_pixels": 374,
+  "changed_bbox": [
+    20,
+    30,
+    44,
+    51
+  ],
+  "old_pale_belly_pixels": 206,
+  "new_pale_belly_pixels": 9,
+  "palette_unchanged": true,
+  "outside_edit_rectangle_unchanged": true,
+  "changed_game_asset_files": [
+    "graphics/pokemon/xatu/virelia/anim_front.png",
+    "graphics/pokemon/xatu/virelia/front_2.png"
+  ],
+  "other_species_and_idle_back_icon_palette_unchanged": true
+}
