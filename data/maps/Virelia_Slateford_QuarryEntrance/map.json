@@ -3,7 +3,6 @@
   "name": "Virelia_Slateford_QuarryEntrance",
   "layout": "LAYOUT_VIRELIA_SLATEFORD_QUARRY_ENTRANCE",
   "music": "MUS_PETALBURG_WOODS",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_VIRELIA_SLATEFORD_CITY",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -81,5 +80,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_Slateford_QuarryEntrance_EventScript_Equipment"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }
