@@ -114,7 +114,9 @@ def validate():
     raw = (path / 'metatiles.bin').read_bytes()
     attrs = (path / 'metatile_attributes.bin').read_bytes()
     require(len(raw) == 297 * 16 and len(attrs) == 297 * 2, 'Incorrect sanctuary metatile tables')
-    require(attrs[-34:] == bytes(34), 'Sanctuary props must have normal behavior, without Secret Power')
+    prop_attrs = struct.unpack('<17H', attrs[-34:])
+    require(prop_attrs == (0x1000, *([0] * 16)),
+            'Pawprints must use covered ground layers; stones/tree keep normal layers and behavior')
     require(struct.unpack('>II', (path / 'tiles.png').read_bytes()[16:24]) == (128, 256), 'Invalid native tiles image size')
     require(struct.unpack('>II', (path / 'old_tree.png').read_bytes()[16:24]) == (48, 64), 'Old tree must be exactly 3x4 16px map tiles')
     for dy in range(4):

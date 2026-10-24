@@ -59,6 +59,10 @@ The sanctuary source builder deduplicates identical stock 8 × 8 pixel patterns 
 packing the new artwork, preserving every Fortree metatile and keeping the
 secondary bank within 512 tiles. The existing footprint and carved stone IDs
 stay fixed. The paw impression reuses the native Arcanine footprint graphic.
+Its metatile `0x318` uses **Covered** layers (`0x1000`): grass on BG3 and the
+print on BG2, beneath the player. The carved stones and ancient tree retain
+Normal layers, including their foreground overlays. Changing map elevation
+is not needed to keep the prints below the player.
 The outdoor packer then combines the used source metatiles with town artwork,
 preserving their pixels and behavior while assigning unique shared IDs. The
 ancient tree keeps IDs `0x31D–0x328` and uses shared palette 12.
@@ -97,6 +101,35 @@ the roots, a full bag, giving the bell to a Pokémon and returning after reload.
 Old saves that already accepted Hana's Potion should reveal the path on their
 next Route 01 load. Check that ordinary route trainers and the eastern Potion
 remain accessible throughout.
+
+### Footprint rendering validation, 2026-10-24
+
+WSL built `outputs/sanctuary-footprints/after/oraculum-v0.3.0-sanctuary.gba`
+from the current source and the existing uncommitted sanctuary layout. That
+layout was preserved byte for byte. Only the footprint's source and shared
+tileset layer attributes changed; its artwork, collision and behavior did not.
+The source builder now emits the same ground-layer attribute on regeneration.
+Do not rerun the full sanctuary builder to apply this fix to an edited map:
+it would replace Porymap layout edits.
+
+The existing libretro mGBA harness initialized a fresh game and used native
+debug warping to enter the sanctuary. Controller input crossed all three
+footprints in both directions, with captures during movement and at rest.
+The current layout's elevation-4 ground already masks the overlap. Separate
+QA copies of both ROMs used elevation 3 for that walking plane to reproduce
+the fault: Normal layers painted the print over the avatar; Covered layers
+kept the full sprite visible. These QA copies did not modify the delivered
+ROM or the source layout. Screenshots and logs are in
+`outputs/sanctuary-footprints/`; `footprints-before-after.png` shows the
+normal-ground comparison.
+
+All seven native sanctuary tests passed, covering the new loaded-map layer
+check as well as puzzle input, resets, callbacks, reward retries and FLASH
+save/load. The shared outdoor tileset validator and world connectivity check
+passed. The separate sanctuary path audit still reports its existing
+`Sanctuary accessible before helping Hana` issue; this rendering fix does not
+change those paths. `npm format` and `npm lint` were attempted, but this
+C/Makefile repository has no corresponding npm commands.
 
 The earlier uncommitted playtest ROM placed the sanctuary at `76,7`. For that
 prototype, leave the sanctuary and save on Route 01 before loading this corrected

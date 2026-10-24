@@ -98,9 +98,11 @@ def build_tileset():
                 overlay.append((palette << 12) | add_tile(image.crop((x + dx, y + dy, x + dx + 8, y + dy + 8))))
         return struct.pack('<8H', *grass[:4], *overlay)
 
-    for prop in build_props():
+    for index, prop in enumerate(build_props()):
         raw.extend(metatile(prop, 0, 0, 2))
-        attrs.extend(struct.pack('<H', 0))
+        # Pawprints are ground markings: place grass on BG3 and the print
+        # on BG2, below object sprites. Stones and canopy retain BG1 overlays.
+        attrs.extend(struct.pack('<H', 0x1000 if index == 0 else 0))
     # Keep the earlier root metatile ID valid for saved map views.
     root_offset = len(raw)
     raw.extend(struct.pack('<8H', *grass))

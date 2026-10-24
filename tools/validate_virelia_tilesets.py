@@ -59,6 +59,8 @@ def validate():
     packed = words('data/tilesets/secondary/virelia_outdoor/metatiles.bin')
     attrs = words('data/tilesets/secondary/virelia_outdoor/metatile_attributes.bin')
     require(len(packed) == len(attrs) * 8 <= 512 * 8, 'Invalid shared metatile tables')
+    require(attrs[0x318 - 512] == 0x1000,
+            'Arcanine pawprints must use BG3/BG2 ground layers below the player')
     require(len(image('secondary/virelia_outdoor')) == 256, 'Invalid shared graphics dimensions')
     checked = set()
     for name, source in SOURCES.items():

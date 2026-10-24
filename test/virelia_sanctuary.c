@@ -47,6 +47,20 @@ static void LoadSanctuaryMap(u16 map)
     InitMap();
 }
 
+TEST("Virelia sanctuary pawprints stay below the player while the ancient tree remains above")
+{
+    ResetSanctuary();
+    LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
+    static const u8 prints[][2] = {{9, 10}, {10, 11}, {11, 13}};
+    for (u32 i = 0; i < ARRAY_COUNT(prints); i++)
+    {
+        s32 x = prints[i][0] + MAP_OFFSET, y = prints[i][1] + MAP_OFFSET;
+        EXPECT_EQ(MapGridGetMetatileIdAt(x, y), 0x318);
+        EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x, y), METATILE_LAYER_TYPE_COVERED);
+    }
+    EXPECT_EQ(MapGridGetMetatileLayerTypeAt(9 + MAP_OFFSET, 9 + MAP_OFFSET), METATILE_LAYER_TYPE_NORMAL);
+}
+
 TEST("Virelia sanctuary accepts only seed rain root and allows retries")
 {
     u32 first = 1, second = 1, third = 1;
