@@ -252,6 +252,17 @@ const struct Tileset gTileset_Shop =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_VireliaServiceInterior =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaServiceInterior,
+    .palettes = gTilesetPalettes_VireliaServiceInterior,
+    .metatiles = gMetatiles_VireliaServiceInterior,
+    .metatileAttributes = gMetatileAttributes_VireliaServiceInterior,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_PokemonCenter =
 {
     .isCompressed = TRUE,

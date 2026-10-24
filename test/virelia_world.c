@@ -29,10 +29,10 @@ static const u16 sVireliaMaps[] =
     MAP_VIRELIA_SLATEFORD_CITY,
     MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE,
     MAP_VIRELIA_SLATEFORD_POKEMON_CENTER,
-    MAP_VIRELIA_SLATEFORD_MART,
     MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE,
     MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS,
     MAP_VIRELIA_SLATEFORD_GYM,
+    MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY,
     MAP_VIRELIA_WHISPERWOOD_SANCTUARY,
 };
 
@@ -87,6 +87,11 @@ TEST("Virelia world headers use distinct appended groups and native layouts")
     }
     EXPECT_NE(MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_TOWN),
               MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY));
+    EXPECT_EQ(MAP_NUM(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER), 2);
+    EXPECT_EQ(MAP_NUM(MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE), 3);
+    EXPECT_EQ(MAP_NUM(MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS), 4);
+    EXPECT_EQ(MAP_NUM(MAP_VIRELIA_SLATEFORD_GYM), 5);
+    EXPECT_EQ(MAP_NUM(MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY), 6);
 }
 
 TEST("Virelia object graphics include hidden story actors in Emerald")
@@ -138,10 +143,9 @@ TEST("Virelia building warps resolve through the native warp loader in both dire
 TEST("Virelia overworld connections have reciprocal passable seams")
 {
     u32 index = 0;
-    PARAMETRIZE { index = 0; }
-    PARAMETRIZE { index = 2; }
-    PARAMETRIZE { index = 3; }
-    PARAMETRIZE { index = 10; }
+    for (u32 i = 0; i < ARRAY_COUNT(sVireliaMaps); i++)
+        if (WorldHeader(sVireliaMaps[i])->connections != NULL)
+            PARAMETRIZE { index = i; }
 
     u16 map = sVireliaMaps[index];
     const struct MapHeader *source = WorldHeader(map);

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build the Whisperwood sanctuary and patch only its two Route 01 entrances.
 
-Uses stock forest trees, a custom 48x64 old tree, and the native Arcanine
-footprint as an anonymous paw impression. Pillow is needed only when regenerating these checked-in assets.
+Uses stock forest trees, a custom 80x80 old tree, and native canine pads
+as an anonymous paw impression. Pillow is needed only when regenerating these checked-in assets.
 Existing towns, route actors, items and map IDs are preserved.
 """
 from pathlib import Path
@@ -10,6 +10,8 @@ import json
 import struct
 from PIL import Image, ImageDraw
 from build_outdoor_tileset import build as build_outdoor_tileset
+from build_whisperwood_tree import sanctuary_palette
+from stock_art import stock_part
 
 ROOT = Path(__file__).resolve().parents[2]
 NAME = 'Virelia_WhisperwoodSanctuary'
@@ -36,26 +38,62 @@ def rect(grid, x, y, w, h, value):
 def build_props():
     props = []
     paw = Image.new('P', (16, 16), 0)
-    footprint = Image.open(ROOT / 'graphics/pokemon/arcanine/footprint.png').convert('RGB')
+    # Mightyena's native footprint separates the toes and heel clearly at
+    # 16px. The previous Arcanine source is a single solid silhouette.
+    footprint = Image.open(ROOT / 'graphics/pokemon/mightyena/footprint.png').convert('RGB')
+    impression = {(x, y) for y in range(16) for x in range(16)
+                  if sum(footprint.getpixel((x, y))) < 384}
     for y in range(16):
         for x in range(16):
-            if sum(footprint.getpixel((x, y))) < 384:
-                paw.putpixel((x, y), 8)
-    props.append(paw)
+            if (x, y) in impression:
+                # Earth pressed below the grass: shaded upper lip and a
+                # softer lit lower edge, inside the exact native paw shape.
+                paw.putpixel((x, y), 10 if (x, y - 1) not in impression else
+                             7 if (x, y + 1) not in impression else 9)
+    props.append((paw, 6))
+    # FRLG General 0x09F supplies a complete faceted boulder, including its
+    # cast shadow. Keep the native pixel clusters and use Emerald's matching
+    # stone ramp in the shared sanctuary palette, with native forest moss.
+    source = ROOT / 'data/tilesets/primary/general_frlg'
+    tiles = Image.open(source / 'tiles.png')
+    values = struct.unpack_from('<8H', (source / 'metatiles.bin').read_bytes(), 0x09F * 16)
+    boulder = Image.new('P', (16, 16), 0)
+    for index, value in enumerate(values[4:]):
+        tile = value & 0x3FF
+        fragment = tiles.crop((tile % 16 * 8, tile // 16 * 8,
+                               tile % 16 * 8 + 8, tile // 16 * 8 + 8))
+        if value & 0x400:
+            fragment = fragment.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+        if value & 0x800:
+            fragment = fragment.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
+        # Stone facets occupy 5..10; the contact shadow uses dark earth 15.
+        mapping = {0: 0, 4: 15, **{i: i - 4 for i in range(9, 15)}}
+        fragment = fragment.point([mapping.get(i, 0) for i in range(256)])
+        boulder.paste(fragment, (index % 2 * 8, index // 2 * 8))
+    moss = stock_part('general', 'fortree', 0x00e, sanctuary_palette(),
+                      index_map={1: 2, 2: 3, 3: 3, 4: 4})
     symbols = (
-        [(7, 7), (8, 6), (9, 7), (8, 8)],  # seed
-        [(6, 6), (6, 8), (9, 7), (9, 9)],  # rain
-        [(8, 6), (8, 7), (8, 8), (7, 9), (9, 9), (6, 10), (10, 10)],
+        [(6, 5), (7, 4), (8, 5), (7, 6)],  # seed
+        [(5, 4), (5, 6), (8, 5), (8, 7)],  # rain
+        [(7, 3), (7, 4), (7, 5), (6, 6), (8, 6), (5, 7), (9, 7)],
     )
-    for symbol in symbols:
-        stone = Image.new('P', (16, 16), 0)
+    for variant, symbol in enumerate(symbols):
+        stone = boulder.copy()
+        # A thin cap follows only the upper ridge. Leave the side facets,
+        # carved face and foot of the boulder as exposed stone.
+        for x in range(3, 13):
+            top = next(y for y in range(16) if boulder.getpixel((x, y)) not in (0, 15))
+            depth = 2 if (x + variant * 2) % 5 == 0 else 1
+            for y in range(top, top + depth):
+                if (x, y) not in symbol:
+                    color = moss.getpixel(((x + variant * 3) % 16, y))
+                    stone.putpixel((x, y), color or 3)
         draw = ImageDraw.Draw(stone)
-        draw.polygon([(4, 3), (10, 2), (13, 5), (13, 12), (10, 14), (3, 13), (2, 9)], fill=8)
-        draw.polygon([(5, 4), (10, 3), (12, 6), (11, 12), (4, 12), (3, 8)], fill=6)
-        draw.line([(4, 4), (7, 3), (10, 4), (12, 6)], fill=2, width=2)
-        draw.point([(3, 10), (4, 11), (5, 12), (11, 11)], fill=3)
+        # A light lower lip beneath the dark incision makes the marks read
+        # as shallow carvings in the lit top face rather than painted dots.
+        draw.point([(x, y + 1) for x, y in symbol], fill=5)
         draw.point(symbol, fill=9)
-        props.append(stone)
+        props.append((stone, 6))
     return props
 
 
@@ -64,8 +102,8 @@ def build_tileset():
     target = ROOT / 'data/tilesets/secondary/whisperwood'
     original = Image.open(source / 'tiles.png')
     tree = Image.open(target / 'old_tree.png')
-    if tree.mode != 'P' or tree.size != (48, 64) or tree.info.get('transparency') != 0:
-        raise ValueError('Old tree must be a 48x64 indexed sprite with transparent index zero')
+    if tree.mode != 'P' or tree.size != (80, 80) or tree.info.get('transparency') != 0:
+        raise ValueError('Old tree must be an 80x80 indexed sprite with transparent index zero')
     bank, indices = [], {}
 
     def add_tile(tile):
@@ -76,7 +114,7 @@ def build_tileset():
         return 512 + indices[pixels]
 
     # Deduplicate stock pixel patterns, keeping every Fortree metatile intact.
-    # This frees room for the new 48x64 tree without exceeding 512 8x8 tiles.
+    # This frees room for the 80x80 tree without exceeding 512 8x8 tiles.
     remap = {}
     for index in range(512):
         remap[index] = add_tile(original.crop(((index % 16) * 8, (index // 16) * 8,
@@ -98,21 +136,19 @@ def build_tileset():
                 overlay.append((palette << 12) | add_tile(image.crop((x + dx, y + dy, x + dx + 8, y + dy + 8))))
         return struct.pack('<8H', *grass[:4], *overlay)
 
-    for index, prop in enumerate(build_props()):
-        raw.extend(metatile(prop, 0, 0, 2))
+    for index, (prop, palette) in enumerate(build_props()):
+        raw.extend(metatile(prop, 0, 0, palette))
         # Pawprints are ground markings: place grass on BG3 and the print
         # on BG2, below object sprites. Stones and canopy retain BG1 overlays.
         attrs.extend(struct.pack('<H', 0x1000 if index == 0 else 0))
-    # Keep the earlier root metatile ID valid for saved map views.
-    root_offset = len(raw)
+    # Unused slot between the four props and the contiguous tree artwork.
     raw.extend(struct.pack('<8H', *grass))
     attrs.extend(struct.pack('<H', 0))
-    # Twelve contiguous metatiles: 0x31D..0x328, row major, three wide.
-    for y in range(0, 64, 16):
-        for x in range(0, 48, 16):
+    # Twenty-five contiguous metatiles: 0x31D..0x335, row major, five wide.
+    for y in range(0, 80, 16):
+        for x in range(0, 80, 16):
             raw.extend(metatile(tree, x, y, 6))
             attrs.extend(struct.pack('<H', 0))
-    raw[root_offset:root_offset + 16] = metatile(tree, 16, 48, 6)
     assert len(bank) <= 512, 'Whisperwood secondary tile bank is full'
     tiles = Image.new('P', (128, 256), 0)
     tiles.putpalette(original.getpalette())
@@ -176,10 +212,10 @@ def main():
     # Standalone shrubs conceal the inward gates without half-tree fragments.
     rect(grid, 16, 2, 1, 2, 0x040E)
     rect(grid, 20, 10, 1, 2, 0x040E)
-    # Dedicated custom tree: one continuous 48x64 sprite, 3x4 map tiles.
-    for dy in range(4):
-        for dx in range(3):
-            grid[6 + dy][8 + dx] = 0x0400 | (0x31D + dy * 3 + dx)
+    # Dedicated custom tree: one continuous 80x80 sprite, 5x5 map tiles.
+    for dy in range(5):
+        for dx in range(5):
+            grid[5 + dy][7 + dx] = 0x0400 | (0x31D + dy * 5 + dx)
     for x, y, tile in [(6, 8, 0x719), (12, 8, 0x71A), (9, 12, 0x71B),
                        (9, 10, 0x3318), (10, 11, 0x3318), (11, 13, 0x3318)]:
         grid[y][x] = tile

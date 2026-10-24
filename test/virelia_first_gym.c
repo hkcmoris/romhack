@@ -4,12 +4,15 @@
 #include "battle_setup.h"
 #include "data.h"
 #include "event_data.h"
+#include "event_object_movement.h"
+#include "field_control_avatar.h"
 #include "fieldmap.h"
 #include "metatile_behavior.h"
 #include "script.h"
 #include "heal_location.h"
 #include "item.h"
 #include "main.h"
+#include "money.h"
 #include "task.h"
 #include "new_game.h"
 #include "overworld.h"
@@ -26,6 +29,7 @@
 #include "test/test.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
+#include "constants/event_objects.h"
 #include "constants/heal_locations.h"
 #include "constants/items.h"
 #include "constants/moves.h"
@@ -46,6 +50,20 @@ static const u16 sChapterTrainers[] =
     TRAINER_VIRELIA_MINER_BRUNO, TRAINER_VIRELIA_EXPLORER_LENKA,
     TRAINER_VIRELIA_GYM_IVAN, TRAINER_VIRELIA_GYM_DANA, TRAINER_VIRELIA_MARA,
 };
+
+extern const u8 Virelia_Slateford_PokemonCenter_EventScript_Nurse[];
+extern const u8 Virelia_Slateford_PokemonCenter_EventScript_Clerk[];
+
+static const struct ObjectEventTemplate *CenterService(const u8 *script)
+{
+    const struct MapHeader *header = Overworld_GetMapHeaderByGroupAndId(
+        MAP_GROUP(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER),
+        MAP_NUM(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER));
+    for (u32 i = 0; i < header->events->objectEventCount; i++)
+        if (header->events->objectEvents[i].script == script)
+            return &header->events->objectEvents[i];
+    return NULL;
+}
 
 static void ResetFirstGymTest(void)
 {
@@ -333,7 +351,11 @@ TEST("Virelia quarry and Gym teams use valid early game data without damaging Gr
 TEST("Virelia Slateford healing sets the native whiteout destination and healer")
 {
     ResetFirstGymTest();
-    SetLastHealLocationWarp(HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER);
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER),
+                       MAP_NUM(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER), 0, 7, 8);
+    WarpIntoMap();
+    InitMap();
+    RunOnTransitionMapScript();
     EXPECT_EQ(GetHealLocationIndexByWarpData(&gSaveBlock1Ptr->lastHealLocation),
               HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER);
     EXPECT(!IsLastHealLocationPlayerHouse());
@@ -360,6 +382,51 @@ TEST("Virelia Slateford healing sets the native whiteout destination and healer"
               GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_MAX_HP));
     EXPECT_EQ(GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_STATUS), 0);
     EXPECT_GT(GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_PP1), 0);
+}
+
+TEST("Virelia shared Center resolves nurse and shop interactions across their native counters")
+{
+    u32 shop = FALSE;
+    PARAMETRIZE { shop = FALSE; }
+    PARAMETRIZE { shop = TRUE; }
+    ResetFirstGymTest();
+    const u8 *script = shop ? Virelia_Slateford_PokemonCenter_EventScript_Clerk
+                            : Virelia_Slateford_PokemonCenter_EventScript_Nurse;
+    const struct ObjectEventTemplate *service = CenterService(script);
+    EXPECT_NE(service, NULL);
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER),
+                       MAP_NUM(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER), WARP_ID_NONE,
+                       service->x, service->y + 2);
+    WarpIntoMap();
+    InitMap();
+    LoadObjEventTemplatesFromHeader();
+    s16 x = service->x + MAP_OFFSET, y = service->y + MAP_OFFSET;
+    EXPECT_EQ(MapGridGetCollisionAt(x, y + 2), 0);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(x, y + 1), MB_COUNTER);
+    EXPECT_NE(MapGridGetCollisionAt(x, y + 1), 0);
+
+    // Use the ordinary field interaction resolver with the player standing
+    // south of the counter, so a blocked decorative tile cannot pass this test.
+    ResetObjectEvents();
+    gPlayerAvatar.objectEventId = 0;
+    gObjectEvents[0].active = TRUE;
+    gObjectEvents[0].localId = LOCALID_PLAYER;
+    gObjectEvents[0].currentCoords.x = x;
+    gObjectEvents[0].currentCoords.y = y + 2;
+    gObjectEvents[0].currentElevation = service->elevation;
+    gObjectEvents[0].previousElevation = service->elevation;
+    gObjectEvents[0].facingDirection = DIR_NORTH;
+    gObjectEvents[0].movementDirection = DIR_NORTH;
+    gObjectEvents[1].active = TRUE;
+    gObjectEvents[1].localId = service->localId;
+    gObjectEvents[1].mapGroup = MAP_GROUP(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER);
+    gObjectEvents[1].mapNum = MAP_NUM(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER);
+    gObjectEvents[1].currentCoords.x = x;
+    gObjectEvents[1].currentCoords.y = y;
+    gObjectEvents[1].currentElevation = service->elevation;
+    EXPECT_EQ(GetObjectEventScriptPointerPlayerFacing(), script);
+    EXPECT_EQ(gSpecialVar_LastTalked, service->localId);
+    ResetObjectEvents();
 }
 
 TEST("Virelia regional quarry party can use the ordinary PC storage data path")
@@ -528,7 +595,7 @@ TEST("Virelia Gym badge and TM wait for all requirements and cannot be awarded t
     EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_TM_ROCK_TOMB), 1);
 }
 
-TEST("Virelia chapter puzzle and reward flags survive native FLASH save and Continue")
+TEST("Virelia shared Center shop-wing save restores money items healing destination and chapter flags")
 {
     CompleteOldPrologue(VIRELIA_STARTER_GRASS);
     VireliaFirstGym_BeginChapter();
@@ -556,6 +623,18 @@ TEST("Virelia chapter puzzle and reward flags survive native FLASH save and Cont
     gSpecialVar_0x8004 = B_OUTCOME_CAUGHT;
     VireliaFirstGym_RecoverTools();
     VireliaFirstGym_RewardTools();
+    const struct ObjectEventTemplate *clerk = CenterService(Virelia_Slateford_PokemonCenter_EventScript_Clerk);
+    EXPECT_NE(clerk, NULL);
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER),
+                       MAP_NUM(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER), WARP_ID_NONE,
+                       clerk->x, clerk->y + 2);
+    WarpIntoMap();
+    InitMap();
+    RunOnTransitionMapScript();
+    EXPECT_EQ(MapGridGetCollisionAt(clerk->x + MAP_OFFSET, clerk->y + 2 + MAP_OFFSET), 0);
+    SetMoney(&gSaveBlock1Ptr->money, 3210);
+    EXPECT(AddBagItem(ITEM_POTION, 2));
+    u32 savedPotions = CountTotalItemQuantityInBag(ITEM_POTION);
     ClearTempFieldEventData();
     IntrFunc originalTimer3Handler, unusedFlashHandler;
     u16 originalIme = REG_IME;
@@ -575,6 +654,11 @@ TEST("Virelia chapter puzzle and reward flags survive native FLASH save and Cont
         for (u32 i = 0; i < ARRAY_COUNT(savedFlags); i++) FlagClear(savedFlags[i]);
         for (u32 i = 0; i < ARRAY_COUNT(sChapterTrainers); i++) ClearTrainerFlag(sChapterTrainers[i]);
         ClearBag();
+        SetMoney(&gSaveBlock1Ptr->money, 0);
+        memset(&gSaveBlock1Ptr->lastHealLocation, 0, sizeof(gSaveBlock1Ptr->lastHealLocation));
+        SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_CITY),
+                           MAP_NUM(MAP_VIRELIA_SLATEFORD_CITY), WARP_ID_NONE, 14, 27);
+        WarpIntoMap();
         loadStatus = LoadGameSave(SAVE_NORMAL);
     }
     REG_IME = 0;
@@ -588,6 +672,21 @@ TEST("Virelia chapter puzzle and reward flags survive native FLASH save and Cont
     REG_IME = originalIme;
     EXPECT_EQ(saveStatus, SAVE_STATUS_OK);
     EXPECT_EQ(loadStatus, SAVE_STATUS_OK);
+    EXPECT_EQ(gSaveBlock1Ptr->location.mapGroup, MAP_GROUP(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER));
+    EXPECT_EQ(gSaveBlock1Ptr->location.mapNum, MAP_NUM(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER));
+    EXPECT_EQ(gSaveBlock1Ptr->pos.x, clerk->x);
+    EXPECT_EQ(gSaveBlock1Ptr->pos.y, clerk->y + 2);
+    EXPECT_EQ(GetMoney(&gSaveBlock1Ptr->money), 3210);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_POTION), savedPotions);
+    EXPECT_EQ(GetHealLocationIndexByWarpData(&gSaveBlock1Ptr->lastHealLocation),
+              HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER);
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER),
+                       MAP_NUM(MAP_VIRELIA_SLATEFORD_POKEMON_CENTER), WARP_ID_NONE,
+                       clerk->x, clerk->y + 2);
+    WarpIntoMap();
+    InitMap();
+    EXPECT_EQ(MapGridGetCollisionAt(clerk->x + MAP_OFFSET, clerk->y + 2 + MAP_OFFSET), 0);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(clerk->x + MAP_OFFSET, clerk->y + 1 + MAP_OFFSET), MB_COUNTER);
     for (u32 i = 0; i < ARRAY_COUNT(savedFlags); i++) EXPECT(FlagGet(savedFlags[i]));
     for (u32 i = 0; i < ARRAY_COUNT(sChapterTrainers); i++) EXPECT(HasTrainerBeenFought(sChapterTrainers[i]));
     EXPECT_EQ(VarGet(VAR_VIRELIA_PROLOGUE_STATE), VIRELIA_STATE_COMPLETE);

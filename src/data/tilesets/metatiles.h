@@ -66,6 +66,9 @@ const u16 gMetatileAttributes_InsideBuilding[] = INCBIN_U16("data/tilesets/prima
 const u16 gMetatiles_Shop[] = INCBIN_U16("data/tilesets/secondary/shop/metatiles.bin");
 const u16 gMetatileAttributes_Shop[] = INCBIN_U16("data/tilesets/secondary/shop/metatile_attributes.bin");
 
+const u16 gMetatiles_VireliaServiceInterior[] = INCBIN_U16("data/tilesets/secondary/virelia_service_interior/metatiles.bin");
+const u16 gMetatileAttributes_VireliaServiceInterior[] = INCBIN_U16("data/tilesets/secondary/virelia_service_interior/metatile_attributes.bin");
+
 const u16 gMetatiles_PokemonCenter[] = INCBIN_U16("data/tilesets/secondary/pokemon_center/metatiles.bin");
 const u16 gMetatileAttributes_PokemonCenter[] = INCBIN_U16("data/tilesets/secondary/pokemon_center/metatile_attributes.bin");
 

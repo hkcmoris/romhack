@@ -7,6 +7,7 @@ import struct
 from virelia.localize_type_icons import read_png
 from validate_virelia_missing_tools import validate as validate_routes
 from virelia.quarry_access import LEVELS, DOWN_SHAFT, UPPER_LADDER_TOP, UPPER_LADDER_BASE, WALL_EXIT
+from virelia.quarry_contours import CLIFF_TILES
 
 ROOT = Path(__file__).resolve().parents[1]
 BANK = ROOT / 'data/tilesets/secondary/virelia_quarry'
@@ -17,6 +18,32 @@ def words(path):
     return struct.unpack(f'<{len(raw) // 2}H', raw)
 
 
+def validate_cliff_coverage(pixels, meta):
+    primary = read_png(ROOT / 'data/tilesets/primary/general/tiles.png')[0]
+
+    def pixel(value, x, y):
+        tile = value & 1023
+        bank = primary if tile < 512 else pixels
+        tile %= 512
+        sx = 7 - x if value & 1024 else x
+        sy = 7 - y if value & 2048 else y
+        return bank[tile // 16 * 8 + sy][tile % 16 * 8 + sx]
+
+    # Palette index zero is transparent on the GBA even when its RGB entry
+    # looks like a dark rock color in an offline preview. Overlays may retain
+    # zero pixels; opaque cliffs must cover them with the underlying layer.
+    cliffs = set(CLIFF_TILES.values()) | {0x262, 0x263} | set(range(0x26c, 0x278))
+    for index in sorted(cliffs):
+        values = meta[(index - 512) * 8:(index - 511) * 8]
+        assert len(values) == 8, f'Missing cliff metatile {index:#x}'
+        for q in range(4):
+            for y in range(8):
+                for x in range(8):
+                    assert pixel(values[q], x, y) or pixel(values[q + 4], x, y), (
+                        f'Transparent cliff hole in {index:#x} at '
+                        f'({q % 2 * 8 + x}, {q // 2 * 8 + y})')
+
+
 def validate():
     pixels, depth, _ = read_png(BANK / 'tiles.png')
     assert depth == 4 and len(pixels) == 256 and len(pixels[0]) == 128
@@ -24,6 +51,7 @@ def validate():
     assert len(meta) == len(attrs) * 8 <= 512 * 8
     for value in meta:
         assert value >> 12 < 13, 'Art uses a reserved UI palette'
+    validate_cliff_coverage(pixels, meta)
     assert attrs[0x214 - 512] & 255 == 0x61, 'Custom ladders lost native warp behavior'
     assert attrs[WALL_EXIT - 512] & 255 == 0x6e, 'Wall entrance needs native north-facing walk-out behavior'
     for index in (0x201, 0x253, 0x254, 0x255):

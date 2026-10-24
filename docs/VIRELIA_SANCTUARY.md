@@ -44,33 +44,44 @@ The original route still has its existing encounters, two trainers and Potion.
 The sanctuary uses General plus the shared VireliaOutdoor secondary tileset,
 also used by Maplebrook, Whisperwood Trail and Slateford. Shared IDs, graphics
 and palettes keep neighboring grass and buildings correct at seamless crossings.
-The ancient tree is an original **48 × 64 pixel** sprite, split into **3 × 4 map
-tiles** at `(8, 6)` through `(10, 9)`. Its twelve contiguous metatiles are
-`0x31D–0x328`, arranged row by row. One continuous canopy, gnarled trunk and
-spreading roots replace the earlier stock tree assembly. The native asset is
+The ancient tree is an **80 × 80 pixel** sprite, split into **5 × 5 map
+tiles** at `(7, 5)` through `(11, 9)`. Its twenty-five contiguous metatiles are
+`0x31D–0x335`, arranged row by row. One broad canopy, gnarled trunk and
+spreading roots distinguish it from the surrounding trees. The native asset is
 `data/tilesets/secondary/whisperwood/old_tree.png`: 15 colors plus transparency,
-with a dedicated day palette and night variant. Map loading restores all twelve
-tiles over older cached map views; the tree interaction stays at `(9, 9)`.
+with a dedicated day palette and night variant shared by the sanctuary props.
+The authored map supplies the complete tree; its interaction stays at `(9, 9)`.
+All twenty-five cells block walking, while the stones and root approach remain
+reachable on either side and from the south.
 
 The generated master and its exact ImageGen prompt are retained under
-`art/whisperwood/`. `tools/virelia/build_whisperwood_tree.py` converts the master
-to the native sprite using nearest-neighbor sizing and GBA color reduction.
+`art/whisperwood/`. `tools/virelia/build_whisperwood_tree.py` retains its gnarled
+trunk and root silhouette with five bark tones, then assembles the canopy from
+native Emerald forest foliage. Their leaf clusters stay at their original
+pixel scale. The donor trees' ground shadows are excluded from the canopy;
+one contact shadow anchors the new trunk and spreading roots.
 The sanctuary source builder deduplicates identical stock 8 × 8 pixel patterns before
 packing the new artwork, preserving every Fortree metatile and keeping the
 secondary bank within 512 tiles. The existing footprint and carved stone IDs
-stay fixed. The paw impression reuses the native Arcanine footprint graphic.
+stay fixed. The paw impression reuses Mightyena's native separated canine toes
+and heel, rendered as an earthy depression. The earlier Arcanine graphic was a
+single solid silhouette that obscured the pad shapes at native resolution.
 Its metatile `0x318` uses **Covered** layers (`0x1000`): grass on BG3 and the
 print on BG2, beneath the player. The carved stones and ancient tree retain
 Normal layers, including their foreground overlays. Changing map elevation
 is not needed to keep the prints below the player.
 The outdoor packer then combines the used source metatiles with town artwork,
 preserving their pixels and behavior while assigning unique shared IDs. The
-ancient tree keeps IDs `0x31D–0x328` and uses shared palette 12.
+ancient tree uses IDs `0x31D–0x335` and shared palette 12.
 
 The surrounding forest is painted with complete 2 × 3 trees after paths are
-carved; narrow fringes and gates use standalone shrubs. Shared tilesets and
-the source footprint are unchanged. Carved stones use the existing forest
-palette. Soothe Bell's bag description is included in Czech localization.
+carved; narrow fringes and gates use standalone shrubs. Stock source assets
+remain untouched. Carved stones reuse FRLG General boulder `0x09F`, with
+a thin one- to two-pixel moss cap from Emerald's shrub `0x00E` along the upper
+ridge. Their carved faces, sides and bases retain the exposed stock rock
+facets. Tree, stones and tracks share a palette of four
+forest greens, six stone colors and five bark colors. Soothe Bell's bag
+description is included in Czech localization.
 
 `tools/virelia/build_whisperwood_sanctuary.py` rebuilds these checked-in assets
 with Python and Pillow. It patches only the eight western route cells belonging

@@ -103,16 +103,16 @@ def validate():
     path = ROOT / 'data/tilesets/secondary/whisperwood'
     raw = (path / 'metatiles.bin').read_bytes()
     attrs = (path / 'metatile_attributes.bin').read_bytes()
-    require(len(raw) == 297 * 16 and len(attrs) == 297 * 2, 'Incorrect sanctuary metatile tables')
-    prop_attrs = struct.unpack('<17H', attrs[-34:])
-    require(prop_attrs == (0x1000, *([0] * 16)),
+    require(len(raw) == 310 * 16 and len(attrs) == 310 * 2, 'Incorrect sanctuary metatile tables')
+    prop_attrs = struct.unpack('<30H', attrs[-60:])
+    require(prop_attrs == (0x1000, *([0] * 29)),
             'Pawprints must use covered ground layers; stones/tree keep normal layers and behavior')
     require(struct.unpack('>II', (path / 'tiles.png').read_bytes()[16:24]) == (128, 256), 'Invalid native tiles image size')
-    require(struct.unpack('>II', (path / 'old_tree.png').read_bytes()[16:24]) == (48, 64), 'Old tree must be exactly 3x4 16px map tiles')
-    for dy in range(4):
-        for dx in range(3):
-            expected = 0x31D + dy * 3 + dx
-            value = tile((SHRINE, 8 + dx, 6 + dy))
+    require(struct.unpack('>II', (path / 'old_tree.png').read_bytes()[16:24]) == (80, 80), 'Old tree must be exactly 5x5 16px map tiles')
+    for dy in range(5):
+        for dx in range(5):
+            expected = 0x31D + dy * 5 + dx
+            value = tile((SHRINE, 7 + dx, 5 + dy))
             require(value & 0x3FF == expected and value & 0xC00, 'Custom old-tree footprint is incomplete')
             pieces = struct.unpack_from('<8H', raw, (expected - 512) * 16)
             require(all(value >> 12 == 6 for value in pieces[4:]), 'Old-tree tile must use its dedicated palette')

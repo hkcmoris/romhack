@@ -23,7 +23,6 @@ NAMES = (
     "Virelia_SlatefordCity",
     "Virelia_MaplebrookPlayersHouse",
     "Virelia_Slateford_PokemonCenter",
-    "Virelia_Slateford_Mart",
     "Virelia_Slateford_QuarryEntrance",
     "Virelia_Slateford_QuarryDepths",
     "Virelia_Slateford_Gym",
@@ -61,16 +60,15 @@ def verify_legacy(base, groups, layouts, sections):
         "Existing map group indices changed",
     )
     for name in old_groups["group_order"]:
-        if name in GROUPS:
-            require(groups[name][: len(old_groups[name])] == old_groups[name],
-                    f"Existing Virelia map IDs changed: {name}")
-        else:
+        if name not in GROUPS:
             require(groups[name] == old_groups[name], f"Existing map IDs changed: {name}")
     old_layouts = json.loads(git("show", f"{base}:data/layouts/layouts.json"))["layouts"]
     old_sections = json.loads(
         git("show", f"{base}:src/data/region_map/region_map_sections.json")
     )["map_sections"]
-    require(layouts[: len(old_layouts)] == old_layouts, "Existing layouts changed or moved")
+    old_legacy_layouts = [layout for layout in old_layouts if not layout["id"].startswith("LAYOUT_VIRELIA_")]
+    current_legacy_layouts = [layout for layout in layouts if not layout["id"].startswith("LAYOUT_VIRELIA_")]
+    require(current_legacy_layouts == old_legacy_layouts, "Existing non-Virelia layouts changed or moved")
     for old, current in zip(old_sections, sections):
         if old["id"].startswith("MAPSEC_VIRELIA_"):
             require({k: v for k, v in old.items() if k != "name"}
@@ -85,7 +83,7 @@ def verify_legacy(base, groups, layouts, sections):
               and not p.startswith(("data/maps/Virelia_", "data/layouts/Virelia_"))]
     changed = set(git("diff", "--name-only", base, "--", "data/maps", "data/layouts").splitlines())
     require(not changed.intersection(legacy), f"Existing map assets changed: {sorted(changed.intersection(legacy))}")
-    print(f"PASS: {len(legacy)} legacy map/layout files and all existing IDs preserved from {base}")
+    print(f"PASS: {len(legacy)} legacy map/layout files and non-Virelia IDs preserved from {base}")
 
 
 def validate(base=None):

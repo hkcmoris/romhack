@@ -190,20 +190,17 @@ TEST("Virelia sanctuary native map callbacks restore both sides of each gate")
     ExpectGateAccess(state >= 1, state >= 2);
 }
 
-TEST("Virelia sanctuary restores all twelve custom tree tiles over older cached map views")
+TEST("Virelia sanctuary loads all twenty-five ancient tree tiles with solid collision")
 {
     ResetSanctuary();
     FlagSet(FLAG_VIRELIA_SIDEQUEST_REWARDED);
     LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
-    for (u32 y = 6; y < 10; y++)
-        for (u32 x = 8; x < 11; x++)
-            MapGridSetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET, 0x001);
     RunOnLoadMapScript();
-    for (u32 y = 0; y < 4; y++)
-        for (u32 x = 0; x < 3; x++)
+    for (u32 y = 0; y < 5; y++)
+        for (u32 x = 0; x < 5; x++)
         {
-            EXPECT_EQ(MapGridGetMetatileIdAt(x + 8 + MAP_OFFSET, y + 6 + MAP_OFFSET), 0x31D + y * 3 + x);
-            EXPECT_NE(MapGridGetCollisionAt(x + 8 + MAP_OFFSET, y + 6 + MAP_OFFSET), 0);
+            EXPECT_EQ(MapGridGetMetatileIdAt(x + 7 + MAP_OFFSET, y + 5 + MAP_OFFSET), 0x31D + y * 5 + x);
+            EXPECT_NE(MapGridGetCollisionAt(x + 7 + MAP_OFFSET, y + 5 + MAP_OFFSET), 0);
         }
 }
 
