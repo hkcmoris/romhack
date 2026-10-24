@@ -203,6 +203,19 @@ visual checks are maintained in the
 for localization status; a compiled ROM alone does not certify complete Czech
 coverage or correct on-screen wrapping.
 
+The 2026-10-24 merge-gate update resolves all 156 missing bounded-coverage
+entries reported after merging the newer route data: 46 moves, 16 abilities,
+15 Pokédex records and Sitrus Berry. Including generation-specific description
+variants and the berry's quantity label, the manifest now contains 1,231
+entries and passes `tools/validate_virelia_prologue_text.py` through level 20.
+The existing coverage derivation and font limits remain in force. Move and item
+names retain their English literals; Czech descriptions, ability names and
+Pokédex text use the existing localization macro. Bind, Encore, Minimize, Taunt
+and Sitrus Berry retain their generation guards and English test text.
+The accompanying WSL build passes the full native suite: 5,512 tests passed,
+with 18 marked known failures, 421 TODOs and nine expected-failure self-tests;
+there were no unexpected failures. All 71 Virelia tests passed as well.
+
 Shared battle and data strings retain English test fixtures under `TESTING`
 where necessary. Localized strings in normal and release ROMs select Czech at
 preprocessing time. This keeps the upstream behavior tests meaningful without duplicating either

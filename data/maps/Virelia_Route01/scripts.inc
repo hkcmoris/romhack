@@ -16,6 +16,7 @@ Virelia_Route01_CheckSanctuaryShortcut:
 	setmetatile 1, 8, 0x1, 0
 	setmetatile 1, 9, 0x1, 0
 Virelia_Route01_LoadDone:
+	callnative VireliaSanctuary_UpdateConnectionGates
 	end
 
 Virelia_Route01_EventScript_Naturalist::

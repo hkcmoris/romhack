@@ -1,3 +1,4 @@
+#include "localization.h"
 #ifdef __INTELLISENSE__
 const struct SpeciesInfo gSpeciesInfoGen4[] =
 {
@@ -1017,14 +1018,10 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .speciesName = _("Bidoof"),
         .cryId = CRY_BIDOOF,
         .natDexNum = NATIONAL_DEX_BIDOOF,
-        .categoryName = _("Plump Mouse"),
+        .categoryName = _(LOCALIZED_TEXT("Plump Mouse", "Zavalitá myš")),
         .height = 5,
         .weight = 200,
-        .description = COMPOUND_STRING(
-            "A comparison revealed that Bidoof's front\n"
-            "teeth grow at the same rate as Rattata's.\n"
-            "It constantly gnaws on logs and rocks to\n"
-            "whittle down its front teeth."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A comparison revealed that Bidoof's front\nteeth grow at the same rate as Rattata's.\nIt constantly gnaws on logs and rocks to\nwhittle down its front teeth.", "Řezáky mu rostou stejně rychle jako\nRattatovi. Neustále okusuje klády a\nkameny, aby si je obrušoval.")),
         .pokemonScale = 432,
         .pokemonOffset = 16,
         .trainerScale = 256,
@@ -1103,14 +1100,10 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .speciesName = _("Bibarel"),
         .cryId = CRY_BIBAREL,
         .natDexNum = NATIONAL_DEX_BIBAREL,
-        .categoryName = _("Beaver"),
+        .categoryName = _(LOCALIZED_TEXT("Beaver", "Bobr")),
         .height = 10,
         .weight = 315,
-        .description = COMPOUND_STRING(
-            "It makes its nest by damming streams\n"
-            "with bark and mud. A river dammed by\n"
-            "Bibarel will never overflow its banks,\n"
-            "which is appreciated by people nearby."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It makes its nest by damming streams\nwith bark and mud. A river dammed by\nBibarel will never overflow its banks,\nwhich is appreciated by people nearby.", "Z kůry a bláta staví hráze a hnízda.\nPotok, který přehradí, se nikdy\nnevylije z břehů. Lidé si ho proto váží.")),
         .pokemonScale = 305,
         .pokemonOffset = 8,
         .trainerScale = 257,

@@ -134,3 +134,39 @@ C/Makefile repository has no corresponding npm commands.
 The earlier uncommitted playtest ROM placed the sanctuary at `76,7`. For that
 prototype, leave the sanctuary and save on Route 01 before loading this corrected
 build, which uses `75,3`. All maps predating the sanctuary retain their IDs.
+
+### Hana gate correction, 2026-10-24
+
+The follow-up build `outputs/hana-gate/oraculum-v0.3.0-hana-gate.gba` fixes
+the access issue reported above. All eight entrance/shortcut cells are closed
+standalone shrubs in the raw layouts. Both maps require Hana's reward flag;
+finding Zigzagoon without returning to Hana does not grant access, and a full
+Bag leaves the gate closed until her Potion can be accepted. The northern
+shortcut additionally requires the completed stone puzzle.
+
+`VireliaSanctuary_UpdateConnectionGates` also updates the neighbor tiles copied
+into each map's camera buffer. On seamless crossings, the engine restores that
+old view after loading the new map; without matching neighbor gates it could
+overwrite an open destination gate with a closed cached shrub. The same helper
+updates the copied Route 01 gate immediately when the stone puzzle is solved.
+This is confined to the two sanctuary connections; the field engine is unchanged.
+
+The source audit now passes. Gate art is checked as standalone shrubs; the
+complete ancient tree remains checked separately. The audit accepts stock
+forest canopies that overlap or continue beyond Porymap's borders instead of
+requiring every generic tree to match the generator's isolated 2 × 3 pattern.
+Three raw ancient-tree canopy collision bits were also aligned with the
+existing load callback; their graphics and in-game collision are unchanged.
+
+All nine native sanctuary tests pass, including raw ROM gates, copied neighbor
+gates, the real Hana reward subroutine and full-Bag retry. A fresh-game mGBA
+controller test confirmed blocked access before the quest and after discovery,
+then accepted the reward through Hana's actual NPC event. Both rows of the
+main entrance worked in both directions afterward; both shortcut rows stayed
+closed until the solved-stone checkpoint, then worked in both directions.
+The fixture seeds discovery and solved-stone flags and uses native debug warps;
+it is a gate playtest rather than a complete story walkthrough. Screenshots,
+logs and `gate-playtest.json` are saved under `outputs/hana-gate/`.
+The final build also passes the full native suite (5,512 passed, no unexpected
+failures), and the three-footprint movement/rendering regression was repeated
+in that same delivered ROM.

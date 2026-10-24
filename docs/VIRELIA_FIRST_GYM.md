@@ -433,3 +433,9 @@ existing audits and the starter-balance failure remain outside this quest.
 `npm format` and `npm lint` were attempted; this C/Makefile repository has no
 npm project or corresponding npm commands. No manual emulator walkthrough was
 performed for this change.
+
+The later Hana/localization follow-up resolves those recorded audit failures.
+The starter damage test now suppresses only Water Pulse's optional confusion,
+so the opponent actually uses the Rock Tomb whose damage the test measures.
+It also asserts that attack's animation. No move, ability, species or damage
+rules changed. All 71 Virelia native tests pass in the follow-up build.

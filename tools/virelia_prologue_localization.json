@@ -10504,6 +10504,1646 @@
       "font": "Narrower",
       "width": 152,
       "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_AFTER_YOU.name.0",
+      "kind": "move_name",
+      "english": "After You",
+      "czech": "After You",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_AFTER_YOU.description.0",
+      "kind": "move_description",
+      "english": "Helps out the target, letting\\nit move next.",
+      "czech": "Pomůže cíli a nechá ho táhnout jako\\ndalšího.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BESTOW.name.0",
+      "kind": "move_name",
+      "english": "Bestow",
+      "czech": "Bestow",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BESTOW.description.0",
+      "kind": "move_description",
+      "english": "The user gives its held\\nitem to the foe.",
+      "czech": "Předá cíli svůj držený předmět.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BIND.name.0",
+      "kind": "move_name",
+      "english": "Bind",
+      "czech": "Bind",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BIND.description.0",
+      "kind": "move_description",
+      "english": "Binds and squeezes the foe\\nfor 4 or 5 turns.",
+      "czech": "Svírá cíl a zraňuje ho po 4 nebo 5 kol.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_BIND.description.1",
+      "kind": "move_description",
+      "english": "Binds and squeezes the foe\\nfor 2 to 5 turns.",
+      "czech": "Svírá cíl a zraňuje ho po 2 až 5 kol.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CHARM.name.0",
+      "kind": "move_name",
+      "english": "Charm",
+      "czech": "Charm",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CHARM.description.0",
+      "kind": "move_description",
+      "english": "Charms the foe and harshly\\nlowers its Attack.",
+      "czech": "Okouzlí cíl a prudce sníží jeho útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CLEAR_SMOG.name.0",
+      "kind": "move_name",
+      "english": "Clear Smog",
+      "czech": "Clear Smog",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CLEAR_SMOG.description.0",
+      "kind": "move_description",
+      "english": "Attacks with white haze that\\neliminates all stat changes.",
+      "czech": "Zasáhne cíl bílým kouřem a zruší všechny\\nzměny jeho statistik.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_COMET_PUNCH.name.0",
+      "kind": "move_name",
+      "english": "Comet Punch",
+      "czech": "Comet Punch",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_COMET_PUNCH.description.0",
+      "kind": "move_description",
+      "english": "Repeatedly punches the foe\\n2 to 5 times.",
+      "czech": "Opakovaně udeří cíl pěstí. Zasáhne\\ndvakrát až pětkrát.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CONSTRICT.name.0",
+      "kind": "move_name",
+      "english": "Constrict",
+      "czech": "Constrict",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CONSTRICT.description.0",
+      "kind": "move_description",
+      "english": "Constricts to inflict pain.\\nMay lower Speed.",
+      "czech": "Bolestivě sevře cíl. Může snížit jeho\\nrychlost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_COPYCAT.name.0",
+      "kind": "move_name",
+      "english": "Copycat",
+      "czech": "Copycat",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_COPYCAT.description.0",
+      "kind": "move_description",
+      "english": "The user mimics the last\\nmove used by a foe.",
+      "czech": "Zopakuje poslední použitý útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_COSMIC_POWER.name.0",
+      "kind": "move_name",
+      "english": "Cosmic Power",
+      "czech": "Cosmic Power",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_COSMIC_POWER.description.0",
+      "kind": "move_description",
+      "english": "Raises Defense and Sp. Def\\nwith a mystic power.",
+      "czech": "Tajemnou silou zvýší svou obranu a\\nspeciální obranu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_DOUBLE_SLAP.name.0",
+      "kind": "move_name",
+      "english": "Double Slap",
+      "czech": "Double Slap",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_DOUBLE_SLAP.description.0",
+      "kind": "move_description",
+      "english": "Repeatedly slaps the foe\\n2 to 5 times.",
+      "czech": "Opakovaně udeří cíl dlaní. Zasáhne\\ndvakrát až pětkrát.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ECHOED_VOICE.name.0",
+      "kind": "move_name",
+      "english": "Echoed Voice",
+      "czech": "Echoed Voice",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ECHOED_VOICE.description.0",
+      "kind": "move_description",
+      "english": "Does more damage every turn\\nit is used.",
+      "czech": "Při opakování v dalších kolech zraňuje\\nstále silněji.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ELECTROWEB.name.0",
+      "kind": "move_name",
+      "english": "Electroweb",
+      "czech": "Electroweb",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ELECTROWEB.description.0",
+      "kind": "move_description",
+      "english": "Snares the foes with an\\nelectric net. Lowers Speed.",
+      "czech": "Zachytí soupeře do elektrické sítě a\\nsníží jejich rychlost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ELECTRO_BALL.name.0",
+      "kind": "move_name",
+      "english": "Electro Ball",
+      "czech": "Electro Ball",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ELECTRO_BALL.description.0",
+      "kind": "move_description",
+      "english": "Hurls an orb that does more\\ndamage to a slower foe.",
+      "czech": "Vrhne elektrickou kouli. Čím pomalejší cíl,\\ntím větší zranění.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ENCORE.name.0",
+      "kind": "move_name",
+      "english": "Encore",
+      "czech": "Encore",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ENCORE.description.0",
+      "kind": "move_description",
+      "english": "Makes the foe repeat its\\nlast move over 3 turns.",
+      "czech": "Donutí cíl tři kola opakovat jeho\\nposlední útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ENCORE.description.1",
+      "kind": "move_description",
+      "english": "Makes the foe repeat its\\nlast move over 3-7 turns.",
+      "czech": "Donutí cíl 3 až 7 kol opakovat jeho\\nposlední útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ENCORE.description.2",
+      "kind": "move_description",
+      "english": "Makes the foe repeat its\\nlast move over 2-6 turns.",
+      "czech": "Donutí cíl 2 až 6 kol opakovat jeho\\nposlední útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FEINT.name.0",
+      "kind": "move_name",
+      "english": "Feint",
+      "czech": "Feint",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FEINT.description.0",
+      "kind": "move_description",
+      "english": "Hits a protecting foe\\nand lifts those effects.",
+      "czech": "Zasáhne chráněný cíl a zruší jeho\\nochranné účinky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FEINT_ATTACK.name.0",
+      "kind": "move_name",
+      "english": "Feint Attack",
+      "czech": "Feint Attack",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FEINT_ATTACK.description.0",
+      "kind": "move_description",
+      "english": "Draws the foe close, then\\nstrikes without fail.",
+      "czech": "Přiláká cíl blíž a pak ho zasáhne bez\\nohledu na přesnost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FOLLOW_ME.name.0",
+      "kind": "move_name",
+      "english": "Follow Me",
+      "czech": "Follow Me",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_FOLLOW_ME.description.0",
+      "kind": "move_description",
+      "english": "Draws attention to make\\nfoes attack only the user.",
+      "czech": "Přitáhne pozornost. Soupeři pak míří na\\nuživatele.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_GRAVITY.name.0",
+      "kind": "move_name",
+      "english": "Gravity",
+      "czech": "Gravity",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_GRAVITY.description.0",
+      "kind": "move_description",
+      "english": "Gravity is intensified\\nnegating levitation.",
+      "czech": "Zesílí gravitaci a zruší vznášení.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HEALING_WISH.name.0",
+      "kind": "move_name",
+      "english": "Healing Wish",
+      "czech": "Healing Wish",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_HEALING_WISH.description.0",
+      "kind": "move_description",
+      "english": "Faints to restore the HP and\\nstatus of the next Pokémon.",
+      "czech": "Uživatel padne. Příštímu Pokémonovi\\nobnoví HP a vyléčí stav.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_INGRAIN.name.0",
+      "kind": "move_name",
+      "english": "Ingrain",
+      "czech": "Ingrain",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_INGRAIN.description.0",
+      "kind": "move_description",
+      "english": "Lays roots that restore HP.\\nThe user can't switch out.",
+      "czech": "Zapustí kořeny, které obnovují HP.\\nUživatel se nemůže vyměnit.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LIFE_DEW.name.0",
+      "kind": "move_name",
+      "english": "Life Dew",
+      "czech": "Life Dew",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LIFE_DEW.description.0",
+      "kind": "move_description",
+      "english": "Scatters water to restore\\nthe HP of itself and allies.",
+      "czech": "Rozstříkne vodu a obnoví HP sobě i\\nspojencům.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LIGHT_SCREEN.name.0",
+      "kind": "move_name",
+      "english": "Light Screen",
+      "czech": "Light Screen",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_LIGHT_SCREEN.description.0",
+      "kind": "move_description",
+      "english": "For 5 turns, a wall of light\\nreduces special damage.",
+      "czech": "Světelná stěna pět kol snižuje zranění\\nspeciálními útoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MACH_PUNCH.name.0",
+      "kind": "move_name",
+      "english": "Mach Punch",
+      "czech": "Mach Punch",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MACH_PUNCH.description.0",
+      "kind": "move_description",
+      "english": "A punch is thrown at wicked\\nspeed to strike first.",
+      "czech": "Udeří cíl pěstí bleskovou rychlostí. Má\\npřednost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_METEOR_MASH.name.0",
+      "kind": "move_name",
+      "english": "Meteor Mash",
+      "czech": "Meteor Mash",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_METEOR_MASH.description.0",
+      "kind": "move_description",
+      "english": "Fires a meteor-like punch.\\nMay raise Attack.",
+      "czech": "Udeří cíl pěstí jako meteorem. Může\\nzvýšit svůj útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_METRONOME.name.0",
+      "kind": "move_name",
+      "english": "Metronome",
+      "czech": "Metronome",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_METRONOME.description.0",
+      "kind": "move_description",
+      "english": "Waggles a finger to use any\\nPokémon move at random.",
+      "czech": "Pohybem prstu vyvolá náhodný útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MINIMIZE.name.0",
+      "kind": "move_name",
+      "english": "Minimize",
+      "czech": "Minimize",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MINIMIZE.description.0",
+      "kind": "move_description",
+      "english": "Minimizes the user's size\\nto sharply raise evasion.",
+      "czech": "Zmenší své tělo a prudce zvýší úhybnost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MINIMIZE.description.1",
+      "kind": "move_description",
+      "english": "Minimizes the user's size\\nto raise evasiveness.",
+      "czech": "Zmenší své tělo a zvýší úhybnost.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MOONBLAST.name.0",
+      "kind": "move_name",
+      "english": "Moonblast",
+      "czech": "Moonblast",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_MOONBLAST.description.0",
+      "kind": "move_description",
+      "english": "Attacks with the power of\\nthe moon. May lower Sp. Atk.",
+      "czech": "Zasáhne cíl silou měsíce. Může snížit jeho\\nspeciální útok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_PLUCK.name.0",
+      "kind": "move_name",
+      "english": "Pluck",
+      "czech": "Pluck",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_PLUCK.description.0",
+      "kind": "move_description",
+      "english": "Eats the foe's held Berry\\nand gains its effect.",
+      "czech": "Sní drženou bobuli cíle a získá její\\núčinek.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_REFLECT.name.0",
+      "kind": "move_name",
+      "english": "Reflect",
+      "czech": "Reflect",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_REFLECT.description.0",
+      "kind": "move_description",
+      "english": "For 5 turns, a wall of light\\nweakens physical attacks.",
+      "czech": "Světelná stěna pět kol snižuje zranění\\nfyzickými útoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ROCK_SMASH.name.0",
+      "kind": "move_name",
+      "english": "Rock Smash",
+      "czech": "Rock Smash",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ROCK_SMASH.description.0",
+      "kind": "move_description",
+      "english": "A rock-crushing attack\\nthat may lower Defense.",
+      "czech": "Zasáhne cíl úderem, který drtí kámen.\\nMůže snížit obranu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ROOST.name.0",
+      "kind": "move_name",
+      "english": "Roost",
+      "czech": "Roost",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_ROOST.description.0",
+      "kind": "move_description",
+      "english": "Restores the user's HP by\\nhalf of its max HP.",
+      "czech": "Odpočinkem obnoví polovinu svých\\nmaximálních HP.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SAFEGUARD.name.0",
+      "kind": "move_name",
+      "english": "Safeguard",
+      "czech": "Safeguard",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SAFEGUARD.description.0",
+      "kind": "move_description",
+      "english": "Protects allies from status\\nproblems for 5 turns.",
+      "czech": "Pět kol chrání spojence před změnami\\nstavu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SCREECH.name.0",
+      "kind": "move_name",
+      "english": "Screech",
+      "czech": "Screech",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SCREECH.description.0",
+      "kind": "move_description",
+      "english": "Emits a screech to harshly\\nlower the foe's Defense.",
+      "czech": "Pronikavým skřekem prudce sníží obranu\\ncíle.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SILK_TRAP.name.0",
+      "kind": "move_name",
+      "english": "Silk Trap",
+      "czech": "Silk Trap",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SILK_TRAP.description.0",
+      "kind": "move_description",
+      "english": "Protects itself, lowering\\nSpeed on contact.",
+      "czech": "Chrání uživatele. Při kontaktu sníží\\nrychlost útočníka.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SILVER_WIND.name.0",
+      "kind": "move_name",
+      "english": "Silver Wind",
+      "czech": "Silver Wind",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SILVER_WIND.description.0",
+      "kind": "move_description",
+      "english": "A powdery attack that may\\nraise all stats.",
+      "czech": "Zasáhne cíl třpytivým prachem. Může\\nzvýšit všechny hlavní statistiky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SING.name.0",
+      "kind": "move_name",
+      "english": "Sing",
+      "czech": "Sing",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SING.description.0",
+      "kind": "move_description",
+      "english": "A soothing song lulls the\\nfoe into a deep slumber.",
+      "czech": "Ukolébavkou uvede cíl do hlubokého\\nspánku.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SLEEP_POWDER.name.0",
+      "kind": "move_name",
+      "english": "Sleep Powder",
+      "czech": "Sleep Powder",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SLEEP_POWDER.description.0",
+      "kind": "move_description",
+      "english": "Scatters a powder that\\ncauses the foe to sleep.",
+      "czech": "Rozptýlí prášek, který uspí cíl.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SPIDER_WEB.name.0",
+      "kind": "move_name",
+      "english": "Spider Web",
+      "czech": "Spider Web",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SPIDER_WEB.description.0",
+      "kind": "move_description",
+      "english": "Ensnares the foe to stop it\\nfrom fleeing or switching.",
+      "czech": "Zachytí cíl do sítě. Cíl pak nemůže utéct\\nani se vyměnit.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SPLASH.name.0",
+      "kind": "move_name",
+      "english": "Splash",
+      "czech": "Splash",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SPLASH.description.0",
+      "kind": "move_description",
+      "english": "It's just a splash...\\nHas no effect whatsoever.",
+      "czech": "Jen sebou plácá. Nemá vůbec žádný účinek.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SPORE.name.0",
+      "kind": "move_name",
+      "english": "Spore",
+      "czech": "Spore",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SPORE.description.0",
+      "kind": "move_description",
+      "english": "Scatters a cloud of spores\\nthat always induce sleep.",
+      "czech": "Rozptýlí výtrusy, které uspí cíl.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SPOTLIGHT.name.0",
+      "kind": "move_name",
+      "english": "Spotlight",
+      "czech": "Spotlight",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SPOTLIGHT.description.0",
+      "kind": "move_description",
+      "english": "Makes the foe attack the\\nspotlighted Pokémon.",
+      "czech": "Přiměje soupeře mířit na označeného\\nPokémona.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STORED_POWER.name.0",
+      "kind": "move_name",
+      "english": "Stored Power",
+      "czech": "Stored Power",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STORED_POWER.description.0",
+      "kind": "move_description",
+      "english": "Greater power the more the\\nuser's stats are raised.",
+      "czech": "Čím víc má uživatel zvýšené statistiky,\\ntím silněji zasáhne.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STRUGGLE_BUG.name.0",
+      "kind": "move_name",
+      "english": "Struggle Bug",
+      "czech": "Struggle Bug",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_STRUGGLE_BUG.description.0",
+      "kind": "move_description",
+      "english": "Resisting, the user attacks\\nthe foes. Lowers Sp. Atk.",
+      "czech": "Zasáhne soupeře a sníží jejich speciální\\nútok.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SWEET_KISS.name.0",
+      "kind": "move_name",
+      "english": "Sweet Kiss",
+      "czech": "Sweet Kiss",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SWEET_KISS.description.0",
+      "kind": "move_description",
+      "english": "Demands a kiss with a cute\\nlook. Causes confusion.",
+      "czech": "Roztomilým polibkem zmate cíl.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TAUNT.name.0",
+      "kind": "move_name",
+      "english": "Taunt",
+      "czech": "Taunt",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TAUNT.description.0",
+      "kind": "move_description",
+      "english": "The foe can use only attack\\nmoves for 3 turns.",
+      "czech": "Cíl může tři kola používat jen zraňující\\nútoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TAUNT.description.1",
+      "kind": "move_description",
+      "english": "The foe can use only attack\\nmoves for 2 to 4 turns.",
+      "czech": "Cíl může 2 až 4 kola používat jen\\nzraňující útoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TAUNT.description.2",
+      "kind": "move_description",
+      "english": "The foe can use only attack\\nmoves for 2 turns.",
+      "czech": "Cíl může dvě kola používat jen zraňující\\nútoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_VINE_WHIP.name.0",
+      "kind": "move_name",
+      "english": "Vine Whip",
+      "czech": "Vine Whip",
+      "font": "Narrower",
+      "width": 64,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_VINE_WHIP.description.0",
+      "kind": "move_description",
+      "english": "Strikes the foe with\\nslender, whiplike vines.",
+      "czech": "Zasáhne cíl tenkými liánami jako bičem.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_CUTE_CHARM.name.0",
+      "kind": "ability_name",
+      "english": "Cute Charm",
+      "czech": "Roztomilost",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_CUTE_CHARM.description.0",
+      "kind": "ability_description",
+      "english": "May infatuate on contact.",
+      "czech": "Při kontaktu může vyvolat zamilování.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_DAMP.name.0",
+      "kind": "ability_name",
+      "english": "Damp",
+      "czech": "Vlhkost",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_DAMP.description.0",
+      "kind": "ability_description",
+      "english": "Prevents self-destruction.",
+      "czech": "Zabrání sebezničujícím útokům.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_DRY_SKIN.name.0",
+      "kind": "ability_name",
+      "english": "Dry Skin",
+      "czech": "Suchá kůže",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_DRY_SKIN.description.0",
+      "kind": "ability_description",
+      "english": "Heat hurts, Water restores.",
+      "czech": "Voda ho léčí, horko ho zraňuje.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_FRIEND_GUARD.name.0",
+      "kind": "ability_name",
+      "english": "Friend Guard",
+      "czech": "Ochrana druhů",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_FRIEND_GUARD.description.0",
+      "kind": "ability_description",
+      "english": "Reduces damage to allies.",
+      "czech": "Snižuje zranění spojenců.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_INSOMNIA.name.0",
+      "kind": "ability_name",
+      "english": "Insomnia",
+      "czech": "Nespavost",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_INSOMNIA.description.0",
+      "kind": "ability_description",
+      "english": "Prevents sleep.",
+      "czech": "Zabraňuje usnutí.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_IRON_FIST.name.0",
+      "kind": "ability_name",
+      "english": "Iron Fist",
+      "czech": "Železná pěst",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_IRON_FIST.description.0",
+      "kind": "ability_description",
+      "english": "Powers up punching moves.",
+      "czech": "Zesiluje údery pěstí.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_KEEN_EYE.name.0",
+      "kind": "ability_name",
+      "english": "Keen Eye",
+      "czech": "Bystrý zrak",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_KEEN_EYE.description.0",
+      "kind": "ability_description",
+      "english": "Accuracy can't be lowered.",
+      "czech": "Přesnost nelze snížit.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_LEAF_GUARD.name.0",
+      "kind": "ability_name",
+      "english": "Leaf Guard",
+      "czech": "Listový štít",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_LEAF_GUARD.description.0",
+      "kind": "ability_description",
+      "english": "Blocks status in sunlight.",
+      "czech": "Na slunci brání změnám stavu.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_MAGIC_GUARD.name.0",
+      "kind": "ability_name",
+      "english": "Magic Guard",
+      "czech": "Kouzelný štít",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_MAGIC_GUARD.description.0",
+      "kind": "ability_description",
+      "english": "Only damaged by attacks.",
+      "czech": "Zraňují ho jen přímé útoky.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_MOODY.name.0",
+      "kind": "ability_name",
+      "english": "Moody",
+      "czech": "Náladovost",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_MOODY.description.0",
+      "kind": "ability_description",
+      "english": "Stats change every turn.",
+      "czech": "Každé kolo změní dvě statistiky.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_REGENERATOR.name.0",
+      "kind": "ability_name",
+      "english": "Regenerator",
+      "czech": "Regenerace",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_REGENERATOR.description.0",
+      "kind": "ability_description",
+      "english": "Restores HP upon switch.",
+      "czech": "Při výměně obnoví část HP.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SIMPLE.name.0",
+      "kind": "ability_name",
+      "english": "Simple",
+      "czech": "Prostota",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SIMPLE.description.0",
+      "kind": "ability_description",
+      "english": "Doubles stat changes.",
+      "czech": "Zdvojnásobuje změny statistik.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SKILL_LINK.name.0",
+      "kind": "ability_name",
+      "english": "Skill Link",
+      "czech": "Série zásahů",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_SKILL_LINK.description.0",
+      "kind": "ability_description",
+      "english": "Maxes multistrike hits.",
+      "czech": "Vícezásahové útoky mají nejvíc\\nzásahů.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_STAKEOUT.name.0",
+      "kind": "ability_name",
+      "english": "Stakeout",
+      "czech": "Číhání",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_STAKEOUT.description.0",
+      "kind": "ability_description",
+      "english": "Stronger on foe's switch in.",
+      "czech": "Silněji zasáhne právě vystřídaný cíl.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_UNAWARE.name.0",
+      "kind": "ability_name",
+      "english": "Unaware",
+      "czech": "Nevšímavost",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_UNAWARE.description.0",
+      "kind": "ability_description",
+      "english": "Ignores foes' stat changes.",
+      "czech": "Ignoruje změny statistik soupeřů.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_UNNERVE.name.0",
+      "kind": "ability_name",
+      "english": "Unnerve",
+      "czech": "Nervozita",
+      "font": "Narrower",
+      "width": 72,
+      "lines": 0
+    },
+    {
+      "path": "src/data/abilities.h",
+      "key": "ABILITY_UNNERVE.description.0",
+      "kind": "ability_description",
+      "english": "Foes can't eat Berries.",
+      "czech": "Soupeři nemohou jíst bobule.",
+      "font": "Narrower",
+      "width": 144,
+      "lines": 2
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_CLEFAIRY.categoryName.0",
+      "kind": "dex_category",
+      "english": "Fairy",
+      "czech": "Víla",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_CLEFAIRY.description.0",
+      "kind": "dex_description",
+      "english": "On every night of a full moon, they come\\nout to play. When dawn arrives, the tired\\nClefairy go to sleep nestled up against\\neach other in deep and quiet mountains.",
+      "czech": "Za úplňku si chodí hrát. Za úsvitu se\\nunavené víly ukládají těsně k sobě ke\\nspánku v tichých horách.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_CLEFABLE.categoryName.0",
+      "kind": "dex_category",
+      "english": "Fairy",
+      "czech": "Víla",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_CLEFABLE.description.0",
+      "kind": "dex_description",
+      "english": "A Clefable uses its wings to skip lightly \\nas if it were flying. Its bouncy step\\nlets it even walk on water. On quiet,\\nmoonlit nights, it strolls on lakes.",
+      "czech": "Lehce poskakuje pomocí křídel, jako by\\nlétal. Dokáže přejít i vodní hladinu. Za\\nměsíčných nocí se prochází po\\njezerech.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_PARAS.categoryName.0",
+      "kind": "dex_category",
+      "english": "Mushroom",
+      "czech": "Houba",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_PARAS.description.0",
+      "kind": "dex_description",
+      "english": "A Paras has parasitic tochukaso\\nmushrooms growing on its back. They grow\\nby drawing nutrients from the host. They\\nare valued as a medicine for long life.",
+      "czech": "Parazitické houby na zádech čerpají\\nživiny z jeho těla. Lidé je cení jako lék\\npro dlouhý život.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_TANGELA.categoryName.0",
+      "kind": "dex_category",
+      "english": "Vine",
+      "czech": "Liána",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_TANGELA.description.0",
+      "kind": "dex_description",
+      "english": "Its vines snap off easily and painlessly\\nif they are grabbed, allowing it to make a\\nquick getaway. The lost vines are replaced\\nby new growth the very next day.",
+      "czech": "Liány se mu při uchopení bezbolestně\\nodlomí a umožní mu utéct. Už druhý den\\nmu narostou nové.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_TANGROWTH.categoryName.0",
+      "kind": "dex_category",
+      "english": "Vine",
+      "czech": "Liána",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_1_families.h",
+      "key": "SPECIES_TANGROWTH.description.0",
+      "kind": "dex_description",
+      "english": "It ensnares prey by extending arms made\\nof vines. Even if one of its arms is eaten,\\nit's fine. The Pokémon regenerates quickly\\nand will go right back to normal.",
+      "czech": "Kořist chytá pažemi z lián. Ani ztráta\\npaže mu nevadí: rychle mu doroste a\\nzase je v pořádku.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_2_families.h",
+      "key": "SPECIES_LEDYBA.categoryName.0",
+      "kind": "dex_category",
+      "english": "Five Star",
+      "czech": "Pět hvězd",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_2_families.h",
+      "key": "SPECIES_LEDYBA.description.0",
+      "kind": "dex_description",
+      "english": "Ledyba communicate using a fluid that\\nthey secrete from where the legs join the\\nbody. They are said to convey feelings to\\nothers by altering the fluid's scent.",
+      "czech": "Tekutinou z kloubů nohou sděluje své\\npocity ostatním. Její pach mění podle\\ntoho, jak se cítí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_2_families.h",
+      "key": "SPECIES_LEDIAN.categoryName.0",
+      "kind": "dex_category",
+      "english": "Five Star",
+      "czech": "Pět hvězd",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_2_families.h",
+      "key": "SPECIES_LEDIAN.description.0",
+      "kind": "dex_description",
+      "english": "It is said that in lands with clean air,\\nwhere the stars fill the sky, there live\\nmany Ledian. For good reason, they use\\nthe light of the stars as energy.",
+      "czech": "Žije tam, kde je čistý vzduch a na nebi\\nsvítí mnoho hvězd. Jejich světlo mu\\ndodává energii.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_4_families.h",
+      "key": "SPECIES_BIDOOF.categoryName.0",
+      "kind": "dex_category",
+      "english": "Plump Mouse",
+      "czech": "Zavalitá myš",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_4_families.h",
+      "key": "SPECIES_BIDOOF.description.0",
+      "kind": "dex_description",
+      "english": "A comparison revealed that Bidoof's front\\nteeth grow at the same rate as Rattata's.\\nIt constantly gnaws on logs and rocks to\\nwhittle down its front teeth.",
+      "czech": "Řezáky mu rostou stejně rychle jako\\nRattatovi. Neustále okusuje klády a\\nkameny, aby si je obrušoval.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_4_families.h",
+      "key": "SPECIES_BIBAREL.categoryName.0",
+      "kind": "dex_category",
+      "english": "Beaver",
+      "czech": "Bobr",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_4_families.h",
+      "key": "SPECIES_BIBAREL.description.0",
+      "kind": "dex_description",
+      "english": "It makes its nest by damming streams\\nwith bark and mud. A river dammed by\\nBibarel will never overflow its banks,\\nwhich is appreciated by people nearby.",
+      "czech": "Z kůry a bláta staví hráze a hnízda.\\nPotok, který přehradí, se nikdy\\nnevylije z břehů. Lidé si ho proto váží.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_5_families.h",
+      "key": "SPECIES_FOONGUS.categoryName.0",
+      "kind": "dex_category",
+      "english": "Mushroom",
+      "czech": "Houba",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_5_families.h",
+      "key": "SPECIES_FOONGUS.description.0",
+      "kind": "dex_description",
+      "english": "It lures Pokémon in with its pattern that\\nlooks just like a Poké Ball, then releases\\nits poison spores. Why it resembles a\\nPoké Ball is unknown.",
+      "czech": "Vzorem podobným Poké Ballu láká\\nPokémony a pak vypustí jedovaté\\nvýtrusy. Podobnost s míčkem zůstává\\nzáhadou.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_5_families.h",
+      "key": "SPECIES_JOLTIK.categoryName.0",
+      "kind": "dex_category",
+      "english": "Attaching",
+      "czech": "Přichycený",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_5_families.h",
+      "key": "SPECIES_JOLTIK.description.0",
+      "kind": "dex_description",
+      "english": "Since they can't generate their own\\nelectricity, they attach themselves to\\nlarge-bodied Pokémon and absorb static\\nelectricity, which they store in a pouch.",
+      "czech": "Nevyrábí vlastní elektřinu. Přichytí se\\nk velkému Pokémonovi a sbírá statický\\nnáboj, který ukládá do vaku.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_7_families.h",
+      "key": "SPECIES_PIKIPEK.categoryName.0",
+      "kind": "dex_category",
+      "english": "Woodpecker",
+      "czech": "Datel",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_7_families.h",
+      "key": "SPECIES_PIKIPEK.description.0",
+      "kind": "dex_description",
+      "english": "This Pokémon feeds on berries, whose\\nleftover seeds become the ammunition for\\nthe attacks it fires off from its mouth.\\nIt uses holes in trees for nesting.",
+      "czech": "Živí se bobulemi. Zbylá semena používá\\njako střelivo, které chrlí ze zobáku.\\nHnízdí v dutinách stromů.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_7_families.h",
+      "key": "SPECIES_TRUMBEAK.categoryName.0",
+      "kind": "dex_category",
+      "english": "Bugle Beak",
+      "czech": "Troubící",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_7_families.h",
+      "key": "SPECIES_TRUMBEAK.description.0",
+      "kind": "dex_description",
+      "english": "By bending its beak, it can produce a\\nvariety of calls and brand itself a noisy\\nnuisance for its neighbors. It eats\\nberries and stores their seeds in its beak.",
+      "czech": "Ohýbáním zobáku vydává různé hlasité\\nzvuky, kterými obtěžuje sousedy. Živí\\nse bobulemi a jejich semena uchovává v\\nzobáku.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_9_families.h",
+      "key": "SPECIES_TAROUNTULA.categoryName.0",
+      "kind": "dex_category",
+      "english": "String Ball",
+      "czech": "Klubko",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_9_families.h",
+      "key": "SPECIES_TAROUNTULA.description.0",
+      "kind": "dex_description",
+      "english": "The thread it secretes from its\\nrear is as strong as wire. The secret\\nbehind the thread's strength is the\\ntopic of ongoing research.",
+      "czech": "Vlákno, které vylučuje ze zadní části\\ntěla, je pevné jako drát. Vědci stále\\nzkoumají tajemství jeho pevnosti.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_9_families.h",
+      "key": "SPECIES_SPIDOPS.categoryName.0",
+      "kind": "dex_category",
+      "english": "Trap",
+      "czech": "Past",
+      "font": "Normal",
+      "width": 96,
+      "lines": 0
+    },
+    {
+      "path": "src/data/pokemon/species_info/gen_9_families.h",
+      "key": "SPECIES_SPIDOPS.description.0",
+      "kind": "dex_description",
+      "english": "It clings to branches and ceilings\\nusing its threads and moves without\\na sound. It takes out its prey\\nbefore the prey even notices it.",
+      "czech": "Pomocí vláken visí na větvích a\\nstropech. Pohybuje se bez hluku a\\nkořist napadne dřív, než si ho všimne.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 4
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SITRUS_BERRY.name.0",
+      "kind": "item_name",
+      "english": "Sitrus Berry",
+      "czech": "Sitrus Berry",
+      "font": "Narrower",
+      "width": 102,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SITRUS_BERRY.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Sitrus Berries",
+      "czech": "Sitrus Berry",
+      "font": "Narrower",
+      "width": 102,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SITRUS_BERRY.description.0",
+      "kind": "item_description",
+      "english": "A held item that\\nrestores a little\\nHP in battle.",
+      "czech": "Držiteli v boji\\nobnoví čtvrtinu\\nmaxima HP.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SITRUS_BERRY.description.1",
+      "kind": "item_description",
+      "english": "A held item that\\nrestores 30 HP in\\nbattle.",
+      "czech": "Držiteli v boji\\nobnoví 30 HP.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
     }
   ],
   "coverage": {

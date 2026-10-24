@@ -33,11 +33,13 @@ Virelia_WhisperwoodSanctuary_CheckShortcut:
 	goto_if_unset FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN, Virelia_WhisperwoodSanctuary_LoadDone
 	call Virelia_WhisperwoodSanctuary_OpenShortcut
 Virelia_WhisperwoodSanctuary_LoadDone:
+	callnative VireliaSanctuary_UpdateConnectionGates
 	end
 
 Virelia_WhisperwoodSanctuary_OpenShortcut:
 	setmetatile 16, 2, 0x1, 0
 	setmetatile 16, 3, 0x1, 0
+	callnative VireliaSanctuary_UpdateConnectionGates
 	return
 
 Virelia_WhisperwoodSanctuary_EventScript_SeedStone::

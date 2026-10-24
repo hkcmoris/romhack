@@ -26,9 +26,18 @@ SINGLE_BATTLE_TEST("Virelia first Gym starter stages survive one Rock Tomb witho
             Level(16);
         }
     } WHEN {
-        TURN { MOVE(player, move); MOVE(opponent, MOVE_ROCK_TOMB); }
+        TURN {
+            // Measure Rock Tomb damage: Water Pulse confusion must not
+            // replace the opponent's attack with confusion self-damage.
+            if (move == MOVE_WATER_PULSE)
+                MOVE(player, move, WITH_RNG(RNG_SECONDARY_EFFECT, FALSE));
+            else
+                MOVE(player, move);
+            MOVE(opponent, MOVE_ROCK_TOMB);
+        }
     } SCENE {
         HP_BAR(opponent, captureDamage: &dealt);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_ROCK_TOMB, opponent);
         HP_BAR(player, captureDamage: &received);
     } THEN {
         EXPECT_GT(dealt, 0);

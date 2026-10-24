@@ -121,6 +121,10 @@ def validate():
     for name in ('data/scripts/virelia_sanctuary.inc', f'data/maps/{SHRINE}/scripts.inc'):
         require(f'.include "{name}"' in scripts, f'Unregistered script: {name}')
     require('#include "constants/virelia_sanctuary.h"' in scripts, 'Missing event-state constants')
+    for name in (ROUTE, SHRINE):
+        map_scripts = (ROOT / f'data/maps/{name}/scripts.inc').read_text(encoding='utf-8')
+        require('callnative VireliaSanctuary_UpdateConnectionGates' in map_scripts,
+                f'{name}: connected camera buffers must restore the same quest gates')
     print('PASS: Hana gate, overgrown approach, all shrine interactions, sealed and open two-way shortcut')
     print('PASS: inward gates preserve native connection buffers; appended map and native forest assets registered')
 

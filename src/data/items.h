@@ -11225,22 +11225,16 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_SITRUS_BERRY] =
     {
         .name = ITEM_NAME("Sitrus Berry"),
-        .pluralName = ITEM_PLURAL_NAME("Sitrus Berries"),
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Sitrus Berries", "Sitrus Berry")),
         .price = (I_BERRY_PRICE >= GEN_8) ? 80 : 20,
     #if I_SITRUS_BERRY_HEAL >= GEN_4
         .holdEffect = HOLD_EFFECT_RESTORE_PCT_HP,
         .holdEffectParam = 25,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "restores a little\n"
-            "HP in battle."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\nrestores a little\nHP in battle.", "Držiteli v boji\nobnoví čtvrtinu\nmaxima HP.")),
     #else
         .holdEffect = HOLD_EFFECT_RESTORE_HP,
         .holdEffectParam = 30,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "restores 30 HP in\n"
-            "battle."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\nrestores 30 HP in\nbattle.", "Držiteli v boji\nobnoví 30 HP.")),
     #endif
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_PARTY_MENU,

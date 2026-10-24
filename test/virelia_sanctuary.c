@@ -53,14 +53,26 @@ static void ExpectGateAccess(bool32 hanaComplete, bool32 shortcutOpen)
 {
     LoadSanctuaryMap(MAP_VIRELIA_ROUTE01);
     for (u32 y = 16; y <= 17; y++)
+    {
         EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
+        EXPECT_EQ(MapGridGetCollisionAt(-2 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
+    }
     for (u32 y = 8; y <= 9; y++)
+    {
         EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
+        EXPECT_EQ(MapGridGetCollisionAt(-6 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
+    }
     LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
     for (u32 y = 10; y <= 11; y++)
+    {
         EXPECT_EQ(MapGridGetCollisionAt(20 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
+        EXPECT_EQ(MapGridGetCollisionAt(23 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
+    }
     for (u32 y = 2; y <= 3; y++)
+    {
         EXPECT_EQ(MapGridGetCollisionAt(16 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
+        EXPECT_EQ(MapGridGetCollisionAt(23 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
+    }
 }
 
 TEST("Virelia sanctuary raw connected layouts seal both entrances before load callbacks")
