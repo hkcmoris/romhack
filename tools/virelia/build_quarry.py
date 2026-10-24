@@ -15,6 +15,7 @@ from PIL import Image, ImageDraw
 
 from build_first_gym_maps import cave_grid
 from quarry_contours import CLIFF_TILES, cliff_at, quadrants
+from quarry_access import apply_access
 
 ROOT = Path(__file__).resolve().parents[2]
 TARGET = ROOT / 'data/tilesets/secondary/virelia_quarry'
@@ -298,6 +299,7 @@ def build_tiles():
                 meta[(index - 512) * 8 + layer + q] = meta[(original - 512) * 8 + layer + q]
         attrs[index - 512] = 0x1000
     # The city exit uses the stock cave entrance behavior.
+    attrs[0x251 - 512] = 0x106e  # MB_DEEP_SOUTH_WARP: north-facing cave arrival.
     tiles.save(TARGET / 'tiles.png', bits=4)
     write_words(TARGET / 'metatiles.bin', meta)
     write_words(TARGET / 'metatile_attributes.bin', attrs)
@@ -441,8 +443,7 @@ def build_maps():
             place(4, 20, 'board', True)
             for x, y in ((6, 7), (26, 18)):
                 place(x, y, 'lamp', True)
-        for event in entry['warp_events']:
-            place(event['x'], event['y'], 0x207 if event['dest_map'] == 'MAP_VIRELIA_SLATEFORD_CITY' else 0x214)
+        apply_access(grid, entry)
         for obj in entry['object_events']:
             script = obj['script'].rsplit('_', 1)[-1]
             gfx = {'Wrench': 'WRENCH', 'Hammer': 'HAMMER', 'Pick': 'PICK',

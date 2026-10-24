@@ -39,7 +39,7 @@ def patch_approach(name, x, y, gallery_warp, clue=False):
     cells = bytearray(path.read_bytes())
     # Keep native ladder behavior in the layout; ON_LOAD covers it with a
     # parked cart until electricity returns, including after Continue.
-    struct.pack_into('<H', cells, 2 * (y * layout['width'] + x), 0x3214)
+    struct.pack_into('<H', cells, 2 * (y * layout['width'] + x), 0x3227)
     path.write_bytes(cells)
 
 

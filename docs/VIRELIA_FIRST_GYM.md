@@ -448,6 +448,32 @@ rock contours recolored to warm limestone, with beveled work bays, scattered
 blue/red mineral seams, timber-lined shafts, lamps, freight rails and original
 16-pixel machinery. Other caves retain their original tileset and palette.
 The bank uses 304 of 512 available graphics tiles and three secondary palettes.
+The wall opening at QuarryEntrance (5, 18) uses `MB_DEEP_SOUTH_WARP` on its
+walkable center and solid shoulders. Emerald faces the arriving player north
+and performs its ordinary cave walk-out onto (5, 17). The old exit marker at
+(3, 17) is ordinary floor.
+
+Entrance is the upper level, Depths is below it, and Gallery is the lowest
+level. Descending links use floor shafts (`0x227`). Ascending links use the
+two-tile ladder (`0x20E` above `0x216`); only its bottom tile warps, and its
+top is solid. The upward links are Depths to Entrance and both Gallery returns.
+The power gates restore the descending shaft artwork when opened.
+
+After editing these access points in Porymap, run
+`python3 tools/virelia/quarry_access.py` to repair only their footprints and
+behavior. This preserves hand-edited terrain and existing warp IDs. The full
+geometry generator also applies the same access rules when rebuilding maps.
+
+The access repair passed all 73 native Virelia tests. Fresh-game mGBA fixtures
+in both development and optimized release builds
+walked from Slateford through the opening without further input and arrived at
+(5, 17), then returned through the same mouth. All six directed ladder trips
+passed, and attempting to walk through each upper cap left the player at the
+ladder base with controls available.
+
+![Native arrival after walking out of the quarry wall](images/virelia-quarry/wall-arrival.png)
+![Two-tile upward ladder in the Depths](images/virelia-quarry/upward-ladder.png)
+
 Cliff contours inspect all eight neighboring cells to select native corner
 caps and insets. Compound corners and narrow ridges combine native 8-pixel
 rock quarters, so both exposed sides join without additional graphics tiles.

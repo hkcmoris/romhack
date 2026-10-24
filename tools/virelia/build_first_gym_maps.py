@@ -160,7 +160,7 @@ def main():
             [actor('HIKER', 8, 12, ep + 'EventScript_Bruno', trainer=True),
              actor('ITEM_BALL', 5, 4, ep + 'EventScript_Item', flag='FLAG_VIRELIA_ITEM_QUARRY_SUPER_POTION'),
              actor('HIKER', 5, 15, ep + 'EventScript_Guide')],
-            [warp(3, 17, CITY, 3), warp(20, 4, 'MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS', 0)],
+            [warp(5, 18, CITY, 3), warp(20, 4, 'MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS', 0)],
             [sign(17, 5, ep + 'EventScript_Equipment')], cave=True)
     # An abandoned loading crate near the ladder is readable from the room.
     entrance[5][17] = 0x3403

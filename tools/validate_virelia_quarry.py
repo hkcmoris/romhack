@@ -6,6 +6,7 @@ import struct
 
 from virelia.localize_type_icons import read_png
 from validate_virelia_missing_tools import validate as validate_routes
+from virelia.quarry_access import LEVELS, DOWN_SHAFT, UPPER_LADDER_TOP, UPPER_LADDER_BASE, WALL_EXIT
 
 ROOT = Path(__file__).resolve().parents[1]
 BANK = ROOT / 'data/tilesets/secondary/virelia_quarry'
@@ -24,7 +25,7 @@ def validate():
     for value in meta:
         assert value >> 12 < 13, 'Art uses a reserved UI palette'
     assert attrs[0x214 - 512] & 255 == 0x61, 'Custom ladders lost native warp behavior'
-    assert attrs[0x207 - 512] & 255 == 0x65, 'City exit lost native warp behavior'
+    assert attrs[WALL_EXIT - 512] & 255 == 0x6e, 'Wall entrance needs native north-facing walk-out behavior'
     for index in (0x201, 0x253, 0x254, 0x255):
         assert attrs[index - 512] & 255 == 8, 'Rough floor lost cave encounters'
     for index in range(0x256, 0x25c):
@@ -48,8 +49,22 @@ def validate():
                 cell = cells[y * layout['width'] + x]
                 assert cell & 1023 == tile and cell & 0xc00, 'Broken central pillar corner'
         for event in entry['warp_events']:
-            cell = cells[event['y'] * layout['width'] + event['x']]
+            x, y = event['x'], event['y']
+            cell = cells[y * layout['width'] + x]
             assert not cell & 0xc00, 'Blocked arrival tile'
+            above = cells[(y - 1) * layout['width'] + x]
+            destination = event['dest_map']
+            if destination == 'MAP_VIRELIA_SLATEFORD_CITY':
+                assert cell & 1023 == WALL_EXIT and not above & 0xc00
+                for dx, tile in ((-1, 0x250), (1, 0x252)):
+                    side = cells[y * layout['width'] + x + dx]
+                    assert side & 1023 == tile and side & 0xc00, 'Mouth shoulders must remain solid'
+            elif LEVELS[destination] < LEVELS[entry['id']]:
+                assert cell & 1023 == UPPER_LADDER_BASE
+                assert above & 1023 == UPPER_LADDER_TOP and above & 0xc00, 'Upper ladder cap must be solid'
+            else:
+                assert cell & 1023 == DOWN_SHAFT, 'Descending warp must use a floor shaft'
+                assert above & 1023 not in (0x20e, 0x20f), 'Descending shaft has an orphan upper ladder cap'
         for obj in entry['object_events']:
             script = obj['script'].rsplit('_', 1)[-1]
             cell = cells[obj['y'] * layout['width'] + obj['x']]

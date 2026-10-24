@@ -257,6 +257,44 @@ TEST("Virelia quarry Continue restores control lamps and keeps haul rails free o
     EXPECT_NE(MapGridGetCollisionAt(4 + MAP_OFFSET, 9 + MAP_OFFSET), 0);
 }
 
+TEST("Virelia quarry wall mouth and directed ladders have native warp behaviors and solid caps")
+{
+    u32 level = 0;
+    for (u32 i = 0; i < 3; i++)
+        PARAMETRIZE { level = i; }
+    static const u16 maps[] = {MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE,
+                              MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS,
+                              MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY};
+    ResetFirstGymTest();
+    FlagSet(FLAG_VIRELIA_QUARRY_POWER_RESTORED);
+    SetWarpDestination(MAP_GROUP(maps[level]), MAP_NUM(maps[level]), WARP_ID_NONE, 5, 17);
+    WarpIntoMap();
+    InitMap();
+    RunOnLoadMapScript();
+    if (level == 0)
+    {
+        EXPECT_EQ(MapGridGetMetatileBehaviorAt(5 + MAP_OFFSET, 18 + MAP_OFFSET), MB_DEEP_SOUTH_WARP);
+        EXPECT_EQ(MapGridGetCollisionAt(5 + MAP_OFFSET, 18 + MAP_OFFSET), 0);
+        EXPECT_EQ(MapGridGetCollisionAt(5 + MAP_OFFSET, 17 + MAP_OFFSET), 0);
+        EXPECT_NE(MapGridGetCollisionAt(4 + MAP_OFFSET, 18 + MAP_OFFSET), 0);
+        EXPECT_NE(MapGridGetCollisionAt(6 + MAP_OFFSET, 18 + MAP_OFFSET), 0);
+    }
+    for (u32 i = level == 0 ? 1 : 0; i < gMapHeader.events->warpCount; i++)
+    {
+        const struct WarpEvent *warp = &gMapHeader.events->warps[i];
+        u32 x = warp->x + MAP_OFFSET, y = warp->y + MAP_OFFSET;
+        bool32 upward = level == 2 || (level == 1 && i == 0);
+        EXPECT_EQ(MapGridGetMetatileBehaviorAt(x, y), MB_LADDER);
+        EXPECT_EQ(MapGridGetMetatileIdAt(x, y), upward ? 0x216 : 0x227);
+        EXPECT_EQ(MapGridGetCollisionAt(x, y), 0);
+        if (upward)
+        {
+            EXPECT_EQ(MapGridGetMetatileIdAt(x, y - 1), 0x20e);
+            EXPECT_NE(MapGridGetCollisionAt(x, y - 1), 0);
+        }
+    }
+}
+
 TEST("Virelia quarry and Gym teams use valid early game data without damaging Ground attacks")
 {
     u32 index = 0;

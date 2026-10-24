@@ -25,7 +25,7 @@ Virelia_Slateford_QuarryDepths_OpenGate:
 	setmetatile 20, 14, 0x25D, 1
 	setmetatile 4, 9, 0x25F, 1
 	setmetatile 11, 6, 0x201, 0
-	setmetatile 3, 7, 0x214, 0
+	setmetatile 3, 7, 0x227, 0
 	end
 
 Virelia_Slateford_QuarryDepths_EventScript_Lenka::
@@ -59,7 +59,7 @@ Virelia_Slateford_QuarryDepths_EventScript_Feed::
 	setmetatile 20, 14, 0x25D, 1
 	setmetatile 4, 9, 0x25F, 1
 	setmetatile 11, 6, 0x201, 0
-	setmetatile 3, 7, 0x214, 0
+	setmetatile 3, 7, 0x227, 0
 	special DrawWholeMapView
 	playse SE_BANG
 	msgbox Virelia_Slateford_QuarryDepths_Text_PowerRestored, MSGBOX_DEFAULT
