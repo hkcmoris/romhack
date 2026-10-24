@@ -1,3 +1,8 @@
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_QuarryWrench;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_QuarryHammer;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_QuarryPick;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_QuarryOreCrate;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_QuarryToolHoard;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BrendanNormal;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BrendanMachBike;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BrendanSurfing;
@@ -516,6 +521,11 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_BRENDAN_UNDERWATER] =       &gObjectEventGraphicsInfo_BrendanUnderwater,
     [OBJ_EVENT_GFX_MAY_UNDERWATER] =           &gObjectEventGraphicsInfo_MayUnderwater,
     [OBJ_EVENT_GFX_MOVING_BOX] =               &gObjectEventGraphicsInfo_MovingBox,
+    [OBJ_EVENT_GFX_QUARRY_WRENCH] = &gObjectEventGraphicsInfo_QuarryWrench,
+    [OBJ_EVENT_GFX_QUARRY_HAMMER] = &gObjectEventGraphicsInfo_QuarryHammer,
+    [OBJ_EVENT_GFX_QUARRY_PICK] = &gObjectEventGraphicsInfo_QuarryPick,
+    [OBJ_EVENT_GFX_QUARRY_ORE_CRATE] = &gObjectEventGraphicsInfo_QuarryOreCrate,
+    [OBJ_EVENT_GFX_QUARRY_TOOL_HOARD] = &gObjectEventGraphicsInfo_QuarryToolHoard,
     [OBJ_EVENT_GFX_CABLE_CAR] =                &gObjectEventGraphicsInfo_CableCar,
     [OBJ_EVENT_GFX_SCIENTIST_2] =              &gObjectEventGraphicsInfo_Scientist2,
     [OBJ_EVENT_GFX_DEVON_EMPLOYEE] =           &gObjectEventGraphicsInfo_DevonEmployee,

@@ -29,6 +29,7 @@
 #include "constants/heal_locations.h"
 #include "constants/items.h"
 #include "constants/moves.h"
+#include "constants/metatile_behaviors.h"
 #include "constants/opponents.h"
 #include "constants/virelia_prologue.h"
 #include "constants/virelia_first_gym.h"
@@ -225,6 +226,35 @@ TEST("Virelia actual quarry and Gym map scripts reset partial input and restore 
     EXPECT_EQ(FlagGet(flag), solved);
     EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET) != 0, !solved);
     if (solved) EXPECT_EQ(MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET), 0x201);
+    if (!puzzle)
+    {
+        EXPECT_EQ(MapGridGetMetatileIdAt(20 + MAP_OFFSET, 14 + MAP_OFFSET), solved ? 0x25D : 0x25C);
+        EXPECT_EQ(MapGridGetMetatileIdAt(4 + MAP_OFFSET, 9 + MAP_OFFSET), solved ? 0x25F : 0x25E);
+    }
+}
+
+TEST("Virelia quarry Continue restores control lamps and keeps haul rails free of encounters")
+{
+    u32 stage = 0;
+    for (u32 i = 0; i < 3; i++)
+        PARAMETRIZE { stage = i; }
+    ResetFirstGymTest();
+    if (stage == 2) FlagSet(FLAG_VIRELIA_QUARRY_POWER_RESTORED);
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS),
+                       MAP_NUM(MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS), WARP_ID_NONE, 3, 19);
+    WarpIntoMap();
+    InitMap();
+    VarSet(VAR_VIRELIA_QUARRY_SWITCH, stage);
+    // Continue loads map tiles without running the entry reset script.
+    RunOnLoadMapScript();
+    EXPECT_EQ(VarGet(VAR_VIRELIA_QUARRY_SWITCH), stage);
+    EXPECT_EQ(MapGridGetMetatileIdAt(20 + MAP_OFFSET, 14 + MAP_OFFSET), stage ? 0x25D : 0x25C);
+    EXPECT_EQ(MapGridGetMetatileIdAt(4 + MAP_OFFSET, 9 + MAP_OFFSET), stage == 2 ? 0x25F : 0x25E);
+    EXPECT_EQ(MapGridGetCollisionAt(11 + MAP_OFFSET, 6 + MAP_OFFSET) != 0, stage != 2);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(11 + MAP_OFFSET, 12 + MAP_OFFSET), MB_NORMAL);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(12 + MAP_OFFSET, 12 + MAP_OFFSET), MB_CAVE);
+    EXPECT_NE(MapGridGetCollisionAt(20 + MAP_OFFSET, 14 + MAP_OFFSET), 0);
+    EXPECT_NE(MapGridGetCollisionAt(4 + MAP_OFFSET, 9 + MAP_OFFSET), 0);
 }
 
 TEST("Virelia quarry and Gym teams use valid early game data without damaging Ground attacks")

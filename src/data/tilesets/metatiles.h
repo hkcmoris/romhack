@@ -105,6 +105,9 @@ const u16 gMetatileAttributes_Facility[] = INCBIN_U16("data/tilesets/secondary/f
 const u16 gMetatiles_BikeShop[] = INCBIN_U16("data/tilesets/secondary/bike_shop/metatiles.bin");
 const u16 gMetatileAttributes_BikeShop[] = INCBIN_U16("data/tilesets/secondary/bike_shop/metatile_attributes.bin");
 
+const u16 gMetatiles_VireliaQuarry[] = INCBIN_U16("data/tilesets/secondary/virelia_quarry/metatiles.bin");
+const u16 gMetatileAttributes_VireliaQuarry[] = INCBIN_U16("data/tilesets/secondary/virelia_quarry/metatile_attributes.bin");
+
 const u16 gMetatiles_RusturfTunnel[] = INCBIN_U16("data/tilesets/secondary/rusturf_tunnel/metatiles.bin");
 const u16 gMetatileAttributes_RusturfTunnel[] = INCBIN_U16("data/tilesets/secondary/rusturf_tunnel/metatile_attributes.bin");
 

@@ -3,7 +3,6 @@
   "name": "Virelia_Slateford_QuarryGallery",
   "layout": "LAYOUT_VIRELIA_SLATEFORD_QUARRY_GALLERY",
   "music": "MUS_CAVE_OF_ORIGIN",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_VIRELIA_SLATEFORD_CITY",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -30,7 +29,7 @@
       "flag": "FLAG_VIRELIA_MISSING_TOOLS_RECOVERED"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "graphics_id": "OBJ_EVENT_GFX_QUARRY_HAMMER",
       "x": 7,
       "y": 17,
       "elevation": 3,
@@ -43,7 +42,7 @@
       "flag": "FLAG_VIRELIA_TOOL_HAMMER"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "graphics_id": "OBJ_EVENT_GFX_QUARRY_PICK",
       "x": 17,
       "y": 6,
       "elevation": 3,
@@ -56,7 +55,7 @@
       "flag": "FLAG_VIRELIA_TOOL_PICK"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_MOVING_BOX",
+      "graphics_id": "OBJ_EVENT_GFX_QUARRY_TOOL_HOARD",
       "x": 25,
       "y": 8,
       "elevation": 3,
@@ -95,5 +94,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_Slateford_QuarryGallery_EventScript_Sign"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }

@@ -9407,7 +9407,7 @@
       "width": 24,
       "height": 20,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_RusturfTunnel",
+      "secondary_tileset": "gTileset_VireliaQuarry",
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryEntrance/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryEntrance/map.bin",
       "layout_version": "emerald"
@@ -9418,7 +9418,7 @@
       "width": 24,
       "height": 22,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_RusturfTunnel",
+      "secondary_tileset": "gTileset_VireliaQuarry",
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryDepths/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryDepths/map.bin",
       "layout_version": "emerald"
@@ -9451,7 +9451,7 @@
       "width": 30,
       "height": 24,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_RusturfTunnel",
+      "secondary_tileset": "gTileset_VireliaQuarry",
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryGallery/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryGallery/map.bin",
       "layout_version": "emerald"

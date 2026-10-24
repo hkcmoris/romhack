@@ -9,11 +9,21 @@ Virelia_Slateford_QuarryDepths_OnTransition:
 
 Virelia_Slateford_QuarryDepths_OnLoad:
 	setmetatile 3, 7, 0x203, 1
+	setmetatile 20, 14, 0x25C, 1
+	setmetatile 4, 9, 0x25E, 1
 	goto_if_set FLAG_VIRELIA_QUARRY_POWER_RESTORED, Virelia_Slateford_QuarryDepths_OpenGate
+	goto_if_eq VAR_VIRELIA_QUARRY_SWITCH, 1, Virelia_Slateford_QuarryDepths_LoadPump
+	setmetatile 11, 6, 0x203, 1
+	end
+
+Virelia_Slateford_QuarryDepths_LoadPump:
+	setmetatile 20, 14, 0x25D, 1
 	setmetatile 11, 6, 0x203, 1
 	end
 
 Virelia_Slateford_QuarryDepths_OpenGate:
+	setmetatile 20, 14, 0x25D, 1
+	setmetatile 4, 9, 0x25F, 1
 	setmetatile 11, 6, 0x201, 0
 	setmetatile 3, 7, 0x214, 0
 	end
@@ -31,6 +41,9 @@ Virelia_Slateford_QuarryDepths_EventScript_Pump::
 	setvar VAR_0x8004, 1
 	call VireliaFirstGym_EventScript_QuarrySwitch
 	goto_if_ne VAR_VIRELIA_QUARRY_SWITCH, 1, Virelia_Slateford_QuarryDepths_EventScript_WrongOrder
+	setmetatile 20, 14, 0x25D, 1
+	special DrawWholeMapView
+	playse SE_SWITCH
 	msgbox Virelia_Slateford_QuarryDepths_Text_PumpRunning, MSGBOX_DEFAULT
 	releaseall
 	end
@@ -43,6 +56,8 @@ Virelia_Slateford_QuarryDepths_EventScript_Feed::
 	setvar VAR_0x8004, 2
 	call VireliaFirstGym_EventScript_QuarrySwitch
 	goto_if_eq VAR_RESULT, FALSE, Virelia_Slateford_QuarryDepths_EventScript_WrongOrder
+	setmetatile 20, 14, 0x25D, 1
+	setmetatile 4, 9, 0x25F, 1
 	setmetatile 11, 6, 0x201, 0
 	setmetatile 3, 7, 0x214, 0
 	special DrawWholeMapView
@@ -52,6 +67,10 @@ Virelia_Slateford_QuarryDepths_EventScript_Feed::
 	end
 
 Virelia_Slateford_QuarryDepths_EventScript_WrongOrder:
+	setmetatile 20, 14, 0x25C, 1
+	setmetatile 4, 9, 0x25E, 1
+	special DrawWholeMapView
+	playse SE_CLICK
 	msgbox Virelia_Slateford_QuarryDepths_Text_WrongOrder, MSGBOX_DEFAULT
 	releaseall
 	end
