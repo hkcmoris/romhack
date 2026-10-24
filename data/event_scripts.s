@@ -51,6 +51,8 @@
 #include "constants/moves.h"
 #include "constants/oraculum_duo_test.h"
 #include "constants/virelia_prologue.h"
+#include "constants/virelia_sanctuary.h"
+#include "constants/virelia_first_gym.h"
 #include "constants/mystery_gift.h"
 #include "constants/party_menu.h"
 #include "constants/pokeball.h"
@@ -1492,6 +1494,7 @@ gText_ComeBackWithSecretPower::
 	.string "you good stuff in secrecy.$"
 
 gText_PokerusExplanation::
+#if TESTING
 	.string "Your POKéMON may be infected with\n"
 	.string "POKéRUS.\p"
 	.string "Little is known about the POKéRUS\n"
@@ -1499,6 +1502,9 @@ gText_PokerusExplanation::
 	.string "forms that attach to POKéMON.\p"
 	.string "While infected, POKéMON are said to\n"
 	.string "grow exceptionally well.$"
+#else
+	.string "U tvých Pokémonů se možná\nobjevil Pokérus.\pJsou to drobné organismy,\nkteré žijí na Pokémonech.\pNakažení Pokémoni při tréninku\nzískávají více úsilí.$"
+#endif
 
 	.include "data/text/surf.inc"
 
@@ -1771,11 +1777,19 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/scripts/virelia_world_test.inc"
 #if !IS_FRLG
 	.include "data/scripts/virelia_prologue.inc"
+	.include "data/scripts/virelia_sanctuary.inc"
 	.include "data/maps/Virelia_MaplebrookPlayersHouse/scripts.inc"
 	.include "data/maps/Virelia_MaplebrookTown/scripts.inc"
 	.include "data/maps/Virelia_MaplebrookResearchLaboratory/scripts.inc"
 	.include "data/maps/Virelia_Route01/scripts.inc"
+	.include "data/maps/Virelia_WhisperwoodSanctuary/scripts.inc"
 	.include "data/maps/Virelia_SlatefordCity/scripts.inc"
+	.include "data/maps/Virelia_Slateford_PokemonCenter/scripts.inc"
+	.include "data/maps/Virelia_Slateford_Mart/scripts.inc"
+	.include "data/maps/Virelia_Slateford_QuarryEntrance/scripts.inc"
+	.include "data/maps/Virelia_Slateford_QuarryDepths/scripts.inc"
+	.include "data/maps/Virelia_Slateford_QuarryGallery/scripts.inc"
+	.include "data/maps/Virelia_Slateford_Gym/scripts.inc"
 #endif
 	.include "data/scripts/apricorn_tree.inc"
 	.include "data/scripts/wild_encounter.inc"

@@ -78,6 +78,16 @@
 // Explicit opt-in to the original Duo/starter/world development playground.
 #define VIRELIA_DEVELOPMENT_MODE 0
 #endif
+#ifndef MYBOY_DIAGNOSTIC_MODE
+// 0: ordinary ROM; 1: instrumented control; 2: text-only laboratory pictures.
+#define MYBOY_DIAGNOSTIC_MODE 0
+#endif
+#if MYBOY_DIAGNOSTIC_MODE < 0 || MYBOY_DIAGNOSTIC_MODE > 2
+#error Invalid MYBOY_DIAGNOSTIC_MODE
+#endif
+#if MYBOY_DIAGNOSTIC_MODE && (!defined(EMERALD) || VIRELIA_DEVELOPMENT_MODE)
+#error My Boy diagnostics require the Emerald story configuration
+#endif
 #ifndef VIRELIA_PROLOGUE
 #define VIRELIA_PROLOGUE (!IS_FRLG && !VIRELIA_DEVELOPMENT_MODE)
 #endif

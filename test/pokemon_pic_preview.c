@@ -123,10 +123,10 @@ TEST("Pokemon picture preview closes repeatedly for every Virelia starter withou
     enum Species species;
     bool32 immediate;
     PARAMETRIZE { species = SPECIES_POOCHYENA_VIRELIA; immediate = FALSE; }
-    PARAMETRIZE { species = SPECIES_SPINARAK_VIRELIA; immediate = FALSE; }
+    PARAMETRIZE { species = SPECIES_NATU_VIRELIA; immediate = FALSE; }
     PARAMETRIZE { species = SPECIES_EKANS_VIRELIA; immediate = FALSE; }
     PARAMETRIZE { species = SPECIES_POOCHYENA_VIRELIA; immediate = TRUE; }
-    PARAMETRIZE { species = SPECIES_SPINARAK_VIRELIA; immediate = TRUE; }
+    PARAMETRIZE { species = SPECIES_NATU_VIRELIA; immediate = TRUE; }
     PARAMETRIZE { species = SPECIES_EKANS_VIRELIA; immediate = TRUE; }
 
     InitPreviewTest();
@@ -187,7 +187,7 @@ TEST("Pokemon picture preview and field move handle sprite exhaustion before ind
 {
     enum Species species;
     PARAMETRIZE { species = SPECIES_POOCHYENA_VIRELIA; }
-    PARAMETRIZE { species = SPECIES_SPINARAK_VIRELIA; }
+    PARAMETRIZE { species = SPECIES_NATU_VIRELIA; }
     PARAMETRIZE { species = SPECIES_EKANS_VIRELIA; }
     struct Sprite sentinel;
     u8 weatherBefore[32];
@@ -216,7 +216,7 @@ TEST("Pokemon picture preview cleans up and can retry after sprite palette exhau
 {
     enum Species species;
     PARAMETRIZE { species = SPECIES_POOCHYENA_VIRELIA; }
-    PARAMETRIZE { species = SPECIES_SPINARAK_VIRELIA; }
+    PARAMETRIZE { species = SPECIES_NATU_VIRELIA; }
     PARAMETRIZE { species = SPECIES_EKANS_VIRELIA; }
     InitPreviewTest();
     for (u32 i = 0; i < 16; i++)

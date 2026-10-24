@@ -1,8 +1,56 @@
 Virelia_SlatefordCity_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, Virelia_SlatefordCity_FirstGymOnLoad
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, Virelia_SlatefordCity_OnFrame
 #endif
 	.byte 0
+
+@ The old prologue frame condition remains unchanged. New chapter gates are
+@ derived from independent persistent flags and never reset the prologue.
+Virelia_SlatefordCity_FirstGymOnLoad:
+	callnative VireliaFirstGym_BeginChapter
+	setmetatile 22, 9, 0x1C4, 1
+	setmetatile 25, 16, METATILE_General_RockWall_RockBase, 1
+	call_if_set FLAG_VIRELIA_PROLOGUE_COMPLETE, Virelia_SlatefordCity_OpenQuarry
+	call_if_set FLAG_VIRELIA_QUARRY_COMPLETE, Virelia_SlatefordCity_OpenGym
+	end
+
+Virelia_SlatefordCity_OpenQuarry:
+	setmetatile 25, 16, METATILE_General_CaveEntrance_Bottom, 0
+	return
+
+Virelia_SlatefordCity_OpenGym:
+	setmetatile 22, 9, METATILE_General_Door_Gym, 1
+	return
+
+Virelia_SlatefordCity_EventScript_Manager::
+	lock
+	faceplayer
+	goto_if_unset FLAG_VIRELIA_PROLOGUE_COMPLETE, Virelia_SlatefordCity_EventScript_ManagerBefore
+	goto_if_set FLAG_VIRELIA_QUARRY_COMPLETE, Virelia_SlatefordCity_EventScript_ManagerAfter
+	goto_if_unset FLAG_VIRELIA_QUARRY_EVIDENCE, Virelia_SlatefordCity_EventScript_ManagerTask
+	call VireliaFirstGym_EventScript_CompleteQuarry
+	goto_if_eq VAR_RESULT, FALSE, Virelia_SlatefordCity_EventScript_ManagerTask
+	call Virelia_SlatefordCity_OpenGym
+	special DrawWholeMapView
+	msgbox Virelia_SlatefordCity_Text_ManagerThanks, MSGBOX_DEFAULT
+	release
+	end
+
+Virelia_SlatefordCity_EventScript_ManagerBefore:
+	msgbox Virelia_SlatefordCity_Text_ManagerBefore, MSGBOX_DEFAULT
+	release
+	end
+
+Virelia_SlatefordCity_EventScript_ManagerTask:
+	msgbox Virelia_SlatefordCity_Text_ManagerTask, MSGBOX_DEFAULT
+	release
+	end
+
+Virelia_SlatefordCity_EventScript_ManagerAfter:
+	msgbox Virelia_SlatefordCity_Text_ManagerAfter, MSGBOX_DEFAULT
+	release
+	end
 
 Virelia_SlatefordCity_OnFrame:
 	map_script_2 VAR_VIRELIA_PROLOGUE_STATE, VIRELIA_STATE_ROCKET, Virelia_SlatefordCity_EventScript_ResolveRocket
@@ -23,6 +71,7 @@ Virelia_SlatefordCity_EventScript_Miner::
 	end
 
 Virelia_SlatefordCity_EventScript_MinerAfter:
+	goto_if_set FLAG_VIRELIA_QUARRY_COMPLETE, Virelia_SlatefordCity_EventScript_ManagerAfter
 	msgbox Virelia_SlatefordCity_Text_MinerAfter, MSGBOX_DEFAULT
 	release
 	end
@@ -89,6 +138,9 @@ Virelia_SlatefordCity_EventScript_ResolveRocket::
 	waitmovement 0
 	msgbox Virelia_SlatefordCity_Text_Policeman, MSGBOX_DEFAULT
 	callnative VireliaPrologue_Complete
+	call VireliaFirstGym_EventScript_BeginChapter
+	call Virelia_SlatefordCity_OpenQuarry
+	special DrawWholeMapView
 	msgbox Virelia_SlatefordCity_Text_PrologueComplete, MSGBOX_DEFAULT
 	releaseall
 #endif
@@ -143,6 +195,7 @@ Virelia_SlatefordCity_EventScript_OfficeSign::
 	end
 
 Virelia_SlatefordCity_EventScript_ClosedGym::
+	goto_if_set FLAG_VIRELIA_QUARRY_COMPLETE, Virelia_SlatefordCity_EventScript_GymSign
 	msgbox Virelia_SlatefordCity_Text_ClosedGym, MSGBOX_SIGN
 	end
 
@@ -168,16 +221,18 @@ Virelia_SlatefordCity_Text_MinerReport:
 	.string "To je hodně podezřelé.$"
 
 Virelia_SlatefordCity_Text_MinerAfter:
-	.string "Horník: Za vzorek díky. Až se\n"
-	.string "lom otevře, zjistíme víc.\p"
-	.string "Stadion je zatím zavřený.\n"
-	.string "Jedna výprava za druhou, dobře?$"
+	.string "Horník: Správce čeká u vchodu.\n"
+	.string "Rozvodna je pořád mimo provoz.\p"
+	.string "Ať nejdřív běží lom.\n"
+	.string "Potom se otevře stadion.$"
+
 
 Virelia_SlatefordCity_Text_Resident:
-	.string "Městečko Maplebrook leží jižně,\n"
-	.string "za stezkou Whisperwood Trail.\p"
-	.string "Máma i profesorka tam tvým\n"
-	.string "Pokémonům dopřejí odpočinek.$"
+	.string "Pokémon Center je na severozápadě.\n"
+	.string "Poké Mart leží pod ním.\p"
+	.string "Sestra Joy tě ráda ošetří.\n"
+	.string "Už nemusíš běžet až domů.$"
+
 
 Virelia_SlatefordCity_Text_WorkerBusy:
 	.string "ÚDRŽBÁŘ: Neotravuj, mám práci.\p"
@@ -216,11 +271,12 @@ Virelia_SlatefordCity_Text_Policeman:
 	.string "Já jsem tak dobrej…$"
 
 Virelia_SlatefordCity_Text_PrologueComplete:
-	.string "První výprava je za tebou!\p"
-	.string "Další stopa vede do lomu.\n"
-	.string "Potom přijde na řadu stadion.\p"
-	.string "Lom teď hlídá policie. Než ho\n"
-	.string "otevřou, prozkoumej okolí.$"
+	.string "První výprava je za tebou!\n"
+	.string "Další stopa vede do lomu.\p"
+	.string "Potom přijde na řadu stadion.\n"
+	.string "Správce čeká před vchodem.\p"
+	.string "Promluv s ním a prověř štítek.$"
+
 
 Virelia_SlatefordCity_Text_PoliceAfter:
 	.string "POLICISTA: Vyšetřování běží.\n"
@@ -232,23 +288,27 @@ Virelia_SlatefordCity_Text_Stone:
 
 Virelia_SlatefordCity_Text_GymSign:
 	.string "STADION - Slateford City\n"
-	.string "Chystá se na první trenéry.$"
+	.string "Mara, geoložka a vedoucí.$"
+
 
 Virelia_SlatefordCity_Text_CitySign:
 	.string "Slateford City\n"
 	.string "Pevné kořeny v kameni.$"
 
 Virelia_SlatefordCity_Text_QuarrySign:
-	.string "LOM - Slateford City\n"
-	.string "Do ukončení průzkumu uzavřeno.$"
+	.string "Slateford Quarry\n"
+	.string "Vstup po domluvě se správcem.$"
+
 
 Virelia_SlatefordCity_Text_OfficeSign:
-	.string "DŮLNÍ SPRÁVA\n"
-	.string "Brzy otevřeme.$"
+	.string "Poké Mart\n"
+	.string "Výbava na cesty i do lomu.$"
+
 
 Virelia_SlatefordCity_Text_ClosedGym:
-	.string "Stadion ještě není otevřený.\n"
-	.string "První výzva teprve přijde.$"
+	.string "Stadion čeká na obnovení provozu\n"
+	.string "v lomu. Promluv se správcem.$"
+
 
 Virelia_SlatefordCity_Text_ClosedHouse:
 	.string "Dveře jsou zamčené.\n"
@@ -257,3 +317,39 @@ Virelia_SlatefordCity_Text_ClosedHouse:
 Virelia_SlatefordCity_Text_ClosedOffice:
 	.string "Důlní správa se připravuje\n"
 	.string "na příchod nového týmu.$"
+
+Virelia_SlatefordCity_Text_ManagerBefore:
+	.string "SPRÁVCE: V lomu se kradlo.\n"
+	.string "Nejdřív prověř toho údržbáře.\p"
+	.string "Do poškozených rozvodů zatím\n"
+	.string "nikoho pouštět nebudu.$"
+
+Virelia_SlatefordCity_Text_ManagerTask:
+	.string "SPRÁVCE: Tak štítek od poskoka?\n"
+	.string "Podobný zůstal i dole v lomu.\p"
+	.string "Zmizely jen vodivé minerály.\n"
+	.string "Navíc poškodili rozvodnu.\p"
+	.string "Bruno a Lenka prověří tvůj tým.\n"
+	.string "Pomohou ti se spuštěním.\p"
+	.string "Vrať proud a prohlédni sklad.\n"
+	.string "Pak mi řekni, co jsi našel.$"
+
+Virelia_SlatefordCity_Text_ManagerThanks:
+	.string "SPRÁVCE: Čísla zásilek sedí.\n"
+	.string "Rakeťáci chtěli vodivé minerály.\p"
+	.string "Děláme z nich vodiče pro stroje,\n"
+	.string "které potřebují hodně proudu.\p"
+	.string "Jejich účel ale neznáme.\n"
+	.string "Policii předám tvé zjištění.\p"
+	.string "Rozvodna funguje. Díky tobě\n"
+	.string "můžeme zase otevřít lom.\p"
+	.string "Mara se vrací na stadion.\n"
+	.string "Dveře už jsou otevřené.\p"
+	.string "A ty dnes končíš směnu.\n"
+	.string "Výplata je zatím vděčnost.$"
+
+Virelia_SlatefordCity_Text_ManagerAfter:
+	.string "SPRÁVCE: Lom zase pracuje.\n"
+	.string "Mara tě čeká na stadionu.\p"
+	.string "Pořádný souboj je bezpečnější\n"
+	.string "než nepořádná elektroinstalace.$"

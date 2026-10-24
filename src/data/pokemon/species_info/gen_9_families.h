@@ -1,3 +1,4 @@
+#include "localization.h"
 #ifdef __INTELLISENSE__
 const struct SpeciesInfo gSpeciesInfoGen9[] =
 {
@@ -803,14 +804,10 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .speciesName = _("Tarountula"),
         .cryId = CRY_TAROUNTULA,
         .natDexNum = NATIONAL_DEX_TAROUNTULA,
-        .categoryName = _("String Ball"),
+        .categoryName = _(LOCALIZED_TEXT("String Ball", "Klubko")),
         .height = 3,
         .weight = 40,
-        .description = COMPOUND_STRING(
-            "The thread it secretes from its\n"
-            "rear is as strong as wire. The secret\n"
-            "behind the thread's strength is the\n"
-            "topic of ongoing research."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("The thread it secretes from its\nrear is as strong as wire. The secret\nbehind the thread's strength is the\ntopic of ongoing research.", "Vlákno, které vylučuje ze zadní části\ntěla, je pevné jako drát. Vědci stále\nzkoumají tajemství jeho pevnosti.")),
         .pokemonScale = 356,
         .pokemonOffset = 17,
         .trainerScale = 256,
@@ -868,14 +865,10 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .speciesName = _("Spidops"),
         .cryId = CRY_SPIDOPS,
         .natDexNum = NATIONAL_DEX_SPIDOPS,
-        .categoryName = _("Trap"),
+        .categoryName = _(LOCALIZED_TEXT("Trap", "Past")),
         .height = 10,
         .weight = 165,
-        .description = COMPOUND_STRING(
-            "It clings to branches and ceilings\n"
-            "using its threads and moves without\n"
-            "a sound. It takes out its prey\n"
-            "before the prey even notices it."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It clings to branches and ceilings\nusing its threads and moves without\na sound. It takes out its prey\nbefore the prey even notices it.", "Pomocí vláken visí na větvích a\nstropech. Pohybuje se bez hluku a\nkořist napadne dřív, než si ho všimne.")),
         .pokemonScale = 356,
         .pokemonOffset = 17,
         .trainerScale = 256,

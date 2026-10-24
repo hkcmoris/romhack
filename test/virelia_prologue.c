@@ -376,7 +376,7 @@ TEST("Virelia rival has the specified opposing starter for all three choices")
 {
     EXPECT_EQ(GetVireliaRivalSpecies(VIRELIA_STARTER_GRASS), SPECIES_EKANS_VIRELIA);
     EXPECT_EQ(GetVireliaRivalSpecies(VIRELIA_STARTER_WATER), SPECIES_POOCHYENA_VIRELIA);
-    EXPECT_EQ(GetVireliaRivalSpecies(VIRELIA_STARTER_FIRE), SPECIES_SPINARAK_VIRELIA);
+    EXPECT_EQ(GetVireliaRivalSpecies(VIRELIA_STARTER_FIRE), SPECIES_NATU_VIRELIA);
     EXPECT_EQ(GetVireliaRivalSpecies(VIRELIA_STARTER_NONE), SPECIES_NONE);
     EXPECT_EQ(GetVireliaRivalSpecies(VIRELIA_STARTER_COUNT), SPECIES_NONE);
     EXPECT_EQ(VIRELIA_RIVAL_LEVEL, 5);
@@ -578,8 +578,8 @@ TEST("Virelia default Pokedex resolves all nine local forms without requiring th
     static const enum Species forms[] =
     {
         SPECIES_POOCHYENA_VIRELIA, SPECIES_MIGHTYENA_VIRELIA, SPECIES_WRAITHENA,
-        SPECIES_SPINARAK_VIRELIA, SPECIES_ARIADOS_VIRELIA, SPECIES_ARACHNAUT,
-        SPECIES_EKANS_VIRELIA, SPECIES_ARBOK_VIRELIA, SPECIES_CINDRACOIL,
+        SPECIES_NATU_VIRELIA, SPECIES_XATU_VIRELIA, SPECIES_NIMBATU,
+        SPECIES_EKANS_VIRELIA, SPECIES_ARBOK_VIRELIA, SPECIES_INFERNABRA,
     };
     InitPrologueTest();
     ReceivePrologueStarter(index / 3);
@@ -596,7 +596,7 @@ TEST("Virelia Pokedex preserves ordinary forms and identifies only the rival for
     PARAMETRIZE { choice = VIRELIA_STARTER_FIRE; }
     InitPrologueTest();
     EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_POOCHYENA), SPECIES_POOCHYENA);
-    EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_SPINARAK), SPECIES_SPINARAK);
+    EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_NATU), SPECIES_NATU);
     EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_EKANS), SPECIES_EKANS);
     ReceivePrologueStarter(choice);
     enum Species rival = GetVireliaRivalSpecies(choice);
@@ -608,7 +608,7 @@ TEST("Virelia Pokedex preserves ordinary forms and identifies only the rival for
     {
         EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_POOCHYENA), SPECIES_POOCHYENA);
         EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_MIGHTYENA), SPECIES_MIGHTYENA);
-        EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_ARIADOS), SPECIES_ARIADOS);
+        EXPECT_EQ(NationalPokedexNumToSpeciesForm(NATIONAL_DEX_XATU), SPECIES_XATU);
     }
 }
 #endif

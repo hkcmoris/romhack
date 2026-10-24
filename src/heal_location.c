@@ -2,6 +2,7 @@
 #include "event_data.h"
 #include "heal_location.h"
 #include "constants/event_objects.h"
+#include "constants/virelia_first_gym.h"
 #include "constants/heal_locations.h"
 #include "constants/maps.h"
 

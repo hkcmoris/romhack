@@ -1,0 +1,32 @@
+#ifndef GUARD_CONSTANTS_VIRELIA_FIRST_GYM_H
+#define GUARD_CONSTANTS_VIRELIA_FIRST_GYM_H
+
+// New chapter uses unused Emerald slots; old save IDs and Hoenn badges stay fixed.
+#define FLAG_VIRELIA_CHAPTER_STARTED          0x32
+#define FLAG_VIRELIA_QUARRY_POWER_RESTORED    0x33
+#define FLAG_VIRELIA_QUARRY_EVIDENCE          0x34
+#define FLAG_VIRELIA_QUARRY_COMPLETE          0x35
+#define FLAG_VIRELIA_GYM_PUZZLE_COMPLETE      0x36
+#define FLAG_VIRELIA_BADGE_QUARRY             0x37
+#define FLAG_VIRELIA_TM_ROCK_TOMB_RECEIVED    0x38
+#define FLAG_VIRELIA_ITEM_QUARRY_SUPER_POTION 0x39
+#define FLAG_VIRELIA_FIRST_GYM_COMPLETE       0x3A
+#define FLAG_VIRELIA_MISSING_TOOLS_STARTED    0x3D
+#define FLAG_VIRELIA_MISSING_TOOLS_RECOVERED  0x3E
+#define FLAG_VIRELIA_MISSING_TOOLS_REWARDED   0x3F
+#define FLAG_VIRELIA_TRAINER_BRUNO            0x40
+#define FLAG_VIRELIA_TRAINER_LENKA            0x41
+#define FLAG_VIRELIA_TRAINER_IVAN             0x42
+#define FLAG_VIRELIA_TRAINER_DANA             0x43
+#define FLAG_VIRELIA_TRAINER_MARA             0x44
+#define FLAG_VIRELIA_TOOL_WRENCH              0x45
+#define FLAG_VIRELIA_TOOL_HAMMER              0x46
+#define FLAG_VIRELIA_TOOL_PICK                0x47
+
+// Partial input is temporary; completed puzzle flags persist.
+#define VAR_VIRELIA_QUARRY_SWITCH            0x400C
+#define VAR_VIRELIA_GYM_SWITCH               0x400D
+#define LOCALID_VIRELIA_SLATEFORD_NURSE       1
+#define LOCALID_VIRELIA_GALLERY_SABLEYE       1
+
+#endif

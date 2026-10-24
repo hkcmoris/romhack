@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 import re
 import sys
+from virelia_localization_coverage import derive_coverage
 
 ROOT = Path(__file__).resolve().parents[1]
 TOKEN = re.compile(r"\{[^}]+\}")
@@ -116,6 +117,39 @@ def validate_english_move_names(source):
 
 def validate_english_item_names(source):
     return validate_english_names(source, "ITEM_NAME", "Item", ("gQuestionMarksItemName",))
+
+
+def validate_coverage(manifest):
+    """Reject gaps when wild data, teams, pickups or learnsets change."""
+    errors = []
+    if manifest["level_bound"] < 20:
+        errors.append("First Gym localization must cover at least level 20")
+    coverage = derive_coverage(manifest["level_bound"])
+    if manifest.get("coverage") != coverage:
+        errors.append("Localization coverage differs from actual Virelia data; update the manifest and translations")
+    by_kind = collections.defaultdict(set)
+    for entry in manifest["entries"]:
+        by_kind[entry["kind"]].add(entry["key"].split(".")[0])
+    for group, kinds in (("moves", ("move_name", "move_description")),
+                         ("abilities", ("ability_name", "ability_description")),
+                         ("items", ("item_name", "item_description")),
+                         ("species", ("dex_category", "dex_description"))):
+        for record in coverage[group]:
+            # Regional records use direct Czech strings and have their own
+            # native-font checks below; every other record needs a manifest.
+            if group == "species" and record.endswith("_VIRELIA"):
+                continue
+            for kind in kinds:
+                if record not in by_kind[kind]:
+                    errors.append(f"{record}: missing {kind} in bounded localization coverage")
+    # Direct calls to shared messages must have an explicit translation entry.
+    # Map-local text scanning alone cannot detect English shared shop greetings.
+    declared_labels = {entry["key"] for entry in manifest["entries"]}
+    for path in sorted((ROOT / "data/maps").glob("Virelia_*/scripts.inc")):
+        for label in re.findall(r"\b(?:message|msgbox)\s+(gText_\w+)", path.read_text(encoding="utf8")):
+            if label not in declared_labels:
+                errors.append(f"{path.relative_to(ROOT)}:{label}: shared message missing from localization manifest")
+    return {key: len(values) for key, values in coverage.items()}, errors
 
 
 def main():
@@ -226,10 +260,10 @@ def main():
                 errors.append(f"{label}: {width}px > {entry['width']}px: {line}")
         if entry.get("lines") and len(visible.split("\n")) > entry["lines"]:
             errors.append(f"{label}: too many lines")
-    # These script files contain the playable prologue, including every text
-    # label on all five maps. Keep this scan automatic as story text evolves.
+    # Scan every Virelia map, including service interiors, quarry and Gym.
+    # New maps inherit the same glyph, width and dialogue-page validation.
     script_paths = sorted((ROOT / "data/maps").glob("Virelia_*/scripts.inc"))
-    script_paths += [ROOT / "data/scripts/virelia_prologue.inc"]
+    script_paths += sorted((ROOT / "data/scripts").glob("virelia*.inc"))
     script_count = 0
     dynamic = substitutions
     for path in script_paths:
@@ -238,6 +272,9 @@ def main():
             text = "".join(re.findall(r'"((?:\\.|[^"\\])*)"', match[2])).removesuffix("$")
             label = f"{path.relative_to(ROOT)}:{match[1]}"
             script_count += 1
+            dynamic = dict(substitutions)
+            if match[1] == "VireliaStarterTest_Text_Given":
+                dynamic["{STR_VAR_2}"] = "100"
             visible = TOKEN.sub(replace_token, text)
             for line in re.split(r"\\[pnl]", visible):
                 unsupported = sorted(set(line) - set(chars))
@@ -287,7 +324,9 @@ def main():
     errors.extend(item_name_errors)
     move_layout, layout_errors = validate_move_description_layout(fonts, chars)
     errors.extend(layout_errors)
-    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "regional_dex_entries": regional_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "move_description_layout": move_layout, "english_move_names": move_names, "english_item_names": item_names, "errors": errors}
+    coverage_counts, coverage_errors = validate_coverage(manifest)
+    errors.extend(coverage_errors)
+    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "regional_dex_entries": regional_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "bounded_coverage": coverage_counts, "move_description_layout": move_layout, "english_move_names": move_names, "english_item_names": item_names, "errors": errors}
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:

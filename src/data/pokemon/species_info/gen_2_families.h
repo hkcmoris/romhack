@@ -1,3 +1,4 @@
+#include "localization.h"
 #ifdef __INTELLISENSE__
 const struct SpeciesInfo gSpeciesInfoGen2[] =
 {
@@ -1170,14 +1171,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Ledyba"),
         .cryId = CRY_LEDYBA,
         .natDexNum = NATIONAL_DEX_LEDYBA,
-        .categoryName = _("Five Star"),
+        .categoryName = _(LOCALIZED_TEXT("Five Star", "Pět hvězd")),
         .height = 10,
         .weight = 108,
-        .description = COMPOUND_STRING(
-            "Ledyba communicate using a fluid that\n"
-            "they secrete from where the legs join the\n"
-            "body. They are said to convey feelings to\n"
-            "others by altering the fluid's scent."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Ledyba communicate using a fluid that\nthey secrete from where the legs join the\nbody. They are said to convey feelings to\nothers by altering the fluid's scent.", "Tekutinou z kloubů nohou sděluje své\npocity ostatním. Její pach mění podle\ntoho, jak se cítí.")),
         .pokemonScale = 256,
         .pokemonOffset = 4,
         .trainerScale = 256,
@@ -1253,14 +1250,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Ledian"),
         .cryId = CRY_LEDIAN,
         .natDexNum = NATIONAL_DEX_LEDIAN,
-        .categoryName = _("Five Star"),
+        .categoryName = _(LOCALIZED_TEXT("Five Star", "Pět hvězd")),
         .height = 14,
         .weight = 356,
-        .description = COMPOUND_STRING(
-            "It is said that in lands with clean air,\n"
-            "where the stars fill the sky, there live\n"
-            "many Ledian. For good reason, they use\n"
-            "the light of the stars as energy."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It is said that in lands with clean air,\nwhere the stars fill the sky, there live\nmany Ledian. For good reason, they use\nthe light of the stars as energy.", "Žije tam, kde je čistý vzduch a na nebi\nsvítí mnoho hvězd. Jejich světlo mu\ndodává energii.")),
         .pokemonScale = 256,
         .pokemonOffset = 2,
         .trainerScale = 256,
@@ -1383,9 +1376,6 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
             gOverworldPalette_Spinarak,
             gShinyOverworldPalette_Spinarak
         )
-#if P_VIRELIA_STARTERS
-        .formSpeciesIdTable = sSpinarakFormSpeciesIdTable,
-#endif
         .levelUpLearnset = sSpinarakLevelUpLearnset,
         .teachableLearnset = sSpinarakTeachableLearnset,
         .eggMoveLearnset = sSpinarakEggMoveLearnset,
@@ -1462,9 +1452,6 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
             gOverworldPalette_Ariados,
             gShinyOverworldPalette_Ariados
         )
-#if P_VIRELIA_STARTERS
-        .formSpeciesIdTable = sAriadosFormSpeciesIdTable,
-#endif
         .levelUpLearnset = sAriadosLevelUpLearnset,
         .teachableLearnset = sAriadosTeachableLearnset,
     },
@@ -1909,6 +1896,9 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
             gShinyOverworldPalette_Natu
         )
         .isSkyBattleBanned = B_SKY_BATTLE_STRICT_ELIGIBILITY,
+#if P_VIRELIA_STARTERS
+        .formSpeciesIdTable = sNatuFormSpeciesIdTable,
+#endif
         .levelUpLearnset = sNatuLevelUpLearnset,
         .teachableLearnset = sNatuTeachableLearnset,
         .eggMoveLearnset = sNatuEggMoveLearnset,
@@ -1994,6 +1984,9 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
             TRACKS_FOOT,
             sAnimTable_Following
         )
+#if P_VIRELIA_STARTERS
+        .formSpeciesIdTable = sXatuFormSpeciesIdTable,
+#endif
         .levelUpLearnset = sXatuLevelUpLearnset,
         .teachableLearnset = sXatuTeachableLearnset,
     },

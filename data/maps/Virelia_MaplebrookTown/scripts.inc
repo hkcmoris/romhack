@@ -119,7 +119,9 @@ Virelia_MaplebrookTown_Text_HanaFound:
 Virelia_MaplebrookTown_Text_HanaReward:
 	.string "Od Hany dostáváš Potion.\p"
 	.string "HANA: Ten je pro tvého parťáka.\n"
-	.string "Tobě na škrábance stačí náplast.$"
+	.string "Tobě na škrábance stačí náplast.\p"
+	.string "Za hnízdem se propleť větvemi.\n"
+	.string "Zigzagoon ti teď ukáže pěšinu.$"
 
 Virelia_MaplebrookTown_Text_HanaBagFull:
 	.string "Mám pro tebe Potion, ale batoh\n"
@@ -127,7 +129,9 @@ Virelia_MaplebrookTown_Text_HanaBagFull:
 
 Virelia_MaplebrookTown_Text_HanaDone:
 	.string "HANA: Strážci hnízd se hodí.\n"
-	.string "Jen ta přesčasová práce…$"
+	.string "Jen ta přesčasová práce…\p"
+	.string "Zkus pěšinu za jeho hnízdem.\n"
+	.string "Hlídá tam i něco mnohem staršího.$"
 
 Virelia_MaplebrookTown_Text_Zigzagoon:
 	.string "ZIGZAGOON: Zig! Zig!$"

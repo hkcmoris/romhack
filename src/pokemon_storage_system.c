@@ -1,3 +1,4 @@
+#include "localization.h"
 #include "global.h"
 #include "malloc.h"
 #include "bg.h"
@@ -858,20 +859,20 @@ void SetMonFormPSS(struct BoxPokemon *boxMon, enum FormChanges method);
 void SetMonFormPSS_ItemHold(struct BoxPokemon *boxMon);
 void UpdateSpeciesSpritePSS(struct BoxPokemon *boxmon);
 
-static const u8 gText_JustOnePkmn[] = _("There is just one POKéMON with you.");
-static const u8 gText_PartyFull[] = _("Your party is full!");
-static const u8 gText_Box[] = _("BOX");
+static const u8 gText_JustOnePkmn[] = _(LOCALIZED_TEXT("There is just one POKéMON with you.", "Máš jen jednoho Pokémona."));
+static const u8 gText_PartyFull[] = _(LOCALIZED_TEXT("Your party is full!", "Tvůj tým je plný!"));
+static const u8 gText_Box[] = _(LOCALIZED_TEXT("BOX", "BOX"));
 
 struct {
     const u8 *text;
     const u8 *desc;
 } static const sMainMenuTexts[OPTIONS_COUNT] =
 {
-    [OPTION_WITHDRAW]   = {COMPOUND_STRING("WITHDRAW POKéMON"), COMPOUND_STRING("Move POKéMON stored in BOXES to\nyour party.")},
-    [OPTION_DEPOSIT]    = {COMPOUND_STRING("DEPOSIT POKéMON"),  COMPOUND_STRING("Store POKéMON in your party in BOXES.")},
-    [OPTION_MOVE_MONS]  = {COMPOUND_STRING("MOVE POKéMON"),     COMPOUND_STRING("Organize the POKéMON in BOXES and\nin your party.")},
-    [OPTION_MOVE_ITEMS] = {COMPOUND_STRING("MOVE ITEMS"),       COMPOUND_STRING("Move items held by any POKéMON\nin a BOX or your party.")},
-    [OPTION_EXIT]       = {COMPOUND_STRING("SEE YA!"),          COMPOUND_STRING("Return to the previous menu.")}
+    [OPTION_WITHDRAW]   = {COMPOUND_STRING(LOCALIZED_TEXT("WITHDRAW POKéMON", "VYBRAT POKÉMONA")), COMPOUND_STRING(LOCALIZED_TEXT("Move POKéMON stored in BOXES to\nyour party.", "Přesune Pokémony z boxů\ndo tvého týmu."))},
+    [OPTION_DEPOSIT]    = {COMPOUND_STRING(LOCALIZED_TEXT("DEPOSIT POKéMON", "ULOŽIT POKÉMONA")),  COMPOUND_STRING(LOCALIZED_TEXT("Store POKéMON in your party in BOXES.", "Uloží Pokémony z týmu do boxů."))},
+    [OPTION_MOVE_MONS]  = {COMPOUND_STRING(LOCALIZED_TEXT("MOVE POKéMON", "ŘADIT POKÉMONY")),     COMPOUND_STRING(LOCALIZED_TEXT("Organize the POKéMON in BOXES and\nin your party.", "Uspořádá Pokémony v boxech\na ve tvém týmu."))},
+    [OPTION_MOVE_ITEMS] = {COMPOUND_STRING(LOCALIZED_TEXT("MOVE ITEMS", "ŘADIT PŘEDMĚTY")),       COMPOUND_STRING(LOCALIZED_TEXT("Move items held by any POKéMON\nin a BOX or your party.", "Přesune držené předměty Pokémonů\nv boxech a ve tvém týmu."))},
+    [OPTION_EXIT]       = {COMPOUND_STRING(LOCALIZED_TEXT("SEE YA!", "ZPĚT")),          COMPOUND_STRING(LOCALIZED_TEXT("Return to the previous menu.", "Vrátí se do předchozí nabídky."))}
 };
 
 static const struct WindowTemplate sWindowTemplate_MainMenu =
@@ -1044,41 +1045,41 @@ static const struct SpriteTemplate sSpriteTemplate_DisplayMon =
     .oam = &sOamData_DisplayMon,
 };
 
-static const u8 gText_PkmnIsSelected[] = _("{DYNAMIC 0} is selected.");
+static const u8 gText_PkmnIsSelected[] = _(LOCALIZED_TEXT("{DYNAMIC 0} is selected.", "Vybrán: {DYNAMIC 0}"));
 
 static const struct StorageMessage sMessages[] =
 {
-    [MSG_EXIT_BOX]             = {COMPOUND_STRING("Exit from the BOX?"),         MSG_VAR_NONE},
-    [MSG_WHAT_YOU_DO]          = {COMPOUND_STRING("What do you want to do?"),    MSG_VAR_NONE},
-    [MSG_PICK_A_THEME]         = {COMPOUND_STRING("Please pick a theme."),       MSG_VAR_NONE},
-    [MSG_PICK_A_WALLPAPER]     = {COMPOUND_STRING("Pick the wallpaper."),        MSG_VAR_NONE},
+    [MSG_EXIT_BOX]             = {COMPOUND_STRING(LOCALIZED_TEXT("Exit from the BOX?", "Zavřít box?")),         MSG_VAR_NONE},
+    [MSG_WHAT_YOU_DO]          = {COMPOUND_STRING(LOCALIZED_TEXT("What do you want to do?", "Co chceš udělat?")),    MSG_VAR_NONE},
+    [MSG_PICK_A_THEME]         = {COMPOUND_STRING(LOCALIZED_TEXT("Please pick a theme.", "Vyber téma.")),       MSG_VAR_NONE},
+    [MSG_PICK_A_WALLPAPER]     = {COMPOUND_STRING(LOCALIZED_TEXT("Pick the wallpaper.", "Vyber tapetu.")),        MSG_VAR_NONE},
     [MSG_IS_SELECTED]          = {gText_PkmnIsSelected,                          MSG_VAR_MON_NAME_1},
-    [MSG_JUMP_TO_WHICH_BOX]    = {COMPOUND_STRING("Jump to which BOX?"),         MSG_VAR_NONE},
-    [MSG_DEPOSIT_IN_WHICH_BOX] = {COMPOUND_STRING("Deposit in which BOX?"),      MSG_VAR_NONE},
-    [MSG_WAS_DEPOSITED]        = {COMPOUND_STRING("{DYNAMIC 0} was deposited."), MSG_VAR_MON_NAME_1},
-    [MSG_BOX_IS_FULL]          = {COMPOUND_STRING("The BOX is full."),           MSG_VAR_NONE},
-    [MSG_RELEASE_POKE]         = {COMPOUND_STRING("Release this POKéMON?"),      MSG_VAR_NONE},
-    [MSG_WAS_RELEASED]         = {COMPOUND_STRING("{DYNAMIC 0} was released."),  MSG_VAR_RELEASE_MON_1},
-    [MSG_BYE_BYE]              = {COMPOUND_STRING("Bye-bye, {DYNAMIC 0}!"),      MSG_VAR_RELEASE_MON_3},
-    [MSG_MARK_POKE]            = {COMPOUND_STRING("Mark your POKéMON."),         MSG_VAR_NONE},
-    [MSG_LAST_POKE]            = {COMPOUND_STRING("That's your last POKéMON!"),  MSG_VAR_NONE},
+    [MSG_JUMP_TO_WHICH_BOX]    = {COMPOUND_STRING(LOCALIZED_TEXT("Jump to which BOX?", "Do kterého boxu?")),         MSG_VAR_NONE},
+    [MSG_DEPOSIT_IN_WHICH_BOX] = {COMPOUND_STRING(LOCALIZED_TEXT("Deposit in which BOX?", "Uložit do kterého boxu?")),      MSG_VAR_NONE},
+    [MSG_WAS_DEPOSITED]        = {COMPOUND_STRING(LOCALIZED_TEXT("{DYNAMIC 0} was deposited.", "Uložen: {DYNAMIC 0}")), MSG_VAR_MON_NAME_1},
+    [MSG_BOX_IS_FULL]          = {COMPOUND_STRING(LOCALIZED_TEXT("The BOX is full.", "Box je plný.")),           MSG_VAR_NONE},
+    [MSG_RELEASE_POKE]         = {COMPOUND_STRING(LOCALIZED_TEXT("Release this POKéMON?", "Propustit Pokémona?")),      MSG_VAR_NONE},
+    [MSG_WAS_RELEASED]         = {COMPOUND_STRING(LOCALIZED_TEXT("{DYNAMIC 0} was released.", "Volný: {DYNAMIC 0}")),  MSG_VAR_RELEASE_MON_1},
+    [MSG_BYE_BYE]              = {COMPOUND_STRING(LOCALIZED_TEXT("Bye-bye, {DYNAMIC 0}!", "Sbohem, {DYNAMIC 0}!")),      MSG_VAR_RELEASE_MON_3},
+    [MSG_MARK_POKE]            = {COMPOUND_STRING(LOCALIZED_TEXT("Mark your POKéMON.", "Označ Pokémona.")),         MSG_VAR_NONE},
+    [MSG_LAST_POKE]            = {COMPOUND_STRING(LOCALIZED_TEXT("That's your last POKéMON!", "Je to poslední Pokémon!")),  MSG_VAR_NONE},
     [MSG_PARTY_FULL]           = {gText_YourPartysFull,                          MSG_VAR_NONE},
-    [MSG_HOLDING_POKE]         = {COMPOUND_STRING("You're holding a POKéMON!"),  MSG_VAR_NONE},
-    [MSG_WHICH_ONE_WILL_TAKE]  = {COMPOUND_STRING("Which one will you take?"),   MSG_VAR_NONE},
-    [MSG_CANT_RELEASE_EGG]     = {COMPOUND_STRING("You can't release an EGG."),  MSG_VAR_NONE},
-    [MSG_CONTINUE_BOX]         = {COMPOUND_STRING("Continue BOX operations?"),   MSG_VAR_NONE},
-    [MSG_CAME_BACK]            = {COMPOUND_STRING("{DYNAMIC 0} came back!"),     MSG_VAR_MON_NAME_1},
-    [MSG_WORRIED]              = {COMPOUND_STRING("Was it worried about you?"),  MSG_VAR_NONE},
+    [MSG_HOLDING_POKE]         = {COMPOUND_STRING(LOCALIZED_TEXT("You're holding a POKéMON!", "Držíš Pokémona!")),  MSG_VAR_NONE},
+    [MSG_WHICH_ONE_WILL_TAKE]  = {COMPOUND_STRING(LOCALIZED_TEXT("Which one will you take?", "Kterého si vezmeš?")),   MSG_VAR_NONE},
+    [MSG_CANT_RELEASE_EGG]     = {COMPOUND_STRING(LOCALIZED_TEXT("You can't release an EGG.", "Vejce nelze propustit.")),  MSG_VAR_NONE},
+    [MSG_CONTINUE_BOX]         = {COMPOUND_STRING(LOCALIZED_TEXT("Continue BOX operations?", "Pokračovat v boxech?")),   MSG_VAR_NONE},
+    [MSG_CAME_BACK]            = {COMPOUND_STRING(LOCALIZED_TEXT("{DYNAMIC 0} came back!", "Zpátky: {DYNAMIC 0}")),     MSG_VAR_MON_NAME_1},
+    [MSG_WORRIED]              = {COMPOUND_STRING(LOCALIZED_TEXT("Was it worried about you?", "Měl o tebe starost?")),  MSG_VAR_NONE},
     [MSG_SURPRISE]             = {COMPOUND_STRING("… … … … !"),                  MSG_VAR_NONE},
-    [MSG_PLEASE_REMOVE_MAIL]   = {COMPOUND_STRING("Please remove the MAIL."),    MSG_VAR_NONE},
+    [MSG_PLEASE_REMOVE_MAIL]   = {COMPOUND_STRING(LOCALIZED_TEXT("Please remove the MAIL.", "Nejprve odeber dopis.")),    MSG_VAR_NONE},
     [MSG_IS_SELECTED2]         = {gText_PkmnIsSelected,                          MSG_VAR_ITEM_NAME},
-    [MSG_GIVE_TO_MON]          = {COMPOUND_STRING("GIVE to a POKéMON?"),         MSG_VAR_NONE},
-    [MSG_PLACED_IN_BAG]        = {COMPOUND_STRING("Placed item in the BAG."),    MSG_VAR_ITEM_NAME},
-    [MSG_BAG_FULL]             = {COMPOUND_STRING("The BAG is full."),           MSG_VAR_NONE},
-    [MSG_PUT_IN_BAG]           = {COMPOUND_STRING("Put this item in the BAG?"),  MSG_VAR_NONE},
-    [MSG_ITEM_IS_HELD]         = {COMPOUND_STRING("{DYNAMIC 0} is now held."),   MSG_VAR_ITEM_NAME},
-    [MSG_CHANGED_TO_ITEM]      = {COMPOUND_STRING("Changed to {DYNAMIC 0}."),    MSG_VAR_ITEM_NAME},
-    [MSG_CANT_STORE_MAIL]      = {COMPOUND_STRING("MAIL can't be stored!"),      MSG_VAR_NONE},
+    [MSG_GIVE_TO_MON]          = {COMPOUND_STRING(LOCALIZED_TEXT("GIVE to a POKéMON?", "Dát Pokémonovi?")),         MSG_VAR_NONE},
+    [MSG_PLACED_IN_BAG]        = {COMPOUND_STRING(LOCALIZED_TEXT("Placed item in the BAG.", "Předmět je v batohu.")),    MSG_VAR_ITEM_NAME},
+    [MSG_BAG_FULL]             = {COMPOUND_STRING(LOCALIZED_TEXT("The BAG is full.", "Batoh je plný.")),           MSG_VAR_NONE},
+    [MSG_PUT_IN_BAG]           = {COMPOUND_STRING(LOCALIZED_TEXT("Put this item in the BAG?", "Dát předmět do batohu?")),  MSG_VAR_NONE},
+    [MSG_ITEM_IS_HELD]         = {COMPOUND_STRING(LOCALIZED_TEXT("{DYNAMIC 0} is now held.", "Drží: {DYNAMIC 0}")),   MSG_VAR_ITEM_NAME},
+    [MSG_CHANGED_TO_ITEM]      = {COMPOUND_STRING(LOCALIZED_TEXT("Changed to {DYNAMIC 0}.", "Nově: {DYNAMIC 0}")),    MSG_VAR_ITEM_NAME},
+    [MSG_CANT_STORE_MAIL]      = {COMPOUND_STRING(LOCALIZED_TEXT("MAIL can't be stored!", "Dopis nelze uložit!")),      MSG_VAR_NONE},
 };
 
 static const struct WindowTemplate sYesNoWindowTemplate =
@@ -8063,50 +8064,50 @@ static void InitMenu(void)
     sStorage->menuWindow.baseBlock = 92;
 }
 
-static const u8 gPCText_Give[] = _("GIVE");
+static const u8 gPCText_Give[] = _(LOCALIZED_TEXT("GIVE", "DÁT"));
 
 static const u8 *const sMenuTexts[] =
 {
-    [MENU_CANCEL]     = COMPOUND_STRING("CANCEL"),
-    [MENU_STORE]      = COMPOUND_STRING("STORE"),
-    [MENU_WITHDRAW]   = COMPOUND_STRING("WITHDRAW"),
-    [MENU_MOVE]       = COMPOUND_STRING("MOVE"),
-    [MENU_SHIFT]      = COMPOUND_STRING("SHIFT"),
-    [MENU_PLACE]      = COMPOUND_STRING("PLACE"),
-    [MENU_SUMMARY]    = COMPOUND_STRING("SUMMARY"),
-    [MENU_RELEASE]    = COMPOUND_STRING("RELEASE"),
-    [MENU_MARK]       = COMPOUND_STRING("MARK"),
-    [MENU_JUMP]       = COMPOUND_STRING("JUMP"),
-    [MENU_WALLPAPER]  = COMPOUND_STRING("WALLPAPER"),
-    [MENU_NAME]       = COMPOUND_STRING("NAME"),
-    [MENU_TAKE]       = COMPOUND_STRING("TAKE"),
+    [MENU_CANCEL]     = COMPOUND_STRING(LOCALIZED_TEXT("CANCEL", "ZPĚT")),
+    [MENU_STORE]      = COMPOUND_STRING(LOCALIZED_TEXT("STORE", "ULOŽIT")),
+    [MENU_WITHDRAW]   = COMPOUND_STRING(LOCALIZED_TEXT("WITHDRAW", "VYBRAT")),
+    [MENU_MOVE]       = COMPOUND_STRING(LOCALIZED_TEXT("MOVE", "PŘESUN")),
+    [MENU_SHIFT]      = COMPOUND_STRING(LOCALIZED_TEXT("SHIFT", "VYMĚNIT")),
+    [MENU_PLACE]      = COMPOUND_STRING(LOCALIZED_TEXT("PLACE", "POLOŽIT")),
+    [MENU_SUMMARY]    = COMPOUND_STRING(LOCALIZED_TEXT("SUMMARY", "SOUHRN")),
+    [MENU_RELEASE]    = COMPOUND_STRING(LOCALIZED_TEXT("RELEASE", "PROPUSTIT")),
+    [MENU_MARK]       = COMPOUND_STRING(LOCALIZED_TEXT("MARK", "OZNAČIT")),
+    [MENU_JUMP]       = COMPOUND_STRING(LOCALIZED_TEXT("JUMP", "PŘEJÍT")),
+    [MENU_WALLPAPER]  = COMPOUND_STRING(LOCALIZED_TEXT("WALLPAPER", "TAPETA")),
+    [MENU_NAME]       = COMPOUND_STRING(LOCALIZED_TEXT("NAME", "JMÉNO")),
+    [MENU_TAKE]       = COMPOUND_STRING(LOCALIZED_TEXT("TAKE", "VZÍT")),
     [MENU_GIVE]       = gPCText_Give,
     [MENU_GIVE_2]     = gPCText_Give,
-    [MENU_SWITCH]     = COMPOUND_STRING("SWITCH"),
-    [MENU_BAG]        = COMPOUND_STRING("BAG"),
-    [MENU_INFO]       = COMPOUND_STRING("INFO"),
-    [MENU_SCENERY_1]  = COMPOUND_STRING("SCENERY 1"),
-    [MENU_SCENERY_2]  = COMPOUND_STRING("SCENERY 2"),
-    [MENU_SCENERY_3]  = COMPOUND_STRING("SCENERY 3"),
-    [MENU_ETCETERA]   = COMPOUND_STRING("ETCETERA"),
-    [MENU_FRIENDS]    = COMPOUND_STRING("FRIENDS"),
-    [MENU_FOREST]     = COMPOUND_STRING("FOREST"),
-    [MENU_CITY]       = COMPOUND_STRING("CITY"),
-    [MENU_DESERT]     = COMPOUND_STRING("DESERT"),
-    [MENU_SAVANNA]    = COMPOUND_STRING("SAVANNA"),
-    [MENU_CRAG]       = COMPOUND_STRING("CRAG"),
-    [MENU_VOLCANO]    = COMPOUND_STRING("VOLCANO"),
-    [MENU_SNOW]       = COMPOUND_STRING("SNOW"),
-    [MENU_CAVE]       = COMPOUND_STRING("CAVE"),
-    [MENU_BEACH]      = COMPOUND_STRING("BEACH"),
-    [MENU_SEAFLOOR]   = COMPOUND_STRING("SEAFLOOR"),
-    [MENU_RIVER]      = COMPOUND_STRING("RIVER"),
-    [MENU_SKY]        = COMPOUND_STRING("SKY"),
-    [MENU_POLKADOT]   = COMPOUND_STRING("POLKA-DOT"),
-    [MENU_POKECENTER] = COMPOUND_STRING("POKéCENTER"),
-    [MENU_MACHINE]    = COMPOUND_STRING("MACHINE"),
-    [MENU_SIMPLE]     = COMPOUND_STRING("SIMPLE"),
-    [MENU_SELECT]     = COMPOUND_STRING("SELECT"),
+    [MENU_SWITCH]     = COMPOUND_STRING(LOCALIZED_TEXT("SWITCH", "VYMĚNIT")),
+    [MENU_BAG]        = COMPOUND_STRING(LOCALIZED_TEXT("BAG", "BATOH")),
+    [MENU_INFO]       = COMPOUND_STRING(LOCALIZED_TEXT("INFO", "ÚDAJE")),
+    [MENU_SCENERY_1]  = COMPOUND_STRING(LOCALIZED_TEXT("SCENERY 1", "KRAJINA 1")),
+    [MENU_SCENERY_2]  = COMPOUND_STRING(LOCALIZED_TEXT("SCENERY 2", "KRAJINA 2")),
+    [MENU_SCENERY_3]  = COMPOUND_STRING(LOCALIZED_TEXT("SCENERY 3", "KRAJINA 3")),
+    [MENU_ETCETERA]   = COMPOUND_STRING(LOCALIZED_TEXT("ETCETERA", "OSTATNÍ")),
+    [MENU_FRIENDS]    = COMPOUND_STRING(LOCALIZED_TEXT("FRIENDS", "PŘÁTELÉ")),
+    [MENU_FOREST]     = COMPOUND_STRING(LOCALIZED_TEXT("FOREST", "LES")),
+    [MENU_CITY]       = COMPOUND_STRING(LOCALIZED_TEXT("CITY", "MĚSTO")),
+    [MENU_DESERT]     = COMPOUND_STRING(LOCALIZED_TEXT("DESERT", "POUŠŤ")),
+    [MENU_SAVANNA]    = COMPOUND_STRING(LOCALIZED_TEXT("SAVANNA", "SAVANA")),
+    [MENU_CRAG]       = COMPOUND_STRING(LOCALIZED_TEXT("CRAG", "SKÁLY")),
+    [MENU_VOLCANO]    = COMPOUND_STRING(LOCALIZED_TEXT("VOLCANO", "SOPKA")),
+    [MENU_SNOW]       = COMPOUND_STRING(LOCALIZED_TEXT("SNOW", "SNÍH")),
+    [MENU_CAVE]       = COMPOUND_STRING(LOCALIZED_TEXT("CAVE", "JESKYNĚ")),
+    [MENU_BEACH]      = COMPOUND_STRING(LOCALIZED_TEXT("BEACH", "PLÁŽ")),
+    [MENU_SEAFLOOR]   = COMPOUND_STRING(LOCALIZED_TEXT("SEAFLOOR", "MOŘSKÉ DNO")),
+    [MENU_RIVER]      = COMPOUND_STRING(LOCALIZED_TEXT("RIVER", "ŘEKA")),
+    [MENU_SKY]        = COMPOUND_STRING(LOCALIZED_TEXT("SKY", "OBLOHA")),
+    [MENU_POLKADOT]   = COMPOUND_STRING(LOCALIZED_TEXT("POLKA-DOT", "PUNTÍKY")),
+    [MENU_POKECENTER] = COMPOUND_STRING(LOCALIZED_TEXT("POKéCENTER", "POKÉCENTRUM")),
+    [MENU_MACHINE]    = COMPOUND_STRING(LOCALIZED_TEXT("MACHINE", "STROJ")),
+    [MENU_SIMPLE]     = COMPOUND_STRING(LOCALIZED_TEXT("SIMPLE", "JEDNODUCHÁ")),
+    [MENU_SELECT]     = COMPOUND_STRING(LOCALIZED_TEXT("SELECT", "VYBRAT")),
 };
 
 static void SetMenuText(u8 textId)

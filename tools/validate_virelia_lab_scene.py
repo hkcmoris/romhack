@@ -23,7 +23,7 @@ VIKTOR = "LOCALID_VIRELIA_LAB_VIKTOR"
 CHOICES = ("GRASS", "WATER", "FIRE")
 COUNTER = {"GRASS": "FIRE", "WATER": "GRASS", "FIRE": "WATER"}
 STARTER_SPECIES = {"GRASS": "SPECIES_POOCHYENA_VIRELIA",
-                   "WATER": "SPECIES_SPINARAK_VIRELIA", "FIRE": "SPECIES_EKANS_VIRELIA"}
+                   "WATER": "SPECIES_NATU_VIRELIA", "FIRE": "SPECIES_EKANS_VIRELIA"}
 DIRECTIONS = {"DIR_SOUTH": (0, 1), "DIR_NORTH": (0, -1),
               "DIR_WEST": (-1, 0), "DIR_EAST": (1, 0)}
 ACTION_DIRECTIONS = {"down": "DIR_SOUTH", "up": "DIR_NORTH",
@@ -517,7 +517,7 @@ def mutation_checks(root=ROOT):
     movement = MAP + "_Movement_"
     mutations = {
         "missing_preview": ("showmonpic SPECIES_POOCHYENA_VIRELIA, 10, 3", "delay 1"),
-        "wrong_preview_species": ("showmonpic SPECIES_SPINARAK_VIRELIA, 10, 3", "showmonpic SPECIES_SPINARAK, 10, 3"),
+        "wrong_preview_species": ("showmonpic SPECIES_NATU_VIRELIA, 10, 3", "showmonpic SPECIES_NATU, 10, 3"),
         "early_preview_close": ("showmonpic SPECIES_EKANS_VIRELIA, 10, 3", "showmonpic SPECIES_EKANS_VIRELIA, 10, 3\n\thidemonpic"),
         "missing_preview_close": ("\thidemonpic\n", "\tdelay 1\n"),
         "wall": (movement + "Down3:\n\twalk_down", movement + "Down3:\n\twalk_left"),

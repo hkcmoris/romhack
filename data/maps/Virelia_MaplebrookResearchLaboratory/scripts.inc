@@ -128,7 +128,7 @@ Virelia_MaplebrookResearchLaboratory_EventScript_PreviewGrassStarter:
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
 
 Virelia_MaplebrookResearchLaboratory_EventScript_PreviewWaterStarter:
-	showmonpic SPECIES_SPINARAK_VIRELIA, 10, 3
+	showmonpic SPECIES_NATU_VIRELIA, 10, 3
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_WaterStarter, MSGBOX_DEFAULT
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_ChooseStarter
 
@@ -530,10 +530,10 @@ Virelia_MaplebrookResearchLaboratory_Text_GrassStarter:
 	.string "Se stíny si zatím jen hraje.$"
 
 Virelia_MaplebrookResearchLaboratory_Text_WaterStarter:
-	.string "SPINARAK Z VIRELIE\n"
-	.string "VODA / HMYZ\p"
-	.string "Trpělivě loví na vodní hladině.\n"
-	.string "Suché ponožky neslibuje.$"
+	.string "NATU Z VIRELIE\n"
+	.string "VODA / PSYCHIKA\p"
+	.string "Poskakuje podél vodní hladiny.\n"
+	.string "Jeho peří se třpytí kapkami.$"
 
 Virelia_MaplebrookResearchLaboratory_Text_FireStarter:
 	.string "EKANS Z VIRELIE\n"

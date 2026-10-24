@@ -34,6 +34,8 @@ TEST         ?= 0
 # Story is the default. The explicit development mode retains the original
 # Littleroot starter/Duo test tools without changing multiplayer behavior.
 VIRELIA_DEVELOPMENT_MODE ?= 0
+# Isolated My Boy! experiments: 0 normal, 1 instrumented control, 2 event-only.
+MYBOY_DIAGNOSTIC_MODE ?= 0
 # Enables -fanalyzer C flag to analyze in depth potential UBs
 ANALYZE      ?= 0
 # Count unused warnings as errors. Used by RH-Hideout's repo
@@ -63,8 +65,23 @@ endif
 
 include config.mk
 
+ifneq ($(words $(MYBOY_DIAGNOSTIC_MODE)),1)
+  $(error MYBOY_DIAGNOSTIC_MODE must be a single value)
+endif
+ifeq ($(filter $(MYBOY_DIAGNOSTIC_MODE),0 1 2),)
+  $(error MYBOY_DIAGNOSTIC_MODE must be 0, 1 or 2)
+endif
+ifneq ($(MYBOY_DIAGNOSTIC_MODE),0)
+  ifneq ($(GAME_VERSION),EMERALD)
+    $(error My Boy diagnostics require GAME_VERSION=EMERALD)
+  endif
+  ifneq ($(VIRELIA_DEVELOPMENT_MODE),0)
+    $(error My Boy diagnostics require the unchanged story start)
+  endif
+endif
+
 # Keep non-Emerald variants distinct; all jobs in one CI run share a version.
-VIRELIA_BUILD_SUFFIX := $(if $(filter 1,$(VIRELIA_DEVELOPMENT_MODE)),-devmode)
+VIRELIA_BUILD_SUFFIX := $(if $(filter 1,$(VIRELIA_DEVELOPMENT_MODE)),-devmode)$(if $(filter 1,$(MYBOY_DIAGNOSTIC_MODE)),-myboy-control)$(if $(filter 2,$(MYBOY_DIAGNOSTIC_MODE)),-myboy-event-only)
 FILE_NAME ?= $(ROM_BASENAME)$(if $(filter emerald,$(BUILD_NAME)),,-$(BUILD_NAME))$(VIRELIA_BUILD_SUFFIX)-v$(ROM_VERSION)
 
 # Default make rule
@@ -157,7 +174,7 @@ O_LEVEL ?= g
 else
 O_LEVEL ?= 2
 endif
-CPPFLAGS := $(INCLUDE_CPP_ARGS) -Wno-trigraphs -DMODERN=1 -DTESTING=$(TEST) -DVIRELIA_DEVELOPMENT_MODE=$(VIRELIA_DEVELOPMENT_MODE) -D$(GAME_VERSION) -std=gnu17
+CPPFLAGS := $(INCLUDE_CPP_ARGS) -Wno-trigraphs -DMODERN=1 -DTESTING=$(TEST) -DVIRELIA_DEVELOPMENT_MODE=$(VIRELIA_DEVELOPMENT_MODE) -DMYBOY_DIAGNOSTIC_MODE=$(MYBOY_DIAGNOSTIC_MODE) -D$(GAME_VERSION) -std=gnu17
 ifeq ($(RELEASE),1)
 	override CPPFLAGS += -DRELEASE
 	ifeq ($(USE_LTO_ON_RELEASE),1)
@@ -169,6 +186,9 @@ PATH_ARMCC := PATH="$(PATH)" $(ARMCC)
 CC1 := $(shell $(PATH_ARMCC) --print-prog-name=cc1) -quiet
 
 override CFLAGS += -mthumb -mthumb-interwork -O$(O_LEVEL) -mabi=apcs-gnu -mtune=arm7tdmi -march=armv4t -Wno-pointer-to-int-cast -std=gnu17 -Werror -Wall -Wno-strict-aliasing -Wno-attribute-alias -Woverride-init -Wnonnull -Wenum-conversion
+
+# Avoid GCC-generated Thumb UDF traps that corrupt old My Boy! JIT branches.
+override CFLAGS += -fno-isolate-erroneous-paths-dereference
 
 ifneq ($(LTO),0)
   ifneq ($(TEST),1)
@@ -573,6 +593,8 @@ libagbsyscall:
 # Enable LTO LDFLAGS if set
 ifneq ($(LTO),0)
 LDFLAGS := -march=armv4t -mabi=apcs-gnu -mcpu=arm7tdmi -Xlinker -Map=../../$(MAP) -Xlinker --print-memory-usage -Xassembler -meabi=5 -Xassembler -march=armv4t -Xassembler -mcpu=arm7tdmi -Xlinker --gc-sections
+# Apply the same trap policy during release LTO code generation.
+LDFLAGS += -fno-isolate-erroneous-paths-dereference
 LDFLAGS += -Xlinker -flto=auto
 $(ELF): $(LD_SCRIPT) $(OBJS) libagbsyscall
 	@echo "cd $(OBJ_DIR) && $(ARMCC) $(LDFLAGS) -T ../../$< -o ../../$@ <objs> <libs>"

@@ -31,12 +31,12 @@ static const struct VireliaExpectation sVireliaExpectations[] =
     { SPECIES_POOCHYENA_VIRELIA, SPECIES_POOCHYENA_VIRELIA, { TYPE_GRASS, TYPE_DARK }, 315, { 50, 65, 45, 40, 45, 70 }, DAMAGE_CATEGORY_PHYSICAL },
     { SPECIES_MIGHTYENA_VIRELIA, SPECIES_POOCHYENA_VIRELIA, { TYPE_GRASS, TYPE_GHOST }, 425, { 65, 90, 60, 50, 60, 100 }, DAMAGE_CATEGORY_PHYSICAL },
     { SPECIES_WRAITHENA, SPECIES_POOCHYENA_VIRELIA, { TYPE_GRASS, TYPE_GHOST }, 530, { 78, 112, 82, 65, 85, 108 }, DAMAGE_CATEGORY_PHYSICAL },
-    { SPECIES_SPINARAK_VIRELIA, SPECIES_SPINARAK_VIRELIA, { TYPE_WATER, TYPE_BUG }, 300, { 55, 55, 60, 35, 55, 40 }, DAMAGE_CATEGORY_PHYSICAL },
-    { SPECIES_ARIADOS_VIRELIA, SPECIES_SPINARAK_VIRELIA, { TYPE_WATER, TYPE_BUG }, 405, { 75, 75, 80, 45, 75, 55 }, DAMAGE_CATEGORY_PHYSICAL },
-    { SPECIES_ARACHNAUT, SPECIES_SPINARAK_VIRELIA, { TYPE_WATER, TYPE_BUG }, 530, { 94, 102, 100, 58, 98, 78 }, DAMAGE_CATEGORY_PHYSICAL },
+    { SPECIES_NATU_VIRELIA, SPECIES_NATU_VIRELIA, { TYPE_WATER, TYPE_PSYCHIC }, 300, { 55, 35, 60, 55, 55, 40 }, DAMAGE_CATEGORY_SPECIAL },
+    { SPECIES_XATU_VIRELIA, SPECIES_NATU_VIRELIA, { TYPE_WATER, TYPE_PSYCHIC }, 405, { 75, 45, 80, 75, 75, 55 }, DAMAGE_CATEGORY_SPECIAL },
+    { SPECIES_NIMBATU, SPECIES_NATU_VIRELIA, { TYPE_WATER, TYPE_PSYCHIC }, 530, { 94, 58, 100, 102, 98, 78 }, DAMAGE_CATEGORY_SPECIAL },
     { SPECIES_EKANS_VIRELIA, SPECIES_EKANS_VIRELIA, { TYPE_FIRE, TYPE_POISON }, 310, { 45, 40, 45, 70, 45, 65 }, DAMAGE_CATEGORY_SPECIAL },
     { SPECIES_ARBOK_VIRELIA, SPECIES_EKANS_VIRELIA, { TYPE_FIRE, TYPE_POISON }, 415, { 60, 55, 60, 90, 65, 85 }, DAMAGE_CATEGORY_SPECIAL },
-    { SPECIES_CINDRACOIL, SPECIES_EKANS_VIRELIA, { TYPE_FIRE, TYPE_POISON }, 530, { 78, 72, 75, 119, 88, 98 }, DAMAGE_CATEGORY_SPECIAL },
+    { SPECIES_INFERNABRA, SPECIES_EKANS_VIRELIA, { TYPE_FIRE, TYPE_POISON }, 530, { 78, 72, 75, 119, 88, 98 }, DAMAGE_CATEGORY_SPECIAL },
 };
 
 static const u8 sTestLevels[] = { 5, 10, 14, 16, 18, 20, 30, 34, 36, 38, 40, 50 };
@@ -52,7 +52,7 @@ static void ExpectValidVireliaMon(struct Pokemon *mon, enum Species species, u32
 {
     u8 otName[PLAYER_NAME_LENGTH + 1];
     bool32 usableStab[2] = { FALSE, FALSE };
-    enum DamageCategory category = GetSpeciesType(species, 0) == TYPE_FIRE ? DAMAGE_CATEGORY_SPECIAL : DAMAGE_CATEGORY_PHYSICAL;
+    enum DamageCategory category = GetSpeciesType(species, 0) == TYPE_GRASS ? DAMAGE_CATEGORY_PHYSICAL : DAMAGE_CATEGORY_SPECIAL;
 
     EXPECT_EQ(GetMonData(mon, MON_DATA_SPECIES), species);
     EXPECT_EQ(GetMonData(mon, MON_DATA_LEVEL), level);
@@ -121,11 +121,12 @@ TEST("Virelia and original evolution thresholds use the native level evolution r
     {
         PARAMETRIZE { species = SPECIES_POOCHYENA_VIRELIA; target = SPECIES_MIGHTYENA_VIRELIA; threshold = 18; levelOffset = offset; }
         PARAMETRIZE { species = SPECIES_MIGHTYENA_VIRELIA; target = SPECIES_WRAITHENA; threshold = 38; levelOffset = offset; }
-        PARAMETRIZE { species = SPECIES_SPINARAK_VIRELIA; target = SPECIES_ARIADOS_VIRELIA; threshold = 14; levelOffset = offset; }
-        PARAMETRIZE { species = SPECIES_ARIADOS_VIRELIA; target = SPECIES_ARACHNAUT; threshold = 34; levelOffset = offset; }
+        PARAMETRIZE { species = SPECIES_NATU_VIRELIA; target = SPECIES_XATU_VIRELIA; threshold = 14; levelOffset = offset; }
+        PARAMETRIZE { species = SPECIES_XATU_VIRELIA; target = SPECIES_NIMBATU; threshold = 34; levelOffset = offset; }
         PARAMETRIZE { species = SPECIES_EKANS_VIRELIA; target = SPECIES_ARBOK_VIRELIA; threshold = 16; levelOffset = offset; }
-        PARAMETRIZE { species = SPECIES_ARBOK_VIRELIA; target = SPECIES_CINDRACOIL; threshold = 36; levelOffset = offset; }
+        PARAMETRIZE { species = SPECIES_ARBOK_VIRELIA; target = SPECIES_INFERNABRA; threshold = 36; levelOffset = offset; }
         PARAMETRIZE { species = SPECIES_POOCHYENA; target = SPECIES_MIGHTYENA; threshold = 18; levelOffset = offset; }
+        PARAMETRIZE { species = SPECIES_NATU; target = SPECIES_XATU; threshold = 25; levelOffset = offset; }
         PARAMETRIZE { species = SPECIES_SPINARAK; target = SPECIES_ARIADOS; threshold = 22; levelOffset = offset; }
         PARAMETRIZE { species = SPECIES_EKANS; target = SPECIES_ARBOK; threshold = 22; levelOffset = offset; }
     }
@@ -146,9 +147,10 @@ TEST("Virelia final stages and original final stages have no unintended extra ev
     enum Species species = SPECIES_NONE, firstStage = SPECIES_NONE;
     struct Pokemon mon;
     PARAMETRIZE { species = SPECIES_WRAITHENA; firstStage = SPECIES_POOCHYENA_VIRELIA; }
-    PARAMETRIZE { species = SPECIES_ARACHNAUT; firstStage = SPECIES_SPINARAK_VIRELIA; }
-    PARAMETRIZE { species = SPECIES_CINDRACOIL; firstStage = SPECIES_EKANS_VIRELIA; }
+    PARAMETRIZE { species = SPECIES_NIMBATU; firstStage = SPECIES_NATU_VIRELIA; }
+    PARAMETRIZE { species = SPECIES_INFERNABRA; firstStage = SPECIES_EKANS_VIRELIA; }
     PARAMETRIZE { species = SPECIES_MIGHTYENA; firstStage = SPECIES_POOCHYENA; }
+    PARAMETRIZE { species = SPECIES_XATU; firstStage = SPECIES_NATU; }
     PARAMETRIZE { species = SPECIES_ARIADOS; firstStage = SPECIES_SPINARAK; }
     PARAMETRIZE { species = SPECIES_ARBOK; firstStage = SPECIES_EKANS; }
 
@@ -164,8 +166,8 @@ TEST("Virelia regional form tables preserve the original species and typing")
     bool32 hasOriginal = FALSE, hasRegional = FALSE;
     PARAMETRIZE { original = SPECIES_POOCHYENA; regional = SPECIES_POOCHYENA_VIRELIA; firstType = TYPE_DARK; secondType = TYPE_DARK; }
     PARAMETRIZE { original = SPECIES_MIGHTYENA; regional = SPECIES_MIGHTYENA_VIRELIA; firstType = TYPE_DARK; secondType = TYPE_DARK; }
-    PARAMETRIZE { original = SPECIES_SPINARAK; regional = SPECIES_SPINARAK_VIRELIA; firstType = TYPE_BUG; secondType = TYPE_POISON; }
-    PARAMETRIZE { original = SPECIES_ARIADOS; regional = SPECIES_ARIADOS_VIRELIA; firstType = TYPE_BUG; secondType = TYPE_POISON; }
+    PARAMETRIZE { original = SPECIES_NATU; regional = SPECIES_NATU_VIRELIA; firstType = TYPE_PSYCHIC; secondType = TYPE_FLYING; }
+    PARAMETRIZE { original = SPECIES_XATU; regional = SPECIES_XATU_VIRELIA; firstType = TYPE_PSYCHIC; secondType = TYPE_FLYING; }
     PARAMETRIZE { original = SPECIES_EKANS; regional = SPECIES_EKANS_VIRELIA; firstType = TYPE_POISON; secondType = TYPE_POISON; }
     PARAMETRIZE { original = SPECIES_ARBOK; regional = SPECIES_ARBOK_VIRELIA; firstType = TYPE_POISON; secondType = TYPE_POISON; }
 
@@ -403,7 +405,7 @@ TEST("Virelia NPC rejects invalid species and test levels without modifying the 
     u32 level = 5;
     PARAMETRIZE { species = SPECIES_NONE; }
     PARAMETRIZE { species = SPECIES_POOCHYENA; }
-    PARAMETRIZE { species = SPECIES_SPINARAK; }
+    PARAMETRIZE { species = SPECIES_NATU; }
     PARAMETRIZE { species = SPECIES_EKANS; }
     PARAMETRIZE { species = NUM_SPECIES; }
     PARAMETRIZE { level = 0; }

@@ -401,6 +401,22 @@ static const struct DoorGraphics sDoorAnimGraphicsTable[] =
         .palettes = sDoorAnimPalettes_BirchsLab
     },
     {
+        .metatileNum = METATILE_Petalburg_Door_Littleroot,
+        .tileset = &gTileset_VireliaOutdoor,
+        .sound = DOOR_SOUND_NORMAL,
+        .size = DOOR_SIZE_1x2,
+        .tiles = sDoorAnimTiles_Littleroot,
+        .palettes = sDoorAnimPalettes_Littleroot
+    },
+    {
+        .metatileNum = METATILE_Petalburg_Door_BirchsLab,
+        .tileset = &gTileset_VireliaOutdoor,
+        .sound = DOOR_SOUND_NORMAL,
+        .size = DOOR_SIZE_1x2,
+        .tiles = sDoorAnimTiles_BirchsLab,
+        .palettes = sDoorAnimPalettes_BirchsLab
+    },
+    {
         .metatileNum = METATILE_Rustboro_Door_Tan,
         .tileset = &gTileset_Rustboro,
         .sound = DOOR_SOUND_NORMAL,

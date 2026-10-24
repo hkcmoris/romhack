@@ -2583,15 +2583,15 @@ static const u16 sMightyenaFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 
-static const u16 sSpinarakFormSpeciesIdTable[] = {
-    SPECIES_SPINARAK,
-    SPECIES_SPINARAK_VIRELIA,
+static const u16 sNatuFormSpeciesIdTable[] = {
+    SPECIES_NATU,
+    SPECIES_NATU_VIRELIA,
     FORM_SPECIES_END,
 };
 
-static const u16 sAriadosFormSpeciesIdTable[] = {
-    SPECIES_ARIADOS,
-    SPECIES_ARIADOS_VIRELIA,
+static const u16 sXatuFormSpeciesIdTable[] = {
+    SPECIES_XATU,
+    SPECIES_XATU_VIRELIA,
     FORM_SPECIES_END,
 };
 

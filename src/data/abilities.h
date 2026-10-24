@@ -41,16 +41,16 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_STURDY] =
     {
-        .name = _("Sturdy"),
-        .description = COMPOUND_STRING("Negates 1-hit KO attacks."),
+        .name = _(LOCALIZED_TEXT("Sturdy", "Odolnost")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Negates 1-hit KO attacks.", "Přežije úder z plných HP s 1 HP.")),
         .aiRating = 6,
         .breakable = TRUE,
     },
 
     [ABILITY_DAMP] =
     {
-        .name = _("Damp"),
-        .description = COMPOUND_STRING("Prevents self-destruction."),
+        .name = _(LOCALIZED_TEXT("Damp", "Vlhkost")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Prevents self-destruction.", "Zabrání sebezničujícím útokům.")),
         .aiRating = 2,
         .breakable = TRUE,
     },
@@ -65,8 +65,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SAND_VEIL] =
     {
-        .name = _("Sand Veil"),
-        .description = COMPOUND_STRING("Ups evasion in a sandstorm."),
+        .name = _(LOCALIZED_TEXT("Sand Veil", "Písečný plášť")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Ups evasion in a sandstorm.", "V písečné bouři zvýší úhybnost.")),
         .aiRating = 3,
         .breakable = TRUE,
     },
@@ -123,8 +123,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_INSOMNIA] =
     {
-        .name = _("Insomnia"),
-        .description = COMPOUND_STRING("Prevents sleep."),
+        .name = _(LOCALIZED_TEXT("Insomnia", "Nespavost")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Prevents sleep.", "Zabraňuje usnutí.")),
         .aiRating = 4,
         .breakable = TRUE,
     },
@@ -178,8 +178,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_INTIMIDATE] =
     {
-        .name = _("Intimidate"),
-        .description = COMPOUND_STRING("Lowers foes' Atk on entry."),
+        .name = _(LOCALIZED_TEXT("Intimidate", "Zastrašení")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Lowers foes' Atk on entry.", "Při vstupu sníží útok protivníků.")),
         .aiRating = 7,
     },
 
@@ -345,8 +345,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_MAGNET_PULL] =
     {
-        .name = _("Magnet Pull"),
-        .description = COMPOUND_STRING("Traps Steel-type foes."),
+        .name = _(LOCALIZED_TEXT("Magnet Pull", "Magnetismus")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Traps Steel-type foes.", "Znemožní ocelovým cílům výměnu.")),
         .aiRating = 9,
     },
 
@@ -381,8 +381,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_THICK_FAT] =
     {
-        .name = _("Thick Fat"),
-        .description = COMPOUND_STRING("Halves Fire and Ice damage."),
+        .name = _(LOCALIZED_TEXT("Thick Fat", "Silný tuk")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Halves Fire and Ice damage.", "Sníží zranění ohněm a ledem.")),
         .aiRating = 7,
         .breakable = TRUE,
     },
@@ -410,8 +410,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_KEEN_EYE] =
     {
-        .name = _("Keen Eye"),
-        .description = COMPOUND_STRING("Accuracy can't be lowered."),
+        .name = _(LOCALIZED_TEXT("Keen Eye", "Bystrý zrak")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Accuracy can't be lowered.", "Přesnost nelze snížit.")),
         .aiRating = 1,
         .breakable = TRUE,
     },
@@ -448,8 +448,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_CUTE_CHARM] =
     {
-        .name = _("Cute Charm"),
-        .description = COMPOUND_STRING("May infatuate on contact."),
+        .name = _(LOCALIZED_TEXT("Cute Charm", "Roztomilost")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("May infatuate on contact.", "Při kontaktu může vyvolat zamilování.")),
         .aiRating = 2,
     },
 
@@ -554,8 +554,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_ROCK_HEAD] =
     {
-        .name = _("Rock Head"),
-        .description = COMPOUND_STRING("Prevents recoil damage."),
+        .name = _(LOCALIZED_TEXT("Rock Head", "Tvrdá hlava")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Prevents recoil damage.", "Chrání před zpětným zraněním.")),
         .aiRating = 5,
     },
 
@@ -687,16 +687,16 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SIMPLE] =
     {
-        .name = _("Simple"),
-        .description = COMPOUND_STRING("Doubles stat changes."),
+        .name = _(LOCALIZED_TEXT("Simple", "Prostota")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Doubles stat changes.", "Zdvojnásobuje změny statistik.")),
         .aiRating = 8,
         .breakable = TRUE,
     },
 
     [ABILITY_DRY_SKIN] =
     {
-        .name = _("Dry Skin"),
-        .description = COMPOUND_STRING("Heat hurts, Water restores."),
+        .name = _(LOCALIZED_TEXT("Dry Skin", "Suchá kůže")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Heat hurts, Water restores.", "Voda ho léčí, horko ho zraňuje.")),
         .aiRating = 6,
         .breakable = TRUE,
     },
@@ -710,8 +710,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_IRON_FIST] =
     {
-        .name = _("Iron Fist"),
-        .description = COMPOUND_STRING("Powers up punching moves."),
+        .name = _(LOCALIZED_TEXT("Iron Fist", "Železná pěst")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Powers up punching moves.", "Zesiluje údery pěstí.")),
         .aiRating = 6,
     },
 
@@ -731,8 +731,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SKILL_LINK] =
     {
-        .name = _("Skill Link"),
-        .description = COMPOUND_STRING("Maxes multistrike hits."),
+        .name = _(LOCALIZED_TEXT("Skill Link", "Série zásahů")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Maxes multistrike hits.", "Vícezásahové útoky mají nejvíc\nzásahů.")),
         .aiRating = 7,
     },
 
@@ -773,8 +773,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_MAGIC_GUARD] =
     {
-        .name = _("Magic Guard"),
-        .description = COMPOUND_STRING("Only damaged by attacks."),
+        .name = _(LOCALIZED_TEXT("Magic Guard", "Kouzelný štít")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Only damaged by attacks.", "Zraňují ho jen přímé útoky.")),
         .aiRating = 9,
     },
 
@@ -801,8 +801,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_LEAF_GUARD] =
     {
-        .name = _("Leaf Guard"),
-        .description = COMPOUND_STRING("Blocks status in sunlight."),
+        .name = _(LOCALIZED_TEXT("Leaf Guard", "Listový štít")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Blocks status in sunlight.", "Na slunci brání změnám stavu.")),
         .aiRating = 2,
         .breakable = TRUE,
     },
@@ -851,8 +851,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_UNAWARE] =
     {
-        .name = _("Unaware"),
-        .description = COMPOUND_STRING("Ignores foes' stat changes."),
+        .name = _(LOCALIZED_TEXT("Unaware", "Nevšímavost")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Ignores foes' stat changes.", "Ignoruje změny statistik soupeřů.")),
         .aiRating = 6,
         .breakable = TRUE,
     },
@@ -992,8 +992,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SHEER_FORCE] =
     {
-        .name = _("Sheer Force"),
-        .description = COMPOUND_STRING("Trades effects for power."),
+        .name = _(LOCALIZED_TEXT("Sheer Force", "Hrubá síla")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Trades effects for power.", "Zesílí útoky; ruší vedlejší účinky.")),
         .aiRating = 8,
     },
 
@@ -1007,8 +1007,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_UNNERVE] =
     {
-        .name = _("Unnerve"),
-        .description = COMPOUND_STRING("Foes can't eat Berries."),
+        .name = _(LOCALIZED_TEXT("Unnerve", "Nervozita")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Foes can't eat Berries.", "Soupeři nemohou jíst bobule.")),
         .aiRating = 3,
     },
 
@@ -1042,23 +1042,23 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_FRIEND_GUARD] =
     {
-        .name = _("Friend Guard"),
-        .description = COMPOUND_STRING("Reduces damage to allies."),
+        .name = _(LOCALIZED_TEXT("Friend Guard", "Ochrana druhů")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Reduces damage to allies.", "Snižuje zranění spojenců.")),
         .aiRating = 0,
         .breakable = TRUE,
     },
 
     [ABILITY_WEAK_ARMOR] =
     {
-        .name = _("Weak Armor"),
-        .description = COMPOUND_STRING("Hits change Def and Speed."),
+        .name = _(LOCALIZED_TEXT("Weak Armor", "Slabý pancíř")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Hits change Def and Speed.", "Fyzický zásah sníží obranu a zrychlí.")),
         .aiRating = 2,
     },
 
     [ABILITY_HEAVY_METAL] =
     {
-        .name = _("Heavy Metal"),
-        .description = COMPOUND_STRING("Doubles weight."),
+        .name = _(LOCALIZED_TEXT("Heavy Metal", "Těžký kov")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Doubles weight.", "Zdvojnásobí vlastní hmotnost.")),
         .aiRating = -1,
         .breakable = TRUE,
     },
@@ -1110,8 +1110,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_MOODY] =
     {
-        .name = _("Moody"),
-        .description = COMPOUND_STRING("Stats change every turn."),
+        .name = _(LOCALIZED_TEXT("Moody", "Náladovost")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Stats change every turn.", "Každé kolo změní dvě statistiky.")),
         .aiRating = 10,
     },
 
@@ -1137,8 +1137,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_REGENERATOR] =
     {
-        .name = _("Regenerator"),
-        .description = COMPOUND_STRING("Restores HP upon switch."),
+        .name = _(LOCALIZED_TEXT("Regenerator", "Regenerace")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Restores HP upon switch.", "Při výměně obnoví část HP.")),
         .aiRating = 8,
     },
 
@@ -1152,8 +1152,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SAND_RUSH] =
     {
-        .name = _("Sand Rush"),
-        .description = COMPOUND_STRING("Ups Speed in a sandstorm."),
+        .name = _(LOCALIZED_TEXT("Sand Rush", "Písečný běh")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Ups Speed in a sandstorm.", "V písečné bouři zdvojnásobí rychlost.")),
         .aiRating = 6,
     },
 
@@ -1207,8 +1207,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_MOXIE] =
     {
-        .name = _("Moxie"),
-        .description = COMPOUND_STRING("Raises Attack after KOs."),
+        .name = _(LOCALIZED_TEXT("Moxie", "Sebevědomí")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Raises Attack after KOs.", "Po vyřazení cíle zvýší svůj útok.")),
         .aiRating = 7,
     },
 
@@ -1251,8 +1251,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SAND_FORCE] =
     {
-        .name = _("Sand Force"),
-        .description = COMPOUND_STRING("Powers up in a sandstorm."),
+        .name = _(LOCALIZED_TEXT("Sand Force", "Síla písku")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Powers up in a sandstorm.", "V písku zesílí kámen, zem a ocel.")),
         .aiRating = 4,
     },
 
@@ -1551,8 +1551,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_STAKEOUT] =
     {
-        .name = _("Stakeout"),
-        .description = COMPOUND_STRING("Stronger on foe's switch in."),
+        .name = _(LOCALIZED_TEXT("Stakeout", "Číhání")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Stronger on foe's switch in.", "Silněji zasáhne právě vystřídaný cíl.")),
         .aiRating = 6,
     },
 

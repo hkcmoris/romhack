@@ -1,0 +1,30 @@
+{
+  "changed_game_asset_files": [
+    "graphics/pokemon/nimbatu/back.png"
+  ],
+  "visible_bounds": [
+    12,
+    4,
+    61,
+    64
+  ],
+  "vertical_grid_alignment_pixels": 1,
+  "clear_side_margin_pixels": [
+    12,
+    3
+  ],
+  "lower_shoulders_and_folded_wings_bounds": [
+    21,
+    45,
+    54,
+    64
+  ],
+  "palette_unchanged": true,
+  "all_other_native_assets_byte_identical": true,
+  "native_size": [
+    64,
+    64
+  ],
+  "png_mode": "4-bit indexed, transparent index 0",
+  "visual_review": "Wings folded against body. No spread wing or feather tips intersect the side boundaries. Head, neck, shoulders and folded upper wings only; body crop meets bottom edge."
+}

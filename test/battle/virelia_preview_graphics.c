@@ -10,7 +10,7 @@ SINGLE_BATTLE_TEST("Virelia starter graphics load on both sides of a normal batt
     enum Species species = SPECIES_NONE;
     s16 playerDamage, opponentDamage;
     PARAMETRIZE { species = SPECIES_POOCHYENA_VIRELIA; }
-    PARAMETRIZE { species = SPECIES_SPINARAK_VIRELIA; }
+    PARAMETRIZE { species = SPECIES_NATU_VIRELIA; }
     PARAMETRIZE { species = SPECIES_EKANS_VIRELIA; }
 
     GIVEN {

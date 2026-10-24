@@ -1,0 +1,113 @@
+{
+  "id": "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE",
+  "name": "Virelia_Slateford_QuarryEntrance",
+  "layout": "LAYOUT_VIRELIA_SLATEFORD_QUARRY_ENTRANCE",
+  "music": "MUS_PETALBURG_WOODS",
+  "region_map_section": "MAPSEC_VIRELIA_SLATEFORD_CITY",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_UNDERGROUND",
+  "allow_cycling": false,
+  "allow_escaping": true,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_HIKER",
+      "x": 8,
+      "y": 12,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "1",
+      "script": "Virelia_Slateford_QuarryEntrance_EventScript_Bruno",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 5,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_Slateford_QuarryEntrance_EventScript_Item",
+      "flag": "FLAG_VIRELIA_ITEM_QUARRY_SUPER_POTION"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_HIKER",
+      "x": 5,
+      "y": 15,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_Slateford_QuarryEntrance_EventScript_Guide",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 7,
+      "y": 6,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_Slateford_QuarryGallery_EventScript_Wrench",
+      "flag": "FLAG_VIRELIA_TOOL_WRENCH"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 3,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_SLATEFORD_CITY",
+      "dest_warp_id": "3"
+    },
+    {
+      "x": 20,
+      "y": 4,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 17,
+      "y": 5,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_Slateford_QuarryEntrance_EventScript_Equipment"
+    },
+    {
+      "type": "sign",
+      "x": 4,
+      "y": 3,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_Slateford_QuarryEntrance_EventScript_GalleryGate"
+    }
+  ],
+  "region": "REGION_HOENN"
+}

@@ -8,6 +8,7 @@ Use --base <committed-starter-revision> to also enforce unchanged legacy assets.
 import argparse
 from collections import deque
 import json
+import re
 from pathlib import Path
 import struct
 import subprocess
@@ -21,8 +22,15 @@ NAMES = (
     "Virelia_Route01",
     "Virelia_SlatefordCity",
     "Virelia_MaplebrookPlayersHouse",
+    "Virelia_Slateford_PokemonCenter",
+    "Virelia_Slateford_Mart",
+    "Virelia_Slateford_QuarryEntrance",
+    "Virelia_Slateford_QuarryDepths",
+    "Virelia_Slateford_Gym",
+    "Virelia_Slateford_QuarryGallery",
+    "Virelia_WhisperwoodSanctuary",
 )
-TOWN, LAB, ROUTE, CITY, HOME = NAMES
+TOWN, LAB, ROUTE, CITY, HOME = NAMES[:5]
 GROUPS = ("gMapGroup_VireliaOverworld", "gMapGroup_VireliaInteriors")
 OPPOSITE = {"up": "down", "down": "up", "left": "right", "right": "left"}
 
@@ -90,8 +98,8 @@ def validate(base=None):
     unique([section["id"] for section in sections], "map section IDs")
     require(len(sections) < 0xFD, "Map sections overlap reserved Pokemon met-location IDs")
     require(groups["group_order"][-2:] == list(GROUPS), "Virelia groups must be appended")
-    require(groups[GROUPS[0]] == [TOWN, ROUTE, CITY], "Unexpected Virelia overworld IDs")
-    require(groups[GROUPS[1]] == [LAB, HOME], "Unexpected Virelia interior IDs")
+    require(groups[GROUPS[0]] == [TOWN, ROUTE, CITY, NAMES[-1]], "Unexpected Virelia overworld IDs")
+    require(groups[GROUPS[1]] == [LAB, HOME, *NAMES[5:-1]], "Unexpected Virelia interior IDs")
     require(groups["group_order"].index(GROUPS[1]) < 0x7F, "Virelia group exceeds signed warp storage")
     if base:
         verify_legacy(base, groups, layouts, sections)
@@ -102,6 +110,40 @@ def validate(base=None):
     by_id = {entry["id"]: name for name, entry in maps.items()}
     unique([entry["id"] for entry in maps.values()], "Virelia map IDs")
     unique([entry["layout"] for entry in maps.values()], "Virelia layouts")
+    # Reachability below checks the eventual completed state of dynamic gates.
+    # The first-Gym validator separately proves locked-state puzzle gating.
+    dynamic_open = {
+        "Virelia_Slateford_QuarryDepths": {(11, 6)},
+        "Virelia_Slateford_Gym": {(6, 6)},
+        ROUTE: {(1, 8), (1, 9), (1, 16), (1, 17)},
+        "Virelia_WhisperwoodSanctuary": {(16, 2), (16, 3), (20, 10), (20, 11)},
+    }
+    tileset_headers = (ROOT / "src/data/tilesets/headers.h").read_text()
+    metatile_sources = (ROOT / "src/data/tilesets/metatiles.h").read_text()
+    behavior_names = re.findall(r"\b(MB_[A-Z0-9_]+)\s*,", (ROOT / "include/constants/metatile_behaviors.h").read_text())
+    counter_behavior = behavior_names.index("MB_COUNTER")
+    tileset_attrs = {}
+
+    def tile_behavior(name, x, y):
+        tile = block(name, x, y)
+        if tile is None:
+            return None
+        metatile = tile & 0x3FF
+        layout = by_layout[maps[name]["layout"]]
+        tileset = layout["primary_tileset" if metatile < 512 else "secondary_tileset"]
+        if tileset not in tileset_attrs:
+            header = re.search(r"const struct Tileset " + tileset + r"\s*=\s*\{(.*?)\};", tileset_headers, re.S)
+            require(header is not None, f"Unknown tileset: {tileset}")
+            symbol = re.search(r"\.metatileAttributes\s*=\s*(\w+)", header.group(1)).group(1)
+            source = re.search(r"const u16 " + symbol + r"\[\] = INCBIN_U16\(\"([^\"]+)\"\)", metatile_sources)
+            require(source is not None, f"Missing native attributes: {symbol}")
+            raw_attrs = (ROOT / source.group(1)).read_bytes()
+            tileset_attrs[tileset] = struct.unpack(f"<{len(raw_attrs) // 2}H", raw_attrs)
+        attrs = tileset_attrs[tileset]
+        offset = metatile if metatile < 512 else metatile - 512
+        require(offset < len(attrs), f"{name}: invalid native metatile index {metatile}")
+        return attrs[offset] & 0xFF
+
     blocks, occupied = {}, {}
     for name, entry in maps.items():
         require(entry["region"] == "REGION_HOENN", f"{name}: Emerald compiler region mismatch")
@@ -138,7 +180,7 @@ def validate(base=None):
     def walkable(node):
         name, x, y = node
         tile = block(name, x, y)
-        return tile is not None and not tile & 0xC00 and (x, y) not in occupied[name]
+        return tile is not None and (not tile & 0xC00 or (x, y) in dynamic_open.get(name, set())) and (x, y) not in occupied[name]
 
     def same_elevation(a, b):
         elevation_a, elevation_b = block(*a) >> 12, block(*b) >> 12
@@ -167,9 +209,19 @@ def validate(base=None):
         require(walkable(node), f"{name}: inaccessible door/warp {warp}")
         return node
 
+    warp_behaviors = {behavior_names.index(name) for name in (
+        "MB_ANIMATED_DOOR", "MB_NON_ANIMATED_DOOR", "MB_LADDER",
+        "MB_EAST_ARROW_WARP", "MB_WEST_ARROW_WARP", "MB_NORTH_ARROW_WARP", "MB_SOUTH_ARROW_WARP",
+    )}
+    animated_door = behavior_names.index("MB_ANIMATED_DOOR")
     warp_points = []
     for name, entry in maps.items():
         for warp in entry["warp_events"]:
+            behavior = tile_behavior(name, warp["x"], warp["y"])
+            require(behavior in warp_behaviors,
+                    f"{name}: warp tile has no native walking/door behavior: {warp}")
+            require(behavior == animated_door or not block(name, warp["x"], warp["y"]) & 0xC00,
+                    f"{name}: non-animated warp tile is blocked: {warp}")
             require(warp["dest_map"] in by_id, f"{name}: unexpected external warp")
             target_name = by_id[warp["dest_map"]]
             target_warps = maps[target_name]["warp_events"]
@@ -185,18 +237,28 @@ def validate(base=None):
             direction, offset = connection["direction"], int(connection["offset"])
             require(connection["map"] in by_id, f"{name}: unexpected external connection")
             target_name = by_id[connection["map"]]
+            source_layout = by_layout[entry["layout"]]
+            target_layout = by_layout[maps[target_name]["layout"]]
+            for key in ("primary_tileset", "secondary_tileset"):
+                require(source_layout[key] == target_layout[key],
+                        f"{name} -> {target_name}: connected maps must share {key} for native border rendering")
             require(any(back["map"] == entry["id"] and back["direction"] == OPPOSITE[direction]
                         and int(back["offset"]) == -offset
                         for back in maps[target_name].get("connections") or []),
                     f"{name}: missing reciprocal connection")
-            require(direction in ("up", "down"), f"{name}: v0.1 expects north/south connections")
             width, height = dimensions(name)
-            target_height = dimensions(target_name)[1]
-            source_y, target_y = (0, target_height - 1) if direction == "up" else (height - 1, 0)
+            target_width, target_height = dimensions(target_name)
             seam_count = 0
-            for x in range(width):
-                source_node = name, x, source_y
-                target_node = target_name, x - offset, target_y
+            vertical = direction in ("up", "down")
+            for coordinate in range(width if vertical else height):
+                if vertical:
+                    source_y, target_y = (0, target_height - 1) if direction == "up" else (height - 1, 0)
+                    source_node = name, coordinate, source_y
+                    target_node = target_name, coordinate - offset, target_y
+                else:
+                    source_x, target_x = (0, target_width - 1) if direction == "left" else (width - 1, 0)
+                    source_node = name, source_x, coordinate
+                    target_node = target_name, target_x, coordinate - offset
                 if walkable(source_node) and walkable(target_node) and same_elevation(source_node, target_node):
                     edges[source_node].append(target_node)
                     seam_count += 1
@@ -222,6 +284,13 @@ def validate(base=None):
         for obj in maps[name]["object_events"]:
             adjacent = {(name, obj["x"] + dx, obj["y"] + dy)
                         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))}
+            # The engine extends A-button interaction by one tile across an
+            # actual MB_COUNTER. A wall or arbitrary blocked tile never qualifies.
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                counter = name, obj["x"] + dx, obj["y"] + dy
+                stand = name, obj["x"] + 2 * dx, obj["y"] + 2 * dy
+                if tile_behavior(*counter) == counter_behavior and stand in seen:
+                    adjacent.add(stand)
             require(bool(adjacent & seen), f"{name}: object cannot be approached: {obj.get('local_id', obj['script'])}")
 
     general_attrs = (ROOT / "data/tilesets/primary/general/metatile_attributes.bin").read_bytes()
@@ -230,6 +299,16 @@ def validate(base=None):
     grass = [node for node in seen if node[0] == ROUTE and (block(*node) & 0x3FF) < len(attrs)
              and attrs[block(*node) & 0x3FF] & 0xFF == 0x02]
     require(grass, "No reachable native tall grass on Route 01")
+    behavior_source = (ROOT / "src/metatile_behavior.c").read_text(encoding="utf-8")
+    encounter_behaviors = {
+        behavior_names.index(name) for name, flags in
+        re.findall(r"\[(MB_[A-Z0-9_]+)\]\s*=([^,]+),", behavior_source)
+        if "TILE_FLAG_HAS_ENCOUNTERS" in flags and "TILE_FLAG_SURFABLE" not in flags
+    }
+    for cave in ("Virelia_Slateford_QuarryEntrance", "Virelia_Slateford_QuarryDepths"):
+        floors = [node for node in seen if node[0] == cave and tile_behavior(*node) in encounter_behaviors]
+        require(floors, f"{cave}: no reachable native land-encounter floor")
+        print(f"PASS: {cave}: {len(floors)} reachable encounter-enabled floor tiles")
     encounter_groups = read_json("src/data/wild_encounters.json")["wild_encounter_groups"]
     route_encounters = [entry for group in encounter_groups if group.get("for_maps")
                         for entry in group["encounters"] if entry["map"] == maps[ROUTE]["id"]]

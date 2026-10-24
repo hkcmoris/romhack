@@ -1,3 +1,4 @@
+#if TESTING
 gText_PkmnTransferredSomeonesPC::
 	.string "{STR_VAR_2} was transferred to\n"
 	.string "SOMEONE'S PC.\p"
@@ -48,3 +49,29 @@ gText_NoMoreRoomForPokemon::
 gText_NicknameThisPokemon::
 	.string "Do you want to give a nickname to\n"
 	.string "this {STR_VAR_1}?$"
+
+#else
+gText_PkmnTransferredSomeonesPC::
+	.string "{STR_VAR_2} odchází do PC.\pNový box: {STR_VAR_1}.$"
+
+gText_PkmnTransferredLanettesPC::
+	.string "{STR_VAR_2} odchází do PC.\pNový box: {STR_VAR_1}.$"
+
+gText_PkmnTransferredSomeonesPCBoxFull::
+	.string "Box {STR_VAR_3} je plný.\p{STR_VAR_2} odchází do PC.\nNový box: {STR_VAR_1}.$"
+
+gText_PkmnTransferredLanettesPCBoxFull::
+	.string "Box {STR_VAR_3} je plný.\p{STR_VAR_2} odchází do PC.\nNový box: {STR_VAR_1}.$"
+
+gText_PkmnSentToPCAfterCatch::
+	.string "{STR_VAR_2} odchází do\n{B_PC_CREATOR_NAME} PC.\pNový box: {STR_VAR_1}.$"
+
+gText_PlayerObtainedTheMon::
+	.string "{PLAYER} získává\nPokémona {STR_VAR_1}!$"
+
+gText_NoMoreRoomForPokemon::
+	.string "Pro další Pokémony není místo!\pVšechny boxy jsou plné.$"
+
+gText_NicknameThisPokemon::
+	.string "{STR_VAR_1}: chceš mu\ndát přezdívku?$"
+#endif

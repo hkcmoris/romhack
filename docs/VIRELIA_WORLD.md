@@ -149,10 +149,27 @@ Whisperwood Trail.
 
 | Area | Existing tilesets |
 | --- | --- |
-| Maplebrook Town | `gTileset_General` + `gTileset_Petalburg` |
+| Maplebrook Town | `gTileset_General` + `gTileset_VireliaOutdoor` |
 | Maplebrook Research Laboratory | `gTileset_Building` + `gTileset_Lab` |
-| Whisperwood Trail | `gTileset_General` + `gTileset_Rustboro` |
-| Slateford City | `gTileset_General` + `gTileset_Rustboro` |
+| Whisperwood Trail | `gTileset_General` + `gTileset_VireliaOutdoor` |
+| Slateford City | `gTileset_General` + `gTileset_VireliaOutdoor` |
+| Whisperwood Sanctuary | `gTileset_General` + `gTileset_VireliaOutdoor` |
+
+All four connected outdoor maps share the same secondary metatile IDs, graphics
+and palettes. The native connection buffer draws neighboring cells with the
+current map's tileset and retains their tile references when crossing a seam.
+Separate Petalburg, Rustboro and Fortree banks therefore caused sanctuary grass
+to appear as building pieces and left incorrect roof graphics after returning
+to Maplebrook.
+
+`tools/virelia/build_outdoor_tileset.py` packs the used artwork into
+`data/tilesets/secondary/virelia_outdoor/`. It preserves each pixel, flip,
+metatile behavior, collision and elevation, and reserves the final 16 graphics
+tiles for native door animations. Maplebrook's house and laboratory door IDs
+and animation palettes retain their stock values. The ROM build consumes the
+checked-in assets; regeneration uses Python and Pillow. After adding source
+artwork, extend the builder's source-ID table and regenerate. Validate with
+`python3 tools/validate_virelia_tilesets.py`; this check needs only Python.
 
 NPCs and item/starter display objects use existing Emerald object graphics.
 The laboratory displays are prototype props. The Poochyena regional line has
@@ -336,7 +353,7 @@ Screenshots and exact reproduction steps for failures:
   scripts. Making it reachable as a paced postgame requires a later campaign
   design. The inherited test quick start is not a full Hoenn story unlock.
 
-## Planned expansion
+## Historical foundation plan
 
 After the first-area playtest is accepted, expand Virelia in small connected
 milestones: complete Maplebrook interiors, add Slateford services and mine
@@ -353,3 +370,22 @@ content stable and evaluate save compatibility for each later change.
 Final tilesets, sprites, names, starter selection, story events, Gyms, Rocket
 missions, Mega Evolutions and an additional League remain future work. This
 branch stops at the four-map foundation.
+
+## v0.3 progression extension
+
+The [first Gym milestone](VIRELIA_FIRST_GYM.md) appends Slateford services, two
+quarry maps and Mara's Rock Gym to the completed prologue. The original map and
+species IDs remain fixed. Its independent Virelia badge flag does not repurpose
+Hoenn badges or imply that the eight-slot Trainer Card covers sixteen badges.
+The earlier foundation expansion notes above describe historical scope.
+
+The current playable boundary ends after Mara awards the Lomový odznak and
+Rock Tomb. Completed prologue saves retain their identifiers and cross a new
+chapter flag boundary. Quarry power, freight evidence, the manager's reopening,
+Gym puzzle, five trainer victories, badge and TM each have independent progress.
+Normal Center healing/whiteout, ordinary Pokemon Storage and Mart service are
+available before challenging the Gym. See the milestone document for map IDs,
+encounters, puzzle order, level curve, save tests and native verification.
+
+Later settlements, the second Gym, Storage lockdown, Porygon experiments,
+Mega Evolution and multiplayer work remain outside this milestone.

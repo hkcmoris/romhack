@@ -8,6 +8,9 @@
 // would hide execution through a ROM alias.
 static EWRAM_DATA uintptr_t sExecutionPc;
 static EWRAM_DATA u32 sExecutions;
+static EWRAM_DATA bool8 sNativeFinished;
+
+#define ROM_MIRROR_OFFSET 0x02000000
 #define RECORD_EXECUTION() do { uintptr_t pc; asm volatile ("mov %0, pc" : "=r" (pc)); sExecutionPc = pc; sExecutions++; } while (0)
 
 static NOINLINE bool8 MirrorCommand(struct ScriptContext *ctx)
@@ -19,7 +22,7 @@ static NOINLINE bool8 MirrorCommand(struct ScriptContext *ctx)
 static NOINLINE bool8 MirrorNative(void)
 {
     RECORD_EXECUTION();
-    return TRUE;
+    return sNativeFinished;
 }
 
 static USED NOINLINE void ScriptRomMirror_Call(struct ScriptContext *ctx)
@@ -47,71 +50,100 @@ static void ResetProbe(void)
     sExecutions = 0;
 }
 
-static void ExpectPrimaryExecution(void)
+static void ExpectExecutionRegion(u32 tagged)
 {
     EXPECT_EQ(sExecutions, 1);
-    EXPECT(sExecutionPc >= ROM_START);
-    EXPECT(sExecutionPc < ROM_END);
+    EXPECT(sExecutionPc >= ROM_START + tagged * ROM_MIRROR_OFFSET);
+    EXPECT(sExecutionPc < ROM_END + tagged * ROM_MIRROR_OFFSET);
 }
 
-TEST("Script ROM mirror normalization preserves primary ROM, RAM, null and Thumb bits")
+TEST("Script ROM mirror raw callback tags distinguish primary and mirror execution")
 {
-    static const uintptr_t addresses[][2] = {
-        {0, 0}, {0x02001235, 0x02001235}, {0x03000100, 0x03000100},
-        {0x08001235, 0x08001235}, {0x09FFFFFF, 0x09FFFFFF},
-        {0x0A000000, 0x08000000}, {0x0A223311, 0x08223311},
-        {0x0BFFFFFF, 0x09FFFFFF}, {0x0C000000, 0x0C000000},
-    };
-    for (u32 i = 0; i < ARRAY_COUNT(addresses); i++)
-        EXPECT_EQ(Script_GetExecutableAddress(addresses[i][0]), addresses[i][1]);
+    struct ScriptContext ctx;
+
+    // Positive controls bypass the dispatcher. PC must distinguish primary
+    // and mirror callbacks, rather than just reporting a C symbol's address.
+    for (u32 tagged = 0; tagged < 2; tagged++)
+    {
+        const uintptr_t raw = (uintptr_t)MirrorCommand + tagged * ROM_MIRROR_OFFSET;
+        ScrCmdFunc table[] = {(ScrCmdFunc)raw};
+        InitScriptContext(&ctx, table, table + ARRAY_COUNT(table));
+        EXPECT_EQ((uintptr_t)*ctx.cmdTable, raw);
+        ResetProbe();
+        (*ctx.cmdTable)(&ctx);
+        ExpectExecutionRegion(tagged);
+        EXPECT_EQ((uintptr_t)*ctx.cmdTable, raw);
+    }
 }
 
-TEST("Script ROM mirror command and deferred native dispatch execute primary ROM")
+TEST("Script ROM mirror command and deferred native dispatch retain raw execution addresses")
 {
     struct ScriptContext ctx;
     const u8 script[] = {0};
-    // Control: the runner really can observe execution in mirror 1.
-    ScrCmdFunc mirrored = (ScrCmdFunc)((uintptr_t)MirrorCommand + 0x02000000);
-    ResetProbe();
-    mirrored(&ctx);
-    EXPECT_EQ(sExecutions, 1);
-    EXPECT(sExecutionPc >= 0x0A000000);
-    EXPECT(sExecutionPc < 0x0C000000);
+
     for (u32 tagged = 0; tagged < 2; tagged++)
     {
-        ScrCmdFunc table[] = {(ScrCmdFunc)((uintptr_t)MirrorCommand + tagged * 0x02000000)};
+        const uintptr_t rawCommand = (uintptr_t)MirrorCommand + tagged * ROM_MIRROR_OFFSET;
+        const uintptr_t rawNative = (uintptr_t)MirrorNative + tagged * ROM_MIRROR_OFFSET;
+        ScrCmdFunc table[] = {(ScrCmdFunc)rawCommand};
         InitScriptContext(&ctx, table, table + ARRAY_COUNT(table));
         SetupBytecodeScript(&ctx, script);
         ResetProbe();
         EXPECT(RunScriptCommand(&ctx));
-        ExpectPrimaryExecution();
+        ExpectExecutionRegion(tagged);
+        EXPECT_EQ((uintptr_t)*ctx.cmdTable, rawCommand);
+
         InitScriptContext(&ctx, table, table + ARRAY_COUNT(table));
-        SetupNativeScript(&ctx, (bool8 (*)(void))((uintptr_t)MirrorNative + tagged * 0x02000000));
-        EXPECT_EQ((uintptr_t)ctx.nativePtr, (uintptr_t)MirrorNative + tagged * 0x02000000);
+        SetupNativeScript(&ctx, (bool8 (*)(void))rawNative);
+        const u8 nativeMode = ctx.mode;
+        EXPECT_EQ((uintptr_t)ctx.nativePtr, rawNative);
+        sNativeFinished = FALSE;
         ResetProbe();
         EXPECT(RunScriptCommand(&ctx));
-        ExpectPrimaryExecution();
+        ExpectExecutionRegion(tagged);
+        EXPECT_EQ(ctx.mode, nativeMode);
+        EXPECT_EQ((uintptr_t)ctx.nativePtr, rawNative);
+
+        sNativeFinished = TRUE;
+        ResetProbe();
+        EXPECT(RunScriptCommand(&ctx));
+        ExpectExecutionRegion(tagged);
+        EXPECT_NE(ctx.mode, nativeMode);
+        EXPECT_EQ((uintptr_t)ctx.nativePtr, rawNative);
+        // There is no bytecode after this native, so its completed wait must
+        // advance to the ordinary stopped context on the next update.
+        EXPECT(!RunScriptCommand(&ctx));
     }
 }
 
-TEST("Script ROM mirror callnative and gotonative execute primary ROM")
+TEST("Script ROM mirror callnative and gotonative preserve marked and unmarked targets")
 {
     struct ScriptContext ctx;
     extern ScrCmdFunc gScriptCmdTable[], gScriptCmdTableEnd[];
-    const u8 *call = OVERWORLD_SCRIPT(callnative ScriptRomMirror_Call, requests_effects=1; end;);
-    const u8 *go = OVERWORLD_SCRIPT(gotonative ScriptRomMirror_Goto, requests_effects=1; end;);
-    ResetProbe();
-    RunScriptImmediately(call);
-    ExpectPrimaryExecution();
-    InitScriptContext(&ctx, gScriptCmdTable, gScriptCmdTableEnd);
-    SetupBytecodeScript(&ctx, go);
-    ResetProbe();
-    EXPECT(RunScriptCommand(&ctx));
-    EXPECT_EQ(sExecutions, 0);
-    EXPECT((uintptr_t)ctx.nativePtr >= 0x0A000000);
-    EXPECT((uintptr_t)ctx.nativePtr < 0x0C000000);
-    EXPECT(RunScriptCommand(&ctx));
-    ExpectPrimaryExecution();
+    const u8 *calls[] = {
+        OVERWORLD_SCRIPT(callnative ScriptRomMirror_Call; end;),
+        OVERWORLD_SCRIPT(callnative ScriptRomMirror_Call, requests_effects=1; end;),
+    };
+    const u8 *gotos[] = {
+        OVERWORLD_SCRIPT(gotonative ScriptRomMirror_Goto; end;),
+        OVERWORLD_SCRIPT(gotonative ScriptRomMirror_Goto, requests_effects=1; end;),
+    };
+
+    for (u32 tagged = 0; tagged < 2; tagged++)
+    {
+        ResetProbe();
+        RunScriptImmediately(calls[tagged]);
+        ExpectExecutionRegion(tagged);
+        InitScriptContext(&ctx, gScriptCmdTable, gScriptCmdTableEnd);
+        SetupBytecodeScript(&ctx, gotos[tagged]);
+        ResetProbe();
+        EXPECT(RunScriptCommand(&ctx));
+        EXPECT_EQ(sExecutions, 0);
+        EXPECT_EQ((uintptr_t)ctx.nativePtr, (uintptr_t)ScriptRomMirror_Goto + tagged * ROM_MIRROR_OFFSET);
+        EXPECT(RunScriptCommand(&ctx));
+        ExpectExecutionRegion(tagged);
+        EXPECT_EQ((uintptr_t)ctx.nativePtr, (uintptr_t)ScriptRomMirror_Goto + tagged * ROM_MIRROR_OFFSET);
+    }
 }
 
 TEST("Script ROM mirror effects analysis keeps raw tags and blocks save effects")
@@ -121,7 +153,7 @@ TEST("Script ROM mirror effects analysis keeps raw tags and blocks save effects"
     const u8 *unknown = OVERWORLD_SCRIPT(callnative ScriptRomMirror_Call; end;);
     ResetProbe();
     EXPECT(Script_HasNoEffect(safe));
-    ExpectPrimaryExecution();
+    ExpectExecutionRegion(1);
     ResetProbe();
     EXPECT(!Script_HasNoEffect(save));
     EXPECT_EQ(sExecutions, 0);
@@ -130,7 +162,7 @@ TEST("Script ROM mirror effects analysis keeps raw tags and blocks save effects"
     EXPECT_EQ(gScriptEffectContext, NULL);
 }
 
-TEST("Script ROM mirror copyvar and compare preserve the starter switch")
+TEST("Script ROM mirror copyvar and compare preserve the fire starter switch")
 {
     const u8 *script = OVERWORLD_SCRIPT(
         copyvar VAR_0x8000, VAR_0x8004;

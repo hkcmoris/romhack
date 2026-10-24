@@ -1,3 +1,4 @@
+#include "localization.h"
 #ifdef __INTELLISENSE__
 const struct SpeciesInfo gSpeciesInfoGen7[] =
 {
@@ -714,14 +715,10 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .speciesName = _("Pikipek"),
         .cryId = CRY_PIKIPEK,
         .natDexNum = NATIONAL_DEX_PIKIPEK,
-        .categoryName = _("Woodpecker"),
+        .categoryName = _(LOCALIZED_TEXT("Woodpecker", "Datel")),
         .height = 3,
         .weight = 12,
-        .description = COMPOUND_STRING(
-            "This Pokémon feeds on berries, whose\n"
-            "leftover seeds become the ammunition for\n"
-            "the attacks it fires off from its mouth.\n"
-            "It uses holes in trees for nesting."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("This Pokémon feeds on berries, whose\nleftover seeds become the ammunition for\nthe attacks it fires off from its mouth.\nIt uses holes in trees for nesting.", "Živí se bobulemi. Zbylá semena používá\njako střelivo, které chrlí ze zobáku.\nHnízdí v dutinách stromů.")),
         .pokemonScale = 530,
         .pokemonOffset = 13,
         .trainerScale = 256,
@@ -785,14 +782,10 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .speciesName = _("Trumbeak"),
         .cryId = CRY_TRUMBEAK,
         .natDexNum = NATIONAL_DEX_TRUMBEAK,
-        .categoryName = _("Bugle Beak"),
+        .categoryName = _(LOCALIZED_TEXT("Bugle Beak", "Troubící")),
         .height = 6,
         .weight = 148,
-        .description = COMPOUND_STRING(
-            "By bending its beak, it can produce a\n"
-            "variety of calls and brand itself a noisy\n"
-            "nuisance for its neighbors. It eats\n"
-            "berries and stores their seeds in its beak."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("By bending its beak, it can produce a\nvariety of calls and brand itself a noisy\nnuisance for its neighbors. It eats\nberries and stores their seeds in its beak.", "Ohýbáním zobáku vydává různé hlasité\nzvuky, kterými obtěžuje sousedy. Živí\nse bobulemi a jejich semena uchovává v\nzobáku.")),
         .pokemonScale = 422,
         .pokemonOffset = 12,
         .trainerScale = 256,

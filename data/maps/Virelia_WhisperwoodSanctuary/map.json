@@ -1,0 +1,100 @@
+{
+  "id": "MAP_VIRELIA_WHISPERWOOD_SANCTUARY",
+  "name": "Virelia_WhisperwoodSanctuary",
+  "layout": "LAYOUT_VIRELIA_WHISPERWOOD_SANCTUARY",
+  "music": "MUS_PETALBURG_WOODS",
+  "region_map_section": "MAPSEC_VIRELIA_WHISPERWOOD_TRAIL",
+  "requires_flash": false,
+  "weather": "WEATHER_SUNNY",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_VIRELIA_ROUTE01",
+      "offset": -6,
+      "direction": "right"
+    }
+  ],
+  "object_events": [],
+  "warp_events": [],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 6,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_WhisperwoodSanctuary_EventScript_SeedStone"
+    },
+    {
+      "type": "sign",
+      "x": 12,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_WhisperwoodSanctuary_EventScript_RainStone"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_WhisperwoodSanctuary_EventScript_RootStone"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 9,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_WhisperwoodSanctuary_EventScript_AncientTree"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 10,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_WhisperwoodSanctuary_EventScript_Pawprints"
+    },
+    {
+      "type": "sign",
+      "x": 10,
+      "y": 11,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_WhisperwoodSanctuary_EventScript_Pawprints"
+    },
+    {
+      "type": "sign",
+      "x": 11,
+      "y": 13,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_WhisperwoodSanctuary_EventScript_Pawprints"
+    },
+    {
+      "type": "sign",
+      "x": 16,
+      "y": 2,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_WhisperwoodSanctuary_EventScript_ShortcutRoots"
+    },
+    {
+      "type": "sign",
+      "x": 16,
+      "y": 3,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_WhisperwoodSanctuary_EventScript_ShortcutRoots"
+    }
+  ],
+  "region": "REGION_HOENN"
+}

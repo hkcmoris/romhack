@@ -1166,10 +1166,17 @@
   "gMapGroup_VireliaOverworld": [
     "Virelia_MaplebrookTown",
     "Virelia_Route01",
-    "Virelia_SlatefordCity"
+    "Virelia_SlatefordCity",
+    "Virelia_WhisperwoodSanctuary"
   ],
   "gMapGroup_VireliaInteriors": [
     "Virelia_MaplebrookResearchLaboratory",
-    "Virelia_MaplebrookPlayersHouse"
+    "Virelia_MaplebrookPlayersHouse",
+    "Virelia_Slateford_PokemonCenter",
+    "Virelia_Slateford_Mart",
+    "Virelia_Slateford_QuarryEntrance",
+    "Virelia_Slateford_QuarryDepths",
+    "Virelia_Slateford_Gym",
+    "Virelia_Slateford_QuarryGallery"
   ]
 }

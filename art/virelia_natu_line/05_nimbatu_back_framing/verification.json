@@ -1,0 +1,26 @@
+{
+  "changed_game_asset_files": [
+    "graphics/pokemon/nimbatu/back.png"
+  ],
+  "before_visible_bounds": [
+    2,
+    8,
+    62,
+    56
+  ],
+  "after_visible_bounds": [
+    1,
+    3,
+    64,
+    64
+  ],
+  "bottom_edge_opaque_pixels": 52,
+  "palette_unchanged": true,
+  "all_other_native_assets_byte_identical": true,
+  "native_size": [
+    64,
+    64
+  ],
+  "png_mode": "4-bit indexed, transparent index 0",
+  "visual_review": "Head, neck, shoulders and upper wings only; lower body, legs, feet and tail excluded by bottom crop."
+}

@@ -1,0 +1,100 @@
+{
+  "tool": "built-in imagegen",
+  "reference": "User-provided Virelian Natu / Virelian Xatu / Nimbatu concept art",
+  "source_assets": [
+    "graphics/pokemon/natu/anim_front.png",
+    "graphics/pokemon/natu/back.png",
+    "graphics/pokemon/natu/icon.png",
+    "graphics/pokemon/xatu/anim_front.png",
+    "graphics/pokemon/xatu/back.png",
+    "graphics/pokemon/xatu/icon.png"
+  ],
+  "common_constraints": {
+    "native_sheet": [
+      192,
+      128
+    ],
+    "edit_sheet": [
+      1536,
+      1024
+    ],
+    "scale": 8,
+    "front_frames": 2,
+    "back_frames": 1,
+    "icon_frames": 2,
+    "transparent_background": true,
+    "style": "Copied source silhouettes and poses with aquatic palette and small concept-detail edits. Hard pixel clusters, no backdrop or text."
+  },
+  "steps": [
+    {
+      "id": "natu_recolor",
+      "target": "01_originals/sheets/natu-8x.png",
+      "output": "02_recolored/natu-raw.png",
+      "prompt": "Palette recolor only of the copied original Natu sheet. Preserve outlines, silhouettes, poses, positions, front frames, back and icons. Green plumage becomes teal/aqua with navy shadows, red/brown feathers become deeper aquatic blue, yellow beak remains golden, gray/white marks become pale cream. No new anatomy at this stage."
+    },
+    {
+      "id": "xatu_recolor",
+      "target": "01_originals/sheets/xatu-8x.png",
+      "output": "02_recolored/xatu-raw.png",
+      "prompt": "Palette recolor only of the copied original Xatu sheet. Preserve both front poses, back crop, icon size and exact sheet layout. Green feathers become teal/cyan with navy shadows; orange/red feathers become deeper blue. Keep white plumage pale and beak gold. No crest, cheek markings, tail extensions or wing-size changes yet."
+    },
+    {
+      "id": "nimbatu_copy",
+      "target": "02_recolored/xatu.png",
+      "output": "02_recolored/nimbatu.png",
+      "operation": "Exact filesystem copy, verified byte-for-byte identical before detail edits."
+    },
+    {
+      "id": "natu_details",
+      "target": "02_recolored/natu-8x.png",
+      "output": "03_concept_edits/natu-raw.png",
+      "prompt": "Precise small-detail edit of the copied and recolored Natu game sprites. Preserve original body, beak, feet, facing, both front poses and back composition. Split the single head spike into two short swept-back blue feather leaves. Replace the yellow cheek patch with a white teardrop ring and dark-blue center; add a small pale belly patch, muted-magenta eye rim and tiny gold-bordered forehead feather. Apply corresponding details to back and both party icons."
+    },
+    {
+      "id": "natu_back_correction",
+      "prompt": "A single targeted correction to this Natu pixel sprite sheet. Keep the exact canvas1536x1024, sprite positions, both front poses, icons and all already-correct details unchanged. In the large BACK sprite at upper middle only, replace the large GOLD/BROWN patch on the right side of its body with a small folded aquatic BLUE wing: dark navy outline, teal-blue feathers and two lighter blue feather stripes. The only gold visible in that BACK sprite should be the small BEAK at upper right. If the cheek peeks around the head edge, give it a tiny white ring with blue center, matching the existing front sprites; no yellow cheek/wing. Keep two blue crest feathers, pale lower-belly patch and the unchanged original cropped back pose. Everything stays crisp8x8 square pixel blocks on the existing grid. Fully transparent background, binary alpha, no glow, halos or shadows; at most15 solid colors. Do not alter or reposition the other four sprites. Return the same production sprite sheet layout."
+    },
+    {
+      "id": "xatu_details",
+      "target": "02_recolored/xatu-8x.png",
+      "output": "03_concept_edits/xatu-raw.png",
+      "prompt": "Precise small-detail edit of IMAGE1 copied/recolored original Xatu battle and party sprites to create VIRELIAN XATU, the MIDDLE evolution in IMAGE2. Preserve the source Xatu's body proportions, both distinct front poses (folded wings idle, raised wings second frame), facing, feet, cells and the cropped back-sprite format. Add only characteristic details: two short swept-back teal crest feathers, a white circular cheek marking with dark-blue teardrop center near the eye, subtle muted-magenta eye rim, navy neck collar, a small gold zigzag/diamond motif across upper chest, white belly and white lower wing bands, slightly lengthened blue tail feathers with one small gold-edged teardrop tip. Keep the familiar original silhouette and authentic sparse Pokemon pixel clusters. Tail can extend a few native pixels but must fit64x64 cell. In back view crest, white wing tips and slim blue/gold tail streak should agree with front; no big gold or brown wing blocks. Same changes simplified into both tiny party icons. Do not redraw as a large illustration or a new species body. Native sheet192x128; output1536x1024 with each native pixel an aligned flat8x8 square, at most15 opaque colors in teal/navy/white/gold plus tiny magenta. Immutable layout: front1 x0..511 y0..511, front2 x0..511 y512..1023, back x512..1023 y0..511, party icons x1024..1279 y0..255 and y256..511. All unused areas transparent; no cell spill. No glow, mist, shadows, background, grid, labels or text. Crisp hard-edged pixel art only; binary alpha. Preserve the small creature sizes from image1."
+    },
+    {
+      "id": "nimbatu_details",
+      "target": "02_recolored/nimbatu-8x.png",
+      "output": "03_concept_edits/nimbatu-raw.png",
+      "prompt": "Develop the exact copied recolored Xatu into Nimbatu, retaining Xatu head, neck, torso and legs. Broaden raised wings inside each frame with navy outer feathers and a white lower feather band. Add gold shoulder chevrons, swept blue/gold fan crest, white teardrop cheek, small magenta eye rim, gold chest chevrons and a fan of longer blue tail feathers. Reflect the design in the back and both party icons. Keep original game pixel style and no separate weather effects."
+    },
+    {
+      "id": "nimbatu_front_alignment",
+      "target": "03_concept_edits/nimbatu-8x.png",
+      "output": "03_concept_edits/nimbatu-aligned-raw.png",
+      "prompt": "ONE targeted animation-alignment edit to this exact native-grid Nimbatu sprite sheet. Replace ONLY the folded-wing front sprite in TOP LEFT cell (x0..511,y0..511) with a version of the existing wing-spread FRONT sprite in BOTTOM LEFT cell (x0..511,y512..1023). Copy that bottom front design at the SAME pixel scale into the top cell, with same head, torso, legs and feet positions relative to its64x64-native cell. Make only a small wing-tip/crest-feather deflection between these two front frames; do not change character size between frames. This is a two-frame subtle wing-flap animation. Both frontal sprites must fit their512x512 cells, max480px wide, with margin, and retain consistent pixel anatomy. Keep the BACK sprite in top middle and the two tiny party icons at top right COMPLETELY UNCHANGED. Do not add or erase any other sprites. Preserve all the blue/gold/white colors and crest/cheek/tail details. Output exactly1536x1024 transparent PNG with hard flat8x8 square pixels, corresponding to native192x128. No glow, halo, gradients, haze, blur, shadow, backdrop, labels or text. Binary alpha only;15 opaque colors maximum. Do not enlarge any sprite."
+    },
+    {
+      "id": "xatu_raised_wing_belly_correction",
+      "tool": "built-in imagegen",
+      "target": "04_xatu_wing_fix/target-16x.png",
+      "reference": "04_xatu_wing_fix/original-xatu-reference-16x.png",
+      "prompt": "Correct the raised-wing Virelian Xatu frame: remove the long white folded-wing panels and diagonal blue flight-feather remnant from the torso. Reveal continuous navy/teal body plumage with short gold chevrons and a tiny pale central mark. Use original Xatu's raised-wing frame as an anatomy reference. Keep the two raised wings, head, crest, cheek, beak, collar, feet and tail unchanged. Edit only the central belly, native rectangle x20..43,y30..50. Hard pixel clusters, existing palette, transparent background.",
+      "export_policy": "Only central body rectangle pasted back; all other assets and palette preserved."
+    },
+    {
+      "id": "nimbatu_back_framing_correction",
+      "tool": "built-in imagegen",
+      "target": "05_nimbatu_back_framing/target-16x.png",
+      "reference": "05_nimbatu_back_framing/original-xatu-framing-16x.png",
+      "prompt": "Use case: precise-object-edit. Asset: Pokemon Emerald-style 64x64 battle BACK sprite, shown at 16x nearest-neighbor zoom (1024x1024). Image 1 is the Nimbatu edit target and identity/color reference. Image 2 is original Xatu's battle back sprite, ONLY a framing reference. Correct image 1 from a small whole-body rear view to a CLOSE rear three-quarter battle portrait: show Nimbatu's large head with its existing swept blue/gold fan crest, navy neck, shoulders, and the upper portions of its blue/gold/white wings. Head faces the same upper-right direction as image 1. The head should be larger, roughly 24 native pixels wide; shoulders and wing bases fill the lower half. The torso and wings are cut off naturally by the BOTTOM edge of the square, like the battle portrait in image 2. Do NOT shrink the entire character to fit: NO feet, NO legs, NO lower body, NO tail or tail fan anywhere in the image. Only head, neck, shoulders and upper wings. Preserve Nimbatu's teal/navy plumage, gold crest and thin gold shoulder chevrons, pale white lower wing markings, small white teardrop cheek as visible from behind. Wing portions can extend toward the side edges but the lower feather tips continue beyond the bottom crop. Native sparse Gen3 pixel clusters with solid 16x16 square pixels aligned to a 64x64 native grid. Existing palette: #072B55 #02112A #927136 #4EA8C4 #0C5AA2 #E1AE32 #083161 #3D95B9 #050E1C #B9BFC5 #3B5061 #E6E5E3 #255991. Black/navy outlines, maximum 13 opaque colors. Binary transparent background, no semitransparent glow, no gradients, no antialiasing, no cast shadows, no text, no labels, no checkerboard. Output the single corrected back sprite only.",
+      "export_policy": "Nearest-neighbor native export, existing Nimbatu palette retained; only back.png and its source-board cell replaced."
+    },
+    {
+      "id": "nimbatu_folded_back_correction",
+      "tool": "built-in imagegen",
+      "target": "06_nimbatu_folded_back/target-16x.png",
+      "reference": "06_nimbatu_folded_back/folded-wing-reference-16x.png",
+      "prompt": "Use case: precise-object-edit. Asset: 64x64 Pokemon Emerald pixel-art battle BACK sprite, enlarged to 1024x1024 (16x). IMAGE 1 is Nimbatu, the edit target. IMAGE 2 is Virelian Xatu, reference ONLY for folded-wing anatomy. Change ONLY Nimbatu's WING POSE from spread to FOLDED against its sides. Preserve Nimbatu's large head, swept blue-and-gold fan crest, beak, white cheek marking, navy neck, facing upper-right, and close head-and-shoulders rear-three-quarter battle framing. Tuck both wings downward along the shoulders, sleek and compact like image 2; show blue folded feather layers with small gold shoulder accents and a restrained white feather band. No wide wings, no raised wings. The folded wing silhouette must fit comfortably inside the canvas with at least TWO NATIVE PIXELS of transparent margin at both left and right edges: no wing edges or feather tips clipped at side boundaries. The crop at the bottom is through the torso; show the rounded folded wing contours ending above the bottom edge rather than abruptly slicing flight feathers. Keep the head at approximately its current size, position and design. Only head, neck, shoulders and folded upper wings: NO feet, NO legs, NO lower-body full view, NO tail fan. Authentic sparse Gen3 pixel clusters on an aligned64x64 native grid: each native pixel is a flat16x16 square. Existing color palette only: #072B55 #02112A #927136 #4EA8C4 #0C5AA2 #E1AE32 #083161 #3D95B9 #050E1C #B9BFC5 #3B5061 #E6E5E3 #255991. Transparent background, binary alpha, no antialiasing, no smooth shading, no glow, no shadow, no text or labels, no checkerboard. Return a single back sprite.",
+      "export_policy": "Nearest-neighbor native export, existing palette retained, vertical grid alignment to bottom edge; only back.png and its source-board cell replaced."
+    }
+  ]
+}

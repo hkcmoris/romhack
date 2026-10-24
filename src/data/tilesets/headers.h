@@ -129,6 +129,30 @@ const struct Tileset gTileset_Fortree =
     .callback = InitTilesetAnim_Fortree,
 };
 
+const struct Tileset gTileset_Whisperwood =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Whisperwood,
+    .palettes = gTilesetPalettes_Whisperwood,
+    .metatiles = gMetatiles_Whisperwood,
+    .metatileAttributes = gMetatileAttributes_Whisperwood,
+    .callback = InitTilesetAnim_Fortree,
+};
+
+// Connected maps share IDs, pixels and palettes in the native camera buffer.
+const struct Tileset gTileset_VireliaOutdoor =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaOutdoor,
+    .palettes = gTilesetPalettes_VireliaOutdoor,
+    .metatiles = gMetatiles_VireliaOutdoor,
+    .metatileAttributes = gMetatileAttributes_VireliaOutdoor,
+    .callback = NULL,
+};
+
+
 const struct Tileset gTileset_Lilycove =
 {
     .isCompressed = TRUE,

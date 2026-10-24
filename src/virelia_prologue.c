@@ -28,7 +28,7 @@ u32 GetVireliaStarterSpecies(u32 choice)
     static const u16 sSpecies[VIRELIA_STARTER_COUNT] =
     {
         [VIRELIA_STARTER_GRASS] = SPECIES_POOCHYENA_VIRELIA,
-        [VIRELIA_STARTER_WATER] = SPECIES_SPINARAK_VIRELIA,
+        [VIRELIA_STARTER_WATER] = SPECIES_NATU_VIRELIA,
         [VIRELIA_STARTER_FIRE] = SPECIES_EKANS_VIRELIA,
     };
     if (choice < ARRAY_COUNT(sSpecies))

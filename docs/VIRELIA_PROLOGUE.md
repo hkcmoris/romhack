@@ -2,6 +2,10 @@
 
 ## Scope and baseline
 
+The [v0.3 first Gym chapter](VIRELIA_FIRST_GYM.md) continues completed prologue
+saves through independent chapter flags. Its maps append to the existing registry;
+the historical v0.2 scope and native evidence below remain the prologue record.
+
 The normal Emerald new game now starts the Virelia campaign. This milestone
 ends after the first Team Rocket encounter in Slateford City. It preserves the
 existing title screen, species identifiers, Hoenn maps, save structures and
@@ -45,7 +49,9 @@ species. This document supersedes their development-start instructions.
 7. Follow **Whisperwood Trail** north. Battle two ordinary trainers, explore
    existing tall grass and find the optional item detour. **Hana** asks about
    her missing Zigzagoon; investigating its secluded spot reveals territorial
-   behavior. Return to Hana for one extra Potion. This event is optional.
+   behavior. Return to Hana for one extra Potion. Her thanks reveal an overgrown
+   western path to the [hidden sanctuary](VIRELIA_SANCTUARY.md), with three carved
+   stones, a permanent shortcut and Soothe Bell. These events are optional.
 8. Reach **Slateford City**. Miners report missing conductive mineral samples.
    Investigate the suspicious maintenance worker near the mining area, expose
    his Team Rocket uniform and win a normal single battle. Losing permits a
@@ -62,7 +68,7 @@ progress variables so that it cannot unexpectedly restart during this campaign.
 
 The new-game field callback also uses an ordinary fade instead of the original
 truck animation. Time-based events are initialized without the clock lesson.
-The equipment grant enables the engine's National Pokédex, because Spinarak and
+The equipment grant enables the engine's National Pokédex, because Natu and
 Ekans are outside the inherited Hoenn listing. In story mode, entries prefer the
 chosen regional starter family and the rival's actually encountered first stage;
 other species keep their ordinary form. The native Pokédex shares seen/caught
@@ -99,8 +105,8 @@ The player's name always comes from the save's `{PLAYER}` placeholder.
 | Player's choice | Species | Type | Viktor's level-5 Pokémon |
 | --- | --- | --- | --- |
 | Grass | `SPECIES_POOCHYENA_VIRELIA` | Grass/Dark | `SPECIES_EKANS_VIRELIA` |
-| Water | `SPECIES_SPINARAK_VIRELIA` | Water/Bug | `SPECIES_POOCHYENA_VIRELIA` |
-| Fire | `SPECIES_EKANS_VIRELIA` | Fire/Poison | `SPECIES_SPINARAK_VIRELIA` |
+| Water | `SPECIES_NATU_VIRELIA` | Water/Psychic | `SPECIES_POOCHYENA_VIRELIA` |
+| Fire | `SPECIES_EKANS_VIRELIA` | Fire/Poison | `SPECIES_NATU_VIRELIA` |
 
 Virelian Poochyena evolves into Grass/Ghost Virelian Mightyena at level 18,
 then into Grass/Ghost Wraithena at level 38. The existing identifier and
@@ -197,6 +203,19 @@ visual checks are maintained in the
 for localization status; a compiled ROM alone does not certify complete Czech
 coverage or correct on-screen wrapping.
 
+The 2026-10-24 merge-gate update resolves all 156 missing bounded-coverage
+entries reported after merging the newer route data: 46 moves, 16 abilities,
+15 Pokédex records and Sitrus Berry. Including generation-specific description
+variants and the berry's quantity label, the manifest now contains 1,231
+entries and passes `tools/validate_virelia_prologue_text.py` through level 20.
+The existing coverage derivation and font limits remain in force. Move and item
+names retain their English literals; Czech descriptions, ability names and
+Pokédex text use the existing localization macro. Bind, Encore, Minimize, Taunt
+and Sitrus Berry retain their generation guards and English test text.
+The accompanying WSL build passes the full native suite: 5,512 tests passed,
+with 18 marked known failures, 421 TODOs and nine expected-failure self-tests;
+there were no unexpected failures. All 71 Virelia tests passed as well.
+
 Shared battle and data strings retain English test fixtures under `TESTING`
 where necessary. Localized strings in normal and release ROMs select Czech at
 preprocessing time. This keeps the upstream behavior tests meaningful without duplicating either
@@ -238,7 +257,8 @@ those tools hidden. FireRed/LeafGreen retain their existing configuration.
 
 CI retains Emerald, FireRed, LeafGreen, optimized release and documentation
 checks. It runs story and explicit development-mode tests in separate jobs.
-The ROM file version is now `0.2.N`, where `N` is the Actions run number.
+The prologue used ROM version `0.2.N`, where `N` is the Actions run number.
+The first Gym branch advances that version to `0.3.N`.
 
 ## Validation and manual playtest
 
@@ -303,8 +323,11 @@ The laboratory scene validator follows the actual map script and movement
 commands against the map collision data. It covers every reachable side of
 each Ball, both legacy exit triggers and approaches to Viktor, pickup order,
 type advantage, dialogue, final facing, and canceled or failed gifts. The
-post-`0.2.40` pickup scene has source validation; native ROM/emulator validation
-is still required for its animation and battle return.
+post-`0.2.40` pickup scene has source validation. The first Gym milestone also
+replayed the latest `14a30dafeb` baseline natively with Water selection, preview
+cancellation, both pickups, Viktor's movement and battle return. See its
+[baseline evidence](VIRELIA_FIRST_GYM.md#baseline-native-verification); this does
+not replace the separate fresh-run checklist for every starter.
 
 The native suites `test/virelia_prologue.c`,
 `test/virelia_prologue_events.c`, `test/virelia_world.c` and
@@ -360,9 +383,10 @@ Actions are the applicable checks. No JavaScript or dependency was added.
 
 ## Remaining milestones
 
-The quarry interior, first Gym battle, further cities, full Rocket plot, Porygon
-experiments and storage incident are reserved for later milestones. Mega
-Evolution remains locked. No new signature ability, cooperative story gate,
+The [v0.3 milestone](VIRELIA_FIRST_GYM.md) implements the quarry and first Gym
+after this prologue. Further cities, the full Rocket plot, Porygon experiments
+and storage incident remain reserved for later milestones. Mega Evolution
+remains locked. No new signature ability, cooperative story gate,
 PvP reward, network synchronization or Duo Adventure feature is introduced.
 
 Temporary art and names remain documented in the starter prototype. The native

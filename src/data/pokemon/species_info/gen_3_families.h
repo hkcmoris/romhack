@@ -1031,14 +1031,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .speciesName = _("Mightyena"),
         .cryId = CRY_MIGHTYENA,
         .natDexNum = NATIONAL_DEX_MIGHTYENA,
-        .categoryName = _("Bite"),
+        .categoryName = _(LOCALIZED_TEXT("Bite", "Kousnutí")),
         .height = 10,
         .weight = 370,
-        .description = COMPOUND_STRING(
-            "In the wild, Mightyena live in a pack.\n"
-            "They never defy their leader's orders.\n"
-            "They defeat foes with perfectly\n"
-            "coordinated teamwork."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("In the wild, Mightyena live in a pack.\nThey never defy their leader's orders.\nThey defeat foes with perfectly\ncoordinated teamwork.", "Žije ve smečce a respektuje zkušeného\nvůdce. Při lovu si členové pomáhají.")),
         .pokemonScale = 362,
         .pokemonOffset = 9,
         .trainerScale = 256,
@@ -1191,14 +1187,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .speciesName = _("Linoone"),
         .cryId = CRY_LINOONE,
         .natDexNum = NATIONAL_DEX_LINOONE,
-        .categoryName = _("Rushing"),
+        .categoryName = _(LOCALIZED_TEXT("Rushing", "Běžec")),
         .height = 5,
         .weight = 325,
-        .description = COMPOUND_STRING(
-            "It is exceedingly fast if it only has to run\n"
-            "in a straight line. When it spots pond-\n"
-            "dwelling prey underwater, it quickly leaps\n"
-            "in and catches it with its sharp claws."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It is exceedingly fast if it only has to run\nin a straight line. When it spots pond-\ndwelling prey underwater, it quickly leaps\nin and catches it with its sharp claws.", "Běhá rovně velkou rychlostí. Před\nkaždou zatáčkou musí zpomalit.")),
         .pokemonScale = 321,
         .pokemonOffset = 7,
         .trainerScale = 256,
@@ -2735,14 +2727,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .speciesName = _("Kirlia"),
         .cryId = CRY_KIRLIA,
         .natDexNum = NATIONAL_DEX_KIRLIA,
-        .categoryName = _("Emotion"),
+        .categoryName = _(LOCALIZED_TEXT("Emotion", "Cit")),
         .height = 8,
         .weight = 202,
-        .description = COMPOUND_STRING(
-            "A Kirlia has the psychic power to create \n"
-            "a rip in the dimensions and see into the\n"
-            "future. It is said to dance with pleasure\n"
-            "on sunny mornings."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A Kirlia has the psychic power to create \na rip in the dimensions and see into the\nfuture. It is said to dance with pleasure\non sunny mornings.", "Z emocí svého trenéra čerpá psychickou\nsílu. Radost vyjadřuje tancem.")),
         .pokemonScale = 354,
         .pokemonOffset = 0,
         .trainerScale = 256,
@@ -4104,14 +4092,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .speciesName = _("Makuhita"),
         .cryId = CRY_MAKUHITA,
         .natDexNum = NATIONAL_DEX_MAKUHITA,
-        .categoryName = _("Guts"),
+        .categoryName = _(LOCALIZED_TEXT("Guts", "Odvaha")),
         .height = 10,
         .weight = 864,
-        .description = COMPOUND_STRING(
-            "It loves to toughen up its body above all\n"
-            "else. If you hear quaking rumbles in a cave,\n"
-            "it is the sound of Makuhita undertaking\n"
-            "strenuous training."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It loves to toughen up its body above all\nelse. If you hear quaking rumbles in a cave,\nit is the sound of Makuhita undertaking\nstrenuous training.", "Po každém pádu znovu vstane. Neustálým\ntréninkem zpevňuje své tělo.")),
         .pokemonScale = 256,
         .pokemonOffset = 10,
         .trainerScale = 256,
@@ -4251,14 +4235,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .speciesName = _("Nosepass"),
         .cryId = CRY_NOSEPASS,
         .natDexNum = NATIONAL_DEX_NOSEPASS,
-        .categoryName = _("Compass"),
+        .categoryName = _(LOCALIZED_TEXT("Compass", "Kompas")),
         .height = 10,
         .weight = 970,
-        .description = COMPOUND_STRING(
-            "Its body emits a powerful magnetism.\n"
-            "It feeds on prey that is pulled in by the\n"
-            "force. Its magnetism is stronger in cold\n"
-            "seasons."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Its body emits a powerful magnetism.\nIt feeds on prey that is pulled in by the\nforce. Its magnetism is stronger in cold\nseasons.", "Jeho magnetický nos stále míří k\nseveru. Silný magnetismus přitahuje\nkořist.")),
         .pokemonScale = 256,
         .pokemonOffset = 9,
         .trainerScale = 289,
@@ -4871,14 +4851,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .speciesName = _("Aron"),
         .cryId = CRY_ARON,
         .natDexNum = NATIONAL_DEX_ARON,
-        .categoryName = _("Iron Armor"),
+        .categoryName = _(LOCALIZED_TEXT("Iron Armor", "Kovová zbroj")),
         .height = 4,
         .weight = 600,
-        .description = COMPOUND_STRING(
-            "A Pokémon that is clad in steel armor.\n"
-            "A new suit of armor is made when it evolves.\n"
-            "The old, discarded armor is salvaged as\n"
-            "metal for making iron products."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A Pokémon that is clad in steel armor.\nA new suit of armor is made when it evolves.\nThe old, discarded armor is salvaged as\nmetal for making iron products.", "Živí se železnou rudou. Pevný kovový\nkrunýř ho chrání před nepřáteli.")),
         .pokemonScale = 419,
         .pokemonOffset = 23,
         .trainerScale = 256,

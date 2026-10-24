@@ -1,3 +1,4 @@
+#include "localization.h"
 #ifdef __INTELLISENSE__
 const struct SpeciesInfo gSpeciesInfoGen5[] =
 {
@@ -2327,14 +2328,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .speciesName = _("Roggenrola"),
         .cryId = CRY_ROGGENROLA,
         .natDexNum = NATIONAL_DEX_ROGGENROLA,
-        .categoryName = _("Mantle"),
+        .categoryName = _(LOCALIZED_TEXT("Mantle", "Plášť")),
         .height = 4,
         .weight = 180,
-        .description = COMPOUND_STRING(
-            "The hexagonal cavity is its ear.\n"
-            "It walks in the direction of sounds it\n"
-            "hears, but if the sounds cease, it panics\n"
-            "and topples over."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("The hexagonal cavity is its ear.\nIt walks in the direction of sounds it\nhears, but if the sounds cease, it panics\nand topples over.", "Šestihranným otvorem vnímá zvuky.\nKdyž hluk utichne, ztratí orientaci.")),
         .pokemonScale = 491,
         .pokemonOffset = 16,
         .trainerScale = 256,
@@ -8698,14 +8695,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .speciesName = _("Foongus"),
         .cryId = CRY_FOONGUS,
         .natDexNum = NATIONAL_DEX_FOONGUS,
-        .categoryName = _("Mushroom"),
+        .categoryName = _(LOCALIZED_TEXT("Mushroom", "Houba")),
         .height = 2,
         .weight = 10,
-        .description = COMPOUND_STRING(
-            "It lures Pokémon in with its pattern that\n"
-            "looks just like a Poké Ball, then releases\n"
-            "its poison spores. Why it resembles a\n"
-            "Poké Ball is unknown."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It lures Pokémon in with its pattern that\nlooks just like a Poké Ball, then releases\nits poison spores. Why it resembles a\nPoké Ball is unknown.", "Vzorem podobným Poké Ballu láká\nPokémony a pak vypustí jedovaté\nvýtrusy. Podobnost s míčkem zůstává\nzáhadou.")),
         .pokemonScale = 682,
         .pokemonOffset = 24,
         .trainerScale = 256,
@@ -9093,14 +9086,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .speciesName = _("Joltik"),
         .cryId = CRY_JOLTIK,
         .natDexNum = NATIONAL_DEX_JOLTIK,
-        .categoryName = _("Attaching"),
+        .categoryName = _(LOCALIZED_TEXT("Attaching", "Přichycený")),
         .height = 1,
         .weight = 6,
-        .description = COMPOUND_STRING(
-            "Since they can't generate their own\n"
-            "electricity, they attach themselves to\n"
-            "large-bodied Pokémon and absorb static\n"
-            "electricity, which they store in a pouch."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Since they can't generate their own\nelectricity, they attach themselves to\nlarge-bodied Pokémon and absorb static\nelectricity, which they store in a pouch.", "Nevyrábí vlastní elektřinu. Přichytí se\nk velkému Pokémonovi a sbírá statický\nnáboj, který ukládá do vaku.")),
         .pokemonScale = 682,
         .pokemonOffset = 24,
         .trainerScale = 256,

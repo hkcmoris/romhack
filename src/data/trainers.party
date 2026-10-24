@@ -16915,7 +16915,7 @@ Gender: Male
 Music: Male
 AI: Check Bad Move
 
-SPECIES_SPINARAK_VIRELIA
+SPECIES_NATU_VIRELIA
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Tackle
@@ -16968,3 +16968,109 @@ Level: 6
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Absorb
 - Astonish
+
+/* Virelia first Gym. Explicit low-power moves; no damaging Ground moves. */
+=== TRAINER_VIRELIA_MINER_BRUNO ===
+Name: BRUNO
+Class: Hiker
+Pic: Hiker
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+Geodude
+Level: 10
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Defense Curl
+- Rock Throw
+
+Makuhita
+Level: 11
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Arm Thrust
+- Focus Energy
+
+=== TRAINER_VIRELIA_EXPLORER_LENKA ===
+Name: LENKA
+Class: Lass
+Pic: Lass
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+Sandshrew
+Level: 11
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Scratch
+- Defense Curl
+- Sand Attack
+
+Aron
+Level: 12
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Harden
+- Metal Claw
+
+=== TRAINER_VIRELIA_GYM_IVAN ===
+Name: IVAN
+Class: Hiker
+Pic: Hiker
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+Roggenrola
+Level: 13
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Harden
+- Rock Throw
+
+=== TRAINER_VIRELIA_GYM_DANA ===
+Name: DANA
+Class: Lass
+Pic: Lass
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+Geodude
+Level: 13
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Defense Curl
+- Rock Throw
+
+Nosepass
+Level: 14
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Harden
+- Rock Throw
+
+=== TRAINER_VIRELIA_MARA ===
+Name: MARA
+Class: Leader
+Pic: Leader Roxanne
+Gender: Female
+Music: Female
+AI: Check Bad Move / Try To Faint
+
+Roggenrola
+Level: 14
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Headbutt
+- Rock Throw
+- Sand Attack
+- Harden
+
+Nosepass
+Level: 16
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Rock Tomb
+- Thunder Wave
+- Block

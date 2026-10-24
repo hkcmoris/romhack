@@ -57,7 +57,10 @@ static void SetTrainerSlideParameters(enum BattlerId battler, u32* lastId, u32* 
 static bool32 IsSlideInitalizedOrPlayed(enum BattlerId battler, enum TrainerSlideType slideId);
 
 // Partner trainers must be added as TRAINER_PARTNER(PARTNER_XXXX)
-static const u8* const sTrainerSlides[DIFFICULTY_COUNT][TRAINER_PARTNER(PARTNER_COUNT)][TRAINER_SLIDE_COUNT] =
+// Ordinary trainer IDs can extend beyond the fixed partner bank without moving
+// save flags or partner IDs. Both banks must fit in this ROM-only lookup table.
+#define TRAINER_SLIDE_TRAINERS_COUNT max(TRAINERS_COUNT, TRAINER_PARTNER(PARTNER_COUNT))
+static const u8* const sTrainerSlides[DIFFICULTY_COUNT][TRAINER_SLIDE_TRAINERS_COUNT][TRAINER_SLIDE_COUNT] =
 {
     [DIFFICULTY_NORMAL] =
     {
@@ -75,7 +78,7 @@ static const u8* const sFrontierTrainerSlides[DIFFICULTY_COUNT][FRONTIER_TRAINER
 #define TRAINER_LEAF_TEST   2
 #define PARTNER_STEVEN_TEST 1
 
-static const u8* const sTestTrainerSlides[DIFFICULTY_COUNT][MAX_TRAINERS_COUNT_EMERALD + PARTNER_COUNT][TRAINER_SLIDE_COUNT] =
+static const u8* const sTestTrainerSlides[DIFFICULTY_COUNT][max(TRAINER_SLIDE_TRAINERS_COUNT, MAX_TRAINERS_COUNT_EMERALD + PARTNER_COUNT)][TRAINER_SLIDE_COUNT] =
 {
 #include "../test/battle/trainer_slides.h"
 };

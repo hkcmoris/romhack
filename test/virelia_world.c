@@ -28,6 +28,12 @@ static const u16 sVireliaMaps[] =
     MAP_VIRELIA_ROUTE01,
     MAP_VIRELIA_SLATEFORD_CITY,
     MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE,
+    MAP_VIRELIA_SLATEFORD_POKEMON_CENTER,
+    MAP_VIRELIA_SLATEFORD_MART,
+    MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE,
+    MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS,
+    MAP_VIRELIA_SLATEFORD_GYM,
+    MAP_VIRELIA_WHISPERWOOD_SANCTUARY,
 };
 
 static const struct MapHeader *WorldHeader(u16 map)
@@ -59,6 +65,12 @@ TEST("Virelia world headers use distinct appended groups and native layouts")
     EXPECT_LE((header->mapLayout->width + MAP_OFFSET_W)
               * (header->mapLayout->height + MAP_OFFSET_H), MAX_MAP_DATA_SIZE);
     EXPECT_EQ(header->mapLayout->isFrlg, FALSE);
+    if (map == MAP_VIRELIA_WHISPERWOOD_SANCTUARY)
+    {
+        EXPECT_EQ(MAP_GROUP(map), MAP_GROUP(MAP_VIRELIA_ROUTE01));
+        EXPECT_EQ(MAP_NUM(map), 3);
+        EXPECT_EQ(header->mapType, MAP_TYPE_ROUTE);
+    }
     EXPECT_GT(header->regionMapSectionId, MAPSEC_TRAINER_HILL);
     EXPECT_LT(header->regionMapSectionId, METLOC_SPECIAL_EGG);
     EXPECT_LT(header->regionMapSectionId, MAPSEC_NONE);
@@ -98,9 +110,9 @@ TEST("Virelia object graphics include hidden story actors in Emerald")
 TEST("Virelia building warps resolve through the native warp loader in both directions")
 {
     u32 index = 0;
-    PARAMETRIZE { index = 0; }
-    PARAMETRIZE { index = 1; }
-    PARAMETRIZE { index = 4; }
+    for (u32 i = 0; i < ARRAY_COUNT(sVireliaMaps); i++)
+        if (WorldHeader(sVireliaMaps[i])->events->warpCount != 0)
+            PARAMETRIZE { index = i; }
 
     const struct MapHeader *source = WorldHeader(sVireliaMaps[index]);
     EXPECT_GT(source->events->warpCount, 0);
@@ -129,6 +141,7 @@ TEST("Virelia overworld connections have reciprocal passable seams")
     PARAMETRIZE { index = 0; }
     PARAMETRIZE { index = 2; }
     PARAMETRIZE { index = 3; }
+    PARAMETRIZE { index = 10; }
 
     u16 map = sVireliaMaps[index];
     const struct MapHeader *source = WorldHeader(map);
@@ -138,26 +151,46 @@ TEST("Virelia overworld connections have reciprocal passable seams")
     {
         const struct MapConnection *connection = &source->connections->connections[i];
         const struct MapHeader *target = GetMapHeaderFromConnection(connection);
+        // Neighbor metatiles are cached and drawn with the current map's bank.
+        EXPECT_EQ(source->mapLayout->primaryTileset, target->mapLayout->primaryTileset);
+        EXPECT_EQ(source->mapLayout->secondaryTileset, target->mapLayout->secondaryTileset);
         bool32 reciprocal = FALSE, passable = FALSE;
         EXPECT_NE(target->connections, NULL);
-        EXPECT(connection->direction == CONNECTION_NORTH || connection->direction == CONNECTION_SOUTH);
+        bool32 vertical = connection->direction == CONNECTION_NORTH || connection->direction == CONNECTION_SOUTH;
+        s32 opposite = vertical
+            ? (connection->direction == CONNECTION_NORTH ? CONNECTION_SOUTH : CONNECTION_NORTH)
+            : (connection->direction == CONNECTION_WEST ? CONNECTION_EAST : CONNECTION_WEST);
         for (u32 j = 0; j < target->connections->count; j++)
         {
             const struct MapConnection *back = &target->connections->connections[j];
             if (back->mapGroup == MAP_GROUP(map) && back->mapNum == MAP_NUM(map)
-                && back->direction == (connection->direction == CONNECTION_NORTH ? CONNECTION_SOUTH : CONNECTION_NORTH)
+                && back->direction == opposite
                 && back->offset == -connection->offset)
                 reciprocal = TRUE;
         }
         EXPECT(reciprocal);
-        s32 sourceY = connection->direction == CONNECTION_NORTH ? 0 : source->mapLayout->height - 1;
-        s32 targetY = connection->direction == CONNECTION_NORTH ? target->mapLayout->height - 1 : 0;
-        for (s32 x = 0; x < source->mapLayout->width; x++)
+        s32 limit = vertical ? source->mapLayout->width : source->mapLayout->height;
+        for (s32 coordinate = 0; coordinate < limit; coordinate++)
         {
-            s32 targetX = x - connection->offset;
-            if (targetX < 0 || targetX >= target->mapLayout->width)
+            s32 sourceX, sourceY, targetX, targetY;
+            if (vertical)
+            {
+                sourceX = coordinate;
+                targetX = coordinate - connection->offset;
+                sourceY = connection->direction == CONNECTION_NORTH ? 0 : source->mapLayout->height - 1;
+                targetY = connection->direction == CONNECTION_NORTH ? target->mapLayout->height - 1 : 0;
+            }
+            else
+            {
+                sourceX = connection->direction == CONNECTION_WEST ? 0 : source->mapLayout->width - 1;
+                targetX = connection->direction == CONNECTION_WEST ? target->mapLayout->width - 1 : 0;
+                sourceY = coordinate;
+                targetY = coordinate - connection->offset;
+            }
+            if (targetX < 0 || targetX >= target->mapLayout->width
+                || targetY < 0 || targetY >= target->mapLayout->height)
                 continue;
-            u16 a = source->mapLayout->map[sourceY * source->mapLayout->width + x];
+            u16 a = source->mapLayout->map[sourceY * source->mapLayout->width + sourceX];
             u16 b = target->mapLayout->map[targetY * target->mapLayout->width + targetX];
             if (UNPACK_COLLISION(a) == 0 && UNPACK_COLLISION(b) == 0
                 && UNPACK_ELEVATION(a) == UNPACK_ELEVATION(b))

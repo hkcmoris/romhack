@@ -74,11 +74,11 @@ VireliaStarterTest_EventScript_Grass:
 VireliaStarterTest_EventScript_Water:
 	message VireliaStarterTest_Text_SelectStage
 	waitmessage
-	dynmultipush VireliaStarterTest_Text_SPINARAK_VIRELIA, SPECIES_SPINARAK_VIRELIA
-	dynmultipush VireliaStarterTest_Text_ARIADOS_VIRELIA, SPECIES_ARIADOS_VIRELIA
-	dynmultipush VireliaStarterTest_Text_ARACHNAUT, SPECIES_ARACHNAUT
+	dynmultipush VireliaStarterTest_Text_NATU_VIRELIA, SPECIES_NATU_VIRELIA
+	dynmultipush VireliaStarterTest_Text_XATU_VIRELIA, SPECIES_XATU_VIRELIA
+	dynmultipush VireliaStarterTest_Text_NIMBATU, SPECIES_NIMBATU
 	dynmultipush gText_Cancel, SPECIES_NONE
-	dynmultistack 14, 3, FALSE, 4, FALSE, SPECIES_SPINARAK_VIRELIA, DYN_MULTICHOICE_CB_NONE
+	dynmultistack 14, 3, FALSE, 4, FALSE, SPECIES_NATU_VIRELIA, DYN_MULTICHOICE_CB_NONE
 	closemessage
 	goto VireliaStarterTest_EventScript_SelectLevel
 
@@ -87,7 +87,7 @@ VireliaStarterTest_EventScript_Fire:
 	waitmessage
 	dynmultipush VireliaStarterTest_Text_EKANS_VIRELIA, SPECIES_EKANS_VIRELIA
 	dynmultipush VireliaStarterTest_Text_ARBOK_VIRELIA, SPECIES_ARBOK_VIRELIA
-	dynmultipush VireliaStarterTest_Text_CINDRACOIL, SPECIES_CINDRACOIL
+	dynmultipush VireliaStarterTest_Text_INFERNABRA, SPECIES_INFERNABRA
 	dynmultipush gText_Cancel, SPECIES_NONE
 	dynmultistack 14, 3, FALSE, 4, FALSE, SPECIES_EKANS_VIRELIA, DYN_MULTICHOICE_CB_NONE
 	closemessage
@@ -157,12 +157,12 @@ VireliaStarterTest_EventScript_Give::
 	case SPECIES_POOCHYENA_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
 	case SPECIES_MIGHTYENA_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
 	case SPECIES_WRAITHENA, VireliaStarterTest_EventScript_ValidateLevel
-	case SPECIES_SPINARAK_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
-	case SPECIES_ARIADOS_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
-	case SPECIES_ARACHNAUT, VireliaStarterTest_EventScript_ValidateLevel
+	case SPECIES_NATU_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
+	case SPECIES_XATU_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
+	case SPECIES_NIMBATU, VireliaStarterTest_EventScript_ValidateLevel
 	case SPECIES_EKANS_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
 	case SPECIES_ARBOK_VIRELIA, VireliaStarterTest_EventScript_ValidateLevel
-	case SPECIES_CINDRACOIL, VireliaStarterTest_EventScript_ValidateLevel
+	case SPECIES_INFERNABRA, VireliaStarterTest_EventScript_ValidateLevel
 	goto VireliaStarterTest_EventScript_CannotGive
 
 VireliaStarterTest_EventScript_ValidateLevel:
@@ -202,7 +202,7 @@ VireliaStarterTest_Text_Welcome:
 VireliaStarterTest_Text_GrassFamily:
 	.string "TRÁVA / DUCH$"
 VireliaStarterTest_Text_WaterFamily:
-	.string "VODA / HMYZ$"
+	.string "VODA / PSYCHIKA$"
 VireliaStarterTest_Text_FireFamily:
 	.string "OHEŇ / JED$"
 VireliaStarterTest_Text_Candies:
@@ -234,17 +234,17 @@ VireliaStarterTest_Text_MIGHTYENA_VIRELIA:
 	.string "MIGHTYENA$"
 VireliaStarterTest_Text_WRAITHENA:
 	.string "WRAITHENA$"
-VireliaStarterTest_Text_SPINARAK_VIRELIA:
-	.string "SPINARAK$"
-VireliaStarterTest_Text_ARIADOS_VIRELIA:
-	.string "ARIADOS$"
-VireliaStarterTest_Text_ARACHNAUT:
-	.string "ARACHNAUT$"
+VireliaStarterTest_Text_NATU_VIRELIA:
+	.string "NATU$"
+VireliaStarterTest_Text_XATU_VIRELIA:
+	.string "XATU$"
+VireliaStarterTest_Text_NIMBATU:
+	.string "NIMBATU$"
 VireliaStarterTest_Text_EKANS_VIRELIA:
 	.string "EKANS$"
 VireliaStarterTest_Text_ARBOK_VIRELIA:
 	.string "ARBOK$"
-VireliaStarterTest_Text_CINDRACOIL:
+VireliaStarterTest_Text_INFERNABRA:
 	.string "INFERNABRA$"
 VireliaStarterTest_Text_Level5:
 	.string "Úr. 5$"
