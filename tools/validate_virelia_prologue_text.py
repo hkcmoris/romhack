@@ -181,7 +181,7 @@ def main():
     nature = widest("nature_name")
     generic = max([mon, item, move], key=lambda t: text_width(t, "Normal"))
     substitutions = {
-        "{PLAYER}": player, "{STR_VAR_1}": generic,
+        "{PLAYER}": player, "{RIVAL}": "VIKTORIE", "{STR_VAR_1}": generic,
         "{STR_VAR_2}": generic, "{STR_VAR_3}": "999999",
         "{DYNAMIC 0}": "", "{DYNAMIC 1}": "",
         "{DYNAMIC 2}": nature, "{DYNAMIC 3}": "100",
@@ -292,6 +292,16 @@ def main():
                     lines += 1
                     if lines > 2:
                         errors.append(f"{label}: newline below the two-line dialogue window")
+    # The custom case uses a 24-tile prompt and a full-width type label.
+    case_source = (ROOT / "src/starter_choose.c").read_text(encoding="utf-8")
+    case_texts = re.findall(r'static const u8 (sVirelia\w+)\[\] = _\("((?:\\.|[^"\\])*)"\);', case_source)
+    if len(case_texts) != 5:
+        errors.append("Briefcase: expected prompt, confirmation and three type labels")
+    for name, value in case_texts:
+        font, limit = ("Narrow", 240) if name.endswith("Type") else ("Normal", 192)
+        for line in value.split(r"\n"):
+            if any(c not in chars for c in line) or text_width(line, font) > limit:
+                errors.append(f"Briefcase {name}: text exceeds {font} {limit}px window")
     # New game uses three dedicated native strings before naming.
     main_source = (ROOT / "src/main_menu.c").read_text(encoding="utf-8")
     for match in re.finditer(r'sText_Virelia\w+\[\]\s*=\s*_\("((?:\\.|[^"\\])*)"\)', main_source):

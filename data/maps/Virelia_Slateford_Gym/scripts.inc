@@ -38,7 +38,14 @@ Virelia_Slateford_Gym_EventScript_Statue::
 	end
 
 Virelia_Slateford_Gym_EventScript_StatueWinner:
+	checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, Virelia_Slateford_Gym_EventScript_StatueWinnerFemale
 	msgbox Virelia_Slateford_Gym_Text_StatueWinner, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Virelia_Slateford_Gym_EventScript_StatueWinnerFemale:
+	msgbox Virelia_Slateford_Gym_Text_StatueWinnerFemale, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -173,6 +180,10 @@ Virelia_Slateford_Gym_Text_Statue:
 Virelia_Slateford_Gym_Text_StatueWinner:
 	.string "STADION - Slateford City\n"
 	.string "Lomový odznak získal: {PLAYER}!$"
+
+Virelia_Slateford_Gym_Text_StatueWinnerFemale:
+	.string "STADION - Slateford City\n"
+	.string "Lomový odznak získala: {PLAYER}!$"
 
 Virelia_Slateford_Gym_Text_OldLayer:
 	.string "STARŠÍ VRSTVA - západní značka\n"

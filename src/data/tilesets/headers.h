@@ -527,6 +527,17 @@ const struct Tileset gTileset_Lab =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_VireliaLab =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaLab,
+    .palettes = gTilesetPalettes_VireliaLab,
+    .metatiles = gMetatiles_VireliaLab,
+    .metatileAttributes = gMetatileAttributes_VireliaLab,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_Underwater =
 {
     .isCompressed = TRUE,

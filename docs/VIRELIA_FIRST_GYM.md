@@ -131,9 +131,10 @@ No custom move, ability or damaging Ground move is added to their teams.
 Losses use normal whiteout, retain earlier victories and permit retries.
 Leader victory and reward collection are separate persistent states.
 
-Trainer IDs 866–870 append after the reserved partner bank.
-`MAX_TRAINERS_COUNT_EMERALD` stays 864, preserving all existing partner IDs and
-the `SYSTEM_FLAGS` base. A central flag lookup maps only these five new trainers
+Trainer IDs 866–870 use the appended trainer table. Partner IDs begin after
+the complete table so new allies cannot overlap chapter trainers.
+`MAX_TRAINERS_COUNT_EMERALD` stays 864, preserving the `SYSTEM_FLAGS` base.
+A central flag lookup maps only these five new trainers
 to reserved flags 0x40–0x44. Existing trainer flags keep their original formula.
 The ROM-only trainer slide table grows to cover both trainers and partners.
 No save structure or link-state layout changes.

@@ -1,7 +1,9 @@
 #include "global.h"
 #include "battle.h"
+#include "battle_setup.h"
 #include "event_data.h"
 #include "event_object_movement.h"
+#include "fieldmap.h"
 #include "item.h"
 #include "overworld.h"
 #include "pokemon.h"
@@ -13,6 +15,9 @@
 #include "constants/maps.h"
 #include "constants/oraculum_duo_test.h"
 #include "constants/virelia_prologue.h"
+#include "constants/battle_partner.h"
+#include "constants/battle_special.h"
+#include "constants/opponents.h"
 
 // The rival takes the starter with a type advantage against the player's choice.
 static const u8 sRivalChoices[VIRELIA_STARTER_COUNT] =
@@ -44,6 +49,25 @@ u32 GetVireliaRivalSpecies(u32 choice)
     return SPECIES_NONE;
 }
 
+u32 GetVireliaRivalGender(void)
+{
+    return gSaveBlock2Ptr->playerGender == MALE ? FEMALE : MALE;
+}
+
+const u8 *GetVireliaRivalName(void)
+{
+    static const u8 sViktor[] = _("VIKTOR");
+    static const u8 sViktorie[] = _("VIKTORIE");
+    return GetVireliaRivalGender() == FEMALE ? sViktorie : sViktor;
+}
+
+void VireliaPrologue_SetRivalAppearance(void)
+{
+    VarSet(VAR_OBJ_GFX_ID_0, GetVireliaRivalGender() == FEMALE
+                         ? OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+                         : OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL);
+}
+
 void InitVireliaPrologueNewGame(void)
 {
 #if !IS_FRLG
@@ -66,6 +90,8 @@ void InitVireliaPrologueNewGame(void)
 
     for (u32 flag = FLAG_VIRELIA_MOM_MET; flag <= FLAG_VIRELIA_HIDE_FIRE_STARTER; flag++)
         FlagClear(flag);
+    FlagClear(FLAG_VIRELIA_LAB_RESCUE_COMPLETE);
+    FlagClear(FLAG_VIRELIA_HIDE_LAB_ESCAPEES);
     FlagSet(FLAG_VIRELIA_HIDE_DEV_GUIDE);
     FlagSet(FLAG_VIRELIA_HIDE_POLICEMAN);
     FlagClear(FLAG_SYS_POKEMON_GET);
@@ -81,39 +107,27 @@ void InitVireliaPrologueNewGame(void)
 #endif
 }
 
+u32 GetVireliaStarterCaseMask(void)
+{
+    return (!FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER) << VIRELIA_STARTER_GRASS)
+         | (!FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER) << VIRELIA_STARTER_WATER)
+         | (!FlagGet(FLAG_VIRELIA_HIDE_FIRE_STARTER) << VIRELIA_STARTER_FIRE);
+}
+
 #if !IS_FRLG
-static void SyncLabStarterBallObjects(void)
+static void SyncLabStarterCase(void)
 {
     if (gSaveBlock1Ptr->location.mapGroup != MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY)
      || gSaveBlock1Ptr->location.mapNum != MAP_NUM(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY)
-     || gMapHeader.events == NULL)
+     || gBackupMapLayout.map == NULL)
         return;
 
-    for (u32 i = 0; i < gMapHeader.events->objectEventCount; i++)
-    {
-        const struct ObjectEventTemplate *mapTemplate = &gMapHeader.events->objectEvents[i];
-        u8 objectEventId;
-        if (mapTemplate->localId != LOCALID_VIRELIA_LAB_GRASS_STARTER
-         && mapTemplate->localId != LOCALID_VIRELIA_LAB_WATER_STARTER
-         && mapTemplate->localId != LOCALID_VIRELIA_LAB_FIRE_STARTER)
-            continue;
-
-        // Continue refreshes saved script pointers, but retains old flag IDs.
-        // Repair only the three displays; preserve NPC positions and movement.
-        for (u32 j = 0; j < OBJECT_EVENT_TEMPLATES_COUNT; j++)
-            if (gSaveBlock1Ptr->objectEventTemplates[j].localId == mapTemplate->localId)
-                gSaveBlock1Ptr->objectEventTemplates[j].flagId = mapTemplate->flagId;
-
-        // This helper runs during ON_LOAD, before field sprites are created.
-        // Continue respawns active saved objects without checking hide flags,
-        // so clear their object state without touching stale sprite IDs.
-        if (FlagGet(mapTemplate->flagId)
-         && !TryGetObjectEventIdByLocalIdAndMap(mapTemplate->localId,
-                                               gSaveBlock1Ptr->location.mapNum,
-                                               gSaveBlock1Ptr->location.mapGroup,
-                                               &objectEventId))
-            ClearObjectEvent(&gObjectEvents[objectEventId]);
-    }
+    u32 base = VIRELIA_LAB_CASE_BASE_METATILE + GetVireliaStarterCaseMask() * 4;
+    for (u32 y = 0; y < 2; y++)
+        for (u32 x = 0; x < 2; x++)
+            MapGridSetMetatileIdAt(VIRELIA_LAB_CASE_X + x + MAP_OFFSET,
+                                  VIRELIA_LAB_CASE_Y + y + MAP_OFFSET,
+                                  (base + y * 2 + x) | MAPGRID_IMPASSABLE);
 }
 #endif
 
@@ -129,20 +143,21 @@ void VireliaPrologue_SyncStarterBallFlags(void)
     u32 choice = VarGet(VAR_VIRELIA_STARTER);
     if (FlagGet(FLAG_VIRELIA_STARTER_RECEIVED) && choice < ARRAY_COUNT(sBallFlags))
     {
-        // Recover visibility for older saves. Never clear a story flag here:
-        // the rival's pickup persists before the battle is completed.
+        // Empty slots persist while the field reloads between the rescue and duel.
+        // The rival's pickup happens before either battle is complete.
         FlagSet(sBallFlags[choice]);
         if (FlagGet(FLAG_VIRELIA_RIVAL_COMPLETE))
             FlagSet(sBallFlags[sRivalChoices[choice]]);
     }
 #else
     // The development exhibition always offers all three starter previews.
+    FlagSet(FLAG_VIRELIA_HIDE_LAB_ESCAPEES);
     FlagClear(FLAG_VIRELIA_HIDE_GRASS_STARTER);
     FlagClear(FLAG_VIRELIA_HIDE_WATER_STARTER);
     FlagClear(FLAG_VIRELIA_HIDE_FIRE_STARTER);
 #endif
 #if !IS_FRLG
-    SyncLabStarterBallObjects();
+    SyncLabStarterCase();
 #endif
 }
 
@@ -175,6 +190,112 @@ void VireliaPrologue_GiveStarter(void)
     FlagSet(FLAG_VIRELIA_STARTER_RECEIVED);
     FlagSet(FLAG_SYS_POKEMON_GET);
     gSpecialVar_Result = TRUE;
+}
+
+u32 GetVireliaRescuePartner(u32 choice)
+{
+    static const u16 partners[2][VIRELIA_STARTER_COUNT] =
+    {
+        [MALE] =
+        {
+            TRAINER_PARTNER(PARTNER_VIRELIA_VIKTOR_GRASS),
+            TRAINER_PARTNER(PARTNER_VIRELIA_VIKTOR_WATER),
+            TRAINER_PARTNER(PARTNER_VIRELIA_VIKTOR_FIRE),
+        },
+        [FEMALE] =
+        {
+            TRAINER_PARTNER(PARTNER_VIRELIA_VIKTORIE_GRASS),
+            TRAINER_PARTNER(PARTNER_VIRELIA_VIKTORIE_WATER),
+            TRAINER_PARTNER(PARTNER_VIRELIA_VIKTORIE_FIRE),
+        },
+    };
+    return choice < VIRELIA_STARTER_COUNT ? partners[GetVireliaRivalGender()][choice] : 0;
+}
+
+void VireliaPrologue_PrepareRescue(void)
+{
+    u32 choice = VarGet(VAR_VIRELIA_STARTER);
+    gSpecialVar_Result = FALSE;
+    if (!FlagGet(FLAG_VIRELIA_STARTER_RECEIVED)
+     || FlagGet(FLAG_VIRELIA_LAB_RESCUE_COMPLETE)
+     || choice >= VIRELIA_STARTER_COUNT
+     || gPartiesCount[B_TRAINER_PLAYER] != 1
+     || GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_SPECIES) != GetVireliaStarterSpecies(choice))
+        return;
+
+    CreateScriptedDoubleWildMon(SPECIES_MEOWTH, VIRELIA_LAB_WILD_LEVEL, ITEM_NONE,
+                               SPECIES_RATTATA, VIRELIA_LAB_WILD_LEVEL, ITEM_NONE);
+    gPartiesCount[B_TRAINER_OPPONENT_A] = 2;
+    gPartnerTrainerId = GetVireliaRescuePartner(choice);
+    gSpecialVar_Result = TRUE;
+}
+
+void VireliaPrologue_StartRescueBattle(void)
+{
+    gSpecialVar_0x8005 = MULTI_BATTLE_2_VS_WILD;
+    BattleSetup_StartMultiBattle();
+}
+
+void VireliaPrologue_FinishRescue(void)
+{
+    gSpecialVar_Result = FALSE;
+    if (!FlagGet(FLAG_VIRELIA_STARTER_RECEIVED)
+     || (gBattleOutcome != B_OUTCOME_WON
+      && gBattleOutcome != B_OUTCOME_LOST
+      && gBattleOutcome != B_OUTCOME_DREW))
+        return;
+
+    // The player's starter remains their own mon, including earned experience.
+    // The subsequent trainer duel must have no temporary ally state.
+    HealPlayerParty();
+    ZeroPartyMons(gParties[B_TRAINER_PARTNER]);
+    gPartiesCount[B_TRAINER_PARTNER] = 0;
+    gPartnerTrainerId = 0;
+    gBattleTypeFlags = 0;
+    gBattleScripting.specialTrainerBattleType = 0;
+    gSpecialVar_0x8005 = 0;
+    FlagSet(FLAG_VIRELIA_LAB_RESCUE_COMPLETE);
+    FlagSet(FLAG_VIRELIA_HIDE_LAB_ESCAPEES);
+    gSpecialVar_Result = TRUE;
+}
+
+void VireliaPrologue_MatchRivalLevel(struct Pokemon *party, u32 trainerId)
+{
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+    switch (trainerId)
+    {
+    case TRAINER_VIRELIA_VIKTOR_GRASS:
+    case TRAINER_VIRELIA_VIKTOR_WATER:
+    case TRAINER_VIRELIA_VIKTOR_FIRE:
+    case TRAINER_VIRELIA_VIKTORIE_GRASS:
+    case TRAINER_VIRELIA_VIKTORIE_WATER:
+    case TRAINER_VIRELIA_VIKTORIE_FIRE:
+        break;
+    default:
+        return;
+    }
+
+    u32 choice = VarGet(VAR_VIRELIA_STARTER);
+    if (!FlagGet(FLAG_VIRELIA_STARTER_RECEIVED)
+     || !FlagGet(FLAG_VIRELIA_LAB_RESCUE_COMPLETE)
+     || FlagGet(FLAG_VIRELIA_RIVAL_COMPLETE)
+     || choice >= VIRELIA_STARTER_COUNT
+     || gPartiesCount[B_TRAINER_PLAYER] != 1
+     || GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_SPECIES) != GetVireliaStarterSpecies(choice)
+     || GetMonData(&party[0], MON_DATA_SPECIES) != GetVireliaRivalSpecies(choice))
+        return;
+
+    // AI partners receive no EXP. Give the following duel the same level gain
+    // as the player's starter, including experience earned before a rescue retry.
+    u32 level = max(VIRELIA_RIVAL_LEVEL, GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_LEVEL));
+    if (level > GetMonData(&party[0], MON_DATA_LEVEL))
+    {
+        u32 species = GetMonData(&party[0], MON_DATA_SPECIES);
+        u32 exp = gExperienceTables[gSpeciesInfo[species].growthRate][level];
+        SetMonData(&party[0], MON_DATA_EXP, &exp);
+        CalculateMonStats(&party[0]);
+    }
+#endif
 }
 
 void VireliaPrologue_CompleteRival(void)

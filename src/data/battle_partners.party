@@ -42,3 +42,87 @@ EVs: 252 Atk / 252 SpA / 6 SpD
 - Protect
 - Solar Beam
 - Dragon Claw
+
+=== PARTNER_VIRELIA_VIKTOR_GRASS ===
+Name: VIKTOR
+Class: Rival
+Pic: RS Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+SPECIES_EKANS_VIRELIA
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Growl
+
+=== PARTNER_VIRELIA_VIKTOR_WATER ===
+Name: VIKTOR
+Class: Rival
+Pic: RS Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+SPECIES_POOCHYENA_VIRELIA
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Growl
+
+=== PARTNER_VIRELIA_VIKTOR_FIRE ===
+Name: VIKTOR
+Class: Rival
+Pic: RS Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+SPECIES_NATU_VIRELIA
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Growl
+
+=== PARTNER_VIRELIA_VIKTORIE_GRASS ===
+Name: VIKTORIE
+Class: Rival
+Pic: RS May
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+SPECIES_EKANS_VIRELIA
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Growl
+
+=== PARTNER_VIRELIA_VIKTORIE_WATER ===
+Name: VIKTORIE
+Class: Rival
+Pic: RS May
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+SPECIES_POOCHYENA_VIRELIA
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Growl
+
+=== PARTNER_VIRELIA_VIKTORIE_FIRE ===
+Name: VIKTORIE
+Class: Rival
+Pic: RS May
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+SPECIES_NATU_VIRELIA
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tackle
+- Growl

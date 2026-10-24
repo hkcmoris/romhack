@@ -233,6 +233,8 @@ jobs:
           python3 tools/validate_virelia_tilesets.py
           python3 tools/validate_virelia_sanctuary.py
           python3 tools/validate_virelia_lab_scene.py
+          python3 tools/virelia/build_briefcase.py --check
+          python3 tools/virelia/build_lab_case.py --check
           python3 tools/validate_virelia_first_gym.py
           python3 tools/validate_virelia_missing_tools.py
 
