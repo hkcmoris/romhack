@@ -11,6 +11,10 @@ void VireliaFirstGym_GymSwitch(void);
 void VireliaFirstGym_AwardBadge(void);
 void VireliaFirstGym_AwardTM(void);
 void VireliaFirstGym_TakeQuarryItem(void);
+void VireliaFirstGym_BeginMissingTools(void);
+void VireliaFirstGym_CollectTool(void);
+void VireliaFirstGym_RecoverTools(void);
+void VireliaFirstGym_RewardTools(void);
 u16 VireliaFirstGym_TrainerFlag(u16 trainerId);
 
 #endif

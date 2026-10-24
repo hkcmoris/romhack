@@ -255,6 +255,8 @@ def main():
         entry['object_events'].append(actor('EXPERT_M', 24, 18, 'Virelia_SlatefordCity_EventScript_Manager'))
     json_write(city_path, entry)
     print('Built five appended Slateford maps and updated only the city service plots.')
+    from build_missing_tools import main as build_missing_tools
+    build_missing_tools()
 
 
 if __name__ == '__main__':

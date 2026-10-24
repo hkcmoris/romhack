@@ -8,12 +8,14 @@ Virelia_Slateford_QuarryDepths_OnTransition:
 	end
 
 Virelia_Slateford_QuarryDepths_OnLoad:
+	setmetatile 3, 7, 0x203, 1
 	goto_if_set FLAG_VIRELIA_QUARRY_POWER_RESTORED, Virelia_Slateford_QuarryDepths_OpenGate
 	setmetatile 11, 6, 0x203, 1
 	end
 
 Virelia_Slateford_QuarryDepths_OpenGate:
 	setmetatile 11, 6, 0x201, 0
+	setmetatile 3, 7, 0x214, 0
 	end
 
 Virelia_Slateford_QuarryDepths_EventScript_Lenka::
@@ -42,6 +44,7 @@ Virelia_Slateford_QuarryDepths_EventScript_Feed::
 	call VireliaFirstGym_EventScript_QuarrySwitch
 	goto_if_eq VAR_RESULT, FALSE, Virelia_Slateford_QuarryDepths_EventScript_WrongOrder
 	setmetatile 11, 6, 0x201, 0
+	setmetatile 3, 7, 0x214, 0
 	special DrawWholeMapView
 	playse SE_BANG
 	msgbox Virelia_Slateford_QuarryDepths_Text_PowerRestored, MSGBOX_DEFAULT
@@ -61,6 +64,10 @@ Virelia_Slateford_QuarryDepths_EventScript_Release:
 
 Virelia_Slateford_QuarryDepths_EventScript_Instructions::
 	msgbox Virelia_Slateford_QuarryDepths_Text_Instructions, MSGBOX_SIGN
+	end
+
+Virelia_Slateford_QuarryDepths_EventScript_GalleryGate::
+	msgbox Virelia_Slateford_QuarryGallery_Text_Gate, MSGBOX_SIGN
 	end
 
 Virelia_Slateford_QuarryDepths_EventScript_Crate::
@@ -122,7 +129,9 @@ Virelia_Slateford_QuarryDepths_Text_PowerRestored:
 	.string "Rozvodna opět pracuje!\n"
 	.string "Pohon odsunul kamenný náklad.\p"
 	.string "Cesta k severnímu skladu\n"
-	.string "je volná. Prohlédni jeho bednu.$"
+	.string "je volná. Prohlédni jeho bednu.\p"
+	.string "Odsunuly se i vozíky u žebříků.\n"
+	.string "Horník u vchodu tě shání.$"
 
 Virelia_Slateford_QuarryDepths_Text_PowerAlready:
 	.string "Rozvodna běží. Náklad je pryč.\n"

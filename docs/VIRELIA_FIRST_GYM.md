@@ -369,3 +369,67 @@ No Android My Boy! playtest or network success is inferred from CI.
 
 Stop after the first badge and TM. No next city, second Gym, Porygon reveal,
 Storage lockdown, Mega Evolution or multiplayer feature belongs to this slice.
+
+## Optional quarry mystery: The Missing Tools
+
+After restoring electricity, speak to the guide near the entrance at (5, 15).
+He reports disappearing tools and the miners' suspicion that Team Rocket has
+returned. Accept his request, collect the wrench near (7, 6), and take the
+new northwest ladder at (4, 3) into the abandoned gallery.
+
+Follow the hammer at (7, 17) and the pick at (17, 6). Small footprints, bite
+marks and a preference for polished metal lead to Sableye's hoard at (24, 9).
+The encounter offers **Souboj**, **Chytit** and **Později**. The first two start
+an ordinary level-13 wild battle; catching uses the normal Ball, party and PC
+rules. Victory or capture recovers the remaining tools. Escape, Teleport,
+defeat or cancelling leaves the encounter available for another attempt.
+Defeating Sableye resolves this one-time encounter, so choose capture if you
+want to keep it. Both battle choices permit normal Ball use.
+
+Return to the entrance guide for one **Hard Stone**. A full Bag leaves the
+reward pending; freeing a slot and speaking again grants it exactly once.
+The request, individual tools, encounter resolution and reward use persistent
+flags. This optional story never advances the freight investigation or gates
+Mara's Gym.
+
+The 30 × 24 gallery appends interior map (76, 7),
+`MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY`. Its west ladder at (3, 20) returns to
+the entrance's northwest work area. Its east ladder at (26, 20) connects to
+the depths at (3, 7), near the electrical feed. Both approaches open with
+electricity, independently of accepting or finishing the quest. The original
+inter-section ladder remains available, creating an optional traversal loop.
+Sableye and its hoard sit beside the through-route and cannot block it.
+The gallery uses existing cave tiles and species overworld graphics, with
+no random encounter table competing with the special encounter.
+
+Regressions:
+
+```sh
+python3 tools/validate_virelia_missing_tools.py
+python3 tools/validate_virelia_world.py
+python3 tools/validate_virelia_first_gym.py
+make -j10 -O all syms UNUSED_ERROR=1 DEPRECATED_ERROR=1 ROM_VERSION=0.3.0-missing-tools
+make -j10 -O check UNUSED_ERROR=1 DEPRECATED_ERROR=1 ROM_VERSION=0.3.0-missing-tools TESTS=Virelia
+```
+
+The new collision validator removes the original inter-section ladder to prove
+the gallery connects both work areas in both directions, with all objects
+still present. Native tests cover compiled quest helpers, battle outcomes,
+full-Bag retries, one-time rewards and both ladder gates. The chapter's native
+FLASH save/Continue regression also retains all six quest flags and Hard Stone.
+For manual testing, use a new save; check each menu choice, capture with a full
+party, loss and retry, and save/reload after collecting only part of the trail.
+
+Local validation on 2026-10-24 produced the 32 MiB development ROM
+`outputs/missing-tools/oraculum-v0.3.0-missing-tools.gba` through WSL. All new
+quest tests and the extended FLASH regression passed. The broader Virelia
+suite passed 67 of 68 tests; the unchanged starter-balance test failed with
+`Unmatched HP_BAR` in parameter 2/3. Gallery, world, first-Gym, laboratory and
+documentation source checks passed. Separate sanctuary and localization audits
+failed identically against unchanged Git HEAD: the sanctuary's Hana gate is
+bypassable and the localization manifest lacks 156 bounded-coverage entries.
+The new quarry dialogue had no glyph, width or line-count errors. These
+existing audits and the starter-balance failure remain outside this quest.
+`npm format` and `npm lint` were attempted; this C/Makefile repository has no
+npm project or corresponding npm commands. No manual emulator walkthrough was
+performed for this change.

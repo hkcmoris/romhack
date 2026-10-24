@@ -62,6 +62,13 @@
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE",
       "dest_warp_id": "1"
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY",
+      "dest_warp_id": "1"
     }
   ],
   "coord_events": [],
@@ -89,6 +96,14 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_Slateford_QuarryDepths_EventScript_Instructions"
+    },
+    {
+      "type": "sign",
+      "x": 3,
+      "y": 7,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_Slateford_QuarryDepths_EventScript_GalleryGate"
     }
   ]
 }

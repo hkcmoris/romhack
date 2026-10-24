@@ -27,6 +27,7 @@ NAMES = (
     "Virelia_Slateford_QuarryEntrance",
     "Virelia_Slateford_QuarryDepths",
     "Virelia_Slateford_Gym",
+    "Virelia_Slateford_QuarryGallery",
     "Virelia_WhisperwoodSanctuary",
 )
 TOWN, LAB, ROUTE, CITY, HOME = NAMES[:5]

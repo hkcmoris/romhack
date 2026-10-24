@@ -1,6 +1,14 @@
 Virelia_Slateford_QuarryEntrance_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Virelia_Slateford_QuarryEntrance_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, Virelia_Slateford_QuarryEntrance_OnLoad
 	.byte 0
+
+Virelia_Slateford_QuarryEntrance_OnLoad:
+	setmetatile 4, 3, 0x203, 1
+	goto_if_unset FLAG_VIRELIA_QUARRY_POWER_RESTORED, Virelia_Slateford_QuarryEntrance_LoadDone
+	setmetatile 4, 3, 0x214, 0
+Virelia_Slateford_QuarryEntrance_LoadDone:
+	end
 
 Virelia_Slateford_QuarryEntrance_OnTransition:
 	callnative VireliaFirstGym_BeginChapter
@@ -45,7 +53,12 @@ Virelia_Slateford_QuarryEntrance_EventScript_Bruno::
 	end
 
 Virelia_Slateford_QuarryEntrance_EventScript_Guide::
+	goto_if_set FLAG_VIRELIA_QUARRY_POWER_RESTORED, Virelia_Slateford_QuarryGallery_EventScript_Miner
 	msgbox Virelia_Slateford_QuarryEntrance_Text_Guide, MSGBOX_NPC
+	end
+
+Virelia_Slateford_QuarryEntrance_EventScript_GalleryGate::
+	msgbox Virelia_Slateford_QuarryGallery_Text_Gate, MSGBOX_SIGN
 	end
 
 Virelia_Slateford_QuarryEntrance_EventScript_Equipment::

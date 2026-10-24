@@ -53,7 +53,7 @@ static void ResetFirstGymTest(void)
     ResetPokemonStorageSystem();
     SetBagItemsPointers();
     ClearBag();
-    for (u32 i = FLAG_VIRELIA_MOM_MET; i <= FLAG_VIRELIA_TRAINER_MARA; i++)
+    for (u32 i = FLAG_VIRELIA_MOM_MET; i <= FLAG_VIRELIA_TOOL_PICK; i++)
         FlagClear(i);
     for (u32 i = 0; i < ARRAY_COUNT(sChapterTrainers); i++)
         ClearTrainerFlag(sChapterTrainers[i]);
@@ -475,7 +475,19 @@ TEST("Virelia chapter puzzle and reward flags survive native FLASH save and Cont
         FLAG_VIRELIA_QUARRY_COMPLETE, FLAG_VIRELIA_GYM_PUZZLE_COMPLETE,
         FLAG_VIRELIA_BADGE_QUARRY, FLAG_VIRELIA_TM_ROCK_TOMB_RECEIVED,
         FLAG_VIRELIA_ITEM_QUARRY_SUPER_POTION, FLAG_VIRELIA_FIRST_GYM_COMPLETE,
+        FLAG_VIRELIA_MISSING_TOOLS_STARTED, FLAG_VIRELIA_TOOL_WRENCH,
+        FLAG_VIRELIA_TOOL_HAMMER, FLAG_VIRELIA_TOOL_PICK,
+        FLAG_VIRELIA_MISSING_TOOLS_RECOVERED, FLAG_VIRELIA_MISSING_TOOLS_REWARDED,
     };
+    VireliaFirstGym_BeginMissingTools();
+    for (u32 tool = 1; tool <= 3; tool++)
+    {
+        gSpecialVar_0x8004 = tool;
+        VireliaFirstGym_CollectTool();
+    }
+    gSpecialVar_0x8004 = B_OUTCOME_CAUGHT;
+    VireliaFirstGym_RecoverTools();
+    VireliaFirstGym_RewardTools();
     ClearTempFieldEventData();
     IntrFunc originalTimer3Handler, unusedFlashHandler;
     u16 originalIme = REG_IME;
@@ -513,6 +525,10 @@ TEST("Virelia chapter puzzle and reward flags survive native FLASH save and Cont
     EXPECT_EQ(VarGet(VAR_VIRELIA_PROLOGUE_STATE), VIRELIA_STATE_COMPLETE);
     EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_TM_ROCK_TOMB), 1);
     EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_SUPER_POTION), 1);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_HARD_STONE), 1);
+    VireliaFirstGym_RewardTools();
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_HARD_STONE), 1);
     VireliaFirstGym_ResetQuarryPuzzle();
     VireliaFirstGym_ResetGymPuzzle();
     EXPECT(FlagGet(FLAG_VIRELIA_QUARRY_POWER_RESTORED));

@@ -4,6 +4,7 @@
 #include "item.h"
 #include "virelia_first_gym.h"
 #include "constants/items.h"
+#include "constants/battle.h"
 #include "constants/opponents.h"
 #include "constants/virelia_prologue.h"
 #include "constants/virelia_first_gym.h"
@@ -139,4 +140,46 @@ void VireliaFirstGym_TakeQuarryItem(void)
     if (!ChapterAvailable() || !FlagGet(FLAG_VIRELIA_CHAPTER_STARTED))
         return;
     GrantOnce(FLAG_VIRELIA_ITEM_QUARRY_SUPER_POTION, ITEM_SUPER_POTION);
+}
+
+static bool32 MissingToolsAvailable(void)
+{
+    return ChapterAvailable() && FlagGet(FLAG_VIRELIA_QUARRY_POWER_RESTORED);
+}
+
+void VireliaFirstGym_BeginMissingTools(void)
+{
+    gSpecialVar_Result = MissingToolsAvailable();
+    if (gSpecialVar_Result)
+        FlagSet(FLAG_VIRELIA_MISSING_TOOLS_STARTED);
+}
+
+void VireliaFirstGym_CollectTool(void)
+{
+    gSpecialVar_Result = FALSE;
+    if (!MissingToolsAvailable() || !FlagGet(FLAG_VIRELIA_MISSING_TOOLS_STARTED)
+     || gSpecialVar_0x8004 < 1 || gSpecialVar_0x8004 > 3)
+        return;
+    FlagSet(FLAG_VIRELIA_TOOL_WRENCH + gSpecialVar_0x8004 - 1);
+    gSpecialVar_Result = TRUE;
+}
+
+void VireliaFirstGym_RecoverTools(void)
+{
+    gSpecialVar_Result = FALSE;
+    if (!MissingToolsAvailable() || !FlagGet(FLAG_VIRELIA_MISSING_TOOLS_STARTED)
+     || !FlagGet(FLAG_VIRELIA_TOOL_WRENCH) || !FlagGet(FLAG_VIRELIA_TOOL_HAMMER)
+     || !FlagGet(FLAG_VIRELIA_TOOL_PICK)
+     || (gSpecialVar_0x8004 != B_OUTCOME_WON && gSpecialVar_0x8004 != B_OUTCOME_CAUGHT))
+        return;
+    FlagSet(FLAG_VIRELIA_MISSING_TOOLS_RECOVERED);
+    gSpecialVar_Result = TRUE;
+}
+
+void VireliaFirstGym_RewardTools(void)
+{
+    gSpecialVar_Result = FALSE;
+    if (!MissingToolsAvailable() || !FlagGet(FLAG_VIRELIA_MISSING_TOOLS_RECOVERED))
+        return;
+    GrantOnce(FLAG_VIRELIA_MISSING_TOOLS_REWARDED, ITEM_HARD_STONE);
 }

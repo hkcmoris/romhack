@@ -1788,6 +1788,7 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/maps/Virelia_Slateford_Mart/scripts.inc"
 	.include "data/maps/Virelia_Slateford_QuarryEntrance/scripts.inc"
 	.include "data/maps/Virelia_Slateford_QuarryDepths/scripts.inc"
+	.include "data/maps/Virelia_Slateford_QuarryGallery/scripts.inc"
 	.include "data/maps/Virelia_Slateford_Gym/scripts.inc"
 #endif
 	.include "data/scripts/apricorn_tree.inc"

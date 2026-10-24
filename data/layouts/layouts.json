@@ -9444,6 +9444,17 @@
       "border_filepath": "data/layouts/Virelia_WhisperwoodSanctuary/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_WhisperwoodSanctuary/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SLATEFORD_QUARRY_GALLERY",
+      "name": "Virelia_Slateford_QuarryGallery_Layout",
+      "width": 30,
+      "height": 24,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_RusturfTunnel",
+      "border_filepath": "data/layouts/Virelia_Slateford_QuarryGallery/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryGallery/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }
