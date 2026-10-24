@@ -72,6 +72,90 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_MaplebrookTown_EventScript_TrailWalker",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_MAPLEBROOK_COURIER",
+      "graphics_id": "OBJ_EVENT_GFX_MAN_1",
+      "x": 12,
+      "y": 8,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WALK_LEFT_AND_RIGHT",
+      "movement_range_x": 1,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookTown_EventScript_Courier",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_MAPLEBROOK_FISHERMAN",
+      "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+      "x": 20,
+      "y": 10,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookTown_EventScript_Fisherman",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_MAPLEBROOK_PSYDUCK",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(PSYDUCK)",
+      "x": 18,
+      "y": 10,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookTown_EventScript_Psyduck",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_MAPLEBROOK_EMA",
+      "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
+      "x": 9,
+      "y": 14,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookTown_EventScript_Ema",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_MAPLEBROOK_POOCHYENA",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(POOCHYENA)",
+      "x": 8,
+      "y": 14,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookTown_EventScript_Poochyena",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_MAPLEBROOK_WURMPLE",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(WURMPLE)",
+      "x": 8,
+      "y": 21,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WALK_IN_PLACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookTown_EventScript_Wurmple",
+      "flag": "0"
     }
   ],
   "warp_events": [
@@ -87,6 +171,13 @@
       "y": 9,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 22,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_MAPLEBROOK_COTTAGE",
       "dest_warp_id": "0"
     }
   ],
@@ -192,18 +283,42 @@
     {
       "type": "sign",
       "x": 17,
-      "y": 22,
+      "y": 23,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookTown_EventScript_TownSign"
     },
     {
       "type": "sign",
-      "x": 22,
-      "y": 9,
+      "x": 21,
+      "y": 10,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Virelia_MaplebrookTown_EventScript_ClosedCottage"
+      "script": "Virelia_MaplebrookTown_EventScript_CottageSign"
+    },
+    {
+      "type": "sign",
+      "x": 11,
+      "y": 6,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_MaplebrookTown_EventScript_Noticeboard"
+    },
+    {
+      "type": "sign",
+      "x": 10,
+      "y": 21,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_MaplebrookTown_EventScript_GroveFind"
+    },
+    {
+      "type": "sign",
+      "x": 17,
+      "y": 25,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_MaplebrookTown_EventScript_Nursery"
     }
   ],
   "region": "REGION_HOENN"

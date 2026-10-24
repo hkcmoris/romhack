@@ -9455,6 +9455,17 @@
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryGallery/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryGallery/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_MAPLEBROOK_COTTAGE",
+      "name": "Virelia_MaplebrookCottage_Layout",
+      "width": 10,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Virelia_MaplebrookCottage/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_MaplebrookCottage/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

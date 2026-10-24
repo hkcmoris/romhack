@@ -15,6 +15,7 @@
 #include "constants/maps.h"
 #include "constants/oraculum_duo_test.h"
 #include "constants/virelia_prologue.h"
+#include "constants/virelia_maplebrook.h"
 #include "constants/battle_partner.h"
 #include "constants/battle_special.h"
 #include "constants/opponents.h"
@@ -92,6 +93,8 @@ void InitVireliaPrologueNewGame(void)
         FlagClear(flag);
     FlagClear(FLAG_VIRELIA_LAB_RESCUE_COMPLETE);
     FlagClear(FLAG_VIRELIA_HIDE_LAB_ESCAPEES);
+    FlagClear(FLAG_VIRELIA_MAPLEBROOK_BERRY_GIFT);
+    FlagClear(FLAG_VIRELIA_MAPLEBROOK_GROVE_FIND);
     FlagSet(FLAG_VIRELIA_HIDE_DEV_GUIDE);
     FlagSet(FLAG_VIRELIA_HIDE_POLICEMAN);
     FlagClear(FLAG_SYS_POKEMON_GET);

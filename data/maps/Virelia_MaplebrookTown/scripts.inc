@@ -92,9 +92,120 @@ Virelia_MaplebrookTown_EventScript_TownSign::
 	msgbox Virelia_MaplebrookTown_Text_TownSign, MSGBOX_SIGN
 	end
 
-Virelia_MaplebrookTown_EventScript_ClosedCottage::
-	msgbox Virelia_MaplebrookTown_Text_ClosedCottage, MSGBOX_SIGN
+Virelia_MaplebrookTown_EventScript_CottageSign::
+	msgbox Virelia_MaplebrookTown_Text_CottageSign, MSGBOX_SIGN
 	end
+
+Virelia_MaplebrookTown_EventScript_Noticeboard::
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+	checkflag FLAG_VIRELIA_LAB_RESCUE_COMPLETE
+	goto_if TRUE, Virelia_MaplebrookTown_EventScript_NoticeAfterLab
+#endif
+	msgbox Virelia_MaplebrookTown_Text_Noticeboard, MSGBOX_SIGN
+	end
+Virelia_MaplebrookTown_EventScript_NoticeAfterLab:
+	msgbox Virelia_MaplebrookTown_Text_NoticeAfterLab, MSGBOX_SIGN
+	end
+
+Virelia_MaplebrookTown_EventScript_Courier::
+	lock
+	faceplayer
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+	checkflag FLAG_VIRELIA_ROCKET_DEFEATED
+	goto_if TRUE, Virelia_MaplebrookTown_EventScript_CourierAfterRocket
+	checkflag FLAG_VIRELIA_LAB_RESCUE_COMPLETE
+	goto_if TRUE, Virelia_MaplebrookTown_EventScript_CourierAfterLab
+#endif
+	msgbox Virelia_MaplebrookTown_Text_Courier, MSGBOX_DEFAULT
+	release
+	end
+Virelia_MaplebrookTown_EventScript_CourierAfterLab:
+	msgbox Virelia_MaplebrookTown_Text_CourierAfterLab, MSGBOX_DEFAULT
+	release
+	end
+Virelia_MaplebrookTown_EventScript_CourierAfterRocket:
+	msgbox Virelia_MaplebrookTown_Text_CourierAfterRocket, MSGBOX_DEFAULT
+	release
+	end
+
+Virelia_MaplebrookTown_EventScript_Fisherman::
+	msgbox Virelia_MaplebrookTown_Text_Fisherman, MSGBOX_NPC
+	end
+
+Virelia_MaplebrookTown_EventScript_Psyduck::
+	lock
+	faceplayer
+	playmoncry SPECIES_PSYDUCK, CRY_MODE_NORMAL
+	applymovement LOCALID_VIRELIA_MAPLEBROOK_PSYDUCK, Virelia_MaplebrookTown_Movement_Hop
+	waitmovement LOCALID_VIRELIA_MAPLEBROOK_PSYDUCK
+	msgbox Virelia_MaplebrookTown_Text_Psyduck, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+Virelia_MaplebrookTown_EventScript_Ema::
+	msgbox Virelia_MaplebrookTown_Text_Ema, MSGBOX_NPC
+	end
+
+Virelia_MaplebrookTown_EventScript_Poochyena::
+	lock
+	faceplayer
+	playmoncry SPECIES_POOCHYENA, CRY_MODE_NORMAL
+	msgbox Virelia_MaplebrookTown_Text_Poochyena, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+Virelia_MaplebrookTown_EventScript_Wurmple::
+	lock
+	faceplayer
+	playmoncry SPECIES_WURMPLE, CRY_MODE_NORMAL
+	msgbox Virelia_MaplebrookTown_Text_Wurmple, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+Virelia_MaplebrookTown_EventScript_Nursery::
+	msgbox Virelia_MaplebrookTown_Text_Nursery, MSGBOX_SIGN
+	end
+
+Virelia_MaplebrookTown_EventScript_GroveFind::
+	lockall
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+	checkflag FLAG_VIRELIA_MAPLEBROOK_GROVE_FIND
+	goto_if TRUE, Virelia_MaplebrookTown_EventScript_GroveEmpty
+	call Virelia_MaplebrookTown_EventScript_TryFindAntidote
+	goto_if_eq VAR_RESULT, FALSE, Virelia_MaplebrookTown_EventScript_GroveBagFull
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Virelia_MaplebrookTown_Text_GroveFound, MSGBOX_DEFAULT
+	waitfanfare
+	releaseall
+	end
+#endif
+Virelia_MaplebrookTown_EventScript_GroveEmpty:
+	msgbox Virelia_MaplebrookTown_Text_GroveEmpty, MSGBOX_DEFAULT
+	releaseall
+	end
+Virelia_MaplebrookTown_EventScript_GroveBagFull:
+	msgbox Virelia_MaplebrookTown_Text_GroveBagFull, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Virelia_MaplebrookTown_EventScript_TryFindAntidote::
+	setvar VAR_RESULT, FALSE
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+	checkflag FLAG_VIRELIA_MAPLEBROOK_GROVE_FIND
+	goto_if TRUE, Virelia_MaplebrookTown_EventScript_FindReturn
+	additem ITEM_ANTIDOTE, 1
+	goto_if_eq VAR_RESULT, FALSE, Virelia_MaplebrookTown_EventScript_FindReturn
+	setflag FLAG_VIRELIA_MAPLEBROOK_GROVE_FIND
+#endif
+Virelia_MaplebrookTown_EventScript_FindReturn:
+	return
+
+Virelia_MaplebrookTown_Movement_Hop:
+	jump_in_place_down
+	step_end
 
 Virelia_MaplebrookTown_Text_Gardener:
 	.string "V každé zahradě tu necháváme\n"
@@ -166,6 +277,84 @@ Virelia_MaplebrookTown_Text_TownSign:
 	.string "Maplebrook Town\n"
 	.string "Malý domov pro nové začátky.$"
 
-Virelia_MaplebrookTown_Text_ClosedCottage:
-	.string "Sousedé se právě starají\n"
-	.string "o své zahrady.$"
+Virelia_MaplebrookTown_Text_CottageSign:
+	.string "U ILONY\n"
+	.string "Bobule, návštěvy a jedna Skitty.$"
+
+Virelia_MaplebrookTown_Text_Noticeboard:
+	.string "OBECNÍ NÁSTĚNKA\n"
+	.string "Dnes se zametá náves.\p"
+	.string "Ilona vítá návštěvy.\n"
+	.string "Skitty vítá hlavně svačiny.\p"
+	.string "V hájku za kamenem občas\n"
+	.string "něco zůstane po výpravách.$"
+
+Virelia_MaplebrookTown_Text_NoticeAfterLab:
+	.string "DNEŠNÍ ZPRÁVA Z LABORATOŘE\n"
+	.string "Meowth už Rattatu nepronásleduje.\p"
+	.string "Prosíme, nezkoušejte na dveřích\n"
+	.string "cedulku: Pozor, volný výběh.\p"
+	.string "Ilona má otevřeno jako vždy.\n"
+	.string "Svačiny jsou pod dohledem Skitty.$"
+
+Virelia_MaplebrookTown_Text_Courier:
+	.string "KURÝR: Zásilku mám pro Javorovou.\n"
+	.string "Je na ní nápis: Neobracet.\p"
+	.string "A šipky na všech stranách.\n"
+	.string "Věda je plná záhad.$"
+
+Virelia_MaplebrookTown_Text_CourierAfterLab:
+	.string "KURÝR: Ten rámus z laboratoře?\n"
+	.string "Tentokrát to nebyl můj balík.\p"
+	.string "Tohle si napíšu do hlášení.\n"
+	.string "Pro jistotu dvakrát.$"
+
+Virelia_MaplebrookTown_Text_CourierAfterRocket:
+	.string "KURÝR: Ze Slatefordu přišlo\n"
+	.string "varování před falešnými dělníky.\p"
+	.string "Teď chtějí podpis i po mně.\n"
+	.string "A já tam nosím poštu každý den.$"
+
+Virelia_MaplebrookTown_Text_Fisherman:
+	.string "Tenhle rybníček má své výhody.\n"
+	.string "Úlovek se nemá kam schovat.\p"
+	.string "Psyduck sem chodí rybařit taky.\n"
+	.string "Jen neví, co je to prut.$"
+
+Virelia_MaplebrookTown_Text_Psyduck:
+	.string "PSYDUCK: Psy?\p"
+	.string "Nadšeně předvádí svůj úlovek.\n"
+	.string "Je to mokrý list.$"
+
+Virelia_MaplebrookTown_Text_Ema:
+	.string "EMA: Učíme se povel Sedni!\n"
+	.string "Zatím spíš cvičím já.\p"
+	.string "Do hájku chodíme odpočívat.\n"
+	.string "Hledej tam i u starého kamene.$"
+
+Virelia_MaplebrookTown_Text_Poochyena:
+	.string "POOCHYENA: Haf!\p"
+	.string "Čeká na další hru.\n"
+	.string "Výcvik se zřejmě vydařil.$"
+
+Virelia_MaplebrookTown_Text_Wurmple:
+	.string "WURMPLE: Prrr…\p"
+	.string "Pilně zkoumá spodní stranu listu.$"
+
+Virelia_MaplebrookTown_Text_Nursery:
+	.string "OBECNÍ ŠKOLKA SAZENIC\n"
+	.string "Zalévat. Neochutnávat.\p"
+	.string "Pod cedulkou je poznámka:\n"
+	.string "To platí i pro Skitty.$"
+
+Virelia_MaplebrookTown_Text_GroveFound:
+	.string "Za kamenem se leskne lahvička.\n"
+	.string "Do batohu ukládáš Antidote.$"
+
+Virelia_MaplebrookTown_Text_GroveEmpty:
+	.string "Ve stínu je klid a suché listí.\n"
+	.string "Wurmple tu má všechno potřebné.$"
+
+Virelia_MaplebrookTown_Text_GroveBagFull:
+	.string "Za kamenem leží Antidote.\n"
+	.string "Nejdřív uvolni místo v batohu.$"

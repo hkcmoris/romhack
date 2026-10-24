@@ -20,6 +20,29 @@ The older [world foundation](VIRELIA_WORLD.md) and
 [starter prototype](VIRELIA_STARTERS.md) describe the underlying registries and
 species. This document supersedes their development-start instructions.
 
+### Maplebrook town life
+
+The optional town spaces now include Ilona's open cottage, a pond with a
+fisherman and Psyduck, a community noticeboard and courier, Ema with her
+Poochyena, a shaded walking loop with Wurmple, and a small plant nursery.
+The noticeboard and courier react to the laboratory rescue; the courier also
+reacts to the Rocket encounter. These visits do not gate the lab or north trail.
+The professor's garden and fence collision cells remain intact.
+
+Ilona gives one Oran Berry after the starter is received. Investigating behind
+the grove's stone finds one Antidote. Their independent flags are
+`FLAG_VIRELIA_MAPLEBROOK_BERRY_GIFT` (`0x4A`) and
+`FLAG_VIRELIA_MAPLEBROOK_GROVE_FIND` (`0x4B`). Full pockets leave both rewards
+available for another attempt. Development exhibitions do not grant these gifts.
+The cottage appends interior map index `8`; existing map and warp indices stay
+unchanged, and its new outdoor door uses Maplebrook warp index `2`.
+
+Lab regression checks follow the active campaign: story uses Viktor/Viktorie,
+persistent case slots and post-rescue level matching; development uses Hoenn
+rival placeholders, a full three-slot case and authored trainer levels.
+`build_lab_case.py --check` accepts LF or CRLF palette line endings, while
+checking binary assets exactly. Its unit checks also reject actual color changes.
+
 ## Playable sequence
 
 1. Choose **NOVÁ HRA**, gender and trainer name. The engine creates the Trainer

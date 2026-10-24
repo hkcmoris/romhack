@@ -217,7 +217,7 @@ TEST("Virelia lab preserves the rival Ball pickup before the battle completes")
 }
 #endif
 
-TEST("Virelia compact case reloads all eight slot states with solid collision and one clear approach")
+TEST("Virelia compact case restores story slots or the full development display with solid collision")
 {
     u32 mask = 7;
     for (u32 i = 0; i < 8; i++)
@@ -237,12 +237,13 @@ TEST("Virelia compact case reloads all eight slot states with solid collision an
     WarpIntoMap();
     InitMap();
     VireliaPrologue_SyncStarterBallFlags();
-    EXPECT_EQ(GetVireliaStarterCaseMask(), mask);
+    u32 expectedMask = VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE ? mask : 7;
+    EXPECT_EQ(GetVireliaStarterCaseMask(), expectedMask);
     for (u32 y = 0; y < 2; y++)
         for (u32 x = 0; x < 2; x++)
         {
             EXPECT_EQ(MapGridGetMetatileIdAt(6 + x + MAP_OFFSET, 5 + y + MAP_OFFSET),
-                      VIRELIA_LAB_CASE_BASE_METATILE + mask * 4 + y * 2 + x);
+                      VIRELIA_LAB_CASE_BASE_METATILE + expectedMask * 4 + y * 2 + x);
             EXPECT_NE(MapGridGetCollisionAt(6 + x + MAP_OFFSET, 5 + y + MAP_OFFSET), 0);
         }
     EXPECT_EQ(MapGridGetCollisionAt(6 + MAP_OFFSET, 7 + MAP_OFFSET), 0);
@@ -369,7 +370,7 @@ TEST("Virelia compiled rival teams use the opposing level five starter and fair 
     EXPECT_EQ(GetMonData(&party[1], MON_DATA_SPECIES), SPECIES_NONE);
 }
 
-TEST("Virelia rival duel matches the starter level earned in the rescue for both genders and every outcome")
+TEST("Virelia rival duel matches story starter levels and preserves authored development levels")
 {
     u32 choice = 0, gender = MALE, level = 6, outcome = B_OUTCOME_WON;
     for (u32 i = 0; i < VIRELIA_STARTER_COUNT; i++)
@@ -402,9 +403,10 @@ TEST("Virelia rival duel matches the starter level earned in the rescue for both
     CreateNPCTrainerPartyFromTrainer(party, &sVireliaStoryTrainers[DIFFICULTY_NORMAL][trainerId]);
     VireliaPrologue_MatchRivalLevel(party, trainerId);
     gSaveBlock2Ptr->playerGender = previousGender;
+    u32 expectedLevel = VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE ? level : VIRELIA_RIVAL_LEVEL;
     EXPECT_EQ(GetMonData(&party[0], MON_DATA_SPECIES), GetVireliaRivalSpecies(choice));
-    EXPECT_EQ(GetMonData(&party[0], MON_DATA_LEVEL), level);
-    EXPECT_EQ(GetLevelFromMonExp(&party[0]), level);
+    EXPECT_EQ(GetMonData(&party[0], MON_DATA_LEVEL), expectedLevel);
+    EXPECT_EQ(GetLevelFromMonExp(&party[0]), expectedLevel);
     EXPECT_EQ(GetMonData(&party[0], MON_DATA_HP), GetMonData(&party[0], MON_DATA_MAX_HP));
     EXPECT_EQ(GetMonData(&party[0], MON_DATA_MOVE1), MOVE_TACKLE);
     EXPECT_EQ(GetMonData(&party[0], MON_DATA_MOVE2), MOVE_GROWL);

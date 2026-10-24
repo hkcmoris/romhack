@@ -33,6 +33,8 @@ static const u16 sVireliaMaps[] =
     MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE,
     MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS,
     MAP_VIRELIA_SLATEFORD_GYM,
+    MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY,
+    MAP_VIRELIA_MAPLEBROOK_COTTAGE,
     MAP_VIRELIA_WHISPERWOOD_SANCTUARY,
 };
 
@@ -137,13 +139,11 @@ TEST("Virelia building warps resolve through the native warp loader in both dire
 
 TEST("Virelia overworld connections have reciprocal passable seams")
 {
-    u32 index = 0;
-    PARAMETRIZE { index = 0; }
-    PARAMETRIZE { index = 2; }
-    PARAMETRIZE { index = 3; }
-    PARAMETRIZE { index = 10; }
-
-    u16 map = sVireliaMaps[index];
+    u32 map = MAP_VIRELIA_MAPLEBROOK_TOWN;
+    PARAMETRIZE { map = MAP_VIRELIA_MAPLEBROOK_TOWN; }
+    PARAMETRIZE { map = MAP_VIRELIA_ROUTE01; }
+    PARAMETRIZE { map = MAP_VIRELIA_SLATEFORD_CITY; }
+    PARAMETRIZE { map = MAP_VIRELIA_WHISPERWOOD_SANCTUARY; }
     const struct MapHeader *source = WorldHeader(map);
     EXPECT_NE(source->connections, NULL);
     EXPECT_GT(source->connections->count, 0);

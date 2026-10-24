@@ -1,0 +1,88 @@
+{
+  "id": "MAP_VIRELIA_MAPLEBROOK_COTTAGE",
+  "name": "Virelia_MaplebrookCottage",
+  "layout": "LAYOUT_VIRELIA_MAPLEBROOK_COTTAGE",
+  "music": "MUS_LITTLEROOT",
+  "region_map_section": "MAPSEC_VIRELIA_MAPLEBROOK_TOWN",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_INDOOR",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [
+    {
+      "local_id": "LOCALID_VIRELIA_COTTAGE_ILONA",
+      "graphics_id": "OBJ_EVENT_GFX_EXPERT_F",
+      "x": 7,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookCottage_EventScript_Ilona",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_COTTAGE_MATEJ",
+      "graphics_id": "OBJ_EVENT_GFX_BOY_1",
+      "x": 5,
+      "y": 6,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookCottage_EventScript_Matej",
+      "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_COTTAGE_SKITTY",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(SKITTY)",
+      "x": 7,
+      "y": 6,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookCottage_EventScript_Skitty",
+      "flag": "0"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 3,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_MAPLEBROOK_TOWN",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_MAPLEBROOK_TOWN",
+      "dest_warp_id": "2"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 2,
+      "y": 2,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_MaplebrookCottage_EventScript_Notebook"
+    }
+  ],
+  "region": "REGION_HOENN"
+}

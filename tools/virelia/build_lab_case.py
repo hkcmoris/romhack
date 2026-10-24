@@ -19,6 +19,14 @@ TARGET = ROOT / "data/tilesets/secondary/virelia_lab"
 CASE_BASE = 0x29E
 
 
+def asset_matches(name, actual, expected):
+    # Git checks .pal files out as CRLF; source archives can retain LF.
+    # Normalize only text palettes, keeping every binary byte significant.
+    if name.endswith(".pal"):
+        return actual.replace(b"\r\n", b"\n") == expected.replace(b"\r\n", b"\n")
+    return actual == expected
+
+
 def colors(slot):
     return [tuple(map(int, line.split())) for line in
             (SOURCE / f"palettes/{slot:02}.pal").read_text().splitlines()[3:19]]
@@ -134,7 +142,7 @@ def build():
     png += chunk(b"IDAT",zlib.compress(raw,9))+chunk(b"IEND",b"")
     pal = "JASC-PAL\n0100\n16\n" + "\n".join(" ".join(map(str,c)) for c in palette) + "\n"
     return {"tiles.png":png,"metatiles.bin":bytes(metatiles),
-            "metatile_attributes.bin":bytes(attrs),"palettes/12.pal":pal.encode()},previews,palette,len(used)
+            "metatile_attributes.bin":bytes(attrs),"palettes/12.pal":pal.replace("\n", "\r\n").encode()},previews,palette,len(used)
 
 
 def main():
@@ -146,7 +154,7 @@ def main():
     for name,content in files.items():
         path = TARGET/name
         if args.check:
-            assert path.read_bytes() == content, f"stale lab case: {name}"
+            assert asset_matches(name, path.read_bytes(), content), f"stale lab case: {name}"
         else:
             path.parent.mkdir(parents=True,exist_ok=True)
             if not path.exists() or path.read_bytes() != content:

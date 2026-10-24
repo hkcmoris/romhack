@@ -15,6 +15,7 @@
 #include "sprite.h"
 #include "starter_choose.h"
 #include "string_util.h"
+#include "strings.h"
 #include "task.h"
 #include "trainer_pokemon_sprites.h"
 #include "virelia_prologue.h"
@@ -84,7 +85,7 @@ TEST("Virelia rescue prepares two wild opponents and the selected Viktor partner
     gSaveBlock2Ptr->playerGender = previousGender;
 }
 
-TEST("Virelia rival name and overworld appearance use the opposite gender without truncating Viktorie")
+TEST("Virelia rival identity and campaign name placeholders respect the active mode")
 {
     u32 gender = MALE;
     PARAMETRIZE { gender = MALE; }
@@ -100,7 +101,12 @@ TEST("Virelia rival name and overworld appearance use the opposite gender withou
     const u8 *expectedName = gender == MALE ? COMPOUND_STRING("VIKTORIE") : COMPOUND_STRING("VIKTOR");
     StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{RIVAL}"));
     EXPECT_EQ(StringCompare(GetVireliaRivalName(), expectedName), 0);
+#if VIRELIA_PROLOGUE
     EXPECT_EQ(StringCompare(gStringVar4, expectedName), 0);
+#else
+    const u8 *hoennName = gender == MALE ? gText_ExpandedPlaceholder_May : gText_ExpandedPlaceholder_Brendan;
+    EXPECT_EQ(StringCompare(gStringVar4, hoennName), 0);
+#endif
     gSaveBlock2Ptr->playerGender = previousGender;
 }
 
