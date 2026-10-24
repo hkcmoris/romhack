@@ -98,8 +98,10 @@ def main():
     save('MaplebrookTown', town)
 
     lab = stock('LittlerootTown_ProfessorBirchsLab')
-    # Keep stock furnishings and two exit carpets; reserve open display space.
+    # Keep stock furnishings and exits, with an extended native display table.
     rect(lab, 4, 5, 5, 4, 0x3202)
+    lab[6][4:9] = [0x0693, 0x0694, 0x0694, 0x0694, 0x0695]
+    lab[7][4:9] = [0x329B, 0x329C, 0x329C, 0x329C, 0x329D]
     save('MaplebrookResearchLaboratory', lab, indoor=True)
 
     trail = woods(30, 42)
