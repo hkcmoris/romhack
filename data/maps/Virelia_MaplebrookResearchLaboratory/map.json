@@ -15,6 +15,7 @@
   "connections": null,
   "object_events": [
     {
+      "local_id": "LOCALID_VIRELIA_LAB_PROFESSOR",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_4",
       "x": 6,
       "y": 4,
@@ -86,9 +87,9 @@
       "local_id": "LOCALID_VIRELIA_LAB_VIKTOR",
       "graphics_id": "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
       "x": 4,
-      "y": 9,
+      "y": 8,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
@@ -113,26 +114,7 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-    {
-      "type": "trigger",
-      "x": 6,
-      "y": 11,
-      "elevation": 0,
-      "var": "VAR_VIRELIA_PROLOGUE_STATE",
-      "var_value": "VIRELIA_STATE_STARTER",
-      "script": "Virelia_MaplebrookResearchLaboratory_EventScript_RivalGate"
-    },
-    {
-      "type": "trigger",
-      "x": 7,
-      "y": 11,
-      "elevation": 0,
-      "var": "VAR_VIRELIA_PROLOGUE_STATE",
-      "var_value": "VIRELIA_STATE_STARTER",
-      "script": "Virelia_MaplebrookResearchLaboratory_EventScript_RivalGate"
-    }
-  ],
+  "coord_events": [],
   "bg_events": [],
   "region": "REGION_HOENN"
 }

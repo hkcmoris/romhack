@@ -34,6 +34,25 @@ static void FillItemsPocket(void)
         BagPocket_SetSlotItemIdAndCount(pocket, i, ITEM_ANTIDOTE, MAX_BAG_ITEM_CAPACITY);
 }
 
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE
+TEST("Virelia compiled lab welcome queues only after Mom and before the introduction")
+{
+    u32 progress = 0;
+    for (u32 i = 0; i < 4; i++)
+        PARAMETRIZE { progress = i; }
+
+    ResetPrologueEvents();
+    if (progress & 1)
+        FlagSet(FLAG_VIRELIA_MOM_MET);
+    if (progress & 2)
+        FlagSet(FLAG_VIRELIA_PROFESSOR_MET);
+    VarSet(VAR_TEMP_0, 1);
+    RUN_OVERWORLD_SCRIPT(goto Virelia_MaplebrookResearchLaboratory_OnTransition;);
+    EXPECT_EQ(VarGet(VAR_TEMP_0), progress == 1);
+    EXPECT_EQ(FlagGet(FLAG_VIRELIA_PROFESSOR_MET), (progress & 2) != 0);
+}
+#endif
+
 TEST("Virelia compiled starter event grants one selected level five partner")
 {
     u32 choice = 0;

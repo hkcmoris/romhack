@@ -28,7 +28,12 @@ species. This document supersedes their development-start instructions.
    automatically. She sends the player to the research laboratory and later provides
    unlimited free healing. The home also serves as the blackout destination.
 3. Visit **profesorka Javorová**. Her laboratory studies adaptations to Virelia's
-   ecosystems. Examining each starter Poké Ball shows that regional Pokemon's
+   ecosystems. On the first visit after meeting Mom, the player walks up the
+   central aisle and stops facing the professor. After her introduction, the
+   player turns toward Viktor; he approaches, mentions his tactics, and returns
+   control so the player can inspect the three Poké Balls on the display table.
+   Later visits skip this sequence and keep Viktor in his waiting position.
+   Examining each starter Poké Ball shows that regional Pokemon's
    front sprite alongside its description and selection prompt, using the native
    picture window. Confirming or declining closes the preview; pressing B counts
    as declining and leaves all choices available.
@@ -37,12 +42,15 @@ species. This document supersedes their development-start instructions.
    met location and Pokédex records. Re-entering or choosing another display
    cannot grant another starter. The chosen Ball disappears immediately after
    the successful gift; cancellation or a failed gift leaves it in place.
-5. The player steps into the open aisle. **Viktor** walks to the Ball with the
-   primary type advantage, takes it, and walks up to the player. His Ball also
-   disappears; the unused third Ball remains. He challenges the player and the
-   first battle starts immediately. Either result advances the story and
+5. The player walks around the solid table into the open aisle. **Viktor** walks
+   to the Ball with the primary type advantage, takes it, and approaches the
+   player. His Ball also disappears; the unused third Ball remains. He challenges
+   the player and the first battle starts immediately. Either result advances the story and
    restores the player's party. The saved result records the first outcome.
-6. Javorová gives the player a Pokédex, **5 Poké Balls and 3 Potions**. This
+6. After either battle result, Javorová offers to name the starter using the
+   native nickname screen. Declining or pressing B keeps its current name;
+   finishing or cancelling the naming screen continues the scene. She then
+   gives the player a Pokédex, **5 Poké Balls and 3 Potions**. This
    bundle is granted once. If either Bag pocket lacks space, the entire bundle
    waits until the player returns with space. The player can then catch wild
    Pokémon, use the party and Bag, save, heal and return home freely.
@@ -180,9 +188,10 @@ fits into the Bag. The full Bag case leaves the reward available for a retry.
 
 The laboratory synchronizes Ball visibility before spawning its objects.
 Existing pickup flags are never cleared in story mode, and completed story
-states do not replay the scene. Legacy recovery code remains an implementation
-fallback, not a cross-version save compatibility commitment. Development and
-nonstory builds retain all three exhibition Balls.
+states do not replay the scene. The entrance sequence records its completion
+after Viktor's greeting; returning before starter selection restores his
+waiting position. Development and nonstory builds retain all three exhibition
+Balls.
 
 ## Czech localization
 
@@ -320,9 +329,11 @@ git diff --check
 ```
 
 The laboratory scene validator follows the actual map script and movement
-commands against the map collision data. It covers every reachable side of
-each Ball, both legacy exit triggers and approaches to Viktor, pickup order,
-type advantage, dialogue, final facing, and canceled or failed gifts. The
+commands against the map collision data. It covers both entrances, the once-only
+welcome and repeat visits, every reachable side of each Ball, solid table
+collision, pickup order, type advantage, dialogue, final facing, canceled or
+failed gifts, and accepting or declining the post-battle naming offer. Run it
+with `--self-test` to also reject representative script regressions. The
 post-`0.2.40` pickup scene has source validation. The first Gym milestone also
 replayed the latest `14a30dafeb` baseline natively with Water selection, preview
 cancellation, both pickups, Viktor's movement and battle return. See its
