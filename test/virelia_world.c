@@ -151,6 +151,9 @@ TEST("Virelia overworld connections have reciprocal passable seams")
     {
         const struct MapConnection *connection = &source->connections->connections[i];
         const struct MapHeader *target = GetMapHeaderFromConnection(connection);
+        // Neighbor metatiles are cached and drawn with the current map's bank.
+        EXPECT_EQ(source->mapLayout->primaryTileset, target->mapLayout->primaryTileset);
+        EXPECT_EQ(source->mapLayout->secondaryTileset, target->mapLayout->secondaryTileset);
         bool32 reciprocal = FALSE, passable = FALSE;
         EXPECT_NE(target->connections, NULL);
         bool32 vertical = connection->direction == CONNECTION_NORTH || connection->direction == CONNECTION_SOUTH;

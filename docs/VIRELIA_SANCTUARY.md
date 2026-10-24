@@ -41,7 +41,9 @@ The original route still has its existing encounters, two trainers and Potion.
   `FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED` (`0x3C`). Existing save sizes stay fixed.
 - Unfinished stone progress: temporary variable `0x400E`.
 
-The sanctuary uses General plus a dedicated Whisperwood secondary tileset.
+The sanctuary uses General plus the shared VireliaOutdoor secondary tileset,
+also used by Maplebrook, Whisperwood Trail and Slateford. Shared IDs, graphics
+and palettes keep neighboring grass and buildings correct at seamless crossings.
 The ancient tree is an original **48 × 64 pixel** sprite, split into **3 × 4 map
 tiles** at `(8, 6)` through `(10, 9)`. Its twelve contiguous metatiles are
 `0x31D–0x328`, arranged row by row. One continuous canopy, gnarled trunk and
@@ -53,10 +55,13 @@ tiles over older cached map views; the tree interaction stays at `(9, 9)`.
 The generated master and its exact ImageGen prompt are retained under
 `art/whisperwood/`. `tools/virelia/build_whisperwood_tree.py` converts the master
 to the native sprite using nearest-neighbor sizing and GBA color reduction.
-The tileset builder deduplicates identical stock 8 × 8 pixel patterns before
+The sanctuary source builder deduplicates identical stock 8 × 8 pixel patterns before
 packing the new artwork, preserving every Fortree metatile and keeping the
 secondary bank within 512 tiles. The existing footprint and carved stone IDs
 stay fixed. The paw impression reuses the native Arcanine footprint graphic.
+The outdoor packer then combines the used source metatiles with town artwork,
+preserving their pixels and behavior while assigning unique shared IDs. The
+ancient tree keeps IDs `0x31D–0x328` and uses shared palette 12.
 
 The surrounding forest is painted with complete 2 × 3 trees after paths are
 carved; narrow fringes and gates use standalone shrubs. Shared tilesets and
@@ -74,6 +79,7 @@ will be replaced if this builder is run again.
 ```sh
 python3 tools/validate_virelia_sanctuary.py
 python3 tools/validate_virelia_world.py
+python3 tools/validate_virelia_tilesets.py
 python3 tools/validate_virelia_prologue_text.py
 make -j4 check TESTS="Virelia sanctuary"
 ```

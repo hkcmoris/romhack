@@ -9,6 +9,7 @@ from pathlib import Path
 import copy
 import json
 import struct
+from build_outdoor_tileset import build as build_outdoor_tileset, source_blocks
 
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY = ROOT / 'data/layouts/layouts.json'
@@ -25,8 +26,11 @@ def json_write(path, value):
 
 def grid_for(layout_id):
     layout = next(x for x in layouts if x['id'] == layout_id)
-    values = struct.unpack('<' + 'H' * (layout['width'] * layout['height']),
-                           (ROOT / layout['blockdata_filepath']).read_bytes())
+    if layout_id == 'LAYOUT_VIRELIA_SLATEFORD_CITY':
+        values = source_blocks('Virelia_SlatefordCity', layout)
+    else:
+        values = struct.unpack('<' + 'H' * (layout['width'] * layout['height']),
+                               (ROOT / layout['blockdata_filepath']).read_bytes())
     return [list(values[y * layout['width']:(y + 1) * layout['width']]) for y in range(layout['height'])]
 
 
@@ -254,6 +258,7 @@ def main():
     if not any(obj['script'] == 'Virelia_SlatefordCity_EventScript_Manager' for obj in entry['object_events']):
         entry['object_events'].append(actor('EXPERT_M', 24, 18, 'Virelia_SlatefordCity_EventScript_Manager'))
     json_write(city_path, entry)
+    build_outdoor_tileset(restored_maps={'Virelia_SlatefordCity'})
     print('Built five appended Slateford maps and updated only the city service plots.')
     from build_missing_tools import main as build_missing_tools
     build_missing_tools()

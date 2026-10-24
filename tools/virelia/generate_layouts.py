@@ -150,7 +150,17 @@ def main():
     for x, y in [(10, 4), (10, 6), (3, 14), (4, 15), (26, 12), (25, 13)]:
         city[y][x] = FLOWER
     save('SlatefordCity', city)
+    # These older base layouts use stock IDs. The first-Gym builder finishes
+    # the service plots and then packs all connected outdoors into one bank.
+    for name, secondary in [('MaplebrookTown', 'Petalburg'), ('Route01', 'Rustboro'),
+                            ('SlatefordCity', 'Rustboro')]:
+        next(x for x in LAYOUTS if x['name'] == 'Virelia_' + name + '_Layout')['secondary_tileset'] = 'gTileset_' + secondary
+    registry_path = ROOT / 'data/layouts/layouts.json'
+    registry = json.loads(registry_path.read_text(encoding='utf-8'))
+    registry['layouts'] = LAYOUTS
+    registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print('Wrote four Virelia layouts; original Emerald layouts unchanged.')
+    print('Next run build_first_gym_maps.py to restore services and repack the shared outdoor tileset.')
 
 
 if __name__ == '__main__':
