@@ -43,7 +43,14 @@ Virelia_SlatefordCity_EventScript_ManagerBefore:
 	end
 
 Virelia_SlatefordCity_EventScript_ManagerTask:
+	checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, Virelia_SlatefordCity_EventScript_ManagerTaskFemale
 	msgbox Virelia_SlatefordCity_Text_ManagerTask, MSGBOX_DEFAULT
+	release
+	end
+
+Virelia_SlatefordCity_EventScript_ManagerTaskFemale:
+	msgbox Virelia_SlatefordCity_Text_ManagerTaskFemale, MSGBOX_DEFAULT
 	release
 	end
 
@@ -356,6 +363,16 @@ Virelia_SlatefordCity_Text_ManagerTask:
 	.string "Pomohou ti se spuštěním.\p"
 	.string "Vrať proud a prohlédni sklad.\n"
 	.string "Pak mi řekni, co jsi našel.$"
+
+Virelia_SlatefordCity_Text_ManagerTaskFemale:
+	.string "SPRÁVCE: Tak štítek od poskoka?\n"
+	.string "Podobný zůstal i dole v lomu.\p"
+	.string "Zmizely jen vodivé minerály.\n"
+	.string "Navíc poškodili rozvodnu.\p"
+	.string "Bruno a Lenka prověří tvůj tým.\n"
+	.string "Pomohou ti se spuštěním.\p"
+	.string "Vrať proud a prohlédni sklad.\n"
+	.string "Pak mi řekni, co jsi našla.$"
 
 Virelia_SlatefordCity_Text_ManagerThanks:
 	.string "SPRÁVCE: Čísla zásilek sedí.\n"

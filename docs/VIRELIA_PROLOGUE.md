@@ -20,6 +20,30 @@ The older [world foundation](VIRELIA_WORLD.md) and
 [starter prototype](VIRELIA_STARTERS.md) describe the underlying registries and
 species. This document supersedes their development-start instructions.
 
+### Maplebrook town life
+
+The optional town spaces now include Ilona's open cottage, a pond with a
+fisherman and Psyduck, a community noticeboard and courier, Ema with her
+Poochyena, a shaded walking loop with Wurmple, and a small plant nursery.
+The noticeboard and courier react to the laboratory rescue; the courier also
+reacts to the Rocket encounter. These visits do not gate the lab or north trail.
+The professor's garden and fence collision cells remain intact.
+
+Ilona gives one Oran Berry after the starter is received. Investigating behind
+the grove's stone finds one Antidote. Their independent flags are
+`FLAG_VIRELIA_MAPLEBROOK_BERRY_GIFT` (`0x4A`) and
+`FLAG_VIRELIA_MAPLEBROOK_GROVE_FIND` (`0x4B`). Full pockets leave both rewards
+available for another attempt. Development exhibitions do not grant these gifts.
+The cottage appends interior map index `7` after Slateford's shop moves into the
+Pokémon Center. The current prologue's map indices stay unchanged, and the
+new cottage door uses Maplebrook warp index `2`.
+
+Lab regression checks follow the active campaign: story uses Viktor/Viktorie,
+persistent case slots and post-rescue level matching; development uses Hoenn
+rival placeholders, a full three-slot case and authored trainer levels.
+`build_lab_case.py --check` accepts LF or CRLF palette line endings, while
+checking binary assets exactly. Its unit checks also reject actual color changes.
+
 ## Playable sequence
 
 1. Choose **NOVÁ HRA**, gender and trainer name. The engine creates the Trainer
@@ -27,33 +51,40 @@ species. This document supersedes their development-start instructions.
 2. Start inside the player's house in Maplebrook Town. **MÁMA** greets the player
    automatically. She sends the player to the research laboratory and later provides
    unlimited free healing. The home also serves as the blackout destination.
-3. Visit **profesorka Javorová**. Her laboratory studies adaptations to Virelia's
-   ecosystems. On the first visit after meeting Mom, the player walks up the
-   central aisle and stops facing the professor. After her introduction, the
-   player turns toward Viktor; he approaches, mentions his tactics, and returns
-   control so the player can inspect the three Poké Balls on the display table.
-   Later visits skip this sequence and keep Viktor in his waiting position.
-   Examining each starter Poké Ball shows that regional Pokemon's
-   front sprite alongside its description and selection prompt, using the native
-   picture window. Confirming or declining closes the preview; pressing B counts
-   as declining and leaves all choices available.
-4. Choose exactly one level-5 regional Pokémon. The normal gift-Pokémon routine
-   creates its local OT, personality, IVs, normal ability, eligible moves, HP/PP,
-   met location and Pokédex records. Re-entering or choosing another display
-   cannot grant another starter. The chosen Ball disappears immediately after
-   the successful gift; cancellation or a failed gift leaves it in place.
-5. The player walks around the solid table into the open aisle. **Viktor** walks
-   to the Ball with the primary type advantage, takes it, and approaches the
-   player. His Ball also disappears; the unused third Ball remains. He challenges
-   the player and the first battle starts immediately. Either result advances the story and
-   restores the player's party. The saved result records the first outcome.
-6. After either battle result, Javorová offers to name the starter using the
-   native nickname screen. Declining or pressing B keeps its current name;
-   finishing or cancelling the naming screen continues the scene. She then
-   gives the player a Pokédex, **5 Poké Balls and 3 Potions**. This
-   bundle is granted once. If either Bag pocket lacks space, the entire bundle
-   waits until the player returns with space. The player can then catch wild
-   Pokémon, use the party and Bag, save, heal and return home freely.
+3. Visit **profesorka Javorová**. The player walks into the central aisle.
+   Her welcome is interrupted when Rattata escapes and Meowth chases it around
+   the right-hand benches. The assistant steps aside and Viktor joins the player.
+   The rival is always the opposite gender to the player: female players meet
+   Viktor; male players meet Viktorie. The overworld sprite, trainer front/back
+   portraits, battle identity and dialogue all follow that choice.
+4. Javorová sends both trainers to a compact open research case. Its 2×2 map
+   graphic reuses native lab furniture and colors, with three miniature Balls.
+   A single north-facing interaction at `(6, 6)` is approached from `(6, 7)`.
+   The long table and its three separate Ball objects are removed. The custom
+   full-screen briefcase shows three fitted Ball slots, regional species names
+   and types. Left/right browses; A opens the animated front-picture preview
+   with its cry and a confirmation. No or B returns to browsing. There is no
+   countdown. Confirming returns the choice to the ordinary Virelia gift routine,
+   granting exactly one locally owned level-5 starter with native met data.
+5. The player's case slot becomes empty. The player steps aside and the rival
+   approaches the same case interaction spot to take the remaining starter with
+   the primary type advantage. The player and AI-controlled Viktor each use one
+   starter in a cooperative wild double battle against level-3 Meowth and Rattata.
+   Fleeing returns to the confrontation without another starter gift; victory,
+   defeat or a draw lets Javorová contain the escapees and heal the player's team.
+   Viktor's temporary partner party and battle flags are cleared. His selected
+   species is the same one he uses in the next fight.
+6. After the commotion, Viktor challenges the player to the original single duel.
+   The rival's starter matches the player's starter level after the rescue
+   (minimum 5), so a player level-up to 6 is matched by the rival. This applies
+   to Viktor and Viktorie and also accounts for EXP earned before a rescue retry.
+   Species, moves and IVs stay as authored; ordinary trainer levels are unchanged.
+   Either result advances the story and heals the player. His defeat line is
+   `Dobre hej, jsem tě nechal.` Javorová then offers the native nickname screen;
+   declining or pressing B keeps the current name. She grants a Pokédex,
+   **5 Poké Balls and 3 Potions** once. A full Bag delays the entire bundle until
+   there is space. The unused third Ball remains inside the case. Later lab visits
+   skip the completed opening and keep ordinary healing and exhibition dialogue.
 7. Follow **Whisperwood Trail** north. Battle two ordinary trainers, explore
    existing tall grass and find the optional item detour. **Hana** asks about
    her missing Zigzagoon; investigating its secluded spot reveals territorial
@@ -93,7 +124,7 @@ interior group; existing map and layout registry entries retain their positions.
 | Maplebrook Town | `MAP_VIRELIA_MAPLEBROOK_TOWN` | 75, 0 | Home, laboratory, route entrance and residents |
 | Whisperwood Trail | `MAP_VIRELIA_ROUTE01` | 75, 1 | Wild encounters, two trainers, item detour and optional Hana event |
 | Slateford City | `MAP_VIRELIA_SLATEFORD_CITY` | 75, 2 | Mineral theft, Rocket battle, policeman and closed Gym |
-| Research laboratory | `MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY` | 76, 0 | Professor, assistant, three displays and Viktor |
+| Research laboratory | `MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY` | 76, 0 | Professor, assistant, compact starter case and rival |
 | Player's home | `MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE` | 76, 1 | New-game spawn, mother and free healing |
 
 The home uses existing Emerald house assets. Its spawn is `(5, 6)`, healing
@@ -110,7 +141,7 @@ The player's name always comes from the save's `{PLAYER}` placeholder.
 
 ## Starters and battles
 
-| Player's choice | Species | Type | Viktor's level-5 Pokémon |
+| Player's choice | Species | Type | Rival's starter |
 | --- | --- | --- | --- |
 | Grass | `SPECIES_POOCHYENA_VIRELIA` | Grass/Dark | `SPECIES_EKANS_VIRELIA` |
 | Water | `SPECIES_NATU_VIRELIA` | Water/Psychic | `SPECIES_POOCHYENA_VIRELIA` |
@@ -124,13 +155,13 @@ or other signature mechanic is added.
 
 Viktor uses a deliberately restrained introductory moveset rather than an
 overwhelming super-effective attack. The engine's early-rival battle mode
-returns to the script and heals after either win or loss. All three teams remain
-level 5; the starter choice, rather than a randomly selected team, chooses the
-trainer definition.
+returns to the script and heals after either win or loss. All starter teams begin
+at level 5 for the rescue. The duel matches the player's post-rescue starter level;
+the starter choice selects the corresponding counter-type trainer definition.
 
 | Trainer | Team | Persistence |
 | --- | --- | --- |
-| Viktor | One regional starter, level 5 | Rival-complete flag plus saved outcome |
+| Viktor / Viktorie | One regional starter, matching the player's level (minimum 5) | Rival-complete flag plus saved outcome |
 | Ela | Wurmple 4, Zigzagoon 4 | Ordinary engine trainer-defeated flag |
 | Ota | Taillow 6 | Ordinary engine trainer-defeated flag |
 | Rocket grunt | Rattata 7, Zubat 6 | Ordinary trainer-defeated flag plus Rocket story flag |
@@ -169,7 +200,9 @@ Definitions live in `include/constants/virelia_prologue.h`.
 | `FLAG_VIRELIA_HIDE_POLICEMAN` | `0x2B` | Policeman has not arrived yet |
 | `FLAG_VIRELIA_HIDE_STORY_ACTORS` | `0x2C` | Story actors hidden in development mode |
 | `FLAG_VIRELIA_MINER_REPORT` | `0x2D` | Mineral theft reported by miners |
-| `FLAG_VIRELIA_PROFESSOR_MET` | `0x2E` | First laboratory explanation heard |
+| `FLAG_VIRELIA_PROFESSOR_MET` | `0x2E` | First laboratory welcome started |
+| `FLAG_VIRELIA_LAB_RESCUE_COMPLETE` | `0x48` | Ally rescue finished before the single duel |
+| `FLAG_VIRELIA_HIDE_LAB_ESCAPEES` | `0x49` | Meowth and Rattata contained; shared visibility flag |
 | `FLAG_VIRELIA_HIDE_GRASS_STARTER` | `0x2F` | Grass starter Ball taken |
 | `FLAG_VIRELIA_HIDE_WATER_STARTER` | `0x30` | Water starter Ball taken |
 | `FLAG_VIRELIA_HIDE_FIRE_STARTER` | `0x31` | Fire starter Ball taken |
@@ -186,12 +219,14 @@ repeating dialogue, declining a choice or loading a checkpoint cannot grant
 additional starters or bundles. Hana's reward flag is set only after the item
 fits into the Bag. The full Bag case leaves the reward available for a retry.
 
-The laboratory synchronizes Ball visibility before spawning its objects.
+The laboratory synchronizes the case's eight possible slot masks on map load.
 Existing pickup flags are never cleared in story mode, and completed story
-states do not replay the scene. The entrance sequence records its completion
-after Viktor's greeting; returning before starter selection restores his
-waiting position. Development and nonstory builds retain all three exhibition
-Balls.
+states do not replay the scene. The entrance sequence is locked through selection and both battles. The rescue
+completion and escapee visibility flags survive ordinary saves independently
+of the rival-duel result. Development and nonstory builds retain all three case
+slots and open the same preview screen without granting a story gift.
+`tools/virelia/build_lab_case.py --check` verifies the native tileset composition,
+unchanged stock furniture references, slot states and hardware tile budget.
 
 ## Czech localization
 
@@ -329,16 +364,22 @@ git diff --check
 ```
 
 The laboratory scene validator follows the actual map script and movement
-commands against the map collision data. It covers both entrances, the once-only
-welcome and repeat visits, every reachable side of each Ball, solid table
-collision, pickup order, type advantage, dialogue, final facing, canceled or
-failed gifts, and accepting or declining the post-battle naming offer. Run it
-with `--self-test` to also reject representative script regressions. The
-post-`0.2.40` pickup scene has source validation. The first Gym milestone also
-replayed the latest `14a30dafeb` baseline natively with Water selection, preview
-cancellation, both pickups, Viktor's movement and battle return. See its
-[baseline evidence](VIRELIA_FIRST_GYM.md#baseline-native-verification); this does
-not replace the separate fresh-run checklist for every starter.
+commands against collision data, including the concurrent chase. Its 648 opening
+cases cover both player genders, both entrances, all starters, all rescue and duel outcomes, fleeing
+and retrying, and accepting/declining/cancelling the naming offer. Guard cases
+cover repeat visits, prerequisites, failed gifts and display interactions.
+`--self-test` must reject representative movement, pickup, battle-order, cleanup
+and naming regressions. `tools/virelia/build_briefcase.py --check` verifies the
+indexed art and GBA tile budget. The text validator also measures the case's
+native prompt and type-label windows.
+
+`test/virelia_lab_opening.c` exercises the actual briefcase input tasks and
+preview cancellation, both rival identities and their dialogue placeholders,
+the real compiled partner teams, rescue preparation and
+cleanup, and the one-mon-per-ally battle layout. Existing flash-save coverage
+also preserves the two new rescue flags. A fresh save is required to playtest
+the complete revised opening; source and native tests do not substitute for a
+manual end-to-end Android playthrough.
 
 The native suites `test/virelia_prologue.c`,
 `test/virelia_prologue_events.c`, `test/virelia_world.c` and
@@ -352,12 +393,13 @@ with **each** starter and record the ROM commit, emulator and elapsed time:
 
 - Confirm trainer creation, Czech glyphs in both cases, spawn, the unmissable
   opening conversation with mother and repeatable free healing.
-- Inspect all displays, decline once, choose once, then revisit and try all
-  displays again. Check species, level, OT, moves, HP/PP and Pokédex registration.
-- Choose each starter from every accessible side. Check that its Ball vanishes,
-  Viktor walks to and takes the counter-type Ball, then faces the player before
-  the challenge and battle. After returning and reloading, only the unused Ball
-  should remain. Confirm cancellation keeps all three Balls.
+- Approach the compact case from its single front tile. Preview every starter,
+  cancel once, then confirm. Check species, level, OT, moves, HP/PP and Pokédex.
+- Check that the player steps aside and the rival takes the counter-starter from
+  that same spot. The corresponding two case slots become empty. After saving,
+  reloading and revisiting, only the unused third Ball remains.
+- Play both genders and check the rival tactics line, quarry manager address and
+  winner record use the correct Czech gender.
 - Win and lose separate rival battles; verify the expected opposing species,
   restored party, Pokédex, five Balls and three Potions without duplicate gifts.
 - Catch an ordinary wild Pokémon, inspect its Pokédex entry and summary, use

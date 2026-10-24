@@ -178,7 +178,8 @@ def validate():
     require(groups["gMapGroup_VireliaOverworld"][:3] == [
         "Virelia_MaplebrookTown", "Virelia_Route01", "Virelia_SlatefordCity"],
         "Existing overworld map IDs changed")
-    require(groups["gMapGroup_VireliaInteriors"] == [
+    # Later chapters and optional town interiors append after these fixed IDs.
+    require(groups["gMapGroup_VireliaInteriors"][:2 + len(NEW_NAMES)] == [
         "Virelia_MaplebrookResearchLaboratory", "Virelia_MaplebrookPlayersHouse", *NEW_NAMES],
         "Unexpected merged-service interior map order")
     maps = {name: load(f"data/maps/{name}/map.json") for name in NEW_NAMES}

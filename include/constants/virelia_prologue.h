@@ -19,6 +19,8 @@
 #define FLAG_VIRELIA_HIDE_GRASS_STARTER    0x2F
 #define FLAG_VIRELIA_HIDE_WATER_STARTER    0x30
 #define FLAG_VIRELIA_HIDE_FIRE_STARTER     0x31
+#define FLAG_VIRELIA_LAB_RESCUE_COMPLETE   0x48
+#define FLAG_VIRELIA_HIDE_LAB_ESCAPEES     0x49
 
 #define VAR_VIRELIA_PROLOGUE_STATE         0x4083
 #define VAR_VIRELIA_STARTER                0x408B
@@ -38,6 +40,10 @@
 #define VIRELIA_STARTER_NONE              0xFFFF
 #define VIRELIA_STARTER_LEVEL             5
 #define VIRELIA_RIVAL_LEVEL               5
+#define VIRELIA_LAB_WILD_LEVEL            3
+#define VIRELIA_LAB_CASE_X                6
+#define VIRELIA_LAB_CASE_Y                5
+#define VIRELIA_LAB_CASE_BASE_METATILE    0x29E
 #define VIRELIA_STARTING_POKE_BALLS       5
 #define VIRELIA_STARTING_POTIONS          3
 #define LOCALID_VIRELIA_MOM               1

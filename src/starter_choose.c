@@ -21,6 +21,8 @@
 #include "trainer_pokemon_sprites.h"
 #include "trig.h"
 #include "window.h"
+#include "overworld.h"
+#include "virelia_prologue.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
 
@@ -50,6 +52,31 @@ static void SpriteCB_Pokeball(struct Sprite *sprite);
 static void SpriteCB_StarterPokemon(struct Sprite *sprite);
 
 static u16 sStarterLabelWindowId;
+static bool8 sVireliaBriefcase;
+
+static const u32 sVireliaCaseTiles[] = INCGFX_U32("graphics/starter_choose/virelia_case.png", ".4bpp.smol");
+static const u16 sVireliaCasePalette[] = INCGFX_U16("graphics/starter_choose/virelia_case.png", ".gbapal");
+static const u32 sVireliaCaseTilemap[] = INCGFX_U32("graphics/starter_choose/virelia_case.bin", ".smolTM");
+static const u8 sVireliaBallCoords[STARTER_MON_COUNT][2] = {{52, 88}, {120, 88}, {188, 88}};
+static const u8 sVireliaCasePrompt[] = _("Vyber si parťáka.\nA: prohlédnout    šipky: výběr");
+static const u8 sVireliaCaseConfirm[] = _("Chceš tohoto Pokémona\nza svého prvního parťáka?");
+static const u8 sVireliaGrassType[] = _("TRÁVA / TEMNOTA");
+static const u8 sVireliaWaterType[] = _("VODA / PSYCHIKA");
+static const u8 sVireliaFireType[] = _("OHEŇ / JED");
+static const u8 *const sVireliaTypes[] = {sVireliaGrassType, sVireliaWaterType, sVireliaFireType};
+
+static enum Species SelectedStarterSpecies(u32 selection)
+{
+    return sVireliaBriefcase ? GetVireliaStarterSpecies(selection) : GetStarterPokemon(selection);
+}
+
+void ChooseVireliaStarter(void)
+{
+    sVireliaBriefcase = TRUE;
+    CleanupOverworldWindowsAndTilemaps();
+    gMain.savedCallback = CB2_ReturnToFieldContinueScriptPlayMapMusic;
+    SetMainCallback2(CB2_ChooseStarter);
+}
 
 const u16 gBirchBagGrass_Pal[] = INCGFX_U16("graphics/starter_choose/tiles.png", ".gbapal");
 static const u16 sPokeballSelection_Pal[] = INCGFX_U16("graphics/starter_choose/pokeball_selection.png", ".gbapal");
@@ -396,9 +423,17 @@ void CB2_ChooseStarter(void)
     DmaFill32(3, 0, OAM, OAM_SIZE);
     DmaFill16(3, 0, PLTT, PLTT_SIZE);
 
-    DecompressDataWithHeaderVram(gBirchBagGrass_Gfx, (void *)VRAM);
-    DecompressDataWithHeaderVram(gBirchBagTilemap, (void *)(BG_SCREEN_ADDR(6)));
-    DecompressDataWithHeaderVram(gBirchGrassTilemap, (void *)(BG_SCREEN_ADDR(7)));
+    if (sVireliaBriefcase)
+    {
+        DecompressDataWithHeaderVram(sVireliaCaseTiles, (void *)VRAM);
+        DecompressDataWithHeaderVram(sVireliaCaseTilemap, (void *)(BG_SCREEN_ADDR(6)));
+    }
+    else
+    {
+        DecompressDataWithHeaderVram(gBirchBagGrass_Gfx, (void *)VRAM);
+        DecompressDataWithHeaderVram(gBirchBagTilemap, (void *)(BG_SCREEN_ADDR(6)));
+        DecompressDataWithHeaderVram(gBirchGrassTilemap, (void *)(BG_SCREEN_ADDR(7)));
+    }
 
     ResetBgsAndClearDma3BusyFlags(0);
     InitBgsFromTemplates(0, sBgTemplates, ARRAY_COUNT(sBgTemplates));
@@ -415,7 +450,10 @@ void CB2_ChooseStarter(void)
     ResetAllPicSprites();
 
     LoadPalette(GetOverworldTextboxPalettePtr(), BG_PLTT_ID(14), PLTT_SIZE_4BPP);
-    LoadPalette(gBirchBagGrass_Pal, BG_PLTT_ID(0), sizeof(gBirchBagGrass_Pal));
+    if (sVireliaBriefcase)
+        LoadPalette(sVireliaCasePalette, BG_PLTT_ID(0), sizeof(sVireliaCasePalette));
+    else
+        LoadPalette(gBirchBagGrass_Pal, BG_PLTT_ID(0), sizeof(gBirchBagGrass_Pal));
     LoadCompressedSpriteSheet(&sSpriteSheet_PokeballSelect[0]);
     LoadCompressedSpriteSheet(&sSpriteSheet_StarterCircle[0]);
     LoadSpritePalettes(sSpritePalettes_StarterChoose);
@@ -431,11 +469,12 @@ void CB2_ChooseStarter(void)
     SetGpuReg(REG_OFFSET_WIN0V, 0);
     SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_TGT1_BD | BLDCNT_EFFECT_DARKEN);
     SetGpuReg(REG_OFFSET_BLDALPHA, 0);
-    SetGpuReg(REG_OFFSET_BLDY, 7);
+    SetGpuReg(REG_OFFSET_BLDY, sVireliaBriefcase ? 0 : 7);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON | DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
 
     ShowBg(0);
-    ShowBg(2);
+    if (!sVireliaBriefcase)
+        ShowBg(2);
     ShowBg(3);
 
     taskId = CreateTask(Task_StarterChoose, 0);
@@ -445,18 +484,14 @@ void CB2_ChooseStarter(void)
     spriteId = CreateSprite(&sSpriteTemplate_Hand, 120, 56, 2);
     gSprites[spriteId].data[0] = taskId;
 
-    // Create three Poké Ball sprites
-    spriteId = CreateSprite(&sSpriteTemplate_Pokeball, sPokeballCoords[0][0], sPokeballCoords[0][1], 2);
-    gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sBallId = 0;
-
-    spriteId = CreateSprite(&sSpriteTemplate_Pokeball, sPokeballCoords[1][0], sPokeballCoords[1][1], 2);
-    gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sBallId = 1;
-
-    spriteId = CreateSprite(&sSpriteTemplate_Pokeball, sPokeballCoords[2][0], sPokeballCoords[2][1], 2);
-    gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sBallId = 2;
+    // The lab case uses its own three-slot layout and Virelia choice order.
+    for (u32 i = 0; i < STARTER_MON_COUNT; i++)
+    {
+        const u8 *coords = sVireliaBriefcase ? sVireliaBallCoords[i] : sPokeballCoords[i];
+        spriteId = CreateSprite(&sSpriteTemplate_Pokeball, coords[0], coords[1], 2);
+        gSprites[spriteId].sTaskId = taskId;
+        gSprites[spriteId].sBallId = i;
+    }
 
     sStarterLabelWindowId = WINDOW_NONE;
 }
@@ -474,7 +509,7 @@ static void Task_StarterChoose(u8 taskId)
 {
     CreateStarterPokemonLabel(gTasks[taskId].tStarterSelection);
     DrawStdFrameWithCustomTileAndPalette(0, FALSE, 0x2A8, 0xD);
-    AddTextPrinterParameterized(0, FONT_NORMAL, gText_BirchInTrouble, 0, 1, 0, NULL);
+    AddTextPrinterParameterized(0, FONT_NORMAL, sVireliaBriefcase ? sVireliaCasePrompt : gText_BirchInTrouble, 0, 1, 0, NULL);
     PutWindowTilemap(0);
     ScheduleBgCopyTilemapToVram(0);
     gTasks[taskId].func = Task_HandleStarterChooseInput;
@@ -491,11 +526,12 @@ static void Task_HandleStarterChooseInput(u8 taskId)
         ClearStarterLabel();
 
         // Create white circle background
-        spriteId = CreateSprite(&sSpriteTemplate_StarterCircle, sPokeballCoords[selection][0], sPokeballCoords[selection][1], 1);
+        const u8 *coords = sVireliaBriefcase ? sVireliaBallCoords[selection] : sPokeballCoords[selection];
+        spriteId = CreateSprite(&sSpriteTemplate_StarterCircle, coords[0], coords[1], 1);
         gTasks[taskId].tCircleSpriteId = spriteId;
 
         // Create Pokémon sprite
-        spriteId = CreatePokemonFrontSprite(GetStarterPokemon(gTasks[taskId].tStarterSelection), sPokeballCoords[selection][0], sPokeballCoords[selection][1]);
+        spriteId = CreatePokemonFrontSprite(SelectedStarterSpecies(selection), coords[0], coords[1]);
         gSprites[spriteId].affineAnims = &sAffineAnims_StarterPokemon;
         gSprites[spriteId].callback = SpriteCB_StarterPokemon;
 
@@ -526,9 +562,9 @@ static void Task_WaitForStarterSprite(u8 taskId)
 
 static void Task_AskConfirmStarter(u8 taskId)
 {
-    PlayCry_Normal(GetStarterPokemon(gTasks[taskId].tStarterSelection), 0);
+    PlayCry_Normal(SelectedStarterSpecies(gTasks[taskId].tStarterSelection), 0);
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
-    AddTextPrinterParameterized(0, FONT_NORMAL, gText_ConfirmStarterChoice, 0, 1, 0, NULL);
+    AddTextPrinterParameterized(0, FONT_NORMAL, sVireliaBriefcase ? sVireliaCaseConfirm : gText_ConfirmStarterChoice, 0, 1, 0, NULL);
     ScheduleBgCopyTilemapToVram(0);
     CreateYesNoMenu(&sWindowTemplate_ConfirmStarter, 0x2A8, 0xD, 0);
     gTasks[taskId].func = Task_HandleConfirmStarterInput;
@@ -543,7 +579,20 @@ static void Task_HandleConfirmStarterInput(u8 taskId)
     case 0:  // YES
         // Return the starter choice and exit.
         gSpecialVar_Result = gTasks[taskId].tStarterSelection;
+        if (sVireliaBriefcase)
+        {
+            spriteId = gTasks[taskId].tPkmnSpriteId;
+            FreeOamMatrix(gSprites[spriteId].oam.matrixNum);
+            FreeAndDestroyMonPicSprite(spriteId);
+            spriteId = gTasks[taskId].tCircleSpriteId;
+            FreeOamMatrix(gSprites[spriteId].oam.matrixNum);
+            DestroySprite(&gSprites[spriteId]);
+            FreeAllWindowBuffers();
+            ResetTasks();
+            SetVBlankCallback(NULL);
+        }
         ResetAllPicSprites();
+        sVireliaBriefcase = FALSE;
         SetMainCallback2(gMain.savedCallback);
         break;
     case 1:  // NO
@@ -574,21 +623,30 @@ static void CreateStarterPokemonLabel(u8 selection)
     s32 width;
     u8 labelLeft, labelRight, labelTop, labelBottom;
 
-    enum Species species = GetStarterPokemon(selection);
+    enum Species species = SelectedStarterSpecies(selection);
     CopyMonCategoryText(species, categoryText);
     speciesName = GetSpeciesName(species);
 
     winTemplate = sWindowTemplate_StarterLabel;
     winTemplate.tilemapLeft = sStarterLabelCoords[selection][0];
     winTemplate.tilemapTop = sStarterLabelCoords[selection][1];
+    if (sVireliaBriefcase)
+    {
+        winTemplate.tilemapLeft = 0;
+        winTemplate.tilemapTop = 0;
+        winTemplate.width = 30;
+        winTemplate.baseBlock = 0x300;
+    }
 
     sStarterLabelWindowId = AddWindow(&winTemplate);
     FillWindowPixelBuffer(sStarterLabelWindowId, PIXEL_FILL(0));
 
-    width = GetStringCenterAlignXOffset(FONT_NARROW, categoryText, 0x68);
-    AddTextPrinterParameterized3(sStarterLabelWindowId, FONT_NARROW, width, 1, sTextColors, 0, categoryText);
+    const u8 *category = sVireliaBriefcase ? sVireliaTypes[selection] : categoryText;
+    u32 labelWidth = sVireliaBriefcase ? DISPLAY_WIDTH : 0x68;
+    width = GetStringCenterAlignXOffset(FONT_NARROW, category, labelWidth);
+    AddTextPrinterParameterized3(sStarterLabelWindowId, FONT_NARROW, width, 1, sTextColors, 0, category);
 
-    width = GetStringCenterAlignXOffset(FONT_NORMAL, speciesName, 0x68);
+    width = GetStringCenterAlignXOffset(FONT_NORMAL, speciesName, labelWidth);
     AddTextPrinterParameterized3(sStarterLabelWindowId, FONT_NORMAL, width, 17, sTextColors, 0, speciesName);
 
     PutWindowTilemap(sStarterLabelWindowId);
@@ -598,6 +656,13 @@ static void CreateStarterPokemonLabel(u8 selection)
     labelRight = (sStarterLabelCoords[selection][0] + 13) * 8 + 4;
     labelTop = sStarterLabelCoords[selection][1] * 8;
     labelBottom = (sStarterLabelCoords[selection][1] + 4) * 8;
+    if (sVireliaBriefcase)
+    {
+        labelLeft = 0;
+        labelRight = DISPLAY_WIDTH;
+        labelTop = 0;
+        labelBottom = 32;
+    }
     SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(labelLeft, labelRight));
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(labelTop, labelBottom));
 }
@@ -637,8 +702,9 @@ static u8 CreatePokemonFrontSprite(enum Species species, u8 x, u8 y)
 static void SpriteCB_SelectionHand(struct Sprite *sprite)
 {
     // Float up and down above selected Poké Ball
-    sprite->x = sCursorCoords[gTasks[sprite->data[0]].tStarterSelection][0];
-    sprite->y = sCursorCoords[gTasks[sprite->data[0]].tStarterSelection][1];
+    u32 selection = gTasks[sprite->data[0]].tStarterSelection;
+    sprite->x = sVireliaBriefcase ? sVireliaBallCoords[selection][0] : sCursorCoords[selection][0];
+    sprite->y = sVireliaBriefcase ? 56 : sCursorCoords[selection][1];
     sprite->y2 = Sin(sprite->data[1], 8);
     sprite->data[1] = (u8)(sprite->data[1]) + 4;
 }

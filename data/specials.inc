@@ -638,3 +638,5 @@ gSpecials::
 	def_special UpdateTrainerCardPhotoIcons
 	def_special StickerManGetBragFlags
 	def_special CheckAddCoins
+	def_special ChooseVireliaStarter, waitstate=1
+	def_special VireliaPrologue_StartRescueBattle, waitstate=1

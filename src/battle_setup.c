@@ -1,6 +1,7 @@
 #include "global.h"
 #include "myboy_diag.h"
 #include "virelia_first_gym.h"
+#include "virelia_prologue.h"
 #include "data.h"
 #include "main.h"
 #include "battle.h"
@@ -494,6 +495,7 @@ static void DoBattlePikeWildBattle(void)
 static void DoTrainerBattle(void)
 {
     CreateNPCTrainerParty(&gParties[B_TRAINER_OPPONENT_A][0], TRAINER_BATTLE_PARAM.opponentA);
+    VireliaPrologue_MatchRivalLevel(gParties[B_TRAINER_OPPONENT_A], TRAINER_BATTLE_PARAM.opponentA);
     if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && !BATTLE_TWO_VS_ONE_OPPONENT)
         CreateNPCTrainerParty(&gParties[B_TRAINER_OPPONENT_B][0], TRAINER_BATTLE_PARAM.opponentB);
     CreateBattleStartTask(GetTrainerBattleTransition(), 0);

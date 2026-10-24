@@ -1011,6 +1011,27 @@ const u16 gTilesetPalettes_BrendansMaysHouse[][16] =
 
 const u32 gTilesetTiles_Lab[] = INCGFX_U32("data/tilesets/secondary/lab/tiles.png", ".4bpp.fastSmol", "-num_tiles 500 -Wnum_tiles");
 
+const u32 gTilesetTiles_VireliaLab[] = INCGFX_U32("data/tilesets/secondary/virelia_lab/tiles.png", ".4bpp.fastSmol", "-num_tiles 500 -Wnum_tiles");
+const u16 gTilesetPalettes_VireliaLab[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lab/palettes/12.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/13.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/14.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/lab/palettes/15.pal", ".gbapal"),
+};
+
 const u16 gTilesetPalettes_Lab[][16] =
 {
     INCGFX_U16("data/tilesets/secondary/lab/palettes/00.pal", ".gbapal"),

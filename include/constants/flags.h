@@ -91,10 +91,10 @@
 #define FLAG_UNUSED_0x045    0x45 // Reserved: FLAG_VIRELIA_TOOL_WRENCH
 #define FLAG_UNUSED_0x046    0x46 // Reserved: FLAG_VIRELIA_TOOL_HAMMER
 #define FLAG_UNUSED_0x047    0x47 // Reserved: FLAG_VIRELIA_TOOL_PICK
-#define FLAG_UNUSED_0x048    0x48 // Unused Flag
-#define FLAG_UNUSED_0x049    0x49 // Unused Flag
-#define FLAG_UNUSED_0x04A    0x4A // Unused Flag
-#define FLAG_UNUSED_0x04B    0x4B // Unused Flag
+#define FLAG_UNUSED_0x048    0x48 // Reserved: FLAG_VIRELIA_LAB_RESCUE_COMPLETE
+#define FLAG_UNUSED_0x049    0x49 // Reserved: FLAG_VIRELIA_HIDE_LAB_ESCAPEES
+#define FLAG_UNUSED_0x04A    0x4A // Reserved: FLAG_VIRELIA_MAPLEBROOK_BERRY_GIFT
+#define FLAG_UNUSED_0x04B    0x4B // Reserved: FLAG_VIRELIA_MAPLEBROOK_GROVE_FIND
 #define FLAG_UNUSED_0x04C    0x4C // Unused Flag
 #define FLAG_UNUSED_0x04D    0x4D // Unused Flag
 #define FLAG_UNUSED_0x04E    0x4E // Unused Flag

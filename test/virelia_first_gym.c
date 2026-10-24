@@ -82,7 +82,7 @@ static void ResetFirstGymTest(void)
     VarSet(VAR_VIRELIA_GYM_SWITCH, 0);
 }
 
-TEST("Virelia appended trainers preserve the Hoenn flag bank and partner IDs")
+TEST("Virelia appended trainers preserve the Hoenn flag bank and stay distinct from partners")
 {
     ResetFirstGymTest();
     EXPECT_EQ(MAX_TRAINERS_COUNT_EMERALD, 864);

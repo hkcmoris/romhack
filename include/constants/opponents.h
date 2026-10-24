@@ -860,10 +860,10 @@
 #define TRAINER_BRENDAN_PLACEHOLDER         853
 #define TRAINER_MAY_PLACEHOLDER             854
 
-// The original trainer flag bank ends at 0x85F. IDs 861-863 remain unused;
-// 864-865 belong to the existing partner bank. Appended Virelia opponents use
-// reserved low story flags through VireliaFirstGym_TrainerFlag. Do not increase
-// MAX_TRAINERS_COUNT: that would renumber partner and Hoenn system/save flags.
+// The original trainer flag bank ends at 0x85F. IDs 864-865 remain unused.
+// Appended Virelia opponents use reserved low story flags through
+// VireliaFirstGym_TrainerFlag. MAX_TRAINERS_COUNT fixes the system flag base;
+// partner IDs are allocated separately after the complete trainer table.
 
 #define TRAINER_VIRELIA_VIKTOR_GRASS       855
 #define TRAINER_VIRELIA_VIKTOR_WATER       856
@@ -871,6 +871,9 @@
 #define TRAINER_VIRELIA_ELA                858
 #define TRAINER_VIRELIA_OTA                859
 #define TRAINER_VIRELIA_ROCKET             860
+#define TRAINER_VIRELIA_VIKTORIE_GRASS      861
+#define TRAINER_VIRELIA_VIKTORIE_WATER      862
+#define TRAINER_VIRELIA_VIKTORIE_FIRE       863
 
 #define TRAINER_VIRELIA_MINER_BRUNO              866
 #define TRAINER_VIRELIA_EXPLORER_LENKA           867
@@ -878,7 +881,7 @@
 #define TRAINER_VIRELIA_GYM_DANA                 869
 #define TRAINER_VIRELIA_MARA                     870
 
-// Keep MAX fixed: saved system flags and partner IDs depend on it.
+// Keep MAX fixed: saved system flags depend on it.
 #define TRAINERS_COUNT_EMERALD     871
 #define MAX_TRAINERS_COUNT_EMERALD 864
 
@@ -889,6 +892,11 @@
 #define TRAINERS_COUNT                      TRAINERS_COUNT_EMERALD
 #define MAX_TRAINERS_COUNT                  MAX_TRAINERS_COUNT_EMERALD
 #endif
-#define TRAINER_PARTNER(partner)           (MAX_TRAINERS_COUNT + partner)
+#if TRAINERS_COUNT > MAX_TRAINERS_COUNT
+#define TRAINER_PARTNER_BASE                 TRAINERS_COUNT
+#else
+#define TRAINER_PARTNER_BASE                 MAX_TRAINERS_COUNT
+#endif
+#define TRAINER_PARTNER(partner)           (TRAINER_PARTNER_BASE + (partner))
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H
