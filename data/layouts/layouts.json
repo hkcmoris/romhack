@@ -9433,6 +9433,17 @@
       "border_filepath": "data/layouts/Virelia_Slateford_Gym/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_Gym/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_WHISPERWOOD_SANCTUARY",
+      "name": "Virelia_WhisperwoodSanctuary_Layout",
+      "width": 22,
+      "height": 26,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Whisperwood",
+      "border_filepath": "data/layouts/Virelia_WhisperwoodSanctuary/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_WhisperwoodSanctuary/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

@@ -1,5 +1,21 @@
 Virelia_Route01_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, Virelia_Route01_OnLoad
 	.byte 0
+
+Virelia_Route01_OnLoad:
+	setmetatile 1, 16, 0xE, 1
+	setmetatile 1, 17, 0xE, 1
+	goto_if_unset FLAG_VIRELIA_SIDEQUEST_REWARDED, Virelia_Route01_CheckSanctuaryShortcut
+	setmetatile 1, 16, 0xD, 0
+	setmetatile 1, 17, 0xD, 0
+Virelia_Route01_CheckSanctuaryShortcut:
+	setmetatile 1, 8, 0xE, 1
+	setmetatile 1, 9, 0xE, 1
+	goto_if_unset FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN, Virelia_Route01_LoadDone
+	setmetatile 1, 8, 0x1, 0
+	setmetatile 1, 9, 0x1, 0
+Virelia_Route01_LoadDone:
+	end
 
 Virelia_Route01_EventScript_Naturalist::
 	msgbox Virelia_Route01_Text_Naturalist, MSGBOX_NPC
@@ -35,6 +51,7 @@ Virelia_Route01_EventScript_Ota::
 Virelia_Route01_EventScript_LostZigzagoon::
 	lock
 	faceplayer
+	goto_if_set FLAG_VIRELIA_SIDEQUEST_REWARDED, Virelia_Route01_EventScript_ZigzagoonSanctuary
 	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
 	msgbox Virelia_Route01_Text_LostZigzagoon, MSGBOX_DEFAULT
 	waitmoncry
@@ -102,3 +119,34 @@ Virelia_Route01_Text_SouthSign:
 Virelia_Route01_Text_NorthSign:
 	.string "Před tebou leží Slateford City.\n"
 	.string "Maplebrook Town je na jihu.$"
+
+Virelia_Route01_EventScript_ZigzagoonSanctuary:
+	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
+	msgbox Virelia_Route01_Text_ZigzagoonSanctuary, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+Virelia_Route01_EventScript_OvergrownPath::
+	msgbox Virelia_Route01_Text_OvergrownPath, MSGBOX_SIGN
+	end
+
+Virelia_Route01_EventScript_SanctuaryShortcut::
+	msgbox Virelia_Route01_Text_SanctuaryShortcut, MSGBOX_SIGN
+	end
+
+Virelia_Route01_Text_ZigzagoonSanctuary:
+	.string "Zigzagoon uhýbá větvičkami.\n"
+	.string "Za hnízdem vede zarostlá pěšina.\p"
+	.string "V mechu je otisk obrovské tlapy.\n"
+	.string "Co dalšího tu asi hlídá?$"
+
+Virelia_Route01_Text_OvergrownPath:
+	.string "Husté větve skrývají pěšinu.\n"
+	.string "Zigzagoon bedlivě hlídá okolí.\p"
+	.string "Nejdřív dej Haně vědět,\n"
+	.string "že je její parťák v pořádku.$"
+
+Virelia_Route01_Text_SanctuaryShortcut:
+	.string "Propletené kořeny tvoří stěnu.\n"
+	.string "Z druhé strany zní tichý tón.$"

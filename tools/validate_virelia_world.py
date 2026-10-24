@@ -27,6 +27,7 @@ NAMES = (
     "Virelia_Slateford_QuarryEntrance",
     "Virelia_Slateford_QuarryDepths",
     "Virelia_Slateford_Gym",
+    "Virelia_WhisperwoodSanctuary",
 )
 TOWN, LAB, ROUTE, CITY, HOME = NAMES[:5]
 GROUPS = ("gMapGroup_VireliaOverworld", "gMapGroup_VireliaInteriors")
@@ -96,8 +97,8 @@ def validate(base=None):
     unique([section["id"] for section in sections], "map section IDs")
     require(len(sections) < 0xFD, "Map sections overlap reserved Pokemon met-location IDs")
     require(groups["group_order"][-2:] == list(GROUPS), "Virelia groups must be appended")
-    require(groups[GROUPS[0]] == [TOWN, ROUTE, CITY], "Unexpected Virelia overworld IDs")
-    require(groups[GROUPS[1]] == [LAB, HOME, *NAMES[5:]], "Unexpected Virelia interior IDs")
+    require(groups[GROUPS[0]] == [TOWN, ROUTE, CITY, NAMES[-1]], "Unexpected Virelia overworld IDs")
+    require(groups[GROUPS[1]] == [LAB, HOME, *NAMES[5:-1]], "Unexpected Virelia interior IDs")
     require(groups["group_order"].index(GROUPS[1]) < 0x7F, "Virelia group exceeds signed warp storage")
     if base:
         verify_legacy(base, groups, layouts, sections)
@@ -111,8 +112,10 @@ def validate(base=None):
     # Reachability below checks the eventual completed state of dynamic gates.
     # The first-Gym validator separately proves locked-state puzzle gating.
     dynamic_open = {
-        "Virelia_Slateford_QuarryDepths": (11, 6),
-        "Virelia_Slateford_Gym": (6, 6),
+        "Virelia_Slateford_QuarryDepths": {(11, 6)},
+        "Virelia_Slateford_Gym": {(6, 6)},
+        ROUTE: {(1, 8), (1, 9), (1, 16), (1, 17)},
+        "Virelia_WhisperwoodSanctuary": {(16, 2), (16, 3), (20, 10), (20, 11)},
     }
     tileset_headers = (ROOT / "src/data/tilesets/headers.h").read_text()
     metatile_sources = (ROOT / "src/data/tilesets/metatiles.h").read_text()
@@ -176,7 +179,7 @@ def validate(base=None):
     def walkable(node):
         name, x, y = node
         tile = block(name, x, y)
-        return tile is not None and (not tile & 0xC00 or dynamic_open.get(name) == (x, y)) and (x, y) not in occupied[name]
+        return tile is not None and (not tile & 0xC00 or (x, y) in dynamic_open.get(name, set())) and (x, y) not in occupied[name]
 
     def same_elevation(a, b):
         elevation_a, elevation_b = block(*a) >> 12, block(*b) >> 12
@@ -237,14 +240,19 @@ def validate(base=None):
                         and int(back["offset"]) == -offset
                         for back in maps[target_name].get("connections") or []),
                     f"{name}: missing reciprocal connection")
-            require(direction in ("up", "down"), f"{name}: v0.1 expects north/south connections")
             width, height = dimensions(name)
-            target_height = dimensions(target_name)[1]
-            source_y, target_y = (0, target_height - 1) if direction == "up" else (height - 1, 0)
+            target_width, target_height = dimensions(target_name)
             seam_count = 0
-            for x in range(width):
-                source_node = name, x, source_y
-                target_node = target_name, x - offset, target_y
+            vertical = direction in ("up", "down")
+            for coordinate in range(width if vertical else height):
+                if vertical:
+                    source_y, target_y = (0, target_height - 1) if direction == "up" else (height - 1, 0)
+                    source_node = name, coordinate, source_y
+                    target_node = target_name, coordinate - offset, target_y
+                else:
+                    source_x, target_x = (0, target_width - 1) if direction == "left" else (width - 1, 0)
+                    source_node = name, source_x, coordinate
+                    target_node = target_name, target_x, coordinate - offset
                 if walkable(source_node) and walkable(target_node) and same_elevation(source_node, target_node):
                     edges[source_node].append(target_node)
                     seam_count += 1

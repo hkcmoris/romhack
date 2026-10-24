@@ -10424,6 +10424,26 @@
       "font": "Normal",
       "width": 208,
       "conditional": true
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SOOTHE_BELL.name.0",
+      "kind": "item_name",
+      "english": "Soothe Bell",
+      "czech": "Soothe Bell",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_SOOTHE_BELL.description.0",
+      "kind": "item_description",
+      "english": "A held item that\\ncalms spirits and\\nfosters friendship.",
+      "czech": "Zvonek k držení.\\nZklidní a posílí\\npřátelství.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
     }
   ],
   "coverage": {
@@ -10654,6 +10674,7 @@
       "ITEM_REPEL",
       "ITEM_REVIVE",
       "ITEM_SHED_SHELL",
+      "ITEM_SOOTHE_BELL",
       "ITEM_SUN_STONE",
       "ITEM_SUPER_POTION",
       "ITEM_SUPER_REPEL",

@@ -6,6 +6,7 @@
 - [Virelia regional starter prototype](./VIRELIA_STARTERS.md)
 - [Virelia world foundation](./VIRELIA_WORLD.md)
 - [Virelia playable prologue](./VIRELIA_PROLOGUE.md)
+- [Whisperwood hidden sanctuary](./VIRELIA_SANCTUARY.md)
 - [Virelia first Gym](./VIRELIA_FIRST_GYM.md)
 - [Virelia preview freeze investigation](./VIRELIA_PREVIEW_FREEZE.md)
 - [My Boy! compatibility investigation](./MYBOY_COMPATIBILITY.md)

@@ -230,6 +230,7 @@ jobs:
       - name: Validate Virelia map connectivity, assets and starter scene
         run: |
           python3 tools/validate_virelia_world.py
+          python3 tools/validate_virelia_sanctuary.py
           python3 tools/validate_virelia_lab_scene.py
           python3 tools/validate_virelia_first_gym.py
 

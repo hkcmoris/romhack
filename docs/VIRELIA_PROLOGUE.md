@@ -49,7 +49,9 @@ species. This document supersedes their development-start instructions.
 7. Follow **Whisperwood Trail** north. Battle two ordinary trainers, explore
    existing tall grass and find the optional item detour. **Hana** asks about
    her missing Zigzagoon; investigating its secluded spot reveals territorial
-   behavior. Return to Hana for one extra Potion. This event is optional.
+   behavior. Return to Hana for one extra Potion. Her thanks reveal an overgrown
+   western path to the [hidden sanctuary](VIRELIA_SANCTUARY.md), with three carved
+   stones, a permanent shortcut and Soothe Bell. These events are optional.
 8. Reach **Slateford City**. Miners report missing conductive mineral samples.
    Investigate the suspicious maintenance worker near the mining area, expose
    his Team Rocket uniform and win a normal single battle. Losing permits a

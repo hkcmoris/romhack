@@ -1166,7 +1166,8 @@
   "gMapGroup_VireliaOverworld": [
     "Virelia_MaplebrookTown",
     "Virelia_Route01",
-    "Virelia_SlatefordCity"
+    "Virelia_SlatefordCity",
+    "Virelia_WhisperwoodSanctuary"
   ],
   "gMapGroup_VireliaInteriors": [
     "Virelia_MaplebrookResearchLaboratory",

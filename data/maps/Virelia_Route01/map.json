@@ -22,6 +22,11 @@
       "map": "MAP_VIRELIA_MAPLEBROOK_TOWN",
       "offset": 0,
       "direction": "down"
+    },
+    {
+      "map": "MAP_VIRELIA_WHISPERWOOD_SANCTUARY",
+      "offset": 6,
+      "direction": "left"
     }
   ],
   "object_events": [
@@ -110,6 +115,38 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_Route01_EventScript_NorthSign"
+    },
+    {
+      "type": "sign",
+      "x": 1,
+      "y": 16,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_Route01_EventScript_OvergrownPath"
+    },
+    {
+      "type": "sign",
+      "x": 1,
+      "y": 17,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_Route01_EventScript_OvergrownPath"
+    },
+    {
+      "type": "sign",
+      "x": 1,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_Route01_EventScript_SanctuaryShortcut"
+    },
+    {
+      "type": "sign",
+      "x": 1,
+      "y": 9,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_Route01_EventScript_SanctuaryShortcut"
     }
   ],
   "region": "REGION_HOENN"

@@ -107,10 +107,10 @@ def validate_nurse_path(center):
 
 def validate():
     groups = load("data/maps/map_groups.json")
-    require(groups["gMapGroup_VireliaOverworld"] == [
+    require(groups["gMapGroup_VireliaOverworld"][:3] == [
         "Virelia_MaplebrookTown", "Virelia_Route01", "Virelia_SlatefordCity"],
         "Existing overworld map IDs changed")
-    require(groups["gMapGroup_VireliaInteriors"] == [
+    require(groups["gMapGroup_VireliaInteriors"][:2 + len(NEW_NAMES)] == [
         "Virelia_MaplebrookResearchLaboratory", "Virelia_MaplebrookPlayersHouse", *NEW_NAMES],
         "Interior map IDs must be append-only")
     maps = {name: load(f"data/maps/{name}/map.json") for name in NEW_NAMES}

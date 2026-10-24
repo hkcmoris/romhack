@@ -9865,10 +9865,7 @@ const struct ItemInfo gItemsInfo[] =
         .price = 100,
     #endif
         .holdEffect = HOLD_EFFECT_FRIENDSHIP_UP,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "calms spirits and\n"
-            "fosters friendship."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\ncalms spirits and\nfosters friendship.", "Zvonek k držení.\nZklidní a posílí\npřátelství.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,

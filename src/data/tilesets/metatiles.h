@@ -30,6 +30,9 @@ const u16 gMetatileAttributes_Lavaridge[] = INCBIN_U16("data/tilesets/secondary/
 const u16 gMetatiles_Fallarbor[] = INCBIN_U16("data/tilesets/secondary/fallarbor/metatiles.bin");
 const u16 gMetatileAttributes_Fallarbor[] = INCBIN_U16("data/tilesets/secondary/fallarbor/metatile_attributes.bin");
 
+const u16 gMetatiles_Whisperwood[] = INCBIN_U16("data/tilesets/secondary/whisperwood/metatiles.bin");
+const u16 gMetatileAttributes_Whisperwood[] = INCBIN_U16("data/tilesets/secondary/whisperwood/metatile_attributes.bin");
+
 const u16 gMetatiles_Fortree[] = INCBIN_U16("data/tilesets/secondary/fortree/metatiles.bin");
 const u16 gMetatileAttributes_Fortree[] = INCBIN_U16("data/tilesets/secondary/fortree/metatile_attributes.bin");
 

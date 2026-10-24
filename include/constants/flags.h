@@ -78,8 +78,8 @@
 #define FLAG_UNUSED_0x038    0x38 // Reserved: FLAG_VIRELIA_TM_ROCK_TOMB_RECEIVED
 #define FLAG_UNUSED_0x039    0x39 // Reserved: FLAG_VIRELIA_ITEM_QUARRY_SUPER_POTION
 #define FLAG_UNUSED_0x03A    0x3A // Reserved: FLAG_VIRELIA_FIRST_GYM_COMPLETE
-#define FLAG_UNUSED_0x03B    0x3B // Unused Flag
-#define FLAG_UNUSED_0x03C    0x3C // Unused Flag
+#define FLAG_UNUSED_0x03B    0x3B // Reserved: FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN
+#define FLAG_UNUSED_0x03C    0x3C // Reserved: FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED
 #define FLAG_UNUSED_0x03D    0x3D // Unused Flag
 #define FLAG_UNUSED_0x03E    0x3E // Unused Flag
 #define FLAG_UNUSED_0x03F    0x3F // Unused Flag

@@ -129,6 +129,18 @@ const struct Tileset gTileset_Fortree =
     .callback = InitTilesetAnim_Fortree,
 };
 
+const struct Tileset gTileset_Whisperwood =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Whisperwood,
+    .palettes = gTilesetPalettes_Whisperwood,
+    .metatiles = gMetatiles_Whisperwood,
+    .metatileAttributes = gMetatileAttributes_Whisperwood,
+    .callback = InitTilesetAnim_Fortree,
+};
+
+
 const struct Tileset gTileset_Lilycove =
 {
     .isCompressed = TRUE,
