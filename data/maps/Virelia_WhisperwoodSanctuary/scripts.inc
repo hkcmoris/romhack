@@ -29,6 +29,7 @@ Virelia_WhisperwoodSanctuary_OnLoad:
 Virelia_WhisperwoodSanctuary_CheckShortcut:
 	setmetatile 16, 2, 0xE, 1
 	setmetatile 16, 3, 0xE, 1
+	goto_if_unset FLAG_VIRELIA_SIDEQUEST_REWARDED, Virelia_WhisperwoodSanctuary_LoadDone
 	goto_if_unset FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN, Virelia_WhisperwoodSanctuary_LoadDone
 	call Virelia_WhisperwoodSanctuary_OpenShortcut
 Virelia_WhisperwoodSanctuary_LoadDone:

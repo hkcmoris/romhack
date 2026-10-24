@@ -19,6 +19,8 @@ static void ResetSanctuary(void)
     InitEventData();
     SetBagItemsPointers();
     ClearBag();
+    FlagClear(FLAG_VIRELIA_SIDEQUEST_STARTED);
+    FlagClear(FLAG_VIRELIA_SIDEQUEST_RESOLVED);
     FlagClear(FLAG_VIRELIA_SIDEQUEST_REWARDED);
     FlagClear(FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN);
     FlagClear(FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED);
@@ -45,6 +47,65 @@ static void LoadSanctuaryMap(u16 map)
     SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), WARP_ID_NONE, 7, 15);
     WarpIntoMap();
     InitMap();
+}
+
+static void ExpectGateAccess(bool32 hanaComplete, bool32 shortcutOpen)
+{
+    LoadSanctuaryMap(MAP_VIRELIA_ROUTE01);
+    for (u32 y = 16; y <= 17; y++)
+        EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
+    for (u32 y = 8; y <= 9; y++)
+        EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
+    LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
+    for (u32 y = 10; y <= 11; y++)
+        EXPECT_EQ(MapGridGetCollisionAt(20 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
+    for (u32 y = 2; y <= 3; y++)
+        EXPECT_EQ(MapGridGetCollisionAt(16 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
+}
+
+TEST("Virelia sanctuary raw connected layouts seal both entrances before load callbacks")
+{
+    ResetSanctuary();
+    static const u8 gates[][2] = {{1, 8}, {1, 9}, {1, 16}, {1, 17},
+                                 {16, 2}, {16, 3}, {20, 10}, {20, 11}};
+    for (u32 map = 0; map < 2; map++)
+    {
+        LoadSanctuaryMap(map ? MAP_VIRELIA_WHISPERWOOD_SANCTUARY : MAP_VIRELIA_ROUTE01);
+        for (u32 i = map * 4; i < map * 4 + 4; i++)
+        {
+            u16 tile = gMapHeader.mapLayout->map[gates[i][1] * gMapHeader.mapLayout->width + gates[i][0]];
+            EXPECT_NE(UNPACK_COLLISION(tile), 0);
+            EXPECT_EQ(UNPACK_METATILE(tile), 0xE);
+        }
+    }
+}
+
+TEST("Virelia sanctuary Hana gate waits for the actual reward including full Bag retries")
+{
+    ResetSanctuary();
+    ExpectGateAccess(FALSE, FALSE);
+    FlagSet(FLAG_VIRELIA_SIDEQUEST_STARTED);
+    ExpectGateAccess(FALSE, FALSE);
+    RUN_OVERWORLD_SCRIPT(call VireliaPrologue_EventScript_FindZigzagoon;);
+    ExpectGateAccess(FALSE, FALSE);
+    struct BagPocket *pocket = &gBagPockets[POCKET_ITEMS];
+    for (u32 i = 0; i < pocket->capacity; i++)
+        BagPocket_SetSlotItemIdAndCount(pocket, i, ITEM_ANTIDOTE, MAX_BAG_ITEM_CAPACITY);
+    RUN_OVERWORLD_SCRIPT(call VireliaPrologue_EventScript_TryRewardHana;);
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    EXPECT(!FlagGet(FLAG_VIRELIA_SIDEQUEST_REWARDED));
+    ExpectGateAccess(FALSE, FALSE);
+    // Even a shortcut flag alone must never bypass Hana's completion gate.
+    FlagSet(FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN);
+    ExpectGateAccess(FALSE, TRUE);
+    FlagClear(FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN);
+    ClearBag();
+    RUN_OVERWORLD_SCRIPT(call VireliaPrologue_EventScript_TryRewardHana;);
+    EXPECT_EQ(gSpecialVar_Result, TRUE);
+    EXPECT(FlagGet(FLAG_VIRELIA_SIDEQUEST_REWARDED));
+    ExpectGateAccess(TRUE, FALSE);
+    SolveSanctuary();
+    ExpectGateAccess(TRUE, TRUE);
 }
 
 TEST("Virelia sanctuary pawprints stay below the player while the ancient tree remains above")
@@ -114,16 +175,7 @@ TEST("Virelia sanctuary native map callbacks restore both sides of each gate")
     ResetSanctuary();
     if (state >= 1) FlagSet(FLAG_VIRELIA_SIDEQUEST_REWARDED);
     if (state >= 2) FlagSet(FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN);
-    LoadSanctuaryMap(MAP_VIRELIA_ROUTE01);
-    for (u32 y = 16; y <= 17; y++)
-        EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, state >= 1);
-    for (u32 y = 8; y <= 9; y++)
-        EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, state >= 2);
-    LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
-    for (u32 y = 10; y <= 11; y++)
-        EXPECT_EQ(MapGridGetCollisionAt(20 + MAP_OFFSET, y + MAP_OFFSET) == 0, state >= 1);
-    for (u32 y = 2; y <= 3; y++)
-        EXPECT_EQ(MapGridGetCollisionAt(16 + MAP_OFFSET, y + MAP_OFFSET) == 0, state >= 2);
+    ExpectGateAccess(state >= 1, state >= 2);
 }
 
 TEST("Virelia sanctuary restores all twelve custom tree tiles over older cached map views")

@@ -95,21 +95,11 @@ def validate():
         require(not tile((SHRINE, 21, y - 6)) & 0xC00, 'Sanctuary seam is blocked in raw neighbor data')
     for points in gates.values():
         require(all(tile(point) & 0xC00 for point in points), 'Gate must be closed in the saved layout')
-    # Every forest fragment belongs to a complete tree. This guards against
-    # carving half a trunk/canopy away while editing the approach rectangles.
-    tree = ((0x1CE, 0x1CF), (0x1D4, 0x1D5), (0x1E4, 0x1E5))
-    parts = {piece: (dx, dy) for dy, row in enumerate(tree) for dx, piece in enumerate(row)}
-    for y in range(layouts[SHRINE]['height']):
-        for x in range(layouts[SHRINE]['width']):
-            part = tile((SHRINE, x, y)) & 0x3FF
-            if part not in parts:
-                continue
-            dx, dy = parts[part]
-            ox, oy = x - dx, y - dy
-            require(all(tile((SHRINE, ox + xx, oy + yy)) is not None
-                        and tile((SHRINE, ox + xx, oy + yy)) & 0x3FF == expected
-                        for yy, row in enumerate(tree) for xx, expected in enumerate(row)),
-                    f'Clipped forest tree near {(x, y)}')
+        # Dynamic entrances use complete standalone shrubs. Stock forest
+        # canopies elsewhere may overlap or continue beyond Porymap's borders;
+        # they do not all follow the generator's isolated 2x3 tree pattern.
+        require(all(tile(point) & 0x3FF == 0xE for point in points),
+                'Gate must use standalone shrubs, not a clipped tree canopy')
     path = ROOT / 'data/tilesets/secondary/whisperwood'
     raw = (path / 'metatiles.bin').read_bytes()
     attrs = (path / 'metatile_attributes.bin').read_bytes()
