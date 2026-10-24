@@ -1383,9 +1383,6 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
             gOverworldPalette_Spinarak,
             gShinyOverworldPalette_Spinarak
         )
-#if P_VIRELIA_STARTERS
-        .formSpeciesIdTable = sSpinarakFormSpeciesIdTable,
-#endif
         .levelUpLearnset = sSpinarakLevelUpLearnset,
         .teachableLearnset = sSpinarakTeachableLearnset,
         .eggMoveLearnset = sSpinarakEggMoveLearnset,
@@ -1462,9 +1459,6 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
             gOverworldPalette_Ariados,
             gShinyOverworldPalette_Ariados
         )
-#if P_VIRELIA_STARTERS
-        .formSpeciesIdTable = sAriadosFormSpeciesIdTable,
-#endif
         .levelUpLearnset = sAriadosLevelUpLearnset,
         .teachableLearnset = sAriadosTeachableLearnset,
     },
@@ -1909,6 +1903,9 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
             gShinyOverworldPalette_Natu
         )
         .isSkyBattleBanned = B_SKY_BATTLE_STRICT_ELIGIBILITY,
+#if P_VIRELIA_STARTERS
+        .formSpeciesIdTable = sNatuFormSpeciesIdTable,
+#endif
         .levelUpLearnset = sNatuLevelUpLearnset,
         .teachableLearnset = sNatuTeachableLearnset,
         .eggMoveLearnset = sNatuEggMoveLearnset,
@@ -1994,6 +1991,9 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
             TRACKS_FOOT,
             sAnimTable_Following
         )
+#if P_VIRELIA_STARTERS
+        .formSpeciesIdTable = sXatuFormSpeciesIdTable,
+#endif
         .levelUpLearnset = sXatuLevelUpLearnset,
         .teachableLearnset = sXatuTeachableLearnset,
     },

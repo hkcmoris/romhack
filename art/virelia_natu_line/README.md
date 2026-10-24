@@ -1,6 +1,6 @@
 # Virelian Natu line - sprite preparation v4
 
-Normal-color artwork prepared from the repository's Natu and Xatu sprites using the built-in imagegen tool. This is the artwork preparation pass; the playable starter is still the existing Spinarak line.
+Normal-color artwork prepared from the repository's Natu and Xatu sprites using the built-in imagegen tool. These assets now supply the playable Water/Psychic starter line: Natu → Xatu at level 14 → Nimbatu at level 34.
 
 ## Final assets
 
@@ -12,7 +12,7 @@ Normal-color artwork prepared from the repository's Natu and Xatu sprites using 
 
 Each directory contains front.png and front_2.png (64x64 each), anim_front.png (64x128), back.png (64x64), icon.png (32x64, two frames), and normal.pal (16-entry JASC palette).
 
-All PNGs are indexed, have transparent palette index 0, and share the same palette within one species. Each complete species sheet uses 14 colors including transparency. Existing original Natu/Xatu files were preserved.
+All art PNGs are indexed, have transparent palette index 0, and share the same palette within one species. The separate runtime icon_game.png files use shared icon palette 3. Each complete art sheet uses 14 colors including transparency. Existing original Natu/Xatu files were preserved.
 
 ## Source and edit stages
 
@@ -21,7 +21,7 @@ All PNGs are indexed, have transparent palette index 0, and share the same palet
 3. 03_concept_edits contains the concept-detail passes. Natu received the paired crest, cheek teardrop and pale belly. Xatu received the crest, navy collar, gold chest marking and tail accent. Nimbatu developed from the copied Xatu with broader wings, gold crest and longer tail.
 4. Native export removed translucent presentation halos, packed the cells onto the game grid and encoded consistent palette indices. Nimbatu's front poses received an additional alignment pass.
 
-The raw imagegen sheets are edit history. Use the files in graphics/pokemon for future engine integration, rather than the raw high-resolution sheets.
+The raw imagegen sheets are edit history. The engine uses the native files in graphics/pokemon.
 
 ## Review
 
@@ -31,9 +31,9 @@ imagegen-prompts.json records the final edit prompts and workflow constraints. a
 
 ## Integration boundary
 
-This pass does not register the new species or activate them in the lab. Normal-color battle sprites and party icons are prepared. Dedicated shiny artwork/palettes and edited follower sheets are not included in this pass; copied overworld files remain source references.
+The engine registers all three species and activates Natu in the lab. Normal-color battle sprites and party icons are prepared. Dedicated shiny artwork/palettes and edited follower sheets are not included in this pass; copied overworld files remain source references.
 
-The party icons currently use each family's custom normal.pal colors. Engine integration must register a suitable icon palette before using them. The existing global Natu/Xatu icon palette cannot be assumed to match.
+The original icon.png files retain each family's custom normal.pal colors. The engine uses separate icon_game.png files mapped to shared palette 3 by tools/virelia/prepare_natu_assets.py. Shiny battle sprites currently reuse normal colors pending dedicated shiny artwork; footprints, cries and followers reuse ordinary Natu/Xatu.
 
 No ROM build, CI run or emulator playtest was started for this artwork pass. Checks covered dimensions, palette-index consistency, binary transparency, distinct front frames, unchanged original source files and the exact Xatu-to-Nimbatu recolor copy.
 

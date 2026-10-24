@@ -17,32 +17,32 @@ final artwork. The Fire/Poison family is provisional and may be replaced.
 
 ## Species and evolution chains
 
-Species IDs are appended in the engine's custom-species range. Existing playable
-species IDs are unchanged. The grass family's first stage differs from its evolutions.
+The replacement line occupies IDs 1576-1578 in the custom-species range.
+Older saves are unsupported during prototype development. The grass family's first stage differs from its evolutions.
 
 | Species identifier | ID | Types | Evolves into | Required level | National dex |
 | --- | ---: | --- | --- | ---: | ---: |
 | `SPECIES_POOCHYENA_VIRELIA` | 1573 | Grass/Dark | Virelian Mightyena | 18 | 261 |
 | `SPECIES_MIGHTYENA_VIRELIA` | 1574 | Grass/Ghost | Wraithena | 38 | 262 |
 | `SPECIES_WRAITHENA` | 1575 | Grass/Ghost | Final stage | — | 1026 |
-| `SPECIES_SPINARAK_VIRELIA` | 1576 | Water/Bug | Virelian Ariados | 14 | 167 |
-| `SPECIES_ARIADOS_VIRELIA` | 1577 | Water/Bug | Arachnaut | 34 | 168 |
-| `SPECIES_ARACHNAUT` | 1578 | Water/Bug | Final stage | — | 1027 |
+| `SPECIES_NATU_VIRELIA` | 1576 | Water/Psychic | Virelian Xatu | 14 | 177 |
+| `SPECIES_XATU_VIRELIA` | 1577 | Water/Psychic | Nimbatu | 34 | 178 |
+| `SPECIES_NIMBATU` | 1578 | Water/Psychic | Final stage | — | 1027 |
 | `SPECIES_EKANS_VIRELIA` | 1579 | Fire/Poison | Virelian Arbok | 16 | 23 |
 | `SPECIES_ARBOK_VIRELIA` | 1580 | Fire/Poison | Infernabra | 36 | 24 |
-| `SPECIES_CINDRACOIL` | 1581 | Fire/Poison | Final stage | — | 1028 |
+| `SPECIES_INFERNABRA` | 1581 | Fire/Poison | Final stage | — | 1028 |
 
-The Fire/Poison final stage is named Infernabra. Its internal
-`SPECIES_CINDRACOIL` and `NATIONAL_DEX_CINDRACOIL` identifiers remain internal
-names. Wraithena and Arachnaut retain their working names.
+Infernabra now uses `SPECIES_INFERNABRA` and `NATIONAL_DEX_INFERNABRA`
+throughout the engine; no obsolete compatibility alias remains.
 Regional forms retain the short original species names in the game's name fields;
 use their types, description, or the test NPC's family selection to identify them.
 The form tables pair each original with its regional variant, with the original
 first. Final evolutions are independent species, not forms of the original second
 stages. No automatic form-change mechanic is added.
 
-Original Poochyena still evolves into ordinary Mightyena at level 18, Spinarak
-into ordinary Ariados at level 22, and Ekans into ordinary Arbok at level 22.
+Original Poochyena still evolves into ordinary Mightyena at level 18, Natu
+into ordinary Xatu at level 25, and Ekans into ordinary Arbok at level 22.
+Ordinary Spinarak and Ariados retain their original data and evolution.
 The original second stages still have no further evolution. Regional evolution
 tables only target their regional chain. Native breeding traces those chains
 back to their regional first stages.
@@ -57,9 +57,9 @@ These are base stats, not the calculated stats shown on an individual Pokemon.
 | Virelian Poochyena | 50 | 65 | 45 | 40 | 45 | 70 | 315 |
 | Virelian Mightyena | 65 | 90 | 60 | 50 | 60 | 100 | 425 |
 | Wraithena | 78 | 112 | 82 | 65 | 85 | 108 | 530 |
-| Virelian Spinarak | 55 | 55 | 60 | 35 | 55 | 40 | 300 |
-| Virelian Ariados | 75 | 75 | 80 | 45 | 75 | 55 | 405 |
-| Arachnaut | 94 | 102 | 100 | 58 | 98 | 78 | 530 |
+| Virelian Natu | 55 | 35 | 60 | 55 | 55 | 40 | 300 |
+| Virelian Xatu | 75 | 45 | 80 | 75 | 75 | 55 | 405 |
+| Nimbatu | 94 | 58 | 100 | 102 | 98 | 78 | 530 |
 | Virelian Ekans | 45 | 40 | 45 | 70 | 45 | 65 | 310 |
 | Virelian Arbok | 60 | 55 | 60 | 90 | 65 | 85 | 415 |
 | Infernabra | 78 | 72 | 75 | 119 | 88 | 98 | 530 |
@@ -67,11 +67,11 @@ These are base stats, not the calculated stats shown on an individual Pokemon.
 | Family | Normal ability | Hidden ability | Intended role |
 | --- | --- | --- | --- |
 | Grass/Dark → Grass/Ghost | Overgrow | Infiltrator | Fast physical attacker; evasion and recovery |
-| Water/Bug | Torrent | Water Absorb | Bulky physical attacker; lower the opponent's Speed |
+| Water/Psychic | Torrent | Water Absorb | Bulky special attacker; Water and Psychic coverage |
 | Fire/Poison | Blaze | Corrosion | Fast special attacker; status pressure |
 
 All nine use Medium Slow growth, a 12.5% female ratio, 20 egg cycles, and catch
-rate 45. Egg groups are Field (grass), Bug (water), and Field/Dragon (fire).
+rate 45. Egg groups are Field (grass), Flying (water), and Field/Dragon (fire).
 The water and fire families share their preliminary level-up learnsets. The
 grass first stage uses a Dark-type opening move; evolved grass stages retain
 their Ghost-type opening move.
@@ -97,22 +97,22 @@ skip its evolution chain.
 | 46 | Leech Life | Leech Life |
 | 50 | Swords Dance | Swords Dance |
 
-### Water/Bug learnset
+### Water/Psychic learnset
 
 | Level | Move |
 | ---: | --- |
-| 1 | Aqua Jet, Bug Bite |
-| 5 | String Shot |
-| 10 | Flip Turn |
-| 14 | Pounce |
-| 18 | Bulldoze |
-| 22 | Aqua Tail |
-| 26 | Leech Life |
-| 30 | Scary Face |
-| 34 | Liquidation |
-| 38 | Lunge |
-| 42 | Sticky Web |
-| 46 | Waterfall |
+| 1 | Water Gun, Confusion |
+| 5 | Growl |
+| 10 | Water Pulse |
+| 14 | Psybeam |
+| 18 | Icy Wind |
+| 22 | Brine |
+| 26 | Extrasensory |
+| 30 | Calm Mind |
+| 34 | Surf |
+| 38 | Psychic |
+| 42 | Tailwind |
+| 46 | Hydro Pump |
 | 50 | Protect |
 
 ### Fire/Poison learnset
@@ -140,23 +140,23 @@ balance pass. No new TM or egg move is introduced.
 ## Battle graphics and reused assets
 
 All three starter families use custom battle graphics, normal/shiny palettes
-and party icons, including their final stages Wraithena, Arachnaut and Infernabra.
+and party icons, including their final stages Wraithena, Nimbatu and Infernabra.
 Each `anim_front.png` contains two vertically stacked 64x64 frames (a 64x128
 sheet); each `back.png` is 64x64. Shiny forms use the same pixel indices with
 a different palette. The grass family's shiny palette colors its sage fur
 deep blue. The fire family uses purple scales and a tan underside; its shiny
 palette changes the purple scales to charcoal while keeping the warm lava colors.
-The water family uses aquatic colors with pink/purple shiny bodies. Its air
-sacs retain blue/cyan shades in both normal and shiny palettes.
+The Water/Psychic family uses the approved aquatic Natu/Xatu/Nimbatu art.
+Dedicated shiny colors are pending; shiny forms currently use the normal palette.
 
 | Species | Battle graphics directory |
 | --- | --- |
 | Virelian Poochyena | `graphics/pokemon/poochyena/virelia/` |
 | Virelian Mightyena | `graphics/pokemon/mightyena/virelia/` |
 | Wraithena | `graphics/pokemon/wraithena/` |
-| Virelian Spinarak | `graphics/pokemon/spinarak/virelia/` |
-| Virelian Ariados | `graphics/pokemon/ariados/virelia/` |
-| Arachnaut | `graphics/pokemon/arachnaut/` |
+| Virelian Natu | `graphics/pokemon/natu/virelia/` |
+| Virelian Xatu | `graphics/pokemon/xatu/virelia/` |
+| Nimbatu | `graphics/pokemon/nimbatu/` |
 | Virelian Ekans | `graphics/pokemon/ekans/virelia/` |
 | Virelian Arbok | `graphics/pokemon/arbok/virelia/` |
 | Infernabra | `graphics/pokemon/infernabra/` |
@@ -166,15 +166,12 @@ and Mightyena icons, recolored and adapted to match the new battle sprites.
 The fire family follows the same original-sprite-first approach with Ekans
 and Arbok, then adds the concept's volcanic cracks, flames and hood markings.
 Infernabra has a larger, rocky hood and its own final-stage silhouette.
-The water family starts from recolored original Spinarak and Ariados sprites,
-then adapts them to the aquatic concept. Its final stage keeps the name
-Arachnaut and has its own battle silhouette.
+The water family starts from recolored original Natu and Xatu sprites,
+then adapts them to the aquatic concept. Nimbatu has its own battle silhouette.
 Fire-family back sprites follow the original GBA battle framing: Ekans shows
 its rear head and upper neck; Arbok and Infernabra show their rear head and hood.
-They do not include the full coiled body or tail. Water-family back sprites
-likewise use close-up rear views of the head and thorax, with the dorsal air
-sacs exposed on the camera-facing side of the carapace.
-Each `icon.png` in the directories above is a 32x64 indexed sheet with two 32x32
+They do not include the full coiled body or tail. Water-family back sprites show the head, shoulders and folded wings.
+Each runtime icon is a 32x64 indexed sheet with two 32x32
 animation frames. The grass icons use the existing green icon palette (index 1);
 the water icons use palette 3, and the fire icons use the existing purple/orange
 icon palette (index 5).
@@ -189,10 +186,10 @@ indices, frame differences and canvas bounds, and writes a scaled review sheet
 and exact sprite bounds to the same output directory.
 
 Water-family artwork follows the same recolor-first, concept-adaptation process.
-Its local authoring sheets and prompts are under `outputs/virelia/water-sprites/`.
-`python tools/virelia/build_water_sprite_assets.py` exports the native front
-frames, cropped back views, normal/shiny palettes and party icons. These authoring
-files are not needed to compile the game.
+Its authoring sheets and prompts are under `art/virelia_natu_line/`.
+After refreshing the art exports, run `python tools/virelia/prepare_natu_assets.py`
+to produce `icon_game.png` using shared icon palette 3. The original `icon.png`
+retains the full art palette. Battle art is loaded directly from the prepared PNGs.
 
 Footprints, cries and applicable overworld graphics for all three families
 continue to reference the sources below. Original image files are not recolored
@@ -202,14 +199,14 @@ or overwritten.
 | --- | --- |
 | Virelian Poochyena | Poochyena |
 | Virelian Mightyena, Wraithena | Mightyena |
-| Virelian Spinarak | Spinarak |
-| Virelian Ariados, Arachnaut | Ariados |
+| Virelian Natu | Natu |
+| Virelian Xatu, Nimbatu | Xatu |
 | Virelian Ekans | Ekans |
 | Virelian Arbok, Infernabra | Arbok |
 
-Wraithena, Arachnaut and Infernabra each have their own final-stage battle art.
+Wraithena, Nimbatu and Infernabra each have their own final-stage battle art.
 Height, weight and display scale remain
-provisional: Wraithena 1.0 m/37.0 kg, Arachnaut 1.1 m/33.5 kg, Infernabra
+provisional: Wraithena 1.0 m/37.0 kg, Nimbatu 1.9 m/26.0 kg, Infernabra
 3.5 m/65.0 kg.
 
 ## Development access and testing
@@ -219,7 +216,7 @@ development NPC for this prototype. Set it to numeric `0` to remove test access;
 this does not delete already obtained Pokemon or remove their species data.
 Access is Emerald-only and is separate from `ORACULUM_DUO_TEST_QUICK_START`.
 The feature's data configuration requires the full Generation 9 dex and the
-original Poochyena, Spinarak and Ekans families. FireRed and LeafGreen retain
+original Poochyena, Natu and Ekans families. FireRed and LeafGreen retain
 normal species and dex behavior and do not expose the test NPC.
 
 1. For the current v0.2 code, build with `VIRELIA_DEVELOPMENT_MODE=1` before
@@ -252,8 +249,8 @@ evolve it. Cancel with **B** only when deliberately testing cancellation.
 | --- | --- | --- |
 | Virelian Poochyena, level 10 | Level 17 (7 candies) | Level 18: Virelian Mightyena |
 | Virelian Mightyena, level 30 | Level 37 (7 candies) | Level 38: Wraithena |
-| Virelian Spinarak, level 10 | Level 13 (3 candies) | Level 14: Virelian Ariados |
-| Virelian Ariados, level 30 | Level 33 (3 candies) | Level 34: Arachnaut |
+| Virelian Natu, level 10 | Level 13 (3 candies) | Level 14: Virelian Xatu |
+| Virelian Xatu, level 30 | Level 33 (3 candies) | Level 34: Nimbatu |
 | Virelian Ekans, level 10 | Level 15 (5 candies) | Level 16: Virelian Arbok |
 | Virelian Arbok, level 30 | Level 35 (5 candies) | Level 36: Infernabra |
 

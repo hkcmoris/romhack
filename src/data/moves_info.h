@@ -1454,9 +1454,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_WATER_GUN] =
     {
         .name = COMPOUND_STRING("Water Gun"),
-        .description = COMPOUND_STRING(
-            "Squirts water to attack\n"
-            "the foe."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Squirts water to attack\nthe foe.", "Zasáhne cíl proudem vody.")),
         .effect = EFFECT_HIT,
         .power = 40,
         .type = TYPE_WATER,
@@ -5295,9 +5293,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_ICY_WIND] =
     {
         .name = COMPOUND_STRING("Icy Wind"),
-        .description = COMPOUND_STRING(
-            "A chilling attack that\n"
-            "lowers the foes' Speed."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A chilling attack that\nlowers the foes' Speed.", "Ledový vítr zraní soupeře\na sníží jim rychlost.")),
         .effect = EFFECT_HIT,
         .power = 55,
         .type = TYPE_ICE,
@@ -9532,9 +9528,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_WATER_PULSE] =
     {
         .name = COMPOUND_STRING("Water Pulse"),
-        .description = COMPOUND_STRING(
-            "Attacks with ultrasonic\n"
-            "waves. May confuse the foe."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Attacks with ultrasonic\nwaves. May confuse the foe.", "Vodní vlna zasáhne cíl.\nMůže ho zmást.")),
         .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_WATER,

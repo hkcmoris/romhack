@@ -68,7 +68,7 @@ progress variables so that it cannot unexpectedly restart during this campaign.
 
 The new-game field callback also uses an ordinary fade instead of the original
 truck animation. Time-based events are initialized without the clock lesson.
-The equipment grant enables the engine's National Pokédex, because Spinarak and
+The equipment grant enables the engine's National Pokédex, because Natu and
 Ekans are outside the inherited Hoenn listing. In story mode, entries prefer the
 chosen regional starter family and the rival's actually encountered first stage;
 other species keep their ordinary form. The native Pokédex shares seen/caught
@@ -105,8 +105,8 @@ The player's name always comes from the save's `{PLAYER}` placeholder.
 | Player's choice | Species | Type | Viktor's level-5 Pokémon |
 | --- | --- | --- | --- |
 | Grass | `SPECIES_POOCHYENA_VIRELIA` | Grass/Dark | `SPECIES_EKANS_VIRELIA` |
-| Water | `SPECIES_SPINARAK_VIRELIA` | Water/Bug | `SPECIES_POOCHYENA_VIRELIA` |
-| Fire | `SPECIES_EKANS_VIRELIA` | Fire/Poison | `SPECIES_SPINARAK_VIRELIA` |
+| Water | `SPECIES_NATU_VIRELIA` | Water/Psychic | `SPECIES_POOCHYENA_VIRELIA` |
+| Fire | `SPECIES_EKANS_VIRELIA` | Fire/Poison | `SPECIES_NATU_VIRELIA` |
 
 Virelian Poochyena evolves into Grass/Ghost Virelian Mightyena at level 18,
 then into Grass/Ghost Wraithena at level 38. The existing identifier and

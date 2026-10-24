@@ -68,7 +68,7 @@ static void ExpectNoActiveSprites(void)
 #if P_VIRELIA_STARTERS
 TEST("Pic sprites: all Virelia starters create and release front and back pictures")
 {
-    const enum Species starters[] = { SPECIES_POOCHYENA_VIRELIA, SPECIES_SPINARAK_VIRELIA, SPECIES_EKANS_VIRELIA };
+    const enum Species starters[] = { SPECIES_POOCHYENA_VIRELIA, SPECIES_NATU_VIRELIA, SPECIES_EKANS_VIRELIA };
     enum Species species = SPECIES_NONE;
     bool32 affine = FALSE, front = FALSE, tagged = FALSE, shiny = FALSE;
 

@@ -5925,13 +5925,13 @@ enum Species NationalPokedexNumToSpeciesForm(enum NationalDexOrder nationalNum)
             if (starter == VIRELIA_STARTER_GRASS)
                 return SPECIES_MIGHTYENA_VIRELIA;
             break;
-        case NATIONAL_DEX_SPINARAK:
+        case NATIONAL_DEX_NATU:
             if (starter == VIRELIA_STARTER_WATER || (rivalKnown && starter == VIRELIA_STARTER_FIRE))
-                return SPECIES_SPINARAK_VIRELIA;
+                return SPECIES_NATU_VIRELIA;
             break;
-        case NATIONAL_DEX_ARIADOS:
+        case NATIONAL_DEX_XATU:
             if (starter == VIRELIA_STARTER_WATER)
-                return SPECIES_ARIADOS_VIRELIA;
+                return SPECIES_XATU_VIRELIA;
             break;
         case NATIONAL_DEX_EKANS:
             if (starter == VIRELIA_STARTER_FIRE || (rivalKnown && starter == VIRELIA_STARTER_GRASS))

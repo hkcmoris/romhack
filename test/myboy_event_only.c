@@ -64,7 +64,7 @@ static u32 AllocatedBytes(void)
 
 TEST("My Boy event-only consumes starter picture operands without resources or native waits")
 {
-    const enum Species species[] = {SPECIES_SPINARAK_VIRELIA, SPECIES_EKANS_VIRELIA, SPECIES_POOCHYENA_VIRELIA};
+    const enum Species species[] = {SPECIES_NATU_VIRELIA, SPECIES_EKANS_VIRELIA, SPECIES_POOCHYENA_VIRELIA};
     const struct WarpData location = gSaveBlock1Ptr->location;
     const u16 savedResult = gSpecialVar_Result;
     struct ScriptContext ctx;

@@ -3,7 +3,7 @@ from pathlib import Path
 import re
 import json
 ROOT = Path(__file__).resolve().parents[1]
-BASE_SPECIES = {'WURMPLE','ZIGZAGOON','POOCHYENA','SEEDOT','TAILLOW','SHROOMISH','RALTS','RATTATA','ZUBAT','POOCHYENA_VIRELIA','SPINARAK_VIRELIA','EKANS_VIRELIA','GEODUDE','ROGGENROLA','SANDSHREW','MAKUHITA','ARON','NOSEPASS'}
+BASE_SPECIES = {'WURMPLE','ZIGZAGOON','POOCHYENA','SEEDOT','TAILLOW','SHROOMISH','RALTS','RATTATA','ZUBAT','POOCHYENA_VIRELIA','NATU_VIRELIA','EKANS_VIRELIA','GEODUDE','ROGGENROLA','SANDSHREW','MAKUHITA','ARON','NOSEPASS'}
 CHAPTER_MOVES = {'TACKLE','SAND_ATTACK','HARDEN','HEADBUTT','ROCK_THROW','MUD_SLAP','DEFENSE_CURL','METAL_CLAW','LOW_KICK','FOCUS_ENERGY','ROCK_TOMB','THUNDER_WAVE','BLOCK'}
 CHAPTER_ITEMS = {'POTION','SUPER_POTION','POKE_BALL','ANTIDOTE','PARALYZE_HEAL','ESCAPE_ROPE','REPEL','TM_ROCK_TOMB'}
 def records():
@@ -26,7 +26,8 @@ def derive_coverage(level_bound=20):
             if not encounter.get('map', '').startswith('MAP_VIRELIA_'):
                 continue
             for field in ('land_mons', 'water_mons', 'fishing_mons', 'rock_smash_mons'):
-                species.update(mon['species'] for mon in encounter.get(field, {}).get('mons', []))
+                species.update(mon['species'] for mon in encounter.get(field, {}).get('mons', [])
+                               if mon['species'] != 'SPECIES_NONE')
     moves = {'MOVE_' + name for name in CHAPTER_MOVES} | {'MOVE_STRUGGLE'}
     abilities = set()
     items = {'ITEM_' + name for name in CHAPTER_ITEMS}

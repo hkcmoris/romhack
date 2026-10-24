@@ -2014,7 +2014,7 @@ bool8 ScrCmd_showmonpic(struct ScriptContext *ctx)
     if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY)
      && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY)
      && (species == SPECIES_POOCHYENA_VIRELIA
-      || species == SPECIES_SPINARAK_VIRELIA
+      || species == SPECIES_NATU_VIRELIA
       || species == SPECIES_EKANS_VIRELIA))
     {
         MyBoyDiag_Record(MYBOY_EVENT_PREVIEW_SKIPPED, species, 0);
