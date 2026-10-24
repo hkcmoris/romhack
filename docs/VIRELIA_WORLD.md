@@ -149,10 +149,27 @@ Whisperwood Trail.
 
 | Area | Existing tilesets |
 | --- | --- |
-| Maplebrook Town | `gTileset_General` + `gTileset_Petalburg` |
+| Maplebrook Town | `gTileset_General` + `gTileset_VireliaOutdoor` |
 | Maplebrook Research Laboratory | `gTileset_Building` + `gTileset_Lab` |
-| Whisperwood Trail | `gTileset_General` + `gTileset_Rustboro` |
-| Slateford City | `gTileset_General` + `gTileset_Rustboro` |
+| Whisperwood Trail | `gTileset_General` + `gTileset_VireliaOutdoor` |
+| Slateford City | `gTileset_General` + `gTileset_VireliaOutdoor` |
+| Whisperwood Sanctuary | `gTileset_General` + `gTileset_VireliaOutdoor` |
+
+All four connected outdoor maps share the same secondary metatile IDs, graphics
+and palettes. The native connection buffer draws neighboring cells with the
+current map's tileset and retains their tile references when crossing a seam.
+Separate Petalburg, Rustboro and Fortree banks therefore caused sanctuary grass
+to appear as building pieces and left incorrect roof graphics after returning
+to Maplebrook.
+
+`tools/virelia/build_outdoor_tileset.py` packs the used artwork into
+`data/tilesets/secondary/virelia_outdoor/`. It preserves each pixel, flip,
+metatile behavior, collision and elevation, and reserves the final 16 graphics
+tiles for native door animations. Maplebrook's house and laboratory door IDs
+and animation palettes retain their stock values. The ROM build consumes the
+checked-in assets; regeneration uses Python and Pillow. After adding source
+artwork, extend the builder's source-ID table and regenerate. Validate with
+`python3 tools/validate_virelia_tilesets.py`; this check needs only Python.
 
 NPCs and item/starter display objects use existing Emerald object graphics.
 The laboratory displays are prototype props. The Poochyena regional line has

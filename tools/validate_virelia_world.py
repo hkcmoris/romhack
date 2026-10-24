@@ -236,6 +236,11 @@ def validate(base=None):
             direction, offset = connection["direction"], int(connection["offset"])
             require(connection["map"] in by_id, f"{name}: unexpected external connection")
             target_name = by_id[connection["map"]]
+            source_layout = by_layout[entry["layout"]]
+            target_layout = by_layout[maps[target_name]["layout"]]
+            for key in ("primary_tileset", "secondary_tileset"):
+                require(source_layout[key] == target_layout[key],
+                        f"{name} -> {target_name}: connected maps must share {key} for native border rendering")
             require(any(back["map"] == entry["id"] and back["direction"] == OPPOSITE[direction]
                         and int(back["offset"]) == -offset
                         for back in maps[target_name].get("connections") or []),

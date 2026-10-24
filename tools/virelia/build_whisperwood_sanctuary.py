@@ -9,6 +9,7 @@ from pathlib import Path
 import json
 import struct
 from PIL import Image, ImageDraw
+from build_outdoor_tileset import build as build_outdoor_tileset
 
 ROOT = Path(__file__).resolve().parents[2]
 NAME = 'Virelia_WhisperwoodSanctuary'
@@ -186,7 +187,7 @@ def main():
     registry_path = ROOT / 'data/layouts/layouts.json'
     registry = json.loads(registry_path.read_text(encoding='utf-8'))
     entry = dict(id='LAYOUT_VIRELIA_WHISPERWOOD_SANCTUARY', name=NAME + '_Layout', width=22, height=26,
-                 primary_tileset='gTileset_General', secondary_tileset='gTileset_Whisperwood',
+                 primary_tileset='gTileset_General', secondary_tileset='gTileset_VireliaOutdoor',
                  border_filepath=f'data/layouts/{NAME}/border.bin', blockdata_filepath=f'data/layouts/{NAME}/map.bin',
                  layout_version='emerald')
     if not any(x['id'] == entry['id'] for x in registry['layouts']):
@@ -229,6 +230,7 @@ def main():
         cells[y * 30] = 0x300D if y >= 16 else 0x3001
         cells[y * 30 + 1] = 0x040E
     binary.write_bytes(struct.pack('<1260H', *cells))
+    build_outdoor_tileset(restored_maps={NAME})
     print('Built Whisperwood sanctuary; only the two western Route 01 entrances were patched.')
 
 

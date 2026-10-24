@@ -9330,7 +9330,7 @@
       "width": 30,
       "height": 28,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Petalburg",
+      "secondary_tileset": "gTileset_VireliaOutdoor",
       "border_filepath": "data/layouts/Virelia_MaplebrookTown/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_MaplebrookTown/map.bin",
       "layout_version": "emerald"
@@ -9352,7 +9352,7 @@
       "width": 30,
       "height": 42,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Rustboro",
+      "secondary_tileset": "gTileset_VireliaOutdoor",
       "border_filepath": "data/layouts/Virelia_Route01/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Route01/map.bin",
       "layout_version": "emerald"
@@ -9363,7 +9363,7 @@
       "width": 30,
       "height": 30,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Rustboro",
+      "secondary_tileset": "gTileset_VireliaOutdoor",
       "border_filepath": "data/layouts/Virelia_SlatefordCity/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_SlatefordCity/map.bin",
       "layout_version": "emerald"
@@ -9440,7 +9440,7 @@
       "width": 22,
       "height": 26,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Whisperwood",
+      "secondary_tileset": "gTileset_VireliaOutdoor",
       "border_filepath": "data/layouts/Virelia_WhisperwoodSanctuary/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_WhisperwoodSanctuary/map.bin",
       "layout_version": "emerald"

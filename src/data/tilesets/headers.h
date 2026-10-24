@@ -140,6 +140,18 @@ const struct Tileset gTileset_Whisperwood =
     .callback = InitTilesetAnim_Fortree,
 };
 
+// Connected maps share IDs, pixels and palettes in the native camera buffer.
+const struct Tileset gTileset_VireliaOutdoor =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaOutdoor,
+    .palettes = gTilesetPalettes_VireliaOutdoor,
+    .metatiles = gMetatiles_VireliaOutdoor,
+    .metatileAttributes = gMetatileAttributes_VireliaOutdoor,
+    .callback = NULL,
+};
+
 
 const struct Tileset gTileset_Lilycove =
 {
