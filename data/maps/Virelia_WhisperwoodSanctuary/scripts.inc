@@ -8,19 +8,6 @@ Virelia_WhisperwoodSanctuary_OnTransition:
 	end
 
 Virelia_WhisperwoodSanctuary_OnLoad:
-	@ Restore the whole custom tree over cached views from earlier playtest ROMs.
-	setmetatile 8, 6, 0x31D, 1
-	setmetatile 9, 6, 0x31E, 1
-	setmetatile 10, 6, 0x31F, 1
-	setmetatile 8, 7, 0x320, 1
-	setmetatile 9, 7, 0x321, 1
-	setmetatile 10, 7, 0x322, 1
-	setmetatile 8, 8, 0x323, 1
-	setmetatile 9, 8, 0x324, 1
-	setmetatile 10, 8, 0x325, 1
-	setmetatile 8, 9, 0x326, 1
-	setmetatile 9, 9, 0x327, 1
-	setmetatile 10, 9, 0x328, 1
 	setmetatile 20, 10, 0xE, 1
 	setmetatile 20, 11, 0xE, 1
 	goto_if_unset FLAG_VIRELIA_SIDEQUEST_REWARDED, Virelia_WhisperwoodSanctuary_CheckShortcut

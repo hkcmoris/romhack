@@ -129,17 +129,10 @@
   ],
   "warp_events": [
     {
-      "x": 6,
-      "y": 10,
+      "x": 9,
+      "y": 21,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_SLATEFORD_POKEMON_CENTER",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 6,
-      "y": 20,
-      "elevation": 0,
-      "dest_map": "MAP_VIRELIA_SLATEFORD_MART",
       "dest_warp_id": "0"
     },
     {
@@ -185,11 +178,11 @@
     },
     {
       "type": "sign",
-      "x": 9,
-      "y": 20,
+      "x": 11,
+      "y": 21,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Virelia_SlatefordCity_EventScript_OfficeSign"
+      "script": "Virelia_SlatefordCity_EventScript_ServiceSign"
     },
     {
       "type": "sign",

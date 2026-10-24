@@ -1506,14 +1506,10 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .speciesName = _("Nickit"),
         .cryId = CRY_NICKIT,
         .natDexNum = NATIONAL_DEX_NICKIT,
-        .categoryName = _("Fox"),
+        .categoryName = _(LOCALIZED_TEXT("Fox", "Liška")),
         .height = 6,
         .weight = 89,
-        .description = COMPOUND_STRING(
-            "Aided by the soft pads on its feet, it\n"
-            "silently raids the food stores of other\n"
-            "Pokémon. It survives off its\n"
-            "ill-gotten gains."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Aided by the soft pads on its feet, it\nsilently raids the food stores of other\nPokémon. It survives off its\nill-gotten gains.", "Díky měkkým polštářkům na tlapkách\npotichu vykrádá zásoby potravy\nostatním Pokémonům. Živí se tím,\nco si nakrade.")),
         .pokemonScale = 422,
         .pokemonOffset = 12,
         .trainerScale = 256,
@@ -1571,14 +1567,10 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .speciesName = _("Thievul"),
         .cryId = CRY_THIEVUL,
         .natDexNum = NATIONAL_DEX_THIEVUL,
-        .categoryName = _("Fox"),
+        .categoryName = _(LOCALIZED_TEXT("Fox", "Liška")),
         .height = 12,
         .weight = 199,
-        .description = COMPOUND_STRING(
-            "It secretly marks potential targets with\n"
-            "a scent. By following the scent, it\n"
-            "stalks its targets and steals from them\n"
-            "when they least expect it."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It secretly marks potential targets with\na scent. By following the scent, it\nstalks its targets and steals from them\nwhen they least expect it.", "Tajně si pachem označí svou oběť.\nPodle pachu ji sleduje a okrade ji\nve chvíli, kdy to nejméně čeká.")),
         .pokemonScale = 282,
         .pokemonOffset = 4,
         .trainerScale = 256,

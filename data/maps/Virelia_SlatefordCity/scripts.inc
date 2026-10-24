@@ -213,8 +213,8 @@ Virelia_SlatefordCity_EventScript_QuarrySign::
 	msgbox Virelia_SlatefordCity_Text_QuarrySign, MSGBOX_SIGN
 	end
 
-Virelia_SlatefordCity_EventScript_OfficeSign::
-	msgbox Virelia_SlatefordCity_Text_OfficeSign, MSGBOX_SIGN
+Virelia_SlatefordCity_EventScript_ServiceSign::
+	msgbox Virelia_SlatefordCity_Text_ServiceSign, MSGBOX_SIGN
 	end
 
 Virelia_SlatefordCity_EventScript_ClosedGym::
@@ -323,9 +323,9 @@ Virelia_SlatefordCity_Text_QuarrySign:
 	.string "Vstup po domluvě se správcem.$"
 
 
-Virelia_SlatefordCity_Text_OfficeSign:
-	.string "Poké Mart\n"
-	.string "Výbava na cesty i do lomu.$"
+Virelia_SlatefordCity_Text_ServiceSign:
+	.string "Pokémon Centrum a Poké Mart\n"
+	.string "Léčení i výbava pod jednou střechou.$"
 
 
 Virelia_SlatefordCity_Text_ClosedGym:

@@ -45,28 +45,29 @@ The automated in-game clock read 0:21; it is not a human pacing measurement.
 ![Latest starter preview](images/virelia-first-gym/baseline-starter-preview.png)
 ![Fresh FLASH Continue at the completed prologue](images/virelia-first-gym/baseline-flash-continue.png)
 
-## Append-only map registry
+## Current map registry and shared services
 
-Existing group/map, layout, species, trainer, heal location and story IDs keep
-their values. New interiors append to group 76. All use the existing Slateford
-map section; no world-map cell is repurposed.
+Slateford has one combined Pokémon Center and Poké Mart. Its city entrance at
+(6, 10) leads into the Center's shared lobby; the separate Mart map and entrance
+are removed. Current interiors occupy group 76 in the order below, after the
+Maplebrook laboratory and home. All use the existing Slateford map section.
 
 | Map | Constant | Group, map | Purpose |
 | --- | --- | --- | --- |
-| Pokémon Center | `MAP_VIRELIA_SLATEFORD_POKEMON_CENTER` | 76, 2 | Nurse Joy, ordinary PC, save/load and whiteout |
-| Poké Mart | `MAP_VIRELIA_SLATEFORD_MART` | 76, 3 | Ordinary buy/sell service |
-| Slateford Quarry entrance | `MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE` | 76, 4 | Miners, exploration and optional Super Potion |
-| Slateford Quarry depths | `MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS` | 76, 5 | Both electrical controls and freight evidence |
-| Slateford Gym | `MAP_VIRELIA_SLATEFORD_GYM` | 76, 6 | Geological puzzle, two trainers and Mara |
+| Center and Poké Mart | `MAP_VIRELIA_SLATEFORD_POKEMON_CENTER` | 76, 2 | Nurse Joy, ordinary PC, buy/sell service, save/load and whiteout |
+| Slateford Quarry entrance | `MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE` | 76, 3 | Miners, exploration and optional Super Potion |
+| Slateford Quarry depths | `MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS` | 76, 4 | Both electrical controls and freight evidence |
+| Slateford Gym | `MAP_VIRELIA_SLATEFORD_GYM` | 76, 5 | Geological puzzle, two trainers and Mara |
+| Slateford Quarry gallery | `MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY` | 76, 6 | Missing Tools mystery and connecting haul route |
 
 The new layouts copy Emerald tiles, palettes and existing service furnishings.
 Original Hoenn maps and layouts remain intact. Existing tilesets and sprites
-are reused; shared service UI graphics receive Czech labels. Layout IDs append to
-`data/layouts/layouts.json`; the source validator checks their concrete order.
+are reused; shared service UI graphics receive Czech labels. The source validators
+check the current registry, reciprocal warps and access to both service counters.
 `tools/virelia/build_first_gym_maps.py` documents the authored layout construction.
 Do not run the old world generator over later Porymap edits.
 
-The Center appends `HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER`.
+The Center uses `HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER`.
 Entering the Center records its ordinary healing/whiteout destination.
 Nurse local ID is 1; whiteout position is (7, 4).
 The ordinary PC uses native storage; no storage lockdown is implemented.
@@ -78,8 +79,32 @@ assumes a full Center initialized the Union Room name buffer; without it, a
 native test found a 369-byte copy into the 256-byte name buffer, corrupting
 font globals after healing. The local path and its call-graph regression avoid
 that assumption without changing multiplayer code.
-The Mart stocks Poké Ball, Potion, Super Potion, Antidote, Paralyze Heal,
-Awakening, Escape Rope and Repel. Item names remain English.
+The 24 × 9 room keeps Joy at (7, 2), her counter at (7, 3), and the ordinary
+healing/whiteout position at (7, 4). The shop wing places its clerk at (16, 2),
+with a native counter at (16, 3) and customer approach at (16, 4). Both floor
+exits, (7, 8) and (6, 8), return through city warp 0. City warp 1 serves the Gym;
+warp 2 serves the quarry. There is no indoor warp between healing and shopping.
+
+The clerk uses the ordinary buy/sell interface and stocks Poké Ball, Potion,
+Super Potion, Antidote, Paralyze Heal, Awakening, Escape Rope and Repel. Item
+names remain English. Shelves and glass counters reuse the stock indoor art.
+Native regressions resolve both NPC scripts through their counters and verify
+FLASH save/reload in the shop wing, including money, items, the healing
+destination and chapter progress.
+
+The reusable exterior source is `art/services/center-mart-exterior.png`,
+112 × 80 pixels (7 × 5 metatiles), placed at city (3, 6) through (9, 10).
+Its packed IDs are `0x340`–`0x362`; primary General door tiles `0x059`/`0x061`
+override the doorway for native animation and warping. Edit its composition in
+`tools/virelia/service_exterior_art.py`, then run
+`tools/virelia/build_service_exterior.py` to update only the service plots and
+repack the outdoor bank. `tools/virelia/build_service_interior.py` rebuilds
+only the 24 × 9 shared room. Existing stock donor assets remain unchanged.
+
+The combined building passed the strict Emerald development build and all 75
+targeted native Virelia tests. This includes counter script resolution, both
+exit warps, healing/whiteout registration and a FLASH reload from the shop wing.
+The ROM, symbols and build/test logs are in `outputs/combined-center/`.
 
 ## Story and chapter boundary
 
@@ -211,13 +236,11 @@ See [the extended localization audit](VIRELIA_LOCALIZATION_AUDIT.md) and the
 manifest for exact species, evolution, ability, item and move coverage through
 level 20. Source validation does not certify every rendered reward/service screen.
 
-## Save compatibility
+## Saving during prototype development
 
-This milestone preserves existing save structure sizes and all existing IDs.
-A completed baseline prologue save can enter the chapter without replaying old
-events. Keep an external backup before changing ROM versions. Structural
-preservation does not certify arbitrary old development saves or unrelated
-configuration changes. Never load a new-map save in an older ROM lacking those IDs.
+Removing the separate Mart changes the later Virelia interior map IDs. Validate
+the combined building with a new save; obsolete map aliases and save migrations
+are not provided. Original Hoenn/FRLG map registrations remain unchanged.
 
 No load-time blanket initialization clears chapter flags. Rewards commit their
 flag only after successful item insertion. Save/load must preserve exact map,
@@ -269,7 +292,9 @@ trainer loss/retry callbacks, ordinary storage, and native FLASH save/load.
 Controller tests additionally verify ordinary Mart purchases and persistence. A full TM pocket leaves the reward pending in the native test;
 collecting later grants exactly one TM.
 
-Native controller checks used release `0.3.49` from `6f3fa01bd8`, SHA-256
+The controller recordings below predate the combined building and show the
+earlier separate service rooms. Native controller checks used release `0.3.49`
+from `6f3fa01bd8`, SHA-256
 `6da20d314629a94b26b1d2147ac696d9a96f4fc58b216ef3aef931b0279941a9`.
 The official mGBA libretro core SHA-256 was
 `083acf829e6552348e6b8c80bd3414e817d86bc31d0f63de69a5af965e5a3556`.
@@ -341,11 +366,13 @@ GitHub CI retains Emerald normal/release, both test modes, FireRed, LeafGreen an
 documentation jobs. Native test data assertions are not manual combat balancing.
 No Android My Boy! playtest or network success is inferred from CI.
 
-1. Back up a genuine completed-prologue FLASH save. Boot the new ROM and Continue.
-   Verify exact position/party/items, hidden Rocket and visible officer, and no finale replay.
-2. Also start fresh and confirm starter preview, cancellation, pickup, Viktor's
+1. Use a new game for this build. Save after completing the prologue, restart the
+   same ROM and Continue. Verify exact position/party/items, hidden Rocket and
+   visible officer, and no finale replay.
+2. During the new game confirm starter preview, cancellation, pickup, Viktor's
    move sequence, battle return and supplies on the latest baseline assets.
-3. Enter Center/Mart; test each exit tile and save/reboot inside each building.
+3. Enter the shared Center/Mart; walk between both services, test each exit tile,
+   and save/reboot in the shop wing.
    Heal damaged/statused party and PP. Deposit/withdraw through the ordinary PC.
    Buy and sell items; verify money, item counts and persisted storage.
 4. Lose in the quarry and Gym. Verify Center whiteout, nurse positioning, healing,
@@ -392,7 +419,7 @@ The request, individual tools, encounter resolution and reward use persistent
 flags. This optional story never advances the freight investigation or gates
 Mara's Gym.
 
-The 30 × 24 gallery appends interior map (76, 7),
+The 30 × 24 gallery uses interior map (76, 6),
 `MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY`. Its west ladder at (3, 20) returns to
 the entrance's northwest work area. Its east ladder at (26, 20) connects to
 the depths at (3, 7), near the electrical feed. Both approaches open with
@@ -445,7 +472,7 @@ rules changed. All 71 Virelia native tests pass in the follow-up build.
 
 All three quarry maps now use `gTileset_VireliaQuarry`: Emerald's native Rusturf
 rock contours recolored to warm limestone, with beveled work bays, scattered
-blue/red mineral seams, timber-lined shafts, lamps, freight rails and original
+blue/red mineral seams, timber-lined shafts, lamps, freight rails and recomposed
 16-pixel machinery. Other caves retain their original tileset and palette.
 The bank uses 304 of 512 available graphics tiles and three secondary palettes.
 The wall opening at QuarryEntrance (5, 18) uses `MB_DEEP_SOUTH_WARP` on its
@@ -492,12 +519,60 @@ quest approaches remain accessible. The wrench, hammer and pick now have
 individual collectible event sprites, and freight has ore/label or tool-hoard
 sprites. Their ordinary object flags still remove collected/resolved objects.
 
+The props reuse stock pixel clusters at their original scale, with upper-left
+highlights, shaded side faces and contact shadows. Donor assets remain unchanged:
+
+| Quarry artwork | Stock donor |
+| --- | --- |
+| Gravel and rock footing | Emerald Rusturf floor `0x201` and boulder `0x203` |
+| Pump and electrical cabinet | Custom pipe/volute/motor and lightning/breaker silhouettes, using the quarry metal palette and Emerald Battle Factory cabinet fragments |
+| Lantern cap and recessed drain | Emerald Inside Ship fitting `0x235` and FRLG Power Plant grille `0x2F1` |
+| Crates, rail sleepers, supports and cart | Reworked S.S. Anne cargo perspective with Slateport plank fragments, grain, braces and nails |
+| Notice board | Emerald Slateport sign `0x294` |
+| Embedded seams and loose ore | Emerald Cave crystals `0x31E`/`0x31F` and `0x326`/`0x327` |
+
+Whisperwood's three carved stones likewise reuse FRLG General boulder `0x09F`,
+with moss surrounding the carved upper face. Its shared woodland palette also
+serves the ancient tree and the anonymous canine tracks.
+
+The second material/readability pass replaces the generic tank shapes with a
+centrifugal pump (bent spout, gauge, round casing and ribbed motor) and an
+electrical cabinet (lightning, breaker and outgoing cable). Pump flow and breaker
+position distinguish their active states as well as the status lamps. Cargo
+uses separate planks, grain, corner nails and a diagonal brace. Collectible
+crates share this construction; tools have short contact shadows and clear
+metal/wood separation. Rail joins use symmetric two-pixel tracks with lighting
+applied after orientation. Floor contrast is calmer and mineral facets sit in
+chipped stone sockets.
+
+Rusturf corner `0x21C` originally leaves six pixels transparent in both layers.
+The quarry bank gives its two affected quarters opaque backing before composing
+compound corners. Stock assets stay intact. The preview renderer now respects
+index-zero transparency in both layers, and the quarry validator checks every
+cliff contour and mineral seam for uncovered pixels.
+
+The stock-art polish passed the strict Emerald development build and all 74
+targeted native Virelia tests on 2026-10-24. All eight map/tileset source audits
+passed; independent regeneration reproduced every quarry bank file byte for
+byte. Fresh-game mGBA fixtures inspected all three quarry maps and the sanctuary
+using injected locations and progression flags. These were visual checks, not
+a new full story playthrough. The local comparison, native captures and ROM are
+in `outputs/tileset-polish/`. Required `npm format` and `npm lint` were attempted;
+this repository has no corresponding npm commands.
+
+The second pass repeated the strict build and all 74 native Virelia tests.
+Fresh mGBA fixtures inspected the quarry maps, mossy sanctuary, and both off/on
+machinery states. Its comparisons, captures and ROM are in
+`outputs/tileset-polish-v2/`; injected fixture saves are kept separately from
+the playtest ROM.
+
 Regenerate after editing the source geometry with:
 
 ```sh
 python3 tools/virelia/build_first_gym_maps.py
-# Or reapply only the visual pass to the current maps:
-python3 tools/virelia/build_quarry.py
+# Or rebuild only the tiles, preserving current Porymap geometry and events:
+python3 tools/virelia/build_quarry.py --tiles-only
+python3 tools/virelia/quarry_objects.py
 python3 tools/virelia/render_quarry.py
 python3 tools/validate_virelia_quarry.py
 ```

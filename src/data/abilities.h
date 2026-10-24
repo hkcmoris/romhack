@@ -73,15 +73,15 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_STATIC] =
     {
-        .name = _("Static"),
-        .description = COMPOUND_STRING("May paralyze on contact."),
+        .name = _(LOCALIZED_TEXT("Static", "Statika")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("May paralyze on contact.", "Při dotyku může ochromit soupeře.")),
         .aiRating = 4,
     },
 
     [ABILITY_VOLT_ABSORB] =
     {
-        .name = _("Volt Absorb"),
-        .description = COMPOUND_STRING("Restores if hit by Electric."),
+        .name = _(LOCALIZED_TEXT("Volt Absorb", "Sání proudu")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Restores if hit by Electric.", "Elektrické útoky neublíží a místo toho\nobnoví HP.")),
         .aiRating = 7,
         .breakable = TRUE,
     },
@@ -239,8 +239,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_NATURAL_CURE] =
     {
-        .name = _("Natural Cure"),
-        .description = COMPOUND_STRING("Heals status upon switch."),
+        .name = _(LOCALIZED_TEXT("Natural Cure", "Přirozená léčba")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Heals status upon switch.", "Při vystřídání vyléčí stavové problémy.")),
         .aiRating = 7,
     },
 
@@ -598,8 +598,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SHELL_ARMOR] =
     {
-        .name = _("Shell Armor"),
-        .description = COMPOUND_STRING("Blocks critical hits."),
+        .name = _(LOCALIZED_TEXT("Shell Armor", "Krunýř")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Blocks critical hits.", "Brání kritickým zásahům.")),
         .aiRating = 2,
         .breakable = TRUE,
     },
@@ -672,8 +672,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_UNBURDEN] =
     {
-        .name = _("Unburden"),
-        .description = COMPOUND_STRING("Item loss boosts Speed."),
+        .name = _(LOCALIZED_TEXT("Unburden", "Odlehčení")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Item loss boosts Speed.", "Po ztrátě předmětu zvýší rychlost.")),
         .aiRating = 7,
     },
 
@@ -816,15 +816,15 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_MOLD_BREAKER] =
     {
-        .name = _("Mold Breaker"),
-        .description = COMPOUND_STRING("Moves ignore Abilities."),
+        .name = _(LOCALIZED_TEXT("Mold Breaker", "Průraznost")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Moves ignore Abilities.", "Útoky ignorují schopnosti cíle.")),
         .aiRating = 7,
     },
 
     [ABILITY_SUPER_LUCK] =
     {
-        .name = _("Super Luck"),
-        .description = COMPOUND_STRING("Raises critical-hit ratio."),
+        .name = _(LOCALIZED_TEXT("Super Luck", "Velké štěstí")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Raises critical-hit ratio.", "Zvýší šanci na kritický zásah.")),
         .aiRating = 3,
     },
 
@@ -1244,8 +1244,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_PRANKSTER] =
     {
-        .name = _("Prankster"),
-        .description = COMPOUND_STRING("Status moves have priority."),
+        .name = _(LOCALIZED_TEXT("Prankster", "Šprýmař")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Status moves have priority.", "Stavové útoky mají vyšší prioritu.")),
         .aiRating = 8,
     },
 
@@ -1615,8 +1615,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_GALVANIZE] =
     {
-        .name = _("Galvanize"),
-        .description = COMPOUND_STRING("Normal moves turn Electric."),
+        .name = _(LOCALIZED_TEXT("Galvanize", "Galvanizace")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Normal moves turn Electric.", "Normální útoky mění na elektrické.")),
         .aiRating = 8,
     },
 

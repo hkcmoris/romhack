@@ -34,7 +34,9 @@ def metatile(source, index):
             for x in range(8):
                 sx, sy = (7 - x if value & 1024 else x), (7 - y if value & 2048 else y)
                 p = pixels.getpixel((tile % 16 * 8 + sx, tile // 16 * 8 + sy))
-                if p or n < 4:
+                # Index zero is transparent on BOTH GBA background layers.
+                # Painting its palette RGB here hid holes visible in-game.
+                if p:
                     image.putpixel(((n % 4 % 2) * 8 + x, (n % 4 // 2) * 8 + y), colors[p])
     return image
 

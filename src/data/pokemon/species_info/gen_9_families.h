@@ -1056,14 +1056,10 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .speciesName = _("Pawmi"),
         .cryId = CRY_PAWMI,
         .natDexNum = NATIONAL_DEX_PAWMI,
-        .categoryName = _("Mouse"),
+        .categoryName = _(LOCALIZED_TEXT("Mouse", "Myš")),
         .height = 3,
         .weight = 25,
-        .description = COMPOUND_STRING(
-            "The pads of its paws are electricity-\n"
-            "discharging organs. Pawmi fires\n"
-            "electricity from its forepaws while\n"
-            "standing unsteadily on its hind legs."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("The pads of its paws are electricity-\ndischarging organs. Pawmi fires\nelectricity from its forepaws while\nstanding unsteadily on its hind legs.", "Polštářky na tlapkách vypouštějí\nelektřinu. Nejistě stojí na zadních\nnohách a z předních tlapek střílí\nelektrické výboje.")),
         .pokemonScale = 356,
         .pokemonOffset = 17,
         .trainerScale = 256,
@@ -1121,14 +1117,10 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .speciesName = _("Pawmo"),
         .cryId = CRY_PAWMO,
         .natDexNum = NATIONAL_DEX_PAWMO,
-        .categoryName = _("Mouse"),
+        .categoryName = _(LOCALIZED_TEXT("Mouse", "Myš")),
         .height = 4,
         .weight = 65,
-        .description = COMPOUND_STRING(
-            "When its group is attacked, Pawmo\n"
-            "is the first to leap into battle,\n"
-            "defeating enemies with a fighting\n"
-            "technique that utilizes electric shocks."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("When its group is attacked, Pawmo\nis the first to leap into battle,\ndefeating enemies with a fighting\ntechnique that utilizes electric shocks.", "Když někdo napadne jeho skupinu,\njako první se vrhne do boje.\nNepřátele poráží bojovou technikou,\nkterá využívá elektrické výboje.")),
         .pokemonScale = 356,
         .pokemonOffset = 17,
         .trainerScale = 256,
@@ -1185,14 +1177,10 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .speciesName = _("Pawmot"),
         .cryId = CRY_PAWMOT,
         .natDexNum = NATIONAL_DEX_PAWMOT,
-        .categoryName = _("Hands-On"),
+        .categoryName = _(LOCALIZED_TEXT("Hands-On", "Zručný")),
         .height = 9,
         .weight = 410,
-        .description = COMPOUND_STRING(
-            "This Pokémon normally is slow to\n"
-            "react, but once it enters battle, it\n"
-            "will strike down its enemies with\n"
-            "lightning-fast movements."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("This Pokémon normally is slow to\nreact, but once it enters battle, it\nwill strike down its enemies with\nlightning-fast movements.", "Obvykle reaguje pomalu. Jakmile\nse ale pustí do boje, srazí své\nnepřátele bleskurychlými pohyby.")),
         .pokemonScale = 356,
         .pokemonOffset = 17,
         .trainerScale = 256,

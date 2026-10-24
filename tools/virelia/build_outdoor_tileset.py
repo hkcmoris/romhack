@@ -12,6 +12,8 @@ import struct
 ROOT = Path(__file__).resolve().parents[2]
 TARGET = ROOT / 'data/tilesets/secondary/virelia_outdoor'
 SYMBOL = 'gTileset_VireliaOutdoor'
+SERVICE_SOURCE = 'virelia_services'
+SERVICE_IDS = range(0x340, 0x363)
 SOURCES = {
     'Virelia_MaplebrookTown': 'petalburg',
     'Virelia_Route01': 'rustboro',
@@ -30,7 +32,8 @@ REMAP = {
     'petalburg': {i: i for i in range(0x200, 0x290)},
     'rustboro': {tile: 0x290 + i for i, tile in enumerate(CITY_IDS)},
     'whisperwood': {**{tile: 0x300 + i for i, tile in enumerate(FOREST_IDS)},
-                   **{i: i for i in range(0x318, 0x329)}},
+                   **{i: i for i in range(0x318, 0x336)}},
+    SERVICE_SOURCE: {i: i for i in SERVICE_IDS},
 }
 # These complete, unmodified palettes also serve native door animation frames.
 FIXED_PALETTES = {('petalburg', 6): 6, ('petalburg', 8): 8,
@@ -56,12 +59,16 @@ def source_blocks(name, layout, restored=False):
     if restored or layout['secondary_tileset'] != SYMBOL:
         return values
     inverse = {target: source for source, target in REMAP[SOURCES[name]].items()}
-    return tuple((v & ~0x3FF) | inverse[v & 0x3FF] if v & 0x3FF >= 512 else v
+    return tuple((v & ~0x3FF) | inverse[v & 0x3FF]
+                 if v & 0x3FF >= 512 and v & 0x3FF not in SERVICE_IDS else v
                  for v in values)
 
 
 def build(restored_maps=()):
     from PIL import Image
+    from build_service_exterior import build_source
+
+    build_source()
 
     registry_path = ROOT / 'data/layouts/layouts.json'
     registry = json.loads(registry_path.read_text(encoding='utf-8'))
@@ -71,10 +78,15 @@ def build(restored_maps=()):
               for name, layout in layouts.items()}
     used = {source: set() for source in REMAP}
     for name, values in blocks.items():
-        used[SOURCES[name]].update(v & 0x3FF for v in values if v & 0x3FF >= 512)
+        for value in values:
+            tile = value & 0x3FF
+            if tile >= 512:
+                source = SERVICE_SOURCE if tile in SERVICE_IDS else SOURCES[name]
+                used[source].add(tile)
     # Include door frames' static counterparts and all scripted sanctuary props.
     used['petalburg'].update((0x248, 0x249))
-    used['whisperwood'].update(range(0x318, 0x329))
+    used['whisperwood'].update(range(0x318, 0x336))
+    used[SERVICE_SOURCE].update(SERVICE_IDS)
     primary = Image.open(ROOT / 'data/tilesets/primary/general/tiles.png')
     images = {source: Image.open(ROOT / f'data/tilesets/secondary/{source}/tiles.png')
               for source in used}
@@ -125,8 +137,8 @@ def build(restored_maps=()):
             bank.append(data)
         return tile_indices[data]
 
-    output_meta = [0] * (0x329 - 512) * 8
-    output_attrs = [0] * (0x329 - 512)
+    output_meta = [0] * (0x363 - 512) * 8
+    output_attrs = [0] * (0x363 - 512)
     for source, ids in used.items():
         attrs = words(ROOT / f'data/tilesets/secondary/{source}/metatile_attributes.bin')
         for tile in sorted(ids):
@@ -166,7 +178,8 @@ def build(restored_maps=()):
         (TARGET / f'palettes/{slot:02}.pal').write_text(text, encoding='ascii')
     for name, layout in layouts.items():
         values = [(v & ~0x3FF) | REMAP[SOURCES[name]][v & 0x3FF]
-                  if v & 0x3FF >= 512 else v for v in blocks[name]]
+                  if v & 0x3FF >= 512 and v & 0x3FF not in SERVICE_IDS else v
+                  for v in blocks[name]]
         (ROOT / layout['blockdata_filepath']).write_bytes(struct.pack(f'<{len(values)}H', *values))
         layout['secondary_tileset'] = SYMBOL
     registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

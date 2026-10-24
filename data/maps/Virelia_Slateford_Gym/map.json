@@ -73,14 +73,14 @@
       "y": 19,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_SLATEFORD_CITY",
-      "dest_warp_id": "2"
+      "dest_warp_id": "1"
     },
     {
       "x": 6,
       "y": 19,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_SLATEFORD_CITY",
-      "dest_warp_id": "2"
+      "dest_warp_id": "1"
     }
   ],
   "coord_events": [],

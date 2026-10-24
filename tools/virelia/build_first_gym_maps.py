@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build v0.3 maps from existing Emerald assets, without regenerating old maps.
 
-The Slateford edits replace only the two former closed service exteriors and
-append the quarry entrance. Existing prologue layouts and event IDs remain.
+The Slateford edits create one combined Center/Mart and the quarry entrance.
+Existing prologue layouts and event IDs remain.
 Run from the repository root; no external image editor or assets are required.
 """
 from pathlib import Path
@@ -123,30 +123,6 @@ def cave_grid(width, height, rooms):
 
 
 def main():
-    center = grid_for('LAYOUT_POKEMON_CENTER_1F')
-    # Replace the upstairs approach and escalator with the stock floor and wall.
-    # This chapter has no upstairs map, multiplayer gate or network interaction.
-    for y in (5, 6, 7):
-        center[y][0] = 0x3220
-        center[y][1] = 0x3202
-        center[y][2] = 0x3202
-    lc = add_layout('PokemonCenter', center, 'Building', 'PokemonCenter', (0x0201,) * 4)
-    cp = PREFIX + 'PokemonCenter_'
-    new_map('PokemonCenter', lc,
-            [actor('NURSE', 7, 2, cp + 'EventScript_Nurse', local_id='LOCALID_VIRELIA_SLATEFORD_NURSE'),
-             actor('GENTLEMAN', 4, 4, cp + 'EventScript_PCAdvice'),
-             actor('BOY_1', 10, 6, cp + 'EventScript_Advice')],
-            [warp(7, 8, CITY, 0), warp(6, 8, CITY, 0)])
-
-    mart = grid_for('LAYOUT_MART')
-    lm = add_layout('Mart', mart, 'Building', 'Shop', (0x0001,) * 4)
-    mp = PREFIX + 'Mart_'
-    new_map('Mart', lm,
-            [actor('MART_EMPLOYEE', 1, 3, mp + 'EventScript_Clerk', facing='RIGHT'),
-             actor('WOMAN_5', 5, 5, mp + 'EventScript_Woman'),
-             actor('BOY_1', 9, 4, mp + 'EventScript_Boy')],
-            [warp(3, 7, CITY, 1), warp(4, 7, CITY, 1)])
-
     entrance = cave_grid(24, 20, [(2, 3, 8, 5), (3, 11, 8, 7), (7, 7, 4, 7),
                                  (10, 8, 9, 3), (16, 4, 6, 7), (17, 10, 4, 7), (10, 15, 10, 3)])
     for x, y in [(3, 5), (8, 6), (9, 16), (17, 8), (19, 14)]:
@@ -160,7 +136,7 @@ def main():
             [actor('HIKER', 8, 12, ep + 'EventScript_Bruno', trainer=True),
              actor('ITEM_BALL', 5, 4, ep + 'EventScript_Item', flag='FLAG_VIRELIA_ITEM_QUARRY_SUPER_POTION'),
              actor('HIKER', 5, 15, ep + 'EventScript_Guide')],
-            [warp(5, 18, CITY, 3), warp(20, 4, 'MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS', 0)],
+            [warp(5, 18, CITY, 2), warp(20, 4, 'MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS', 0)],
             [sign(17, 5, ep + 'EventScript_Equipment')], cave=True)
     # An abandoned loading crate near the ladder is readable from the room.
     entrance[5][17] = 0x3403
@@ -221,15 +197,16 @@ def main():
              actor('HIKER', 4, 14, gp + 'EventScript_Ivan', trainer=True),
              actor('WOMAN_2', 9, 10, gp + 'EventScript_Dana', trainer=True),
              actor('MAN_2', 3, 17, gp + 'EventScript_Guide')],
-            [warp(5, 19, CITY, 2), warp(6, 19, CITY, 2)],
+            [warp(5, 19, CITY, 1), warp(6, 19, CITY, 1)],
             [sign(3, 11, gp + 'EventScript_OldLayer'), sign(9, 8, gp + 'EventScript_YoungLayer'),
              sign(2, 18, gp + 'EventScript_Statue'), sign(10, 18, gp + 'EventScript_Statue')])
 
-    # Append five map IDs. Never reorder an old entry.
+    # Current prototype interiors: both town services share the Center map.
     group_path = ROOT / 'data/maps/map_groups.json'
     groups = json.loads(group_path.read_text(encoding='utf-8'))
     group = groups['gMapGroup_VireliaInteriors']
-    for name in ['PokemonCenter', 'Mart', 'QuarryEntrance', 'QuarryDepths', 'Gym']:
+    group[:] = [name for name in group if name != PREFIX + 'Mart']
+    for name in ['PokemonCenter', 'QuarryEntrance', 'QuarryDepths', 'Gym']:
         if PREFIX + name not in group:
             group.append(PREFIX + name)
     json_write(group_path, groups)
@@ -237,19 +214,14 @@ def main():
 
     # The source city survives intact; alter only the former empty service plots.
     city = grid_for('LAYOUT_VIRELIA_SLATEFORD_CITY')
-    stock_city = grid_for('LAYOUT_RUSTBORO_CITY')
-    rect(city, 3, 5, 7, 6, 0x3001)
-    copy_rect(city, stock_city, 15, 35, 4, 4, 5, 7)  # Center door (6,10).
-    rect(city, 3, 15, 7, 6, 0x3001)
-    copy_rect(city, stock_city, 15, 42, 4, 4, 5, 17) # Mart door (6,20).
-    city[11][6] = city[21][6] = 0x32bb
+    from build_service_exterior import stamp
+    stamp(city)
     city[15][25], city[16][25] = 0x049f, 0x00a7
     city[17][25] = 0x3121
     write_grid(ROOT / 'data/layouts/Virelia_SlatefordCity/map.bin', city)
     city_path = ROOT / 'data/maps/Virelia_SlatefordCity/map.json'
     entry = json.loads(city_path.read_text(encoding='utf-8'))
     entry['warp_events'] = [warp(6, 10, 'MAP_VIRELIA_SLATEFORD_POKEMON_CENTER', 0),
-                            warp(6, 20, 'MAP_VIRELIA_SLATEFORD_MART', 0),
                             warp(22, 9, 'MAP_VIRELIA_SLATEFORD_GYM', 0),
                             warp(25, 16, 'MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE', 0)]
     entry['bg_events'] = [event for event in entry['bg_events']
@@ -258,8 +230,12 @@ def main():
     if not any(obj['script'] == 'Virelia_SlatefordCity_EventScript_Manager' for obj in entry['object_events']):
         entry['object_events'].append(actor('EXPERT_M', 24, 18, 'Virelia_SlatefordCity_EventScript_Manager'))
     json_write(city_path, entry)
+    from build_service_exterior import configure_city
+    configure_city()
+    from build_service_interior import main as build_service_interior
+    build_service_interior()
     build_outdoor_tileset(restored_maps={'Virelia_SlatefordCity'})
-    print('Built five appended Slateford maps and updated only the city service plots.')
+    print('Built Slateford maps with a shared Center/Mart and updated the city service plots.')
     from build_missing_tools import main as build_missing_tools
     build_missing_tools()
 

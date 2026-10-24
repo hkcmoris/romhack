@@ -9891,14 +9891,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Geodude"),
         .cryId = CRY_GEODUDE,
         .natDexNum = NATIONAL_DEX_GEODUDE,
-        .categoryName = _("Rock"),
+        .categoryName = _(LOCALIZED_TEXT("Rock", "Kámen")),
         .height = 4,
         .weight = 203,
-        .description = COMPOUND_STRING(
-            "Its body is a magnetic stone. Iron sand\n"
-            "attach to parts of its body with stronger\n"
-            "magnetism. If you carelessly step on one,\n"
-            "it will headbutt and shock you in anger."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Its body is a magnetic stone. Iron sand\nattach to parts of its body with stronger\nmagnetism. If you carelessly step on one,\nit will headbutt and shock you in anger.", "Jeho tělo tvoří magnetický kámen.\nNa silně magnetických místech se\nchytá železný písek. Kdo na něj šlápne,\ndostane ránu hlavou i elektrický šok.")),
         .pokemonScale = 347,
         .pokemonOffset = 18,
         .trainerScale = 256,

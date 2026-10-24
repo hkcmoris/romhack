@@ -1,21 +1,22 @@
 #!/usr/bin/env python3
 """Build Slateford's dedicated Emerald quarry bank and event props.
 
-Uses stock Rusturf rock contours with a limestone palette, plus original native
-16px industrial tiles. Pillow is only required for regeneration and previews.
+Reuses Emerald rock, ship and Slateport parts alongside FRLG industrial art.
+Pillow is only required for regeneration and previews.
 Run after build_first_gym_maps.py/build_missing_tools.py to reapply the art pass.
 """
 import json
 from pathlib import Path
-import random
 import shutil
 import struct
 
-from PIL import Image, ImageDraw
+from PIL import Image
 
 from build_first_gym_maps import cave_grid
 from quarry_contours import CLIFF_TILES, cliff_at, quadrants
 from quarry_access import apply_access
+from quarry_art import floor, props as quarry_props, cart, shaft, stamp
+from quarry_objects import build_objects
 
 ROOT = Path(__file__).resolve().parents[2]
 TARGET = ROOT / 'data/tilesets/secondary/virelia_quarry'
@@ -53,8 +54,8 @@ MACHINERY = [(0, 0, 0), (48, 48, 56), (72, 72, 80), (104, 112, 120),
              (88, 152, 152), (144, 208, 192), (192, 80, 72), (248, 224, 160)]
 MINERALS = [(0, 0, 0), (48, 40, 48), (72, 56, 64), (112, 88, 88),
             (152, 128, 128), (192, 168, 160), (24, 72, 112), (32, 120, 176),
-            (56, 184, 224), (152, 232, 240), (232, 248, 240), (104, 40, 64),
-            (176, 48, 80), (224, 80, 104), (248, 144, 152), (248, 208, 192)]
+            (56, 168, 208), (120, 208, 224), (208, 232, 232), (104, 40, 64),
+            (176, 48, 80), (208, 72, 96), (232, 128, 136), (248, 192, 176)]
 
 
 def write_words(path, values):
@@ -70,135 +71,8 @@ def pal(path, colors):
         ' '.join(map(str, color)) + '\r\n' for color in colors)).encode('ascii'))
 
 
-def floor(seed):
-    image = Image.new('P', (16, 16), 3)
-    draw = ImageDraw.Draw(image)
-    rng = random.Random(seed)
-    for _ in range(9):
-        x, y = rng.randrange(15), rng.randrange(16)
-        draw.line((x, y, x + 1, y), fill=rng.choice((2, 4, 4)))
-    return image
-
-
-def machine(kind, on=False):
-    image = Image.new('P', (16, 16))
-    d = ImageDraw.Draw(image)
-    d.ellipse((1, 12, 15, 15), fill=1)
-    d.rectangle((2, 3, 13, 13), fill=1)
-    d.rectangle((3, 4, 12, 11), fill=3)
-    d.line((3, 3, 12, 3), fill=5)
-    d.line((3, 4, 3, 10), fill=4)
-    if kind == 'pump':
-        d.rectangle((5, 1, 10, 4), fill=2)
-        d.line((5, 1, 10, 1), fill=4)
-        d.rectangle((5, 5, 10, 8), fill=1)
-        d.line((6, 6, 9, 6), fill=13 if on else 11)
-        d.rectangle((0, 8, 2, 11), fill=4)
-        d.rectangle((13, 8, 15, 11), fill=4)
-    else:
-        d.rectangle((4, 5, 11, 9), fill=2)
-        d.line((6, 5, 6, 8, 9, 8, 9, 6), fill=10)
-    d.point((5, 11), fill=13 if on else 14)
-    d.point((10, 11), fill=15 if on else 2)
-    return image
-
-
 def props():
-    images = {}
-    for kind in ('pump', 'feed'):
-        for on in (False, True):
-            images[f'{kind}_{"on" if on else "off"}'] = machine(kind, on), 7, False
-    for i, name in enumerate(('floor_a', 'floor_b', 'floor_c')):
-        images[name] = floor(i + 31), 6, True
-    for name, vertical in (('rail_h', False), ('rail_v', True)):
-        im = Image.new('P', (16, 16))
-        d = ImageDraw.Draw(im)
-        for y in (1, 7, 13):
-            d.rectangle((2, y, 13, y + 2), fill=6)
-            d.line((3, y, 12, y), fill=8)
-        for x in (4, 11):
-            d.rectangle((x, 0, x + 1, 15), fill=2)
-            d.line((x, 0, x, 15), fill=4)
-            for y in (2, 8, 14):
-                d.point((x, y), fill=5)
-        images[name] = im if vertical else im.transpose(Image.Transpose.ROTATE_90), 7, False
-    for name, flipx, flipy in (('rail_ne', False, False), ('rail_nw', True, False),
-                               ('rail_se', False, True), ('rail_sw', True, True)):
-        im = Image.new('P', (16, 16))
-        d = ImageDraw.Draw(im)
-        d.line((3, 2, 13, 12), fill=7, width=3)
-        d.line((4, 0, 4, 4, 11, 11, 15, 11), fill=2, width=2)
-        d.line((11, 0, 11, 2, 13, 4, 15, 4), fill=2, width=2)
-        d.line((4, 0, 4, 4, 11, 11, 15, 11), fill=4)
-        d.line((11, 0, 11, 2, 13, 4, 15, 4), fill=4)
-        if flipx:
-            im = im.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
-        if flipy:
-            im = im.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
-        images[name] = im, 7, False
-    for name in ('board', 'crate', 'timber', 'lamp', 'water', 'drain', 'cable_h', 'cable_v'):
-        im = Image.new('P', (16, 16))
-        d = ImageDraw.Draw(im)
-        if name == 'board':
-            d.rectangle((3, 9, 4, 15), fill=6)
-            d.rectangle((11, 9, 12, 15), fill=6)
-            d.rectangle((1, 1, 14, 10), fill=6)
-            d.rectangle((2, 2, 13, 8), fill=9)
-            for y in (3, 5, 7):
-                d.line((4, y, 11, y), fill=7)
-        elif name == 'crate':
-            d.rectangle((1, 2, 14, 14), fill=6)
-            d.rectangle((2, 3, 13, 12), fill=8)
-            for y in (3, 7, 11):
-                d.line((2, y, 13, y), fill=9)
-            d.line((2, 12, 13, 3), fill=6, width=2)
-            for x in (2, 12):
-                d.line((x, 3, x, 12), fill=7)
-        elif name == 'timber':
-            d.rectangle((3, 0, 6, 15), fill=6)
-            d.rectangle((4, 0, 5, 15), fill=8)
-            d.rectangle((2, 3, 7, 5), fill=2)
-            d.rectangle((2, 11, 7, 13), fill=2)
-            d.point((3, 4), fill=5)
-            d.point((3, 12), fill=5)
-        elif name == 'lamp':
-            d.rectangle((7, 0, 9, 15), fill=6)
-            d.rectangle((4, 3, 12, 10), fill=1)
-            d.rectangle((5, 4, 11, 9), fill=10)
-            d.rectangle((6, 5, 10, 8), fill=15)
-            d.line((8, 4, 8, 9), fill=8)
-        elif name in ('water', 'drain'):
-            d.rounded_rectangle((0, 3, 15, 14), radius=3, fill=11)
-            d.line((3, 5, 7, 5), fill=12)
-            d.line((9, 10, 13, 10), fill=13)
-            if name == 'drain':
-                d.rectangle((2, 4, 13, 12), fill=2)
-                for x in range(4, 13, 3):
-                    d.line((x, 5, x, 11), fill=4)
-        else:
-            d.line((0, 9, 15, 9), fill=1, width=3)
-            d.line((0, 8, 15, 8), fill=10)
-            for x in (3, 12):
-                d.line((x, 7, x, 10), fill=3)
-            if name == 'cable_v':
-                im = im.transpose(Image.Transpose.ROTATE_90)
-        images[name] = im, 7, False
-    for color in ('blue', 'red'):
-        for kind in ('seam', 'ore'):
-            im = Image.new('P', (16, 16))
-            d = ImageDraw.Draw(im)
-            a, b, c, highlight = (6, 7, 8, 9) if color == 'blue' else (11, 12, 13, 14)
-            gems = [(4, 6, 3, 7), (10, 3, 4, 9)] if kind == 'ore' else [(4, 5, 2, 4), (10, 10, 2, 3)]
-            for x, y, w, h in gems:
-                d.polygon([(x - 1, y + 1), (x + w // 2, y - 2), (x + w + 1, y + 1),
-                           (x + w, y + h), (x, y + h + 1)], fill=1)
-                d.polygon([(x, y + 1), (x + w // 2, y - 1), (x + w, y + 1),
-                           (x + w - 1, y + h - 1), (x, y + h)], fill=b)
-                d.line((x, y + 1, x, y + h - 1), fill=highlight)
-                d.line((x + 1, y + 1, x + 1, y + h - 2), fill=c)
-                d.point((x + 1, y), fill=10 if color == 'blue' else 15)
-            images[f'{color}_{kind}'] = im, 8, False
-    return images
+    return quarry_props(MACHINERY, MINERALS)
 
 
 def build_tiles():
@@ -214,6 +88,11 @@ def build_tiles():
     tiles.paste(source, (0, 0))
     meta_raw = (STOCK / 'metatiles.bin').read_bytes()
     meta = list(struct.unpack(f'<{len(meta_raw) // 2}H', meta_raw))
+    # Rusturf's southwest inset has six pixels transparent in BOTH layers.
+    # Give its flipped rock overlays the same opaque backing as its other
+    # quarters before seams/compound contours copy them. Keep stock intact.
+    for quadrant in (1, 2):
+        meta[(0x21c - 512) * 8 + quadrant] = 0x621e
     attr_raw = (STOCK / 'metatile_attributes.bin').read_bytes()
     attrs = list(struct.unpack(f'<{len(attr_raw) // 2}H', attr_raw))
     next_tile = (source.height + 7) // 8 * 16 + 512
@@ -253,8 +132,9 @@ def build_tiles():
         # BG3/BG2 keeps rails/props under actors. Collision lives in map cells.
         attrs[index - 512] = 0x1000 | behavior
 
+    art = props()
     put(0x201, floor(30), 6, True, behavior=8)
-    for name, (im, slot, ground) in props().items():
+    for name, (im, slot, ground) in art.items():
         base = 0x219 if name.endswith('seam') else 0x201
         put(TILES[name], im, slot, ground, base, 8 if name.startswith('floor') else 0)
     # Crystal seams keep both native cliff layers behind their overlay.
@@ -264,28 +144,13 @@ def build_tiles():
         for j, color in enumerate(('blue', 'red'), 1):
             index = base + j
             TILES[f'{color}_seam_{edge:x}'] = index
-            put(index, props()[f'{color}_seam'][0], 8, base=base)
-    # Make the scripted blockade an actual loaded mine cart, on matching rail.
-    im = Image.new('P', (16, 16))
-    d = ImageDraw.Draw(im)
-    d.rectangle((2, 7, 13, 12), fill=1)
-    d.rectangle((3, 7, 12, 10), fill=3)
-    d.line((2, 6, 13, 6), fill=5)
-    d.polygon([(3, 5), (4, 2), (7, 3), (10, 1), (12, 5)], fill=4)
-    d.line((4, 2, 6, 2), fill=5)
-    d.rectangle((3, 12, 5, 14), fill=1)
-    d.rectangle((10, 12, 12, 14), fill=1)
-    put(0x203, im, 7, base=TILES['rail_v'])
-    # A ladder in a timber-lined shaft, readable at native game scale.
-    im = Image.new('P', (16, 16), 1)
-    d = ImageDraw.Draw(im)
-    d.rectangle((0, 0, 15, 2), fill=6)
-    for x in (3, 11):
-        d.line((x, 1, x, 15), fill=9, width=2)
-    for y in (4, 8, 12):
-        d.line((4, y, 11, y), fill=10)
-        d.line((4, y + 1, 11, y + 1), fill=7)
-    put(0x214, im, 7, True, behavior=0x61)
+            put(index, art[f'{color}_seam'][0], 8, base=base)
+    # A stock cargo-box silhouette rebuilt as a shaded steel ore hopper.
+    loaded_cart = art['rail_v'][0].copy()
+    stamp(loaded_cart, cart(MACHINERY))
+    put(0x203, loaded_cart, 7)
+    # Native cave ladder perspective and its recessed shaft shadow.
+    put(0x214, shaft(MACHINERY), 7, True, behavior=0x61)
     # Reuse native 8px rock quarters for compound corners. No extra graphics
     # tiles or palettes are needed, including for opposite exposed ridge faces.
     for mask, index in CLIFF_TILES.items():
@@ -304,50 +169,6 @@ def build_tiles():
     write_words(TARGET / 'metatiles.bin', meta)
     write_words(TARGET / 'metatile_attributes.bin', attrs)
     return next_tile - 512
-
-
-def build_objects():
-    folder = ROOT / 'graphics/object_events/pics/quarry'
-    folder.mkdir(parents=True, exist_ok=True)
-    colors = [tuple(map(int, line.split())) for line in
-              (ROOT / 'graphics/object_events/palettes/moving_box.pal').read_text().splitlines()[3:19]]
-    for name in ('wrench', 'hammer', 'pick', 'ore_crate', 'tool_hoard'):
-        im = Image.new('P', (16, 16))
-        im.putpalette([c for color in colors for c in color] + [0] * (768 - 48))
-        d = ImageDraw.Draw(im)
-        d.ellipse((2, 12, 14, 15), fill=6)
-        if name in ('ore_crate', 'tool_hoard'):
-            d.rectangle((1, 5, 14, 13), fill=6)
-            d.rectangle((2, 6, 13, 12), fill=13)
-            for y in (6, 10):
-                d.line((2, y, 13, y), fill=12)
-            d.line((4, 6, 4, 12), fill=6)
-            d.line((11, 6, 11, 12), fill=6)
-            for x, y in ((3, 4), (7, 3), (10, 4)):
-                d.polygon([(x, y + 1), (x + 1, y - 1), (x + 3, y), (x + 2, y + 3)], fill=10)
-                d.point((x + 1, y), fill=4)
-            if name == 'ore_crate':
-                d.rectangle((6, 7, 9, 10), fill=9)
-                d.line((7, 8, 8, 8), fill=8)
-            else:
-                d.line((4, 4, 12, 10), fill=7, width=2)
-                d.rectangle((2, 2, 6, 4), fill=9)
-        else:
-            d.line((4, 12, 11, 5), fill=6, width=4)
-            d.line((4, 11, 10, 5), fill=12 if name != 'wrench' else 10, width=2)
-            d.point((4, 11), fill=9)
-            if name == 'wrench':
-                d.polygon([(8, 5), (8, 2), (10, 1), (10, 4), (12, 4), (13, 1),
-                           (14, 3), (13, 6), (10, 7)], fill=6)
-                d.line((9, 3, 9, 5, 11, 6, 13, 4), fill=9)
-            elif name == 'hammer':
-                d.polygon([(6, 3), (9, 0), (14, 4), (11, 7)], fill=6)
-                d.polygon([(7, 3), (9, 1), (13, 4), (11, 6)], fill=10)
-                d.line((8, 2, 12, 5), fill=9)
-            else:
-                d.line((5, 2, 9, 2, 13, 5, 14, 8), fill=6, width=3)
-                d.line((5, 1, 9, 1, 13, 4, 14, 7), fill=9)
-        im.save(folder / f'{name}.png', bits=4, transparency=0)
 
 
 def build_maps():
@@ -457,12 +278,17 @@ def build_maps():
     write_json(registry, doc)
 
 
-def main():
+def main(tiles_only=False):
     count = build_tiles()
-    build_objects()
-    build_maps()
-    print(f'Built limestone quarry, {count}/512 BG tiles, 5 native event props.')
+    if not tiles_only:
+        build_objects()
+        build_maps()
+    print(f'Built limestone quarry art, {count}/512 BG tiles.')
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--tiles-only', action='store_true',
+                        help='repack graphics without regenerating maps or event sprites')
+    main(parser.parse_args().tiles_only)
