@@ -8,10 +8,18 @@ from pathlib import Path
 import json
 import struct
 import sys
-from virelia.build_outdoor_tileset import REMAP, SOURCES, SYMBOL
+from virelia.build_outdoor_tileset import REMAP, SOURCES, SYMBOL, SERVICE_IDS
 from virelia.localize_type_icons import read_png
 
 ROOT = Path(__file__).resolve().parents[1]
+
+# Porymap-authored shared metatiles have no single secondary-bank donor. Keep
+# their intended native General composition explicit so they receive the same
+# pixel, flip, palette, and behavior checks as the repacked donor metatiles.
+AUTHORED_METATILES = {
+    0x200: (0x0000, (0x2004, 0x2404, 0x2014, 0x2414,
+                     0x2000, 0x2000, 0x20CD, 0x2000)),
+}
 
 
 def require(condition, message):
@@ -60,32 +68,45 @@ def validate():
     attrs = words('data/tilesets/secondary/virelia_outdoor/metatile_attributes.bin')
     require(len(packed) == len(attrs) * 8 <= 512 * 8, 'Invalid shared metatile tables')
     require(attrs[0x318 - 512] == 0x1000,
-            'Arcanine pawprints must use BG3/BG2 ground layers below the player')
+            'Guardian pawprints must use BG3/BG2 ground layers below the player')
     require(len(image('secondary/virelia_outdoor')) == 256, 'Invalid shared graphics dimensions')
+    provenance = {}
+    for art_source, remap in REMAP.items():
+        for old, tile in remap.items():
+            require(tile not in provenance, f'Ambiguous packed metatile {tile:#x}')
+            provenance[tile] = (art_source, old)
     checked = set()
     for name, source in SOURCES.items():
         layout = next(x for x in layouts if x['name'] == name + '_Layout')
         require(layout['primary_tileset'] == 'gTileset_General' and layout['secondary_tileset'] == SYMBOL,
                 f'{name}: connected outdoors must share both tilesets')
-        inverse = {target: old for old, target in REMAP[source].items()}
         ids = {v & 0x3FF for v in words(layout['blockdata_filepath']) if v & 0x3FF >= 512}
         if source == 'whisperwood':
-            ids.update(range(0x318, 0x329))
-        original = words(f'data/tilesets/secondary/{source}/metatiles.bin')
-        original_attrs = words(f'data/tilesets/secondary/{source}/metatile_attributes.bin')
+            ids.update(range(0x318, 0x336))
+        if name == 'Virelia_SlatefordCity':
+            ids.update(SERVICE_IDS)
         for tile in ids:
-            require(tile in inverse, f'{name}: unknown packed metatile {tile:#x}')
-            old = inverse[tile]
-            require(attrs[tile - 512] == original_attrs[old - 512],
+            require(tile - 512 < len(attrs), f'{name}: packed metatile {tile:#x} is out of bounds')
+            if tile in AUTHORED_METATILES:
+                art_source, old = 'virelia_outdoor', tile
+                original_attr, original = AUTHORED_METATILES[tile]
+            else:
+                # Every connected map can use the entire shared bank, regardless
+                # of which source tileset the map used before packing.
+                require(tile in provenance, f'{name}: unknown packed metatile {tile:#x}')
+                art_source, old = provenance[tile]
+                original = words(f'data/tilesets/secondary/{art_source}/metatiles.bin')[(old - 512) * 8:(old - 511) * 8]
+                original_attr = words(f'data/tilesets/secondary/{art_source}/metatile_attributes.bin')[old - 512]
+            require(attrs[tile - 512] == original_attr,
                     f'{name}: changed behavior/layer attributes for {old:#x}')
             for layer in range(8):
-                before = original[(old - 512) * 8 + layer]
+                before = original[layer]
                 after = packed[(tile - 512) * 8 + layer]
                 require(after & 0x3FF < 1008, 'Graphics overlap native door animation tiles')
                 require(after >> 12 < 13, 'Graphics use a reserved UI palette')
-                require(rendered_tile(source, before) == rendered_tile('virelia_outdoor', after),
+                require(rendered_tile(art_source, before) == rendered_tile('virelia_outdoor', after),
                         f'{name}: changed pixels in {old:#x} -> {tile:#x}, layer tile {layer}')
-            checked.add((source, old))
+            checked.add((art_source, old))
     for slot in (6, 8, 10):
         require(palette('secondary/petalburg', slot) == palette('secondary/virelia_outdoor', slot),
                 'Maplebrook door animation palettes changed')

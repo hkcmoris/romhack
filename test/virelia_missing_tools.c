@@ -121,7 +121,7 @@ TEST("Virelia Missing Tools actual map loads gate both gallery ladders on electr
     InitMap();
     RunOnLoadMapScript();
     EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET) != 0, !powered);
-    EXPECT_EQ(MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET), powered ? 0x214 : 0x203);
+    EXPECT_EQ(MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET), powered ? 0x227 : 0x203);
 }
 
 #endif

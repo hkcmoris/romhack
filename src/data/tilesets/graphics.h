@@ -462,6 +462,28 @@ const u16 gTilesetPalettes_Shop[][16] =
     INCGFX_U16("data/tilesets/secondary/shop/palettes/15.pal", ".gbapal"),
 };
 
+const u32 gTilesetTiles_VireliaServiceInterior[] = INCGFX_U32("data/tilesets/secondary/virelia_service_interior/tiles.png", ".4bpp.fastSmol", "-num_tiles 512 -Wnum_tiles");
+
+const u16 gTilesetPalettes_VireliaServiceInterior[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/12.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/13.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/14.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_service_interior/palettes/15.pal", ".gbapal"),
+};
+
 const u32 gTilesetTiles_PokemonCenter[] = INCGFX_U32("data/tilesets/secondary/pokemon_center/tiles.png", ".4bpp.fastSmol", "-num_tiles 478 -Wnum_tiles");
 
 const u16 gTilesetPalettes_PokemonCenter[][16] =
@@ -747,6 +769,28 @@ const u16 gTilesetPalettes_BikeShop[][16] =
     INCGFX_U16("data/tilesets/secondary/bike_shop/palettes/13.pal", ".gbapal"),
     INCGFX_U16("data/tilesets/secondary/bike_shop/palettes/14.pal", ".gbapal"),
     INCGFX_U16("data/tilesets/secondary/bike_shop/palettes/15.pal", ".gbapal"),
+};
+
+const u32 gTilesetTiles_VireliaQuarry[] = INCGFX_U32("data/tilesets/secondary/virelia_quarry/tiles.png", ".4bpp.fastSmol");
+
+const u16 gTilesetPalettes_VireliaQuarry[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/12.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/13.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/14.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_quarry/palettes/15.pal", ".gbapal"),
 };
 
 const u32 gTilesetTiles_RusturfTunnel[] = INCGFX_U32("data/tilesets/secondary/rusturf_tunnel/tiles.png", ".4bpp.fastSmol");

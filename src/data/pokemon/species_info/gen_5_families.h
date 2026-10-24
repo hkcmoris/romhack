@@ -2713,14 +2713,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .speciesName = _("Drilbur"),
         .cryId = CRY_DRILBUR,
         .natDexNum = NATIONAL_DEX_DRILBUR,
-        .categoryName = _("Mole"),
+        .categoryName = _(LOCALIZED_TEXT("Mole", "Krtek")),
         .height = 3,
         .weight = 85,
-        .description = COMPOUND_STRING(
-            "It can dig through the ground at a\n"
-            "speed of 30 mph by spinning its body.\n"
-            "It could give a car running aboveground\n"
-            "a good race."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It can dig through the ground at a\nspeed of 30 mph by spinning its body.\nIt could give a car running aboveground\na good race.", "Otáčením těla se provrtává zemí\nrychlostí téměř 50 km/h. Dokázal by\nzávodit s autem, které jede po\npovrchu.")),
         .pokemonScale = 530,
         .pokemonOffset = 13,
         .trainerScale = 256,
@@ -3068,14 +3064,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .speciesName = _("Timburr"),
         .cryId = CRY_TIMBURR,
         .natDexNum = NATIONAL_DEX_TIMBURR,
-        .categoryName = _("Muscular"),
+        .categoryName = _(LOCALIZED_TEXT("Muscular", "Svalovec")),
         .height = 6,
         .weight = 125,
-        .description = COMPOUND_STRING(
-            "These Pokémon appear at building\n"
-            "sites and help out with construction.\n"
-            "They always carry squared logs.\n"
-            "As they grow, they carry bigger logs."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("These Pokémon appear at building\nsites and help out with construction.\nThey always carry squared logs.\nAs they grow, they carry bigger logs.", "Objevuje se na stavbách a pomáhá\npři práci. Stále nosí hranatý trám.\nJak roste, vybírá si větší a větší\ntrámy.")),
         .pokemonScale = 422,
         .pokemonOffset = 14,
         .trainerScale = 256,
@@ -5536,14 +5528,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .speciesName = _("Dwebble"),
         .cryId = CRY_DWEBBLE,
         .natDexNum = NATIONAL_DEX_DWEBBLE,
-        .categoryName = _("Rock Inn"),
+        .categoryName = _(LOCALIZED_TEXT("Rock Inn", "Skalní úkryt")),
         .height = 3,
         .weight = 145,
-        .description = COMPOUND_STRING(
-            "It makes a hole in a stone of a suitable\n"
-            "size. If that rock breaks, the Pokémon\n"
-            "remains agitated until it locates\n"
-            "a replacement."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It makes a hole in a stone of a suitable\nsize. If that rock breaks, the Pokémon\nremains agitated until it locates\na replacement.", "Do vhodně velkého kamene si vydlabe\núkryt. Pokud kámen praskne,\nneklidně hledá jiný, který by ho\nnahradil.")),
         .pokemonScale = 530,
         .pokemonOffset = 15,
         .trainerScale = 256,

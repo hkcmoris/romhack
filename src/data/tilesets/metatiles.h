@@ -66,6 +66,9 @@ const u16 gMetatileAttributes_InsideBuilding[] = INCBIN_U16("data/tilesets/prima
 const u16 gMetatiles_Shop[] = INCBIN_U16("data/tilesets/secondary/shop/metatiles.bin");
 const u16 gMetatileAttributes_Shop[] = INCBIN_U16("data/tilesets/secondary/shop/metatile_attributes.bin");
 
+const u16 gMetatiles_VireliaServiceInterior[] = INCBIN_U16("data/tilesets/secondary/virelia_service_interior/metatiles.bin");
+const u16 gMetatileAttributes_VireliaServiceInterior[] = INCBIN_U16("data/tilesets/secondary/virelia_service_interior/metatile_attributes.bin");
+
 const u16 gMetatiles_PokemonCenter[] = INCBIN_U16("data/tilesets/secondary/pokemon_center/metatiles.bin");
 const u16 gMetatileAttributes_PokemonCenter[] = INCBIN_U16("data/tilesets/secondary/pokemon_center/metatile_attributes.bin");
 
@@ -104,6 +107,9 @@ const u16 gMetatileAttributes_Facility[] = INCBIN_U16("data/tilesets/secondary/f
 
 const u16 gMetatiles_BikeShop[] = INCBIN_U16("data/tilesets/secondary/bike_shop/metatiles.bin");
 const u16 gMetatileAttributes_BikeShop[] = INCBIN_U16("data/tilesets/secondary/bike_shop/metatile_attributes.bin");
+
+const u16 gMetatiles_VireliaQuarry[] = INCBIN_U16("data/tilesets/secondary/virelia_quarry/metatiles.bin");
+const u16 gMetatileAttributes_VireliaQuarry[] = INCBIN_U16("data/tilesets/secondary/virelia_quarry/metatile_attributes.bin");
 
 const u16 gMetatiles_RusturfTunnel[] = INCBIN_U16("data/tilesets/secondary/rusturf_tunnel/metatiles.bin");
 const u16 gMetatileAttributes_RusturfTunnel[] = INCBIN_U16("data/tilesets/secondary/rusturf_tunnel/metatile_attributes.bin");

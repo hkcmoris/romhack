@@ -23,7 +23,6 @@ NAMES = (
     "Virelia_SlatefordCity",
     "Virelia_MaplebrookPlayersHouse",
     "Virelia_Slateford_PokemonCenter",
-    "Virelia_Slateford_Mart",
     "Virelia_Slateford_QuarryEntrance",
     "Virelia_Slateford_QuarryDepths",
     "Virelia_Slateford_Gym",
@@ -62,16 +61,15 @@ def verify_legacy(base, groups, layouts, sections):
         "Existing map group indices changed",
     )
     for name in old_groups["group_order"]:
-        if name in GROUPS:
-            require(groups[name][: len(old_groups[name])] == old_groups[name],
-                    f"Existing Virelia map IDs changed: {name}")
-        else:
+        if name not in GROUPS:
             require(groups[name] == old_groups[name], f"Existing map IDs changed: {name}")
     old_layouts = json.loads(git("show", f"{base}:data/layouts/layouts.json"))["layouts"]
     old_sections = json.loads(
         git("show", f"{base}:src/data/region_map/region_map_sections.json")
     )["map_sections"]
-    require(layouts[: len(old_layouts)] == old_layouts, "Existing layouts changed or moved")
+    old_legacy_layouts = [layout for layout in old_layouts if not layout["id"].startswith("LAYOUT_VIRELIA_")]
+    current_legacy_layouts = [layout for layout in layouts if not layout["id"].startswith("LAYOUT_VIRELIA_")]
+    require(current_legacy_layouts == old_legacy_layouts, "Existing non-Virelia layouts changed or moved")
     for old, current in zip(old_sections, sections):
         if old["id"].startswith("MAPSEC_VIRELIA_"):
             require({k: v for k, v in old.items() if k != "name"}
@@ -86,7 +84,7 @@ def verify_legacy(base, groups, layouts, sections):
               and not p.startswith(("data/maps/Virelia_", "data/layouts/Virelia_"))]
     changed = set(git("diff", "--name-only", base, "--", "data/maps", "data/layouts").splitlines())
     require(not changed.intersection(legacy), f"Existing map assets changed: {sorted(changed.intersection(legacy))}")
-    print(f"PASS: {len(legacy)} legacy map/layout files and all existing IDs preserved from {base}")
+    print(f"PASS: {len(legacy)} legacy map/layout files and non-Virelia IDs preserved from {base}")
 
 
 def validate(base=None):
@@ -147,7 +145,10 @@ def validate(base=None):
 
     blocks, occupied = {}, {}
     for name, entry in maps.items():
-        require(entry["region"] == "REGION_HOENN", f"{name}: Emerald compiler region mismatch")
+        # An omitted region defaults to each build's native region in mapjson.
+        # Explicit Hoenn excludes these Emerald-only assets from FRLG builds.
+        require(entry.get("region") == "REGION_HOENN",
+                f"{name}: Emerald compiler region mismatch")
         layout = by_layout[entry["layout"]]
         require(layout["layout_version"] == "emerald", f"{name}: incorrect layout version")
         width, height = layout["width"], layout["height"]
@@ -211,7 +212,7 @@ def validate(base=None):
         return node
 
     warp_behaviors = {behavior_names.index(name) for name in (
-        "MB_ANIMATED_DOOR", "MB_NON_ANIMATED_DOOR", "MB_LADDER",
+        "MB_ANIMATED_DOOR", "MB_NON_ANIMATED_DOOR", "MB_DEEP_SOUTH_WARP", "MB_LADDER",
         "MB_EAST_ARROW_WARP", "MB_WEST_ARROW_WARP", "MB_NORTH_ARROW_WARP", "MB_SOUTH_ARROW_WARP",
     )}
     animated_door = behavior_names.index("MB_ANIMATED_DOOR")
@@ -279,6 +280,18 @@ def validate(base=None):
     seen = reachable(start)
     require({node[0] for node in seen} == set(NAMES), "Cannot reach every Virelia map from Maplebrook")
     require(set(warp_points) <= seen, "A building entrance/exit cannot be reached")
+    center_doors = [warp for warp in maps[CITY]["warp_events"]
+                    if warp["dest_map"] == maps["Virelia_Slateford_PokemonCenter"]["id"]]
+    heals = [entry for entry in read_json("src/data/heal_locations.json")["heal_locations"]
+             if entry["id"] == "HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER"]
+    require(len(center_doors) == 1 and len(heals) == 1, "Center needs one city entrance and heal location")
+    door, heal = center_doors[0], heals[0]
+    # Teleport and direct heal warps use the outdoor anchor, independently of
+    # the nurse's indoor whiteout coordinates. Follow the authored entrance.
+    require(heal["map"] == maps[CITY]["id"]
+            and (heal["x"], heal["y"]) == (door["x"], door["y"] + 1)
+            and (CITY, heal["x"], heal["y"]) in seen,
+            "Center outdoor heal location must be reachable immediately below its city door")
     for name in NAMES:
         target = next(node for node in seen if node[0] == name)
         require(start in reachable(target), f"{name}: no return path to Maplebrook")

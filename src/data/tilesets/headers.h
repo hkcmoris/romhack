@@ -252,6 +252,17 @@ const struct Tileset gTileset_Shop =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_VireliaServiceInterior =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaServiceInterior,
+    .palettes = gTilesetPalettes_VireliaServiceInterior,
+    .metatiles = gMetatiles_VireliaServiceInterior,
+    .metatileAttributes = gMetatileAttributes_VireliaServiceInterior,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_PokemonCenter =
 {
     .isCompressed = TRUE,
@@ -393,6 +404,17 @@ const struct Tileset gTileset_BikeShop =
     .metatiles = gMetatiles_BikeShop,
     .metatileAttributes = gMetatileAttributes_BikeShop,
     .callback = InitTilesetAnim_BikeShop,
+};
+
+const struct Tileset gTileset_VireliaQuarry =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaQuarry,
+    .palettes = gTilesetPalettes_VireliaQuarry,
+    .metatiles = gMetatiles_VireliaQuarry,
+    .metatileAttributes = gMetatileAttributes_VireliaQuarry,
+    .callback = NULL,
 };
 
 const struct Tileset gTileset_RusturfTunnel =

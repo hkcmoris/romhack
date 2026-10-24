@@ -107,7 +107,7 @@ def validate():
     for name, x, y in ((ENTRANCE, 4, 3), (DEPTHS, 3, 7)):
         script = (ROOT / f'data/maps/{name}/scripts.inc').read_text(encoding='utf-8')
         require(f'setmetatile {x}, {y}, 0x203, 1' in script
-                and f'setmetatile {x}, {y}, 0x214, 0' in script, 'Missing persistent ladder gate')
+                and f'setmetatile {x}, {y}, 0x227, 0' in script, 'Missing persistent ladder gate')
     print('PASS: powered two-way gallery loop, reachable clues/Sableye, native battle and persistent gates')
 
 

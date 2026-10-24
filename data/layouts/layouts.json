@@ -9382,23 +9382,12 @@
     {
       "id": "LAYOUT_VIRELIA_SLATEFORD_POKEMON_CENTER",
       "name": "Virelia_Slateford_PokemonCenter_Layout",
-      "width": 14,
+      "width": 24,
       "height": 9,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_PokemonCenter",
+      "secondary_tileset": "gTileset_VireliaServiceInterior",
       "border_filepath": "data/layouts/Virelia_Slateford_PokemonCenter/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_PokemonCenter/map.bin",
-      "layout_version": "emerald"
-    },
-    {
-      "id": "LAYOUT_VIRELIA_SLATEFORD_MART",
-      "name": "Virelia_Slateford_Mart_Layout",
-      "width": 11,
-      "height": 8,
-      "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_Shop",
-      "border_filepath": "data/layouts/Virelia_Slateford_Mart/border.bin",
-      "blockdata_filepath": "data/layouts/Virelia_Slateford_Mart/map.bin",
       "layout_version": "emerald"
     },
     {
@@ -9407,7 +9396,7 @@
       "width": 24,
       "height": 20,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_RusturfTunnel",
+      "secondary_tileset": "gTileset_VireliaQuarry",
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryEntrance/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryEntrance/map.bin",
       "layout_version": "emerald"
@@ -9418,7 +9407,7 @@
       "width": 24,
       "height": 22,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_RusturfTunnel",
+      "secondary_tileset": "gTileset_VireliaQuarry",
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryDepths/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryDepths/map.bin",
       "layout_version": "emerald"
@@ -9451,7 +9440,7 @@
       "width": 30,
       "height": 24,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_RusturfTunnel",
+      "secondary_tileset": "gTileset_VireliaQuarry",
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryGallery/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryGallery/map.bin",
       "layout_version": "emerald"

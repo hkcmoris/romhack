@@ -457,6 +457,26 @@ static const struct SpriteFrameImage sPicTable_Cameraman[] = {
     overworld_ascending_frames(gObjectEventPic_Cameraman, 2, 4),
 };
 
+static const struct SpriteFrameImage sPicTable_QuarryWrench[] = {
+    obj_frame_tiles(gObjectEventPic_QuarryWrench),
+};
+
+static const struct SpriteFrameImage sPicTable_QuarryHammer[] = {
+    obj_frame_tiles(gObjectEventPic_QuarryHammer),
+};
+
+static const struct SpriteFrameImage sPicTable_QuarryPick[] = {
+    obj_frame_tiles(gObjectEventPic_QuarryPick),
+};
+
+static const struct SpriteFrameImage sPicTable_QuarryOreCrate[] = {
+    obj_frame_tiles(gObjectEventPic_QuarryOreCrate),
+};
+
+static const struct SpriteFrameImage sPicTable_QuarryToolHoard[] = {
+    obj_frame_tiles(gObjectEventPic_QuarryToolHoard),
+};
+
 static const struct SpriteFrameImage sPicTable_MovingBox[] = {
     obj_frame_tiles(gObjectEventPic_MovingBox),
 };

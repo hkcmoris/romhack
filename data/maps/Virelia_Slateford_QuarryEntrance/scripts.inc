@@ -6,7 +6,7 @@ Virelia_Slateford_QuarryEntrance_MapScripts::
 Virelia_Slateford_QuarryEntrance_OnLoad:
 	setmetatile 4, 3, 0x203, 1
 	goto_if_unset FLAG_VIRELIA_QUARRY_POWER_RESTORED, Virelia_Slateford_QuarryEntrance_LoadDone
-	setmetatile 4, 3, 0x214, 0
+	setmetatile 4, 3, 0x227, 0
 Virelia_Slateford_QuarryEntrance_LoadDone:
 	end
 
