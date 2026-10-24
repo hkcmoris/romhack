@@ -399,8 +399,9 @@ the depths at (3, 7), near the electrical feed. Both approaches open with
 electricity, independently of accepting or finishing the quest. The original
 inter-section ladder remains available, creating an optional traversal loop.
 Sableye and its hoard sit beside the through-route and cannot block it.
-The gallery uses existing cave tiles and species overworld graphics, with
-no random encounter table competing with the special encounter.
+The gallery uses the dedicated Slateford quarry bank and native species
+overworld graphics, with no random encounter table competing with the special
+encounter.
 
 Regressions:
 
@@ -439,3 +440,88 @@ The starter damage test now suppresses only Water Pulse's optional confusion,
 so the opponent actually uses the Rock Tomb whose damage the test measures.
 It also asserts that attack's animation. No move, ability, species or damage
 rules changed. All 71 Virelia native tests pass in the follow-up build.
+
+## Quarry visual and exploration pass
+
+All three quarry maps now use `gTileset_VireliaQuarry`: Emerald's native Rusturf
+rock contours recolored to warm limestone, with beveled work bays, scattered
+blue/red mineral seams, timber-lined shafts, lamps, freight rails and original
+16-pixel machinery. Other caves retain their original tileset and palette.
+The bank uses 304 of 512 available graphics tiles and three secondary palettes.
+The wall opening at QuarryEntrance (5, 18) uses `MB_DEEP_SOUTH_WARP` on its
+walkable center and solid shoulders. Emerald faces the arriving player north
+and performs its ordinary cave walk-out onto (5, 17). The old exit marker at
+(3, 17) is ordinary floor.
+
+Entrance is the upper level, Depths is below it, and Gallery is the lowest
+level. Descending links use floor shafts (`0x227`). Ascending links use the
+two-tile ladder (`0x20E` above `0x216`); only its bottom tile warps, and its
+top is solid. The upward links are Depths to Entrance and both Gallery returns.
+The power gates restore the descending shaft artwork when opened.
+
+After editing these access points in Porymap, run
+`python3 tools/virelia/quarry_access.py` to repair only their footprints and
+behavior. This preserves hand-edited terrain and existing warp IDs. The full
+geometry generator also applies the same access rules when rebuilding maps.
+
+The access repair passed all 73 native Virelia tests. Fresh-game mGBA fixtures
+in both development and optimized release builds
+walked from Slateford through the opening without further input and arrived at
+(5, 17), then returned through the same mouth. All six directed ladder trips
+passed, and attempting to walk through each upper cap left the player at the
+ladder base with controls available.
+
+![Native arrival after walking out of the quarry wall](images/virelia-quarry/wall-arrival.png)
+![Two-tile upward ladder in the Depths](images/virelia-quarry/upward-ladder.png)
+
+Cliff contours inspect all eight neighboring cells to select native corner
+caps and insets. Compound corners and narrow ridges combine native 8-pixel
+rock quarters, so both exposed sides join without additional graphics tiles.
+
+The drainage pump and electrical feed have distinct silhouettes and status
+lights. Starting the pump lights its display; tripping the breaker switches
+both displays off. Restored power lights both controls permanently. Continue
+restores partial control status, while entering the map resets partial input
+as before. The movable rock loads at the evidence passage and gallery ladders
+are now visible mine carts. Both trainer checks still precede freight evidence.
+
+Haul rails use ordinary ground behavior and allow walking/running without
+random encounters. Rough ground retains the existing cave encounter tables.
+Mineral seams and equipment remain solid; the gallery's two-way loop and all
+quest approaches remain accessible. The wrench, hammer and pick now have
+individual collectible event sprites, and freight has ore/label or tool-hoard
+sprites. Their ordinary object flags still remove collected/resolved objects.
+
+Regenerate after editing the source geometry with:
+
+```sh
+python3 tools/virelia/build_first_gym_maps.py
+# Or reapply only the visual pass to the current maps:
+python3 tools/virelia/build_quarry.py
+python3 tools/virelia/render_quarry.py
+python3 tools/validate_virelia_quarry.py
+```
+
+The existing map generators reapply this art pass automatically. Regeneration
+and previewing require Pillow; ROM builds and CI validation need no new packages.
+Previews in `outputs/quarry/` render checked-in metatiles, palettes and object
+graphics at integer scale. They depict uncollected props and the underlying
+ladder tiles; map scripts place the carts until power returns.
+
+Validation on 2026-10-24: the strict Emerald development ROM compiled as
+`outputs/quarry/oraculum-v0.3.0-quarry.gba`, all 72 native Virelia tests passed,
+and world, outdoor tileset, sanctuary, laboratory, first-Gym, quarry, localization
+and documentation source checks passed. Regenerating the quest and art assets
+produced identical map, graphics and palette files. `npm format` and `npm lint`
+were attempted; this C/Makefile repository has neither command.
+
+A focused mGBA check used a newly initialized game with injected location and
+progression flags. It inspected all three maps and exercised pump activation,
+breaker reset, walking to the electrical feed and restoring power with ordinary
+controller input. Random encounters were disabled for the machinery check.
+Reloading the powered depths restored the open passage and gallery ladder.
+The complete battle/quest walkthrough remains a separate manual check.
+
+![Gallery with native quarry tiles and collectible props](images/virelia-quarry/gallery-layout.png)
+![Native mGBA gallery viewport](images/virelia-quarry/gallery-native.png)
+![Native power restoration and lit electrical feed](images/virelia-quarry/power-restored.png)

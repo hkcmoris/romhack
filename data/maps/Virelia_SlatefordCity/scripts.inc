@@ -106,36 +106,35 @@ Virelia_SlatefordCity_EventScript_AfterRocket:
 	msgbox Virelia_SlatefordCity_Text_RocketEscape, MSGBOX_DEFAULT
 	closemessage
 	specialvar VAR_0x8008, GetPlayerFacingDirection
-	switch VAR_0x8008
-	case DIR_NORTH, Virelia_SlatefordCity_EventScript_RocketUp
-	case DIR_SOUTH, Virelia_SlatefordCity_EventScript_RocketDown
-	case DIR_WEST, Virelia_SlatefordCity_EventScript_RocketLeft
-	applymovement LOCALID_VIRELIA_SLATEFORD_ROCKET, Virelia_SlatefordCity_Movement_RocketRight
-	goto Virelia_SlatefordCity_EventScript_RocketGone
+	goto_if_eq VAR_0x8008, DIR_EAST, Virelia_SlatefordCity_EventScript_RocketDetour
+	applymovement LOCALID_VIRELIA_SLATEFORD_ROCKET, Virelia_SlatefordCity_Movement_RocketToRoad
+	goto Virelia_SlatefordCity_EventScript_RocketEscapeRoad
 
-Virelia_SlatefordCity_EventScript_RocketUp:
-	applymovement LOCALID_VIRELIA_SLATEFORD_ROCKET, Virelia_SlatefordCity_Movement_RocketUp
-	goto Virelia_SlatefordCity_EventScript_RocketGone
+@ When approached from the west, go around the player before joining the road.
+Virelia_SlatefordCity_EventScript_RocketDetour:
+	applymovement LOCALID_VIRELIA_SLATEFORD_ROCKET, Virelia_SlatefordCity_Movement_RocketAroundPlayer
 
-Virelia_SlatefordCity_EventScript_RocketDown:
-	applymovement LOCALID_VIRELIA_SLATEFORD_ROCKET, Virelia_SlatefordCity_Movement_RocketDown
-	goto Virelia_SlatefordCity_EventScript_RocketGone
-
-Virelia_SlatefordCity_EventScript_RocketLeft:
-	applymovement LOCALID_VIRELIA_SLATEFORD_ROCKET, Virelia_SlatefordCity_Movement_RocketLeft
+Virelia_SlatefordCity_EventScript_RocketEscapeRoad:
+	waitmovement LOCALID_VIRELIA_SLATEFORD_ROCKET
+	applymovement LOCALID_VIRELIA_SLATEFORD_ROCKET, Virelia_SlatefordCity_Movement_RocketExit
 
 Virelia_SlatefordCity_EventScript_RocketGone:
-	waitmovement 0
+	waitmovement LOCALID_VIRELIA_SLATEFORD_ROCKET
+	@ The southern exit is fully below the camera before the actor is removed.
 	removeobject LOCALID_VIRELIA_SLATEFORD_ROCKET
 	goto Virelia_SlatefordCity_EventScript_ResolveRocket
 
 Virelia_SlatefordCity_EventScript_ResolveRocket::
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
 	lockall
+	@ Position the hidden template before spawning: no visible teleport/reset.
+	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_POLICEMAN, 14, 29
 	clearflag FLAG_VIRELIA_HIDE_POLICEMAN
 	addobject LOCALID_VIRELIA_SLATEFORD_POLICEMAN
 	applymovement LOCALID_VIRELIA_SLATEFORD_POLICEMAN, Virelia_SlatefordCity_Movement_Policeman
-	waitmovement 0
+	waitmovement LOCALID_VIRELIA_SLATEFORD_POLICEMAN
+	copyobjectxytoperm LOCALID_VIRELIA_SLATEFORD_POLICEMAN
+	turnobject LOCALID_PLAYER, DIR_WEST
 	msgbox Virelia_SlatefordCity_Text_Policeman, MSGBOX_DEFAULT
 	callnative VireliaPrologue_Complete
 	call VireliaFirstGym_EventScript_BeginChapter
@@ -150,28 +149,52 @@ Virelia_SlatefordCity_EventScript_Policeman::
 	msgbox Virelia_SlatefordCity_Text_PoliceAfter, MSGBOX_NPC
 	end
 
-Virelia_SlatefordCity_Movement_RocketUp:
+Virelia_SlatefordCity_Movement_RocketAroundPlayer:
 	walk_fast_up
-	walk_fast_up
-	step_end
-
-Virelia_SlatefordCity_Movement_RocketDown:
-	walk_fast_down
+	walk_fast_left
+	walk_fast_left
 	walk_fast_down
 	step_end
 
-Virelia_SlatefordCity_Movement_RocketLeft:
+Virelia_SlatefordCity_Movement_RocketToRoad:
 	walk_fast_left
 	walk_fast_left
 	step_end
 
-Virelia_SlatefordCity_Movement_RocketRight:
-	walk_fast_right
-	walk_fast_right
+@ (20,22) -> (20,24) -> (14,24) -> (14,29), along the city exit road.
+Virelia_SlatefordCity_Movement_RocketExit:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
 	step_end
 
+@ Enter from beyond the bottom of the camera, then walk across the square.
 Virelia_SlatefordCity_Movement_Policeman:
-	walk_fast_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	face_player
+	delay_16
 	step_end
 
 Virelia_SlatefordCity_EventScript_Stone::

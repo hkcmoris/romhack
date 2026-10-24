@@ -210,7 +210,7 @@ def validate(base=None):
         return node
 
     warp_behaviors = {behavior_names.index(name) for name in (
-        "MB_ANIMATED_DOOR", "MB_NON_ANIMATED_DOOR", "MB_LADDER",
+        "MB_ANIMATED_DOOR", "MB_NON_ANIMATED_DOOR", "MB_DEEP_SOUTH_WARP", "MB_LADDER",
         "MB_EAST_ARROW_WARP", "MB_WEST_ARROW_WARP", "MB_NORTH_ARROW_WARP", "MB_SOUTH_ARROW_WARP",
     )}
     animated_door = behavior_names.index("MB_ANIMATED_DOOR")

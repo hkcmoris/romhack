@@ -395,6 +395,17 @@ const struct Tileset gTileset_BikeShop =
     .callback = InitTilesetAnim_BikeShop,
 };
 
+const struct Tileset gTileset_VireliaQuarry =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaQuarry,
+    .palettes = gTilesetPalettes_VireliaQuarry,
+    .metatiles = gMetatiles_VireliaQuarry,
+    .metatileAttributes = gMetatileAttributes_VireliaQuarry,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_RusturfTunnel =
 {
     .isCompressed = TRUE,

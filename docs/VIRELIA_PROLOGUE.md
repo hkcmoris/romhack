@@ -392,6 +392,30 @@ repository has no npm package/scripts and npm reports them as unsupported.
 The repository's Python validators, native `make check` suites and GitHub
 Actions are the applicable checks. No JavaScript or dependency was added.
 
+## Slateford finale staging
+
+The defeated worker now flees via the southern city road to (14, 29), fully
+outside the fixed camera before removal. When the player approaches from the
+west, he first goes around the player. The other legal approaches share the
+direct route to the road. No route crosses the quarry rocks or another actor.
+
+The policeman's hidden template is positioned at the southern entrance before
+spawning. He walks up the road and across the square at normal speed (16 frames
+per tile), faces the player and pauses before speaking. His stop at (20, 22)
+is saved to the object template and used by the map after returning to the city.
+The existing battle prerequisites and prologue completion flags are unchanged.
+
+`python3 tools/validate_virelia_slateford_scene.py` checks all three legal
+approaches against the actual map, objects, movement scripts and camera limits.
+The strict development ROM and all 72 native Virelia tests passed after this
+change. Focused mGBA fixtures started from a fresh initialized game, injected
+the prerequisites and winning battle result, and ran the compiled post-battle
+scene from the west, east and north. Frame traces confirmed the offscreen exit,
+normal officer step timing, no player overlap and the final (20, 22) stop.
+Returning to the city retained the officer and did not replay the scene.
+
+![Grunt departure and policeman entrance in native mGBA](images/slateford-finale.gif)
+
 ## Remaining milestones
 
 The [v0.3 milestone](VIRELIA_FIRST_GYM.md) implements the quarry and first Gym

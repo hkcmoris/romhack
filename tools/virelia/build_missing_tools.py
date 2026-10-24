@@ -2,7 +2,7 @@
 """Append the abandoned gallery and its two powered quarry approaches.
 
 Run after build_first_gym_maps.py, or alone to update the existing quarry.
-Uses the existing cave tileset and native species overworld graphics.
+Reapplies the dedicated quarry art pass after generating the quest geometry.
 """
 import json
 import struct
@@ -39,7 +39,7 @@ def patch_approach(name, x, y, gallery_warp, clue=False):
     cells = bytearray(path.read_bytes())
     # Keep native ladder behavior in the layout; ON_LOAD covers it with a
     # parked cart until electricity returns, including after Continue.
-    struct.pack_into('<H', cells, 2 * (y * layout['width'] + x), 0x3214)
+    struct.pack_into('<H', cells, 2 * (y * layout['width'] + x), 0x3227)
     path.write_bytes(cells)
 
 
@@ -71,7 +71,8 @@ def main():
     if not any(item['id'] == layout['id'] for item in layouts['layouts']):
         layouts['layouts'].append(layout)
     else:
-        assert next(item for item in layouts['layouts'] if item['id'] == layout['id']) == layout
+        existing = next(item for item in layouts['layouts'] if item['id'] == layout['id'])
+        assert all(existing[key] == value for key, value in layout.items() if key != 'secondary_tileset')
     write_json(registry, layouts)
     sableye = actor('ITEM_BALL', 24, 9, PREFIX + 'EventScript_Sableye',
                     local_id='LOCALID_VIRELIA_GALLERY_SABLEYE',
@@ -97,6 +98,8 @@ def main():
         groups['gMapGroup_VireliaInteriors'].append(GALLERY)
     write_json(group_path, groups)
     print('Built Missing Tools gallery: QuarryEntrance <-> Gallery <-> QuarryDepths.')
+    from build_quarry import main as build_quarry
+    build_quarry()
 
 
 if __name__ == '__main__':
