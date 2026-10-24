@@ -139,7 +139,6 @@ bool8 ScrCmd_gotonative(struct ScriptContext *ctx)
 bool8 ScrCmd_special(struct ScriptContext *ctx)
 {
     u16 index = ScriptReadHalfword(ctx);
-    SpecialFunc executableFunc;
 
 #if MYBOY_DIAGNOSTIC_MODE
     // gStdScripts immediately follows the specials table in event_scripts.s.
@@ -152,8 +151,7 @@ bool8 ScrCmd_special(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1);
     Script_CheckEffectInstrumentedSpecial(index);
 
-    executableFunc = (SpecialFunc)Script_GetExecutableAddress((uintptr_t)gSpecials[index]);
-    executableFunc();
+    gSpecials[index]();
     return FALSE;
 }
 
@@ -162,7 +160,6 @@ bool8 ScrCmd_specialvar(struct ScriptContext *ctx)
     u32 varId = ScriptReadHalfword(ctx);
     u16 index = ScriptReadHalfword(ctx);
     u16 *ptr = GetVarPointer(varId);
-    SpecialFunc executableFunc;
 
 #if MYBOY_DIAGNOSTIC_MODE
     if (index >= ((uintptr_t)gStdScripts - (uintptr_t)gSpecials) / sizeof(gSpecials[0]))
@@ -174,15 +171,13 @@ bool8 ScrCmd_specialvar(struct ScriptContext *ctx)
     Script_RequestWriteVar(varId);
     Script_CheckEffectInstrumentedSpecial(index);
 
-    executableFunc = (SpecialFunc)Script_GetExecutableAddress((uintptr_t)gSpecials[index]);
-    *ptr = executableFunc();
+    *ptr = gSpecials[index]();
     return FALSE;
 }
 
 bool8 ScrCmd_callnative(struct ScriptContext *ctx)
 {
     NativeFunc func = (NativeFunc)ScriptReadWord(ctx);
-    NativeFunc executableFunc;
 
     MyBoyDiag_CheckCallback((uintptr_t)func, 8);
     MyBoyDiag_Record(MYBOY_EVENT_NATIVE, (uintptr_t)func, (uintptr_t)ctx->scriptPtr);
@@ -190,8 +185,7 @@ bool8 ScrCmd_callnative(struct ScriptContext *ctx)
     Script_CheckEffectInstrumentedCallNative(func);
 
     ctx->waitAfterCallNative = FALSE;
-    executableFunc = (NativeFunc)Script_GetExecutableAddress((uintptr_t)func);
-    executableFunc(ctx);
+    func(ctx);
     return ctx->waitAfterCallNative;
 }
 

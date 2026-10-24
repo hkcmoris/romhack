@@ -103,7 +103,7 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
         // Continue to bytecode if no function or it returns TRUE
         if (ctx->nativePtr)
         {
-              MyBoyDiag_CheckCallback((uintptr_t)ctx->nativePtr, 2);
+            MyBoyDiag_CheckCallback((uintptr_t)ctx->nativePtr, 2);
             MyBoyDiag_Record(MYBOY_EVENT_NATIVE, (uintptr_t)ctx->nativePtr, (uintptr_t)ctx->scriptPtr);
             if (ctx->nativePtr() == TRUE)
                 ctx->mode = SCRIPT_MODE_BYTECODE;
@@ -116,7 +116,6 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
         {
             u8 cmdCode;
             ScrCmdFunc *func;
-            ScrCmdFunc executableFunc;
 
             if (ctx->scriptPtr == NULL)
             {
@@ -643,7 +642,6 @@ static bool32 RunScriptImmediatelyUntilEffect_InternalLoop(struct ScriptContext 
         {
             u32 cmdCode;
             ScrCmdFunc *func;
-            ScrCmdFunc executableFunc;
 
             gScriptEffectContext->nextCmd = ctx->scriptPtr;
 
@@ -662,11 +660,8 @@ static bool32 RunScriptImmediatelyUntilEffect_InternalLoop(struct ScriptContext 
             if (!Script_IsEffectInstrumentedCommand(*func))
                 return TRUE;
 
-            // Check the tagged pointer before normalizing it for execution.
-            executableFunc = (ScrCmdFunc)Script_GetExecutableAddress((uintptr_t)*func);
-
             // Command which waits for a frame.
-            if (executableFunc(ctx))
+            if ((*func)(ctx))
             {
                 gScriptEffectContext->nextCmd = ctx->scriptPtr;
                 return TRUE;

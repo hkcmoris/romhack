@@ -6,15 +6,6 @@ struct ScriptContext;
 typedef bool8 (*ScrCmdFunc)(struct ScriptContext *);
 typedef u8 Script[];
 
-// ROM mirror 1 tags requests_effects pointers. Preserve the stored metadata,
-// but dispatch from primary ROM without relying on mirror execution.
-static inline uintptr_t Script_GetExecutableAddress(uintptr_t address)
-{
-    if (address >= 0x0A000000 && address < 0x0C000000)
-        return address - 0x02000000;
-    return address;
-}
-
 #define SCRIPT_STACK_SIZE 20
 struct ScriptStack
 {
