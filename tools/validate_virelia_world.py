@@ -144,7 +144,10 @@ def validate(base=None):
 
     blocks, occupied = {}, {}
     for name, entry in maps.items():
-        require(entry["region"] == "REGION_HOENN", f"{name}: Emerald compiler region mismatch")
+        # An omitted region defaults to each build's native region in mapjson.
+        # Explicit Hoenn excludes these Emerald-only assets from FRLG builds.
+        require(entry.get("region") == "REGION_HOENN",
+                f"{name}: Emerald compiler region mismatch")
         layout = by_layout[entry["layout"]]
         require(layout["layout_version"] == "emerald", f"{name}: incorrect layout version")
         width, height = layout["width"], layout["height"]
@@ -276,6 +279,18 @@ def validate(base=None):
     seen = reachable(start)
     require({node[0] for node in seen} == set(NAMES), "Cannot reach every Virelia map from Maplebrook")
     require(set(warp_points) <= seen, "A building entrance/exit cannot be reached")
+    center_doors = [warp for warp in maps[CITY]["warp_events"]
+                    if warp["dest_map"] == maps["Virelia_Slateford_PokemonCenter"]["id"]]
+    heals = [entry for entry in read_json("src/data/heal_locations.json")["heal_locations"]
+             if entry["id"] == "HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER"]
+    require(len(center_doors) == 1 and len(heals) == 1, "Center needs one city entrance and heal location")
+    door, heal = center_doors[0], heals[0]
+    # Teleport and direct heal warps use the outdoor anchor, independently of
+    # the nurse's indoor whiteout coordinates. Follow the authored entrance.
+    require(heal["map"] == maps[CITY]["id"]
+            and (heal["x"], heal["y"]) == (door["x"], door["y"] + 1)
+            and (CITY, heal["x"], heal["y"]) in seen,
+            "Center outdoor heal location must be reachable immediately below its city door")
     for name in NAMES:
         target = next(node for node in seen if node[0] == name)
         require(start in reachable(target), f"{name}: no return path to Maplebrook")

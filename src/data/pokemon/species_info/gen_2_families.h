@@ -3750,14 +3750,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Murkrow"),
         .cryId = CRY_MURKROW,
         .natDexNum = NATIONAL_DEX_MURKROW,
-        .categoryName = _("Darkness"),
+        .categoryName = _(LOCALIZED_TEXT("Darkness", "Temnota")),
         .height = 5,
         .weight = 21,
-        .description = COMPOUND_STRING(
-            "Murkrow were feared as the alleged\n"
-            "bearers of ill fortune. It shows strong\n"
-            "interest in anything that sparkles. It will\n"
-            "even try to steal rings from women."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Murkrow were feared as the alleged\nbearers of ill fortune. It shows strong\ninterest in anything that sparkles. It will\neven try to steal rings from women.", "Lidé se ho báli jako posla neštěstí.\nPřitahuje ho vše, co se třpytí.\nPokouší se dokonce krást ženám\nprsteny.")),
         .pokemonScale = 401,
         .pokemonOffset = -8,
         .trainerScale = 256,

@@ -75,7 +75,7 @@ static void ExpectGateAccess(bool32 hanaComplete, bool32 shortcutOpen)
     }
 }
 
-TEST("Virelia sanctuary raw connected layouts seal both entrances before load callbacks")
+TEST("Virelia sanctuary raw and loaded connected layouts seal both entrances")
 {
     ResetSanctuary();
     static const u8 gates[][2] = {{1, 8}, {1, 9}, {1, 16}, {1, 17},
@@ -87,7 +87,9 @@ TEST("Virelia sanctuary raw connected layouts seal both entrances before load ca
         {
             u16 tile = gMapHeader.mapLayout->map[gates[i][1] * gMapHeader.mapLayout->width + gates[i][0]];
             EXPECT_NE(UNPACK_COLLISION(tile), 0);
-            EXPECT_EQ(UNPACK_METATILE(tile), 0xE);
+            // Raw barrier artwork can differ; neither the source map nor its
+            // loaded copy may open an entrance before Hana's reward.
+            EXPECT_NE(MapGridGetCollisionAt(gates[i][0] + MAP_OFFSET, gates[i][1] + MAP_OFFSET), 0);
         }
     }
 }
@@ -124,13 +126,16 @@ TEST("Virelia sanctuary pawprints stay below the player while the ancient tree r
 {
     ResetSanctuary();
     LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
-    static const u8 prints[][2] = {{9, 10}, {10, 11}, {11, 13}};
-    for (u32 i = 0; i < ARRAY_COUNT(prints); i++)
-    {
-        s32 x = prints[i][0] + MAP_OFFSET, y = prints[i][1] + MAP_OFFSET;
-        EXPECT_EQ(MapGridGetMetatileIdAt(x, y), 0x318);
-        EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x, y), METATILE_LAYER_TYPE_COVERED);
-    }
+    u32 prints = 0;
+    for (u32 y = 0; y < gMapHeader.mapLayout->height; y++)
+        for (u32 x = 0; x < gMapHeader.mapLayout->width; x++)
+            if (MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET) == 0x318)
+            {
+                EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x + MAP_OFFSET, y + MAP_OFFSET), METATILE_LAYER_TYPE_COVERED);
+                EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET), 0);
+                prints++;
+            }
+    EXPECT_EQ(prints, 3);
     EXPECT_EQ(MapGridGetMetatileLayerTypeAt(9 + MAP_OFFSET, 9 + MAP_OFFSET), METATILE_LAYER_TYPE_NORMAL);
 }
 

@@ -21,6 +21,7 @@
 #include "save.h"
 #include "script_pokemon_util.h"
 #include "sound.h"
+#include "sprite.h"
 #include "string_util.h"
 #include "text.h"
 #include "trainer_pools.h"
@@ -386,10 +387,17 @@ TEST("Virelia Slateford healing sets the native whiteout destination and healer"
 
 TEST("Virelia shared Center resolves nurse and shop interactions across their native counters")
 {
-    u32 shop = FALSE;
-    PARAMETRIZE { shop = FALSE; }
-    PARAMETRIZE { shop = TRUE; }
+    u32 shop = FALSE, spritesFull = FALSE;
+    PARAMETRIZE { shop = FALSE; spritesFull = FALSE; }
+    PARAMETRIZE { shop = TRUE; spritesFull = FALSE; }
+    PARAMETRIZE { shop = FALSE; spritesFull = TRUE; }
+    PARAMETRIZE { shop = TRUE; spritesFull = TRUE; }
     ResetFirstGymTest();
+    // Reproduce render state left by sprite-capacity tests in the full suite.
+    ResetSpriteData();
+    if (spritesFull)
+        for (u32 i = 0; i < MAX_SPRITES; i++)
+            EXPECT_EQ(CreateSprite(&gDummySpriteTemplate, 0, 0, 0), i);
     const u8 *script = shop ? Virelia_Slateford_PokemonCenter_EventScript_Clerk
                             : Virelia_Slateford_PokemonCenter_EventScript_Nurse;
     const struct ObjectEventTemplate *service = CenterService(script);
@@ -407,6 +415,9 @@ TEST("Virelia shared Center resolves nurse and shop interactions across their na
 
     // Use the ordinary field interaction resolver with the player standing
     // south of the counter, so a blocked decorative tile cannot pass this test.
+    // ResetObjectEvents allocates reflection sprites. Match normal map loading
+    // by clearing sprite slots and affine matrices before object initialization.
+    ResetSpriteData();
     ResetObjectEvents();
     gPlayerAvatar.objectEventId = 0;
     gObjectEvents[0].active = TRUE;
@@ -427,6 +438,8 @@ TEST("Virelia shared Center resolves nurse and shop interactions across their na
     EXPECT_EQ(GetObjectEventScriptPointerPlayerFacing(), script);
     EXPECT_EQ(gSpecialVar_LastTalked, service->localId);
     ResetObjectEvents();
+    // Object reset recreates reflections; release those before the next test.
+    ResetSpriteData();
 }
 
 TEST("Virelia regional quarry party can use the ordinary PC storage data path")

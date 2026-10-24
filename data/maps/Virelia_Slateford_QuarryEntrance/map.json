@@ -116,5 +116,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_Slateford_QuarryEntrance_EventScript_Equipment"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }

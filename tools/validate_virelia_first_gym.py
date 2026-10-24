@@ -63,6 +63,24 @@ def adjacent(point):
     return {(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)}
 
 
+def encounter_types(species):
+    """Check team-building roles against species data, allowing roster edits."""
+    definitions = {}
+    for path in (ROOT / "src/data/pokemon/species_info").glob("*.h"):
+        source = path.read_text(encoding="utf-8")
+        entries = list(re.finditer(r"(?m)^\s*\[(SPECIES_\w+)\]\s*=", source))
+        for index, entry in enumerate(entries):
+            if entry[1] not in species:
+                continue
+            end = entries[index + 1].start() if index + 1 < len(entries) else len(source)
+            types = re.search(r"\.types\s*=\s*MON_TYPES\(([^)]+)\)", source[entry.end():end])
+            require(types is not None, f"Missing encounter types: {entry[1]}")
+            definitions[entry[1]] = set(re.findall(r"TYPE_\w+", types[1]))
+    require(species <= definitions.keys(),
+            f"Unknown quarry species: {', '.join(sorted(species - definitions.keys()))}")
+    return set().union(*(definitions[name] for name in species))
+
+
 def validate_shared_services(entry, layout):
     city = load("data/maps/Virelia_SlatefordCity/map.json")
     warps = city["warp_events"]
@@ -70,7 +88,8 @@ def validate_shared_services(entry, layout):
         "MAP_VIRELIA_SLATEFORD_POKEMON_CENTER", "MAP_VIRELIA_SLATEFORD_GYM",
         "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE"],
         "Slateford must have one shared service entrance followed by Gym/quarry warps")
-    require((warps[0]["x"], warps[0]["y"], int(warps[0]["dest_warp_id"])) == (6, 10, 0),
+    # World validation checks the authored door's behavior and reachability.
+    require(int(warps[0]["dest_warp_id"]) == 0,
             "Shared service entrance must enter the Center through warp 0")
     exits = entry["warp_events"]
     require([(warp["x"], warp["y"]) for warp in exits] == [(7, 8), (6, 8)],
@@ -227,8 +246,8 @@ def validate():
         require(all(8 <= mon["min_level"] <= mon["max_level"] <= 13 for mon in land["mons"]),
                 f"{name}: encounter levels outside early quarry range")
         quarry_species.update(mon["species"] for mon in land["mons"])
-    require({"SPECIES_GEODUDE", "SPECIES_SANDSHREW", "SPECIES_MAKUHITA"} <= quarry_species,
-            "Quarry lacks Rock, Ground and useful Rock-counter team-building opportunities")
+    require({"TYPE_ROCK", "TYPE_GROUND", "TYPE_FIGHTING"} <= encounter_types(quarry_species),
+            "Quarry lacks Rock, Ground and Fighting team-building opportunities")
     opponents = read("include/constants/opponents.h")
     ids = [int(re.search(r"#define\s+" + name + r"\s+(\d+)", opponents).group(1)) for name in TRAINERS]
     require(ids == list(range(866, 871)), "Chapter trainer IDs overlap old trainers or partner bank")

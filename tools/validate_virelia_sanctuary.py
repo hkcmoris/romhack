@@ -94,12 +94,9 @@ def validate():
         require(not tile((ROUTE, 0, y)) & 0xC00, 'Route seam is blocked in raw neighbor data')
         require(not tile((SHRINE, 21, y - 6)) & 0xC00, 'Sanctuary seam is blocked in raw neighbor data')
     for points in gates.values():
+        # Neighbor buffers can read the authored layout before its load script
+        # runs. Collision must seal each gate; the callback supplies its art.
         require(all(tile(point) & 0xC00 for point in points), 'Gate must be closed in the saved layout')
-        # Dynamic entrances use complete standalone shrubs. Stock forest
-        # canopies elsewhere may overlap or continue beyond Porymap's borders;
-        # they do not all follow the generator's isolated 2x3 tree pattern.
-        require(all(tile(point) & 0x3FF == 0xE for point in points),
-                'Gate must use standalone shrubs, not a clipped tree canopy')
     path = ROOT / 'data/tilesets/secondary/whisperwood'
     raw = (path / 'metatiles.bin').read_bytes()
     attrs = (path / 'metatile_attributes.bin').read_bytes()
