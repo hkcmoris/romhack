@@ -119,6 +119,49 @@ def validate_english_item_names(source):
     return validate_english_names(source, "ITEM_NAME", "Item", ("gQuestionMarksItemName",))
 
 
+def validate_follower_dialogue(manifest, sources=None):
+    """Require a translation for every basic, conditional and scripted reaction."""
+    paths = ("src/data/text/follower_messages.h", "src/follower_helper.c", "data/scripts/follower.inc")
+    if sources is None:
+        sources = {path: (ROOT / path).read_text(encoding="utf-8") for path in paths}
+    entries = {(entry["path"], entry["key"]): entry for entry in manifest["entries"]
+               if entry["kind"] == "follower_dialogue"}
+    errors = []
+    found = set()
+    for path in paths:
+        if path.endswith(".inc"):
+            blocks = re.findall(r'^(\w+)::\n((?:(?:#(?:if TESTING|else|endif)|[ \t]*\.string .*?)\n)+)', sources[path], re.M)
+        else:
+            blocks = re.findall(r'static const u8 (\w+)\[\] = _\((.*?)\);', sources[path], re.S)
+        for key, value in blocks:
+            identity = (path, key)
+            found.add(identity)
+            entry = entries.get(identity)
+            label = f"{path}:{key}"
+            if entry is None:
+                errors.append(f"{label}: follower dialogue missing from localization manifest")
+                continue
+            if path.endswith(".inc"):
+                expected = ('#if TESTING\n\t.string "' + entry["english"]
+                            + '"\n#else\n\t.string "' + entry["czech"] + '"\n#endif\n')
+            else:
+                expected = 'LOCALIZED_TEXT("' + entry["english"] + '", "' + entry["czech"] + '")'
+            if value != expected:
+                errors.append(f"{label}: follower translation must match its own initializer")
+            if collections.Counter(TOKEN.findall(entry["english"])) != collections.Counter(TOKEN.findall(entry["czech"])):
+                errors.append(f"{label}: changed follower placeholders/control tokens")
+            # Every reaction uses the native two-line dialogue window. A page
+            # break resets the row, while scroll controls retain the last row.
+            rows = 1
+            for control in re.findall(r"\\[pnl]", entry["czech"]):
+                rows = 1 if control == r"\p" else 2 if control == r"\l" else rows + 1
+                if rows > 2:
+                    errors.append(f"{label}: follower text exceeds the two-line dialogue window")
+    for path, key in sorted(entries.keys() - found):
+        errors.append(f"{path}:{key}: declared follower dialogue not found")
+    return len(found), errors
+
+
 def validate_coverage(manifest):
     """Reject gaps when wild data, teams, pickups or learnsets change."""
     errors = []
@@ -336,7 +379,9 @@ def main():
     errors.extend(layout_errors)
     coverage_counts, coverage_errors = validate_coverage(manifest)
     errors.extend(coverage_errors)
-    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "regional_dex_entries": regional_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "bounded_coverage": coverage_counts, "move_description_layout": move_layout, "english_move_names": move_names, "english_item_names": item_names, "errors": errors}
+    follower_count, follower_errors = validate_follower_dialogue(manifest)
+    errors.extend(follower_errors)
+    result = {"passed": not errors, "entries": len(manifest["entries"]), "map_script_texts": script_count, "regional_dex_entries": regional_count, "follower_dialogues": follower_count, "expanded_cases": dynamic_cases, "max_expanded_width": max(widths, default=0), "level_bound": manifest["level_bound"], "bounded_coverage": coverage_counts, "move_description_layout": move_layout, "english_move_names": move_names, "english_item_names": item_names, "errors": errors}
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:

@@ -1,14 +1,30 @@
 gText_FollowerLovesYou::
+#if TESTING
 	.string "{STR_VAR_1} is regarding you with\nadoration!$"
+#else
+	.string "{STR_VAR_1} na tebe hledí s láskou!$"
+#endif
 
 gText_FollowerLostInThought::
+#if TESTING
 	.string "{STR_VAR_1} seems lost in thought.$"
+#else
+	.string "{STR_VAR_1} je zamyšlený.$"
+#endif
 
 gText_FollowerDefault::
+#if TESTING
 	.string "ERROR 404: Script not found.$"
+#else
+	.string "CHYBA 404: Skript nenalezen.$"
+#endif
 
 gText_WantsToFly::
+#if TESTING
 	.string "{STR_VAR_1} looks up at the\nsky restlessly.\pWould you like to use FLY?$"
+#else
+	.string "{STR_VAR_1} neklidně\nvzhlíží k obloze.\pChceš použít Fly?$"
+#endif
 
 EventScript_Follower::
 	lock

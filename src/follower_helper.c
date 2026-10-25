@@ -1,3 +1,5 @@
+#include "localization.h"
+
 #include "global.h"
 #include "data.h"
 #include "event_scripts.h"
@@ -15,66 +17,66 @@
 #define TYPE_NOT_TYPE1 NUMBER_OF_MON_TYPES
 
 // difficult conditional messages follow
-static const u8 sCondMsg00[] = _("{STR_VAR_1} danced happily.");
-static const u8 sCondMsg01[] = _("{STR_VAR_1} danced beautifully.");
+static const u8 sCondMsg00[] = _(LOCALIZED_TEXT("{STR_VAR_1} danced happily.", "{STR_VAR_1} vesele zatančil."));
+static const u8 sCondMsg01[] = _(LOCALIZED_TEXT("{STR_VAR_1} danced beautifully.", "{STR_VAR_1} krásně zatančil."));
 static const u8* const sCelebiTexts[] = {sCondMsg00, sCondMsg01, NULL};
-static const u8 sCondMsg02[] = _("{STR_VAR_1} emitted fire and shouted.");
-static const u8 sCondMsg03[] = _("{STR_VAR_1} is vigorously producing\nfire!");
-static const u8 sCondMsg04[] = _("{STR_VAR_1} spat fire!");
-static const u8 sCondMsg05[] = _("{STR_VAR_1} is vigorously breathing\nfire!");
+static const u8 sCondMsg02[] = _(LOCALIZED_TEXT("{STR_VAR_1} emitted fire and shouted.", "{STR_VAR_1} vypustil oheň a vykřikl."));
+static const u8 sCondMsg03[] = _(LOCALIZED_TEXT("{STR_VAR_1} is vigorously producing\nfire!", "{STR_VAR_1} chrlí mohutné plameny!"));
+static const u8 sCondMsg04[] = _(LOCALIZED_TEXT("{STR_VAR_1} spat fire!", "{STR_VAR_1} vyplivl oheň!"));
+static const u8 sCondMsg05[] = _(LOCALIZED_TEXT("{STR_VAR_1} is vigorously breathing\nfire!", "{STR_VAR_1} chrlí proudy ohně!"));
 static const u8* const sFireTexts[] = {sCondMsg02, sCondMsg03, sCondMsg04, sCondMsg05, NULL};
-static const u8 sCondMsg06[] = _("{STR_VAR_1} is staring straight at\nthe POKéMON LEAGUE.");
-static const u8 sCondMsg07[] = _("Your POKéMON is staring intently at\nthe mountain peak.");
-static const u8 sCondMsg08[] = _("Sniff sniff, something smells good!");
-static const u8 sCondMsg09[] = _("Your POKéMON is surveying the\nshelves restlessly.");
-static const u8 sCondMsg10[] = _("{STR_VAR_1} is staring intently at\nthe shelves.");
+static const u8 sCondMsg06[] = _(LOCALIZED_TEXT("{STR_VAR_1} is staring straight at\nthe POKéMON LEAGUE.", "{STR_VAR_1} hledí přímo na\nPokémonovou ligu."));
+static const u8 sCondMsg07[] = _(LOCALIZED_TEXT("Your POKéMON is staring intently at\nthe mountain peak.", "Tvůj Pokémon upřeně hledí na vrchol\nhory."));
+static const u8 sCondMsg08[] = _(LOCALIZED_TEXT("Sniff sniff, something smells good!", "Čmuch, čmuch! Tady něco voní!"));
+static const u8 sCondMsg09[] = _(LOCALIZED_TEXT("Your POKéMON is surveying the\nshelves restlessly.", "Tvůj Pokémon neklidně zkoumá regály."));
+static const u8 sCondMsg10[] = _(LOCALIZED_TEXT("{STR_VAR_1} is staring intently at\nthe shelves.", "{STR_VAR_1} upřeně hledí na regály."));
 static const u8* const sShopTexts[] = {sCondMsg09, sCondMsg10, NULL};
-static const u8 sCondMsg11[] = _("{STR_VAR_1} focused with a sharp\ngaze!");
-static const u8 sCondMsg12[] = _("{STR_VAR_1} seems very interested in\nthe bicycles.");
-static const u8 sCondMsg13[] = _("{STR_VAR_1} seems to want to touch\nthe machines!");
-static const u8 sCondMsg14[] = _("{STR_VAR_1} is swaying with the\nboat!");
-static const u8 sCondMsg15[] = _("{STR_VAR_1} is dancing along with\nthe rolling of the ship.");
-static const u8 sCondMsg16[] = _("{STR_VAR_1} doesn't want to get off\nthe boat yet!");
+static const u8 sCondMsg11[] = _(LOCALIZED_TEXT("{STR_VAR_1} focused with a sharp\ngaze!", "{STR_VAR_1} zaostřil bystrý pohled!"));
+static const u8 sCondMsg12[] = _(LOCALIZED_TEXT("{STR_VAR_1} seems very interested in\nthe bicycles.", "{STR_VAR_1} se velmi zajímá o jízdní\nkola."));
+static const u8 sCondMsg13[] = _(LOCALIZED_TEXT("{STR_VAR_1} seems to want to touch\nthe machines!", "{STR_VAR_1} si chce sáhnout na\nstroje!"));
+static const u8 sCondMsg14[] = _(LOCALIZED_TEXT("{STR_VAR_1} is swaying with the\nboat!", "{STR_VAR_1} se kolébá spolu s lodí!"));
+static const u8 sCondMsg15[] = _(LOCALIZED_TEXT("{STR_VAR_1} is dancing along with\nthe rolling of the ship.", "{STR_VAR_1} tančí do rytmu houpání\nlodi."));
+static const u8 sCondMsg16[] = _(LOCALIZED_TEXT("{STR_VAR_1} doesn't want to get off\nthe boat yet!", "{STR_VAR_1} ještě nechce z lodi pryč!"));
 static const u8* const sBoatTexts[] = {sCondMsg14, sCondMsg15, sCondMsg16, NULL};
-static const u8 sCondMsg17[] = _("{STR_VAR_1} is listening to the\nsound of the machines.");
+static const u8 sCondMsg17[] = _(LOCALIZED_TEXT("{STR_VAR_1} is listening to the\nsound of the machines.", "{STR_VAR_1} poslouchá zvuky strojů."));
 static const u8* const sMachineTexts[] = {sCondMsg13, sCondMsg17, NULL};
-static const u8 sCondMsg18[] = _("Waah! Your POKéMON suddenly splashed\nwater!");
-static const u8 sCondMsg19[] = _("Your POKéMON is blowing sand in the\nair!");
-static const u8 sCondMsg20[] = _("{STR_VAR_1} is playing around,\nplucking bits of grass.");
-static const u8 sCondMsg21[] = _("Your POKéMON is happily looking at\nyour footprints!");
-static const u8 sCondMsg22[] = _("{STR_VAR_1} is feeling nervous and a\ntouch claustrophobic.");
-static const u8 sCondMsg23[] = _("{STR_VAR_1} is cautious about the\nconfined area!");
+static const u8 sCondMsg18[] = _(LOCALIZED_TEXT("Waah! Your POKéMON suddenly splashed\nwater!", "Jé! Tvůj Pokémon náhle vystříkl vodu!"));
+static const u8 sCondMsg19[] = _(LOCALIZED_TEXT("Your POKéMON is blowing sand in the\nair!", "Tvůj Pokémon víří písek do vzduchu!"));
+static const u8 sCondMsg20[] = _(LOCALIZED_TEXT("{STR_VAR_1} is playing around,\nplucking bits of grass.", "{STR_VAR_1} si hraje a trhá trávu."));
+static const u8 sCondMsg21[] = _(LOCALIZED_TEXT("Your POKéMON is happily looking at\nyour footprints!", "Tvůj Pokémon si vesele prohlíží tvé\nstopy!"));
+static const u8 sCondMsg22[] = _(LOCALIZED_TEXT("{STR_VAR_1} is feeling nervous and a\ntouch claustrophobic.", "{STR_VAR_1} je nervózní ze\nstísněného prostoru."));
+static const u8 sCondMsg23[] = _(LOCALIZED_TEXT("{STR_VAR_1} is cautious about the\nconfined area!", "{STR_VAR_1} je ve stísněném prostoru\nostražitý!"));
 static const u8* const sElevatorTexts[] = {sCondMsg22, sCondMsg23, NULL};
-static const u8 sCondMsg24[] = _("A cold wind suddenly blew by!");
-static const u8 sCondMsg25[] = _("Your POKéMON almost slipped and fell\nover!");
-static const u8 sCondMsg26[] = _("Your POKéMON seems surprised to\ntouch ice.");
+static const u8 sCondMsg24[] = _(LOCALIZED_TEXT("A cold wind suddenly blew by!", "Náhle zavál studený vítr!"));
+static const u8 sCondMsg25[] = _(LOCALIZED_TEXT("Your POKéMON almost slipped and fell\nover!", "Tvůj Pokémon uklouzl a málem upadl!"));
+static const u8 sCondMsg26[] = _(LOCALIZED_TEXT("Your POKéMON seems surprised to\ntouch ice.", "Tvůj Pokémon se překvapeně dotýká\nledu."));
 static const u8* const sColdTexts[] = {sCondMsg24, sCondMsg25, sCondMsg26, NULL};
-static const u8 sCondMsg27[] = _("Your POKéMON has a flower petal on\nits face!");
-static const u8 sCondMsg28[] = _("{STR_VAR_1} is growling softly.");
-static const u8 sCondMsg29[] = _("{STR_VAR_1} is trembling with fear.");
-static const u8 sCondMsg30[] = _("{STR_VAR_1} seems somehow sad…");
+static const u8 sCondMsg27[] = _(LOCALIZED_TEXT("Your POKéMON has a flower petal on\nits face!", "Tvůj Pokémon má na tváři okvětní\nlístek!"));
+static const u8 sCondMsg28[] = _(LOCALIZED_TEXT("{STR_VAR_1} is growling softly.", "{STR_VAR_1} tiše vrčí."));
+static const u8 sCondMsg29[] = _(LOCALIZED_TEXT("{STR_VAR_1} is trembling with fear.", "{STR_VAR_1} se třese strachy."));
+static const u8 sCondMsg30[] = _(LOCALIZED_TEXT("{STR_VAR_1} seems somehow sad…", "{STR_VAR_1} vypadá nějak smutně…"));
 static const u8* const sFearTexts[] = {sCondMsg29, sCondMsg30, NULL};
-static const u8 sCondMsg31[] = _("{STR_VAR_1} is taking shelter in the\ngrass from the rain.");
-static const u8 sCondMsg32[] = _("{STR_VAR_1} seems very cold.");
-static const u8 sCondMsg33[] = _("{STR_VAR_1} is staring at the sea.");
-static const u8 sCondMsg34[] = _("Your POKéMON is staring intently at\nthe sea!");
-static const u8 sCondMsg35[] = _("{STR_VAR_1} is looking at the\nsurging sea.");
+static const u8 sCondMsg31[] = _(LOCALIZED_TEXT("{STR_VAR_1} is taking shelter in the\ngrass from the rain.", "{STR_VAR_1} se v trávě schovává před\ndeštěm."));
+static const u8 sCondMsg32[] = _(LOCALIZED_TEXT("{STR_VAR_1} seems very cold.", "{STR_VAR_1} vypadá promrzle."));
+static const u8 sCondMsg33[] = _(LOCALIZED_TEXT("{STR_VAR_1} is staring at the sea.", "{STR_VAR_1} hledí na moře."));
+static const u8 sCondMsg34[] = _(LOCALIZED_TEXT("Your POKéMON is staring intently at\nthe sea!", "Tvůj Pokémon upřeně hledí na moře!"));
+static const u8 sCondMsg35[] = _(LOCALIZED_TEXT("{STR_VAR_1} is looking at the\nsurging sea.", "{STR_VAR_1} pozoruje rozbouřené\nmoře."));
 static const u8* const sSeaTexts[] = {sCondMsg33, sCondMsg34, sCondMsg35, NULL};
-static const u8 sCondMsg36[] = _("{STR_VAR_1} is listening to the\nsound of the waterfall.");
-static const u8 sCondMsg37[] = _("{STR_VAR_1} seems to be happy about\nthe rain!");
-static const u8 sCondMsg38[] = _("{STR_VAR_1} is staring at its\nreflection in the water.");
-static const u8 sCondMsg39[] = _("{STR_VAR_1} seems to relax as it\nhears the sound of rustling leaves…");
-static const u8 sCondMsg40[] = _("{STR_VAR_1} is gnawing at the ice.");
-static const u8 sCondMsg41[] = _("{STR_VAR_1} is touching the ice.");
+static const u8 sCondMsg36[] = _(LOCALIZED_TEXT("{STR_VAR_1} is listening to the\nsound of the waterfall.", "{STR_VAR_1} poslouchá hukot\nvodopádu."));
+static const u8 sCondMsg37[] = _(LOCALIZED_TEXT("{STR_VAR_1} seems to be happy about\nthe rain!", "{STR_VAR_1} má asi radost z deště!"));
+static const u8 sCondMsg38[] = _(LOCALIZED_TEXT("{STR_VAR_1} is staring at its\nreflection in the water.", "{STR_VAR_1} hledí na svůj odraz ve\nvodě."));
+static const u8 sCondMsg39[] = _(LOCALIZED_TEXT("{STR_VAR_1} seems to relax as it\nhears the sound of rustling leaves…", "{STR_VAR_1} při šustění listí\nspokojeně odpočívá…"));
+static const u8 sCondMsg40[] = _(LOCALIZED_TEXT("{STR_VAR_1} is gnawing at the ice.", "{STR_VAR_1} okusuje led."));
+static const u8 sCondMsg41[] = _(LOCALIZED_TEXT("{STR_VAR_1} is touching the ice.", "{STR_VAR_1} se dotýká ledu."));
 static const u8* const sIceTexts[] = {sCondMsg26, sCondMsg40, sCondMsg41, NULL};
-static const u8 sCondMsg42[] = _("{STR_VAR_1}'s burn looks painful!");
-static const u8 sCondMsg43[] = _("{STR_VAR_1} is happy to see what's\noutdoors!");
-static const u8 sCondMsg44[] = _("{STR_VAR_1} is looking up at the\nsky.");
+static const u8 sCondMsg42[] = _(LOCALIZED_TEXT("{STR_VAR_1}'s burn looks painful!", "{STR_VAR_1} má bolestivé popáleniny!"));
+static const u8 sCondMsg43[] = _(LOCALIZED_TEXT("{STR_VAR_1} is happy to see what's\noutdoors!", "{STR_VAR_1} se těší na venkovní\nsvět!"));
+static const u8 sCondMsg44[] = _(LOCALIZED_TEXT("{STR_VAR_1} is looking up at the\nsky.", "{STR_VAR_1} vzhlíží k obloze."));
 static const u8* const sDayTexts[] = {sCondMsg43, sCondMsg44, NULL};
-static const u8 sCondMsg45[] = _("Your POKéMON is staring spellbound\nat the night sky!");
-static const u8 sCondMsg46[] = _("Your POKéMON is happily gazing at\nthe beautiful, starry sky!");
+static const u8 sCondMsg45[] = _(LOCALIZED_TEXT("Your POKéMON is staring spellbound\nat the night sky!", "Tvůj Pokémon okouzleně hledí na noční\noblohu!"));
+static const u8 sCondMsg46[] = _(LOCALIZED_TEXT("Your POKéMON is happily gazing at\nthe beautiful, starry sky!", "Tvůj Pokémon se kochá krásnou\nhvězdnou oblohou!"));
 static const u8* const sNightTexts[] = {sCondMsg45, sCondMsg46, NULL};
-static const u8 sCondMsg50[] = _("{STR_VAR_1} is disturbed by the\nabnormal weather!");
+static const u8 sCondMsg50[] = _(LOCALIZED_TEXT("{STR_VAR_1} is disturbed by the\nabnormal weather!", "{STR_VAR_1} zneklidňuje nezvyklé\npočasí!"));
 
 // See the struct definition in follower_helper.h for more info
 const struct FollowerMsgInfoExtended gFollowerConditionalMessages[COND_MSG_COUNT] =

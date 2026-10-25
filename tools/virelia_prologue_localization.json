@@ -12874,6 +12874,2496 @@
       "font": "Normal",
       "width": 208,
       "lines": 4
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} began poking you in the\\nstomach.",
+      "czech": "{STR_VAR_1} tě šťouchá do břicha.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is happy but shy.",
+      "czech": "{STR_VAR_1} má radost, ale stydí se.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg02",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is coming along happily.",
+      "czech": "{STR_VAR_1} tě vesele doprovází.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg03",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is composed.",
+      "czech": "{STR_VAR_1} působí klidně.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg04",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to be feeling\\ngreat about walking with you!",
+      "czech": "{STR_VAR_1} si procházku s tebou moc\\nužívá!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg05",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is glowing with health.",
+      "czech": "{STR_VAR_1} jen září zdravím.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg06",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} looks very happy.",
+      "czech": "{STR_VAR_1} vypadá velmi šťastně.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg07",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} put in extra effort.",
+      "czech": "{STR_VAR_1} se snaží ještě víc.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg08",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is smelling the scents\\nof the surrounding air.",
+      "czech": "{STR_VAR_1} nasává vůně z okolí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg09",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is jumping for joy!",
+      "czech": "{STR_VAR_1} skáče radostí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg10",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is still feeling great!",
+      "czech": "{STR_VAR_1} se pořád cítí skvěle!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg11",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON has caught the scent of\\nsmoke.",
+      "czech": "Tvůj Pokémon ucítil kouř.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg12",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is poking at your belly.",
+      "czech": "{STR_VAR_1} tě šťouchá do břicha.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg13",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON stretched out its body\\nand is relaxing.",
+      "czech": "Tvůj Pokémon se protáhl a odpočívá.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg14",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} looks like it wants to\\nlead!",
+      "czech": "{STR_VAR_1} chce asi vést cestu!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg15",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is doing its best to\\nkeep up with you.",
+      "czech": "{STR_VAR_1} se snaží držet s tebou\\nkrok.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg16",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is happily cuddling up\\nto you!",
+      "czech": "{STR_VAR_1} se k tobě radostně tulí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg17",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is full of life!",
+      "czech": "{STR_VAR_1} překypuje energií!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg18",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to be very happy!",
+      "czech": "{STR_VAR_1} vypadá moc šťastně!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg19",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is so happy that it\\ncan't stand still!",
+      "czech": "{STR_VAR_1} radostí nepostojí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg20",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} nodded slowly.",
+      "czech": "{STR_VAR_1} pomalu přikývl.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg21",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is very eager!",
+      "czech": "{STR_VAR_1} je plný nadšení!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg22",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is wandering around and\\nlistening to the different sounds.",
+      "czech": "{STR_VAR_1} se toulá a naslouchá\\nokolním zvukům.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg23",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} looks very interested.",
+      "czech": "{STR_VAR_1} vypadá velmi zaujatě.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg24",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is somehow forcing\\nitself to keep going.",
+      "czech": "{STR_VAR_1} se nutí jít dál.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg25",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} gave you a sunny look!",
+      "czech": "{STR_VAR_1} na tebe vesele pohlédl!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg26",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} gives you a happy look\\nand a smile.",
+      "czech": "{STR_VAR_1} na tebe hledí s úsměvem.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg27",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is smelling the scent\\nof flowers.",
+      "czech": "Tvůj Pokémon nasává vůni květin.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg28",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems very happy to see\\nyou!",
+      "czech": "{STR_VAR_1} má radost, že tě vidí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg29",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} faced this way and\\ngrinned.",
+      "czech": "{STR_VAR_1} se otočil a zazubil.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg30",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} happily cuddled up to\\nyou!",
+      "czech": "{STR_VAR_1} se k tobě vesele přitulil!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg31",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON seems happy about the\\ngreat weather.",
+      "czech": "Tvůj Pokémon má radost z krásného\\npočasí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sHappyMsg32",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is very composed and\\nsure of itself!",
+      "czech": "{STR_VAR_1} je klidný a sebejistý!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is steadily poking at\\nthe ground.",
+      "czech": "{STR_VAR_1} vytrvale rýpe do země.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is standing guard.",
+      "czech": "{STR_VAR_1} stojí na stráži.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg02",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring patiently at\\nnothing at all.",
+      "czech": "{STR_VAR_1} trpělivě hledí do\\nprázdna.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg03",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is wandering around.",
+      "czech": "{STR_VAR_1} se toulá po okolí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg04",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON yawned loudly!",
+      "czech": "Tvůj Pokémon hlasitě zívl!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg05",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is looking around\\nrestlessly.",
+      "czech": "Tvůj Pokémon se neklidně rozhlíží.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg06",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is looking this way and\\nsmiling.",
+      "czech": "{STR_VAR_1} na tebe hledí s úsměvem.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg07",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is gazing around\\nrestlessly.",
+      "czech": "{STR_VAR_1} se neklidně rozhlíží.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg08",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} let out a battle cry.",
+      "czech": "{STR_VAR_1} vydal bojový pokřik.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg09",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} danced a wonderful\\ndance!",
+      "czech": "{STR_VAR_1} předvedl nádherný tanec!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg10",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is very eager.",
+      "czech": "{STR_VAR_1} je plný nadšení.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg11",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring intently into\\nthe distance.",
+      "czech": "{STR_VAR_1} upřeně hledí do dálky.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg12",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is on the lookout!",
+      "czech": "{STR_VAR_1} je ve střehu!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sNeutralMsg13",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} looked off into the\\ndistance and barked!",
+      "czech": "{STR_VAR_1} pohlédl do dálky a\\nzaštěkal!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSadMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is dizzy.",
+      "czech": "{STR_VAR_1} má závrať.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSadMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is stepping on your\\nfeet!",
+      "czech": "{STR_VAR_1} ti šlape na nohy!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSadMsg02",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems a little tired.",
+      "czech": "{STR_VAR_1} vypadá trochu unaveně.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSadMsg03",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is not happy.",
+      "czech": "{STR_VAR_1} není šťastný.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSadMsg04",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is going to fall down!\\n",
+      "czech": "{STR_VAR_1} každou chvíli upadne!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSadMsg05",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to be about to\\nfall over!",
+      "czech": "{STR_VAR_1} se asi brzy svalí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSadMsg06",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is trying very hard to\\nkeep up with you…",
+      "czech": "{STR_VAR_1} se ze všech sil snaží\\ndržet krok…",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSadMsg07",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is nervous.",
+      "czech": "{STR_VAR_1} je nervózní.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sUpsetMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems unhappy somehow…",
+      "czech": "{STR_VAR_1} vypadá nějak\\nnešťastně…",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sUpsetMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is making an unhappy\\nface.",
+      "czech": "{STR_VAR_1} se nešťastně tváří.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sUpsetMsg02",
+      "kind": "follower_dialogue",
+      "english": "…Your POKéMON seems a little\\ncold.",
+      "czech": "…Tvému Pokémonovi je asi trochu zima.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sUpsetMsg03",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is taking shelter in the\\ngrass from the rain.",
+      "czech": "{STR_VAR_1} se v trávě schovává před\\ndeštěm.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sAngryMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} let out a roar!",
+      "czech": "{STR_VAR_1} hlasitě zařval!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sAngryMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is making a face like\\nit's angry!",
+      "czech": "{STR_VAR_1} se tváří rozzlobeně!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sAngryMsg02",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to be angry for\\nsome reason.",
+      "czech": "{STR_VAR_1} se z nějakého důvodu\\nzlobí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sAngryMsg03",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON turned to face the\\nother way, showing a defiant face.",
+      "czech": "Tvůj Pokémon se vzdorovitě odvrátil.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sAngryMsg04",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} cried out.",
+      "czech": "{STR_VAR_1} vykřikl.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is looking down\\nsteadily.",
+      "czech": "{STR_VAR_1} vytrvale hledí k zemi.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is surveying the area.",
+      "czech": "{STR_VAR_1} zkoumá okolí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg02",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is peering down.",
+      "czech": "{STR_VAR_1} se dívá dolů.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg03",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is somehow fighting off\\nsleep…",
+      "czech": "{STR_VAR_1} se snaží neusnout…",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg04",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to be wandering\\naround.",
+      "czech": "{STR_VAR_1} se asi toulá po okolí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg05",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is looking around\\nabsentmindedly.",
+      "czech": "{STR_VAR_1} se nepřítomně rozhlíží.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg06",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} yawned very loudly!",
+      "czech": "{STR_VAR_1} velmi hlasitě zívl!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg07",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is relaxing comfortably.",
+      "czech": "{STR_VAR_1} spokojeně odpočívá.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg08",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring steadfastly\\nat your face.",
+      "czech": "{STR_VAR_1} ti vytrvale hledí do\\ntváře.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg09",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring intently at\\nyour face.",
+      "czech": "{STR_VAR_1} ti upřeně hledí do tváře.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg10",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is focusing its\\nattention on you.",
+      "czech": "{STR_VAR_1} ti věnuje plnou\\npozornost.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg11",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring into the\\ndepths.",
+      "czech": "{STR_VAR_1} hledí do hlubin.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg12",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is sniffing at the\\nground.",
+      "czech": "{STR_VAR_1} očichává zem.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg13",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is staring intently at\\nnothing.",
+      "czech": "Tvůj Pokémon upřeně hledí do prázdna.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg14",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} focused with a sharp\\ngaze!",
+      "czech": "{STR_VAR_1} zaostřil bystrý pohled!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg15",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is concentrating.",
+      "czech": "{STR_VAR_1} se soustředí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg16",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} faced this way and\\nnodded.",
+      "czech": "{STR_VAR_1} se otočil a přikývl.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg17",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems a bit nervous…",
+      "czech": "{STR_VAR_1} vypadá trochu nervózně…",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg18",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is looking at your\\nfootprints.",
+      "czech": "{STR_VAR_1} si prohlíží tvé stopy.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPensiveMsg19",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring straight into\\nyour eyes.",
+      "czech": "{STR_VAR_1} ti hledí přímo do očí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} suddenly started walking\\ncloser!",
+      "czech": "{STR_VAR_1} k tobě náhle přišel blíž!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} cheeks are becoming\\nrosy!",
+      "czech": "{STR_VAR_1} má růžové tváře!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg02",
+      "kind": "follower_dialogue",
+      "english": "Woah! {STR_VAR_1} suddenly hugged\\nyou!",
+      "czech": "Jé! {STR_VAR_1} tě náhle objal!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg03",
+      "kind": "follower_dialogue",
+      "english": "Woah! {STR_VAR_1} is suddenly\\nplayful!",
+      "czech": "Jé! {STR_VAR_1} si najednou chce\\nhrát!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg04",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is rubbing against your\\nlegs!",
+      "czech": "{STR_VAR_1} se ti otírá o nohy!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg05",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} blushes.",
+      "czech": "{STR_VAR_1} se červená.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg06",
+      "kind": "follower_dialogue",
+      "english": "Ah! {STR_VAR_1} cuddles you!",
+      "czech": "Jé! {STR_VAR_1} se k tobě tulí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg07",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is regarding you with\\nadoration!",
+      "czech": "{STR_VAR_1} na tebe hledí s láskou!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg08",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} got closer to you.",
+      "czech": "{STR_VAR_1} k tobě přišel blíž.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sLoveMsg09",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is keeping close to your\\nfeet.",
+      "czech": "{STR_VAR_1} se ti drží u nohou.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is in danger of falling\\nover!",
+      "czech": "{STR_VAR_1} každou chvíli upadne!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} bumped into you!",
+      "czech": "{STR_VAR_1} do tebe vrazil!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg02",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} doesn't seem to be used\\nto its own name yet.",
+      "czech": "{STR_VAR_1} si ještě nezvykl na své\\njméno.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg03",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is peering down.",
+      "czech": "{STR_VAR_1} se dívá dolů.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg04",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON stumbled and nearly\\nfell!",
+      "czech": "Tvůj Pokémon klopýtl a málem upadl!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg05",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} feels something and is\\nhowling!",
+      "czech": "{STR_VAR_1} něco cítí a vyje!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg06",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems refreshed!",
+      "czech": "{STR_VAR_1} vypadá svěže!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg07",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} suddenly turned around\\nand started barking!",
+      "czech": "{STR_VAR_1} se náhle otočil a\\nzaštěkal!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg08",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} suddenly turned around!",
+      "czech": "{STR_VAR_1} se náhle otočil!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg09",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON was surprised that you\\nsuddenly spoke to it!",
+      "czech": "Tvého Pokémona překvapilo, že na něj\\nnáhle mluvíš!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg10",
+      "kind": "follower_dialogue",
+      "english": "Sniff sniff, something smells really\\ngood!",
+      "czech": "Čmuch, čmuch! Tady něco krásně voní!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg11",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} feels refreshed.",
+      "czech": "{STR_VAR_1} se cítí svěže.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg12",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is wobbling and seems\\nabout to fall over.",
+      "czech": "{STR_VAR_1} se kymácí a málem padá.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg13",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is in danger of falling\\nover.",
+      "czech": "{STR_VAR_1} každou chvíli upadne.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg14",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is walking along\\ncautiously.",
+      "czech": "{STR_VAR_1} kráčí opatrně.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg15",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is getting tense with\\nnervous energy.",
+      "czech": "{STR_VAR_1} je čím dál nervóznější.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg16",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} sensed something strange\\nand was surprised!",
+      "czech": "{STR_VAR_1} ucítil něco zvláštního a\\npolekal se!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg17",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is scared and snuggled\\nup to you!",
+      "czech": "{STR_VAR_1} se bojí a přitulil se k\\ntobě!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg18",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is feeling an unusual\\npresence…",
+      "czech": "{STR_VAR_1} cítí zvláštní\\npřítomnost…",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg19",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is getting tense with\\nnervous energy.",
+      "czech": "{STR_VAR_1} je čím dál nervóznější.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sSurpriseMsg20",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to be very\\nsurprised that it is raining!",
+      "czech": "{STR_VAR_1} se moc diví, že prší!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sCuriousMsg00",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is looking around\\nrestlessly for something.",
+      "czech": "Tvůj Pokémon se neklidně rozhlíží a\\nněco hledá.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sCuriousMsg01",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON wasn't watching where\\nit was going and ran into you!",
+      "czech": "Tvůj Pokémon nedával pozor na cestu a\\nvrazil do tebe!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sCuriousMsg02",
+      "kind": "follower_dialogue",
+      "english": "Sniff, sniff! Is there something\\nnearby?",
+      "czech": "Čmuch, čmuch! Je tu něco poblíž?",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sCuriousMsg03",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is rolling a pebble\\naround playfully.",
+      "czech": "{STR_VAR_1} si hraje s oblázkem.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sCuriousMsg04",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is wandering around and\\nsearching for something.",
+      "czech": "{STR_VAR_1} se toulá a něco hledá.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sCuriousMsg05",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is sniffing at you.",
+      "czech": "{STR_VAR_1} tě očichává.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sCuriousMsg06",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to be a little\\nhesitant…",
+      "czech": "{STR_VAR_1} trochu váhá…",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is showing off its\\nagility!",
+      "czech": "{STR_VAR_1} předvádí svou hbitost!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is moving around\\nhappily!",
+      "czech": "{STR_VAR_1} se vesele pohybuje!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg02",
+      "kind": "follower_dialogue",
+      "english": "Woah! {STR_VAR_1} suddenly started\\ndancing in happiness!",
+      "czech": "Jé! {STR_VAR_1} náhle tančí radostí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg03",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is steadily keeping up\\nwith you!",
+      "czech": "{STR_VAR_1} s tebou drží krok!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg04",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to want to play\\nwith you.",
+      "czech": "{STR_VAR_1} si s tebou chce asi hrát.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg05",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is happy skipping about.",
+      "czech": "{STR_VAR_1} vesele poskakuje.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg06",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is singing and humming.",
+      "czech": "{STR_VAR_1} zpívá a brouká si.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg07",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is nipping at your feet!",
+      "czech": "{STR_VAR_1} tě okusuje do nohou!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg08",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} turns around and looks\\nat you.",
+      "czech": "{STR_VAR_1} se otáčí a dívá se na\\ntebe.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg09",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is working hard to show\\noff its mighty power!",
+      "czech": "{STR_VAR_1} se snaží předvést svou\\nohromnou sílu!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg10",
+      "kind": "follower_dialogue",
+      "english": "Whoa! {STR_VAR_1} suddenly danced in\\nhappiness!",
+      "czech": "Jé! {STR_VAR_1} náhle zatančil\\nradostí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg11",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is cheerful!",
+      "czech": "{STR_VAR_1} je veselý!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg12",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is jumping around in a\\ncarefree way!",
+      "czech": "{STR_VAR_1} bezstarostně poskakuje!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg13",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON seems to be smelling a\\nnostalgically familiar scent…",
+      "czech": "Tvůj Pokémon asi cítí vůni, která mu\\nněco připomíná…",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sMusicMsg14",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is very happy about the\\nrain.",
+      "czech": "{STR_VAR_1} má velkou radost z deště.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/text/follower_messages.h",
+      "key": "sPoisonedMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is shivering with the\\neffects of being poisoned.",
+      "czech": "{STR_VAR_1} se třese následkem\\notravy.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg00",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} danced happily.",
+      "czech": "{STR_VAR_1} vesele zatančil.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg01",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} danced beautifully.",
+      "czech": "{STR_VAR_1} krásně zatančil.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg02",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} emitted fire and shouted.",
+      "czech": "{STR_VAR_1} vypustil oheň a vykřikl.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg03",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is vigorously producing\\nfire!",
+      "czech": "{STR_VAR_1} chrlí mohutné plameny!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg04",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} spat fire!",
+      "czech": "{STR_VAR_1} vyplivl oheň!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg05",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is vigorously breathing\\nfire!",
+      "czech": "{STR_VAR_1} chrlí proudy ohně!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg06",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring straight at\\nthe POKéMON LEAGUE.",
+      "czech": "{STR_VAR_1} hledí přímo na\\nPokémonovou ligu.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg07",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is staring intently at\\nthe mountain peak.",
+      "czech": "Tvůj Pokémon upřeně hledí na vrchol\\nhory.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg08",
+      "kind": "follower_dialogue",
+      "english": "Sniff sniff, something smells good!",
+      "czech": "Čmuch, čmuch! Tady něco voní!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg09",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is surveying the\\nshelves restlessly.",
+      "czech": "Tvůj Pokémon neklidně zkoumá regály.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg10",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring intently at\\nthe shelves.",
+      "czech": "{STR_VAR_1} upřeně hledí na regály.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg11",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} focused with a sharp\\ngaze!",
+      "czech": "{STR_VAR_1} zaostřil bystrý pohled!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg12",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems very interested in\\nthe bicycles.",
+      "czech": "{STR_VAR_1} se velmi zajímá o jízdní\\nkola.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg13",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to want to touch\\nthe machines!",
+      "czech": "{STR_VAR_1} si chce sáhnout na\\nstroje!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg14",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is swaying with the\\nboat!",
+      "czech": "{STR_VAR_1} se kolébá spolu s lodí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg15",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is dancing along with\\nthe rolling of the ship.",
+      "czech": "{STR_VAR_1} tančí do rytmu houpání\\nlodi.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg16",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} doesn't want to get off\\nthe boat yet!",
+      "czech": "{STR_VAR_1} ještě nechce z lodi pryč!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg17",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is listening to the\\nsound of the machines.",
+      "czech": "{STR_VAR_1} poslouchá zvuky strojů.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg18",
+      "kind": "follower_dialogue",
+      "english": "Waah! Your POKéMON suddenly splashed\\nwater!",
+      "czech": "Jé! Tvůj Pokémon náhle vystříkl vodu!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg19",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is blowing sand in the\\nair!",
+      "czech": "Tvůj Pokémon víří písek do vzduchu!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg20",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is playing around,\\nplucking bits of grass.",
+      "czech": "{STR_VAR_1} si hraje a trhá trávu.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg21",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is happily looking at\\nyour footprints!",
+      "czech": "Tvůj Pokémon si vesele prohlíží tvé\\nstopy!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg22",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is feeling nervous and a\\ntouch claustrophobic.",
+      "czech": "{STR_VAR_1} je nervózní ze\\nstísněného prostoru.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg23",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is cautious about the\\nconfined area!",
+      "czech": "{STR_VAR_1} je ve stísněném prostoru\\nostražitý!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg24",
+      "kind": "follower_dialogue",
+      "english": "A cold wind suddenly blew by!",
+      "czech": "Náhle zavál studený vítr!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg25",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON almost slipped and fell\\nover!",
+      "czech": "Tvůj Pokémon uklouzl a málem upadl!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg26",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON seems surprised to\\ntouch ice.",
+      "czech": "Tvůj Pokémon se překvapeně dotýká\\nledu.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg27",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON has a flower petal on\\nits face!",
+      "czech": "Tvůj Pokémon má na tváři okvětní\\nlístek!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg28",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is growling softly.",
+      "czech": "{STR_VAR_1} tiše vrčí.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg29",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is trembling with fear.",
+      "czech": "{STR_VAR_1} se třese strachy.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg30",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems somehow sad…",
+      "czech": "{STR_VAR_1} vypadá nějak smutně…",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg31",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is taking shelter in the\\ngrass from the rain.",
+      "czech": "{STR_VAR_1} se v trávě schovává před\\ndeštěm.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg32",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems very cold.",
+      "czech": "{STR_VAR_1} vypadá promrzle.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg33",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring at the sea.",
+      "czech": "{STR_VAR_1} hledí na moře.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg34",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is staring intently at\\nthe sea!",
+      "czech": "Tvůj Pokémon upřeně hledí na moře!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg35",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is looking at the\\nsurging sea.",
+      "czech": "{STR_VAR_1} pozoruje rozbouřené\\nmoře.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg36",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is listening to the\\nsound of the waterfall.",
+      "czech": "{STR_VAR_1} poslouchá hukot\\nvodopádu.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg37",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to be happy about\\nthe rain!",
+      "czech": "{STR_VAR_1} má asi radost z deště!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg38",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is staring at its\\nreflection in the water.",
+      "czech": "{STR_VAR_1} hledí na svůj odraz ve\\nvodě.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg39",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems to relax as it\\nhears the sound of rustling leaves…",
+      "czech": "{STR_VAR_1} při šustění listí\\nspokojeně odpočívá…",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg40",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is gnawing at the ice.",
+      "czech": "{STR_VAR_1} okusuje led.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg41",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is touching the ice.",
+      "czech": "{STR_VAR_1} se dotýká ledu.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg42",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1}'s burn looks painful!",
+      "czech": "{STR_VAR_1} má bolestivé popáleniny!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg43",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is happy to see what's\\noutdoors!",
+      "czech": "{STR_VAR_1} se těší na venkovní\\nsvět!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg44",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is looking up at the\\nsky.",
+      "czech": "{STR_VAR_1} vzhlíží k obloze.",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg45",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is staring spellbound\\nat the night sky!",
+      "czech": "Tvůj Pokémon okouzleně hledí na noční\\noblohu!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg46",
+      "kind": "follower_dialogue",
+      "english": "Your POKéMON is happily gazing at\\nthe beautiful, starry sky!",
+      "czech": "Tvůj Pokémon se kochá krásnou\\nhvězdnou oblohou!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/follower_helper.c",
+      "key": "sCondMsg50",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is disturbed by the\\nabnormal weather!",
+      "czech": "{STR_VAR_1} zneklidňuje nezvyklé\\npočasí!",
+      "font": "Normal",
+      "width": 208,
+      "lines": 2,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "data/scripts/follower.inc",
+      "key": "gText_FollowerLovesYou",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} is regarding you with\\nadoration!$",
+      "czech": "{STR_VAR_1} na tebe hledí s láskou!$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "data/scripts/follower.inc",
+      "key": "gText_FollowerLostInThought",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} seems lost in thought.$",
+      "czech": "{STR_VAR_1} je zamyšlený.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "data/scripts/follower.inc",
+      "key": "gText_FollowerDefault",
+      "kind": "follower_dialogue",
+      "english": "ERROR 404: Script not found.$",
+      "czech": "CHYBA 404: Skript nenalezen.$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "data/scripts/follower.inc",
+      "key": "gText_WantsToFly",
+      "kind": "follower_dialogue",
+      "english": "{STR_VAR_1} looks up at the\\nsky restlessly.\\pWould you like to use FLY?$",
+      "czech": "{STR_VAR_1} neklidně\\nvzhlíží k obloze.\\pChceš použít Fly?$",
+      "font": "Normal",
+      "width": 208,
+      "conditional": true,
+      "replacements": {
+        "{STR_VAR_1}": "WWWWWWWWWWWW"
+      }
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_QUICK_CLAW.name.0",
+      "kind": "item_name",
+      "english": "Quick Claw",
+      "czech": "Quick Claw",
+      "font": "Narrower",
+      "width": 88,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_QUICK_CLAW.description.0",
+      "kind": "item_description",
+      "english": "A held item that\\noccasionally allows\\nthe first strike.",
+      "czech": "Držený předmět.\\nObčas dovolí\\nzaútočit dřív.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
     }
   ],
   "coverage": {
@@ -13213,12 +15703,12 @@
       "ITEM_POKE_DOLL",
       "ITEM_POTION",
       "ITEM_POWER_HERB",
+      "ITEM_QUICK_CLAW",
       "ITEM_RARE_CANDY",
       "ITEM_REPEL",
       "ITEM_REVIVE",
       "ITEM_SHED_SHELL",
       "ITEM_SITRUS_BERRY",
-      "ITEM_SOOTHE_BELL",
       "ITEM_SUN_STONE",
       "ITEM_SUPER_POTION",
       "ITEM_SUPER_REPEL",

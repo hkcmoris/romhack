@@ -83,12 +83,12 @@ Virelia_WhisperwoodSanctuary_EventScript_Release:
 Virelia_WhisperwoodSanctuary_EventScript_AncientTree::
 	lockall
 	goto_if_unset FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN, Virelia_WhisperwoodSanctuary_EventScript_Clue
-	goto_if_set FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED, Virelia_WhisperwoodSanctuary_EventScript_Folklore
-	call VireliaSanctuary_EventScript_TryTakeBell
+	goto_if_set FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED, Virelia_WhisperwoodSanctuary_EventScript_Folklore
+	call VireliaSanctuary_EventScript_TryTakeReward
 	goto_if_eq VAR_RESULT, FALSE, Virelia_WhisperwoodSanctuary_EventScript_BagFull
 	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
-	msgbox Virelia_WhisperwoodSanctuary_Text_Bell, MSGBOX_DEFAULT
+	msgbox Virelia_WhisperwoodSanctuary_Text_Reward, MSGBOX_DEFAULT
 Virelia_WhisperwoodSanctuary_EventScript_Folklore:
 	msgbox Virelia_WhisperwoodSanctuary_Text_Folklore, MSGBOX_DEFAULT
 	releaseall
@@ -150,22 +150,22 @@ Virelia_WhisperwoodSanctuary_Text_Clue:
 	.string "Kořen otevře cestu tomu,\n"
 	.string "kdo naslouchá lesu.$"
 
-Virelia_WhisperwoodSanctuary_Text_Bell:
-	.string "Mezi kořeny leží Soothe Bell!\n"
+Virelia_WhisperwoodSanctuary_Text_Reward:
+	.string "Mezi kořeny leží Quick Claw!\n"
 	.string "Opatrně jej ukládáš do batohu.\p"
-	.string "Pod zvonkem je starý nápis.$"
+	.string "Pod drápem je starý nápis.$"
 
 Virelia_WhisperwoodSanctuary_Text_Folklore:
 	.string "Ve Virelii se vypráví o strážci,\n"
 	.string "jenž spí pod kořeny lesa.\p"
 	.string "Jeho kroky otřásají zemí,\n"
-	.string "ale zvonek utiší i jeho srdce.\p"
+	.string "ale laskavost utiší jeho srdce.\p"
 	.string "Kdo ochrání nejmenší hnízdo,\n"
 	.string "smí projít v jeho stínu.$"
 
 Virelia_WhisperwoodSanctuary_Text_BagFull:
-	.string "Na Soothe Bell není v batohu místo.\n"
-	.string "Zvonek zůstane mezi kořeny.$"
+	.string "Na Quick Claw není v batohu místo.\n"
+	.string "Dráp zůstane mezi kořeny.$"
 
 Virelia_WhisperwoodSanctuary_Text_Pawprints:
 	.string "Obrovské otisky tlap! Každý je\n"

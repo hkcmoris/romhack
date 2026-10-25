@@ -90,7 +90,7 @@ checking binary assets exactly. Its unit checks also reject actual color changes
    her missing Zigzagoon; investigating its secluded spot reveals territorial
    behavior. Return to Hana for one extra Potion. Her thanks reveal an overgrown
    western path to the [hidden sanctuary](VIRELIA_SANCTUARY.md), with three carved
-   stones, a permanent shortcut and Soothe Bell. These events are optional.
+   stones, a permanent shortcut and Quick Claw. These events are optional.
 8. Reach **Slateford City**. Miners report missing conductive mineral samples.
    Investigate the suspicious maintenance worker near the mining area, expose
    his Team Rocket uniform and win a normal single battle. Losing permits a

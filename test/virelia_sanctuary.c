@@ -1,7 +1,9 @@
 #include "global.h"
 #include "agb_flash.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "fieldmap.h"
+#include "field_player_avatar.h"
 #include "item.h"
 #include "main.h"
 #include "overworld.h"
@@ -23,7 +25,7 @@ static void ResetSanctuary(void)
     FlagClear(FLAG_VIRELIA_SIDEQUEST_RESOLVED);
     FlagClear(FLAG_VIRELIA_SIDEQUEST_REWARDED);
     FlagClear(FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN);
-    FlagClear(FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED);
+    FlagClear(FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED);
     VarSet(VAR_VIRELIA_SANCTUARY_STONE, 0);
 }
 
@@ -122,6 +124,55 @@ TEST("Virelia sanctuary Hana gate waits for the actual reward including full Bag
     ExpectGateAccess(TRUE, TRUE);
 }
 
+TEST("Virelia sanctuary ledge allows jumps downhill and blocks walking back uphill")
+{
+    static const struct
+    {
+        u8 x, y;
+        enum Direction jumpDirection;
+    } ledges[] =
+    {
+        {3, 7, DIR_WEST},
+        {3, 8, DIR_WEST},
+        {3, 9, DIR_WEST},
+        {3, 10, DIR_WEST},
+        {3, 11, DIR_WEST},
+        {3, 12, DIR_NONE}, // The corner is solid; jump from the straight edges.
+        {4, 12, DIR_SOUTH},
+    };
+    u32 ledge = 0;
+    enum Direction direction = DIR_SOUTH;
+    for (u32 i = 0; i < ARRAY_COUNT(ledges); i++)
+        for (enum Direction dir = DIR_SOUTH; dir <= DIR_EAST; dir++)
+            PARAMETRIZE { ledge = i; direction = dir; }
+
+    ResetSanctuary();
+    LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
+    RunOnLoadMapScript();
+    s16 x = ledges[ledge].x + MAP_OFFSET;
+    s16 y = ledges[ledge].y + MAP_OFFSET;
+    u16 raw = gMapHeader.mapLayout->map[ledges[ledge].y * gMapHeader.mapLayout->width + ledges[ledge].x];
+    EXPECT_NE(UNPACK_COLLISION(raw), 0);
+    EXPECT_NE(MapGridGetCollisionAt(x, y), 0);
+
+    struct ObjectEvent object = {0};
+    object.currentCoords.x = x;
+    object.currentCoords.y = y;
+    MoveCoords(GetOppositeDirection(direction), &object.currentCoords.x, &object.currentCoords.y);
+    object.currentElevation = MapGridGetElevationAt(object.currentCoords.x, object.currentCoords.y);
+    enum Collision collision = CheckForObjectEventCollision(&object, x, y, direction, MapGridGetMetatileBehaviorAt(x, y));
+    if (direction == ledges[ledge].jumpDirection)
+    {
+        EXPECT_EQ(collision, COLLISION_LEDGE_JUMP);
+        MoveCoords(direction, &x, &y);
+        EXPECT_EQ(MapGridGetCollisionAt(x, y), 0);
+    }
+    else
+    {
+        EXPECT_EQ(collision, COLLISION_IMPASSABLE);
+    }
+}
+
 TEST("Virelia sanctuary pawprints stay below the player while the ancient tree remains above")
 {
     ResetSanctuary();
@@ -209,31 +260,31 @@ TEST("Virelia sanctuary loads all twenty-five ancient tree tiles with solid coll
         }
 }
 
-TEST("Virelia sanctuary bell waits for the puzzle and a free bag slot without duplicating")
+TEST("Virelia sanctuary Quick Claw waits for the puzzle and a free bag slot without duplicating")
 {
     ResetSanctuary();
-    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeBell;);
+    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeReward;);
     EXPECT_EQ(gSpecialVar_Result, FALSE);
-    EXPECT(!FlagGet(FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED));
+    EXPECT(!FlagGet(FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED));
     SolveSanctuary();
     struct BagPocket *pocket = &gBagPockets[POCKET_ITEMS];
     for (u32 i = 0; i < pocket->capacity; i++)
         BagPocket_SetSlotItemIdAndCount(pocket, i, ITEM_ANTIDOTE, MAX_BAG_ITEM_CAPACITY);
-    EXPECT(!CheckBagHasSpace(ITEM_SOOTHE_BELL, 1));
-    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeBell;);
+    EXPECT(!CheckBagHasSpace(ITEM_QUICK_CLAW, 1));
+    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeReward;);
     EXPECT_EQ(gSpecialVar_Result, FALSE);
-    EXPECT(!FlagGet(FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED));
+    EXPECT(!FlagGet(FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED));
     EXPECT(FlagGet(FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN));
     ClearBag();
-    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeBell;);
+    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeReward;);
     EXPECT_EQ(gSpecialVar_Result, TRUE);
-    EXPECT(FlagGet(FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED));
-    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeBell;);
+    EXPECT(FlagGet(FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED));
+    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeReward;);
     EXPECT_EQ(gSpecialVar_Result, FALSE);
-    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_SOOTHE_BELL), 1);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_QUICK_CLAW), 1);
 }
 
-TEST("Virelia sanctuary shortcut and claimed or unclaimed bell survive native flash reload")
+TEST("Virelia sanctuary shortcut and claimed or unclaimed Quick Claw survive native flash reload")
 {
     u32 claimed = 0;
     PARAMETRIZE { claimed = 0; }
@@ -241,7 +292,7 @@ TEST("Virelia sanctuary shortcut and claimed or unclaimed bell survive native fl
     ResetSanctuary();
     SolveSanctuary();
     if (claimed)
-        RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeBell;);
+        RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeReward;);
     ClearTempFieldEventData();
     IntrFunc originalTimer3Handler, unusedFlashHandler;
     u16 originalIme = REG_IME;
@@ -260,7 +311,7 @@ TEST("Virelia sanctuary shortcut and claimed or unclaimed bell survive native fl
     {
         FlagClear(FLAG_VIRELIA_SIDEQUEST_REWARDED);
         FlagClear(FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN);
-        FlagClear(FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED);
+        FlagClear(FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED);
         ClearBag();
         loadStatus = LoadGameSave(SAVE_NORMAL);
     }
@@ -277,11 +328,11 @@ TEST("Virelia sanctuary shortcut and claimed or unclaimed bell survive native fl
     EXPECT_EQ(loadStatus, SAVE_STATUS_OK);
     EXPECT(FlagGet(FLAG_VIRELIA_SIDEQUEST_REWARDED));
     EXPECT(FlagGet(FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN));
-    EXPECT_EQ(FlagGet(FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED), claimed);
-    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_SOOTHE_BELL), claimed);
-    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeBell;);
+    EXPECT_EQ(FlagGet(FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED), claimed);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_QUICK_CLAW), claimed);
+    RUN_OVERWORLD_SCRIPT(call VireliaSanctuary_EventScript_TryTakeReward;);
     EXPECT_EQ(gSpecialVar_Result, claimed ? FALSE : TRUE);
-    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_SOOTHE_BELL), 1);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_QUICK_CLAW), 1);
 }
 
 #endif // !IS_FRLG

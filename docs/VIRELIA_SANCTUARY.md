@@ -19,9 +19,9 @@ changing the main story, trainer teams, route encounters or starter progression.
    unfinished sequence. Declining the prompt only inspects the stone.
 6. The roots at `(16, 2)` and `(16, 3)` withdraw. Walk northeast to return to the
    main trail through its western opening at rows `8` and `9`.
-7. Inspect the ancient tree again to collect **Soothe Bell** and read the short
+7. Inspect the ancient tree again to collect **Quick Claw** and read the short
    Virelian story of the guardian sleeping beneath the forest. The inscription
-   remains readable. A full bag leaves the bell in place for a later visit.
+   remains readable. A full bag leaves the reward in place for a later visit.
 
 The shortcut works in both directions and stays open after leaving, blackout,
 and saving. An unfinished sequence resets on map entry. The sanctuary is a
@@ -38,7 +38,7 @@ The original route still has its existing encounters, two trainers and Potion.
 - Both maps keep passable raw seam cells. Gates sit one tile inward so the
   engine's connected-map buffer can copy the neighbor before its load callback.
 - Saved flags: `FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN` (`0x3B`) and
-  `FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED` (`0x3C`). Existing save sizes stay fixed.
+  `FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED` (`0x3C`). Existing save sizes stay fixed.
 - Unfinished stone progress: temporary variable `0x400E`.
 
 The sanctuary uses General plus the shared VireliaOutdoor secondary tileset,
@@ -80,7 +80,7 @@ remain untouched. Carved stones reuse FRLG General boulder `0x09F`, with
 a thin one- to two-pixel moss cap from Emerald's shrub `0x00E` along the upper
 ridge. Their carved faces, sides and bases retain the exposed stock rock
 facets. Tree, stones and tracks share a palette of four
-forest greens, six stone colors and five bark colors. Soothe Bell's bag
+forest greens, six stone colors and five bark colors. Quick Claw's bag
 description is included in Czech localization.
 
 `tools/virelia/build_whisperwood_sanctuary.py` rebuilds these checked-in assets
@@ -102,13 +102,13 @@ make -j4 check TESTS="Virelia sanctuary"
 The sanctuary validator checks the Hana gate, interactions, closed and open
 shortcut states, return paths, reciprocal connections and native asset bounds.
 Native tests run the real compiled stone and reward helpers, all 27 three-stone
-sequences, callback collisions, retry behavior and FLASH save/load with the bell
+sequences, callback collisions, retry behavior and FLASH save/load with the reward
 both unclaimed and claimed. The existing world tests cover the new map header
 and horizontal connection.
 
 In an emulator, also check both seamless west/east crossings, the branch hint
 before and after Hana, canceling stone prompts, the wrong-order sound, opening
-the roots, a full bag, giving the bell to a Pokémon and returning after reload.
+the roots, a full bag, giving the reward to a Pokémon and returning after reload.
 Old saves that already accepted Hana's Potion should reveal the path on their
 next Route 01 load. Check that ordinary route trainers and the eastern Potion
 remain accessible throughout.

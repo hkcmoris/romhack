@@ -7,6 +7,7 @@ This graph check proves the approaches and shortcut cannot bypass their gates.
 from collections import deque
 from pathlib import Path
 import json
+import re
 import struct
 import sys
 
@@ -52,6 +53,26 @@ def validate():
         width, height = layouts[name]['width'], layouts[name]['height']
         return blocks[name][y * width + x] if 0 <= x < width and 0 <= y < height else None
 
+    behavior_names = re.findall(r"\b(MB_[A-Z0-9_]+)\s*,", (ROOT / 'include/constants/metatile_behaviors.h').read_text())
+    attributes = []
+    for path in ('primary/general', 'secondary/virelia_outdoor'):
+        raw = (ROOT / f'data/tilesets/{path}/metatile_attributes.bin').read_bytes()
+        attributes.extend(struct.unpack(f'<{len(raw) // 2}H', raw))
+
+    def behavior(node):
+        value = tile(node)
+        return behavior_names[attributes[value & 0x3FF] & 0xFF] if value is not None else None
+
+    # Jump behavior chooses the allowed direction; collision blocks all other
+    # approaches. Elevation zero alone permits walking through either side.
+    ledges = [(SHRINE, x, y) for y in range(layouts[SHRINE]['height'])
+              for x in range(layouts[SHRINE]['width']) if behavior((SHRINE, x, y)).startswith('MB_JUMP_')]
+    require(ledges, 'Sanctuary must retain its authored ledge')
+    for node in ledges:
+        require(tile(node) & 0xC00, f'Sanctuary ledge at {node[1:]} allows reverse passage without collision')
+    jump_directions = {'MB_JUMP_EAST': (1, 0), 'MB_JUMP_WEST': (-1, 0),
+                       'MB_JUMP_SOUTH': (0, 1), 'MB_JUMP_NORTH': (0, -1)}
+
     def reached(state, start):
         def walkable(node):
             value = tile(node)
@@ -61,16 +82,22 @@ def validate():
         while queue:
             node = queue.popleft()
             name, x, y = node
-            neighbors = [(name, x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+            neighbors = []
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                target = (name, x + dx, y + dy)
+                jumping = jump_directions.get(behavior(target)) == (dx, dy)
+                if jumping:
+                    target = (name, x + 2 * dx, y + 2 * dy)
+                neighbors.append((target, jumping))
             if name == ROUTE and x == 0 and 6 <= y < 32:
-                neighbors.append((SHRINE, 21, y - 6))
+                neighbors.append(((SHRINE, 21, y - 6), False))
             if name == SHRINE and x == 21:
-                neighbors.append((ROUTE, 0, y + 6))
-            for target in neighbors:
+                neighbors.append(((ROUTE, 0, y + 6), False))
+            for target, jumping in neighbors:
                 if not walkable(target) or target in seen:
                     continue
                 a, b = tile(node) >> 12, tile(target) >> 12
-                if a == b or 0 in (a, b):
+                if jumping or a == b or 0 in (a, b):
                     seen.add(target)
                     queue.append(target)
         return seen
@@ -124,6 +151,7 @@ def validate():
                 f'{name}: connected camera buffers must restore the same quest gates')
     print('PASS: Hana gate, overgrown approach, all shrine interactions, sealed and open two-way shortcut')
     print('PASS: inward gates preserve native connection buffers; appended map and native forest assets registered')
+    print(f'PASS: {len(ledges)} ledge cells block reverse passage; walking paths include directed jumps')
 
 
 if __name__ == '__main__':

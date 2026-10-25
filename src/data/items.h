@@ -9838,10 +9838,7 @@ const struct ItemInfo gItemsInfo[] =
     #endif
         .holdEffect = HOLD_EFFECT_QUICK_CLAW,
         .holdEffectParam = 20,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "occasionally allows\n"
-            "the first strike."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\noccasionally allows\nthe first strike.", "Držený předmět.\nObčas dovolí\nzaútočit dřív.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,

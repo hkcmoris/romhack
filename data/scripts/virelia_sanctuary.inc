@@ -41,11 +41,11 @@ VireliaSanctuary_AlreadySolved:
 VireliaSanctuary_Return:
 	return
 
-VireliaSanctuary_EventScript_TryTakeBell::
+VireliaSanctuary_EventScript_TryTakeReward::
 	setvar VAR_RESULT, FALSE
 	goto_if_unset FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN, VireliaSanctuary_Return
-	goto_if_set FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED, VireliaSanctuary_Return
-	additem ITEM_SOOTHE_BELL, 1
+	goto_if_set FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED, VireliaSanctuary_Return
+	additem ITEM_QUICK_CLAW, 1
 	goto_if_eq VAR_RESULT, FALSE, VireliaSanctuary_Return
-	setflag FLAG_VIRELIA_SANCTUARY_BELL_RECEIVED
+	setflag FLAG_VIRELIA_SANCTUARY_REWARD_RECEIVED
 	return
