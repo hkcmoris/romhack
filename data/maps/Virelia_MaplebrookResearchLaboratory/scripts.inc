@@ -8,7 +8,10 @@ Virelia_MaplebrookResearchLaboratory_MapScripts::
 
 Virelia_MaplebrookResearchLaboratory_OnLoad:
 	callnative VireliaPrologue_SyncStarterBallFlags
+	callnative VireliaPrologue_SyncRivalPokemon
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+	checkflag FLAG_VIRELIA_HIDE_RIVAL_POKEMON
+	goto_if FALSE, Virelia_MaplebrookResearchLaboratory_EventScript_LoadRivalPokemon
 	checkflag FLAG_VIRELIA_PROFESSOR_MET
 	goto_if FALSE, Virelia_MaplebrookResearchLaboratory_EventScript_LoadDone
 	checkflag FLAG_VIRELIA_RIVAL_COMPLETE
@@ -16,6 +19,35 @@ Virelia_MaplebrookResearchLaboratory_OnLoad:
 	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 5, 8
 #endif
 Virelia_MaplebrookResearchLaboratory_EventScript_LoadDone:
+	end
+
+@ Restore the pair together on re-entry; each starter scene ends in these tiles.
+Virelia_MaplebrookResearchLaboratory_EventScript_LoadRivalPokemon:
+	switch VAR_VIRELIA_STARTER
+	case VIRELIA_STARTER_GRASS, Virelia_MaplebrookResearchLaboratory_EventScript_LoadFirePokemon
+	case VIRELIA_STARTER_WATER, Virelia_MaplebrookResearchLaboratory_EventScript_LoadGrassPokemon
+	case VIRELIA_STARTER_FIRE, Virelia_MaplebrookResearchLaboratory_EventScript_LoadWaterPokemon
+	end
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LoadFirePokemon:
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 5, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_LEFT
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 6, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, MOVEMENT_TYPE_FACE_LEFT
+	end
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LoadGrassPokemon:
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 5, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 4, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, MOVEMENT_TYPE_FACE_RIGHT
+	end
+
+Virelia_MaplebrookResearchLaboratory_EventScript_LoadWaterPokemon:
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 7, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 6, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, MOVEMENT_TYPE_FACE_RIGHT
 	end
 
 Virelia_MaplebrookResearchLaboratory_OnTransition::
@@ -272,10 +304,15 @@ Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesFire:
 	playse SE_BALL_OPEN
 	removeobject LOCALID_VIRELIA_LAB_FIRE_STARTER
 	delay 16
-	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_FromFireToPlayer
-	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 8, 7
+	call Virelia_MaplebrookResearchLaboratory_EventScript_ReleaseRivalPokemon
+	call Virelia_MaplebrookResearchLaboratory_EventScript_FollowRivalLeftFromCounter
+	call Virelia_MaplebrookResearchLaboratory_EventScript_FollowRivalLeft
+	call Virelia_MaplebrookResearchLaboratory_EventScript_FollowRivalLeft
 	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 5, 8
 	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_LEFT
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 6, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, MOVEMENT_TYPE_FACE_LEFT
 	turnobject LOCALID_PLAYER, DIR_EAST
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_RivalBattle
 
@@ -286,10 +323,13 @@ Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesGrass:
 	playse SE_BALL_OPEN
 	removeobject LOCALID_VIRELIA_LAB_GRASS_STARTER
 	delay 16
-	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_FromCounterToPlayer
-	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 4, 7
+	call Virelia_MaplebrookResearchLaboratory_EventScript_ReleaseRivalPokemon
+	call Virelia_MaplebrookResearchLaboratory_EventScript_FollowRivalRightFromCounter
 	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 5, 8
 	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 4, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, MOVEMENT_TYPE_FACE_RIGHT
 	turnobject LOCALID_PLAYER, DIR_WEST
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_RivalBattle
 
@@ -300,12 +340,46 @@ Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesWater:
 	playse SE_BALL_OPEN
 	removeobject LOCALID_VIRELIA_LAB_WATER_STARTER
 	delay 16
-	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_FromCounterToPlayer
-	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 6, 7
+	call Virelia_MaplebrookResearchLaboratory_EventScript_ReleaseRivalPokemon
+	call Virelia_MaplebrookResearchLaboratory_EventScript_FollowRivalRightFromCounter
 	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 7, 8
 	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 6, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, MOVEMENT_TYPE_FACE_RIGHT
 	turnobject LOCALID_PLAYER, DIR_WEST
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_RivalBattle
+
+@ Spawn on the counter tile Viktor has just vacated, then follow his footsteps.
+Virelia_MaplebrookResearchLaboratory_EventScript_ReleaseRivalPokemon:
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_Down1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	callnative VireliaPrologue_SyncRivalPokemon
+	addobject LOCALID_VIRELIA_LAB_VIKTOR_POKEMON
+	playse SE_BALL_OPEN
+	return
+
+Virelia_MaplebrookResearchLaboratory_EventScript_FollowRivalLeftFromCounter:
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_Left1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, Virelia_MaplebrookResearchLaboratory_Movement_Down1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON
+	return
+
+Virelia_MaplebrookResearchLaboratory_EventScript_FollowRivalLeft:
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_Left1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, Virelia_MaplebrookResearchLaboratory_Movement_Left1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON
+	return
+
+Virelia_MaplebrookResearchLaboratory_EventScript_FollowRivalRightFromCounter:
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_GreetPlayer
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, Virelia_MaplebrookResearchLaboratory_Movement_Down1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON
+	turnobject LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, DIR_EAST
+	return
 
 Virelia_MaplebrookResearchLaboratory_EventScript_EndScene:
 	releaseall
@@ -395,20 +469,6 @@ Virelia_MaplebrookResearchLaboratory_Movement_ToWater:
 	face_up
 	step_end
 
-Virelia_MaplebrookResearchLaboratory_Movement_FromFireToPlayer:
-	walk_down
-	walk_left
-	walk_left
-	walk_left
-	face_left
-	step_end
-
-Virelia_MaplebrookResearchLaboratory_Movement_FromCounterToPlayer:
-	walk_down
-	walk_right
-	face_right
-	step_end
-
 Virelia_MaplebrookResearchLaboratory_EventScript_RivalBattle:
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
 	lockall
@@ -435,6 +495,15 @@ Virelia_MaplebrookResearchLaboratory_EventScript_Viktor::
 
 Virelia_MaplebrookResearchLaboratory_EventScript_RivalWaiting:
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_RivalWaiting, MSGBOX_DEFAULT
+	release
+	end
+
+Virelia_MaplebrookResearchLaboratory_EventScript_ViktorPokemon::
+	lock
+	faceplayer
+	callnative VireliaPrologue_BufferRivalPokemon
+	playmoncry VAR_0x8004, CRY_MODE_NORMAL
+	waitmoncry
 	release
 	end
 

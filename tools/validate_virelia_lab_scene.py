@@ -20,6 +20,7 @@ MAP = "Virelia_MaplebrookResearchLaboratory"
 PREFIX = MAP + "_EventScript_"
 PLAYER = "LOCALID_PLAYER"
 VIKTOR = "LOCALID_VIRELIA_LAB_VIKTOR"
+COMPANION = "LOCALID_VIRELIA_LAB_VIKTOR_POKEMON"
 PROFESSOR = "LOCALID_VIRELIA_LAB_PROFESSOR"
 CHOICES = ("GRASS", "WATER", "FIRE")
 COUNTER = {"GRASS": "FIRE", "WATER": "GRASS", "FIRE": "WATER"}
@@ -31,6 +32,7 @@ ACTION_DIRECTIONS = {"down": "DIR_SOUTH", "up": "DIR_NORTH",
                      "left": "DIR_WEST", "right": "DIR_EAST"}
 STARTER_FLAG = "FLAG_VIRELIA_STARTER_RECEIVED"
 RIVAL_FLAG = "FLAG_VIRELIA_RIVAL_COMPLETE"
+COMPANION_FLAG = "FLAG_VIRELIA_HIDE_RIVAL_POKEMON"
 
 
 class SceneError(ValueError):
@@ -145,6 +147,11 @@ class World:
             self.aliases[local_id] = local_id
         self.aliases[PLAYER] = PLAYER
         require(VIKTOR in self.objects, "lab has no Viktor object")
+        require(COMPANION in self.objects, "lab has no rival Pokemon object")
+        require(self.objects[COMPANION]["flag"] == COMPANION_FLAG,
+                "rival Pokemon needs its own persistent visibility flag")
+        require(self.objects[COMPANION]["graphics_id"] == "OBJ_EVENT_GFX_VAR_0",
+                "rival Pokemon must use the selected starter's dynamic graphics")
         self.balls = {choice: next(key for key, obj in self.objects.items()
                                   if obj["script"] == PREFIX + choice.title() + "Starter") for choice in CHOICES}
         flags = [self.objects[ball]["flag"] for ball in self.balls.values()]
@@ -168,7 +175,7 @@ class World:
         return [(x + dx, y + dy) for dx, dy in DIRECTIONS.values()]
 
     def reachable(self):
-        occupied = {(obj["x"], obj["y"]) for obj in self.objects.values()}
+        occupied = {(obj["x"], obj["y"]) for key, obj in self.objects.items() if key != COMPANION}
         starts = [(entry["x"], entry["y"]) for entry in self.map["warp_events"]]
         queue = deque(position for position in starts if self.floor(position) and position not in occupied)
         seen = set(queue)
@@ -201,11 +208,13 @@ class Scene:
             self.positions[VIKTOR] = (5, 8)
         self.templates = dict(self.positions)
         self.visible = set(self.positions)
+        self.visible.discard(COMPANION)
         self.facings = {key: ACTION_DIRECTIONS[obj["movement_type"].rsplit("_", 1)[1].lower()]
                         for key, obj in world.objects.items()}
         self.facings[PLAYER] = facing_between(start, self.positions[selected]) if selected else "DIR_SOUTH"
         self.selected = selected
         self.flags = {"FLAG_VIRELIA_PROFESSOR_MET"} if introduced else set()
+        self.flags.add(COMPANION_FLAG)
         if met_mom:
             self.flags.add("FLAG_VIRELIA_MOM_MET")
         self.variables = {"VAR_VIRELIA_STARTER": world.constants["VIRELIA_STARTER_" + choice],
@@ -215,6 +224,8 @@ class Scene:
             self.flags.add(STARTER_FLAG)
         if completed:
             self.flags.add(RIVAL_FLAG)
+            self.flags.add(world.objects[world.balls[choice]]["flag"])
+            self.flags.add(world.objects[world.balls[COUNTER[choice]]]["flag"])
             self.visible.discard(world.balls[choice])
             self.visible.discard(world.balls[COUNTER[choice]])
         self.pending = {}
@@ -235,6 +246,11 @@ class Scene:
         self.nickname_prompts = 0
         self.naming_screens = 0
         self.faded = False
+        self.rival_previous = None
+        self.rival_trail = deque()
+        self.companion_species = None
+        self.companion_steps = 0
+        self.companion_spawns = 0
 
     def value(self, token):
         if token.startswith("VAR_"):
@@ -276,6 +292,14 @@ class Scene:
                 require(old == new or old == 0 or new == 0, f"{actor} crosses incompatible elevation at {destination}")
                 blockers = [other for other in self.visible if other != actor and self.positions[other] == destination]
                 require(not blockers, f"{actor} walks through {','.join(blockers)} at {destination}")
+                if actor == VIKTOR:
+                    self.rival_previous = source
+                    if COMPANION in self.visible:
+                        self.rival_trail.append(source)
+                elif actor == COMPANION:
+                    require(self.rival_trail and destination == self.rival_trail.popleft(),
+                            "rival Pokemon does not follow Viktor's vacated tile")
+                    self.companion_steps += 1
                 self.positions[actor] = destination
                 self.steps += 1
 
@@ -302,6 +326,16 @@ class Scene:
         # movement remain the real sources. The C suite checks these contracts.
         if name == "VireliaPrologue_SyncStarterBallFlags":
             pass  # Ball visibility/save semantics are checked by the C suite.
+        elif name == "VireliaPrologue_SyncRivalPokemon":
+            # Native C tests cover the selected graphics, visibility guards,
+            # and persisted pickup flag used by this script contract.
+            self.flags.add(COMPANION_FLAG)
+            if STARTER_FLAG in self.flags and "FLAG_VIRELIA_HIDE_STORY_ACTORS" not in self.flags:
+                self.companion_species = STARTER_SPECIES[COUNTER[self.choice]]
+                if self.world.objects[self.world.balls[COUNTER[self.choice]]]["flag"] in self.flags:
+                    self.flags.discard(COMPANION_FLAG)
+        elif name == "UpdateFollowingPokemon":
+            pass  # Party eligibility is covered by the C follower suite.
         elif name == "VireliaPrologue_GiveStarter":
             require(self.confirmation_seen and self.accepted is True, "starter gift was not confirmed")
             require(self.preview_species is None, "starter preview remains open when giving the Pokemon")
@@ -340,6 +374,12 @@ class Scene:
                     require(self.confirmation_seen == self.expect_preview, "starter examination skipped its confirmation")
                     require(len(self.battles) == int(expect_battle), f"expected {int(expect_battle)} battle, got {len(self.battles)}")
                     if expect_battle:
+                        require(self.companion_spawns == 1 and self.companion_steps > 0,
+                                "rival Pokemon must appear once and walk behind Viktor")
+                        require(COMPANION in self.visible and COMPANION_FLAG not in self.flags,
+                                "rival Pokemon disappears after the battle")
+                        require(self.templates[COMPANION] == self.positions[COMPANION],
+                                "rival Pokemon's final position was not saved")
                         require(RIVAL_FLAG in self.flags, "script ends without recording rival completion")
                         require(self.nickname_prompts == 1, "professor must offer naming once after the rival battle")
                         require(self.naming_screens == int(self.nickname is True), "naming choice did not open/skip the naming screen correctly")
@@ -475,19 +515,37 @@ class Scene:
                     self.move(actor)
                 elif command == "removeobject":
                     self.remove(self.actor(args[0]))
+                elif command == "addobject":
+                    self.settled()
+                    actor = self.actor(args[0])
+                    require(actor == COMPANION and actor not in self.visible, "unexpected object spawn")
+                    require(COMPANION_FLAG not in self.flags and len(self.removals) == 2,
+                            "rival Pokemon appears before Viktor picks up his Ball")
+                    position = self.templates[actor]
+                    require(position == self.rival_previous, "rival Pokemon must appear on Viktor's vacated tile")
+                    require(self.world.floor(position) and all(self.positions[other] != position for other in self.visible),
+                            "rival Pokemon spawns on blocked or occupied ground")
+                    require(self.companion_species == STARTER_SPECIES[COUNTER[self.choice]],
+                            "rival Pokemon has the wrong starter species")
+                    self.positions[actor] = position
+                    self.visible.add(actor)
+                    self.companion_spawns += 1
                 elif command == "setobjectxyperm":
                     self.settled()
                     actor = self.actor(args[0])
                     self.templates[actor] = self.value(args[1]), self.value(args[2])
                     if phase == "load":
                         self.positions[actor] = self.templates[actor]  # Before sprites are spawned.
-                    else:
+                    elif actor in self.visible:
                         require(self.templates[actor] == self.positions[actor], f"{actor} permanent position disagrees with completed walking")
                 elif command == "setobjectmovementtype":
                     self.settled()
                     actor = self.actor(args[0])
                     direction = ACTION_DIRECTIONS.get(args[1].removeprefix("MOVEMENT_TYPE_FACE_").lower())
-                    require(direction == self.facings[actor], f"{actor} saved movement type disagrees with final facing")
+                    if phase == "load" or actor not in self.visible:
+                        self.facings[actor] = direction
+                    else:
+                        require(direction == self.facings[actor], f"{actor} saved movement type disagrees with final facing")
                 elif command == "trainerbattle_earlyrival":
                     self.settled()
                     require(self.locked and self.dialogue_ready, "battle starts without locked invitation dialogue")
@@ -500,6 +558,10 @@ class Scene:
                     expected = {self.world.balls[self.choice], self.world.balls[COUNTER[self.choice]]}
                     require(set(self.removals) == expected and not expected & self.visible, "chosen and counter balls must both disappear")
                     require((set(self.world.balls.values()) - expected) <= self.visible, "the third ball disappeared")
+                    require(COMPANION in self.visible and not self.rival_trail,
+                            "rival battle starts without Viktor's companion caught up")
+                    require(facing_between(self.positions[COMPANION], self.positions[VIKTOR]) is not None,
+                            "rival Pokemon must stand next to Viktor before battle")
                     self.adjacent()
                     self.battles.append(args[0])
                 elif command not in noop:
@@ -513,7 +575,7 @@ def validate(root=ROOT, script_source=None):
     """Return a JSON-safe report; optionally validate an in-memory script variant."""
     report = {"passed": False, "welcome_cases": 0, "fresh_routes": 0,
               "guard_cases": 0, "preview_cases": 0, "naming_screens": 0,
-              "walked_tiles": 0, "errors": []}
+              "companion_reload_cases": 0, "walked_tiles": 0, "errors": []}
     try:
         world, program = World(Path(root)), Program(Path(root), script_source)
         reachable = world.reachable()
@@ -545,6 +607,7 @@ def validate(root=ROOT, script_source=None):
                     require(scene.variables["VAR_TEMP_0"] == 0, "welcome replays after completion")
                 elif introduced:
                     require(scene.positions[VIKTOR] == (5, 8), "Viktor returns to the wrong pre-choice position on re-entry")
+                require(COMPANION_FLAG in scene.flags, "rival Pokemon appears before a starter is selected")
                 report["welcome_cases"] += 1
                 report["walked_tiles"] += scene.steps
 
@@ -560,6 +623,22 @@ def validate(root=ROOT, script_source=None):
                 report["errors"].append(f"{name}: {error}")
 
         for choice in CHOICES:
+            for completed in (False, True):
+                scene = Scene(world, program, choice, (6, 12), None, received=True, completed=completed)
+                scene.flags.add(world.objects[world.balls[COUNTER[choice]]]["flag"])
+                # Battle return occurs before FinishRival; re-entry happens
+                # after it. Both must restore the selected companion.
+                scene.run(MAP + "_OnLoad", phase="load")
+                require(COMPANION_FLAG not in scene.flags, "rival Pokemon disappears on battle return or re-entry")
+                require(scene.companion_species == STARTER_SPECIES[COUNTER[choice]], "reloaded rival Pokemon has the wrong species")
+                expected_rival = (7, 8) if choice == "FIRE" else (5, 8)
+                expected_companion = (4, 8) if choice == "WATER" else (6, 8)
+                expected_facing = "DIR_WEST" if choice == "GRASS" else "DIR_EAST"
+                require(scene.positions[VIKTOR] == expected_rival and scene.positions[COMPANION] == expected_companion,
+                        "reloaded rival and Pokemon do not match their final scene positions")
+                require(scene.facings[VIKTOR] == scene.facings[COMPANION] == expected_facing,
+                        "reloaded rival Pokemon does not face along Viktor's trail")
+                report["companion_reload_cases"] += 1
             ball_id = world.balls[choice]
             ball = world.objects[ball_id]
             positions = [position for position in world.neighbors((ball["x"], ball["y"])) if position in reachable]
@@ -613,6 +692,13 @@ def mutation_checks(root=ROOT):
         "wrong_starter_named": ("\tsetvar VAR_0x8004, 0\n\tcall Common_EventScript_NameReceivedPartyMon",
                                 "\tsetvar VAR_0x8004, 1\n\tcall Common_EventScript_NameReceivedPartyMon"),
         "missing_naming_screen": ("\tcall Common_EventScript_NameReceivedPartyMon", "\tdelay 1"),
+        "missing_companion_spawn": ("\taddobject " + COMPANION, "\tdelay 1"),
+        "companion_in_wall": ("\tsetobjectxyperm " + COMPANION + ", 8, 7",
+                              "\tsetobjectxyperm " + COMPANION + ", 8, 6"),
+        "missing_companion_step": ("\tcall " + PREFIX + "FollowRivalLeft\n", "\tdelay 1\n"),
+        "missing_companion_wait": ("\twaitmovement " + COMPANION, "\tdelay 1"),
+        "wrong_companion_reload": ("\tsetobjectxyperm " + COMPANION + ", 6, 8",
+                                   "\tsetobjectxyperm " + COMPANION + ", 6, 9"),
     }
     results = {}
     for name, (before, after) in mutations.items():
@@ -638,7 +724,8 @@ def main():
         print(json.dumps(result, indent=2))
     else:
         print(f"{'PASS' if result['passed'] else 'FAIL'}: lab scene, {result['fresh_routes']} fresh routes, "
-              f"{result['welcome_cases']} welcome cases, {result['guard_cases']} guard cases")
+              f"{result['welcome_cases']} welcome cases, {result['guard_cases']} guard cases, "
+              f"{result['companion_reload_cases']} companion reload cases")
         for error in result["errors"]:
             print(error)
         if "mutation_checks" in result:

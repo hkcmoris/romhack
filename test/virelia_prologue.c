@@ -690,6 +690,8 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
         gBattleOutcome = B_OUTCOME_WON;
         VireliaPrologue_FinishRocket();
         VireliaPrologue_Complete();
+        // The arrival scene reveals both the officer and his Growlithe.
+        FlagClear(FLAG_VIRELIA_HIDE_POLICEMAN);
         FlagSet(FLAG_VIRELIA_SIDEQUEST_STARTED);
         FlagSet(FLAG_VIRELIA_SIDEQUEST_RESOLVED);
         FlagSet(FLAG_VIRELIA_SIDEQUEST_REWARDED);
@@ -698,9 +700,11 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
         SetTrainerFlag(TRAINER_VIRELIA_OTA);
     }
     VireliaPrologue_SyncStarterBallFlags();
+    VireliaPrologue_SyncRivalPokemon();
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE
     EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER), checkpoint >= 1);
     EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER), checkpoint >= 2);
+    EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_RIVAL_POKEMON), checkpoint < 2);
 #else
     EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_WATER_STARTER));
     EXPECT(!FlagGet(FLAG_VIRELIA_HIDE_GRASS_STARTER));
@@ -736,6 +740,8 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
     u32 originalStarter = VarGet(VAR_VIRELIA_STARTER);
     u32 originalRivalResult = VarGet(VAR_VIRELIA_RIVAL_RESULT);
     u32 originalState = VarGet(VAR_VIRELIA_PROLOGUE_STATE);
+    bool32 originalRivalPokemonHidden = FlagGet(FLAG_VIRELIA_HIDE_RIVAL_POKEMON);
+    u32 originalRivalGraphics = VarGet(VAR_OBJ_GFX_ID_0);
     bool8 originalFlags[FLAG_VIRELIA_HIDE_FIRE_STARTER - FLAG_VIRELIA_MOM_MET + 1];
     for (u32 i = 0; i < ARRAY_COUNT(originalFlags); i++)
         originalFlags[i] = FlagGet(FLAG_VIRELIA_MOM_MET + i);
@@ -795,6 +801,13 @@ TEST("Virelia prologue identity starter progress and rewards survive native flas
     EXPECT_EQ(VarGet(VAR_VIRELIA_STARTER), originalStarter);
     EXPECT_EQ(VarGet(VAR_VIRELIA_RIVAL_RESULT), originalRivalResult);
     EXPECT_EQ(VarGet(VAR_VIRELIA_PROLOGUE_STATE), originalState);
+    EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_RIVAL_POKEMON), originalRivalPokemonHidden);
+    EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_POLICEMAN), checkpoint < 3);
+    EXPECT_EQ(VarGet(VAR_OBJ_GFX_ID_0), originalRivalGraphics);
+    enum Species followerSpecies;
+    bool32 followerShiny, followerFemale;
+    EXPECT_EQ(GetFollowerInfo(&followerSpecies, &followerShiny, &followerFemale), checkpoint >= 1);
+    EXPECT_EQ(followerSpecies, checkpoint >= 1 ? SPECIES_NATU_VIRELIA : SPECIES_NONE);
     for (u32 i = 0; i < ARRAY_COUNT(originalFlags); i++)
         EXPECT_EQ(FlagGet(FLAG_VIRELIA_MOM_MET + i), originalFlags[i]);
     EXPECT_EQ(FlagGet(FLAG_ITEM_VIRELIA_ROUTE01_POTION), checkpoint >= 3);

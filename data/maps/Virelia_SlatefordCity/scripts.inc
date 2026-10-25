@@ -127,13 +127,22 @@ Virelia_SlatefordCity_EventScript_RocketGone:
 Virelia_SlatefordCity_EventScript_ResolveRocket::
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
 	lockall
+	hidefollower
 	@ Position the hidden template before spawning: no visible teleport/reset.
 	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_POLICEMAN, 14, 29
+	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_GROWLITHE, 14, 29
 	clearflag FLAG_VIRELIA_HIDE_POLICEMAN
 	addobject LOCALID_VIRELIA_SLATEFORD_POLICEMAN
-	applymovement LOCALID_VIRELIA_SLATEFORD_POLICEMAN, Virelia_SlatefordCity_Movement_Policeman
+	@ Leave one tile between the officer and his companion as they enter.
+	applymovement LOCALID_VIRELIA_SLATEFORD_POLICEMAN, Virelia_SlatefordCity_Movement_PolicemanLeadIn
 	waitmovement LOCALID_VIRELIA_SLATEFORD_POLICEMAN
+	addobject LOCALID_VIRELIA_SLATEFORD_GROWLITHE
+	applymovement LOCALID_VIRELIA_SLATEFORD_POLICEMAN, Virelia_SlatefordCity_Movement_Policeman
+	applymovement LOCALID_VIRELIA_SLATEFORD_GROWLITHE, Virelia_SlatefordCity_Movement_Growlithe
+	waitmovement LOCALID_VIRELIA_SLATEFORD_POLICEMAN
+	waitmovement LOCALID_VIRELIA_SLATEFORD_GROWLITHE
 	copyobjectxytoperm LOCALID_VIRELIA_SLATEFORD_POLICEMAN
+	copyobjectxytoperm LOCALID_VIRELIA_SLATEFORD_GROWLITHE
 	turnobject LOCALID_PLAYER, DIR_WEST
 	msgbox Virelia_SlatefordCity_Text_Policeman, MSGBOX_DEFAULT
 	callnative VireliaPrologue_Complete
@@ -147,6 +156,14 @@ Virelia_SlatefordCity_EventScript_ResolveRocket::
 
 Virelia_SlatefordCity_EventScript_Policeman::
 	msgbox Virelia_SlatefordCity_Text_PoliceAfter, MSGBOX_NPC
+	end
+
+Virelia_SlatefordCity_EventScript_Growlithe::
+	lock
+	faceplayer
+	playmoncry SPECIES_GROWLITHE, CRY_MODE_NORMAL
+	waitmoncry
+	release
 	end
 
 Virelia_SlatefordCity_Movement_RocketAroundPlayer:
@@ -179,8 +196,11 @@ Virelia_SlatefordCity_Movement_RocketExit:
 	step_end
 
 @ Enter from beyond the bottom of the camera, then walk across the square.
-Virelia_SlatefordCity_Movement_Policeman:
+Virelia_SlatefordCity_Movement_PolicemanLeadIn:
 	walk_up
+	step_end
+
+Virelia_SlatefordCity_Movement_Policeman:
 	walk_up
 	walk_up
 	walk_up
@@ -195,6 +215,23 @@ Virelia_SlatefordCity_Movement_Policeman:
 	walk_right
 	face_player
 	delay_16
+	step_end
+
+@ Follow the same route one tile behind, including the turn onto the square.
+Virelia_SlatefordCity_Movement_Growlithe:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	face_right
 	step_end
 
 Virelia_SlatefordCity_EventScript_Stone::

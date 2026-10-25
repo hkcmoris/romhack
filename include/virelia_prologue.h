@@ -3,6 +3,8 @@
 
 void InitVireliaPrologueNewGame(void);
 void VireliaPrologue_SyncStarterBallFlags(void);
+void VireliaPrologue_SyncRivalPokemon(void);
+void VireliaPrologue_BufferRivalPokemon(void);
 u32 GetVireliaStarterSpecies(u32 choice);
 u32 GetVireliaRivalSpecies(u32 choice);
 void VireliaPrologue_MeetMom(void);
