@@ -28,6 +28,15 @@ static const u8 sRivalChoices[VIRELIA_STARTER_COUNT] =
     [VIRELIA_STARTER_FIRE] = VIRELIA_STARTER_WATER,
 };
 
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+static const u16 sStarterBallFlags[VIRELIA_STARTER_COUNT] =
+{
+    [VIRELIA_STARTER_GRASS] = FLAG_VIRELIA_HIDE_GRASS_STARTER,
+    [VIRELIA_STARTER_WATER] = FLAG_VIRELIA_HIDE_WATER_STARTER,
+    [VIRELIA_STARTER_FIRE] = FLAG_VIRELIA_HIDE_FIRE_STARTER,
+};
+#endif
+
 u32 GetVireliaStarterSpecies(u32 choice)
 {
 #if P_VIRELIA_STARTERS
@@ -97,6 +106,7 @@ void InitVireliaPrologueNewGame(void)
     FlagClear(FLAG_VIRELIA_MAPLEBROOK_GROVE_FIND);
     FlagSet(FLAG_VIRELIA_HIDE_DEV_GUIDE);
     FlagSet(FLAG_VIRELIA_HIDE_POLICEMAN);
+    FlagSet(FLAG_VIRELIA_HIDE_RIVAL_POKEMON);
     FlagClear(FLAG_SYS_POKEMON_GET);
     FlagClear(FLAG_SYS_POKEDEX_GET);
     FlagClear(FLAG_ADVENTURE_STARTED);
@@ -137,20 +147,14 @@ static void SyncLabStarterCase(void)
 void VireliaPrologue_SyncStarterBallFlags(void)
 {
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
-    static const u16 sBallFlags[VIRELIA_STARTER_COUNT] =
-    {
-        [VIRELIA_STARTER_GRASS] = FLAG_VIRELIA_HIDE_GRASS_STARTER,
-        [VIRELIA_STARTER_WATER] = FLAG_VIRELIA_HIDE_WATER_STARTER,
-        [VIRELIA_STARTER_FIRE] = FLAG_VIRELIA_HIDE_FIRE_STARTER,
-    };
     u32 choice = VarGet(VAR_VIRELIA_STARTER);
-    if (FlagGet(FLAG_VIRELIA_STARTER_RECEIVED) && choice < ARRAY_COUNT(sBallFlags))
+    if (FlagGet(FLAG_VIRELIA_STARTER_RECEIVED) && choice < ARRAY_COUNT(sStarterBallFlags))
     {
         // Empty slots persist while the field reloads between the rescue and duel.
         // The rival's pickup happens before either battle is complete.
-        FlagSet(sBallFlags[choice]);
+        FlagSet(sStarterBallFlags[choice]);
         if (FlagGet(FLAG_VIRELIA_RIVAL_COMPLETE))
-            FlagSet(sBallFlags[sRivalChoices[choice]]);
+            FlagSet(sStarterBallFlags[sRivalChoices[choice]]);
     }
 #else
     // The development exhibition always offers all three starter previews.
@@ -162,6 +166,31 @@ void VireliaPrologue_SyncStarterBallFlags(void)
 #if !IS_FRLG
     SyncLabStarterCase();
 #endif
+}
+
+void VireliaPrologue_SyncRivalPokemon(void)
+{
+    FlagSet(FLAG_VIRELIA_HIDE_RIVAL_POKEMON);
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+    u32 choice = VarGet(VAR_VIRELIA_STARTER);
+    u32 species = GetVireliaRivalSpecies(choice);
+
+    if (species == SPECIES_NONE
+     || !FlagGet(FLAG_VIRELIA_STARTER_RECEIVED)
+     || FlagGet(FLAG_VIRELIA_HIDE_STORY_ACTORS))
+        return;
+
+    // VAR_0 belongs to the gender-dependent human rival sprite.
+    VarSet(VAR_OBJ_GFX_ID_1, GetGraphicsIdForMon(species, FALSE, FALSE));
+    // The case slot records the rival's pickup before the rescue and duel.
+    if (FlagGet(sStarterBallFlags[sRivalChoices[choice]]))
+        FlagClear(FLAG_VIRELIA_HIDE_RIVAL_POKEMON);
+#endif
+}
+
+void VireliaPrologue_BufferRivalPokemon(void)
+{
+    gSpecialVar_0x8004 = GetVireliaRivalSpecies(VarGet(VAR_VIRELIA_STARTER));
 }
 
 void VireliaPrologue_MeetMom(void)

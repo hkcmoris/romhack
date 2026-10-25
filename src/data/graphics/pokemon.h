@@ -27506,18 +27506,39 @@ const u32 gObjectEventPic_Substitute[] = INCGFX_COMP("graphics/pokemon/question_
     const u16 gMonPalette_PoochyenaVirelia[] = INCGFX_U16("graphics/pokemon/poochyena/virelia/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_PoochyenaVirelia[] = INCGFX_U16("graphics/pokemon/poochyena/virelia/shiny.pal", ".gbapal");
     const u8 gMonIcon_PoochyenaVirelia[] = INCGFX_U8("graphics/pokemon/poochyena/virelia/icon.png", ".4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_PoochyenaVirelia[] = INCGFX_COMP("graphics/pokemon/poochyena/virelia/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_PoochyenaVirelia[] = INCGFX_U16("graphics/pokemon/poochyena/virelia/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_PoochyenaVirelia[] = INCGFX_U16("graphics/pokemon/poochyena/virelia/overworld_shiny.pal", ".gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 
     const u32 gMonFrontPic_MightyenaVirelia[] = INCGFX_U32("graphics/pokemon/mightyena/virelia/anim_front.png", ".4bpp.smol");
     const u32 gMonBackPic_MightyenaVirelia[] = INCGFX_U32("graphics/pokemon/mightyena/virelia/back.png", ".4bpp.smol");
     const u16 gMonPalette_MightyenaVirelia[] = INCGFX_U16("graphics/pokemon/mightyena/virelia/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_MightyenaVirelia[] = INCGFX_U16("graphics/pokemon/mightyena/virelia/shiny.pal", ".gbapal");
     const u8 gMonIcon_MightyenaVirelia[] = INCGFX_U8("graphics/pokemon/mightyena/virelia/icon.png", ".4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_MightyenaVirelia[] = INCGFX_COMP("graphics/pokemon/mightyena/virelia/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_MightyenaVirelia[] = INCGFX_U16("graphics/pokemon/mightyena/virelia/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_MightyenaVirelia[] = INCGFX_U16("graphics/pokemon/mightyena/virelia/overworld_shiny.pal", ".gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 
     const u32 gMonFrontPic_Wraithena[] = INCGFX_U32("graphics/pokemon/wraithena/anim_front.png", ".4bpp.smol");
     const u32 gMonBackPic_Wraithena[] = INCGFX_U32("graphics/pokemon/wraithena/back.png", ".4bpp.smol");
     const u16 gMonPalette_Wraithena[] = INCGFX_U16("graphics/pokemon/wraithena/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_Wraithena[] = INCGFX_U16("graphics/pokemon/wraithena/shiny.pal", ".gbapal");
     const u8 gMonIcon_Wraithena[] = INCGFX_U8("graphics/pokemon/wraithena/icon.png", ".4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Wraithena[] = INCGFX_COMP("graphics/pokemon/wraithena/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_Wraithena[] = INCGFX_U16("graphics/pokemon/wraithena/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_Wraithena[] = INCGFX_U16("graphics/pokemon/wraithena/overworld_shiny.pal", ".gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 
     // Dedicated shiny artwork is pending; use the approved normal colors.
     const u32 gMonFrontPic_NatuVirelia[] = INCGFX_U32("graphics/pokemon/natu/virelia/anim_front.png", ".4bpp.smol");
@@ -27525,36 +27546,78 @@ const u32 gObjectEventPic_Substitute[] = INCGFX_COMP("graphics/pokemon/question_
     const u16 gMonPalette_NatuVirelia[] = INCGFX_U16("graphics/pokemon/natu/virelia/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_NatuVirelia[] = INCGFX_U16("graphics/pokemon/natu/virelia/normal.pal", ".gbapal");
     const u8 gMonIcon_NatuVirelia[] = INCGFX_U8("graphics/pokemon/natu/virelia/icon_game.png", ".4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_NatuVirelia[] = INCGFX_COMP("graphics/pokemon/natu/virelia/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_NatuVirelia[] = INCGFX_U16("graphics/pokemon/natu/virelia/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_NatuVirelia[] = INCGFX_U16("graphics/pokemon/natu/virelia/overworld_shiny.pal", ".gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 
     const u32 gMonFrontPic_XatuVirelia[] = INCGFX_U32("graphics/pokemon/xatu/virelia/anim_front.png", ".4bpp.smol");
     const u32 gMonBackPic_XatuVirelia[] = INCGFX_U32("graphics/pokemon/xatu/virelia/back.png", ".4bpp.smol");
     const u16 gMonPalette_XatuVirelia[] = INCGFX_U16("graphics/pokemon/xatu/virelia/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_XatuVirelia[] = INCGFX_U16("graphics/pokemon/xatu/virelia/normal.pal", ".gbapal");
     const u8 gMonIcon_XatuVirelia[] = INCGFX_U8("graphics/pokemon/xatu/virelia/icon_game.png", ".4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_XatuVirelia[] = INCGFX_COMP("graphics/pokemon/xatu/virelia/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_XatuVirelia[] = INCGFX_U16("graphics/pokemon/xatu/virelia/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_XatuVirelia[] = INCGFX_U16("graphics/pokemon/xatu/virelia/overworld_shiny.pal", ".gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 
     const u32 gMonFrontPic_Nimbatu[] = INCGFX_U32("graphics/pokemon/nimbatu/anim_front.png", ".4bpp.smol");
     const u32 gMonBackPic_Nimbatu[] = INCGFX_U32("graphics/pokemon/nimbatu/back.png", ".4bpp.smol");
     const u16 gMonPalette_Nimbatu[] = INCGFX_U16("graphics/pokemon/nimbatu/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_Nimbatu[] = INCGFX_U16("graphics/pokemon/nimbatu/normal.pal", ".gbapal");
     const u8 gMonIcon_Nimbatu[] = INCGFX_U8("graphics/pokemon/nimbatu/icon_game.png", ".4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Nimbatu[] = INCGFX_COMP("graphics/pokemon/nimbatu/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_Nimbatu[] = INCGFX_U16("graphics/pokemon/nimbatu/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_Nimbatu[] = INCGFX_U16("graphics/pokemon/nimbatu/overworld_shiny.pal", ".gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 
     const u32 gMonFrontPic_EkansVirelia[] = INCGFX_U32("graphics/pokemon/ekans/virelia/anim_front.png", ".4bpp.smol");
     const u32 gMonBackPic_EkansVirelia[] = INCGFX_U32("graphics/pokemon/ekans/virelia/back.png", ".4bpp.smol");
     const u16 gMonPalette_EkansVirelia[] = INCGFX_U16("graphics/pokemon/ekans/virelia/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_EkansVirelia[] = INCGFX_U16("graphics/pokemon/ekans/virelia/shiny.pal", ".gbapal");
     const u8 gMonIcon_EkansVirelia[] = INCGFX_U8("graphics/pokemon/ekans/virelia/icon.png", ".4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_EkansVirelia[] = INCGFX_COMP("graphics/pokemon/ekans/virelia/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_EkansVirelia[] = INCGFX_U16("graphics/pokemon/ekans/virelia/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_EkansVirelia[] = INCGFX_U16("graphics/pokemon/ekans/virelia/overworld_shiny.pal", ".gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 
     const u32 gMonFrontPic_ArbokVirelia[] = INCGFX_U32("graphics/pokemon/arbok/virelia/anim_front.png", ".4bpp.smol");
     const u32 gMonBackPic_ArbokVirelia[] = INCGFX_U32("graphics/pokemon/arbok/virelia/back.png", ".4bpp.smol");
     const u16 gMonPalette_ArbokVirelia[] = INCGFX_U16("graphics/pokemon/arbok/virelia/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_ArbokVirelia[] = INCGFX_U16("graphics/pokemon/arbok/virelia/shiny.pal", ".gbapal");
     const u8 gMonIcon_ArbokVirelia[] = INCGFX_U8("graphics/pokemon/arbok/virelia/icon.png", ".4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_ArbokVirelia[] = INCGFX_COMP("graphics/pokemon/arbok/virelia/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_ArbokVirelia[] = INCGFX_U16("graphics/pokemon/arbok/virelia/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_ArbokVirelia[] = INCGFX_U16("graphics/pokemon/arbok/virelia/overworld_shiny.pal", ".gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 
     const u32 gMonFrontPic_Infernabra[] = INCGFX_U32("graphics/pokemon/infernabra/anim_front.png", ".4bpp.smol");
     const u32 gMonBackPic_Infernabra[] = INCGFX_U32("graphics/pokemon/infernabra/back.png", ".4bpp.smol");
     const u16 gMonPalette_Infernabra[] = INCGFX_U16("graphics/pokemon/infernabra/normal.pal", ".gbapal");
     const u16 gMonShinyPalette_Infernabra[] = INCGFX_U16("graphics/pokemon/infernabra/shiny.pal", ".gbapal");
     const u8 gMonIcon_Infernabra[] = INCGFX_U8("graphics/pokemon/infernabra/icon.png", ".4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Infernabra[] = INCGFX_COMP("graphics/pokemon/infernabra/overworld.png", ".4bpp", "-mwidth 4 -mheight 4");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_Infernabra[] = INCGFX_U16("graphics/pokemon/infernabra/overworld_normal.pal", ".gbapal");
+    const u16 gShinyOverworldPalette_Infernabra[] = INCGFX_U16("graphics/pokemon/infernabra/overworld_shiny.pal", ".gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_VIRELIA_STARTERS
 
     const u32 gMonFrontPic_Egg[] = INCGFX_U32("graphics/pokemon/egg/anim_front.png", ".4bpp.smol");

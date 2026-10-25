@@ -9,6 +9,16 @@ Virelia_MaplebrookResearchLaboratory_MapScripts::
 Virelia_MaplebrookResearchLaboratory_OnLoad:
 	callnative VireliaPrologue_SetRivalAppearance
 	callnative VireliaPrologue_SyncStarterBallFlags
+	callnative VireliaPrologue_SyncRivalPokemon
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+	checkflag FLAG_VIRELIA_HIDE_RIVAL_POKEMON
+	goto_if TRUE, Virelia_MaplebrookResearchLaboratory_EventScript_LoadDone
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 6, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 5, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, MOVEMENT_TYPE_FACE_RIGHT
+#endif
+Virelia_MaplebrookResearchLaboratory_EventScript_LoadDone:
 	end
 
 Virelia_MaplebrookResearchLaboratory_OnTransition::
@@ -116,8 +126,25 @@ Virelia_MaplebrookResearchLaboratory_EventScript_RivalTakesFromCase:
 	delay 16
 	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_RivalFromCase
 	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	@ Release the partner onto the case-front tile the rival just vacated.
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 6, 7
+	callnative VireliaPrologue_SyncRivalPokemon
+	addobject LOCALID_VIRELIA_LAB_VIKTOR_POKEMON
+	playse SE_BALL_OPEN
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_Down1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, Virelia_MaplebrookResearchLaboratory_Movement_Left1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR, Virelia_MaplebrookResearchLaboratory_Movement_Right1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR
+	applymovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, Virelia_MaplebrookResearchLaboratory_Movement_Down1
+	waitmovement LOCALID_VIRELIA_LAB_VIKTOR_POKEMON
+	turnobject LOCALID_VIRELIA_LAB_VIKTOR, DIR_EAST
+	turnobject LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, DIR_EAST
 	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR, 6, 8
 	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, 5, 8
+	setobjectmovementtype LOCALID_VIRELIA_LAB_VIKTOR_POKEMON, MOVEMENT_TYPE_FACE_RIGHT
 	turnobject LOCALID_PLAYER, DIR_WEST
 	goto Virelia_MaplebrookResearchLaboratory_EventScript_RescueBattle
 
@@ -205,8 +232,11 @@ Virelia_MaplebrookResearchLaboratory_Movement_RivalToCase:
 	step_end
 
 Virelia_MaplebrookResearchLaboratory_Movement_RivalFromCase:
+	walk_left
+	step_end
+
+Virelia_MaplebrookResearchLaboratory_Movement_Down1:
 	walk_down
-	face_right
 	step_end
 
 @ Rattata keeps a two-step lead around the compact case and right aisle.
@@ -265,6 +295,15 @@ Virelia_MaplebrookResearchLaboratory_EventScript_Viktor::
 
 Virelia_MaplebrookResearchLaboratory_EventScript_RivalWaiting:
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_RivalWaiting, MSGBOX_DEFAULT
+	release
+	end
+
+Virelia_MaplebrookResearchLaboratory_EventScript_ViktorPokemon::
+	lock
+	faceplayer
+	callnative VireliaPrologue_BufferRivalPokemon
+	playmoncry VAR_0x8004, CRY_MODE_NORMAL
+	waitmoncry
 	release
 	end
 

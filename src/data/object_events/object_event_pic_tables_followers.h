@@ -6729,4 +6729,34 @@ static const struct SpriteFrameImage sPicTable_Pecharunt[] = {
 };
 #endif //P_FAMILY_PECHARUNT
 
+#if P_VIRELIA_STARTERS
+static const struct SpriteFrameImage sPicTable_PoochyenaVirelia[] = {
+    overworld_ascending_frames(gObjectEventPic_PoochyenaVirelia, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_MightyenaVirelia[] = {
+    overworld_ascending_frames(gObjectEventPic_MightyenaVirelia, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_Wraithena[] = {
+    overworld_ascending_frames(gObjectEventPic_Wraithena, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_NatuVirelia[] = {
+    overworld_ascending_frames(gObjectEventPic_NatuVirelia, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_XatuVirelia[] = {
+    overworld_ascending_frames(gObjectEventPic_XatuVirelia, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_Nimbatu[] = {
+    overworld_ascending_frames(gObjectEventPic_Nimbatu, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_EkansVirelia[] = {
+    overworld_ascending_frames(gObjectEventPic_EkansVirelia, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_ArbokVirelia[] = {
+    overworld_ascending_frames(gObjectEventPic_ArbokVirelia, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_Infernabra[] = {
+    overworld_ascending_frames(gObjectEventPic_Infernabra, 4, 4),
+};
+#endif //P_VIRELIA_STARTERS
+
 #endif //OW_POKEMON_OBJECT_EVENTS

@@ -191,9 +191,15 @@ After refreshing the art exports, run `python tools/virelia/prepare_natu_assets.
 to produce `icon_game.png` using shared icon palette 3. The original `icon.png`
 retains the full art palette. Battle art is loaded directly from the prepared PNGs.
 
-Footprints, cries and applicable overworld graphics for all three families
-continue to reference the sources below. Original image files are not recolored
-or overwritten.
+All nine stages also have dedicated overworld walking sheets and normal/shiny
+palettes in their battle-art directories. The six original 32x32 walking frames
+provide the copied and recolored base; regional details add leaf-fur and flowing
+tails, aquatic crests and plumage, or volcanic seams and flame tails. The final
+stages have distinct silhouettes. The water family's shiny overworld palette
+matches its current normal battle colors until dedicated shiny colors are made.
+Ordinary species retain their original graphics and palettes.
+
+Footprints and cries continue to reference the sources below.
 
 | Prototype stages | Reused asset source |
 | --- | --- |

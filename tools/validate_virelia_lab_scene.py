@@ -20,6 +20,8 @@ MAP = "Virelia_MaplebrookResearchLaboratory"
 PREFIX = MAP + "_EventScript_"
 PLAYER = "LOCALID_PLAYER"
 VIKTOR = "LOCALID_VIRELIA_LAB_VIKTOR"
+COMPANION = "LOCALID_VIRELIA_LAB_VIKTOR_POKEMON"
+COMPANION_FLAG = "FLAG_VIRELIA_HIDE_RIVAL_POKEMON"
 PROFESSOR = "LOCALID_VIRELIA_LAB_PROFESSOR"
 CHOICES = ("GRASS", "WATER", "FIRE")
 COUNTER = {"GRASS": "FIRE", "WATER": "GRASS", "FIRE": "WATER"}
@@ -145,6 +147,11 @@ class World:
             self.aliases[local_id] = local_id
         self.aliases[PLAYER] = PLAYER
         require(VIKTOR in self.objects, "lab has no Viktor object")
+        require(COMPANION in self.objects, "lab has no rival Pokemon companion")
+        require(self.objects[COMPANION]["graphics_id"] == "OBJ_EVENT_GFX_VAR_1",
+                "companion must use a separate graphics slot from the rival")
+        require(self.objects[COMPANION]["flag"] == COMPANION_FLAG,
+                "companion visibility must have its own flag")
         self.case = next(event for event in self.map["bg_events"] if event["script"] == PREFIX + "StarterCase")
         require((self.case["x"], self.case["y"]) == (6, 6)
                 and self.case["player_facing_dir"] == "BG_EVENT_PLAYER_FACING_NORTH",
@@ -154,6 +161,8 @@ class World:
         header = (root / "include/constants/virelia_prologue.h").read_text(encoding="utf-8")
         for name, number in re.findall(r"^#define\s+(\w+)\s+(0x[0-9A-Fa-f]+|\d+)\s*$", header, re.M):
             self.constants[name] = int(number, 0)
+        require(self.constants[COMPANION_FLAG] != self.constants["FLAG_VIRELIA_LAB_RESCUE_COMPLETE"],
+                "companion flag collides with rescue completion")
 
     def floor(self, position):
         x, y = position
@@ -207,10 +216,12 @@ class Scene:
         self.positions[PLAYER] = start
         self.templates = dict(self.positions)
         self.visible = set(self.positions)
+        self.visible.discard(COMPANION)
         self.facings = {key: ACTION_DIRECTIONS[obj["movement_type"].rsplit("_", 1)[1].lower()]
                         for key, obj in world.objects.items()}
         self.facings[PLAYER] = "DIR_NORTH"
         self.flags = {"FLAG_VIRELIA_MOM_MET"} if mom else set()
+        self.flags.add(COMPANION_FLAG)
         if introduced:
             self.flags.add("FLAG_VIRELIA_PROFESSOR_MET")
         self.variables = {"VAR_VIRELIA_STARTER": world.constants["VIRELIA_STARTER_NONE"], "VAR_RESULT": 0}
@@ -223,6 +234,11 @@ class Scene:
         self.battles = []
         self.case_count = self.gifts = self.steps = self.naming_screens = self.naming_prompts = 0
         self.last_outcome = None
+        self.rival_previous = None
+        self.rival_trail = deque()
+        self.companion_species = None
+        self.companion_steps = self.companion_spawns = 0
+        self.loading = False
 
     def value(self, token):
         if token.startswith("VAR_"):
@@ -263,6 +279,14 @@ class Scene:
                     require(not blockers, f"{actor} walks through {blockers} at {target}")
                     require(target not in destinations.values(), f"actors collide at {target}")
                     destinations[actor] = target
+                    if actor == VIKTOR:
+                        self.rival_previous = (x, y)
+                        if COMPANION in self.visible:
+                            self.rival_trail.append((x, y))
+                    elif actor == COMPANION:
+                        require(self.rival_trail and target == self.rival_trail.popleft(),
+                                "companion does not follow the rival's vacated tile")
+                        self.companion_steps += 1
                     self.steps += 1
             self.positions.update(destinations)
         self.pending.clear()
@@ -277,7 +301,16 @@ class Scene:
         if name == "VireliaPrologue_SetRivalAppearance":
             self.rival_graphics = "MAY" if self.player_gender == "MALE" else "BRENDAN"
             return
+        elif name == "VireliaPrologue_SyncRivalPokemon":
+            self.flags.add(COMPANION_FLAG)
+            if STARTER_FLAG in self.flags and "FLAG_VIRELIA_HIDE_STORY_ACTORS" not in self.flags:
+                self.companion_species = STARTER_SPECIES[COUNTER[self.choice]]
+                if "FLAG_VIRELIA_HIDE_" + COUNTER[self.choice] + "_STARTER" in self.flags:
+                    self.flags.discard(COMPANION_FLAG)
+            return
         elif name == "VireliaPrologue_SyncStarterBallFlags":
+            if self.loading:
+                return  # Case visibility and saved flags are verified by native tests.
             if self.given:
                 self.flags.add("FLAG_VIRELIA_HIDE_" + self.choice + "_STARTER")
                 taken = [choice for choice in CHOICES if "FLAG_VIRELIA_HIDE_" + choice + "_STARTER" in self.flags]
@@ -302,6 +335,14 @@ class Scene:
                 self.variables["VAR_VIRELIA_STARTER"] = self.value("VAR_0x8004")
         elif name == "VireliaPrologue_PrepareRescue":
             require(self.given and len(self.removals) == 2, "rescue starts before both starter pickups")
+            require(COMPANION in self.visible and self.companion_spawns == 1,
+                    "rival's companion is missing or spawned more than once")
+            require(self.companion_species == STARTER_SPECIES[COUNTER[self.choice]], "wrong rival companion species")
+            require(self.positions[COMPANION] == (5, 8) and self.positions[VIKTOR] == (6, 8),
+                    "rival pair is not beside the player for the rescue")
+            require(self.companion_steps == 2 and not self.rival_trail, "companion did not complete its following route")
+            require(all(self.templates[actor] == self.positions[actor] for actor in (VIKTOR, COMPANION)),
+                    "rival pair positions were not saved before battle")
             require(RAT in self.visible and CAT in self.visible, "rescue starts without both escapees")
             require(self.positions[RAT] == (6, 9) and self.positions[CAT] == (7, 9), "chase did not finish at the confrontation")
             self.prepared = self.partner = True
@@ -360,6 +401,7 @@ class Scene:
 
     def run(self, entry, *, opening=False):
         pc, stack = self.program.address(entry), []
+        self.loading = entry == MAP + "_OnLoad"
         noop = {"closemessage", "playfanfare", "waitfanfare", "playse", "waitse", "delay",
                 "hidefollower", "playmoncry", "waitmoncry", "playbgm"}
         for _ in range(1500):
@@ -377,6 +419,8 @@ class Scene:
                         require("FLAG_VIRELIA_SUPPLIES_RECEIVED" in self.flags, "opening did not continue to supplies")
                         require(RAT not in self.visible and CAT not in self.visible and not self.partner, "escapees/ally setup survive the opening")
                         require(len(self.removals) == 2, "unused third case slot was lost")
+                        require(COMPANION in self.visible and COMPANION_FLAG not in self.flags,
+                                "companion disappears after the rescue or duel")
                     return
                 if command == "goto":
                     pc = self.program.address(args[0])
@@ -434,11 +478,26 @@ class Scene:
                 elif command == "setobjectxyperm":
                     actor = self.actor(args[0])
                     self.templates[actor] = self.value(args[1]), self.value(args[2])
-                    require(self.templates[actor] == self.positions[actor], "saved NPC position disagrees with walking")
+                    if actor in self.visible and not self.loading:
+                        require(self.templates[actor] == self.positions[actor], "saved NPC position disagrees with walking")
                 elif command == "setobjectmovementtype":
                     actor = self.actor(args[0])
                     direction = ACTION_DIRECTIONS[args[1].removeprefix("MOVEMENT_TYPE_FACE_").lower()]
-                    require(direction == self.facings[actor], "saved NPC facing disagrees with walking")
+                    if self.loading:
+                        self.facings[actor] = direction
+                    else:
+                        require(direction == self.facings[actor], "saved NPC facing disagrees with walking")
+                elif command == "addobject":
+                    self.settled()
+                    actor = self.actor(args[0])
+                    require(actor == COMPANION and actor not in self.visible and COMPANION_FLAG not in self.flags,
+                            "unexpected or premature companion spawn")
+                    require(self.templates[actor] == self.rival_previous, "companion does not emerge on the rival's vacated tile")
+                    require(self.templates[actor] not in [self.positions[other] for other in self.visible],
+                            "companion spawns on another actor")
+                    self.positions[actor] = self.templates[actor]
+                    self.visible.add(actor)
+                    self.companion_spawns += 1
                 elif command == "removeobject":
                     self.remove(self.actor(args[0]))
                 elif command == "msgbox":
@@ -481,7 +540,8 @@ class Scene:
 
 
 def validate(root=ROOT, script_source=None):
-    report = {"passed": False, "opening_cases": 0, "guard_cases": 0, "walked_tiles": 0, "errors": []}
+    report = {"passed": False, "opening_cases": 0, "guard_cases": 0, "companion_reload_cases": 0,
+              "walked_tiles": 0, "errors": []}
     try:
         world, program = World(Path(root)), Program(Path(root), script_source)
         require({RAT, CAT} <= world.objects.keys(), "lab escapees are missing")
@@ -512,6 +572,23 @@ def validate(root=ROOT, script_source=None):
             scene.run(MAP + "_OnTransition")
             require(scene.variables["VAR_TEMP_0"] == int(mom and not introduced), "welcome prerequisite/repeat guard is wrong")
             report["guard_cases"] += 1
+        for choice, gender in product(CHOICES, ("MALE", "FEMALE")):
+            scene = Scene(world, program, choice, introduced=True, player_gender=gender)
+            scene.given = True
+            scene.variables["VAR_VIRELIA_STARTER"] = scene.value("VIRELIA_STARTER_" + choice)
+            scene.flags.update({STARTER_FLAG, RESCUE_FLAG, RIVAL_FLAG, "FLAG_VIRELIA_HIDE_LAB_ESCAPEES",
+                                "FLAG_VIRELIA_HIDE_" + choice + "_STARTER",
+                                "FLAG_VIRELIA_HIDE_" + COUNTER[choice] + "_STARTER"})
+            scene.run(MAP + "_OnLoad")
+            require(COMPANION_FLAG not in scene.flags, "companion stays hidden on completed lab re-entry")
+            require(scene.companion_species == STARTER_SPECIES[COUNTER[choice]], "re-entry changes the companion species")
+            require(scene.rival_graphics == ("MAY" if gender == "MALE" else "BRENDAN"), "companion changes the rival's gender sprite")
+            require(scene.templates[VIKTOR] == (6, 8) and scene.templates[COMPANION] == (5, 8),
+                    "re-entry does not restore the rival pair together")
+            require(scene.facings[VIKTOR] == scene.facings[COMPANION] == "DIR_EAST", "re-entry loses pair facing")
+            scene.run(MAP + "_OnTransition")
+            require(scene.variables["VAR_TEMP_0"] == 0, "completed lab re-entry repeats the opening")
+            report["companion_reload_cases"] += 1
         for choice in CHOICES:
             scene = Scene(world, program, choice, gift_success=False)
             scene.run(PREFIX + "Welcome", opening=True)
@@ -547,6 +624,13 @@ def mutation_checks(root=ROOT):
         "wrong_actor": (MAP + "_Text_RivalWon, " + VIKTOR, MAP + "_Text_RivalWon, LOCALID_VIRELIA_LAB_GRASS_STARTER"),
         "wrong_named_slot": ("setvar VAR_0x8004, 0\n\tcall Common_EventScript_NameReceivedPartyMon", "setvar VAR_0x8004, 1\n\tcall Common_EventScript_NameReceivedPartyMon"),
         "missing_naming": ("call Common_EventScript_NameReceivedPartyMon", "delay 1"),
+        "missing_companion": ("addobject " + COMPANION, "delay 1"),
+        "wrong_companion_spawn": ("setobjectxyperm " + COMPANION + ", 6, 7", "setobjectxyperm " + COMPANION + ", 5, 7"),
+        "wrong_companion_step": ("applymovement " + COMPANION + ", " + movement + "Left1",
+                                 "applymovement " + COMPANION + ", " + movement + "Right1"),
+        "missing_companion_wait": ("waitmovement " + COMPANION + "\n\tturnobject " + VIKTOR,
+                                   "delay 1\n\tturnobject " + VIKTOR),
+        "wrong_companion_reload": ("setobjectxyperm " + COMPANION + ", 5, 8", "setobjectxyperm " + COMPANION + ", 4, 8"),
     }
     results = {}
     for name, (before, after) in mutations.items():
@@ -571,7 +655,8 @@ def main():
     if args.json:
         print(json.dumps(report, indent=2))
     else:
-        print(f"{'PASS' if report['passed'] else 'FAIL'}: lab opening, {report['opening_cases']} opening cases, {report['guard_cases']} guard cases")
+        print(f"{'PASS' if report['passed'] else 'FAIL'}: lab opening, {report['opening_cases']} opening cases, "
+              f"{report['guard_cases']} guard cases, {report['companion_reload_cases']} companion reload cases")
         for error in report["errors"]:
             print(error)
         if "mutation_checks" in report:

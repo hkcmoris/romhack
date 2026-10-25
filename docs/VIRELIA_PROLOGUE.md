@@ -206,6 +206,7 @@ Definitions live in `include/constants/virelia_prologue.h`.
 | `FLAG_VIRELIA_HIDE_GRASS_STARTER` | `0x2F` | Grass starter Ball taken |
 | `FLAG_VIRELIA_HIDE_WATER_STARTER` | `0x30` | Water starter Ball taken |
 | `FLAG_VIRELIA_HIDE_FIRE_STARTER` | `0x31` | Fire starter Ball taken |
+| `FLAG_VIRELIA_HIDE_RIVAL_POKEMON` | `0x4C` | Rival companion hidden until its starter is taken |
 
 | Variable | Slot | Values |
 | --- | --- | --- |
@@ -227,6 +228,37 @@ of the rival-duel result. Development and nonstory builds retain all three case
 slots and open the same preview screen without granting a story gift.
 `tools/virelia/build_lab_case.py --check` verifies the native tileset composition,
 unchanged stock furniture references, slot states and hardware tile budget.
+
+## Overworld companions
+
+The first healthy, non-egg Pokemon in the player's party follows them in the
+overworld. Changing party order changes the follower; fainted Pokemon and eggs
+are skipped. The existing follower system handles map transitions, returning
+from battles and menus, and temporary hiding during scripted scenes.
+
+All nine stages of the Virelia starter families use dedicated regional overworld
+art, including normal and shiny palettes. Their walking sheets start from copies
+of the original species, recolored and adapted to match the regional battle art.
+Evolution updates the follower to the corresponding regional stage. Ordinary
+species keep their original sprites. The aquatic family's current shiny colors
+match its normal colors, as they do in battle.
+
+Viktor or Viktorie releases their chosen starter in the laboratory. It follows
+the rival back from the case and stays beside them through the rescue and duel.
+Its species matches the rival's team for all three starter choices. Re-entering
+the laboratory or continuing a save from this build restores the pair.
+Interacting with the Pokemon plays its cry. The rival currently appears only in
+the laboratory. The companion uses a separate graphics variable from the rival,
+so both player-gender branches retain the correct human sprite.
+
+The Slateford policeman arrives with a Growlithe following one tile behind him.
+Growlithe stays beside the officer after the scene and shares his visibility
+flag, including after saving or revisiting the city. Interacting with it plays
+Growlithe's cry.
+
+Validate with a new save: choose each starter, finish the rival battle, walk
+outside with the player follower, then return to the laboratory. Save and reload
+there, and check party reordering and healing after a fainted lead Pokemon.
 
 ## Czech localization
 

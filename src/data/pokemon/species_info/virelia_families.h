@@ -1,5 +1,5 @@
-// All Virelia starter lines have custom battle art, palettes and party icons.
-// Footprints, cries and overworld assets reuse the original species.
+// All Virelia starter lines have custom battle art, party icons and overworld art.
+// Footprints and cries reuse the original species.
 #if P_VIRELIA_STARTERS
 
     [SPECIES_POOCHYENA_VIRELIA] =
@@ -55,13 +55,13 @@
         SHADOW(0, 2, SHADOW_SIZE_M)
         FOOTPRINT(Poochyena)
         OVERWORLD(
-            sPicTable_Poochyena,
+            sPicTable_PoochyenaVirelia,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
             sAnimTable_Following,
-            gOverworldPalette_Poochyena,
-            gShinyOverworldPalette_Poochyena
+            gOverworldPalette_PoochyenaVirelia,
+            gShinyOverworldPalette_PoochyenaVirelia
         )
         .levelUpLearnset = sPoochyenaVireliaLevelUpLearnset,
         .teachableLearnset = sPoochyenaTeachableLearnset,
@@ -124,13 +124,13 @@
         SHADOW(-2, 6, SHADOW_SIZE_L)
         FOOTPRINT(Mightyena)
         OVERWORLD(
-            sPicTable_Mightyena,
+            sPicTable_MightyenaVirelia,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
             sAnimTable_Following,
-            gOverworldPalette_Mightyena,
-            gShinyOverworldPalette_Mightyena
+            gOverworldPalette_MightyenaVirelia,
+            gShinyOverworldPalette_MightyenaVirelia
         )
         .levelUpLearnset = sMightyenaVireliaLevelUpLearnset,
         .teachableLearnset = sMightyenaTeachableLearnset,
@@ -193,13 +193,13 @@
         SHADOW(-2, 6, SHADOW_SIZE_L)
         FOOTPRINT(Mightyena)
         OVERWORLD(
-            sPicTable_Mightyena,
+            sPicTable_Wraithena,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
             sAnimTable_Following,
-            gOverworldPalette_Mightyena,
-            gShinyOverworldPalette_Mightyena
+            gOverworldPalette_Wraithena,
+            gShinyOverworldPalette_Wraithena
         )
         .levelUpLearnset = sMightyenaVireliaLevelUpLearnset,
         .teachableLearnset = sMightyenaTeachableLearnset,
@@ -263,13 +263,13 @@
         SHADOW(0, 2, SHADOW_SIZE_S)
         FOOTPRINT(Natu)
         OVERWORLD(
-            sPicTable_Natu,
+            sPicTable_NatuVirelia,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
             sAnimTable_Following,
-            gOverworldPalette_Natu,
-            gShinyOverworldPalette_Natu
+            gOverworldPalette_NatuVirelia,
+            gShinyOverworldPalette_NatuVirelia
         )
         .levelUpLearnset = sNatuVireliaLevelUpLearnset,
         .teachableLearnset = sNatuTeachableLearnset,
@@ -331,13 +331,13 @@
         SHADOW(0, 3, SHADOW_SIZE_M)
         FOOTPRINT(Xatu)
         OVERWORLD(
-            sPicTable_Xatu,
+            sPicTable_XatuVirelia,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
             sAnimTable_Following,
-            gOverworldPalette_Xatu,
-            gShinyOverworldPalette_Xatu
+            gOverworldPalette_XatuVirelia,
+            gShinyOverworldPalette_XatuVirelia
         )
         .levelUpLearnset = sNatuVireliaLevelUpLearnset,
         .teachableLearnset = sXatuTeachableLearnset,
@@ -399,13 +399,13 @@
         SHADOW(0, 3, SHADOW_SIZE_M)
         FOOTPRINT(Xatu)
         OVERWORLD(
-            sPicTable_Xatu,
+            sPicTable_Nimbatu,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
             sAnimTable_Following,
-            gOverworldPalette_Xatu,
-            gShinyOverworldPalette_Xatu
+            gOverworldPalette_Nimbatu,
+            gShinyOverworldPalette_Nimbatu
         )
         .levelUpLearnset = sNatuVireliaLevelUpLearnset,
         .teachableLearnset = sXatuTeachableLearnset,
@@ -468,13 +468,13 @@
         SHADOW(0, 2, SHADOW_SIZE_M)
         FOOTPRINT(Ekans)
         OVERWORLD(
-            sPicTable_Ekans,
+            sPicTable_EkansVirelia,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SLITHER,
             sAnimTable_Following,
-            gOverworldPalette_Ekans,
-            gShinyOverworldPalette_Ekans
+            gOverworldPalette_EkansVirelia,
+            gShinyOverworldPalette_EkansVirelia
         )
         .levelUpLearnset = sEkansVireliaLevelUpLearnset,
         .teachableLearnset = sEkansTeachableLearnset,
@@ -535,13 +535,13 @@
         SHADOW(1, 11, SHADOW_SIZE_L)
         FOOTPRINT(Arbok)
         OVERWORLD(
-            sPicTable_Arbok,
+            sPicTable_ArbokVirelia,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SLITHER,
             sAnimTable_Following,
-            gOverworldPalette_Arbok,
-            gShinyOverworldPalette_Arbok
+            gOverworldPalette_ArbokVirelia,
+            gShinyOverworldPalette_ArbokVirelia
         )
         .levelUpLearnset = sEkansVireliaLevelUpLearnset,
         .teachableLearnset = sArbokTeachableLearnset,
@@ -603,13 +603,13 @@
         SHADOW(1, 11, SHADOW_SIZE_L)
         FOOTPRINT(Arbok)
         OVERWORLD(
-            sPicTable_Arbok,
+            sPicTable_Infernabra,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SLITHER,
             sAnimTable_Following,
-            gOverworldPalette_Arbok,
-            gShinyOverworldPalette_Arbok
+            gOverworldPalette_Infernabra,
+            gShinyOverworldPalette_Infernabra
         )
         .levelUpLearnset = sEkansVireliaLevelUpLearnset,
         .teachableLearnset = sArbokTeachableLearnset,

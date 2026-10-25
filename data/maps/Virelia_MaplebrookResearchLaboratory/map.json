@@ -83,6 +83,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_MaplebrookResearchLaboratory_EventScript_Escapee",
       "flag": "FLAG_VIRELIA_HIDE_LAB_ESCAPEES"
+    },
+    {
+      "local_id": "LOCALID_VIRELIA_LAB_VIKTOR_POKEMON",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_1",
+      "x": 5,
+      "y": 8,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_MaplebrookResearchLaboratory_EventScript_ViktorPokemon",
+      "flag": "FLAG_VIRELIA_HIDE_RIVAL_POKEMON"
     }
   ],
   "warp_events": [
