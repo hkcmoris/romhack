@@ -210,12 +210,20 @@ TEST("Virelia actual city map load keeps chapter entrances locked until their in
     WarpIntoMap();
     InitMap();
     RunOnLoadMapScript();
+    const struct WarpEvent *quarry = &gMapHeader.events->warps[2];
+    EXPECT_EQ(quarry->mapGroup, MAP_GROUP(MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE));
+    EXPECT_EQ(quarry->mapNum, MAP_NUM(MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE));
+    s16 quarryX = quarry->x + MAP_OFFSET, quarryY = quarry->y + MAP_OFFSET;
     u32 gymBehavior = MapGridGetMetatileBehaviorAt(22 + MAP_OFFSET, 9 + MAP_OFFSET);
-    u32 quarryBehavior = MapGridGetMetatileBehaviorAt(25 + MAP_OFFSET, 16 + MAP_OFFSET);
+    u32 quarryBehavior = MapGridGetMetatileBehaviorAt(quarryX, quarryY);
     EXPECT_EQ(MetatileBehavior_IsWarpDoor(gymBehavior), checkpoint >= 2);
     EXPECT_NE(MapGridGetCollisionAt(22 + MAP_OFFSET, 9 + MAP_OFFSET), 0);
     EXPECT_EQ(MetatileBehavior_IsNonAnimDoor(quarryBehavior), checkpoint >= 1);
-    EXPECT_EQ(MapGridGetCollisionAt(25 + MAP_OFFSET, 16 + MAP_OFFSET) != 0, checkpoint < 1);
+    EXPECT_EQ(MapGridGetCollisionAt(quarryX, quarryY) != 0, checkpoint < 1);
+    // The gate must not replace the authored cliff cap above the moved warp.
+    u16 cap = gMapHeader.mapLayout->map[(quarry->y - 1) * gMapHeader.mapLayout->width + quarry->x];
+    EXPECT_EQ(MapGridGetMetatileIdAt(quarryX, quarryY - 1), UNPACK_METATILE(cap));
+    EXPECT_EQ(MapGridGetCollisionAt(quarryX, quarryY - 1), UNPACK_COLLISION(cap));
     // A completed prologue's frame script must not schedule its Rocket finale.
     EXPECT(!TryRunOnFrameMapScript());
     if (checkpoint >= 1)

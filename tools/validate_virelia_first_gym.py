@@ -192,8 +192,18 @@ def validate():
     scripts = {name: read(f"data/maps/{name}/scripts.inc") for name in NEW_NAMES}
     city = read("data/maps/Virelia_SlatefordCity/scripts.inc")
     require("FLAG_VIRELIA_PROLOGUE_COMPLETE" in city, "Quarry entrance lacks prologue gate")
-    require(re.search(r"setmetatile\s+25,\s*16,\s*METATILE_General_CaveEntrance_Bottom,\s*0", city),
-            "Opened non-animated quarry entrance must be walkable for native step warp")
+    city_map = load("data/maps/Virelia_SlatefordCity/map.json")
+    quarry_warps = [warp for warp in city_map["warp_events"]
+                    if warp["dest_map"] == "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE"]
+    require(len(quarry_warps) == 1, "City must have exactly one quarry entrance")
+    quarry_warp = quarry_warps[0]
+    for label, metatile, collision in (("FirstGymOnLoad", "RockWall_RockBase", 1),
+                                      ("OpenQuarry", "CaveEntrance_Bottom", 0)):
+        block = re.search(r"^Virelia_SlatefordCity_" + label + r":\s*\n(.*?)(?=^[A-Za-z_]\w*:|\Z)", city, re.M | re.S)
+        write = (rf"setmetatile\s+{quarry_warp['x']},\s*{quarry_warp['y']},\s*"
+                 rf"METATILE_General_{metatile},\s*{collision}\b")
+        require(block and re.search(write, block[1]),
+                f"{label}: quarry runtime gate must match the authored warp and collision")
     require("FLAG_VIRELIA_QUARRY_COMPLETE" in city, "Gym entrance lacks quarry completion gate")
     require("VireliaFirstGym_BeginChapter" in city, "Completed saves cannot enter chapter on city load")
     scripts_all = "\n".join(scripts.values())

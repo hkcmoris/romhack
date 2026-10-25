@@ -7,10 +7,10 @@
 #include "constants/virelia_sanctuary.h"
 
 #if !IS_FRLG
-static void SetConnectionGate(s32 x, s32 y, u16 floor, bool32 opened)
+static void SetConnectionGate(s32 x, s32 y, u16 shrub, u16 floor, bool32 opened)
 {
     MapGridSetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET,
-                          opened ? floor : 0xE | MAPGRID_IMPASSABLE);
+                          opened ? floor : shrub | MAPGRID_IMPASSABLE);
 }
 #endif
 
@@ -27,17 +27,17 @@ void VireliaSanctuary_UpdateConnectionGates(void)
      && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_VIRELIA_ROUTE01))
     {
         for (u32 y = 16; y <= 17; y++)
-            SetConnectionGate(-2, y, 0xD, hanaComplete);
+            SetConnectionGate(-2, y, y == 16 ? 0xE : 0xC6, 0xD, hanaComplete);
         for (u32 y = 8; y <= 9; y++)
-            SetConnectionGate(-6, y, 0x1, shortcutOpen);
+            SetConnectionGate(-6, y, y == 8 ? 0xE : 0xC6, y == 8 ? 0x1 : 0x1CF, shortcutOpen);
     }
     else if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_VIRELIA_WHISPERWOOD_SANCTUARY)
           && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_VIRELIA_WHISPERWOOD_SANCTUARY))
     {
         for (u32 y = 10; y <= 11; y++)
-            SetConnectionGate(23, y, 0xD, hanaComplete);
+            SetConnectionGate(23, y, 0xE, 0xD, hanaComplete);
         for (u32 y = 2; y <= 3; y++)
-            SetConnectionGate(23, y, 0x1, shortcutOpen);
+            SetConnectionGate(23, y, 0xE, 0x1, shortcutOpen);
     }
 #endif
 }

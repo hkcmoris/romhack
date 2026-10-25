@@ -10,13 +10,13 @@ Virelia_SlatefordCity_MapScripts::
 Virelia_SlatefordCity_FirstGymOnLoad:
 	callnative VireliaFirstGym_BeginChapter
 	setmetatile 22, 9, 0x1C4, 1
-	setmetatile 25, 16, METATILE_General_RockWall_RockBase, 1
+	setmetatile 25, 17, METATILE_General_RockWall_RockBase, 1
 	call_if_set FLAG_VIRELIA_PROLOGUE_COMPLETE, Virelia_SlatefordCity_OpenQuarry
 	call_if_set FLAG_VIRELIA_QUARRY_COMPLETE, Virelia_SlatefordCity_OpenGym
 	end
 
 Virelia_SlatefordCity_OpenQuarry:
-	setmetatile 25, 16, METATILE_General_CaveEntrance_Bottom, 0
+	setmetatile 25, 17, METATILE_General_CaveEntrance_Bottom, 0
 	return
 
 Virelia_SlatefordCity_OpenGym:
@@ -185,13 +185,13 @@ Virelia_SlatefordCity_Movement_RocketToRoad:
 	walk_fast_left
 	step_end
 
-@ (20,22) -> (20,24) -> (14,24) -> (14,29), along the city exit road.
+@ (20,22) -> (17,22) -> (17,24) -> (14,24) -> (14,29), via the quarry steps.
 Virelia_SlatefordCity_Movement_RocketExit:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
 	walk_fast_down
 	walk_fast_down
-	walk_fast_left
-	walk_fast_left
-	walk_fast_left
 	walk_fast_left
 	walk_fast_left
 	walk_fast_left

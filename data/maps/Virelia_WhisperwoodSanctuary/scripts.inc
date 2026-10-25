@@ -9,13 +9,13 @@ Virelia_WhisperwoodSanctuary_OnTransition:
 
 Virelia_WhisperwoodSanctuary_OnLoad:
 	setmetatile 20, 10, 0xE, 1
-	setmetatile 20, 11, 0xE, 1
+	setmetatile 20, 11, 0xC6, 1
 	goto_if_unset FLAG_VIRELIA_SIDEQUEST_REWARDED, Virelia_WhisperwoodSanctuary_CheckShortcut
 	setmetatile 20, 10, 0xD, 0
 	setmetatile 20, 11, 0xD, 0
 Virelia_WhisperwoodSanctuary_CheckShortcut:
 	setmetatile 16, 2, 0xE, 1
-	setmetatile 16, 3, 0xE, 1
+	setmetatile 16, 3, 0xC6, 1
 	goto_if_unset FLAG_VIRELIA_SIDEQUEST_REWARDED, Virelia_WhisperwoodSanctuary_LoadDone
 	goto_if_unset FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN, Virelia_WhisperwoodSanctuary_LoadDone
 	call Virelia_WhisperwoodSanctuary_OpenShortcut
@@ -25,7 +25,7 @@ Virelia_WhisperwoodSanctuary_LoadDone:
 
 Virelia_WhisperwoodSanctuary_OpenShortcut:
 	setmetatile 16, 2, 0x1, 0
-	setmetatile 16, 3, 0x1, 0
+	setmetatile 16, 3, 0x1CF, 0
 	callnative VireliaSanctuary_UpdateConnectionGates
 	return
 

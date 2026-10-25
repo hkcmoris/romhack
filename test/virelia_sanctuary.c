@@ -58,22 +58,30 @@ static void ExpectGateAccess(bool32 hanaComplete, bool32 shortcutOpen)
     {
         EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
         EXPECT_EQ(MapGridGetCollisionAt(-2 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
+        EXPECT_EQ(MapGridGetMetatileIdAt(1 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : 0xE);
+        EXPECT_EQ(MapGridGetMetatileIdAt(-2 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : (y == 16 ? 0xE : 0xC6));
     }
     for (u32 y = 8; y <= 9; y++)
     {
         EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
         EXPECT_EQ(MapGridGetCollisionAt(-6 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
+        EXPECT_EQ(MapGridGetMetatileIdAt(1 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? 0x1 : 0xE);
+        EXPECT_EQ(MapGridGetMetatileIdAt(-6 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? (y == 8 ? 0x1 : 0x1CF) : (y == 8 ? 0xE : 0xC6));
     }
     LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
     for (u32 y = 10; y <= 11; y++)
     {
         EXPECT_EQ(MapGridGetCollisionAt(20 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
         EXPECT_EQ(MapGridGetCollisionAt(23 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
+        EXPECT_EQ(MapGridGetMetatileIdAt(20 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : (y == 10 ? 0xE : 0xC6));
+        EXPECT_EQ(MapGridGetMetatileIdAt(23 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : 0xE);
     }
     for (u32 y = 2; y <= 3; y++)
     {
         EXPECT_EQ(MapGridGetCollisionAt(16 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
         EXPECT_EQ(MapGridGetCollisionAt(23 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
+        EXPECT_EQ(MapGridGetMetatileIdAt(16 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? (y == 2 ? 0x1 : 0x1CF) : (y == 2 ? 0xE : 0xC6));
+        EXPECT_EQ(MapGridGetMetatileIdAt(23 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? 0x1 : 0xE);
     }
 }
 
