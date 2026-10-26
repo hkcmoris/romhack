@@ -969,9 +969,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_THRASH] =
     {
         .name = COMPOUND_STRING("Thrash"),
-        .description = COMPOUND_STRING(
-            "A rampage of 2 to 3 turns\n"
-            "that confuses the user."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A rampage of 2 to 3 turns\nthat confuses the user.", "Útočí 2 až 3 kola. Poté je uživatel\nzmatený.")),
         .effect = EFFECT_HIT,
         .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 120 : 90,
         .type = TYPE_NORMAL,
@@ -6369,9 +6367,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_TWISTER] =
     {
         .name = COMPOUND_STRING("Twister"),
-        .description = COMPOUND_STRING(
-            "Whips up a vicious twister\n"
-            "to tear at foes. May flinch."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Whips up a vicious twister\nto tear at foes. May flinch.", "Zasáhne cíle prudkým vírem. Cíle mohou\nzaváhat.")),
         .effect = EFFECT_HIT,
         .power = 40,
         .type = TYPE_DRAGON,
@@ -6680,9 +6676,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_WHIRLPOOL] =
     {
         .name = COMPOUND_STRING("Whirlpool"),
-        .description = COMPOUND_STRING(
-            "Traps and hurts the foe in\n"
-            "a whirlpool for "BINDING_TURNS" turns."),
+    #if B_BINDING_TURNS >= GEN_5
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Traps and hurts the foe in\na whirlpool for 4 or 5 turns.", "Uvězní cíl ve vodním víru a zraňuje ho\npo 4 nebo 5 kol.")),
+    #else
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Traps and hurts the foe in\na whirlpool for 2 to 5 turns.", "Uvězní cíl ve vodním víru a zraňuje ho\npo 2 až 5 kol.")),
+    #endif
         .effect = EFFECT_HIT,
         .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 35 : 15,
         .type = TYPE_WATER,
@@ -9697,9 +9695,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_BRINE] =
     {
         .name = COMPOUND_STRING("Brine"),
-        .description = COMPOUND_STRING(
-            "Does double damage to a foe\n"
-            "with half HP or less."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Does double damage to a foe\nwith half HP or less.", "Způsobí dvojnásobné zranění cíli\ns polovinou životů nebo méně.")),
         .effect = EFFECT_BRINE,
         .power = 65,
         .type = TYPE_WATER,

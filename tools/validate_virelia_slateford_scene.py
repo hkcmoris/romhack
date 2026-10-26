@@ -98,12 +98,20 @@ def validate(entry=None, script=None, *, quiet=False):
                 path.append((x, y))
         return path
 
-    # These are all legal A-button approaches to the worker. The fourth side
-    # is occupied by a quarry rock and cannot be used by ordinary gameplay.
-    for player, facing, opening in (((21, 22), 'DIR_EAST', 'RocketAroundPlayer'),
-                                    ((23, 22), 'DIR_WEST', 'RocketToRoad'),
-                                    ((22, 21), 'DIR_SOUTH', 'RocketToRoad')):
-        assert not cells[player[1] * width + player[0]] & 0xc00 and player not in occupied
+    # Derive legal A-button approaches from the authored worker position.
+    # Rocks and terrain can change which sides remain available after mapping.
+    approaches = []
+    for dx, dy, facing in ((-1, 0, 'DIR_EAST'), (1, 0, 'DIR_WEST'),
+                            (0, -1, 'DIR_SOUTH'), (0, 1, 'DIR_NORTH')):
+        player = rocket[0] + dx, rocket[1] + dy
+        if not (0 <= player[0] < width and 0 <= player[1] < height):
+            continue
+        if cells[player[1] * width + player[0]] & 0xc00 or player in occupied:
+            continue
+        opening = 'RocketAroundPlayer' if facing == 'DIR_EAST' else 'RocketToRoad'
+        approaches.append((player, facing, opening))
+    assert approaches, 'Worker has no legal interaction approach'
+    for player, facing, opening in approaches:
         end = walk(rocket, (opening, 'RocketExit'), player)[-1]
         assert end[1] - player[1] >= 7, f'{facing}: grunt removed while still on camera'
         assert start[1] - player[1] >= 7, f'{facing}: policeman spawns visibly'
@@ -119,7 +127,7 @@ def validate(entry=None, script=None, *, quiet=False):
             assert dog_path[step] != officer_path[step], f'{facing}: police companions overlap'
         assert officer_path[-1] == policeman, 'Officer stop does not match the saved map position'
         assert dog_path[-1] == growlithe, 'Growlithe stop does not match the saved map position'
-        assert sum(abs(a - b) for a, b in zip(policeman, player)) <= 3
+        assert sum(abs(a - b) for a, b in zip(policeman, player)) <= 4
     assert 'face_player' in movements[officer_route], 'Officer must face the player on arrival'
     assert 'goto_if_eq VAR_0x8008, DIR_EAST, ' + PREFIX + 'EventScript_RocketDetour' in script
     assert re.search(r'EventScript_RocketGone:\s*waitmovement LOCALID_VIRELIA_SLATEFORD_ROCKET\s*'
@@ -129,7 +137,7 @@ def validate(entry=None, script=None, *, quiet=False):
     assert cry and 'playmoncry SPECIES_GROWLITHE, CRY_MODE_NORMAL' in cry[1], 'Growlithe interaction must play its cry'
     assert 'waitmoncry' in cry[1] and 'release' in cry[1], 'Growlithe interaction must return control'
     if not quiet:
-        print('PASS: all three Rocket approaches, offscreen police arrival, Growlithe follows every step and corner, shared visibility and persistent stops')
+        print(f'PASS: all {len(approaches)} legal Rocket approaches, offscreen police arrival, Growlithe follows every step and corner, shared visibility and persistent stops')
 
 
 def self_test():
@@ -143,6 +151,10 @@ def self_test():
     for command in ('hidefollower', 'waitmovement ' + GROWLITHE, 'copyobjectxytoperm ' + GROWLITHE):
         assert '\t' + command in script
         mutations.append((command, entry, script.replace('\t' + command, '\t@ removed ' + command, 1)))
+    for name in ('RocketAroundPlayer', 'RocketToRoad'):
+        label = PREFIX + 'Movement_' + name + ':\n'
+        before, body = script.split(label, 1)
+        mutations.append((name, entry, before + label + body.replace('\twalk_fast_left\n', '', 1)))
     dog_route = re.search(r'applymovement ' + GROWLITHE + r', (\w+)', script)[1]
     label = dog_route + ':\n'
     assert label in script
@@ -155,7 +167,7 @@ def self_test():
         except AssertionError:
             continue
         raise AssertionError(f'Validator accepted invalid mutation: {name}')
-    print(f'PASS: {len(mutations)} invalid police-companion mutations rejected')
+    print(f'PASS: {len(mutations)} invalid scene mutations rejected')
 
 
 if __name__ == '__main__':

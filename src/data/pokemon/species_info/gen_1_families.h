@@ -17649,14 +17649,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Magikarp"),
         .cryId = CRY_MAGIKARP,
         .natDexNum = NATIONAL_DEX_MAGIKARP,
-        .categoryName = _("Fish"),
+        .categoryName = _(LOCALIZED_TEXT("Fish", "Ryba")),
         .height = 9,
         .weight = 100,
-        .description = COMPOUND_STRING(
-            "Its swimming muscles are weak, so it is\n"
-            "easily washed away by currents. In places\n"
-            "where water pools, you can see many\n"
-            "Magikarp deposited there by the flow."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Its swimming muscles are weak, so it is\neasily washed away by currents. In places\nwhere water pools, you can see many\nMagikarp deposited there by the flow.", "Má slabé svaly. Proud ho snadno odnese.\nV tůních se shromažďují Magikarpové,\nkteré tam přinesla tekoucí voda.")),
         .pokemonScale = 310,
         .pokemonOffset = 4,
         .trainerScale = 256,
@@ -17737,14 +17733,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Gyarados"),
         .cryId = CRY_GYARADOS,
         .natDexNum = NATIONAL_DEX_GYARADOS,
-        .categoryName = _("Atrocious"),
+        .categoryName = _(LOCALIZED_TEXT("Atrocious", "Krutý")),
         .height = 65,
         .weight = 2350,
-        .description = COMPOUND_STRING(
-            "It is an extremely vicious and violent\n"
-            "Pokémon. When humans begin to fight,\n"
-            "it will appear and burn everything to the\n"
-            "ground with intensely hot flames."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It is an extremely vicious and violent\nPokémon. When humans begin to fight,\nit will appear and burn everything to the\nground with intensely hot flames.", "Je nesmírně zuřivý a násilný. Když mezi\nlidmi vypukne boj, objeví se a všechno\nspálí svými žhavými plameny.")),
         .pokemonScale = 256,
         .pokemonOffset = 6,
         .trainerScale = 481,

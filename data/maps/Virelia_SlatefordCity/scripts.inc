@@ -188,10 +188,12 @@ Virelia_SlatefordCity_Movement_RocketAroundPlayer:
 	walk_fast_up
 	walk_fast_left
 	walk_fast_left
+	walk_fast_left
 	walk_fast_down
 	step_end
 
 Virelia_SlatefordCity_Movement_RocketToRoad:
+	walk_fast_left
 	walk_fast_left
 	walk_fast_left
 	step_end

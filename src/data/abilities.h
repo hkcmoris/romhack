@@ -266,8 +266,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SWIFT_SWIM] =
     {
-        .name = _("Swift Swim"),
-        .description = COMPOUND_STRING("Boosts Speed in rain."),
+        .name = _(LOCALIZED_TEXT("Swift Swim", "Svižné plavání")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Boosts Speed in rain.", "Za deště zdvojnásobí rychlost.")),
         .aiRating = 6,
     },
 
