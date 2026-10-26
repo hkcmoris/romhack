@@ -1,4 +1,4 @@
-# Virelian Natu line - sprite preparation v4
+# Virelian Natu line - sprite preparation v5
 
 Normal-color artwork prepared from the repository's Natu and Xatu sprites using the built-in imagegen tool. These assets now supply the playable Water/Psychic starter line: Natu → Xatu at level 14 → Nimbatu at level 34.
 
@@ -48,3 +48,9 @@ Nimbatu back.png now uses a close battle portrait: head, neck, shoulders and upp
 ## v4 correction
 
 Nimbatu back.png now keeps both wings folded against its body. Its head, neck and shoulders retain the close battle framing. The outer silhouette clears both side edges, avoiding clipped spread wings. The torso crop meets the bottom edge. The 64x64 cell, 16-entry palette and transparent index 0 are preserved; all other native assets are byte-identical to v3. See 06_nimbatu_folded_back/verification.json and comparison.png. Built-in imagegen was used; the exact prompt is in imagegen-prompts.json.
+
+## v5 skill validation and cleanup
+
+The comprehensive gba-pokemon-sprites review found and repaired Xatu's party-icon cell overflow, Nimbatu's broad left/lower head shading band, and Nimbatu's mismatched second battle-frame registration. The repaired second frame preserves the first frame's head, body, tail and feet, with only a small wingtip change. The editable source cells, current previews, exact imagegen prompts and manifest are synchronized.
+
+All Natu files, including the user's manually corrected follower and palette, are unchanged. Every follower and external palette is unchanged. Static visual review, all 15 sheet audits, and the actual GBA graphics/palette conversions pass. Timed playback and in-game review remain unverified because both UI controls timed out; no ROM build or device transfer was requested. See [the review](07_skill_validation/review.md), [before/after proof](07_skill_validation/before-after.png), and [verification record](07_skill_validation/verification.json).

@@ -1,0 +1,1304 @@
+{
+  "skill": "gba-pokemon-sprites",
+  "date": "2026-10-26",
+  "technical_pass": true,
+  "technical_sheets": 15,
+  "technical_checks": {
+    "natu": {
+      "anim_front.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "opaque_bounds": [
+              16,
+              17,
+              46,
+              47
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              0,
+              64,
+              64,
+              128
+            ],
+            "opaque_bounds": [
+              17,
+              18,
+              46,
+              47
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ]
+      },
+      "back.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "opaque_bounds": [
+              13,
+              13,
+              51,
+              51
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "overworld.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "opaque_bounds": [
+              9,
+              16,
+              24,
+              30
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              32,
+              0,
+              64,
+              32
+            ],
+            "opaque_bounds": [
+              9,
+              16,
+              24,
+              30
+            ]
+          },
+          {
+            "index": 2,
+            "cell": [
+              64,
+              0,
+              96,
+              32
+            ],
+            "opaque_bounds": [
+              9,
+              16,
+              24,
+              30
+            ]
+          },
+          {
+            "index": 3,
+            "cell": [
+              96,
+              0,
+              128,
+              32
+            ],
+            "opaque_bounds": [
+              9,
+              16,
+              24,
+              30
+            ]
+          },
+          {
+            "index": 4,
+            "cell": [
+              128,
+              0,
+              160,
+              32
+            ],
+            "opaque_bounds": [
+              8,
+              15,
+              23,
+              30
+            ]
+          },
+          {
+            "index": 5,
+            "cell": [
+              160,
+              0,
+              192,
+              32
+            ],
+            "opaque_bounds": [
+              8,
+              15,
+              23,
+              30
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      "icon_game.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "opaque_bounds": [
+              7,
+              11,
+              24,
+              28
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              0,
+              32,
+              32,
+              64
+            ],
+            "opaque_bounds": [
+              7,
+              11,
+              24,
+              29
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          12,
+          15
+        ]
+      },
+      "icon.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "opaque_bounds": [
+              7,
+              11,
+              24,
+              28
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              0,
+              32,
+              32,
+              64
+            ],
+            "opaque_bounds": [
+              7,
+              11,
+              24,
+              29
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ]
+      }
+    },
+    "xatu": {
+      "anim_front.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "opaque_bounds": [
+              18,
+              3,
+              50,
+              59
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              0,
+              64,
+              64,
+              128
+            ],
+            "opaque_bounds": [
+              8,
+              1,
+              59,
+              59
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ]
+      },
+      "back.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "opaque_bounds": [
+              9,
+              5,
+              63,
+              59
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          11,
+          12,
+          13
+        ]
+      },
+      "overworld.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "opaque_bounds": [
+              6,
+              5,
+              27,
+              30
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              32,
+              0,
+              64,
+              32
+            ],
+            "opaque_bounds": [
+              6,
+              5,
+              26,
+              30
+            ]
+          },
+          {
+            "index": 2,
+            "cell": [
+              64,
+              0,
+              96,
+              32
+            ],
+            "opaque_bounds": [
+              6,
+              5,
+              26,
+              30
+            ]
+          },
+          {
+            "index": 3,
+            "cell": [
+              96,
+              0,
+              128,
+              32
+            ],
+            "opaque_bounds": [
+              6,
+              5,
+              25,
+              30
+            ]
+          },
+          {
+            "index": 4,
+            "cell": [
+              128,
+              0,
+              160,
+              32
+            ],
+            "opaque_bounds": [
+              8,
+              6,
+              28,
+              30
+            ]
+          },
+          {
+            "index": 5,
+            "cell": [
+              160,
+              0,
+              192,
+              32
+            ],
+            "opaque_bounds": [
+              8,
+              5,
+              27,
+              30
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ]
+      },
+      "icon_game.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [
+          "Frame 0 touches a cell edge; visually check for clipping.",
+          "Frame 1 touches a cell edge; visually check for clipping."
+        ],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "opaque_bounds": [
+              8,
+              9,
+              25,
+              32
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              0,
+              32,
+              32,
+              64
+            ],
+            "opaque_bounds": [
+              8,
+              11,
+              25,
+              32
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          9,
+          15
+        ]
+      },
+      "icon.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [
+          "Frame 0 touches a cell edge; visually check for clipping.",
+          "Frame 1 touches a cell edge; visually check for clipping."
+        ],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "opaque_bounds": [
+              8,
+              9,
+              25,
+              32
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              0,
+              32,
+              32,
+              64
+            ],
+            "opaque_bounds": [
+              8,
+              11,
+              25,
+              32
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ]
+      }
+    },
+    "nimbatu": {
+      "anim_front.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "opaque_bounds": [
+              2,
+              12,
+              63,
+              59
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              0,
+              64,
+              64,
+              128
+            ],
+            "opaque_bounds": [
+              2,
+              12,
+              62,
+              59
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ]
+      },
+      "back.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [
+          "Frame 0 touches a cell edge; visually check for clipping."
+        ],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              64,
+              64
+            ],
+            "opaque_bounds": [
+              12,
+              4,
+              61,
+              64
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          9,
+          10,
+          12
+        ]
+      },
+      "overworld.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "opaque_bounds": [
+              6,
+              2,
+              27,
+              30
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              32,
+              0,
+              64,
+              32
+            ],
+            "opaque_bounds": [
+              6,
+              2,
+              26,
+              30
+            ]
+          },
+          {
+            "index": 2,
+            "cell": [
+              64,
+              0,
+              96,
+              32
+            ],
+            "opaque_bounds": [
+              6,
+              3,
+              26,
+              30
+            ]
+          },
+          {
+            "index": 3,
+            "cell": [
+              96,
+              0,
+              128,
+              32
+            ],
+            "opaque_bounds": [
+              6,
+              2,
+              26,
+              30
+            ]
+          },
+          {
+            "index": 4,
+            "cell": [
+              128,
+              0,
+              160,
+              32
+            ],
+            "opaque_bounds": [
+              4,
+              2,
+              30,
+              30
+            ]
+          },
+          {
+            "index": 5,
+            "cell": [
+              160,
+              0,
+              192,
+              32
+            ],
+            "opaque_bounds": [
+              4,
+              2,
+              30,
+              30
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ]
+      },
+      "icon_game.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "opaque_bounds": [
+              5,
+              1,
+              27,
+              31
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              0,
+              32,
+              32,
+              64
+            ],
+            "opaque_bounds": [
+              4,
+              1,
+              27,
+              31
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          13,
+          14,
+          15
+        ]
+      },
+      "icon.png": {
+        "technical_pass": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          {
+            "index": 0,
+            "cell": [
+              0,
+              0,
+              32,
+              32
+            ],
+            "opaque_bounds": [
+              5,
+              1,
+              27,
+              31
+            ]
+          },
+          {
+            "index": 1,
+            "cell": [
+              0,
+              32,
+              32,
+              64
+            ],
+            "opaque_bounds": [
+              4,
+              1,
+              27,
+              31
+            ]
+          }
+        ],
+        "used_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ]
+      }
+    }
+  },
+  "runtime_changes": [
+    {
+      "path": "graphics/pokemon/xatu/virelia/icon.png",
+      "before_sha256": "e5485242c64d7f2fe361b1f04510ef62e5e1221842208b3eb83bc38efe23512c",
+      "after_sha256": "4ec98b9423d37c143a429d009b102e3fb155b0b7aaa027757bcb1b8ad98468a8"
+    },
+    {
+      "path": "graphics/pokemon/xatu/virelia/icon_game.png",
+      "before_sha256": "f5793d5cfe64ced968d25bbc987eafd794dccfc448149bacfa6efc4714a9a7d4",
+      "after_sha256": "7cb4eb5cadc2b2cdb1873f8c916fabd6b0facfd4bcaf527e223f1fd54dcc8768"
+    },
+    {
+      "path": "graphics/pokemon/nimbatu/anim_front.png",
+      "before_sha256": "467be79758402768bce6364ebe6443fb024d5a88ee6b396a57dded7e351ea83e",
+      "after_sha256": "7de9e65ed41f683deac1e9f0be35001c16d38dcaea629b9cb02bac045d019a16"
+    },
+    {
+      "path": "graphics/pokemon/nimbatu/back.png",
+      "before_sha256": "aab1535094671593a79c71ec76f4bd7a316f89459197b63725138cc8c0492ab2",
+      "after_sha256": "580a8cfc69025fd05777ccd1ff7ae0003893ecbac4b0edf35731d4c94595536c"
+    },
+    {
+      "path": "graphics/pokemon/nimbatu/front_2.png",
+      "before_sha256": "d3e1af6f6f6c0f1832615f1243f196a10836fb7f8f59f9dcb6884f1056502565",
+      "after_sha256": "8d017bb0444fe6a6a9932a8aea2413fb0da6a2415b14ec07f1775975d3d0f343"
+    }
+  ],
+  "native_converter": [
+    {
+      "species": "natu",
+      "source": "graphics/pokemon/natu/virelia/anim_front.png",
+      "bytes": 4096,
+      "status": "pass"
+    },
+    {
+      "species": "natu",
+      "source": "graphics/pokemon/natu/virelia/back.png",
+      "bytes": 2048,
+      "status": "pass"
+    },
+    {
+      "species": "natu",
+      "source": "graphics/pokemon/natu/virelia/icon_game.png",
+      "bytes": 1024,
+      "status": "pass"
+    },
+    {
+      "species": "natu",
+      "source": "graphics/pokemon/natu/virelia/icon.png",
+      "bytes": 1024,
+      "status": "pass"
+    },
+    {
+      "species": "natu",
+      "source": "graphics/pokemon/natu/virelia/overworld.png",
+      "bytes": 3072,
+      "status": "pass"
+    },
+    {
+      "species": "natu",
+      "source": "graphics/pokemon/natu/virelia/normal.pal",
+      "bytes": 32,
+      "status": "pass"
+    },
+    {
+      "species": "natu",
+      "source": "graphics/pokemon/natu/virelia/overworld_normal.pal",
+      "bytes": 32,
+      "status": "pass"
+    },
+    {
+      "species": "natu",
+      "source": "graphics/pokemon/natu/virelia/overworld_shiny.pal",
+      "bytes": 32,
+      "status": "pass"
+    },
+    {
+      "species": "xatu",
+      "source": "graphics/pokemon/xatu/virelia/anim_front.png",
+      "bytes": 4096,
+      "status": "pass"
+    },
+    {
+      "species": "xatu",
+      "source": "graphics/pokemon/xatu/virelia/back.png",
+      "bytes": 2048,
+      "status": "pass"
+    },
+    {
+      "species": "xatu",
+      "source": "graphics/pokemon/xatu/virelia/icon_game.png",
+      "bytes": 1024,
+      "status": "pass"
+    },
+    {
+      "species": "xatu",
+      "source": "graphics/pokemon/xatu/virelia/icon.png",
+      "bytes": 1024,
+      "status": "pass"
+    },
+    {
+      "species": "xatu",
+      "source": "graphics/pokemon/xatu/virelia/overworld.png",
+      "bytes": 3072,
+      "status": "pass"
+    },
+    {
+      "species": "xatu",
+      "source": "graphics/pokemon/xatu/virelia/normal.pal",
+      "bytes": 32,
+      "status": "pass"
+    },
+    {
+      "species": "xatu",
+      "source": "graphics/pokemon/xatu/virelia/overworld_normal.pal",
+      "bytes": 32,
+      "status": "pass"
+    },
+    {
+      "species": "xatu",
+      "source": "graphics/pokemon/xatu/virelia/overworld_shiny.pal",
+      "bytes": 32,
+      "status": "pass"
+    },
+    {
+      "species": "nimbatu",
+      "source": "graphics/pokemon/nimbatu/anim_front.png",
+      "bytes": 4096,
+      "status": "pass"
+    },
+    {
+      "species": "nimbatu",
+      "source": "graphics/pokemon/nimbatu/back.png",
+      "bytes": 2048,
+      "status": "pass"
+    },
+    {
+      "species": "nimbatu",
+      "source": "graphics/pokemon/nimbatu/icon_game.png",
+      "bytes": 1024,
+      "status": "pass"
+    },
+    {
+      "species": "nimbatu",
+      "source": "graphics/pokemon/nimbatu/icon.png",
+      "bytes": 1024,
+      "status": "pass"
+    },
+    {
+      "species": "nimbatu",
+      "source": "graphics/pokemon/nimbatu/overworld.png",
+      "bytes": 3072,
+      "status": "pass"
+    },
+    {
+      "species": "nimbatu",
+      "source": "graphics/pokemon/nimbatu/normal.pal",
+      "bytes": 32,
+      "status": "pass"
+    },
+    {
+      "species": "nimbatu",
+      "source": "graphics/pokemon/nimbatu/overworld_normal.pal",
+      "bytes": 32,
+      "status": "pass"
+    },
+    {
+      "species": "nimbatu",
+      "source": "graphics/pokemon/nimbatu/overworld_shiny.pal",
+      "bytes": 32,
+      "status": "pass"
+    }
+  ],
+  "manual_natu_files_byte_identical": true,
+  "all_follower_sheets_and_palettes_byte_identical": true,
+  "authoring_cells_match_runtime": {
+    "natu": true,
+    "xatu": true,
+    "nimbatu": true
+  },
+  "visual_static_review": "pass after localized repairs",
+  "timed_playback": "not checked; browser and native UI helpers timed out",
+  "in_game_review": "not checked; no ROM build or transfer requested",
+  "head_shading_native_changes": [
+    {
+      "x": 33,
+      "y": 27,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 33,
+      "y": 32,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 33,
+      "y": 33,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 34,
+      "y": 33,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 50,
+      "y": 33,
+      "from": 4,
+      "to": 5
+    },
+    {
+      "x": 33,
+      "y": 34,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 34,
+      "y": 34,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 35,
+      "y": 34,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 49,
+      "y": 34,
+      "from": 4,
+      "to": 5
+    },
+    {
+      "x": 50,
+      "y": 34,
+      "from": 4,
+      "to": 5
+    },
+    {
+      "x": 51,
+      "y": 34,
+      "from": 4,
+      "to": 5
+    },
+    {
+      "x": 52,
+      "y": 34,
+      "from": 4,
+      "to": 5
+    },
+    {
+      "x": 34,
+      "y": 35,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 35,
+      "y": 35,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 36,
+      "y": 35,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 37,
+      "y": 35,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 38,
+      "y": 35,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 34,
+      "y": 36,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 35,
+      "y": 36,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 36,
+      "y": 36,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 37,
+      "y": 36,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 38,
+      "y": 36,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 39,
+      "y": 36,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 40,
+      "y": 36,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 41,
+      "y": 36,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 35,
+      "y": 37,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 36,
+      "y": 37,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 39,
+      "y": 37,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 40,
+      "y": 37,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 41,
+      "y": 37,
+      "from": 5,
+      "to": 4
+    },
+    {
+      "x": 42,
+      "y": 37,
+      "from": 5,
+      "to": 4
+    }
+  ],
+  "front_core_preserved": "Second frame is frame 0 outside x2..12/y15..30 and x51..62/y15..30; first frame unchanged",
+  "code_changed": false
+}

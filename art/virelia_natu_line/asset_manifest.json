@@ -97,7 +97,7 @@
             64
           ],
           "colors": 14,
-          "sha256": "e5485242c64d7f2fe361b1f04510ef62e5e1221842208b3eb83bc38efe23512c"
+          "sha256": "4ec98b9423d37c143a429d009b102e3fb155b0b7aaa027757bcb1b8ad98468a8"
         },
         "normal.pal": {
           "sha256": "8536f014323c0b4ea2f3b66e23eece387ea6667cd1e7c1fe5352902254155ffd",
@@ -123,7 +123,7 @@
             64
           ],
           "colors": 14,
-          "sha256": "d3e1af6f6f6c0f1832615f1243f196a10836fb7f8f59f9dcb6884f1056502565"
+          "sha256": "8d017bb0444fe6a6a9932a8aea2413fb0da6a2415b14ec07f1775975d3d0f343"
         },
         "anim_front.png": {
           "size": [
@@ -131,7 +131,7 @@
             128
           ],
           "colors": 14,
-          "sha256": "467be79758402768bce6364ebe6443fb024d5a88ee6b396a57dded7e351ea83e"
+          "sha256": "7de9e65ed41f683deac1e9f0be35001c16d38dcaea629b9cb02bac045d019a16"
         },
         "back.png": {
           "size": [
@@ -139,7 +139,7 @@
             64
           ],
           "colors": 11,
-          "sha256": "aab1535094671593a79c71ec76f4bd7a316f89459197b63725138cc8c0492ab2"
+          "sha256": "580a8cfc69025fd05777ccd1ff7ae0003893ecbac4b0edf35731d4c94595536c"
         },
         "icon.png": {
           "size": [
@@ -243,5 +243,6 @@
     ],
     "png_mode": "4-bit indexed, transparent index 0",
     "visual_review": "Wings folded against body. No spread wing or feather tips intersect the side boundaries. Head, neck, shoulders and folded upper wings only; body crop meets bottom edge."
-  }
+  },
+  "latest_visual_review": "07_skill_validation/review.md"
 }
