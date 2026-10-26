@@ -46,6 +46,7 @@ static void EnterWorldMap(u16 map, s8 x, s8 y)
 {
     SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), WARP_ID_NONE, x, y);
     WarpIntoMap();
+    LoadObjEventTemplatesFromHeader();
 }
 
 TEST("Virelia world headers use distinct appended groups and native layouts")

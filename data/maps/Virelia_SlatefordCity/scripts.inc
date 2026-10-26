@@ -10,13 +10,19 @@ Virelia_SlatefordCity_MapScripts::
 Virelia_SlatefordCity_FirstGymOnLoad:
 	callnative VireliaFirstGym_BeginChapter
 	setmetatile 22, 9, 0x1C4, 1
-	setmetatile 25, 17, METATILE_General_RockWall_RockBase, 1
-	call_if_set FLAG_VIRELIA_PROLOGUE_COMPLETE, Virelia_SlatefordCity_OpenQuarry
+	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_MANAGER, 25, 18
+	call_if_set FLAG_VIRELIA_PROLOGUE_COMPLETE, Virelia_SlatefordCity_PositionManager
 	call_if_set FLAG_VIRELIA_QUARRY_COMPLETE, Virelia_SlatefordCity_OpenGym
 	end
 
+Virelia_SlatefordCity_PositionManager:
+	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_MANAGER, 24, 18
+	return
+
 Virelia_SlatefordCity_OpenQuarry:
-	setmetatile 25, 17, METATILE_General_CaveEntrance_Bottom, 0
+	applymovement LOCALID_VIRELIA_SLATEFORD_MANAGER, Virelia_SlatefordCity_Movement_ManagerStepAside
+	waitmovement LOCALID_VIRELIA_SLATEFORD_MANAGER
+	copyobjectxytoperm LOCALID_VIRELIA_SLATEFORD_MANAGER
 	return
 
 Virelia_SlatefordCity_OpenGym:
@@ -154,8 +160,8 @@ Virelia_SlatefordCity_EventScript_ResolveRocket::
 	msgbox Virelia_SlatefordCity_Text_Policeman, MSGBOX_DEFAULT
 	callnative VireliaPrologue_Complete
 	call VireliaFirstGym_EventScript_BeginChapter
+	closemessage
 	call Virelia_SlatefordCity_OpenQuarry
-	special DrawWholeMapView
 	msgbox Virelia_SlatefordCity_Text_PrologueComplete, MSGBOX_DEFAULT
 	releaseall
 #endif
@@ -172,6 +178,11 @@ Virelia_SlatefordCity_EventScript_Growlithe::
 	waitmoncry
 	release
 	end
+
+Virelia_SlatefordCity_Movement_ManagerStepAside:
+	walk_left
+	face_down
+	step_end
 
 Virelia_SlatefordCity_Movement_RocketAroundPlayer:
 	walk_fast_up

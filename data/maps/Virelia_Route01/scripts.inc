@@ -4,13 +4,13 @@ Virelia_Route01_MapScripts::
 
 Virelia_Route01_OnLoad:
 	setmetatile 1, 16, 0xE, 1
-	setmetatile 1, 17, 0xE, 1
+	setmetatile 1, 17, 0x200, 1
 	goto_if_unset FLAG_VIRELIA_SIDEQUEST_REWARDED, Virelia_Route01_CheckSanctuaryShortcut
 	setmetatile 1, 16, 0xD, 0
 	setmetatile 1, 17, 0xD, 0
 Virelia_Route01_CheckSanctuaryShortcut:
 	setmetatile 1, 8, 0xE, 1
-	setmetatile 1, 9, 0xE, 1
+	setmetatile 1, 9, 0x200, 1
 	goto_if_unset FLAG_VIRELIA_SIDEQUEST_REWARDED, Virelia_Route01_LoadDone
 	goto_if_unset FLAG_VIRELIA_SANCTUARY_SHORTCUT_OPEN, Virelia_Route01_LoadDone
 	setmetatile 1, 8, 0x1, 0

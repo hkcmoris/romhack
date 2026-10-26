@@ -58,14 +58,14 @@ static void ExpectGateAccess(bool32 hanaComplete, bool32 shortcutOpen)
     {
         EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
         EXPECT_EQ(MapGridGetCollisionAt(-2 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
-        EXPECT_EQ(MapGridGetMetatileIdAt(1 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : 0xE);
+        EXPECT_EQ(MapGridGetMetatileIdAt(1 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : (y == 16 ? 0xE : 0x200));
         EXPECT_EQ(MapGridGetMetatileIdAt(-2 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : (y == 16 ? 0xE : 0xC6));
     }
     for (u32 y = 8; y <= 9; y++)
     {
         EXPECT_EQ(MapGridGetCollisionAt(1 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
         EXPECT_EQ(MapGridGetCollisionAt(-6 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
-        EXPECT_EQ(MapGridGetMetatileIdAt(1 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? 0x1 : 0xE);
+        EXPECT_EQ(MapGridGetMetatileIdAt(1 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? 0x1 : (y == 8 ? 0xE : 0x200));
         EXPECT_EQ(MapGridGetMetatileIdAt(-6 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? (y == 8 ? 0x1 : 0x1CF) : (y == 8 ? 0xE : 0xC6));
     }
     LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
@@ -74,14 +74,14 @@ static void ExpectGateAccess(bool32 hanaComplete, bool32 shortcutOpen)
         EXPECT_EQ(MapGridGetCollisionAt(20 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
         EXPECT_EQ(MapGridGetCollisionAt(23 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete);
         EXPECT_EQ(MapGridGetMetatileIdAt(20 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : (y == 10 ? 0xE : 0xC6));
-        EXPECT_EQ(MapGridGetMetatileIdAt(23 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : 0xE);
+        EXPECT_EQ(MapGridGetMetatileIdAt(23 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete ? 0xD : (y == 10 ? 0xE : 0x200));
     }
     for (u32 y = 2; y <= 3; y++)
     {
         EXPECT_EQ(MapGridGetCollisionAt(16 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
         EXPECT_EQ(MapGridGetCollisionAt(23 + MAP_OFFSET, y + MAP_OFFSET) == 0, hanaComplete && shortcutOpen);
         EXPECT_EQ(MapGridGetMetatileIdAt(16 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? (y == 2 ? 0x1 : 0x1CF) : (y == 2 ? 0xE : 0xC6));
-        EXPECT_EQ(MapGridGetMetatileIdAt(23 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? 0x1 : 0xE);
+        EXPECT_EQ(MapGridGetMetatileIdAt(23 + MAP_OFFSET, y + MAP_OFFSET), hanaComplete && shortcutOpen ? 0x1 : (y == 2 ? 0xE : 0x200));
     }
 }
 
@@ -132,21 +132,25 @@ TEST("Virelia sanctuary Hana gate waits for the actual reward including full Bag
     ExpectGateAccess(TRUE, TRUE);
 }
 
-TEST("Virelia sanctuary ledge allows jumps downhill and blocks walking back uphill")
+TEST("Virelia Route 1 and sanctuary ledges use native one-way collision")
 {
     static const struct
     {
+        u16 map;
         u8 x, y;
         enum Direction jumpDirection;
     } ledges[] =
     {
-        {3, 7, DIR_WEST},
-        {3, 8, DIR_WEST},
-        {3, 9, DIR_WEST},
-        {3, 10, DIR_WEST},
-        {3, 11, DIR_WEST},
-        {3, 12, DIR_NONE}, // The corner is solid; jump from the straight edges.
-        {4, 12, DIR_SOUTH},
+        {MAP_VIRELIA_ROUTE01, 21, 15, DIR_SOUTH},
+        {MAP_VIRELIA_ROUTE01, 22, 15, DIR_NONE}, // The landing shrub splits the ledge into two paths.
+        {MAP_VIRELIA_ROUTE01, 23, 15, DIR_SOUTH},
+        {MAP_VIRELIA_WHISPERWOOD_SANCTUARY, 3, 7, DIR_WEST},
+        {MAP_VIRELIA_WHISPERWOOD_SANCTUARY, 3, 8, DIR_WEST},
+        {MAP_VIRELIA_WHISPERWOOD_SANCTUARY, 3, 9, DIR_WEST},
+        {MAP_VIRELIA_WHISPERWOOD_SANCTUARY, 3, 10, DIR_WEST},
+        {MAP_VIRELIA_WHISPERWOOD_SANCTUARY, 3, 11, DIR_WEST},
+        {MAP_VIRELIA_WHISPERWOOD_SANCTUARY, 3, 12, DIR_NONE}, // Jump from the straight edges.
+        {MAP_VIRELIA_WHISPERWOOD_SANCTUARY, 4, 12, DIR_SOUTH},
     };
     u32 ledge = 0;
     enum Direction direction = DIR_SOUTH;
@@ -155,13 +159,15 @@ TEST("Virelia sanctuary ledge allows jumps downhill and blocks walking back uphi
             PARAMETRIZE { ledge = i; direction = dir; }
 
     ResetSanctuary();
-    LoadSanctuaryMap(MAP_VIRELIA_WHISPERWOOD_SANCTUARY);
+    LoadSanctuaryMap(ledges[ledge].map);
     RunOnLoadMapScript();
     s16 x = ledges[ledge].x + MAP_OFFSET;
     s16 y = ledges[ledge].y + MAP_OFFSET;
     u16 raw = gMapHeader.mapLayout->map[ledges[ledge].y * gMapHeader.mapLayout->width + ledges[ledge].x];
     EXPECT_NE(UNPACK_COLLISION(raw), 0);
+    EXPECT_EQ(UNPACK_ELEVATION(raw), 0);
     EXPECT_NE(MapGridGetCollisionAt(x, y), 0);
+    EXPECT_EQ(MapGridGetElevationAt(x, y), 0);
 
     struct ObjectEvent object = {0};
     object.currentCoords.x = x;
@@ -254,7 +260,7 @@ TEST("Virelia sanctuary native map callbacks restore both sides of each gate")
     ExpectGateAccess(state >= 1, state >= 2);
 }
 
-TEST("Virelia sanctuary loads all twenty-five ancient tree tiles with solid collision")
+TEST("Virelia sanctuary ancient tree preserves all artwork with walkable canopy edges")
 {
     ResetSanctuary();
     FlagSet(FLAG_VIRELIA_SIDEQUEST_REWARDED);
@@ -264,7 +270,7 @@ TEST("Virelia sanctuary loads all twenty-five ancient tree tiles with solid coll
         for (u32 x = 0; x < 5; x++)
         {
             EXPECT_EQ(MapGridGetMetatileIdAt(x + 7 + MAP_OFFSET, y + 5 + MAP_OFFSET), 0x31D + y * 5 + x);
-            EXPECT_NE(MapGridGetCollisionAt(x + 7 + MAP_OFFSET, y + 5 + MAP_OFFSET), 0);
+            EXPECT_EQ(MapGridGetCollisionAt(x + 7 + MAP_OFFSET, y + 5 + MAP_OFFSET) != 0, x > 0 && x < 4);
         }
 }
 

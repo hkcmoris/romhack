@@ -1018,10 +1018,13 @@ static bool8 CanStopSurfing(s16 x, s16 y, enum Direction direction)
 
 static bool8 ShouldJumpLedge(s16 x, s16 y, enum Direction direction)
 {
-    if (GetLedgeJumpDirection(x, y, direction) != DIR_NONE)
-        return TRUE;
-    else
+    if (GetLedgeJumpDirection(x, y, direction) == DIR_NONE)
         return FALSE;
+
+    // The ledge is the next tile; its landing is one tile farther along.
+    MoveCoords(direction, &x, &y);
+    return MapGridGetCollisionAt(x, y) == 0
+        && GetMapBorderIdAt(x, y) != CONNECTION_INVALID;
 }
 
 static bool8 TryPushBoulder(s16 x, s16 y, enum Direction direction)

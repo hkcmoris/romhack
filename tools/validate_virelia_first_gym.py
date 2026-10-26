@@ -197,13 +197,41 @@ def validate():
                     if warp["dest_map"] == "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE"]
     require(len(quarry_warps) == 1, "City must have exactly one quarry entrance")
     quarry_warp = quarry_warps[0]
-    for label, metatile, collision in (("FirstGymOnLoad", "RockWall_RockBase", 1),
-                                      ("OpenQuarry", "CaveEntrance_Bottom", 0)):
+    manager_id = "LOCALID_VIRELIA_SLATEFORD_MANAGER"
+    managers = [obj for obj in city_map["object_events"] if obj.get("local_id") == manager_id]
+    require(len(managers) == 1, "Quarry must have one manager with a stable local ID")
+    manager = managers[0]
+    require((manager["x"], manager["y"]) == (quarry_warp["x"], quarry_warp["y"] + 1),
+            "Manager must block the approach immediately below the open quarry entrance")
+    require(manager["movement_type"] == "MOVEMENT_TYPE_FACE_DOWN",
+            "Manager must remain in place until quarry access is granted")
+    for label, x in (("FirstGymOnLoad", manager["x"]), ("PositionManager", manager["x"] - 1)):
         block = re.search(r"^Virelia_SlatefordCity_" + label + r":\s*\n(.*?)(?=^[A-Za-z_]\w*:|\Z)", city, re.M | re.S)
-        write = (rf"setmetatile\s+{quarry_warp['x']},\s*{quarry_warp['y']},\s*"
-                 rf"METATILE_General_{metatile},\s*{collision}\b")
-        require(block and re.search(write, block[1]),
-                f"{label}: quarry runtime gate must match the authored warp and collision")
+        require(block and f"setobjectxyperm {manager_id}, {x}, {manager['y']}" in block[1],
+                f"{label}: manager must restore the correct persistent position")
+    require("call_if_set FLAG_VIRELIA_PROLOGUE_COMPLETE, Virelia_SlatefordCity_PositionManager" in city,
+            "Manager must step aside only after the prologue grants access")
+    opening = re.search(r"^Virelia_SlatefordCity_OpenQuarry:\s*\n(.*?)(?=^[A-Za-z_]\w*:|\Z)", city, re.M | re.S)
+    require(opening and f"applymovement {manager_id}, Virelia_SlatefordCity_Movement_ManagerStepAside" in opening[1]
+            and f"waitmovement {manager_id}" in opening[1] and f"copyobjectxytoperm {manager_id}" in opening[1],
+            "Quarry access scene must animate and persist the manager's step aside")
+    require(re.search(r"Movement_ManagerStepAside:\s+walk_left\s+face_down\s+step_end", city),
+            "Manager must move exactly one tile left and face the player approach")
+    require(not re.search(rf"setmetatile\s+{quarry_warp['x']},\s*{quarry_warp['y']},", city),
+            "Quarry mouth must retain its authored open metatile")
+    city_layout = layouts[city_map["layout"]]
+    cells = struct.unpack(f"<{city_layout['width'] * city_layout['height']}H",
+                          (ROOT / city_layout["blockdata_filepath"]).read_bytes())
+
+    def city_tile(x, y):
+        return cells[y * city_layout["width"] + x]
+
+    for x, y in ((manager["x"], manager["y"]), (manager["x"] - 1, manager["y"]),
+                 (quarry_warp["x"], quarry_warp["y"])):
+        require(not city_tile(x, y) & 0xC00, "Quarry mouth and manager's step must remain passable terrain")
+    for dx, dy in ((-1, 0), (1, 0), (0, -1)):
+        require(city_tile(quarry_warp["x"] + dx, quarry_warp["y"] + dy) & 0xC00,
+                "Quarry entrance must not bypass its manager from another side")
     require("FLAG_VIRELIA_QUARRY_COMPLETE" in city, "Gym entrance lacks quarry completion gate")
     require("VireliaFirstGym_BeginChapter" in city, "Completed saves cannot enter chapter on city load")
     scripts_all = "\n".join(scripts.values())

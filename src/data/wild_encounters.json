@@ -36852,6 +36852,91 @@
                 "species": "SPECIES_CLEFAIRY"
               }
             ]
+          },
+          "water_mons": {
+            "encounter_rate": 2,
+            "mons": [
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 6,
+                "max_level": 6,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 7,
+                "max_level": 7,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 8,
+                "max_level": 8,
+                "species": "SPECIES_MAGIKARP"
+              }
+            ]
+          },
+          "fishing_mons": {
+            "encounter_rate": 20,
+            "mons": [
+              {
+                "min_level": 3,
+                "max_level": 3,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 4,
+                "max_level": 4,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 6,
+                "max_level": 6,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 7,
+                "max_level": 7,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 7,
+                "max_level": 7,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 8,
+                "max_level": 8,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 9,
+                "max_level": 9,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 10,
+                "max_level": 10,
+                "species": "SPECIES_MAGIKARP"
+              },
+              {
+                "min_level": 11,
+                "max_level": 11,
+                "species": "SPECIES_MAGIKARP"
+              }
+            ]
           }
         }
       ]

@@ -65,11 +65,13 @@ def validate():
 
     # Jump behavior chooses the allowed direction; collision blocks all other
     # approaches. Elevation zero alone permits walking through either side.
-    ledges = [(SHRINE, x, y) for y in range(layouts[SHRINE]['height'])
-              for x in range(layouts[SHRINE]['width']) if behavior((SHRINE, x, y)).startswith('MB_JUMP_')]
-    require(ledges, 'Sanctuary must retain its authored ledge')
+    ledges = [(name, x, y) for name in (ROUTE, SHRINE) for y in range(layouts[name]['height'])
+              for x in range(layouts[name]['width']) if behavior((name, x, y)).startswith('MB_JUMP_')]
+    for name in (ROUTE, SHRINE):
+        require(any(node[0] == name for node in ledges), f'{name}: missing authored ledges')
     for node in ledges:
-        require(tile(node) & 0xC00, f'Sanctuary ledge at {node[1:]} allows reverse passage without collision')
+        require(tile(node) & 0xC00, f'{node}: ledge allows reverse passage without collision')
+        require(tile(node) >> 12 == 0, f'{node}: ledge must use transition elevation zero')
     jump_directions = {'MB_JUMP_EAST': (1, 0), 'MB_JUMP_WEST': (-1, 0),
                        'MB_JUMP_SOUTH': (0, 1), 'MB_JUMP_NORTH': (0, -1)}
 
@@ -137,7 +139,9 @@ def validate():
         for dx in range(5):
             expected = 0x31D + dy * 5 + dx
             value = tile((SHRINE, 7 + dx, 5 + dy))
-            require(value & 0x3FF == expected and value & 0xC00, 'Custom old-tree footprint is incomplete')
+            require(value & 0x3FF == expected, 'Custom old-tree artwork is incomplete')
+            require(bool(value & 0xC00) == (0 < dx < 4),
+                    f'Old-tree collision at {(7 + dx, 5 + dy)} must keep the center solid and outer columns walkable')
             pieces = struct.unpack_from('<8H', raw, (expected - 512) * 16)
             require(all(value >> 12 == 6 for value in pieces[4:]), 'Old-tree tile must use its dedicated palette')
     require((path / 'palettes/06.pal').is_file() and (path / 'palettes/15.pal').is_file(), 'Missing old-tree day/night palettes')

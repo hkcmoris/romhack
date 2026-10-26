@@ -35,9 +35,9 @@ void VireliaSanctuary_UpdateConnectionGates(void)
           && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_VIRELIA_WHISPERWOOD_SANCTUARY))
     {
         for (u32 y = 10; y <= 11; y++)
-            SetConnectionGate(23, y, 0xE, 0xD, hanaComplete);
+            SetConnectionGate(23, y, y == 10 ? 0xE : 0x200, 0xD, hanaComplete);
         for (u32 y = 2; y <= 3; y++)
-            SetConnectionGate(23, y, 0xE, 0x1, shortcutOpen);
+            SetConnectionGate(23, y, y == 2 ? 0xE : 0x200, 0x1, shortcutOpen);
     }
 #endif
 }

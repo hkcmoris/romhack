@@ -6,6 +6,7 @@
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "field_control_avatar.h"
+#include "field_player_avatar.h"
 #include "fieldmap.h"
 #include "metatile_behavior.h"
 #include "script.h"
@@ -33,6 +34,7 @@
 #include "constants/event_objects.h"
 #include "constants/heal_locations.h"
 #include "constants/items.h"
+#include "constants/map_event_ids.h"
 #include "constants/moves.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/opponents.h"
@@ -168,6 +170,7 @@ TEST("Virelia all five trainers white out on defeat and persist only a successfu
     SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_CITY),
                        MAP_NUM(MAP_VIRELIA_SLATEFORD_CITY), WARP_ID_NONE, 14, 27);
     WarpIntoMap();
+    LoadObjEventTemplatesFromHeader();
     InitMap();
     CreateRandomMonWithIVs(&gParties[B_TRAINER_PLAYER][0], SPECIES_EKANS_VIRELIA, 12, 10);
     gPartiesCount[B_TRAINER_PLAYER] = 1;
@@ -193,7 +196,7 @@ TEST("Virelia all five trainers white out on defeat and persist only a successfu
         EXPECT(!FlagGet(flag));
 }
 
-TEST("Virelia actual city map load keeps chapter entrances locked until their independent prerequisites")
+TEST("Virelia actual city map load gates the quarry with its manager and the Gym with its door")
 {
     u32 checkpoint = 0;
     for (u32 i = 0; i < 3; i++)
@@ -208,6 +211,7 @@ TEST("Virelia actual city map load keeps chapter entrances locked until their in
     SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_CITY),
                        MAP_NUM(MAP_VIRELIA_SLATEFORD_CITY), WARP_ID_NONE, 14, 27);
     WarpIntoMap();
+    LoadObjEventTemplatesFromHeader();
     InitMap();
     RunOnLoadMapScript();
     const struct WarpEvent *quarry = &gMapHeader.events->warps[2];
@@ -218,9 +222,43 @@ TEST("Virelia actual city map load keeps chapter entrances locked until their in
     u32 quarryBehavior = MapGridGetMetatileBehaviorAt(quarryX, quarryY);
     EXPECT_EQ(MetatileBehavior_IsWarpDoor(gymBehavior), checkpoint >= 2);
     EXPECT_NE(MapGridGetCollisionAt(22 + MAP_OFFSET, 9 + MAP_OFFSET), 0);
-    EXPECT_EQ(MetatileBehavior_IsNonAnimDoor(quarryBehavior), checkpoint >= 1);
-    EXPECT_EQ(MapGridGetCollisionAt(quarryX, quarryY) != 0, checkpoint < 1);
-    // The gate must not replace the authored cliff cap above the moved warp.
+    EXPECT(MetatileBehavior_IsNonAnimDoor(quarryBehavior));
+    EXPECT_EQ(MapGridGetCollisionAt(quarryX, quarryY), 0);
+    u16 mouth = gMapHeader.mapLayout->map[quarry->y * gMapHeader.mapLayout->width + quarry->x];
+    EXPECT_EQ(MapGridGetMetatileIdAt(quarryX, quarryY), UNPACK_METATILE(mouth));
+    const struct ObjectEventTemplate *manager = NULL;
+    for (u32 i = 0; i < gMapHeader.events->objectEventCount; i++)
+        if (gSaveBlock1Ptr->objectEventTemplates[i].localId == LOCALID_VIRELIA_SLATEFORD_MANAGER)
+            manager = &gSaveBlock1Ptr->objectEventTemplates[i];
+    EXPECT_NE(manager, NULL);
+    EXPECT_EQ(manager->x, quarry->x - (checkpoint >= 1));
+    EXPECT_EQ(manager->y, quarry->y + 1);
+    EXPECT_EQ(MapGridGetCollisionAt(manager->x + MAP_OFFSET, manager->y + MAP_OFFSET), 0);
+
+    ResetSpriteData();
+    ResetObjectEvents();
+    gPlayerAvatar.objectEventId = 0;
+    struct ObjectEvent *player = &gObjectEvents[0], *blocker = &gObjectEvents[1];
+    player->active = TRUE;
+    player->localId = LOCALID_PLAYER;
+    player->currentCoords.x = quarryX;
+    player->currentCoords.y = quarryY + 2;
+    player->currentElevation = MapGridGetElevationAt(quarryX, quarryY + 2);
+    blocker->active = TRUE;
+    blocker->localId = manager->localId;
+    blocker->currentCoords.x = blocker->previousCoords.x = manager->x + MAP_OFFSET;
+    blocker->currentCoords.y = blocker->previousCoords.y = manager->y + MAP_OFFSET;
+    blocker->currentElevation = MapGridGetElevationAt(blocker->currentCoords.x, blocker->currentCoords.y);
+    EXPECT_EQ(CheckForObjectEventCollision(player, quarryX, quarryY + 1, DIR_NORTH,
+                  MapGridGetMetatileBehaviorAt(quarryX, quarryY + 1)),
+              checkpoint >= 1 ? COLLISION_NONE : COLLISION_OBJECT_EVENT);
+    SaveMapView();
+    InitMapFromSavedGame();
+    EXPECT_EQ(manager->x, quarry->x - (checkpoint >= 1));
+    EXPECT_EQ(manager->y, quarry->y + 1);
+    ResetObjectEvents();
+    ResetSpriteData();
+    // The gate must not replace the authored cliff cap above the warp.
     u16 cap = gMapHeader.mapLayout->map[(quarry->y - 1) * gMapHeader.mapLayout->width + quarry->x];
     EXPECT_EQ(MapGridGetMetatileIdAt(quarryX, quarryY - 1), UNPACK_METATILE(cap));
     EXPECT_EQ(MapGridGetCollisionAt(quarryX, quarryY - 1), UNPACK_COLLISION(cap));

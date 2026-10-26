@@ -143,6 +143,13 @@ def validate(base=None):
         require(offset < len(attrs), f"{name}: invalid native metatile index {metatile}")
         return attrs[offset] & 0xFF
 
+    def object_position(name, obj):
+        # Reachability uses the completed chapter, when the manager has stepped
+        # left and the open quarry mouth can be approached from the south.
+        if name == CITY and obj.get("local_id") == "LOCALID_VIRELIA_SLATEFORD_MANAGER":
+            return obj["x"] - 1, obj["y"]
+        return obj["x"], obj["y"]
+
     blocks, occupied = {}, {}
     for name, entry in maps.items():
         # An omitted region defaults to each build's native region in mapjson.
@@ -163,7 +170,7 @@ def validate(base=None):
                 f"{name}: region map dimensions would divide by zero")
         require(len(section["name"]) <= 19, f"{name}: region name exceeds native 20-byte buffer")
         require((ROOT / f"data/maps/{name}/scripts.inc").is_file(), f"{name}: missing scripts")
-        occupied[name] = {(obj["x"], obj["y"]) for obj in entry["object_events"]}
+        occupied[name] = {object_position(name, obj) for obj in entry["object_events"]}
         require(len(occupied[name]) == len(entry["object_events"]), f"{name}: overlapping objects")
         for obj in entry["object_events"]:
             require(0 <= obj["x"] < width and 0 <= obj["y"] < height,
@@ -188,6 +195,9 @@ def validate(base=None):
         elevation_a, elevation_b = block(*a) >> 12, block(*b) >> 12
         return elevation_a == elevation_b or 0 in (elevation_a, elevation_b)
 
+    jump_directions = {behavior_names.index("MB_JUMP_" + name): delta for name, delta in (
+        ("EAST", (1, 0)), ("WEST", (-1, 0)), ("SOUTH", (0, 1)), ("NORTH", (0, -1)),
+    )}
     edges = {}
     for name in NAMES:
         width, height = dimensions(name)
@@ -199,7 +209,11 @@ def validate(base=None):
                 edges[node] = []
                 for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
                     other = name, x + dx, y + dy
-                    if walkable(other) and same_elevation(node, other):
+                    if jump_directions.get(tile_behavior(*other)) == (dx, dy):
+                        landing = name, x + 2 * dx, y + 2 * dy
+                        if walkable(landing):
+                            edges[node].append(landing)
+                    elif walkable(other) and same_elevation(node, other):
                         edges[node].append(other)
 
     def warp_access(name, warp):
@@ -296,13 +310,14 @@ def validate(base=None):
         target = next(node for node in seen if node[0] == name)
         require(start in reachable(target), f"{name}: no return path to Maplebrook")
         for obj in maps[name]["object_events"]:
-            adjacent = {(name, obj["x"] + dx, obj["y"] + dy)
+            x, y = object_position(name, obj)
+            adjacent = {(name, x + dx, y + dy)
                         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))}
             # The engine extends A-button interaction by one tile across an
             # actual MB_COUNTER. A wall or arbitrary blocked tile never qualifies.
             for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                counter = name, obj["x"] + dx, obj["y"] + dy
-                stand = name, obj["x"] + 2 * dx, obj["y"] + 2 * dy
+                counter = name, x + dx, y + dy
+                stand = name, x + 2 * dx, y + 2 * dy
                 if tile_behavior(*counter) == counter_behavior and stand in seen:
                     adjacent.add(stand)
             require(bool(adjacent & seen), f"{name}: object cannot be approached: {obj.get('local_id', obj['script'])}")
