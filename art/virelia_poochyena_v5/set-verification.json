@@ -1,0 +1,251 @@
+{
+  "approved_front_unchanged": true,
+  "approved_front_sha256": "95a081d123f716d1b57a7c7492e5a40a80cdd337a5f0781221cf65866fcaa8e5",
+  "palette": [
+    [
+      144,
+      184,
+      168
+    ],
+    [
+      24,
+      32,
+      32
+    ],
+    [
+      40,
+      48,
+      40
+    ],
+    [
+      64,
+      72,
+      64
+    ],
+    [
+      104,
+      112,
+      96
+    ],
+    [
+      56,
+      72,
+      40
+    ],
+    [
+      80,
+      96,
+      56
+    ],
+    [
+      112,
+      128,
+      72
+    ],
+    [
+      152,
+      168,
+      96
+    ],
+    [
+      192,
+      200,
+      128
+    ],
+    [
+      184,
+      136,
+      48
+    ],
+    [
+      248,
+      208,
+      104
+    ],
+    [
+      128,
+      48,
+      64
+    ],
+    [
+      200,
+      80,
+      104
+    ],
+    [
+      176,
+      184,
+      192
+    ],
+    [
+      248,
+      240,
+      216
+    ]
+  ],
+  "binary_alpha": true,
+  "indexed_png_bits": 4,
+  "sprites": {
+    "front": {
+      "size": [
+        64,
+        64
+      ],
+      "sha256": "95a081d123f716d1b57a7c7492e5a40a80cdd337a5f0781221cf65866fcaa8e5"
+    },
+    "front_2": {
+      "size": [
+        64,
+        64
+      ],
+      "sha256": "95cced7e88c959c64f9b4797c7358ae44ad1c9cecca5f8ddd0a5fef087cf9b00"
+    },
+    "back": {
+      "size": [
+        64,
+        64
+      ],
+      "sha256": "90bce93cc96969db4899e00de26418706610f995c5a03059582a1afc5cd68f61"
+    },
+    "anim_front": {
+      "size": [
+        64,
+        128
+      ],
+      "sha256": "7591762337afefa5eebeed14a71821c040f1991ed5e66e2b5ad5690854c6c43a"
+    },
+    "overworld": {
+      "size": [
+        192,
+        32
+      ],
+      "sha256": "88bfce274b5c9d18e0cfa5d2adb47fe51a7845823890aa338a30769e74ee3a2b"
+    },
+    "icon": {
+      "size": [
+        32,
+        64
+      ],
+      "sha256": "68cbd9c1c746e989a609a3737fe3d67ba2debfcbbb597732d490f5d7edbf2569"
+    }
+  },
+  "frame_bounds": {
+    "front": [
+      {
+        "bounds": [
+          8,
+          11,
+          56,
+          53
+        ],
+        "connected_components": 1
+      },
+      {
+        "bounds": [
+          8,
+          12,
+          56,
+          53
+        ],
+        "connected_components": 1
+      }
+    ],
+    "back": [
+      {
+        "bounds": [
+          9,
+          11,
+          56,
+          53
+        ],
+        "connected_components": 1
+      }
+    ],
+    "overworld": [
+      {
+        "bounds": [
+          8,
+          6,
+          25,
+          30
+        ],
+        "connected_components": 1
+      },
+      {
+        "bounds": [
+          8,
+          6,
+          25,
+          30
+        ],
+        "connected_components": 1
+      },
+      {
+        "bounds": [
+          7,
+          6,
+          25,
+          30
+        ],
+        "connected_components": 1
+      },
+      {
+        "bounds": [
+          7,
+          6,
+          25,
+          30
+        ],
+        "connected_components": 1
+      },
+      {
+        "bounds": [
+          4,
+          10,
+          28,
+          30
+        ],
+        "connected_components": 1
+      },
+      {
+        "bounds": [
+          4,
+          10,
+          28,
+          30
+        ],
+        "connected_components": 1
+      }
+    ],
+    "icon": [
+      {
+        "bounds": [
+          4,
+          5,
+          28,
+          26
+        ],
+        "connected_components": 1
+      },
+      {
+        "bounds": [
+          4,
+          6,
+          28,
+          27
+        ],
+        "connected_components": 1
+      }
+    ]
+  },
+  "overworld_order": [
+    "down1",
+    "down2",
+    "up1",
+    "up2",
+    "left1",
+    "left2"
+  ],
+  "runtime_installed": false,
+  "icon_uses_custom_approved_palette": true
+}

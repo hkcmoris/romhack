@@ -1,0 +1,55 @@
+{
+  "front": {
+    "binary_bytes": 2048,
+    "round_trip_indices_identical": true,
+    "round_trip_rgba_identical": true,
+    "binary_sha256": "62458c876ff3dccb8320db1e7bb8e8f40a2236066be11d0d6b19c6943ea6b701"
+  },
+  "front_2": {
+    "binary_bytes": 2048,
+    "round_trip_indices_identical": true,
+    "round_trip_rgba_identical": true,
+    "binary_sha256": "ed52da8b79805cf024a97fb6f1cd92289e9acbf2afcccf3ce0a7f44608d20095"
+  },
+  "anim_front": {
+    "binary_bytes": 4096,
+    "round_trip_indices_identical": true,
+    "round_trip_rgba_identical": true,
+    "binary_sha256": "a4975c9feed19fa98d2b37a4900a672ac9da4daae1248c5302b0db535be5d17c"
+  },
+  "back": {
+    "binary_bytes": 2048,
+    "round_trip_indices_identical": true,
+    "round_trip_rgba_identical": true,
+    "binary_sha256": "6973aca12ffedba4fe19b33a080cda6438d3360316352a0e9e52a6324109da55"
+  },
+  "icon": {
+    "binary_bytes": 1024,
+    "round_trip_indices_identical": true,
+    "round_trip_rgba_identical": true,
+    "binary_sha256": "286513450eab5cdd4c6576a4f9bafc1f30522c75a1172bfae9c8a8054db5330e"
+  },
+  "overworld": {
+    "binary_bytes": 3072,
+    "round_trip_indices_identical": true,
+    "round_trip_rgba_identical": true,
+    "binary_sha256": "488554dad8de53327c05eff2abb9929c251df1a364e335a1176c47a71642cd61"
+  },
+  "normal_palette": {
+    "binary_bytes": 32,
+    "rgb555_words_identical": true
+  },
+  "shiny_palette": {
+    "binary_bytes": 32,
+    "rgb555_words_identical": true
+  },
+  "overworld_normal_palette": {
+    "binary_bytes": 32,
+    "rgb555_words_identical": true
+  },
+  "overworld_shiny_palette": {
+    "binary_bytes": 32,
+    "rgb555_words_identical": true
+  },
+  "scope": "Native graphics conversion only; no full ROM build or emulator playtest"
+}

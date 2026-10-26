@@ -163,6 +163,10 @@ Dedicated shiny colors are pending; shiny forms currently use the normal palette
 
 The grass family's party icons are separate copies of the original Poochyena
 and Mightyena icons, recolored and adapted to match the new battle sprites.
+The rejected Poochyena v2 pass is preserved in `art/virelia_poochyena_v2/`;
+runtime assets have been restored. A GBA-based regional v3 review candidate,
+with all battle, walking and icon frames, is in `art/virelia_poochyena_v3/`.
+It is not installed into the game.
 The fire family follows the same original-sprite-first approach with Ekans
 and Arbok, then adds the concept's volcanic cracks, flames and hood markings.
 Infernabra has a larger, rocky hood and its own final-stage silhouette.

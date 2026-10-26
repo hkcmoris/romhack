@@ -1,0 +1,354 @@
+{
+  "version": 4,
+  "scope": "One front sprite only; review candidate",
+  "origin": "Drawn from a blank 64x64 Aseprite canvas with explicit pixel rows through Aseprite MCP. No donor image was imported, traced, copied, or recolored.",
+  "design": "Crouching woodland hyena pup with pointed asymmetric ears, a projecting canine muzzle, charcoal fur, a ragged moss hood and mantle, a bushy leaf-tipped tail, and amber eyes.",
+  "palette": [
+    "#90B8A8",
+    "#201828",
+    "#403848",
+    "#685860",
+    "#A08888",
+    "#E0D0A0",
+    "#384838",
+    "#506040",
+    "#809850",
+    "#B0C870",
+    "#D0D890",
+    "#A86830",
+    "#F0C050",
+    "#F8F0C8",
+    "#A84050",
+    "#986058"
+  ],
+  "legend": {
+    "k": "#201828",
+    "d": "#403848",
+    "s": "#685860",
+    "u": "#A08888",
+    "p": "#E0D0A0",
+    "o": "#384838",
+    "g": "#506040",
+    "m": "#809850",
+    "l": "#B0C870",
+    "h": "#D0D890",
+    "c": "#A86830",
+    "y": "#F0C050",
+    "w": "#F8F0C8",
+    "r": "#A84050",
+    "e": "#986058"
+  },
+  "parts": [
+    {
+      "name": "01 distant paws",
+      "x": 17,
+      "y": 41,
+      "rows": [
+        ".......dd.............dd..",
+        "......dssd...........dssd.",
+        ".....dssdk..........dssdk.",
+        "....dssdk...........dssdk.",
+        "...dssdk............dssdk.",
+        "..dssdk.............dssdk.",
+        ".dssdk.............dsssdk.",
+        "dsusdk.............dsussdk",
+        "dssddk.............dssdddk",
+        ".kkkk...............kkkkk."
+      ]
+    },
+    {
+      "name": "02 fern tail",
+      "x": 44,
+      "y": 28,
+      "rows": [
+        "..........o.....",
+        "........oomo....",
+        ".......olhhmo...",
+        ".....oolhmmgok..",
+        "....olhhmmggk...",
+        "...olhmmmgggkk..",
+        "..olhmmmgggggok.",
+        ".olhmmmgggmmgggk",
+        "olhmmgggmmmgggok",
+        ".ommgggmmggggokk",
+        "..oggmmggggok...",
+        "...ogmggggk.....",
+        "....oggggk......",
+        ".....oggk.......",
+        "......kk........"
+      ]
+    },
+    {
+      "name": "03 charcoal torso",
+      "x": 27,
+      "y": 29,
+      "rows": [
+        "........dddddd.......",
+        ".....dddusssssd......",
+        "...ddussssssssd......",
+        "..dusssssssssssdk....",
+        ".dussssssssssssdk....",
+        "dusssussdsssssssdd...",
+        "dussussdsssssssssdk..",
+        "dussussdssssssssssdk.",
+        "dussssssssssssssssdk.",
+        "dssssssssssssssssssdk",
+        "dssssssdddsssssssssdk",
+        "dssssdddddsssssssssdk",
+        ".dssddddddsssssssssdk",
+        "..ddddddddsssssssssdk",
+        "...kkdddddssssssssdk.",
+        "......kkkddsssssdddk.",
+        "..........kddsssdddk.",
+        "...........kddddddk..",
+        "............kkkkkk..."
+      ]
+    },
+    {
+      "name": "04 bent foreleg",
+      "x": 26,
+      "y": 40,
+      "rows": [
+        ".....dsss.",
+        "....dusssk",
+        "...dusssdk",
+        "...dussddk",
+        "...dssddk.",
+        "..dssddk..",
+        "..dssddk..",
+        ".dssddk...",
+        "dssddk....",
+        "dssddk....",
+        "dusssdk...",
+        "dussdddk..",
+        "dussdddk..",
+        ".kkkkkk..."
+      ]
+    },
+    {
+      "name": "05 near haunch",
+      "x": 42,
+      "y": 40,
+      "rows": [
+        "...dsssd..",
+        "..dussssdk",
+        ".dussssdk.",
+        "dussdddk..",
+        "dssdddk...",
+        ".dssddk...",
+        "..dssdk...",
+        "..dssdk...",
+        "..dsssdk..",
+        ".dssssdk..",
+        ".dussssdk.",
+        "dusssdddk.",
+        "dussddddk.",
+        ".kkkkkkk.."
+      ]
+    },
+    {
+      "name": "06 moss mantle",
+      "x": 25,
+      "y": 24,
+      "rows": [
+        "..........oo.........",
+        ".........olho........",
+        ".......oolhhmo.......",
+        ".....oolhhhmmo.......",
+        "...oolhhhlmmmgok.....",
+        "..olhhlhmmmlmmgok....",
+        ".olhhlmmmlmmmgmmgok..",
+        "olhhmmmlmmmggmmmggok.",
+        ".olhmlmmmmggmmmgggok.",
+        "..ommmmlmggmmmmgggok.",
+        ".olhmmmmlmmmmlmgggok.",
+        "olhmmmlmmmmlmmggggok.",
+        ".olmmmmlmmmmmmgggggok",
+        "..ommlmmmmmgmmgggggok",
+        ".ommmmmmmggmmgggggok.",
+        "olmmmlmmggmmmggggok..",
+        ".ommmlmggmmmgggggok..",
+        "..ommmmggmmgggggokk..",
+        ".ommmlmmmgggggok.....",
+        ".ogmmmmmgggggokk.....",
+        "..ommmggggggok.......",
+        "...omggmgggok........",
+        "..ommmgggok..........",
+        "...omgggok...........",
+        "....oggok............",
+        ".....kk.............."
+      ]
+    },
+    {
+      "name": "07 far ear",
+      "x": 13,
+      "y": 17,
+      "rows": [
+        ".o......",
+        "omdo....",
+        "osseo...",
+        ".oseeso.",
+        ".osseso.",
+        "..ossso.",
+        "...dssdk",
+        "....dddk"
+      ]
+    },
+    {
+      "name": "08 face",
+      "x": 11,
+      "y": 25,
+      "rows": [
+        ".......ddddddd.......",
+        ".....ddusssssudd.....",
+        "...ddussssssssssdk...",
+        "..dusssusssssssssdk..",
+        ".dussusssssssdddssdk.",
+        "dussussssdssdcydssdk.",
+        "dussussdcyddcyydssdk.",
+        "dussdsscyydkddkdsssdk",
+        "dssddsdcyydkddddsssdk",
+        "krrddddcyddkdddssssdk",
+        "krddddddkkkdddssssdk.",
+        "kdddddudddddddsssdk..",
+        ".kddddddddddddsssdk..",
+        "..kdddddwdddddssdk...",
+        "...kdddwddddsssddk...",
+        "....kddddddsssssdk...",
+        "......kkddssssddk....",
+        "........kdddddk......",
+        ".........kkkkk......."
+      ]
+    },
+    {
+      "name": "09 near ear",
+      "x": 26,
+      "y": 14,
+      "rows": [
+        ".......o..",
+        "......omo.",
+        ".....omlmo",
+        "....omeemo",
+        "...omseeso",
+        "..omseesso",
+        ".omsseesso",
+        "omsseessso",
+        ".omsessso.",
+        "..osssso..",
+        "...dddk..."
+      ]
+    },
+    {
+      "name": "10 moss brow",
+      "x": 15,
+      "y": 20,
+      "rows": [
+        ".....oo............",
+        "....olho...........",
+        "...olhhmo.....oo...",
+        "..olhmmmmo...olmo..",
+        ".olhhmmmmmoolmmlmo.",
+        "olhmmmmmmlmmmmmggok",
+        ".olmmmmmlmmmmmmggok",
+        "..ommmlmmmmmmmgggok",
+        ".olmmmmmmmgggggggok",
+        "olmmmmgggggggggok..",
+        ".ommgg..........ogk",
+        "..og............ogk",
+        "...o.............ok"
+      ]
+    }
+  ],
+  "details": [
+    {
+      "name": "Light and fur",
+      "x": 27,
+      "y": 34,
+      "rows": [
+        "..m...........",
+        ".ml...........",
+        ".llm..........",
+        "..ml..........",
+        "...mm.........",
+        "..mml.........",
+        "...mlm........",
+        "....mm........",
+        "...mml........",
+        "....ml........",
+        ".....m........",
+        "....mm........",
+        ".....m........"
+      ]
+    }
+  ],
+  "polish": [
+    {
+      "x": 21,
+      "y": 30,
+      "rows": [
+        "w..w",
+        ".y.."
+      ],
+      "name": "Eye glints"
+    },
+    {
+      "x": 25,
+      "y": 40,
+      "rows": [
+        ".pd.",
+        "ppdd",
+        ".ppd",
+        "..pd",
+        "...d"
+      ],
+      "name": "Throat fur"
+    },
+    {
+      "x": 43,
+      "y": 33,
+      "rows": [
+        "..mg..",
+        ".mggok",
+        "..ggk.",
+        "...k..",
+        "......",
+        ".mg...",
+        ".mggok",
+        "..ggk.",
+        "...k..",
+        "......",
+        "mg....",
+        "mggok.",
+        ".ggk..",
+        "..k..."
+      ],
+      "name": "Ragged moss edge"
+    },
+    {
+      "name": "Canine muzzle",
+      "x": 7,
+      "y": 33,
+      "rows": [
+        ".....dddddd...",
+        "...ddussssdd..",
+        ".ddssdsssssdd.",
+        "kdddkssssssddk",
+        "kdddkddddssddk",
+        ".kdddddddssdk.",
+        "..kdddddddddk.",
+        "...kddddwddk..",
+        "....kkddddk...",
+        "......kkkk...."
+      ]
+    }
+  ],
+  "guide": "https://www.dragonflycave.com/spriting-guide/",
+  "revision": "Canine face and silhouette; front only",
+  "history": [
+    {
+      "revision": "Rounded-ear/curled-tail study",
+      "sprite": "studies/04-before-canine.aseprite",
+      "png": "studies/04-before-canine.png"
+    }
+  ]
+}

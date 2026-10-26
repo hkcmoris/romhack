@@ -1,0 +1,102 @@
+{
+  "status": "candidate; not installed",
+  "files": {
+    "front.png": {
+      "size": [
+        64,
+        64
+      ],
+      "bounds": [
+        12,
+        12,
+        56,
+        52
+      ],
+      "sha256": "331b609d77993b5e4edf424ae6178d850d097675fcdbd983684c9ea88a786ee0"
+    },
+    "front_2.png": {
+      "size": [
+        64,
+        64
+      ],
+      "bounds": [
+        11,
+        15,
+        58,
+        51
+      ],
+      "sha256": "fa6755e0ce8e66d783e2d26dc90dcb83416e685c0b4863cc3a24ad4e4af58265"
+    },
+    "anim_front.png": {
+      "size": [
+        64,
+        128
+      ],
+      "bounds": [
+        11,
+        12,
+        58,
+        115
+      ],
+      "sha256": "8e36de35d8f41cc0e2e7426f5255cb183ab0c0c7183640b05e60883b608fde31"
+    },
+    "back.png": {
+      "size": [
+        64,
+        64
+      ],
+      "bounds": [
+        4,
+        10,
+        59,
+        55
+      ],
+      "sha256": "8f51564222bc8987e23b5b4486e4cec853f4cc4006152822149fdace3aada244"
+    },
+    "icon.png": {
+      "size": [
+        32,
+        64
+      ],
+      "bounds": [
+        5,
+        12,
+        27,
+        62
+      ],
+      "sha256": "889abcdca5c7ef2302c18c7424e4d5d6236199ea8411eb63a9f9a955e258c536"
+    },
+    "overworld.png": {
+      "size": [
+        192,
+        32
+      ],
+      "bounds": [
+        9,
+        13,
+        187,
+        30
+      ],
+      "sha256": "235f6c3e22dea6d8392b3144bfba524ebad7ce887f21e461d4298a5553280d5a"
+    }
+  },
+  "checks": {
+    "binary_alpha": true,
+    "exact_colors": true,
+    "transparent_index": 0,
+    "icon_shared_palette": 1,
+    "distinct_animation_pairs": true
+  },
+  "proposed_species_graphics": {
+    "frontPicSize": [
+      56,
+      48
+    ],
+    "frontPicYOffset": 12,
+    "backPicSize": [
+      56,
+      48
+    ],
+    "backPicYOffset": 9
+  }
+}

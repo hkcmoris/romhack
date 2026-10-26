@@ -1,0 +1,20 @@
+{
+  "size": [
+    64,
+    64
+  ],
+  "frames": 1,
+  "palette_entries": 16,
+  "png_depth": 4,
+  "binary_alpha": true,
+  "transparent_index": 0,
+  "connected_components": 1,
+  "bounds": [
+    8,
+    11,
+    56,
+    53
+  ],
+  "sha256": "95a081d123f716d1b57a7c7492e5a40a80cdd337a5f0781221cf65866fcaa8e5",
+  "runtime_installed": false
+}

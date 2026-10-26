@@ -1,0 +1,72 @@
+{
+  "front.png": {
+    "size": [
+      64,
+      64
+    ],
+    "depth": 4,
+    "sha256": "21617664ed9a104db8405d4a664ec5c9d1f128be9de4e3e6cb73c896e5315798"
+  },
+  "front_2.png": {
+    "size": [
+      64,
+      64
+    ],
+    "depth": 4,
+    "sha256": "0d88a67e2d283c4af6d83ed84fd8680fe52e7c6cd8e5739f57a2ae954133cfb7"
+  },
+  "anim_front.png": {
+    "size": [
+      64,
+      128
+    ],
+    "depth": 4,
+    "sha256": "d1f8bdf1116c8f8a38aa33351936e937b7451a261e6dac96d53711365d40f963"
+  },
+  "back.png": {
+    "size": [
+      64,
+      64
+    ],
+    "depth": 4,
+    "sha256": "3aaff3de8b2a5687fcad036a4ffa1696d4c133112fff005054d8dae2886591cb"
+  },
+  "overworld.png": {
+    "size": [
+      192,
+      32
+    ],
+    "depth": 4,
+    "sha256": "fa2527dc33e091deb1170bc0af998c1d7870289388a7b2c7f0cbfa22d716f0aa"
+  },
+  "icon.png": {
+    "size": [
+      32,
+      64
+    ],
+    "depth": 4,
+    "sha256": "4735a143187dcc3ed42d053577bc54e085bce25c024112e13fad09e9dfa7e826"
+  },
+  "normal.pal": {
+    "sha256": "2a146dd650a02e7a7058306b58609a85726d3893696ea4c7ace984f9fbe5b0ee"
+  },
+  "shiny.pal": {
+    "sha256": "9f8287e7e116800a4a5bfbc48ddb020a3cc7da9ff8589153167e7ecd31e254bd"
+  },
+  "overworld_normal.pal": {
+    "sha256": "2a146dd650a02e7a7058306b58609a85726d3893696ea4c7ace984f9fbe5b0ee"
+  },
+  "overworld_shiny.pal": {
+    "sha256": "9f8287e7e116800a4a5bfbc48ddb020a3cc7da9ff8589153167e7ecd31e254bd"
+  },
+  "checks": {
+    "binary_alpha": true,
+    "exact_palette_match": true,
+    "front_paws_stationary": true,
+    "distinct_animation_pairs": true,
+    "follower_ground_y": 30,
+    "back_bottom_crop": true,
+    "battle_and_overworld_colors_rgb555_exact": true,
+    "icon_shared_palette": 1
+  }
+}

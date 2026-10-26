@@ -1,0 +1,227 @@
+{
+  "version": 3,
+  "status": "review candidate",
+  "method": "Original GBA Poochyena anatomy with scratch-drawn regional details painted through Aseprite MCP; rejected standalone scratch study retained separately.",
+  "guide": "https://www.dragonflycave.com/spriting-guide/",
+  "palette": [
+    "#90C8B0",
+    "#D0D898",
+    "#F8E090",
+    "#A8C868",
+    "#385030",
+    "#90A870",
+    "#607858",
+    "#405048",
+    "#283830",
+    "#B0C080",
+    "#F0B840",
+    "#588040",
+    "#B85058",
+    "#783840",
+    "#F8F0D0",
+    "#181820"
+  ],
+  "shinyPalette": [
+    "#90C8B0",
+    "#D0D8F0",
+    "#F8E090",
+    "#B0B8E0",
+    "#404858",
+    "#8898B8",
+    "#606888",
+    "#404858",
+    "#282838",
+    "#B0C0D8",
+    "#F0B840",
+    "#606898",
+    "#B85058",
+    "#783840",
+    "#F8F0D0",
+    "#181820"
+  ],
+  "legend": {
+    "k": "#181820",
+    "o": "#385030",
+    "s": "#607858",
+    "m": "#90A870",
+    "h": "#B0C080",
+    "H": "#D0D898",
+    "d": "#283830",
+    "b": "#405048",
+    "g": "#588040",
+    "l": "#A8C868",
+    "n": "#B85058",
+    "r": "#783840"
+  },
+  "donors": [
+    {
+      "kind": "back",
+      "donor": "back_gba.png",
+      "w": 64,
+      "h": 64,
+      "frames": 1,
+      "axis": "y",
+      "map": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ]
+    },
+    {
+      "kind": "overworld",
+      "donor": "overworld.png",
+      "w": 32,
+      "h": 32,
+      "frames": 6,
+      "axis": "x",
+      "map": [
+        0,
+        4,
+        15,
+        8,
+        9,
+        5,
+        6,
+        14,
+        12,
+        13,
+        14,
+        7,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "kind": "icon",
+      "donor": "icon_gba.png",
+      "w": 32,
+      "h": 32,
+      "frames": 2,
+      "axis": "y",
+      "map": [
+        0,
+        5,
+        9,
+        14,
+        6,
+        1,
+        6,
+        1,
+        10,
+        2,
+        12,
+        4,
+        13,
+        13,
+        7,
+        15
+      ]
+    }
+  ],
+  "frontRegionalLayers": [
+    {
+      "name": "Tail fern",
+      "x": 44,
+      "y": 24,
+      "rows": [
+        ".........oo.",
+        ".......oolgo",
+        "......ollggo",
+        "....oollggok",
+        "...ollgggokk",
+        "..ollgggodk.",
+        ".ollggggdk..",
+        "ollgggddk...",
+        ".ogggddk....",
+        "..oggddk....",
+        "...oddk.....",
+        "....kk......"
+      ]
+    },
+    {
+      "name": "Fur tips",
+      "x": 29,
+      "y": 22,
+      "rows": [
+        "..oh..",
+        ".ohmo.",
+        "ommhmo",
+        ".omsso",
+        "..osmm",
+        "...omm",
+        "..omso",
+        "...osk"
+      ]
+    },
+    {
+      "name": "Leaf ruff",
+      "x": 28,
+      "y": 31,
+      "rows": [
+        "..og...",
+        ".olgk..",
+        "olggk..",
+        ".ogdk..",
+        "..k.og.",
+        "...olgk",
+        "..olggk",
+        "...ogdk",
+        "....k.."
+      ]
+    },
+    {
+      "name": "Coat texture",
+      "x": 33,
+      "y": 36,
+      "rows": [
+        "h.......",
+        ".hm.....",
+        "..mm....",
+        "...ms...",
+        "..mms...",
+        "...ss...",
+        "....sm..",
+        ".....m.."
+      ]
+    }
+  ],
+  "backLeaf": [
+    "...g..",
+    "..glg.",
+    ".gllgo",
+    ".gllgo",
+    "..gggo",
+    "...ggo",
+    "....o."
+  ],
+  "overworldIconLeaves": {
+    "small": [
+      ".lg.",
+      "lggl",
+      ".glo",
+      "..o."
+    ],
+    "tail": [
+      "..g..",
+      ".glgo",
+      "glggo",
+      ".ggo.",
+      "..o.."
+    ]
+  }
+}
