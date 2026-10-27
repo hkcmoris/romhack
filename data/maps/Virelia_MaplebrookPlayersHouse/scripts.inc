@@ -34,6 +34,7 @@ Virelia_MaplebrookPlayersHouse_EventScript_Mom::
 	goto_if FALSE, Virelia_MaplebrookPlayersHouse_EventScript_FirstTalk
 	checkflag FLAG_VIRELIA_STARTER_RECEIVED
 	goto_if FALSE, Virelia_MaplebrookPlayersHouse_EventScript_GoToLab
+	call_if_set FLAG_VIRELIA_FIRST_GYM_COMPLETE, VireliaRainfall_EventScript_MomUpdate
 	msgbox Virelia_MaplebrookPlayersHouse_Text_Heal, MSGBOX_DEFAULT
 	special HealPlayerParty
 	callnative UpdateFollowingPokemon

@@ -163,6 +163,13 @@
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 12,
+      "y": 1,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_RAINFALL_FOOTHILLS",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],
@@ -206,6 +213,14 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_SlatefordCity_EventScript_ClosedGym"
+    },
+    {
+      "type": "sign",
+      "x": 12,
+      "y": 2,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_SlatefordCity_EventScript_RainfallGate"
     }
   ],
   "region": "REGION_HOENN"

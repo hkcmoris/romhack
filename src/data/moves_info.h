@@ -243,9 +243,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_THUNDER_PUNCH] =
     {
         .name = COMPOUND_STRING("Thunder Punch"),
-        .description = COMPOUND_STRING(
-            "An electrified punch that\n"
-            "may paralyze the foe."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("An electrified punch that\nmay paralyze the foe.", "Elektrický úder pěstí může způsobit\nochrnutí.")),
         .effect = EFFECT_HIT,
         .power = 75,
         .type = TYPE_ELECTRIC,
@@ -561,9 +559,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_SLAM] =
     {
         .name = COMPOUND_STRING("Slam"),
-        .description = COMPOUND_STRING(
-            "Slams the foe with a long\n"
-            "tail, vine, etc."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Slams the foe with a long\ntail, vine, etc.", "Prudce udeří cíl ocasem nebo liánou.")),
         .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_NORMAL,
@@ -818,9 +814,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_FURY_ATTACK] =
     {
         .name = COMPOUND_STRING("Fury Attack"),
-        .description = COMPOUND_STRING(
-            "Jabs the foe 2 to 5 times\n"
-            "with sharp horns, etc."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Jabs the foe 2 to 5 times\nwith sharp horns, etc.", "Dvakrát až pětkrát rychle bodne do cíle.")),
         .effect = EFFECT_HIT,
         .power = 15,
         .type = TYPE_NORMAL,
@@ -890,9 +884,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_BODY_SLAM] =
     {
         .name = COMPOUND_STRING("Body Slam"),
-        .description = COMPOUND_STRING(
-            "A full-body slam that may\n"
-            "cause paralysis."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A full-body slam that may\ncause paralysis.", "Zalehne cíl celou vahou. Může způsobit\nochrnutí.")),
         .effect = EFFECT_HIT,
         .power = 85,
         .type = TYPE_NORMAL,
@@ -995,9 +987,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_DOUBLE_EDGE] =
     {
         .name = COMPOUND_STRING("Double-Edge"),
-        .description = COMPOUND_STRING(
-            "A life-risking tackle that\n"
-            "also hurts the user."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A life-risking tackle that\nalso hurts the user.", "Silný náraz zraní také samotného\nuživatele.")),
         .effect = EFFECT_RECOIL,
         .power = B_UPDATED_MOVE_DATA >= GEN_2 ? 120 : 100,
         .type = TYPE_NORMAL,
@@ -1275,9 +1265,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_SONIC_BOOM] =
     {
         .name = COMPOUND_STRING("Sonic Boom"),
-        .description = COMPOUND_STRING(
-            "Launches shock waves that\n"
-            "always inflict 20 HP damage."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Launches shock waves that\nalways inflict 20 HP damage.", "Rázová zvuková vlna vždy způsobí\nzranění 20 HP.")),
         .effect = EFFECT_FIXED_HP_DAMAGE,
         .power = 1,
         .type = TYPE_NORMAL,
@@ -1421,9 +1409,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_MIST] =
     {
         .name = COMPOUND_STRING("Mist"),
-        .description = COMPOUND_STRING(
-            "Creates a mist that stops\n"
-            "lowering of allies' stats."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Creates a mist that stops\nlowering of allies' stats.", "Mlha chrání tým před snížením\nvlastností.")),
         .effect = EFFECT_MIST,
         .power = 0,
         .type = TYPE_ICE,
@@ -1604,9 +1590,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_BUBBLE_BEAM] =
     {
         .name = COMPOUND_STRING("Bubble Beam"),
-        .description = COMPOUND_STRING(
-            "Forcefully sprays bubbles\n"
-            "that may lower Speed."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Forcefully sprays bubbles\nthat may lower Speed.", "Proud bublin může snížit rychlost cíle.")),
         .effect = EFFECT_HIT,
         .power = 65,
         .type = TYPE_WATER,
@@ -1784,9 +1768,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_COUNTER] =
     {
         .name = COMPOUND_STRING("Counter"),
-        .description = COMPOUND_STRING(
-            "Retaliates any physical hit\n"
-            "with double the power."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Retaliates any physical hit\nwith double the power.", "Vrátí fyzické zranění způsobené v tomto\ntahu dvojnásobně.")),
         .effect = EFFECT_REFLECT_DAMAGE,
         .power = 1,
         .type = TYPE_FIGHTING,
@@ -2099,9 +2081,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_PETAL_DANCE] =
     {
         .name = COMPOUND_STRING("Petal Dance"),
-        .description = COMPOUND_STRING(
-            "A rampage of 2 to 3 turns\n"
-            "that confuses the user."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A rampage of 2 to 3 turns\nthat confuses the user.", "Tančí a útočí několik tahů, pak se zmate.")),
     #if B_UPDATED_MOVE_DATA >= GEN_5
         .power = 120,
     #elif B_UPDATED_MOVE_DATA == GEN_4
@@ -2171,9 +2151,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_DRAGON_RAGE] =
     {
         .name = COMPOUND_STRING("Dragon Rage"),
-        .description = COMPOUND_STRING(
-            "Launches shock waves that\n"
-            "always inflict 40 HP damage."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Launches shock waves that\nalways inflict 40 HP damage.", "Dračí hněv vždy způsobí zranění 40 HP.")),
         .effect = EFFECT_FIXED_HP_DAMAGE,
         .power = 1,
         .type = TYPE_DRAGON,
@@ -2423,9 +2401,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_TOXIC] =
     {
         .name = COMPOUND_STRING("Toxic"),
-        .description = COMPOUND_STRING(
-            "Poisons the foe with an\n"
-            "intensifying toxin."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Poisons the foe with an\nintensifying toxin.", "Způsobí těžkou otravu. Zranění každým\ntahem roste.")),
         .effect = EFFECT_NON_VOLATILE_STATUS,
         .power = 0,
         .type = TYPE_POISON,
@@ -2552,9 +2528,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_AGILITY] =
     {
         .name = COMPOUND_STRING("Agility"),
-        .description = COMPOUND_STRING(
-            "Relaxes the body to sharply\n"
-            "raise Speed."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Relaxes the body to sharply\nraise Speed.", "Uvolní tělo a prudce zvýší svou rychlost.")),
         .effect = EFFECT_STAT_CHANGE,
         .power = 0,
         .type = TYPE_PSYCHIC,
@@ -2664,9 +2638,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_NIGHT_SHADE] =
     {
         .name = COMPOUND_STRING("Night Shade"),
-        .description = COMPOUND_STRING(
-            "Inflicts damage identical\n"
-            "to the user's level."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Inflicts damage identical\nto the user's level.", "Způsobí zranění rovné úrovni uživatele.")),
         .effect = EFFECT_LEVEL_DAMAGE,
         .power = 1,
         .type = TYPE_GHOST,
@@ -3357,17 +3329,13 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     {
         .name = COMPOUND_STRING("Waterfall"),
     #if B_UPDATED_MOVE_DATA >= GEN_4
-        .description = COMPOUND_STRING(
-            "Charges with speed to\n"
-            "climb waterfalls. May flinch."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Charges with speed to\nclimb waterfalls. May flinch.", "Silný vodní náraz může cíl zastrašit.")),
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
             .chance = 20,
         }),
     #else
-        .description = COMPOUND_STRING(
-            "Charges the foe with speed\n"
-            "to climb waterfalls."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Charges the foe with speed\nto climb waterfalls.", "Silný vodní náraz může cíl zastrašit.")),
     #endif
         .effect = EFFECT_HIT,
         .power = 80,
@@ -3522,9 +3490,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_AMNESIA] =
     {
         .name = COMPOUND_STRING("Amnesia"),
-        .description = COMPOUND_STRING(
-            "Forgets about something\n"
-            "and sharply raises Sp. Def."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Forgets about something\nand sharply raises Sp. Def.", "Zapomene starosti a prudce zvýší svou\nzvláštní obranu.")),
         .effect = EFFECT_STAT_CHANGE,
         .power = 0,
         .type = TYPE_PSYCHIC,
@@ -3871,9 +3837,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_BUBBLE] =
     {
         .name = COMPOUND_STRING("Bubble"),
-        .description = COMPOUND_STRING(
-            "An attack using bubbles.\n"
-            "May lower the foes' Speed."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("An attack using bubbles.\nMay lower the foes' Speed.", "Bubliny mohou snížit rychlost zasažených\ncílů.")),
         .effect = EFFECT_HIT,
         .power = B_UPDATED_MOVE_DATA >= GEN_6 ? 40 : 20,
         .type = TYPE_WATER,
@@ -5166,9 +5130,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_FORESIGHT] =
     {
         .name = COMPOUND_STRING("Foresight"),
-        .description = COMPOUND_STRING(
-            "Negates evasion and the\n"
-            "Ghost type's immunities."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Negates evasion and the\nGhost type's immunities.", "Odhalí cíl, zruší jeho úhybnost a umožní\nzasáhnout duchy.")),
         .effect = EFFECT_FORESIGHT,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -5273,9 +5235,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_DETECT] =
     {
         .name = COMPOUND_STRING("Detect"),
-        .description = COMPOUND_STRING(
-            "Evades attack, but may fail\n"
-            "if used in succession."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Evades attack, but may fail\nif used in succession.", "Ochrání před útoky. Opakování snižuje\nšanci na úspěch.")),
         .effect = EFFECT_PROTECT,
         .power = 0,
         .type = TYPE_FIGHTING,
@@ -5406,9 +5366,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_GIGA_DRAIN] =
     {
         .name = COMPOUND_STRING("Giga Drain"),
-        .description = COMPOUND_STRING(
-            "An attack that steals half\n"
-            "the damage inflicted."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("An attack that steals half\nthe damage inflicted.", "Vysaje HP cíle. Polovina zranění léčí\nuživatele.")),
         .effect = EFFECT_HIT,
         .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 75 : 60,
         .type = TYPE_GRASS,
@@ -6027,9 +5985,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_BATON_PASS] =
     {
         .name = COMPOUND_STRING("Baton Pass"),
-        .description = COMPOUND_STRING(
-            "Switches out the user while\n"
-            "keeping effects in play."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Switches out the user while\nkeeping effects in play.", "Vystřídá se a předá změny vlastností\nnáhradníkovi.")),
         .effect = EFFECT_BATON_PASS,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -6136,10 +6092,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_SWEET_SCENT] =
     {
         .name = COMPOUND_STRING("Sweet Scent"),
-        .description = COMPOUND_STRING(
-        #if B_UPDATED_MOVE_DATA >= GEN_6
-            "Allures the foes to harshly\n"
-            "lower evasiveness."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Allures the foes to harshly\nlower evasiveness.", "Sladká vůně sníží úhybnost zasažených\ncílů.")),
         #else
             "Allures the foes to lower\n"
             "evasiveness."),
@@ -6393,9 +6346,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_RAIN_DANCE] =
     {
         .name = COMPOUND_STRING("Rain Dance"),
-        .description = COMPOUND_STRING(
-            "Boosts the power of Water-\n"
-            "type moves for 5 turns."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Boosts the power of Water-\ntype moves for 5 turns.", "Na pět tahů přivolá déšť. Posílí vodní a\noslabí ohnivé útoky.")),
         .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_WATER,
@@ -6419,9 +6370,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_SUNNY_DAY] =
     {
         .name = COMPOUND_STRING("Sunny Day"),
-        .description = COMPOUND_STRING(
-            "Boosts the power of Fire-\n"
-            "type moves for 5 turns."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Boosts the power of Fire-\ntype moves for 5 turns.", "Na pět tahů zesílí slunce. Posílí ohnivé a\noslabí vodní útoky.")),
         .effect = EFFECT_WEATHER,
         .power = 0,
         .type = TYPE_FIRE,
@@ -6559,9 +6508,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_ANCIENT_POWER] =
     {
         .name = COMPOUND_STRING("Ancient Power"),
-        .description = COMPOUND_STRING(
-            "An attack that may raise\n"
-            "all stats."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("An attack that may raise\nall stats.", "Prastará síla může zvýšit všechny bojové\nvlastnosti.")),
         .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_ROCK,
@@ -7090,9 +7037,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_SMELLING_SALTS] =
     {
         .name = COMPOUND_STRING("Smelling Salts"),
-        .description = COMPOUND_STRING(
-            "Powerful against a paralyzed\n"
-            "foe, but also heals it."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Powerful against a paralyzed\nfoe, but also heals it.", "Proti ochrnutému cíli má dvojnásobnou\nsílu a vyléčí ho.")),
         .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
         .power = B_UPDATED_MOVE_DATA >= GEN_6 ? 70 : 60,
         .type = TYPE_NORMAL,
@@ -7245,9 +7190,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_HELPING_HAND] =
     {
         .name = COMPOUND_STRING("Helping Hand"),
-        .description = COMPOUND_STRING(
-            "Boosts the power of an\n"
-            "ally's move."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Boosts the power of an\nally's move.", "Pomůže spojenci a zesílí jeho příští\nútok.")),
         .effect = EFFECT_HELPING_HAND,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -7539,9 +7482,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_YAWN] =
     {
         .name = COMPOUND_STRING("Yawn"),
-        .description = COMPOUND_STRING(
-            "Lulls the foe into yawning,\n"
-            "then sleeping next turn."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Lulls the foe into yawning,\nthen sleeping next turn.", "Zívnutí uspí cíl na konci příštího tahu.")),
         .effect = EFFECT_YAWN,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -7989,8 +7930,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_TEETER_DANCE] =
     {
         .name = COMPOUND_STRING("Teeter Dance"),
-        .description = COMPOUND_STRING(
-            "Confuses all others."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Confuses all others.", "Tancem zmate všechny okolní Pokémony.")),
         .effect = EFFECT_CONFUSE,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -8198,9 +8138,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_CRUSH_CLAW] =
     {
         .name = COMPOUND_STRING("Crush Claw"),
-        .description = COMPOUND_STRING(
-            "Tears at the foe with sharp\n"
-            "claws. May lower Defense."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Tears at the foe with sharp\nclaws. May lower Defense.", "Drtivý útok drápy může snížit obranu\ncíle.")),
         .effect = EFFECT_HIT,
         .power = 75,
         .type = TYPE_NORMAL,
@@ -8792,9 +8730,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_SAND_TOMB] =
     {
         .name = COMPOUND_STRING("Sand Tomb"),
-        .description = COMPOUND_STRING(
-            "Traps and hurts the foe in\n"
-            "quicksand for "BINDING_TURNS" turns."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Traps and hurts the foe in\nquicksand for  turns.", "Uvězní cíl ve víru písku a postupně ho\nzraňuje.")),
         .effect = EFFECT_HIT,
         .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 35 : 15,
         .type = TYPE_GROUND,
@@ -8875,9 +8811,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_BULLET_SEED] =
     {
         .name = COMPOUND_STRING("Bullet Seed"),
-        .description = COMPOUND_STRING(
-            "Shoots 2 to 5 seeds in a row\n"
-            "to strike the foe."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Shoots 2 to 5 seeds in a row\nto strike the foe.", "Vystřelí na cíl dvě až pět dávek semínek.")),
         .effect = EFFECT_HIT,
         .power = B_UPDATED_MOVE_DATA >= GEN_5 ? 25 : 10,
         .type = TYPE_GRASS,
@@ -8898,9 +8832,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_AERIAL_ACE] =
     {
         .name = COMPOUND_STRING("Aerial Ace"),
-        .description = COMPOUND_STRING(
-            "An extremely speedy and\n"
-            "unavoidable attack."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("An extremely speedy and\nunavoidable attack.", "Rychlý letový výpad vždy zasáhne cíl.")),
         .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_FLYING,
@@ -9123,9 +9055,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_BOUNCE] =
     {
         .name = COMPOUND_STRING("Bounce"),
-        .description = COMPOUND_STRING(
-            "Bounces up, then down the\n"
-            "next turn. May paralyze."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Bounces up, then down the\nnext turn. May paralyze.", "Vyskočí a v příštím tahu dopadne. Může\nochromit cíl.")),
         .effect = EFFECT_SEMI_INVULNERABLE,
         .power = 85,
         .type = TYPE_FLYING,
@@ -9155,9 +9085,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_MUD_SHOT] =
     {
         .name = COMPOUND_STRING("Mud Shot"),
-        .description = COMPOUND_STRING(
-            "Hurls mud at the foe and\n"
-            "lowers Speed."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Hurls mud at the foe and\nlowers Speed.", "Proud bláta zasáhne a sníží rychlost\ncíle.")),
         .effect = EFFECT_HIT,
         .power = 55,
         .type = TYPE_GROUND,
@@ -9288,10 +9216,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_WATER_SPORT] =
     {
         .name = COMPOUND_STRING("Water Sport"),
-        .description = COMPOUND_STRING(
-        #if B_UPDATED_MOVE_DATA >= GEN_6
-            "Water weakens Fire-\n"
-            "type moves for 5 turns."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Water weakens Fire-\ntype moves for 5 turns.", "Voda dočasně oslabí všechny ohnivé\nútoky.")),
         #else
             "The user becomes soaked to\n"
             "weaken all Fire-type moves."),
@@ -9319,9 +9244,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_CALM_MIND] =
     {
         .name = COMPOUND_STRING("Calm Mind"),
-        .description = COMPOUND_STRING(
-            "Raises Sp. Atk and Sp. Def\n"
-            "by focusing the mind."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Raises Sp. Atk and Sp. Def\nby focusing the mind.", "Soustředěním zvýší zvláštní útok i\nzvláštní obranu.")),
         .effect = EFFECT_STAT_CHANGE,
         .power = 0,
         .type = TYPE_PSYCHIC,
@@ -9350,9 +9273,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_LEAF_BLADE] =
     {
         .name = COMPOUND_STRING("Leaf Blade"),
-        .description = COMPOUND_STRING(
-            "Slashes with a sharp leaf.\n"
-            "High critical-hit ratio."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Slashes with a sharp leaf.\nHigh critical-hit ratio.", "Ostrý listový sek častěji zasáhne\nkriticky.")),
         .effect = EFFECT_HIT,
         .power = B_UPDATED_MOVE_DATA >= GEN_4 ? 90 : 70,
         .type = TYPE_GRASS,
@@ -9714,9 +9635,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_NATURAL_GIFT] =
     {
         .name = COMPOUND_STRING("Natural Gift"),
-        .description = COMPOUND_STRING(
-            "The effectiveness varies\n"
-            "with the held Berry."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("The effectiveness varies\nwith the held Berry.", "Využije drženou bobuli. Ta určí typ i sílu\nútoku.")),
         .effect = EFFECT_NATURAL_GIFT,
         .power = 1,
         .type = TYPE_NORMAL,
@@ -9786,10 +9705,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_TAILWIND] =
     {
         .name = COMPOUND_STRING("Tailwind"),
-        .description = COMPOUND_STRING(
-            "Whips up a wind that boosts\n"
-        #if B_TAILWIND_TURNS >= GEN_5
-            "allies' Speed for 4 turns."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Whips up a wind that boosts\nallies' Speed for 4 turns.", "Příznivý vítr dočasně zdvojnásobí\nrychlost týmu.")),
         #else
             "allies' Speed for 3 turns."),
         #endif
@@ -10125,9 +10041,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_GASTRO_ACID] =
     {
         .name = COMPOUND_STRING("Gastro Acid"),
-        .description = COMPOUND_STRING(
-            "Stomach acid suppresses\n"
-            "the foe's Ability."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Stomach acid suppresses\nthe foe's Ability.", "Kyselina dočasně potlačí schopnost\nzasaženého cíle.")),
         .effect = EFFECT_GASTRO_ACID,
         .power = 0,
         .type = TYPE_POISON,
@@ -10322,9 +10236,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_WORRY_SEED] =
     {
         .name = COMPOUND_STRING("Worry Seed"),
-        .description = COMPOUND_STRING(
-            "Plants a seed on the foe\n"
-            "giving it Insomnia."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Plants a seed on the foe\ngiving it Insomnia.", "Zneklidňující semeno změní schopnost\ncíle na Insomnia.")),
         .effect = EFFECT_OVERWRITE_ABILITY,
         .power = 0,
         .type = TYPE_GRASS,
@@ -10416,9 +10328,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_AQUA_RING] =
     {
         .name = COMPOUND_STRING("Aqua Ring"),
-        .description = COMPOUND_STRING(
-            "Forms a veil of water\n"
-            "that restores HP."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Forms a veil of water\nthat restores HP.", "Vodní prstenec postupně obnovuje HP\nuživatele.")),
         .effect = EFFECT_AQUA_RING,
         .power = 0,
         .type = TYPE_WATER,
@@ -10621,9 +10531,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_NIGHT_SLASH] =
     {
         .name = COMPOUND_STRING("Night Slash"),
-        .description = COMPOUND_STRING(
-            "Hits as soon as possible.\n"
-            "High critical-hit ratio."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Hits as soon as possible.\nHigh critical-hit ratio.", "Temný sek častěji zasáhne kriticky.")),
         .effect = EFFECT_HIT,
         .power = 70,
         .type = TYPE_DARK,
@@ -10645,9 +10553,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_AQUA_TAIL] =
     {
         .name = COMPOUND_STRING("Aqua Tail"),
-        .description = COMPOUND_STRING(
-            "The user swings its tail\n"
-            "like a wave to attack."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("The user swings its tail\nlike a wave to attack.", "Udeří ocasem jako mohutnou mořskou\nvlnou.")),
         .effect = EFFECT_HIT,
         .power = 90,
         .type = TYPE_WATER,
@@ -10689,9 +10595,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_AIR_SLASH] =
     {
         .name = COMPOUND_STRING("Air Slash"),
-        .description = COMPOUND_STRING(
-            "Attacks with a blade of\n"
-            "air. May cause flinching."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Attacks with a blade of\nair. May cause flinching.", "Ostrý vzdušný řez může cíl zastrašit.")),
         .effect = EFFECT_HIT,
         .power = 75,
         .type = TYPE_FLYING,
@@ -10738,9 +10642,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_BUG_BUZZ] =
     {
         .name = COMPOUND_STRING("Bug Buzz"),
-        .description = COMPOUND_STRING(
-            "A damaging sound wave that\n"
-            "may lower Sp. Def."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A damaging sound wave that\nmay lower Sp. Def.", "Hlasité bzučení může snížit zvláštní\nobranu cíle.")),
         .effect = EFFECT_HIT,
         .power = 90,
         .type = TYPE_BUG,
@@ -10939,9 +10841,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_BRAVE_BIRD] =
     {
         .name = COMPOUND_STRING("Brave Bird"),
-        .description = COMPOUND_STRING(
-            "A low altitude charge that\n"
-            "also hurts the user."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A low altitude charge that\nalso hurts the user.", "Prudký letový náraz zraní také uživatele.")),
         .effect = EFFECT_RECOIL,
         .power = 120,
         .type = TYPE_FLYING,
@@ -11269,9 +11169,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_MUD_BOMB] =
     {
         .name = COMPOUND_STRING("Mud Bomb"),
-        .description = COMPOUND_STRING(
-            "Throws a blob of mud to\n"
-            "damage and cut accuracy."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Throws a blob of mud to\ndamage and cut accuracy.", "Výbuch bláta může snížit přesnost cíle.")),
         .effect = EFFECT_HIT,
         .power = 65,
         .type = TYPE_GROUND,
@@ -11550,9 +11448,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_LEAF_STORM] =
     {
         .name = COMPOUND_STRING("Leaf Storm"),
-        .description = COMPOUND_STRING(
-            "Whips up a storm of leaves,\n"
-            "but harshly lowers Sp. Atk."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Whips up a storm of leaves,\nbut harshly lowers Sp. Atk.", "Vichřice listí prudce sníží zvláštní útok\nuživatele.")),
         .effect = EFFECT_HIT,
         .power = B_UPDATED_MOVE_DATA >= GEN_6 ? 130 : 140,
         .type = TYPE_GRASS,
@@ -11629,9 +11525,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_CROSS_POISON] =
     {
         .name = COMPOUND_STRING("Cross Poison"),
-        .description = COMPOUND_STRING(
-            "A slash that may poison a\n"
-            "foe and do critical damage."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A slash that may poison a\nfoe and do critical damage.", "Jedovatý křížový sek může otrávit.\nČastěji zasáhne kriticky.")),
         .effect = EFFECT_HIT,
         .power = 70,
         .type = TYPE_POISON,
@@ -11682,9 +11576,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_IRON_HEAD] =
     {
         .name = COMPOUND_STRING("Iron Head"),
-        .description = COMPOUND_STRING(
-            "Slams the foe with a hard\n"
-            "head. May cause flinching."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Slams the foe with a hard\nhead. May cause flinching.", "Tvrdý úder hlavou může cíl zastrašit.")),
         .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_STEEL,
@@ -12659,9 +12551,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_FLAME_BURST] =
     {
         .name = COMPOUND_STRING("Flame Burst"),
-        .description = COMPOUND_STRING(
-            "A bursting flame that does\n"
-            "damage to all foes."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A bursting flame that does\ndamage to all foes.", "Výbuch plamene zraní i Pokémony vedle\ncíle.")),
         .effect = EFFECT_HIT,
         .power = 70,
         .type = TYPE_FIRE,
@@ -12708,9 +12598,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_QUIVER_DANCE] =
     {
         .name = COMPOUND_STRING("Quiver Dance"),
-        .description = COMPOUND_STRING(
-            "Dances to raise Sp. Atk\n"
-            "Sp. Def and Speed."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Dances to raise Sp. Atk\nSp. Def and Speed.", "Tancem zvýší zvláštní útok, zvláštní\nobranu i rychlost.")),
         .effect = EFFECT_STAT_CHANGE,
         .power = 0,
         .type = TYPE_BUG,
@@ -13080,9 +12968,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_CHIP_AWAY] =
     {
         .name = COMPOUND_STRING("Chip Away"),
-        .description = COMPOUND_STRING(
-            "The foe's stat changes don't\n"
-            "affect this attack's damage."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("The foe's stat changes don't\naffect this attack's damage.", "Úder ignoruje zvýšenou obranu a\núhybnost cíle.")),
         .effect = EFFECT_HIT,
         .power = 70,
         .type = TYPE_NORMAL,
@@ -13440,9 +13326,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_ACROBATICS] =
     {
         .name = COMPOUND_STRING("Acrobatics"),
-        .description = COMPOUND_STRING(
-            "Does double damage if the\n"
-            "user has no item."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Does double damage if the\nuser has no item.", "Bez drženého předmětu má útok\ndvojnásobnou sílu.")),
         .effect = EFFECT_ACROBATICS,
         .power = 55,
         .type = TYPE_FLYING,
@@ -14983,9 +14867,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_PETAL_BLIZZARD] =
     {
         .name = COMPOUND_STRING("Petal Blizzard"),
-        .description = COMPOUND_STRING(
-            "Stirs up a violent storm\n"
-            "of petals to attack all."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Stirs up a violent storm\nof petals to attack all.", "Prudká smršť okvětních lístků zasáhne\nokolní Pokémony.")),
         .effect = EFFECT_HIT,
         .power = 90,
         .type = TYPE_GRASS,
@@ -15197,9 +15079,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_GRASSY_TERRAIN] =
     {
         .name = COMPOUND_STRING("Grassy Terrain"),
-        .description = COMPOUND_STRING(
-            "The ground turns to grass\n"
-            "for 5 turns. Restores HP."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("The ground turns to grass\nfor 5 turns. Restores HP.", "Na pět tahů vytvoří travní pole. Léčí\nstojící Pokémony.")),
         .effect = EFFECT_TERRAIN,
         .power = 0,
         .type = TYPE_GRASS,
@@ -15296,9 +15176,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_FAIRY_WIND] =
     {
         .name = COMPOUND_STRING("Fairy Wind"),
-        .description = COMPOUND_STRING(
-            "Stirs up a fairy wind to\n"
-            "strike the foe."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Stirs up a fairy wind to\nstrike the foe.", "Zaútočí jemným, ale silným vílím větrem.")),
         .effect = EFFECT_HIT,
         .power = 40,
         .type = TYPE_FAIRY,

@@ -3,6 +3,7 @@
 #include "event_data.h"
 #include "item.h"
 #include "virelia_first_gym.h"
+#include "virelia_rainfall.h"
 #include "constants/items.h"
 #include "constants/battle.h"
 #include "constants/opponents.h"
@@ -16,7 +17,7 @@ u16 VireliaFirstGym_TrainerFlag(u16 trainerId)
     if (trainerId >= TRAINER_VIRELIA_MINER_BRUNO && trainerId <= TRAINER_VIRELIA_MARA)
         return FLAG_VIRELIA_TRAINER_BRUNO + trainerId - TRAINER_VIRELIA_MINER_BRUNO;
 #endif
-    return TRAINER_FLAGS_START + trainerId;
+    return VireliaRainfall_TrainerFlag(trainerId);
 }
 
 static bool32 ChapterAvailable(void)

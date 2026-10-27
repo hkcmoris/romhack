@@ -1650,6 +1650,22 @@
       "y": 9,
       "width": 1,
       "height": 1
+    },
+    {
+      "id": "MAPSEC_VIRELIA_RAINFALL_PASS",
+      "name": "Rainfall Pass",
+      "x": 5,
+      "y": 8,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_VIRELIA_SEABREAK_TOWN",
+      "name": "Seabreak Town",
+      "x": 6,
+      "y": 8,
+      "width": 1,
+      "height": 1
     }
   ]
 }

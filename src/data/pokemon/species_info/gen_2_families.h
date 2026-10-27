@@ -2396,14 +2396,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Marill"),
         .cryId = CRY_MARILL,
         .natDexNum = NATIONAL_DEX_MARILL,
-        .categoryName = _("Aqua Mouse"),
+        .categoryName = _(LOCALIZED_TEXT("Aqua Mouse", "Vodní myš")),
         .height = 4,
         .weight = 85,
-        .description = COMPOUND_STRING(
-            "Its body is covered with water-repellent\n"
-            "fur. Because of the fur, it can swim\n"
-            "through water at high speed without being\n"
-            "slowed by the water's resistance."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Its body is covered with water-repellent\nfur. Because of the fur, it can swim\nthrough water at high speed without being\nslowed by the water's resistance.", "Ocas naplněný lehkým olejem mu slouží\njako plovák. Při potápění zůstává vidět\nnad hladinou.")),
         .pokemonScale = 476,
         .pokemonOffset = 20,
         .trainerScale = 256,
@@ -2478,14 +2474,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Azumarill"),
         .cryId = CRY_AZUMARILL,
         .natDexNum = NATIONAL_DEX_AZUMARILL,
-        .categoryName = _("Aqua Rabbit"),
+        .categoryName = _(LOCALIZED_TEXT("Aqua Rabbit", "Vodní králík")),
         .height = 8,
         .weight = 285,
-        .description = COMPOUND_STRING(
-            "It lives in water virtually all day long.\n"
-            "Its body color and pattern act as\n"
-            "camouflage that makes it tough for\n"
-            "enemies to spot in water."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It lives in water virtually all day long.\nIts body color and pattern act as\ncamouflage that makes it tough for\nenemies to spot in water.", "Díky citlivému sluchu pozná, co se děje\npod vodou. Jeho tuk odpuzuje vodu a\nudržuje tělo v teple.")),
         .pokemonScale = 448,
         .pokemonOffset = 16,
         .trainerScale = 256,
@@ -2712,14 +2704,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Hoppip"),
         .cryId = CRY_HOPPIP,
         .natDexNum = NATIONAL_DEX_HOPPIP,
-        .categoryName = _("Cottonweed"),
+        .categoryName = _(LOCALIZED_TEXT("Cottonweed", "Chmýří")),
         .height = 4,
         .weight = 5,
-        .description = COMPOUND_STRING(
-            "This Pokémon drifts and floats with the\n"
-            "wind. If it senses the approach of strong\n"
-            "winds, a Hoppip links leaves with others\n"
-            "to prepare against being blown away."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("This Pokémon drifts and floats with the\nwind. If it senses the approach of strong\nwinds, a Hoppip links leaves with others\nto prepare against being blown away.", "Nechá se unášet větrem. Když se blíží\nprudká bouře, shlukuje se s ostatními\ndo bezpečí.")),
         .pokemonScale = 562,
         .pokemonOffset = -7,
         .trainerScale = 256,
@@ -2787,14 +2775,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Skiploom"),
         .cryId = CRY_SKIPLOOM,
         .natDexNum = NATIONAL_DEX_SKIPLOOM,
-        .categoryName = _("Cottonweed"),
+        .categoryName = _(LOCALIZED_TEXT("Cottonweed", "Chmýří")),
         .height = 6,
         .weight = 10,
-        .description = COMPOUND_STRING(
-            "It blossoms when the temperature rises\n"
-            "above 64 degrees F. Because its flower's\n"
-            "blooming changes with the temperature,\n"
-            "it is sometimes used as a thermometer."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It blossoms when the temperature rises\nabove 64 degrees F. Because its flower's\nblooming changes with the temperature,\nit is sometimes used as a thermometer.", "Vznáší se za sluncem a rozvírá květ na\nhlavě. Při ochlazení se květ opět\nuzavře.")),
         .pokemonScale = 387,
         .pokemonOffset = 0,
         .trainerScale = 256,
@@ -3263,14 +3247,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Yanma"),
         .cryId = CRY_YANMA,
         .natDexNum = NATIONAL_DEX_YANMA,
-        .categoryName = _("Clear Wing"),
+        .categoryName = _(LOCALIZED_TEXT("Clear Wing", "Vážka")),
         .height = 12,
         .weight = 380,
-        .description = COMPOUND_STRING(
-            "It can see 360 degrees without moving\n"
-            "its eyes. It is a great flier capable of\n"
-            "making sudden stops and turning midair to\n"
-            "quickly chase down targeted prey."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It can see 360 degrees without moving\nits eyes. It is a great flier capable of\nmaking sudden stops and turning midair to\nquickly chase down targeted prey.", "Dokáže sledovat celé okolí bez otočení\nhlavy. Prudkým máváním křídel\nrozvibruje vzduch.")),
         .pokemonScale = 274,
         .pokemonOffset = -1,
         .trainerScale = 256,
@@ -3356,14 +3336,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Yanmega"),
         .cryId = CRY_YANMEGA,
         .natDexNum = NATIONAL_DEX_YANMEGA,
-        .categoryName = _("Ogre Darner"),
+        .categoryName = _(LOCALIZED_TEXT("Ogre Darner", "Obří vážka")),
         .height = 19,
         .weight = 515,
-        .description = COMPOUND_STRING(
-            "This six-legged Pokémon is easily capable\n"
-            "of transporting an adult in flight. It is\n"
-            "adept at biting apart foes while flying\n"
-            "by at high speed."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("This six-legged Pokémon is easily capable\nof transporting an adult in flight. It is\nadept at biting apart foes while flying\nby at high speed.", "Jeho mohutná křídla unesou i dospělého\nčlověka. Při rychlém letu dokáže\nrozdrtit kořist kusadly.")),
         .pokemonScale = 256,
         .pokemonOffset = 1,
         .trainerScale = 326,
@@ -3450,14 +3426,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Wooper"),
         .cryId = CRY_WOOPER,
         .natDexNum = NATIONAL_DEX_WOOPER,
-        .categoryName = _("Water Fish"),
+        .categoryName = _(LOCALIZED_TEXT("Water Fish", "Vodní ryba")),
         .height = 4,
         .weight = 85,
-        .description = COMPOUND_STRING(
-            "Wooper usually live in water but come\n"
-            "out onto land seeking food occasionally.\n"
-            "On land, they coat their bodies with a\n"
-            "gooey, toxic film."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Wooper usually live in water but come\nout onto land seeking food occasionally.\nOn land, they coat their bodies with a\ngooey, toxic film.", "Žije v chladné vodě. Na souš vychází za\nvlhkých večerů a chrání se kluzkým\npovlakem.")),
         .pokemonScale = 479,
         .pokemonOffset = 21,
         .trainerScale = 256,
@@ -3533,14 +3505,10 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .speciesName = _("Quagsire"),
         .cryId = CRY_QUAGSIRE,
         .natDexNum = NATIONAL_DEX_QUAGSIRE,
-        .categoryName = _("Water Fish"),
+        .categoryName = _(LOCALIZED_TEXT("Water Fish", "Vodní ryba")),
         .height = 14,
         .weight = 750,
-        .description = COMPOUND_STRING(
-            "A Quagsire hunts by leaving its mouth wide\n"
-            "open in water and waiting for its prey to\n"
-            "blunder in. Because it doesn't move, it\n"
-            "does not get very hungry."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A Quagsire hunts by leaving its mouth wide\nopen in water and waiting for its prey to\nblunder in. Because it doesn't move, it\ndoes not get very hungry.", "Klidně čeká na dně řeky s otevřenou\ntlamou. Nenechá se vyrušit ani nárazem\ndo kamene.")),
         .pokemonScale = 256,
         .pokemonOffset = 4,
         .trainerScale = 256,

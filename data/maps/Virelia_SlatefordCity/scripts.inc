@@ -9,6 +9,8 @@ Virelia_SlatefordCity_MapScripts::
 @ derived from independent persistent flags and never reset the prologue.
 Virelia_SlatefordCity_FirstGymOnLoad:
 	callnative VireliaFirstGym_BeginChapter
+	callnative VireliaRainfall_BeginChapter
+	call Virelia_SlatefordCity_ConfigureRainfallGate
 	setmetatile 22, 9, 0x1C4, 1
 	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_MANAGER, 25, 18
 	call_if_set FLAG_VIRELIA_PROLOGUE_COMPLETE, Virelia_SlatefordCity_PositionManager
@@ -443,3 +445,25 @@ Virelia_SlatefordCity_Text_ManagerAfter:
 	.string "Mara tě čeká na stadionu.\p"
 	.string "Pořádný souboj je bezpečnější\n"
 	.string "než nepořádná elektroinstalace.$"
+
+Virelia_SlatefordCity_ConfigureRainfallGate:
+	goto_if_set FLAG_VIRELIA_FIRST_GYM_COMPLETE, Virelia_SlatefordCity_OpenRainfallGate
+	setmetatile 12, 2, 0x00E, 1
+	return
+Virelia_SlatefordCity_OpenRainfallGate:
+	setmetatile 12, 2, 0x001, 0
+	return
+
+Virelia_SlatefordCity_EventScript_RainfallGate::
+	goto_if_set FLAG_VIRELIA_FIRST_GYM_COMPLETE, Virelia_SlatefordCity_RainfallGateOpen
+	msgbox Virelia_SlatefordCity_Text_RainfallGateClosed, MSGBOX_SIGN
+	end
+Virelia_SlatefordCity_RainfallGateOpen:
+	msgbox Virelia_SlatefordCity_Text_RainfallGateOpen, MSGBOX_SIGN
+	end
+Virelia_SlatefordCity_Text_RainfallGateClosed:
+	.string "Rainfall Pass uzavřen po deštích.\n"
+	.string "Mara posoudí připravenost trenérů.$"
+Virelia_SlatefordCity_Text_RainfallGateOpen:
+	.string "Rainfall Pass - směr Seabreak.\n"
+	.string "Cesta je znovu přístupná.$"

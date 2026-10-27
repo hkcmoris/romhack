@@ -1,5 +1,11 @@
 # Pokémon Virelia — playable prologue v0.2
 
+The [v0.4 Rainfall Pass and Seabreak chapter](VIRELIA_RAINFALL_SEABREAK.md)
+continues after Mara's Lomový odznak through independent saved flags. It keeps
+the prologue, sanctuary and first Gym playable, appends its maps and opens only
+the new northern Slateford passage. The historical evidence below remains
+specific to its recorded revision; Chapter 2 has a separate verification record.
+
 ## Scope and baseline
 
 The [v0.3 first Gym chapter](VIRELIA_FIRST_GYM.md) continues completed prologue

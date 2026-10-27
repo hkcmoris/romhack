@@ -881,8 +881,20 @@
 #define TRAINER_VIRELIA_GYM_DANA                 869
 #define TRAINER_VIRELIA_MARA                     870
 
+// Chapter 2: appended opponents; system flag base remains fixed.
+#define TRAINER_VIRELIA_RAINFALL_HIKER                    871
+#define TRAINER_VIRELIA_RAINFALL_RANGER                   872
+#define TRAINER_VIRELIA_RAINFALL_FISHERMAN                873
+#define TRAINER_VIRELIA_RAINFALL_WEATHER                  874
+#define TRAINER_VIRELIA_VIKTOR_RAINFALL_GRASS             875
+#define TRAINER_VIRELIA_VIKTOR_RAINFALL_WATER             876
+#define TRAINER_VIRELIA_VIKTOR_RAINFALL_FIRE              877
+#define TRAINER_VIRELIA_VIKTORIE_RAINFALL_GRASS           878
+#define TRAINER_VIRELIA_VIKTORIE_RAINFALL_WATER           879
+#define TRAINER_VIRELIA_VIKTORIE_RAINFALL_FIRE            880
+
 // Keep MAX fixed: saved system flags depend on it.
-#define TRAINERS_COUNT_EMERALD     871
+#define TRAINERS_COUNT_EMERALD     881
 #define MAX_TRAINERS_COUNT_EMERALD 864
 
 #if IS_FRLG

@@ -84,7 +84,7 @@ def encounter_types(species):
 def validate_shared_services(entry, layout):
     city = load("data/maps/Virelia_SlatefordCity/map.json")
     warps = city["warp_events"]
-    require([warp["dest_map"] for warp in warps] == [
+    require([warp["dest_map"] for warp in warps[:3]] == [
         "MAP_VIRELIA_SLATEFORD_POKEMON_CENTER", "MAP_VIRELIA_SLATEFORD_GYM",
         "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE"],
         "Slateford must have one shared service entrance followed by Gym/quarry warps")
@@ -131,7 +131,7 @@ def validate_shared_services(entry, layout):
         require(set(stations) <= seen, "Both exits must reach nursing and shopping in one connected room")
 
 
-def validate_nurse_path(center):
+def validate_nurse_path(center, start="Virelia_Slateford_PokemonCenter_EventScript_Nurse"):
     """Follow the actual nurse script and shared helpers, including fallthrough.
 
     The shared full-center entry reaches the Union Room name buffer. This local
@@ -152,7 +152,6 @@ def validate_nurse_path(center):
             if last not in ("end", "return") and not last.startswith("goto "):
                 targets.append(labels[index + 1].group(1))
         blocks[label.group(1)] = body, targets
-    start = "Virelia_Slateford_PokemonCenter_EventScript_Nurse"
     require(start in blocks, "Local Center nurse event is missing")
     queue, visited = [start], set()
     while queue:

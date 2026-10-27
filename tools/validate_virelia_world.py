@@ -97,8 +97,8 @@ def validate(base=None):
     unique([section["id"] for section in sections], "map section IDs")
     require(len(sections) < 0xFD, "Map sections overlap reserved Pokemon met-location IDs")
     require(groups["group_order"][-2:] == list(GROUPS), "Virelia groups must be appended")
-    require(groups[GROUPS[0]] == [TOWN, ROUTE, CITY, NAMES[-1]], "Unexpected Virelia overworld IDs")
-    require(groups[GROUPS[1]] == [LAB, HOME, *NAMES[5:-1]], "Unexpected Virelia interior IDs")
+    require(groups[GROUPS[0]][:4] == [TOWN, ROUTE, CITY, NAMES[-1]], "Unexpected Virelia overworld IDs")
+    require(groups[GROUPS[1]][:8] == [LAB, HOME, *NAMES[5:-1]], "Unexpected Virelia interior IDs")
     require(groups["group_order"].index(GROUPS[1]) < 0x7F, "Virelia group exceeds signed warp storage")
     if base:
         verify_legacy(base, groups, layouts, sections)
@@ -238,6 +238,11 @@ def validate(base=None):
                     f"{name}: warp tile has no native walking/door behavior: {warp}")
             require(behavior == animated_door or not block(name, warp["x"], warp["y"]) & 0xC00,
                     f"{name}: non-animated warp tile is blocked: {warp}")
+            # Later chapters append a conventional exit; their own graph audit
+            # checks its destination. Keep this audit focused on the old world.
+            if warp["dest_map"] == "MAP_VIRELIA_RAINFALL_FOOTHILLS" and name == CITY:
+                require((warp["x"], warp["y"]) == (12, 1), "Rainfall exit moved from its audited footprint")
+                continue
             require(warp["dest_map"] in by_id, f"{name}: unexpected external warp")
             target_name = by_id[warp["dest_map"]]
             target_warps = maps[target_name]["warp_events"]

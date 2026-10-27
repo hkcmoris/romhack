@@ -17,7 +17,7 @@ concurrency:
 
 env:
   # New CI runs advance the patch version; reruns retain the same version.
-  ROM_VERSION: 0.3.${{ github.run_number }}
+  ROM_VERSION: 0.4.${{ github.run_number }}
   GAME_REVISION: 0
   GAME_LANGUAGE: ENGLISH
   COMPARE: 0
@@ -240,6 +240,7 @@ jobs:
           python3 tools/validate_virelia_missing_tools.py
           python3 tools/validate_virelia_quarry.py
           python3 tools/validate_virelia_slateford_scene.py
+          python3 tools/validate_virelia_rainfall.py
 
       - name: Validate prologue localization
         run: |

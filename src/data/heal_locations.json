@@ -369,6 +369,16 @@
       "respawn_npc": "LOCALID_VIRELIA_SLATEFORD_NURSE",
       "respawn_x": 7,
       "respawn_y": 4
+    },
+    {
+      "id": "HEAL_LOCATION_VIRELIA_SEABREAK_POKEMON_CENTER",
+      "map": "MAP_VIRELIA_SEABREAK_TOWN",
+      "x": 8,
+      "y": 14,
+      "respawn_map": "MAP_VIRELIA_SEABREAK_POKEMON_CENTER",
+      "respawn_npc": "LOCALID_VIRELIA_SEABREAK_NURSE",
+      "respawn_x": 7,
+      "respawn_y": 4
     }
   ]
 }

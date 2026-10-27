@@ -5,7 +5,7 @@ import json
 ROOT = Path(__file__).resolve().parents[1]
 BASE_SPECIES = {'WURMPLE','ZIGZAGOON','POOCHYENA','SEEDOT','TAILLOW','SHROOMISH','RALTS','RATTATA','ZUBAT','POOCHYENA_VIRELIA','NATU_VIRELIA','EKANS_VIRELIA','GEODUDE','ROGGENROLA','SANDSHREW','MAKUHITA','ARON','NOSEPASS'}
 CHAPTER_MOVES = {'TACKLE','SAND_ATTACK','HARDEN','HEADBUTT','ROCK_THROW','MUD_SLAP','DEFENSE_CURL','METAL_CLAW','LOW_KICK','FOCUS_ENERGY','ROCK_TOMB','THUNDER_WAVE','BLOCK'}
-CHAPTER_ITEMS = {'POTION','SUPER_POTION','POKE_BALL','ANTIDOTE','PARALYZE_HEAL','ESCAPE_ROPE','REPEL','TM_ROCK_TOMB'}
+CHAPTER_ITEMS = {'POTION','SUPER_POTION','POKE_BALL','ANTIDOTE','PARALYZE_HEAL','ESCAPE_ROPE','REPEL','TM_ROCK_TOMB','GREAT_BALL','NET_BALL','MYSTIC_WATER'}
 def records():
     result = {}
     for path in sorted((ROOT / 'src/data/pokemon/species_info').glob('*_families.h')):
@@ -13,7 +13,7 @@ def records():
             result[match[1]] = (path.relative_to(ROOT).as_posix(), match[2])
     return result
 
-def derive_coverage(level_bound=20):
+def derive_coverage(level_bound=24):
     species_records = records()
     learnsets = {}
     for path in sorted((ROOT / 'src/data/pokemon/level_up_learnsets').glob('*.h')):

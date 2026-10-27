@@ -8,6 +8,8 @@
 - [Virelia playable prologue](./VIRELIA_PROLOGUE.md)
 - [Whisperwood hidden sanctuary](./VIRELIA_SANCTUARY.md)
 - [Virelia first Gym](./VIRELIA_FIRST_GYM.md)
+- [Rainfall Pass and Seabreak chapter](./VIRELIA_RAINFALL_SEABREAK.md)
+- [Rainfall Pass and Seabreak implementation design](./VIRELIA_RAINFALL_SEABREAK_PLAN.md)
 - [Virelia preview freeze investigation](./VIRELIA_PREVIEW_FREEZE.md)
 - [My Boy! compatibility investigation](./MYBOY_COMPATIBILITY.md)
 - [Virelia Czech localization audit](./VIRELIA_LOCALIZATION_AUDIT.md)

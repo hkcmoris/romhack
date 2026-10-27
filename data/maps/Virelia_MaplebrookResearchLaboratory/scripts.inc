@@ -361,6 +361,7 @@ Virelia_MaplebrookResearchLaboratory_EventScript_Professor::
 	checkflag FLAG_VIRELIA_SUPPLIES_RECEIVED
 	goto_if FALSE, Virelia_MaplebrookResearchLaboratory_EventScript_Supplies
 #endif
+	call_if_set FLAG_VIRELIA_FIRST_GYM_COMPLETE, VireliaRainfall_EventScript_ProfessorUpdate
 	msgbox Virelia_MaplebrookResearchLaboratory_Text_Heal, MSGBOX_DEFAULT
 	special HealPlayerParty
 	callnative UpdateFollowingPokemon
