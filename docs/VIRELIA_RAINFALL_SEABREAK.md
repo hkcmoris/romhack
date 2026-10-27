@@ -369,18 +369,67 @@ result, not a full native UI playthrough.
 Native tests in `test/virelia_rainfall_events.c` exercise compiled event
 helpers, all six actual rival loss/win callbacks, puzzle restoration, route gate
 reload, full-Bag reward retry, services, dedicated trainer flags and six FLASH
-story checkpoints. Build and runtime outcomes are recorded below when completed.
+story checkpoints. Runtime execution is still pending its final rerun; test fixture
+repairs do not change gameplay code or the compiled release identified below.
 
 | Evidence | Status / artifact |
 | --- | --- |
 | Source map/story/service audit | PASS, `python3 tools/validate_virelia_rainfall.py` |
 | Czech source/font/coverage audit | PASS, 1,748 entries through 24 |
-| Optimized Emerald release compilation | Pending current build; log `outputs/rainfall/release-build.log` |
-| Native event and FLASH suite | Pending execution |
-| Native controller-driven chapter checks | Pending execution |
-| Exact-commit GitHub Actions workflow | Pending pushed-branch run |
+| Optimized Emerald release compilation | PASS on intermediate `4fa4c5edc2`; final bridge-layer fix awaiting relink |
+| Native event and FLASH suite | Final rerun pending after test-fixture repairs |
+| Native controller-driven chapter checks | Intermediate `4fa4c5edc2` route/story/quest/services/cold-Continue replay passed; final bridge rendering verification pending |
+| Exact-commit GitHub Actions workflow | Final test-head run pending; earlier revision results remain separate |
 | Android/My Boy! chapter playthrough | NOT TESTED |
 | Unassisted full chapter timing/all-starter balance | NOT MEASURED |
+
+### Intermediate compiled release identity
+
+The intermediate optimized Emerald release from gameplay source
+`4fa4c5edc2a396ee189390d08c4d05eb05e936f2` compiled successfully as version
+`0.4.0` with GCC 13.2.1, binutils 2.42, LTO enabled and
+`MYBOY_DIAGNOSTIC_MODE=0`. Strict unused/deprecated checks remain enabled.
+The ROM is `outputs/rainfall/build/oraculum-v0.4.0-release.gba`, 33,554,432 bytes,
+SHA-256:
+
+```text
+dd330c09944d20e5e753d6125d062ac7dd3e8c671549923b127d1e0da5a28d33
+```
+
+The directory contains the current build ELF, map, symbols and `manifest.json`;
+the final bridge-layer relink will replace this intermediate artifact identity. Build
+logs are `outputs/rainfall/ext4-release-build.log` and
+`outputs/rainfall/ext4-release-build-final.log`. Link usage is ROM 27,087,432,
+EWRAM 226,458 and IWRAM 28,284 bytes. The manifest confirms the compiled coast
+metatiles match the final checked-in source. This successful intermediate build includes the cached Slateford exit
+restoration; it is distinct from the earlier `5573391ef9` playtest ROM.
+Controller inspection then found that normal-layer upper bridge art hid the
+avatar and follower. The source now assigns Covered layers (`0x1000`) to
+Rainfall metatiles `0x320/0x321`, preserving normal walking, collision and
+elevation. Its official recompiled ROM and final rendering check are pending;
+the hash above must not be treated as the final milestone hash.
+
+### Controller evidence and its boundary
+
+Focused native mGBA libretro checks on `5573391ef9` traversed both complete
+route alternatives and activated the actual permanent shortcut. They exercised
+the harbor report, Běla's damage inspection, wrong-order puzzle reset,
+ordinary in-game Save and a cold FLASH Continue during partial input, completed
+beacon, manifest and Vacek scene, and all bottle clues and its reward.
+Checkpoints, screenshots, scripts and logs are under `outputs/rainfall/native/`.
+
+These fixtures seed the original starter/chapter prerequisites and mark route
+trainers and the rival defeated for navigation. They then operate walking and
+interactions through controller input. The rival's actual loss/win callbacks
+and starter matchups have separate native test cases. This evidence is not an
+unassisted prologue-to-ending playthrough or a measured balance/playtime test.
+The old saved-map-view defect was discovered by continuing directly in
+Slateford, then fixed in `4fa4c5edc2`. The `4fa4c5edc2` replay has now confirmed cold Continue, both route choices,
+the real shortcut, lighthouse/manifest/harbor ending, bottle quest, ordinary
+Center healing, Storage UI and one Great Ball purchase. This remains an
+intermediate-ROM result while the bridge-layer correction awaits official
+relink and rendering proof. Full native-suite and final CI results remain
+pending. Android has not been run.
 
 Reproduce source checks and the targeted native suite from the repository root:
 
@@ -413,7 +462,7 @@ The baseline-save regression must begin with a real FLASH Continue directly
 inside Slateford, before leaving the city. The entrance callback reconstructs
 the ten authored cells in its north 3×4 footprint, including the passable cave
 door at `(12,1)`, before applying the first-Gym gate. This prevents the old
-saved tree view from hiding the new exit. The unchanged side cells at row3
+saved tree view from hiding the new exit. The unchanged side cells at row 3
 retain their authored terrain. Test the same cached view before the badge to
 confirm the approach stays closed, and after the badge to confirm it opens.
 

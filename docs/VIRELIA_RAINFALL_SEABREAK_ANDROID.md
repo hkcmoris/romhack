@@ -20,9 +20,9 @@ new run; record failures with the exact case and reproduction steps.
 | Android version | — |
 | My Boy! version | — |
 | BIOS mode, BIOS identity/hash if external | — |
-| Milestone source commit | — |
+| Milestone source commit | Final post-bridge-fix candidate pending; Android run NOT RUN |
 | GitHub Actions run and artifact | — |
-| ROM filename, version and SHA-256 | — |
+| ROM filename, version and SHA-256 | Final post-bridge-fix ROM identity pending; intermediate `dd330c…` is recorded separately in the chapter guide |
 | Starting save origin and SHA-256 | — |
 | New game / backed-up baseline first-Gym FLASH save | — |
 | Player gender and original starter choice | — |
@@ -166,7 +166,7 @@ Poochyena choice → Arbok, Natu choice → Mightyena, Ekans choice → Xatu.
 
 Inspect Czech accents, choices, trainer titles and battle/service messages at
 240×160. Species, move, item and established place names stay English. Check
-new summaries, abilities, moves, items and reachable evolutions through level24.
+new summaries, abilities, moves, items and reachable evolutions through level 24.
 
 Record an unassisted complete chapter with each starter family, including the
 chosen path, optional content, final levels, defeats and elapsed playtime.

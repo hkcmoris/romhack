@@ -295,6 +295,24 @@ TEST("Rainfall native Slateford gate reload follows only the existing first Gym 
     EXPECT_NE(MapGridGetCollisionAt(15 + MAP_OFFSET, 13 + MAP_OFFSET), 0);
 }
 
+TEST("Rainfall native wooden bridges keep avatar and follower above the deck on both paths")
+{
+    u32 lower = FALSE;
+    PARAMETRIZE { lower = FALSE; }
+    PARAMETRIZE { lower = TRUE; }
+    ResetRainfall();
+    LoadRainfallMap(lower ? MAP_VIRELIA_RAINFALL_LOWER : MAP_VIRELIA_RAINFALL_UPPER);
+    for (u32 i = 0; i < 2; i++)
+    {
+        s32 x = lower ? 21 : 8 + i;
+        s32 y = lower ? 20 + i : 14;
+        EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x + MAP_OFFSET, y + MAP_OFFSET), METATILE_LAYER_TYPE_COVERED);
+        EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET), 0);
+        EXPECT_EQ(MapGridGetMetatileBehaviorAt(x + MAP_OFFSET, y + MAP_OFFSET), MB_NORMAL);
+        EXPECT_EQ(MapGridGetElevationAt(x + MAP_OFFSET, y + MAP_OFFSET), lower ? 3 : 5);
+    }
+}
+
 TEST("Rainfall native Continue restores the whole north exit over an older cached Slateford view")
 {
     u32 badge = FALSE;

@@ -362,6 +362,12 @@ def validate_graphics_counts(source=None):
 
 def validate_used_palettes(world):
     graphics_counts = validate_graphics_counts()
+    rainfall_attrs = world.attrs['gTileset_VireliaRainfall']
+    normal = world.behaviors.index('MB_NORMAL')
+    for bridge in (0x320, 0x321):
+        attribute = rainfall_attrs[bridge - 512]
+        require((attribute >> 12) & 3 == 1 and attribute & 255 == normal,
+                f'Rainfall bridge {bridge:#x} must use Covered layers and normal walking behavior so actors remain visible')
     limit = int(re.search(r'^#define NUM_PALS_TOTAL\s+(\d+)', text('include/fieldmap.h'), re.M)[1])
     checked = set()
     for name, layout in world.layouts.items():
@@ -385,6 +391,25 @@ def validate_used_palettes(world):
             checked.add((bank, index))
     print(f'PASS: {len(checked)} used native metatiles, including callback states, use loaded palettes0-{limit - 1}')
 
+
+def validate_rainfall_cascade(world, reached, flags):
+    """Require a readable native cascade without constraining its coordinates."""
+    name = 'Virelia_RainfallUpper'
+    width, height = world.layouts[name]['width'], world.layouts[name]['height']
+    pattern = ((0x0BB, 0x0B3, 0x0BC), (0x0B9, 0x0B9, 0x0B9), (0x02C, 0x034, 0x03C))
+    cascades = [(x, y) for y in range(height - 2) for x in range(width - 2)
+                if all(world.tile((name, x + dx, y + dy), flags) & 1023 == tile
+                       for dy, row in enumerate(pattern) for dx, tile in enumerate(row))]
+    require(cascades, 'Rainfall upper route lacks a complete native waterfall lip/body/splash composition')
+    for x, y in cascades:
+        waterfall = [(name, x + dx, y + dy) for dy in (0, 1) for dx in range(3)]
+        require(all(world.behavior(node, flags) == 'MB_WATERFALL' for node in waterfall),
+                'Waterfall art lost its native environmental behavior')
+        require(all(world.tile(node, flags) & 0xC00 for node in waterfall),
+                'Decorative waterfall must remain off the no-HM walking route')
+        require(any(n[0] == name and abs(n[1] - x - 1) <= 6 and abs(n[2] - y - 1) <= 4 for n in reached),
+                'Waterfall cannot be viewed from reachable upper terrain')
+    print('PASS: complete native off-path waterfall is visible from reachable terrain; no HM traversal required')
 
 def validate_encounters_and_trainers(world, reached, flags):
     tables = [entry for group in load('src/data/wild_encounters.json')['wild_encounter_groups']
@@ -539,6 +564,7 @@ def validate():
     require('VireliaRainfall_ResetSignal' in world.scripts[INTERIORS[2]] and 'FLAG_VIRELIA_LIGHTHOUSE_REPAIRED' in world.scripts[INTERIORS[2]],
             'Lantern-room callback does not reset partial input and restore completion')
     require(load('tools/virelia_prologue_localization.json')['level_bound'] >= 24, 'Czech coverage must extend through level 24')
+    validate_rainfall_cascade(world, reached, all_flags)
     validate_encounters_and_trainers(world, reached, all_flags)
     print(f'PASS: {len(reached)} reachable tiles, reciprocal warps, NPC/clue access, native services and no-HM paths')
     print(f'PASS: distinct branch distances {branch_lengths}; accessible grass {grass}; badge/rival gates block correctly')

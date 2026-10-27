@@ -56,8 +56,8 @@ def clone_rainfall():
     a += [0] * (0x324 - 512 - len(a))
     # Ordinary walking bridges at authored elevations; no stock bridge toggles.
     for dest, source, attr in [
-        (0x320, 0x220, 0),
-        (0x321, 0x228, 0),
+        (0x320, 0x220, 0x1000),
+        (0x321, 0x228, 0x1000),
         (0x322, 0x121, 0x64),
         (0x323, 0x121, 0x65),
     ]:
@@ -345,6 +345,14 @@ def build():
     for y in (13, 14, 15, 16):
         u.g[y][8] = u.block(0x320)
         u.g[y][9] = u.block(0x321)
+    # A native waterfall feeds the western stream, clear of the walking bridge.
+    for dy, row in enumerate(((0x0BB, 0x0B3, 0x0BC), (0x0B9, 0x0B9, 0x0B9), (0x02C, 0x034, 0x03C))):
+        for dx, tile in enumerate(row):
+            u.g[11 + dy][3 + dx] = u.block(tile, True)
+    for yy in range(10, 13):
+        for xx in (2, 6):
+            u.g[yy][xx] = u.block(0x079, True)
+    u.area(3, 10, 3, 1, 0x071, True)
     u.area(3, 20, 4, 3, 0x00D)
     u.area(24, 11, 4, 5, 0x015)
     u.area(12, 21, 7, 3, 0x079, True)
