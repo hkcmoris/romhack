@@ -1,0 +1,29 @@
+{
+  "source_commit": "206a9409699ea2a6ead9abcff8cffa65a2e3b98a",
+  "workflow_run_id": 40510547139,
+  "workflow_url": "https://github.com/hkcmoris/romhack/actions/runs/40510547139",
+  "status": "completed",
+  "conclusion": "success",
+  "updated_at": "2026-10-27T14:07:29Z",
+  "story": {
+    "job_id": 122211203418,
+    "passed": 5551,
+    "total": 5999,
+    "unexpected_failures": 0,
+    "known_failing": 18,
+    "to_do": 421,
+    "expect_failing": 9
+  },
+  "development_and_multiplayer": {
+    "job_id": 122211203745,
+    "passed": 5532,
+    "total": 5980,
+    "unexpected_failures": 0,
+    "known_failing": 18,
+    "to_do": 421,
+    "expect_failing": 9
+  },
+  "local_chapter_target": {"passed": 16, "total": 16},
+  "rom_sha256": "2247b753f89bd25edca86ef20de1da5b8763e8401587ba09eafab422c1ae9e4f",
+  "android_chapter_verification": "NOT RUN"
+}

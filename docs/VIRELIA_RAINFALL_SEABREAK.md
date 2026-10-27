@@ -6,9 +6,7 @@ Chapter 2 continues the existing first Gym through Rainfall Pass to Seabreak
 Town, ending with the restored lighthouse and reopened harbor. It does not
 include the second Gym. The implementation branch is
 `codex/virelia-rainfall-seabreak`. The user-confirmed working baseline is
-`codex/virelia-prologue` at `492267dadc0f9b54322a39038c479d717eba958a`; the
-originally proposed `codex/starter-prologue` is not used to replace this newer
-playable work.
+`codex/virelia-prologue` at `492267dadc0f9b54322a39038c479d717eba958a`.
 
 The prologue, sanctuary, quarry, first Gym and current regional starter IDs
 `1573–1581` remain. Natu → Xatu → Nimbatu stays Water/Psychic. Evolution levels
@@ -325,6 +323,8 @@ species, trainer parties, evolutions, abilities, held items and level-up moves.
 The actual Normal-font dialogue limit is 208 px in the 240×160 viewport; script
 validation also checks glyphs, expanded player/rival names and two-line pages.
 
+The upper route includes an off-path three-wide native waterfall with complete lip, body and splash art feeding its stream. Its rocky frame keeps it decorative; neither route requires Waterfall.
+
 The new route bank derives from stock Fortree rainforest art and General
 rock/ground/water art. It uses distinct authored geography rather than copying
 Route119's layout. Coastal graphics pack existing Slateport harbor parts and
@@ -353,83 +353,144 @@ renders do not substitute for controller or emulator evidence.
 
 ## Verification record
 
-The source graph audit passes on 2026-10-27: 3,717 reachable tiles across the
-old city and nine new maps; both independent no-HM choices; reciprocal native
-warp triggers; event/counter approaches; trainer sight lines; badge and rival
-gates; persistent shortcut endpoints; four encounter tables; all six rival
-variants; Center/heal/PC/shop configuration; retained old IDs/geometry and My
-Boy flags. The first-Gym and original-world source audits also pass after
-narrowly allowing the appended map-registry suffix and the new city warp.
+The source graph audit passes on 2026-10-27: 3,707 reachable tiles across the
+old city and nine new maps, both independent no-HM choices, reciprocal native
+warps, approachable events/counters, short trainer sight lines, badge/rival
+gates, the persistent shortcut, four encounter tables and all six rival
+variants. Its 362 used metatiles stay within loaded palette and graphics
+bounds. It also checks Covered bridge layers, the complete visible native
+waterfall, all authored cached-entrance restoration cells and conditional
+nesting in the localized C headers. Existing world, first-Gym, sanctuary,
+quarry and laboratory source audits pass.
 
-The Czech validator passes with 1,748 manifest entries and level bound 24,
-including every new map/shared dialogue's glyphs, widths and pages. Its local
-record is `outputs/rainfall/localization-check.json`. This is a source-text
-result, not a full native UI playthrough.
-
-Native tests in `test/virelia_rainfall_events.c` exercise compiled event
-helpers, all six actual rival loss/win callbacks, puzzle restoration, route gate
-reload, full-Bag reward retry, services, dedicated trainer flags and six FLASH
-story checkpoints. Runtime execution is still pending its final rerun; test fixture
-repairs do not change gameplay code or the compiled release identified below.
+The Czech validator passes with 1,748 manifest entries through level 24,
+including every new map/shared dialogue's glyphs, widths and pages. This source
+result is separate from the controller checks below.
 
 | Evidence | Status / artifact |
 | --- | --- |
-| Source map/story/service audit | PASS, `python3 tools/validate_virelia_rainfall.py` |
-| Czech source/font/coverage audit | PASS, 1,748 entries through 24 |
-| Optimized Emerald release compilation | PASS on intermediate `4fa4c5edc2`; final bridge-layer fix awaiting relink |
-| Native event and FLASH suite | Final rerun pending after test-fixture repairs |
-| Native controller-driven chapter checks | Intermediate `4fa4c5edc2` route/story/quest/services/cold-Continue replay passed; final bridge rendering verification pending |
-| Exact-commit GitHub Actions workflow | Final test-head run pending; earlier revision results remain separate |
-| Android/My Boy! chapter playthrough | NOT TESTED |
-| Unassisted full chapter timing/all-starter balance | NOT MEASURED |
+| Source map/story/service and Czech audits | PASS, `outputs/rainfall/source-audits.log` |
+| Optimized Emerald release compilation | PASS, gameplay source `206a9409699ea2a6ead9abcff8cffa65a2e3b98a` |
+| Targeted native chapter tests | PASS, 16/16; `outputs/rainfall/native-rainfall-tests-latest.log` |
+| Native controller replay | PASS, all eight stages on the exact final ROM below |
+| Full CI | [Run 40510547139](https://github.com/hkcmoris/romhack/actions/runs/40510547139): all Emerald/FireRed/LeafGreen/release/docs/story/development jobs and the aggregate `build` gate SUCCESS |
+| Android/My Boy! chapter playthrough | NOT RUN |
+| Unassisted chapter timing/all-starter playthrough | NOT MEASURED |
 
-### Intermediate compiled release identity
+### Final compiled release identity
 
-The intermediate optimized Emerald release from gameplay source
-`4fa4c5edc2a396ee189390d08c4d05eb05e936f2` compiled successfully as version
-`0.4.0` with GCC 13.2.1, binutils 2.42, LTO enabled and
-`MYBOY_DIAGNOSTIC_MODE=0`. Strict unused/deprecated checks remain enabled.
-The ROM is `outputs/rainfall/build/oraculum-v0.4.0-release.gba`, 33,554,432 bytes,
-SHA-256:
+The optimized local Emerald release uses gameplay source
+`206a9409699ea2a6ead9abcff8cffa65a2e3b98a`, version `0.4.0`, GCC 13.2.1,
+binutils 2.42, LTO enabled and `MYBOY_DIAGNOSTIC_MODE=0`. Strict unused and
+deprecated checks remain enabled. The compiled ROM is
+`outputs/rainfall/build/oraculum-v0.4.0-release.gba`, 33,554,432 bytes, SHA-256:
 
 ```text
-dd330c09944d20e5e753d6125d062ac7dd3e8c671549923b127d1e0da5a28d33
+2247b753f89bd25edca86ef20de1da5b8763e8401587ba09eafab422c1ae9e4f
 ```
 
-The directory contains the current build ELF, map, symbols and `manifest.json`;
-the final bridge-layer relink will replace this intermediate artifact identity. Build
-logs are `outputs/rainfall/ext4-release-build.log` and
-`outputs/rainfall/ext4-release-build-final.log`. Link usage is ROM 27,087,432,
-EWRAM 226,458 and IWRAM 28,284 bytes. The manifest confirms the compiled coast
-metatiles match the final checked-in source. This successful intermediate build includes the cached Slateford exit
-restoration; it is distinct from the earlier `5573391ef9` playtest ROM.
-Controller inspection then found that normal-layer upper bridge art hid the
-avatar and follower. The source now assigns Covered layers (`0x1000`) to
-Rainfall metatiles `0x320/0x321`, preserving normal walking, collision and
-elevation. Its official recompiled ROM and final rendering check are pending;
-the hash above must not be treated as the final milestone hash.
+Its ELF, map, symbols and manifest are in `outputs/rainfall/build/`. Build logs
+are `outputs/rainfall/ext4-release-build.log` and
+`outputs/rainfall/ext4-release-build-final.log`. Link usage is ROM 27,087,516,
+EWRAM 226,458 and IWRAM 28,284 bytes.
 
-### Controller evidence and its boundary
+`outputs/rainfall/build/manifest.json` verifies the raw compiled upper map,
+Slateford map, Rainfall metatiles/attributes and coast metatiles/attributes
+against source. `outputs/rainfall/source-input-check-final.json` confirms all
+changed game inputs match that commit. The compiled cached-entrance restoration
+commands are byte-verified. `outputs/rainfall/myboy-binary-policy.json` records
+zero ARM/Thumb UDF instructions and no diagnostic buffer in this binary. This
+preserves the known compatibility policy; Android verification remains separate.
 
-Focused native mGBA libretro checks on `5573391ef9` traversed both complete
-route alternatives and activated the actual permanent shortcut. They exercised
-the harbor report, Běla's damage inspection, wrong-order puzzle reset,
-ordinary in-game Save and a cold FLASH Continue during partial input, completed
-beacon, manifest and Vacek scene, and all bottle clues and its reward.
-Checkpoints, screenshots, scripts and logs are under `outputs/rainfall/native/`.
+### Authoring reproducibility
 
-These fixtures seed the original starter/chapter prerequisites and mark route
-trainers and the rival defeated for navigation. They then operate walking and
-interactions through controller input. The rival's actual loss/win callbacks
-and starter matchups have separate native test cases. This evidence is not an
-unassisted prologue-to-ending playthrough or a measured balance/playtime test.
-The old saved-map-view defect was discovered by continuing directly in
-Slateford, then fixed in `4fa4c5edc2`. The `4fa4c5edc2` replay has now confirmed cold Continue, both route choices,
-the real shortcut, lighthouse/manifest/harbor ending, bottle quest, ordinary
-Center healing, Storage UI and one Great Ball purchase. This remains an
-intermediate-ROM result while the bridge-layer correction awaits official
-relink and rendering proof. Full native-suite and final CI results remain
-pending. Android has not been run.
+An isolated run of `tools/virelia/build_rainfall_seabreak.py` regenerated all
+nine maps, three graphics banks, palettes, registries and the route contract.
+All 94 checked outputs were byte-identical to the delivered assets, with no
+semantic or representation differences. Live game assets were not modified.
+The record is `outputs/rainfall/generator-check/comparison.json`.
+
+The final offline-builder padding adjustment preserves unused source-bank
+slots during regeneration. It changes neither the delivered gameplay assets
+nor the compiled ROM identified above. Future Porymap edits to new maps still
+need a backup or corresponding builder changes before regeneration.
+
+### Native tests and full-suite boundary
+
+`test/virelia_rainfall_events.c` and `test/virelia_rainfall_balance.c` cover the
+compiled chapter prerequisites, all six gender/starter rival loss/win callbacks,
+puzzle and cached-entrance restoration, bridge layers, full-Bag reward retries,
+services, dedicated trainer flags, six FLASH checkpoints and restrained starter
+matchups. The current targeted run passes 16/16.
+
+The exact gameplay-source CI run
+[40510547139](https://github.com/hkcmoris/romhack/actions/runs/40510547139)
+completed both full runtime jobs successfully on `206a940969`. Neither reported
+an unexpected failure. Existing upstream known/TODO/expected categories remain
+explicit in the counts:
+
+| CI runtime configuration | Passed | Total | Known failures | TODO | Expected failures | Unexpected failures |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Virelia story | 5,551 | 5,999 | 18 | 421 | 9 | 0 |
+| Development mode / multiplayer regressions | 5,532 | 5,980 | 18 | 421 | 9 | 0 |
+
+Emerald development/release, FireRed, LeafGreen and documentation jobs also
+succeeded. These are exact-source CI results; earlier local fixture-debugging
+runs are not substituted for this full-suite evidence.
+
+### Controller verification and fixture limits
+
+The tracked [native verification record](images/virelia-rainfall/native-verification.json)
+identifies the exact ROM, ELF, controller checkpoints and screenshots. All eight
+pipeline stages were replayed on the final `206a940969` ROM identified above.
+They use mGBA libretro `0.11-212-7a12d6d`, core SHA-256
+`5cac11c643d7f8dfa50c68855f2f2240ff7cc0b4cd0312dd9e17a639c85667e4`,
+at 240×160. Earlier `5573391ef9`, `4fa4c5edc2` and patched QA copies are excluded
+from this final PASS ledger; no state from an older ROM was reused.
+
+The starting FLASH fixture was created through normal New Game, naming and
+home dialogue, then the native starter helper supplied level-5 Natu. The
+fixture seeded the prologue/first-Gym prerequisite flags and a Slateford
+position before an ordinary menu Save, preserving the older northern tree
+view. Route trainers/rival victory flags were seeded only for navigation.
+Harbor, lighthouse, manifest, chapter ending, shortcut, bottle stages and
+reward flags were **not** seeded; ordinary interactions advanced those events.
+For healing, only live unencrypted HP was set to 1. Prior completed-story flags
+were reconstructed for the backtracking check because the deliberately minimal
+fixture had skipped those earlier events. Exact flags and hashes are recorded
+in the JSON. Rival battles have separate native automated coverage.
+
+A separate [rendered rival-loss probe](images/virelia-rainfall/rival-loss-verification.json) on the same final ROM verified Viktorie's Czech title, portrait and live starter-dependent party. Level-5 Natu lost naturally; the ordinary whiteout healed it to 20/20 at Slateford Center, and controller movement resumed with both rival victory flags still clear. No party, HP, outcome or battle-state writes were used in this probe. [Battle capture](images/virelia-rainfall/rival-challenge.png).
+
+| Controller check on the final ROM | Verified result |
+| --- | --- |
+| Baseline FLASH Continue in Slateford | Restored cave doorway and entered Rainfall without leaving/re-entering the city first |
+| Upper/lower route alternatives | Both traversed with ordinary controls; 66/106 steps between their route portals |
+| Permanent shortcut | Actual lower control opened it; return and cold-Continue persistence worked |
+| Weather and environment | Rain, downpour, shelter and interior transitions worked; waterfall visible |
+| Bridge visibility | Ten recorded positions across both directions showed player and Natu over the planks |
+| Lighthouse | Harbor report, Běla/cabinet, wrong-input reset and feed/lens/beacon completion worked |
+| Partial puzzle persistence | Ordinary Save and fresh-core FLASH Continue restored lantern-room map 76,10, position 3,6 and input 1 |
+| Manifest and chapter ending | Real record interaction and Vacek scene completed; repaired/shipping/harbor/chapter flags persisted |
+| Bottle quest | Fisherman, anchor, tide mark and journal advanced stages 1–4; one Mystic Water reward persisted |
+| Center | Ordinary nurse healed 1 HP to 20/20; completed-story cold Continue restored map 76,8 at 7,4 |
+| Pokémon Storage | Ordinary box UI opened and closed safely back to the field |
+| Shop and purchase persistence | One Great Ball changed money 3000→2400 and quantity 0→1; fresh-core FLASH reload retained both |
+| Backtracking | Walked through Slateford and Whisperwood to Maplebrook at 14,4 with chapter progress retained |
+
+Each persistence check started a new core using ordinary FLASH alone. State
+files were used only within the same final ROM for focused navigation. This is
+controller-driven fixture verification, not an unassisted campaign playthrough,
+measured pacing test or Android result.
+
+![Final native upper bridge with visible player/follower and waterfall](images/virelia-rainfall/upper-bridge.png)
+
+![Final native Vacek credit dialogue](images/virelia-rainfall/vacek-credit.png)
+
+Additional final-ROM captures: [working lighthouse](images/virelia-rainfall/lighthouse-restored.png),
+[harbor after reopening](images/virelia-rainfall/harbor-ending.png),
+[ordinary Storage UI](images/virelia-rainfall/storage.png), and
+[purchase retained after FLASH reload](images/virelia-rainfall/shop-reload.png).
 
 Reproduce source checks and the targeted native suite from the repository root:
 
@@ -440,7 +501,7 @@ python3 tools/validate_virelia_first_gym.py
 python3 tools/validate_virelia_sanctuary.py
 python3 tools/validate_virelia_prologue_text.py
 python3 .github/docs_validate/inclusive_summary.py
-make -j4 check TESTS="Rainfall"
+make -j4 check TESTS="*Rainfall"
 ```
 
 Run the existing `CI` workflow on the exact milestone commit for Emerald

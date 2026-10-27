@@ -128,6 +128,7 @@ class CoastBank:
 
     def finish(self):
         assert len(self.tiles) <= 496, (len(self.tiles), "graphics tile limit")
+        assert all(value >> 12 <= 12 for value in self.meta), "Coast graphics use unloaded palette"
         im = Image.new("P", (128, 256))
         im.putpalette(Image.open(self.src / "tiles.png").getpalette())
         for i, data in enumerate(self.tiles):
@@ -475,6 +476,9 @@ def build():
     (coast.dst / "palettes/11.pal").write_text(
         "JASC-PAL\n0100\n16\n" + "\n".join(" ".join(map(str, c)) for c in colors) + "\n"
     )
+    # Slot 13 is UNLOADED padding; real metatiles must use palettes 0..12.
+    # Retain deterministic padding bytes without assigning graphics to slot 13.
+    shutil.copyfile(coast.dst / "palettes/11.pal", coast.dst / "palettes/13.pal")
     for i in range(12):
         coast.custom(Image.new("P", (16, 16), 1))
     for lit in (False, True):
@@ -728,6 +732,8 @@ def build():
     (li / "palettes/12.pal").write_text(
         "JASC-PAL\n0100\n16\n" + "\n".join(" ".join(map(str, c)) for c in panelcolors) + "\n"
     )
+    # Slot 13 is UNLOADED padding; the console itself uses loaded slot 12.
+    shutil.copyfile(li / "palettes/12.pal", li / "palettes/13.pal")
     paneltiles = Image.open(li / "tiles.png").copy()
     for lit in (False, True):
         panel = Image.new("P", (16, 16), 1)
@@ -746,6 +752,7 @@ def build():
             lm[(0x20C + int(lit) - 512) * 8 + n] = (12 << 12) | 512 | idx
         lm[(0x20C + int(lit) - 512) * 8 + 4 : (0x20C + int(lit) - 511) * 8] = [0] * 4
     paneltiles.save(li / "tiles.png")
+    assert all(value >> 12 <= 12 for value in lm), "Lighthouse graphics use unloaded palette"
     ww(li / "metatiles.bin", lm)
     ww(li / "metatile_attributes.bin", la)
 

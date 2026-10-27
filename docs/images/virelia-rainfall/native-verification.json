@@ -1,0 +1,280 @@
+{
+  "schema": 1,
+  "date": "2026-10-27",
+  "timezone": "Europe/Prague",
+  "status": "PASS",
+  "game_source_commit": "206a9409699ea2a6ead9abcff8cffa65a2e3b98a",
+  "rom_sha256": "2247b753f89bd25edca86ef20de1da5b8763e8401587ba09eafab422c1ae9e4f",
+  "elf_sha256": "c5dd54a0048b3471e44ed28020ba2a291ae319bcf6d10d9d1056f9dbcdf6b8e2",
+  "symbols_sha256": "0c341fc8a2628407bb5d6642ecaebc6652227937b5cd36dfa47c2200d1fd0ea2",
+  "core": {
+    "source": "https://buildbot.libretro.com/nightly/windows/x86_64/latest/mgba_libretro.dll.zip",
+    "library_name": "mGBA",
+    "library_version": "0.11-212-7a12d6d",
+    "sha256": "5cac11c643d7f8dfa50c68855f2f2240ff7cc0b4cd0312dd9e17a639c85667e4"
+  },
+  "resolution": [
+    240,
+    160
+  ],
+  "method": "Native libretro mGBA execution with scripted ordinary controller input. State files were used only within this exact ROM. Each persistence check cold-booted a new core from ordinary FLASH alone.",
+  "fixture": {
+    "baseline_rom_sha256": "a8e292575e3eeaf84377d3f5db0c57bd65b1c24798c22047242ec6121308b83a",
+    "baseline_flash_sha256": "86721971729ce4d31c09f2f5fdc6dc37dab722b54b0bb5941a1ef43cf1088922",
+    "baseline_creation": "Normal New Game, naming and home dialogue; native starter gift helper supplied Natu at level5, then synthetic prologue/first-Gym prerequisites and a Slateford position were set before an ordinary menu save. Its cached view contains the old northern trees.",
+    "baseline_seeded_flags": [
+      "0x26 prologue complete",
+      "0x3A first Gym complete"
+    ],
+    "chapter_navigation_seeded_flags": [
+      "0x264 chapter started",
+      "0x265 rival victory",
+      "0x278-0x27C trainer victories"
+    ],
+    "story_puzzle_quest_rewards": "No harbor, lighthouse, shipping, chapter-complete, shortcut, bottle-stage or bottle-reward flags were injected. Ordinary interactions advanced these.",
+    "healing": "Only the live, unencrypted HP field was set to1 for the nurse check. Ordinary healing restored it to20/20.",
+    "backtracking_prior_story_reconstruction": {
+      "flags": [
+        "0x23",
+        "0x24",
+        "0x25",
+        "0x33",
+        "0x34",
+        "0x35",
+        "0x36",
+        "0x37",
+        "0x38",
+        "0x40",
+        "0x41",
+        "0x42",
+        "0x43",
+        "0x44",
+        "0x48",
+        "0x49",
+        "0x85A",
+        "0x85B",
+        "0x85C"
+      ],
+      "variable": "0x4083 = 5",
+      "reason": "The deliberately minimal baseline fixture omitted earlier main-story completion. These prior-state flags were seeded only for the backtracking check, preventing the original prologue guard from correctly requesting unfinished training."
+    }
+  },
+  "checks": {
+    "old_cached_slateford_continue_and_north_exit": "PASS",
+    "upper_trail_controller_traversal": "PASS,66 steps between route portals",
+    "lower_trail_controller_traversal": "PASS,106 steps between route portals",
+    "lower_shortcut_real_lever_and_return": "PASS; flag0x26C persists after cold Continue",
+    "weather_transitions": "PASS: sunny foothills, upper rain, sheltered lowlands, downpour lower trail, rainy coast, dry interiors",
+    "official_bridge_visibility": "PASS: ordinary walking through rows13-16 in both directions; player and Natu visible, plus both grass approaches. Native movement records in official-bridge-walk.json.",
+    "waterfall_rendering": "PASS, visible in official upper-bridge.png",
+    "harbor_report_bela_damage_inspection": "PASS, real NPC and cabinet interactions",
+    "wrong_puzzle_input": "PASS, native sequence variable resets to0",
+    "partial_puzzle_ordinary_save_cold_continue": "PASS, map76,10 position3,6 and input1/damage flag retained",
+    "beacon_manifest_harbor_finale": "PASS, native controls completed all steps and Vacek scene",
+    "bottle_quest": "PASS, stages1-2-3-4 through fisherman/anchor/coast/journal; Mystic Water reward flag retained",
+    "center_healing": "PASS,1HP to20/20 through ordinary nurse flow",
+    "ordinary_pokemon_storage": "PASS, normal box UI reached and closed back to field",
+    "shop_purchase": "PASS, one Great Ball; money3000 to2400; owned quantity0 to1",
+    "purchase_ordinary_save_cold_continue": "PASS, money2400 and one Great Ball shown after fresh-core FLASH reload",
+    "chapter_completion_cold_continue": "PASS, map76,8 position7,4; repaired, shipping, harbor, chapter, shortcut and reward flags true; bottle stage4",
+    "free_backtracking": "PASS, Seabreak to Slateford, Whisperwood and Maplebrook; movement to14,4 in Maplebrook and chapter flags retained"
+  },
+  "pipeline": {
+    "services": "PASS",
+    "save-partial": "PASS",
+    "phase1": "PASS",
+    "phase2": "PASS",
+    "cold-services": "PASS",
+    "backtracking": "PASS",
+    "cold-partial": "PASS",
+    "phase3": "PASS"
+  },
+  "bridge_movement": [
+    {
+      "direction": "north",
+      "position": [
+        8,
+        16
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            17
+          ],
+          "invisible": false
+        }
+      ]
+    },
+    {
+      "direction": "north",
+      "position": [
+        8,
+        15
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            16
+          ],
+          "invisible": false
+        }
+      ]
+    },
+    {
+      "direction": "north",
+      "position": [
+        8,
+        14
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            15
+          ],
+          "invisible": false
+        }
+      ]
+    },
+    {
+      "direction": "north",
+      "position": [
+        8,
+        13
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            14
+          ],
+          "invisible": false
+        }
+      ]
+    },
+    {
+      "direction": "north",
+      "position": [
+        8,
+        12
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            13
+          ],
+          "invisible": false
+        }
+      ]
+    },
+    {
+      "direction": "south",
+      "position": [
+        8,
+        13
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            12
+          ],
+          "invisible": false
+        }
+      ]
+    },
+    {
+      "direction": "south",
+      "position": [
+        8,
+        14
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            13
+          ],
+          "invisible": false
+        }
+      ]
+    },
+    {
+      "direction": "south",
+      "position": [
+        8,
+        15
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            14
+          ],
+          "invisible": false
+        }
+      ]
+    },
+    {
+      "direction": "south",
+      "position": [
+        8,
+        16
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            15
+          ],
+          "invisible": false
+        }
+      ]
+    },
+    {
+      "direction": "south",
+      "position": [
+        8,
+        17
+      ],
+      "followers": [
+        {
+          "position": [
+            8,
+            16
+          ],
+          "invisible": false
+        }
+      ]
+    }
+  ],
+  "flash_checkpoints": {
+    "v04-partial-ordinary-flash.sav": "9530a570b5f82ecfabbeab04d7356b3b87ff5f3bcb268c4b2b90adaa08d2e049",
+    "v04-chapter-complete-flash.sav": "268a4613c2de96a9a17d03289ce8d02f75ac913eedfad2cd0fa22c679638a82a",
+    "v04-services-ordinary-flash.sav": "c304ac550f7a7871158ef460b554995a738b91d22cdde426c50f04eef7b95aa3"
+  },
+  "screenshots": {
+    "upper-bridge.png": "f6f1b2e0795db8f88e41c27cfddc16794a9773888f65b8f8a36003b6e4de51f5",
+    "harbor-ending.png": "a6183dbf5baadffb8269a822114f72b45e0ee88134adbe1c2eb6a239bb15fe92",
+    "vacek-credit.png": "1547d609d32f85ab5e368dc201463d3b50e20db5a441e07cb61bbac0bff90914",
+    "lighthouse-restored.png": "3ac4413706bdb740377974da6c2f6a523633b225dfe5e2e9d60cf383311eaa7b",
+    "storage.png": "937cfa56b6b4e7c53b6903d5c366c05f9599b42ade4fa0990210c2049ec483de",
+    "shop-reload.png": "f0c8e3bc2b69cdb3bfd043aadbadac1410d0c2be87c4d32a69767a874926cb51"
+  },
+  "limits": {
+    "android_my_boy": "NOT RUN for Chapter2; no Android result is inferred from mGBA. Existing compatibility source fix is preserved.",
+    "unassisted_timed_playthrough": "NOT RUN;30-45minutes remains an estimate.",
+    "rival_and_route_battles": "Skipped in this controller fixture; separate native automated tests cover all starter/gender variants, loss/retry and balance."
+  },
+  "run_boundaries": {
+    "final_pipeline_rom_sha256": "2247b753f89bd25edca86ef20de1da5b8763e8401587ba09eafab422c1ae9e4f",
+    "final_pipeline_source_commit": "206a9409699ea2a6ead9abcff8cffa65a2e3b98a",
+    "all_eight_pipeline_stages_replayed_on_final_rom": true,
+    "state_rule": "phase1 cold-booted the baseline FLASH on206a and overwrote every state consumed by subsequent stages; all dependent states therefore belong to206a. No old-ROM state was reused.",
+    "earlier_runs_excluded": "Earlier557/4fa checks and the4-byte bridge QA copy were debugging runs. Their results and states are excluded from this final PASS ledger.",
+    "final_focused_checks": "The official206a ROM then passed all10 bridge walking positions, with visible follower records, and the final purchase FLASH reload."
+  }
+}

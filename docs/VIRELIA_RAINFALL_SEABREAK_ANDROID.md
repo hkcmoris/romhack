@@ -20,9 +20,9 @@ new run; record failures with the exact case and reproduction steps.
 | Android version | — |
 | My Boy! version | — |
 | BIOS mode, BIOS identity/hash if external | — |
-| Milestone source commit | Final post-bridge-fix candidate pending; Android run NOT RUN |
+| Milestone source commit | Candidate `206a9409699ea2a6ead9abcff8cffa65a2e3b98a`; Android run NOT RUN |
 | GitHub Actions run and artifact | — |
-| ROM filename, version and SHA-256 | Final post-bridge-fix ROM identity pending; intermediate `dd330c…` is recorded separately in the chapter guide |
+| ROM filename, version and SHA-256 | Local candidate `oraculum-v0.4.0-release.gba`, `0.4.0`, SHA-256 `2247b753f89bd25edca86ef20de1da5b8763e8401587ba09eafab422c1ae9e4f` |
 | Starting save origin and SHA-256 | — |
 | New game / backed-up baseline first-Gym FLASH save | — |
 | Player gender and original starter choice | — |
@@ -63,6 +63,8 @@ alone does not verify restoration over the older saved map view.
 
 1. Explore the shared rocky foothills and read the route sign. Take the upper
    trail through its narrow wooden bridge and Ranger encounter to lowlands.
+   View the framed waterfall beside the stream and cross the bridge in both
+   directions; the avatar and follower must remain visible over its planks.
    Return along the same path and cross each ordinary warp in both directions.
 2. Take the lower wetland trail from the foothills. Explore stream banks,
    optional grass, the Super Potion and the permanent footbridge control.
