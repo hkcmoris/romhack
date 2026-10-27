@@ -16,7 +16,6 @@
   "connections": null,
   "object_events": [
     {
-      "local_id": 1,
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
       "x": 14,
       "y": 28,
@@ -30,7 +29,6 @@
       "flag": "0"
     },
     {
-      "local_id": 2,
       "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
       "x": 7,
       "y": 35,
@@ -44,7 +42,6 @@
       "flag": "0"
     },
     {
-      "local_id": 3,
       "graphics_id": "OBJ_EVENT_GFX_VAR_0",
       "x": 20,
       "y": 15,
@@ -58,7 +55,6 @@
       "flag": "0"
     },
     {
-      "local_id": 4,
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
       "x": 17,
       "y": 29,
@@ -72,7 +68,6 @@
       "flag": "FLAG_VIRELIA_HIDE_HARBOR_BELA"
     },
     {
-      "local_id": 5,
       "graphics_id": "OBJ_EVENT_GFX_POLICEMAN",
       "x": 15,
       "y": 29,
@@ -86,7 +81,6 @@
       "flag": "FLAG_VIRELIA_HIDE_VACEK"
     },
     {
-      "local_id": 6,
       "graphics_id": "OBJ_EVENT_GFX_REPORTER_F",
       "x": 12,
       "y": 29,
@@ -100,7 +94,6 @@
       "flag": "0"
     },
     {
-      "local_id": 7,
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
       "x": 27,
       "y": 23,

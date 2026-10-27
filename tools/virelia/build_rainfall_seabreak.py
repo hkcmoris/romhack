@@ -210,7 +210,7 @@ class Map:
             script=self.name + "_EventScript_" + label,
             flag=flag,
         )
-        if local is not None:
+        if isinstance(local, str):
             o = dict(local_id=local, **o)
         self.obj.append(o)
 

@@ -318,6 +318,8 @@ def validate():
         if name != CITY:
             require(start in distances(graph, next(n for n in reached if n[0] == name)), f'{name}: backtracking blocked')
         for obj in entry['object_events']:
+            require('local_id' not in obj or re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*', obj['local_id']),
+                    f'{name}: local_id must be a C identifier or omitted for an implicit index')
             require(approaches(world, name, obj, all_flags) & reached.keys(), f'{name}: unreachable NPC/item {obj["script"]}')
             if obj['trainer_type'] == 'TRAINER_TYPE_NORMAL':
                 require(int(obj['trainer_sight_or_berry_tree_id']) <= 3, f'{name}: trainer sight spans too far')
