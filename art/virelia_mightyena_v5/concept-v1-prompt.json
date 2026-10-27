@@ -1,0 +1,16 @@
+{
+  "status": "First high-resolution design concept for review",
+  "method": "Built-in image_gen",
+  "prompt": "Use case: stylized-concept.\nAsset: one high-resolution full-body character concept for Virelian Mightyena, the evolved form of the approved Virelian Poochyena.\nInput image 1 is the ORIGINAL MIGHTYENA anatomy, silhouette, stance, and species-identity reference. Input image 2 is the APPROVED VIRELIAN POOCHYENA evolutionary-family, palette, leaf-fur material, and illustration-style reference. These are reference images, not backgrounds to reproduce.\n\nDraw a mature, unmistakably Mightyena-shaped quadruped in a left-facing three-quarter standing pose comparable to image 1. Preserve Mightyena's taller long-legged proportions, deeper chest, leaner canine muzzle, tall pointed ears, sweeping heavy neck/back mane, powerful haunches, four anatomically attached legs with visible paws and ivory claws, and its large bushy tail curving upward behind the rump. It must read as the evolved adult species, not an enlarged Poochyena puppy.\n\nCarry forward the specific regional traits from image 2: muted moss/olive-green coat, charcoal muzzle/face and lower paws, dark ear interiors, reddish nose, yellow eyes with reddish irises, and small visible ivory canine fangs. Evolve the puppy's broad overlapping leaf-shaped fur into a longer, fuller, swept-back forest-green and olive leaf-fur mane along neck, shoulders and back. Use fewer, larger coherent leaf-shaped fur groups with soft fur volume; this is natural fur shaped like leaves, not armor, scales or clothing. The adult's raised bushy tail becomes an abundant layered fan of leaf-shaped fur following the original Mightyena tail's upward curve. Shorter sage/moss fur on the torso and a slightly lighter muted olive chest keep the body anatomy readable. Preserve the characteristic angular Mightyena cheek and brow structure using the regional dark face and green forehead fur.\n\nStyle: polished clean creature concept illustration matching image 2, confident dark contours, restrained smooth cel/painterly shading, consistent soft upper-left lighting, readable large material masses. Smooth HIGH-RESOLUTION ILLUSTRATION, with enough detail to serve as a later pixel-sprite reference.\nComposition: exactly ONE creature, complete ear tips, tail and claws within the canvas, generous white breathing room, plain clean white background, no floor or cast ground shadow.\nAvoid: pixel art, spritesheet, multiple views, juvenile/chibi proportions, oversized puppy head, extra limbs, horns, vines, flowers, accessories, invented markings, armor plates, text, labels, borders, swatches, watermark.",
+  "references": [
+    {
+      "role": "Original Mightyena anatomy, silhouette, and stance",
+      "file": "references/original-mightyena.png"
+    },
+    {
+      "role": "Approved Virelian Poochyena family design, palette, and illustration style",
+      "file": "../virelia_poochyena_v5/approved-concept.png"
+    }
+  ],
+  "image": "mightyena-concept-v1.png"
+}

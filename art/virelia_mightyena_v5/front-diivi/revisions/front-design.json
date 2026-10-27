@@ -1,0 +1,1005 @@
+{
+  "method": "Native-grid editing through diivi Aseprite MCP",
+  "source": "graphics/pokemon/mightyena/anim_front_gba.png",
+  "source_frame": "first 64x64 cell",
+  "concept": "../mightyena-concept-v2.png",
+  "canvas": [
+    64,
+    64
+  ],
+  "scope": "one static front battle frame",
+  "palette": [
+    "#90B8A8",
+    "#182020",
+    "#283028",
+    "#404840",
+    "#687060",
+    "#304830",
+    "#506038",
+    "#708048",
+    "#98A860",
+    "#C0C880",
+    "#F8D068",
+    "#803040",
+    "#C85068",
+    "#F8F0D8",
+    "#78A898",
+    "#B8D8C0"
+  ],
+  "palette_roles": [
+    "transparent",
+    "deep contour",
+    "charcoal shadow",
+    "charcoal base",
+    "charcoal highlight",
+    "forest deep shade",
+    "leaf shadow",
+    "leaf base",
+    "leaf light",
+    "olive highlight",
+    "eye yellow",
+    "iris/nose shadow",
+    "nose/iris red",
+    "ivory claws/fangs",
+    "ghost mint shade",
+    "ghost mint light"
+  ],
+  "leaf_patches": [
+    {
+      "x": 20,
+      "y": 14,
+      "rows": [
+        "g",
+        "gg",
+        "gGg",
+        ".gGGg",
+        ".gGGGg",
+        "..gGGGs",
+        "..gGGGss",
+        "...gGGssS",
+        "...gGsssS",
+        "....gGssS",
+        "....GsssS",
+        ".....ssS",
+        "......sS",
+        ".......S"
+      ]
+    },
+    {
+      "x": 21,
+      "y": 23,
+      "rows": [
+        "g",
+        "gg",
+        "gGg",
+        ".gGGg",
+        ".gGGGg",
+        "..gGGGs",
+        "..gGGGss",
+        "...gGGGss",
+        "....gGGsss",
+        ".....gGsssS",
+        "......GsssS",
+        ".......ssS",
+        "........sS",
+        ".........S"
+      ]
+    },
+    {
+      "x": 29,
+      "y": 27,
+      "rows": [
+        "ggG",
+        ".gGGG",
+        "..gGGGGg",
+        "...gGGGGGg",
+        "....gGGGGGs",
+        ".....gGGGGss",
+        "......gGGsssS",
+        ".......GssssSS",
+        "........sssSS",
+        "..........SS"
+      ]
+    },
+    {
+      "x": 37,
+      "y": 31,
+      "rows": [
+        "gg",
+        ".gGGg",
+        "..gGGGGg",
+        "...gGGGGGs",
+        "....gGGGGss",
+        ".....GGGsssS",
+        "......GsssSS",
+        ".......ssS",
+        "........S"
+      ]
+    },
+    {
+      "x": 43,
+      "y": 36,
+      "rows": [
+        "gG",
+        ".gGGg",
+        "..gGGGs",
+        "...gGGss",
+        "....GsssS",
+        ".....ssSS",
+        ".......S"
+      ]
+    },
+    {
+      "x": 13,
+      "y": 31,
+      "rows": [
+        "HHg",
+        "HggG",
+        "ggGGG",
+        ".gGGGs",
+        ".gGGss",
+        "..GGssS",
+        "...GssS",
+        "....ssS",
+        ".....S"
+      ]
+    },
+    {
+      "x": 18,
+      "y": 34,
+      "rows": [
+        "gg",
+        ".gGg",
+        ".gGGg",
+        "..gGGGs",
+        "...gGGss",
+        "....GssS",
+        ".....sS",
+        "......S"
+      ]
+    },
+    {
+      "x": 46,
+      "y": 13,
+      "rows": [
+        "....g",
+        "...ggG",
+        "..ggGGG",
+        ".ggGGGs",
+        "ggGGGss",
+        "gGGGssS",
+        "GGGsssS",
+        "GgGssS",
+        ".GGssS",
+        ".GsssS",
+        "..ssS",
+        "..sS",
+        "...S"
+      ]
+    },
+    {
+      "x": 49,
+      "y": 12,
+      "rows": [
+        ".......g",
+        "......ggG",
+        ".....ggGG",
+        "....ggGGs",
+        "...ggGGss",
+        "..ggGGssS",
+        ".gGGGssS",
+        "gGGGssS",
+        "GGGssS",
+        "GssSS",
+        "ssSS",
+        "sSS"
+      ]
+    },
+    {
+      "x": 46,
+      "y": 23,
+      "rows": [
+        "ggG",
+        ".gGGg",
+        "..gGGG",
+        "...gGGs",
+        "....GssS",
+        ".....sS",
+        "......S"
+      ]
+    }
+  ],
+  "forehead_patches": [
+    {
+      "x": 9,
+      "y": 10,
+      "rows": [
+        "....g..",
+        "..ggG..",
+        ".ggGGs.",
+        "ggGGss.",
+        "gGGsS..",
+        "GssS...",
+        "ssS....",
+        "S......"
+      ]
+    },
+    {
+      "x": 13,
+      "y": 11,
+      "rows": [
+        ".gg...",
+        "ggGg..",
+        "gGGGs.",
+        "GGGssS",
+        ".GssS.",
+        "..sS..",
+        "...S.."
+      ]
+    }
+  ],
+  "wisp_pixels": [
+    [
+      [
+        25,
+        23,
+        "t"
+      ],
+      [
+        26,
+        22,
+        "t"
+      ],
+      [
+        27,
+        21,
+        "T"
+      ],
+      [
+        28,
+        21,
+        "t"
+      ],
+      [
+        29,
+        20,
+        "T"
+      ],
+      [
+        29,
+        19,
+        "T"
+      ],
+      [
+        28,
+        18,
+        "t"
+      ],
+      [
+        28,
+        17,
+        "T"
+      ],
+      [
+        29,
+        16,
+        "t"
+      ],
+      [
+        30,
+        15,
+        "t"
+      ]
+    ],
+    [
+      [
+        35,
+        27,
+        "t"
+      ],
+      [
+        34,
+        26,
+        "t"
+      ],
+      [
+        34,
+        25,
+        "T"
+      ],
+      [
+        35,
+        24,
+        "T"
+      ],
+      [
+        35,
+        23,
+        "T"
+      ],
+      [
+        34,
+        22,
+        "t"
+      ],
+      [
+        34,
+        21,
+        "t"
+      ],
+      [
+        35,
+        20,
+        "t"
+      ]
+    ],
+    [
+      [
+        46,
+        28,
+        "t"
+      ],
+      [
+        47,
+        27,
+        "T"
+      ],
+      [
+        48,
+        26,
+        "T"
+      ],
+      [
+        49,
+        25,
+        "t"
+      ],
+      [
+        50,
+        24,
+        "t"
+      ],
+      [
+        50,
+        23,
+        "T"
+      ],
+      [
+        49,
+        22,
+        "T"
+      ],
+      [
+        48,
+        21,
+        "t"
+      ],
+      [
+        45,
+        19,
+        "t"
+      ],
+      [
+        45,
+        18,
+        "t"
+      ],
+      [
+        46,
+        17,
+        "T"
+      ],
+      [
+        47,
+        16,
+        "t"
+      ]
+    ]
+  ],
+  "checks": {
+    "base_lint": {
+      "frame": 1,
+      "layer": "Mightyena - regional pixel base",
+      "opaque_pixels": 1663,
+      "pieces": 1,
+      "main_piece_pixels": 1663,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 73,
+      "orphan_pixels": [
+        {
+          "x": 7,
+          "y": 4,
+          "color": "#283028"
+        },
+        {
+          "x": 8,
+          "y": 5,
+          "color": "#182020"
+        },
+        {
+          "x": 18,
+          "y": 5,
+          "color": "#C0C880"
+        },
+        {
+          "x": 19,
+          "y": 5,
+          "color": "#182020"
+        },
+        {
+          "x": 8,
+          "y": 6,
+          "color": "#404840"
+        },
+        {
+          "x": 18,
+          "y": 6,
+          "color": "#98A860"
+        },
+        {
+          "x": 17,
+          "y": 9,
+          "color": "#404840"
+        },
+        {
+          "x": 9,
+          "y": 10,
+          "color": "#404840"
+        },
+        {
+          "x": 11,
+          "y": 10,
+          "color": "#404840"
+        },
+        {
+          "x": 10,
+          "y": 11,
+          "color": "#98A860"
+        },
+        {
+          "x": 54,
+          "y": 11,
+          "color": "#182020"
+        },
+        {
+          "x": 5,
+          "y": 12,
+          "color": "#404840"
+        },
+        {
+          "x": 15,
+          "y": 12,
+          "color": "#304830"
+        },
+        {
+          "x": 47,
+          "y": 12,
+          "color": "#304830"
+        },
+        {
+          "x": 48,
+          "y": 12,
+          "color": "#506038"
+        },
+        {
+          "x": 20,
+          "y": 13,
+          "color": "#404840"
+        },
+        {
+          "x": 7,
+          "y": 14,
+          "color": "#708048"
+        },
+        {
+          "x": 14,
+          "y": 14,
+          "color": "#182020"
+        },
+        {
+          "x": 58,
+          "y": 15,
+          "color": "#304830"
+        },
+        {
+          "x": 5,
+          "y": 16,
+          "color": "#283028"
+        },
+        {
+          "x": 12,
+          "y": 16,
+          "color": "#283028"
+        },
+        {
+          "x": 12,
+          "y": 17,
+          "color": "#803040"
+        },
+        {
+          "x": 57,
+          "y": 18,
+          "color": "#708048"
+        },
+        {
+          "x": 13,
+          "y": 19,
+          "color": "#283028"
+        },
+        {
+          "x": 51,
+          "y": 19,
+          "color": "#304830"
+        },
+        {
+          "x": 56,
+          "y": 19,
+          "color": "#304830"
+        },
+        {
+          "x": 10,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 54,
+          "y": 20,
+          "color": "#304830"
+        },
+        {
+          "x": 29,
+          "y": 21,
+          "color": "#182020"
+        },
+        {
+          "x": 12,
+          "y": 22,
+          "color": "#283028"
+        },
+        {
+          "x": 12,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 13,
+          "y": 23,
+          "color": "#F8F0D8"
+        },
+        {
+          "x": 28,
+          "y": 24,
+          "color": "#304830"
+        },
+        {
+          "x": 36,
+          "y": 24,
+          "color": "#506038"
+        },
+        {
+          "x": 40,
+          "y": 24,
+          "color": "#506038"
+        },
+        {
+          "x": 30,
+          "y": 25,
+          "color": "#304830"
+        },
+        {
+          "x": 13,
+          "y": 26,
+          "color": "#283028"
+        },
+        {
+          "x": 23,
+          "y": 26,
+          "color": "#304830"
+        },
+        {
+          "x": 40,
+          "y": 27,
+          "color": "#506038"
+        },
+        {
+          "x": 20,
+          "y": 29,
+          "color": "#506038"
+        },
+        {
+          "x": 13,
+          "y": 30,
+          "color": "#304830"
+        },
+        {
+          "x": 19,
+          "y": 30,
+          "color": "#304830"
+        },
+        {
+          "x": 33,
+          "y": 32,
+          "color": "#708048"
+        },
+        {
+          "x": 35,
+          "y": 33,
+          "color": "#708048"
+        },
+        {
+          "x": 30,
+          "y": 34,
+          "color": "#304830"
+        },
+        {
+          "x": 42,
+          "y": 35,
+          "color": "#304830"
+        },
+        {
+          "x": 43,
+          "y": 36,
+          "color": "#182020"
+        },
+        {
+          "x": 44,
+          "y": 36,
+          "color": "#304830"
+        },
+        {
+          "x": 19,
+          "y": 41,
+          "color": "#404840"
+        },
+        {
+          "x": 27,
+          "y": 41,
+          "color": "#F8F0D8"
+        }
+      ]
+    },
+    "composite_lint": {
+      "frame": 1,
+      "layer": null,
+      "opaque_pixels": 1673,
+      "pieces": 1,
+      "main_piece_pixels": 1673,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 91,
+      "orphan_pixels": [
+        {
+          "x": 7,
+          "y": 4,
+          "color": "#283028"
+        },
+        {
+          "x": 8,
+          "y": 5,
+          "color": "#182020"
+        },
+        {
+          "x": 18,
+          "y": 5,
+          "color": "#C0C880"
+        },
+        {
+          "x": 19,
+          "y": 5,
+          "color": "#182020"
+        },
+        {
+          "x": 8,
+          "y": 6,
+          "color": "#404840"
+        },
+        {
+          "x": 18,
+          "y": 6,
+          "color": "#98A860"
+        },
+        {
+          "x": 17,
+          "y": 9,
+          "color": "#404840"
+        },
+        {
+          "x": 9,
+          "y": 10,
+          "color": "#404840"
+        },
+        {
+          "x": 11,
+          "y": 10,
+          "color": "#404840"
+        },
+        {
+          "x": 54,
+          "y": 11,
+          "color": "#182020"
+        },
+        {
+          "x": 5,
+          "y": 12,
+          "color": "#404840"
+        },
+        {
+          "x": 47,
+          "y": 12,
+          "color": "#304830"
+        },
+        {
+          "x": 48,
+          "y": 12,
+          "color": "#506038"
+        },
+        {
+          "x": 55,
+          "y": 12,
+          "color": "#304830"
+        },
+        {
+          "x": 20,
+          "y": 13,
+          "color": "#404840"
+        },
+        {
+          "x": 7,
+          "y": 14,
+          "color": "#708048"
+        },
+        {
+          "x": 14,
+          "y": 14,
+          "color": "#182020"
+        },
+        {
+          "x": 19,
+          "y": 14,
+          "color": "#283028"
+        },
+        {
+          "x": 21,
+          "y": 14,
+          "color": "#708048"
+        },
+        {
+          "x": 13,
+          "y": 15,
+          "color": "#98A860"
+        },
+        {
+          "x": 58,
+          "y": 15,
+          "color": "#304830"
+        },
+        {
+          "x": 5,
+          "y": 16,
+          "color": "#283028"
+        },
+        {
+          "x": 12,
+          "y": 16,
+          "color": "#283028"
+        },
+        {
+          "x": 47,
+          "y": 16,
+          "color": "#78A898"
+        },
+        {
+          "x": 9,
+          "y": 17,
+          "color": "#304830"
+        },
+        {
+          "x": 12,
+          "y": 17,
+          "color": "#803040"
+        },
+        {
+          "x": 28,
+          "y": 17,
+          "color": "#B8D8C0"
+        },
+        {
+          "x": 46,
+          "y": 17,
+          "color": "#B8D8C0"
+        },
+        {
+          "x": 28,
+          "y": 18,
+          "color": "#78A898"
+        },
+        {
+          "x": 57,
+          "y": 18,
+          "color": "#708048"
+        },
+        {
+          "x": 13,
+          "y": 19,
+          "color": "#283028"
+        },
+        {
+          "x": 10,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 28,
+          "y": 20,
+          "color": "#304830"
+        },
+        {
+          "x": 47,
+          "y": 20,
+          "color": "#98A860"
+        },
+        {
+          "x": 27,
+          "y": 21,
+          "color": "#B8D8C0"
+        },
+        {
+          "x": 28,
+          "y": 21,
+          "color": "#78A898"
+        },
+        {
+          "x": 29,
+          "y": 21,
+          "color": "#182020"
+        },
+        {
+          "x": 48,
+          "y": 21,
+          "color": "#78A898"
+        },
+        {
+          "x": 12,
+          "y": 22,
+          "color": "#283028"
+        },
+        {
+          "x": 28,
+          "y": 22,
+          "color": "#304830"
+        },
+        {
+          "x": 12,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 13,
+          "y": 23,
+          "color": "#F8F0D8"
+        },
+        {
+          "x": 24,
+          "y": 24,
+          "color": "#708048"
+        },
+        {
+          "x": 36,
+          "y": 24,
+          "color": "#506038"
+        },
+        {
+          "x": 40,
+          "y": 24,
+          "color": "#506038"
+        },
+        {
+          "x": 30,
+          "y": 25,
+          "color": "#304830"
+        },
+        {
+          "x": 13,
+          "y": 26,
+          "color": "#283028"
+        },
+        {
+          "x": 34,
+          "y": 27,
+          "color": "#182020"
+        },
+        {
+          "x": 40,
+          "y": 27,
+          "color": "#506038"
+        },
+        {
+          "x": 46,
+          "y": 28,
+          "color": "#78A898"
+        }
+      ]
+    },
+    "bounds": {
+      "layer": null,
+      "frames": [
+        {
+          "frame": 1,
+          "x": 3,
+          "y": 4,
+          "width": 58,
+          "height": 56
+        }
+      ]
+    },
+    "sprite": {
+      "width": 64,
+      "height": 64,
+      "color_mode": "rgb",
+      "frames": 1,
+      "durations_ms": [
+        100
+      ],
+      "layers": [
+        {
+          "name": "Layer 1",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Mightyena - regional pixel base",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Leaf-fur - planes and overlaps",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Ghost wisps - restrained mint",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        }
+      ],
+      "tags": []
+    },
+    "live_view": {
+      "url": "http://localhost:7778/",
+      "versions": 28,
+      "file_id": "87c7a0079b9c",
+      "render_error": null,
+      "visible_pixels_match_export": true
+    },
+    "sha256": {
+      "mightyena-front-v1.aseprite": "f1e11d3734e85ed8529ddbb961106a6097c6c620507c396a8963f3d0b12681dc",
+      "front.png": "b58b999d60e8ceda8e348d4bec458745662bdf72f6502a9ff343b2a475c943f8",
+      "normal.pal": "6b5abcf7dfa03be377bb778ba0b0fc215d2cbc787c854d5edcf2fab499150c00"
+    }
+  },
+  "visual_review": {
+    "native_grid": "reviewed at 1x and enlarged without resampling",
+    "pose_and_identity": "original GBA Mightyena proportions and registration retained; Virelian family face/paw/leaf traits added",
+    "contour_and_overlap": "reviewed head, ears, muzzle, mane edge, belly, feet and tail; dark filled paws/muzzle and mane overlaps retained as material or occlusion",
+    "materials": "broad leaf-fur groups over original mane and chest; charcoal lower paws with ivory claws",
+    "ghost_effect": "30 deliberately placed pixels in two mint colors, on a separate layer; restrained neck/back/tail-base streaks",
+    "palette": "15 opaque colors plus transparent index 0; normal and RGB555 proofs inspected",
+    "export": "exact visible pixels and alpha preserved by indexing",
+    "shiny": "not requested",
+    "animation": "not applicable - one static frame",
+    "runtime_integration": "not requested"
+  }
+}

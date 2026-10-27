@@ -1,0 +1,1239 @@
+{
+  "bounds": {
+    "layer": null,
+    "frames": [
+      {
+        "frame": 1,
+        "x": 9,
+        "y": 13,
+        "width": 13,
+        "height": 17
+      },
+      {
+        "frame": 2,
+        "x": 9,
+        "y": 13,
+        "width": 13,
+        "height": 17
+      },
+      {
+        "frame": 3,
+        "x": 9,
+        "y": 13,
+        "width": 13,
+        "height": 17
+      },
+      {
+        "frame": 4,
+        "x": 9,
+        "y": 13,
+        "width": 13,
+        "height": 17
+      },
+      {
+        "frame": 5,
+        "x": 7,
+        "y": 12,
+        "width": 23,
+        "height": 18
+      },
+      {
+        "frame": 6,
+        "x": 7,
+        "y": 12,
+        "width": 23,
+        "height": 18
+      }
+    ]
+  },
+  "pair_diffs": [
+    {
+      "frame_a": 1,
+      "frame_b": 2,
+      "changed_pixels": 19,
+      "total_pixels": 1024,
+      "percent_changed": 1.86,
+      "changed_bounds": {
+        "x": 10,
+        "y": 26,
+        "width": 11,
+        "height": 4
+      }
+    },
+    {
+      "frame_a": 3,
+      "frame_b": 4,
+      "changed_pixels": 15,
+      "total_pixels": 1024,
+      "percent_changed": 1.46,
+      "changed_bounds": {
+        "x": 11,
+        "y": 27,
+        "width": 9,
+        "height": 3
+      }
+    },
+    {
+      "frame_a": 5,
+      "frame_b": 6,
+      "changed_pixels": 14,
+      "total_pixels": 1024,
+      "percent_changed": 1.37,
+      "changed_bounds": {
+        "x": 14,
+        "y": 27,
+        "width": 9,
+        "height": 3
+      }
+    }
+  ],
+  "lint": [
+    {
+      "frame": 1,
+      "layer": null,
+      "opaque_pixels": 168,
+      "pieces": 1,
+      "main_piece_pixels": 168,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 35,
+      "orphan_pixels": [
+        {
+          "x": 14,
+          "y": 16,
+          "color": "#708048"
+        },
+        {
+          "x": 10,
+          "y": 17,
+          "color": "#708048"
+        },
+        {
+          "x": 12,
+          "y": 17,
+          "color": "#384828"
+        },
+        {
+          "x": 9,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 10,
+          "y": 20,
+          "color": "#506038"
+        },
+        {
+          "x": 14,
+          "y": 20,
+          "color": "#506038"
+        },
+        {
+          "x": 16,
+          "y": 20,
+          "color": "#384828"
+        },
+        {
+          "x": 21,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 13,
+          "y": 21,
+          "color": "#687060"
+        },
+        {
+          "x": 17,
+          "y": 21,
+          "color": "#687060"
+        },
+        {
+          "x": 13,
+          "y": 22,
+          "color": "#803040"
+        },
+        {
+          "x": 17,
+          "y": 22,
+          "color": "#803040"
+        },
+        {
+          "x": 11,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 13,
+          "y": 23,
+          "color": "#182020"
+        },
+        {
+          "x": 14,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 16,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 17,
+          "y": 23,
+          "color": "#182020"
+        },
+        {
+          "x": 19,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 12,
+          "y": 24,
+          "color": "#708048"
+        },
+        {
+          "x": 15,
+          "y": 24,
+          "color": "#C85068"
+        },
+        {
+          "x": 18,
+          "y": 24,
+          "color": "#506038"
+        },
+        {
+          "x": 11,
+          "y": 25,
+          "color": "#687060"
+        },
+        {
+          "x": 13,
+          "y": 25,
+          "color": "#F8F0D8"
+        },
+        {
+          "x": 15,
+          "y": 25,
+          "color": "#803040"
+        },
+        {
+          "x": 17,
+          "y": 25,
+          "color": "#F8F0D8"
+        },
+        {
+          "x": 19,
+          "y": 25,
+          "color": "#687060"
+        },
+        {
+          "x": 12,
+          "y": 26,
+          "color": "#708048"
+        },
+        {
+          "x": 13,
+          "y": 26,
+          "color": "#506038"
+        },
+        {
+          "x": 17,
+          "y": 26,
+          "color": "#506038"
+        },
+        {
+          "x": 18,
+          "y": 26,
+          "color": "#708048"
+        },
+        {
+          "x": 19,
+          "y": 26,
+          "color": "#506038"
+        },
+        {
+          "x": 12,
+          "y": 27,
+          "color": "#404840"
+        },
+        {
+          "x": 13,
+          "y": 27,
+          "color": "#283028"
+        },
+        {
+          "x": 15,
+          "y": 27,
+          "color": "#283028"
+        },
+        {
+          "x": 17,
+          "y": 27,
+          "color": "#283028"
+        }
+      ]
+    },
+    {
+      "frame": 2,
+      "layer": null,
+      "opaque_pixels": 168,
+      "pieces": 1,
+      "main_piece_pixels": 168,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 30,
+      "orphan_pixels": [
+        {
+          "x": 14,
+          "y": 16,
+          "color": "#708048"
+        },
+        {
+          "x": 10,
+          "y": 17,
+          "color": "#708048"
+        },
+        {
+          "x": 12,
+          "y": 17,
+          "color": "#384828"
+        },
+        {
+          "x": 9,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 10,
+          "y": 20,
+          "color": "#506038"
+        },
+        {
+          "x": 14,
+          "y": 20,
+          "color": "#506038"
+        },
+        {
+          "x": 16,
+          "y": 20,
+          "color": "#384828"
+        },
+        {
+          "x": 21,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 13,
+          "y": 21,
+          "color": "#687060"
+        },
+        {
+          "x": 17,
+          "y": 21,
+          "color": "#687060"
+        },
+        {
+          "x": 13,
+          "y": 22,
+          "color": "#803040"
+        },
+        {
+          "x": 17,
+          "y": 22,
+          "color": "#803040"
+        },
+        {
+          "x": 11,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 13,
+          "y": 23,
+          "color": "#182020"
+        },
+        {
+          "x": 14,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 16,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 17,
+          "y": 23,
+          "color": "#182020"
+        },
+        {
+          "x": 19,
+          "y": 23,
+          "color": "#687060"
+        },
+        {
+          "x": 12,
+          "y": 24,
+          "color": "#708048"
+        },
+        {
+          "x": 15,
+          "y": 24,
+          "color": "#C85068"
+        },
+        {
+          "x": 18,
+          "y": 24,
+          "color": "#506038"
+        },
+        {
+          "x": 11,
+          "y": 25,
+          "color": "#687060"
+        },
+        {
+          "x": 13,
+          "y": 25,
+          "color": "#F8F0D8"
+        },
+        {
+          "x": 15,
+          "y": 25,
+          "color": "#803040"
+        },
+        {
+          "x": 17,
+          "y": 25,
+          "color": "#F8F0D8"
+        },
+        {
+          "x": 19,
+          "y": 25,
+          "color": "#687060"
+        },
+        {
+          "x": 11,
+          "y": 26,
+          "color": "#708048"
+        },
+        {
+          "x": 17,
+          "y": 26,
+          "color": "#506038"
+        },
+        {
+          "x": 13,
+          "y": 27,
+          "color": "#283028"
+        },
+        {
+          "x": 15,
+          "y": 27,
+          "color": "#283028"
+        }
+      ]
+    },
+    {
+      "frame": 3,
+      "layer": null,
+      "opaque_pixels": 175,
+      "pieces": 1,
+      "main_piece_pixels": 175,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 17,
+      "orphan_pixels": [
+        {
+          "x": 14,
+          "y": 15,
+          "color": "#708048"
+        },
+        {
+          "x": 16,
+          "y": 15,
+          "color": "#708048"
+        },
+        {
+          "x": 10,
+          "y": 17,
+          "color": "#506038"
+        },
+        {
+          "x": 9,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 21,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 11,
+          "y": 21,
+          "color": "#182020"
+        },
+        {
+          "x": 19,
+          "y": 21,
+          "color": "#182020"
+        },
+        {
+          "x": 12,
+          "y": 22,
+          "color": "#384828"
+        },
+        {
+          "x": 13,
+          "y": 22,
+          "color": "#283028"
+        },
+        {
+          "x": 17,
+          "y": 22,
+          "color": "#283028"
+        },
+        {
+          "x": 11,
+          "y": 23,
+          "color": "#506038"
+        },
+        {
+          "x": 11,
+          "y": 26,
+          "color": "#384828"
+        },
+        {
+          "x": 11,
+          "y": 27,
+          "color": "#283028"
+        },
+        {
+          "x": 12,
+          "y": 27,
+          "color": "#404840"
+        },
+        {
+          "x": 18,
+          "y": 28,
+          "color": "#404840"
+        },
+        {
+          "x": 19,
+          "y": 28,
+          "color": "#283028"
+        },
+        {
+          "x": 16,
+          "y": 29,
+          "color": "#283028"
+        }
+      ]
+    },
+    {
+      "frame": 4,
+      "layer": null,
+      "opaque_pixels": 175,
+      "pieces": 1,
+      "main_piece_pixels": 175,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 18,
+      "orphan_pixels": [
+        {
+          "x": 14,
+          "y": 15,
+          "color": "#708048"
+        },
+        {
+          "x": 16,
+          "y": 15,
+          "color": "#708048"
+        },
+        {
+          "x": 10,
+          "y": 17,
+          "color": "#506038"
+        },
+        {
+          "x": 9,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 21,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 11,
+          "y": 21,
+          "color": "#182020"
+        },
+        {
+          "x": 19,
+          "y": 21,
+          "color": "#182020"
+        },
+        {
+          "x": 12,
+          "y": 22,
+          "color": "#384828"
+        },
+        {
+          "x": 13,
+          "y": 22,
+          "color": "#283028"
+        },
+        {
+          "x": 17,
+          "y": 22,
+          "color": "#283028"
+        },
+        {
+          "x": 11,
+          "y": 23,
+          "color": "#506038"
+        },
+        {
+          "x": 11,
+          "y": 26,
+          "color": "#384828"
+        },
+        {
+          "x": 18,
+          "y": 27,
+          "color": "#404840"
+        },
+        {
+          "x": 19,
+          "y": 27,
+          "color": "#283028"
+        },
+        {
+          "x": 11,
+          "y": 28,
+          "color": "#404840"
+        },
+        {
+          "x": 12,
+          "y": 28,
+          "color": "#283028"
+        },
+        {
+          "x": 13,
+          "y": 28,
+          "color": "#404840"
+        },
+        {
+          "x": 15,
+          "y": 29,
+          "color": "#283028"
+        }
+      ]
+    },
+    {
+      "frame": 5,
+      "layer": null,
+      "opaque_pixels": 207,
+      "pieces": 1,
+      "main_piece_pixels": 207,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 17,
+      "orphan_pixels": [
+        {
+          "x": 14,
+          "y": 12,
+          "color": "#182020"
+        },
+        {
+          "x": 14,
+          "y": 13,
+          "color": "#283028"
+        },
+        {
+          "x": 13,
+          "y": 14,
+          "color": "#182020"
+        },
+        {
+          "x": 16,
+          "y": 19,
+          "color": "#C0C880"
+        },
+        {
+          "x": 21,
+          "y": 20,
+          "color": "#708048"
+        },
+        {
+          "x": 23,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 23,
+          "y": 21,
+          "color": "#708048"
+        },
+        {
+          "x": 24,
+          "y": 21,
+          "color": "#384828"
+        },
+        {
+          "x": 8,
+          "y": 22,
+          "color": "#C85068"
+        },
+        {
+          "x": 11,
+          "y": 23,
+          "color": "#C85068"
+        },
+        {
+          "x": 26,
+          "y": 23,
+          "color": "#506038"
+        },
+        {
+          "x": 11,
+          "y": 24,
+          "color": "#F8F0D8"
+        },
+        {
+          "x": 24,
+          "y": 24,
+          "color": "#506038"
+        },
+        {
+          "x": 25,
+          "y": 24,
+          "color": "#384828"
+        },
+        {
+          "x": 11,
+          "y": 25,
+          "color": "#283028"
+        },
+        {
+          "x": 12,
+          "y": 25,
+          "color": "#708048"
+        },
+        {
+          "x": 21,
+          "y": 28,
+          "color": "#404840"
+        }
+      ]
+    },
+    {
+      "frame": 6,
+      "layer": null,
+      "opaque_pixels": 206,
+      "pieces": 1,
+      "main_piece_pixels": 206,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 19,
+      "orphan_pixels": [
+        {
+          "x": 14,
+          "y": 12,
+          "color": "#182020"
+        },
+        {
+          "x": 14,
+          "y": 13,
+          "color": "#283028"
+        },
+        {
+          "x": 13,
+          "y": 14,
+          "color": "#182020"
+        },
+        {
+          "x": 16,
+          "y": 19,
+          "color": "#C0C880"
+        },
+        {
+          "x": 21,
+          "y": 20,
+          "color": "#708048"
+        },
+        {
+          "x": 23,
+          "y": 20,
+          "color": "#283028"
+        },
+        {
+          "x": 23,
+          "y": 21,
+          "color": "#708048"
+        },
+        {
+          "x": 24,
+          "y": 21,
+          "color": "#384828"
+        },
+        {
+          "x": 8,
+          "y": 22,
+          "color": "#C85068"
+        },
+        {
+          "x": 11,
+          "y": 23,
+          "color": "#C85068"
+        },
+        {
+          "x": 26,
+          "y": 23,
+          "color": "#506038"
+        },
+        {
+          "x": 11,
+          "y": 24,
+          "color": "#F8F0D8"
+        },
+        {
+          "x": 24,
+          "y": 24,
+          "color": "#506038"
+        },
+        {
+          "x": 25,
+          "y": 24,
+          "color": "#384828"
+        },
+        {
+          "x": 11,
+          "y": 25,
+          "color": "#283028"
+        },
+        {
+          "x": 12,
+          "y": 25,
+          "color": "#708048"
+        },
+        {
+          "x": 22,
+          "y": 26,
+          "color": "#182020"
+        },
+        {
+          "x": 19,
+          "y": 28,
+          "color": "#283028"
+        },
+        {
+          "x": 20,
+          "y": 28,
+          "color": "#404840"
+        }
+      ]
+    }
+  ],
+  "color_stats": [
+    {
+      "frame": 1,
+      "unique_colors": 13,
+      "opaque_pixels": 168,
+      "top_colors": [
+        {
+          "color": "#182020",
+          "count": 36
+        },
+        {
+          "color": "#404840",
+          "count": 34
+        },
+        {
+          "color": "#283028",
+          "count": 25
+        },
+        {
+          "color": "#98A860",
+          "count": 20
+        },
+        {
+          "color": "#708048",
+          "count": 15
+        },
+        {
+          "color": "#506038",
+          "count": 11
+        },
+        {
+          "color": "#687060",
+          "count": 8
+        },
+        {
+          "color": "#384828",
+          "count": 6
+        },
+        {
+          "color": "#F8D068",
+          "count": 4
+        },
+        {
+          "color": "#C0C880",
+          "count": 3
+        },
+        {
+          "color": "#803040",
+          "count": 3
+        },
+        {
+          "color": "#F8F0D8",
+          "count": 2
+        },
+        {
+          "color": "#C85068",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "frame": 2,
+      "unique_colors": 13,
+      "opaque_pixels": 168,
+      "top_colors": [
+        {
+          "color": "#182020",
+          "count": 36
+        },
+        {
+          "color": "#404840",
+          "count": 36
+        },
+        {
+          "color": "#283028",
+          "count": 24
+        },
+        {
+          "color": "#98A860",
+          "count": 20
+        },
+        {
+          "color": "#708048",
+          "count": 14
+        },
+        {
+          "color": "#506038",
+          "count": 11
+        },
+        {
+          "color": "#687060",
+          "count": 8
+        },
+        {
+          "color": "#384828",
+          "count": 6
+        },
+        {
+          "color": "#F8D068",
+          "count": 4
+        },
+        {
+          "color": "#C0C880",
+          "count": 3
+        },
+        {
+          "color": "#803040",
+          "count": 3
+        },
+        {
+          "color": "#F8F0D8",
+          "count": 2
+        },
+        {
+          "color": "#C85068",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "frame": 3,
+      "unique_colors": 8,
+      "opaque_pixels": 175,
+      "top_colors": [
+        {
+          "color": "#98A860",
+          "count": 42
+        },
+        {
+          "color": "#182020",
+          "count": 36
+        },
+        {
+          "color": "#506038",
+          "count": 31
+        },
+        {
+          "color": "#708048",
+          "count": 30
+        },
+        {
+          "color": "#283028",
+          "count": 20
+        },
+        {
+          "color": "#384828",
+          "count": 12
+        },
+        {
+          "color": "#C0C880",
+          "count": 2
+        },
+        {
+          "color": "#404840",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "frame": 4,
+      "unique_colors": 8,
+      "opaque_pixels": 175,
+      "top_colors": [
+        {
+          "color": "#98A860",
+          "count": 42
+        },
+        {
+          "color": "#182020",
+          "count": 35
+        },
+        {
+          "color": "#506038",
+          "count": 31
+        },
+        {
+          "color": "#708048",
+          "count": 30
+        },
+        {
+          "color": "#283028",
+          "count": 20
+        },
+        {
+          "color": "#384828",
+          "count": 12
+        },
+        {
+          "color": "#404840",
+          "count": 3
+        },
+        {
+          "color": "#C0C880",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "frame": 5,
+      "unique_colors": 12,
+      "opaque_pixels": 207,
+      "top_colors": [
+        {
+          "color": "#404840",
+          "count": 38
+        },
+        {
+          "color": "#98A860",
+          "count": 31
+        },
+        {
+          "color": "#182020",
+          "count": 29
+        },
+        {
+          "color": "#708048",
+          "count": 29
+        },
+        {
+          "color": "#283028",
+          "count": 29
+        },
+        {
+          "color": "#506038",
+          "count": 25
+        },
+        {
+          "color": "#384828",
+          "count": 15
+        },
+        {
+          "color": "#C0C880",
+          "count": 3
+        },
+        {
+          "color": "#803040",
+          "count": 3
+        },
+        {
+          "color": "#F8D068",
+          "count": 2
+        },
+        {
+          "color": "#C85068",
+          "count": 2
+        },
+        {
+          "color": "#F8F0D8",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "frame": 6,
+      "unique_colors": 12,
+      "opaque_pixels": 206,
+      "top_colors": [
+        {
+          "color": "#404840",
+          "count": 37
+        },
+        {
+          "color": "#283028",
+          "count": 31
+        },
+        {
+          "color": "#98A860",
+          "count": 31
+        },
+        {
+          "color": "#708048",
+          "count": 29
+        },
+        {
+          "color": "#182020",
+          "count": 28
+        },
+        {
+          "color": "#506038",
+          "count": 24
+        },
+        {
+          "color": "#384828",
+          "count": 15
+        },
+        {
+          "color": "#C0C880",
+          "count": 3
+        },
+        {
+          "color": "#803040",
+          "count": 3
+        },
+        {
+          "color": "#F8D068",
+          "count": 2
+        },
+        {
+          "color": "#C85068",
+          "count": 2
+        },
+        {
+          "color": "#F8F0D8",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "sprite": {
+    "width": 32,
+    "height": 32,
+    "color_mode": "rgb",
+    "frames": 6,
+    "durations_ms": [
+      180,
+      180,
+      180,
+      180,
+      180,
+      180
+    ],
+    "layers": [
+      {
+        "name": "Layer 1",
+        "visible": true,
+        "opacity": 255,
+        "is_group": false,
+        "parent": null
+      },
+      {
+        "name": "Poochyena - native pixels",
+        "visible": true,
+        "opacity": 255,
+        "is_group": false,
+        "parent": null
+      }
+    ],
+    "tags": [
+      {
+        "name": "Down",
+        "from": 1,
+        "to": 2,
+        "direction": "forward"
+      },
+      {
+        "name": "Up",
+        "from": 3,
+        "to": 4,
+        "direction": "forward"
+      },
+      {
+        "name": "Left",
+        "from": 5,
+        "to": 6,
+        "direction": "forward"
+      }
+    ]
+  },
+  "method": "Native pixel drawing and local edits through diivi MCP; original Poochyena poses/foot contact studied with its external normal palette. Python used only for exact palette indexing, layout proofs, and validation.",
+  "status": "Review candidate; timed visual playback unverified because browser and native UI automation helpers timed out.",
+  "source_references": [
+    "graphics/pokemon/poochyena/overworld.png",
+    "graphics/pokemon/poochyena/overworld_normal.pal",
+    "art/virelia_poochyena_v5/approved-concept.png",
+    "art/virelia_poochyena_v5/game-ready/overworld.png"
+  ],
+  "visual_review": {
+    "native_grid": "pass - native pixels and nearest-neighbor proofs",
+    "construction": "pass - original scale/registration with compact leaf-fur edits",
+    "contour": "reviewed - dark paws/muzzle are filled material; tail root includes overlap shadow",
+    "lighting": "reviewed - upper-left highlights with restrained matte leaf planes",
+    "palette": "pass - approved 16-entry palette, 13 opaque colors used, normal/RGB555 proofs inspected",
+    "animation_registration": "pass - changes confined to paw contacts; head/body/tail remain registered",
+    "timed_playback": "not checked - UI helper timeouts",
+    "antialiasing_and_dithering": "not used at this footprint",
+    "shiny": "not requested",
+    "runtime_integration": "not performed"
+  },
+  "sha256": {
+    "overworld-v5.aseprite": "a3d767689fa1b2b9f976c7698f0928f51e7fa3dfea9c9dee82681b3d83ec7ea0",
+    "overworld.png": "fba555b5e28a2c2ff4a2b2417e0ae45c3e9b25a00351904f96c8accaefd47d7c",
+    "overworld_normal.pal": "ace011bc08df8fd35238b8587fa1840402f6080e95ba8f9db198762260e5ba5f"
+  }
+}

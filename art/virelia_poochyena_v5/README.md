@@ -22,9 +22,8 @@ Right-facing walking uses the engine's normal horizontal mirroring.
 Walking alternates paw contact; the party icon moves down one pixel.
 
 All assets use the exact approved palette: fifteen opaque colors plus
-transparent index zero. The custom icon palette is preserved; it has not been
-remapped to the game's shared icon palette. Runtime installation would need
-to assign that palette appropriately.
+transparent index zero. The custom icon palette is preserved in this art folder. The runtime installer
+maps its material roles to the game's shared icon palette 1.
 
 The front occupies 48x42 pixels at (8,11) in its 64x64 cell.
 Front 2 stays within that footprint; the back occupies 47x42 at (9,11).
@@ -63,7 +62,10 @@ validate-native.sh runs the repository's gbagfx converter on six sheets and
 two palettes. validate_native.py checks exact indices, colors, RGB555 words
 and expected binary sizes after conversion.
 
-This is a separate review set; runtime graphics have not been replaced.
-No ROM build or emulator playtest was performed. The custom icon palette
-needs integration before using that icon in the game.
+The approved battle frames and icon are installed through
+`tools/virelia/prepare_canine_v5_assets.py`. That installer uses the newer
+`diivi-overworld/overworld.png` for walking, not this folder's older walking
+sheet. It maps the icon to shared palette 1 and preserves the existing blue
+shiny scheme using the new palette roles. Runtime metadata and picture-loader
+regression hashes track these assets. No manual emulator playtest is recorded.
 

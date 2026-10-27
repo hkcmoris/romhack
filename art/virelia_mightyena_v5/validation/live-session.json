@@ -1,0 +1,26 @@
+{
+  "front": {
+    "file_id": "75912e8608ba",
+    "versions": 22,
+    "matches_export": true,
+    "render_error": null
+  },
+  "back": {
+    "file_id": "0033d37c1a87",
+    "versions": 25,
+    "matches_export": true,
+    "render_error": null
+  },
+  "overworld": {
+    "file_id": "93d20e586778",
+    "versions": 36,
+    "matches_export": true,
+    "render_error": null
+  },
+  "icon": {
+    "file_id": "561bd03df8d5",
+    "versions": 13,
+    "matches_export": true,
+    "render_error": null
+  }
+}

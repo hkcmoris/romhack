@@ -1,0 +1,64 @@
+{
+  "image": "C:\\github\\romhack\\art\\virelia_mightyena_v5\\game-ready\\icon-art.png",
+  "technical_pass": true,
+  "art_review": "not_automated",
+  "errors": [],
+  "warnings": [],
+  "frames": [
+    {
+      "index": 0,
+      "cell": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "opaque_bounds": [
+        4,
+        10,
+        28,
+        31
+      ]
+    },
+    {
+      "index": 1,
+      "cell": [
+        0,
+        32,
+        32,
+        64
+      ],
+      "opaque_bounds": [
+        3,
+        10,
+        27,
+        31
+      ]
+    }
+  ],
+  "size": [
+    32,
+    64
+  ],
+  "mode": "P",
+  "png_bit_depth": 4,
+  "used_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    10,
+    12,
+    13,
+    14,
+    15
+  ],
+  "palette_slots": 16,
+  "source_sha256": "602b23b2b699e830b4f66917a99a28ea0112fc27503c66c95d745b08171a4565",
+  "review_directory": "C:\\github\\romhack\\art\\virelia_mightyena_v5\\validation\\audit-icon-art",
+  "proof_semantics": "Index 0 masked for runtime previews; see errors for actual PNG alpha metadata."
+}

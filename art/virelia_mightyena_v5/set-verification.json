@@ -1,0 +1,310 @@
+{
+  "frame_counts": {
+    "front": 2,
+    "back": 1,
+    "overworld": 6,
+    "icon": 2,
+    "icon_game": 2
+  },
+  "total_art_frames": 11,
+  "approved_front_preserved_byte_for_byte": true,
+  "encoding": "Exact RGB-to-index mapping; four-bit PNG; no art resampling or color quantization",
+  "transparent_index": 0,
+  "icon_engine_palette_index": 1,
+  "icon_role_to_engine_index": [
+    0,
+    15,
+    15,
+    15,
+    1,
+    15,
+    1,
+    4,
+    5,
+    12,
+    10,
+    13,
+    13,
+    3,
+    2,
+    3
+  ],
+  "shiny": "Not redesigned in this normal-color art set",
+  "runtime_installed": false,
+  "roaring_pose": "Original GBA second-frame anatomy, including original top-edge ear tips",
+  "art_review": "Separate manual inspection; technical checks do not establish drawing quality",
+  "sha256": {
+    "anim_front.png": "934db49535e6b123fa1e067d2a77cb17d5b993deffefcd8021f0b768373fcf96",
+    "back.png": "3ea8d7a0a2086b3c91d647b468215cadcee2e146aac7fcdf0810de0a118a7737",
+    "front.png": "ece076eca49d759223594d34a09b056ea0f67dbcd443daf626a875257eb7ce16",
+    "front_2.png": "1908e0c8081093581280aaa5c9aab0cfa8295a742f4b7b6d29f649da13e6bd66",
+    "icon-art.png": "602b23b2b699e830b4f66917a99a28ea0112fc27503c66c95d745b08171a4565",
+    "icon.pal": "9ff4eb0d95a5df81c8db5f5e430c4f5f5e38d7f55886c6cf3434080c536279ea",
+    "icon.png": "1b330ed13155ae0f3e18fc1c41cb054de42c8c5053d814313e2a1032f52a6c6b",
+    "normal.pal": "6b5abcf7dfa03be377bb778ba0b0fc215d2cbc787c854d5edcf2fab499150c00",
+    "overworld.png": "b60182c64543da615f64d34ee7f43eb083717bf86fe4f5de87e00c6e47ea298c",
+    "overworld_normal.pal": "6b5abcf7dfa03be377bb778ba0b0fc215d2cbc787c854d5edcf2fab499150c00"
+  },
+  "native_validation": {
+    "native_round_trip": {
+      "front": {
+        "pass": true,
+        "bytes": 2048
+      },
+      "front_2": {
+        "pass": true,
+        "bytes": 2048
+      },
+      "anim_front": {
+        "pass": true,
+        "bytes": 4096
+      },
+      "back": {
+        "pass": true,
+        "bytes": 2048
+      },
+      "overworld": {
+        "pass": true,
+        "bytes": 3072
+      },
+      "icon-art": {
+        "pass": true,
+        "bytes": 1024
+      },
+      "icon": {
+        "pass": true,
+        "bytes": 1024
+      }
+    },
+    "palettes": {
+      "normal": {
+        "pass": true,
+        "bytes": 32
+      },
+      "overworld_normal": {
+        "pass": true,
+        "bytes": 32
+      },
+      "icon": {
+        "pass": true,
+        "bytes": 32
+      }
+    },
+    "roaring_reference": {
+      "original_opaque_geometry_preserved": true,
+      "teeth_eye_nose_and_tongue_landmarks_checked": 27
+    },
+    "approved_front_preserved_byte_for_byte": true
+  },
+  "indexed_audits": {
+    "front": {
+      "pass": true,
+      "size": [
+        64,
+        64
+      ],
+      "used_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "warnings": []
+    },
+    "front_2": {
+      "pass": true,
+      "size": [
+        64,
+        64
+      ],
+      "used_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "warnings": [
+        "Frame 0 touches a cell edge; visually check for clipping."
+      ]
+    },
+    "anim_front": {
+      "pass": true,
+      "size": [
+        64,
+        128
+      ],
+      "used_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "warnings": [
+        "Frame 1 touches a cell edge; visually check for clipping."
+      ]
+    },
+    "back": {
+      "pass": true,
+      "size": [
+        64,
+        64
+      ],
+      "used_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "warnings": []
+    },
+    "overworld": {
+      "pass": true,
+      "size": [
+        192,
+        32
+      ],
+      "used_indices": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "warnings": []
+    },
+    "icon-art": {
+      "pass": true,
+      "size": [
+        32,
+        64
+      ],
+      "used_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        10,
+        12,
+        13,
+        14,
+        15
+      ],
+      "warnings": []
+    },
+    "icon": {
+      "pass": true,
+      "size": [
+        32,
+        64
+      ],
+      "used_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        13,
+        15
+      ],
+      "warnings": []
+    }
+  },
+  "live_session": {
+    "front": {
+      "file_id": "75912e8608ba",
+      "versions": 22,
+      "matches_export": true,
+      "render_error": null
+    },
+    "back": {
+      "file_id": "0033d37c1a87",
+      "versions": 25,
+      "matches_export": true,
+      "render_error": null
+    },
+    "overworld": {
+      "file_id": "93d20e586778",
+      "versions": 36,
+      "matches_export": true,
+      "render_error": null
+    },
+    "icon": {
+      "file_id": "561bd03df8d5",
+      "versions": 13,
+      "matches_export": true,
+      "render_error": null
+    }
+  },
+  "manual_review": {
+    "native_size_and_enlarged": "inspected",
+    "light_and_dark_backgrounds": "inspected",
+    "rgb555_proofs": "inspected",
+    "back_leaf_shapes": "broad flat tapered clumps with short overlap shadows",
+    "back_face_boundary": "tapered anatomical brow/cheek/muzzle mask",
+    "roaring_pose": "original GBA open-mouth pose preserved",
+    "timed_playback": "not independently viewed - browser helper timed out",
+    "gif_counts_and_durations": "verified",
+    "top_edge_note": "original roaring ear tips touch y=0; preserved and visually inspected"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "native_round_trip": {
+    "front": {
+      "pass": true,
+      "bytes": 2048
+    },
+    "front_2": {
+      "pass": true,
+      "bytes": 2048
+    },
+    "anim_front": {
+      "pass": true,
+      "bytes": 4096
+    },
+    "back": {
+      "pass": true,
+      "bytes": 2048
+    },
+    "overworld": {
+      "pass": true,
+      "bytes": 3072
+    },
+    "icon-art": {
+      "pass": true,
+      "bytes": 1024
+    },
+    "icon": {
+      "pass": true,
+      "bytes": 1024
+    }
+  },
+  "palettes": {
+    "normal": {
+      "pass": true,
+      "bytes": 32
+    },
+    "overworld_normal": {
+      "pass": true,
+      "bytes": 32
+    },
+    "icon": {
+      "pass": true,
+      "bytes": 32
+    }
+  },
+  "roaring_reference": {
+    "original_opaque_geometry_preserved": true,
+    "teeth_eye_nose_and_tongue_landmarks_checked": 27
+  },
+  "approved_front_preserved_byte_for_byte": true
+}

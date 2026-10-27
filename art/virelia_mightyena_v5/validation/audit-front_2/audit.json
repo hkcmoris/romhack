@@ -1,0 +1,53 @@
+{
+  "image": "C:\\github\\romhack\\art\\virelia_mightyena_v5\\game-ready\\front_2.png",
+  "technical_pass": true,
+  "art_review": "not_automated",
+  "errors": [],
+  "warnings": [
+    "Frame 0 touches a cell edge; visually check for clipping."
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "cell": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "opaque_bounds": [
+        1,
+        0,
+        62,
+        60
+      ]
+    }
+  ],
+  "size": [
+    64,
+    64
+  ],
+  "mode": "P",
+  "png_bit_depth": 4,
+  "used_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "palette_slots": 16,
+  "source_sha256": "1908e0c8081093581280aaa5c9aab0cfa8295a742f4b7b6d29f649da13e6bd66",
+  "review_directory": "C:\\github\\romhack\\art\\virelia_mightyena_v5\\validation\\audit-front_2",
+  "proof_semantics": "Index 0 masked for runtime previews; see errors for actual PNG alpha metadata."
+}

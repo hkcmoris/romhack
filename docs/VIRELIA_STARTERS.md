@@ -161,12 +161,23 @@ Dedicated shiny colors are pending; shiny forms currently use the normal palette
 | Virelian Arbok | `graphics/pokemon/arbok/virelia/` |
 | Infernabra | `graphics/pokemon/infernabra/` |
 
-The grass family's party icons are separate copies of the original Poochyena
-and Mightyena icons, recolored and adapted to match the new battle sprites.
-The rejected Poochyena v2 pass is preserved in `art/virelia_poochyena_v2/`;
-runtime assets have been restored. A GBA-based regional v3 review candidate,
-with all battle, walking and icon frames, is in `art/virelia_poochyena_v3/`.
-It is not installed into the game.
+Virelian Poochyena and Mightyena use the approved v5 battle, walking and party
+icon sets. Editable Aseprite sources and review exports are in
+`art/virelia_poochyena_v5/` and `art/virelia_mightyena_v5/`. Poochyena's walking
+sheet comes from `art/virelia_poochyena_v5/diivi-overworld/`, which supersedes
+its older `game-ready/overworld.png`. Mightyena retains its original GBA
+open-mouth roaring pose in front frame 2, broad pointed leaf fur and mint wisps.
+The older Poochyena v2 and v3 candidates remain in their art folders.
+
+Run `python tools/virelia/prepare_canine_v5_assets.py` after updating those
+approved exports to install the runtime files. It copies the battle pixels and
+walking sheets, maps Poochyena's icon to shared palette 1 by material role, and
+uses Mightyena's prepared shared-palette icon. It keeps the existing blue shiny
+coat and leaf ramp in the new index order; eyes, noses, teeth and ghost wisps
+retain their approved colors. Battle and walking normal/shiny palettes match.
+Poochyena's front/back bounds are 48x42/47x42 with Y offset 11; Mightyena's
+standing front/back bounds are 58x56/60x56 with Y offset 4. The roaring frame
+reaches the top row, as in the original GBA pose.
 The fire family follows the same original-sprite-first approach with Ekans
 and Arbok, then adds the concept's volcanic cracks, flames and hood markings.
 Infernabra has a larger, rocky hood and its own final-stage silhouette.
@@ -196,9 +207,11 @@ to produce `icon_game.png` using shared icon palette 3. The original `icon.png`
 retains the full art palette. Battle art is loaded directly from the prepared PNGs.
 
 All nine stages also have dedicated overworld walking sheets and normal/shiny
-palettes in their battle-art directories. The six original 32x32 walking frames
-provide the copied and recolored base; regional details add leaf-fur and flowing
-tails, aquatic crests and plumage, or volcanic seams and flame tails. The final
+palettes in their battle-art directories. Each sheet has six 32x32 cells ordered
+down A/B, up A/B and left A/B; east-facing movement mirrors left. The canine v5
+sheets use their approved native-grid diivi art. The remaining stages adapt the
+original walking frames with regional details: flowing tails, aquatic crests
+and plumage, or volcanic seams and flame tails. The final
 stages have distinct silhouettes. The water family's shiny overworld palette
 matches its current normal battle colors until dedicated shiny colors are made.
 Ordinary species retain their original graphics and palettes.

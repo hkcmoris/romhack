@@ -1,0 +1,1461 @@
+{
+  "method": "Native-grid editing with diivi Aseprite MCP; scripts only encode, pack, and verify existing pixels.",
+  "sources": {
+    "front_1": "front-diivi/mightyena-front-v1.aseprite (approved, unchanged)",
+    "front_2": "references/native/front-2.png (original GBA roaring pose)",
+    "back": "references/native/back-1.png",
+    "walking": "references/native/walk-1.png through walk-6.png",
+    "icon": "references/native/icon-1.png and icon-2.png"
+  },
+  "back_flat_leaves": [
+    {
+      "x": 8,
+      "y": 46,
+      "rows": [
+        "..........GGGGGG",
+        ".......GGGGGGGGGG",
+        ".....GGGggGGGGGGGG",
+        "...GGGGgggGGGGGGGss",
+        "..GGGGGGGGGGGGGsss",
+        ".GGGGGGGGGGGGsss",
+        "GGGGGGGGGGsss",
+        "GGGGGGGsss",
+        "GGGGsss",
+        "Gss",
+        "S"
+      ]
+    },
+    {
+      "x": 25,
+      "y": 46,
+      "rows": [
+        ".....GGGGG",
+        "...GGGGGGGG",
+        "..GGggGGGGGG",
+        ".GGgggGGGGGGs",
+        ".GGGGGGGGGGss",
+        "GGGGGGGGGsss",
+        "GGGGGGGsss",
+        "GGGGGsss",
+        "GGGss",
+        "Gss",
+        "S"
+      ]
+    },
+    {
+      "x": 34,
+      "y": 35,
+      "rows": [
+        "......GGGG",
+        "....GGGGGGG",
+        "..GGggGGGGGG",
+        ".GGgggGGGGGGs",
+        ".GGGGGGGGGGss",
+        "GGGGGGGGGGsss",
+        "GGGGGGGGsss",
+        "GGGGGGsss",
+        "GGGGsss",
+        "GGGss",
+        "Gs",
+        "S"
+      ]
+    },
+    {
+      "x": 22,
+      "y": 31,
+      "rows": [
+        ".......GGGGG",
+        ".....GGGGGGGG",
+        "...GGggGGGGGGG",
+        "..GGgggGGGGGGGs",
+        ".GGGGGGGGGGGGss",
+        "GGGGGGGGGGGsss",
+        "GGGGGGGGGsss",
+        "GGGGGGGsss",
+        "GGGGGsss",
+        "GGGss",
+        "Gs",
+        "S"
+      ]
+    },
+    {
+      "x": 40,
+      "y": 25,
+      "rows": [
+        "....GGGGG",
+        "..GGGGGGGG",
+        ".GggGGGGGGG",
+        ".GggGGGGGGGs",
+        ".GGGGGGGGGss",
+        "GGGGGGGGsss",
+        "GGGGGGsss",
+        "GGGGsss",
+        "GGGss",
+        "Gs",
+        "S"
+      ]
+    },
+    {
+      "x": 32,
+      "y": 18,
+      "rows": [
+        "......GGGGG",
+        "....GGGGGGGG",
+        "...GggGGGGGGG",
+        "..GGggGGGGGGGs",
+        ".GGGGGGGGGGGss",
+        ".GGGGGGGGGsss",
+        "GGGGGGGGsss",
+        "GGGGGGsss",
+        "GGGGsss",
+        "GGGss",
+        "Gs",
+        "S"
+      ]
+    }
+  ],
+  "back_face_boundary": {
+    "19": 57,
+    "20": 56,
+    "21": 55,
+    "22": 55,
+    "23": 54,
+    "24": 54,
+    "25": 54,
+    "26": 55,
+    "27": 54,
+    "28": 53,
+    "29": 52,
+    "30": 51,
+    "31": 50,
+    "32": 50,
+    "33": 50,
+    "34": 51,
+    "35": 52,
+    "36": 52,
+    "37": 53,
+    "38": 54
+  },
+  "front_roar": {
+    "patches": [
+      {
+        "x": 13,
+        "y": 2,
+        "rows": [
+          ".GGG",
+          "GggGG",
+          "GGGGs",
+          "GGss",
+          "Gs"
+        ]
+      },
+      {
+        "x": 20,
+        "y": 12,
+        "rows": [
+          "GGGG",
+          "GggGGG",
+          "GGggGGGG",
+          "sGGGGGGGG",
+          "ssGGGGGGG",
+          "..ssGGGGG",
+          "...ssGGGG",
+          "....ssGGG",
+          ".....ssGG",
+          "......ssG",
+          ".......S"
+        ]
+      },
+      {
+        "x": 24,
+        "y": 22,
+        "rows": [
+          "GGGG",
+          "GggGGG",
+          "GGggGGGG",
+          "sGGGGGGGG",
+          "ssGGGGGGG",
+          "..ssGGGGG",
+          "...ssGGGG",
+          "....ssGGG",
+          ".....ssGG",
+          "......ssG",
+          ".......S"
+        ]
+      },
+      {
+        "x": 32,
+        "y": 27,
+        "rows": [
+          "GGGGG",
+          "GggGGGG",
+          "GGGGGGGGG",
+          "sGGGGGGGGGs",
+          "ssGGGGGGGss",
+          ".ssGGGGsss",
+          "...ssGGss",
+          ".....sGs",
+          "......S"
+        ]
+      },
+      {
+        "x": 41,
+        "y": 33,
+        "rows": [
+          "GGGG",
+          "GggGGG",
+          "GGGGGGGGs",
+          ".sGGGGGGss",
+          "..ssGGGss",
+          "....sGss",
+          ".....S"
+        ]
+      },
+      {
+        "x": 44,
+        "y": 22,
+        "rows": [
+          ".......GGGGG",
+          ".....GGggGGGG",
+          "...GGGGGGGGGGs",
+          ".GGGGGGGGGsss",
+          "GGGGGGGsss",
+          "sGGGsss",
+          ".ssS"
+        ]
+      },
+      {
+        "x": 13,
+        "y": 29,
+        "rows": [
+          ".GGGG",
+          "GggGGG",
+          "GGGGGGGs",
+          "GGGGGGss",
+          "GGGGss",
+          "GGss",
+          "Gs"
+        ]
+      }
+    ],
+    "wisps": [
+      [
+        [
+          25,
+          23,
+          "t"
+        ],
+        [
+          26,
+          22,
+          "t"
+        ],
+        [
+          27,
+          21,
+          "T"
+        ],
+        [
+          28,
+          21,
+          "t"
+        ],
+        [
+          29,
+          20,
+          "T"
+        ],
+        [
+          29,
+          19,
+          "T"
+        ],
+        [
+          28,
+          18,
+          "t"
+        ],
+        [
+          29,
+          17,
+          "t"
+        ]
+      ],
+      [
+        [
+          35,
+          28,
+          "t"
+        ],
+        [
+          35,
+          27,
+          "T"
+        ],
+        [
+          34,
+          26,
+          "T"
+        ],
+        [
+          34,
+          25,
+          "t"
+        ],
+        [
+          35,
+          24,
+          "t"
+        ],
+        [
+          36,
+          23,
+          "T"
+        ],
+        [
+          36,
+          22,
+          "t"
+        ]
+      ],
+      [
+        [
+          46,
+          30,
+          "t"
+        ],
+        [
+          47,
+          29,
+          "T"
+        ],
+        [
+          48,
+          28,
+          "T"
+        ],
+        [
+          49,
+          27,
+          "t"
+        ],
+        [
+          49,
+          26,
+          "t"
+        ],
+        [
+          48,
+          25,
+          "T"
+        ],
+        [
+          47,
+          24,
+          "t"
+        ]
+      ],
+      [
+        [
+          14,
+          34,
+          "t"
+        ],
+        [
+          13,
+          33,
+          "T"
+        ],
+        [
+          12,
+          32,
+          "T"
+        ],
+        [
+          11,
+          31,
+          "t"
+        ],
+        [
+          10,
+          30,
+          "t"
+        ],
+        [
+          10,
+          29,
+          "T"
+        ],
+        [
+          11,
+          28,
+          "t"
+        ]
+      ],
+      [
+        [
+          49,
+          37,
+          "t"
+        ],
+        [
+          50,
+          36,
+          "T"
+        ],
+        [
+          51,
+          35,
+          "T"
+        ],
+        [
+          52,
+          34,
+          "t"
+        ],
+        [
+          52,
+          33,
+          "t"
+        ],
+        [
+          51,
+          32,
+          "t"
+        ]
+      ],
+      [
+        [
+          57,
+          27,
+          "t"
+        ],
+        [
+          58,
+          26,
+          "T"
+        ],
+        [
+          59,
+          25,
+          "T"
+        ],
+        [
+          59,
+          24,
+          "t"
+        ],
+        [
+          58,
+          23,
+          "t"
+        ],
+        [
+          58,
+          22,
+          "t"
+        ],
+        [
+          59,
+          21,
+          "t"
+        ]
+      ]
+    ],
+    "bound": {
+      "4": [
+        8,
+        16
+      ],
+      "5": [
+        5,
+        17
+      ],
+      "6": [
+        2,
+        18
+      ],
+      "7": [
+        1,
+        18
+      ],
+      "8": [
+        1,
+        19
+      ],
+      "9": [
+        2,
+        19
+      ],
+      "10": [
+        3,
+        19
+      ],
+      "11": [
+        5,
+        19
+      ],
+      "12": [
+        7,
+        19
+      ],
+      "13": [
+        8,
+        19
+      ],
+      "14": [
+        8,
+        20
+      ],
+      "15": [
+        8,
+        20
+      ],
+      "16": [
+        7,
+        20
+      ],
+      "17": [
+        6,
+        20
+      ],
+      "18": [
+        5,
+        19
+      ],
+      "19": [
+        5,
+        19
+      ],
+      "20": [
+        6,
+        18
+      ],
+      "21": [
+        9,
+        17
+      ]
+    }
+  },
+  "walking_leaves": {
+    "down": [
+      {
+        "x": 15,
+        "y": 5,
+        "rows": [
+          "..GGG",
+          "GGggG",
+          "GGGGs",
+          "GGGs",
+          "GGs",
+          "Gs",
+          "S"
+        ]
+      },
+      {
+        "x": 13,
+        "y": 8,
+        "rows": [
+          "..GGG",
+          ".GgGG",
+          "GGGGs",
+          "GGGs",
+          "GGs",
+          "Gs"
+        ]
+      },
+      {
+        "x": 12,
+        "y": 14,
+        "rows": [
+          "..GGG",
+          ".GggGG",
+          "GGGGGGs",
+          "GGGGGss",
+          "GGGss",
+          "Gs"
+        ]
+      },
+      {
+        "x": 8,
+        "y": 18,
+        "rows": [
+          ".GGG",
+          "GggGs",
+          "GGGss",
+          "GGss",
+          "Gs"
+        ]
+      },
+      {
+        "x": 20,
+        "y": 18,
+        "rows": [
+          "GGG",
+          "GggG",
+          "sGGGG",
+          "ssGGG",
+          ".ssGG",
+          "..sG"
+        ]
+      }
+    ],
+    "up": [
+      {
+        "x": 11,
+        "y": 13,
+        "rows": [
+          "..GGGG",
+          ".GggGGG",
+          "GGGGGGGs",
+          "GGGGGss",
+          "GGGss",
+          "Gs"
+        ]
+      },
+      {
+        "x": 12,
+        "y": 19,
+        "rows": [
+          ".GGGG",
+          "GggGGG",
+          "GGGGGGs",
+          "GGGGGss",
+          "GGGss",
+          "Gs",
+          "S"
+        ]
+      },
+      {
+        "x": 14,
+        "y": 22,
+        "rows": [
+          "..GG",
+          "GggGG",
+          "GGGGs",
+          "GGGss",
+          "GGss",
+          "Gs"
+        ]
+      }
+    ],
+    "left": [
+      {
+        "x": 14,
+        "y": 16,
+        "rows": [
+          ".GGG",
+          "GggGG",
+          "GGGGGs",
+          "GGGss",
+          "Gs"
+        ]
+      },
+      {
+        "x": 18,
+        "y": 19,
+        "rows": [
+          "GGG",
+          "GggGG",
+          "GGGGGs",
+          "GGGGss",
+          "GGss",
+          "Gs"
+        ]
+      },
+      {
+        "x": 22,
+        "y": 20,
+        "rows": [
+          "GGG",
+          ".GggG",
+          "GGGGs",
+          "GGss",
+          "Gs"
+        ]
+      },
+      {
+        "x": 26,
+        "y": 14,
+        "rows": [
+          ".GGG",
+          "GggGG",
+          "GGGGs",
+          "GGGss",
+          "Gs"
+        ]
+      }
+    ]
+  },
+  "walking_wisps": {
+    "down": [
+      [
+        [
+          9,
+          21,
+          "t"
+        ],
+        [
+          8,
+          20,
+          "T"
+        ],
+        [
+          7,
+          19,
+          "t"
+        ],
+        [
+          8,
+          18,
+          "t"
+        ]
+      ],
+      [
+        [
+          23,
+          23,
+          "t"
+        ],
+        [
+          24,
+          22,
+          "T"
+        ],
+        [
+          25,
+          21,
+          "t"
+        ],
+        [
+          25,
+          20,
+          "t"
+        ]
+      ],
+      [
+        [
+          19,
+          9,
+          "t"
+        ],
+        [
+          20,
+          8,
+          "T"
+        ],
+        [
+          21,
+          7,
+          "t"
+        ]
+      ]
+    ],
+    "up": [
+      [
+        [
+          10,
+          16,
+          "t"
+        ],
+        [
+          9,
+          15,
+          "T"
+        ],
+        [
+          8,
+          14,
+          "t"
+        ],
+        [
+          9,
+          13,
+          "t"
+        ]
+      ],
+      [
+        [
+          22,
+          23,
+          "t"
+        ],
+        [
+          23,
+          22,
+          "T"
+        ],
+        [
+          24,
+          21,
+          "t"
+        ],
+        [
+          23,
+          20,
+          "t"
+        ]
+      ]
+    ],
+    "left": [
+      [
+        [
+          17,
+          19,
+          "t"
+        ],
+        [
+          18,
+          18,
+          "T"
+        ],
+        [
+          18,
+          17,
+          "T"
+        ],
+        [
+          17,
+          16,
+          "t"
+        ]
+      ],
+      [
+        [
+          27,
+          16,
+          "t"
+        ],
+        [
+          28,
+          15,
+          "T"
+        ],
+        [
+          29,
+          14,
+          "t"
+        ],
+        [
+          29,
+          13,
+          "t"
+        ]
+      ],
+      [
+        [
+          26,
+          24,
+          "t"
+        ],
+        [
+          27,
+          23,
+          "T"
+        ],
+        [
+          28,
+          22,
+          "t"
+        ]
+      ]
+    ]
+  },
+  "icon": [
+    {
+      "eye": [
+        11,
+        19
+      ],
+      "noseX": 5,
+      "leaves": [
+        {
+          "x": 10,
+          "y": 13,
+          "rows": [
+            "..GG",
+            ".GggG",
+            "GGGGs",
+            "GGss",
+            "Gs"
+          ]
+        },
+        {
+          "x": 14,
+          "y": 18,
+          "rows": [
+            ".GGG",
+            "GggGG",
+            "GGGGGs",
+            "GGGGss",
+            "GGss",
+            "Gs"
+          ]
+        },
+        {
+          "x": 19,
+          "y": 21,
+          "rows": [
+            ".GGG",
+            "GggGG",
+            "GGGGs",
+            "GGss",
+            "Gs"
+          ]
+        },
+        {
+          "x": 22,
+          "y": 10,
+          "rows": [
+            "..GG",
+            "GggGG",
+            "GGGGs",
+            "GGss",
+            "Gs"
+          ]
+        }
+      ],
+      "wisps": [
+        [
+          [
+            16,
+            18,
+            "t"
+          ],
+          [
+            17,
+            17,
+            "T"
+          ],
+          [
+            17,
+            16,
+            "t"
+          ],
+          [
+            18,
+            15,
+            "t"
+          ]
+        ],
+        [
+          [
+            24,
+            15,
+            "t"
+          ],
+          [
+            25,
+            14,
+            "T"
+          ],
+          [
+            25,
+            13,
+            "t"
+          ]
+        ]
+      ]
+    },
+    {
+      "eye": [
+        10,
+        18
+      ],
+      "noseX": 4,
+      "leaves": [
+        {
+          "x": 9,
+          "y": 12,
+          "rows": [
+            "..GG",
+            ".GggG",
+            "GGGGs",
+            "GGss",
+            "Gs"
+          ]
+        },
+        {
+          "x": 13,
+          "y": 17,
+          "rows": [
+            ".GGG",
+            "GggGG",
+            "GGGGGs",
+            "GGGGss",
+            "GGss",
+            "Gs"
+          ]
+        },
+        {
+          "x": 18,
+          "y": 20,
+          "rows": [
+            ".GGG",
+            "GggGG",
+            "GGGGs",
+            "GGss",
+            "Gs"
+          ]
+        },
+        {
+          "x": 21,
+          "y": 9,
+          "rows": [
+            "..GG",
+            "GggGG",
+            "GGGGs",
+            "GGss",
+            "Gs"
+          ]
+        }
+      ],
+      "wisps": [
+        [
+          [
+            15,
+            17,
+            "t"
+          ],
+          [
+            16,
+            16,
+            "T"
+          ],
+          [
+            16,
+            15,
+            "t"
+          ],
+          [
+            17,
+            14,
+            "t"
+          ]
+        ],
+        [
+          [
+            23,
+            14,
+            "t"
+          ],
+          [
+            24,
+            13,
+            "T"
+          ],
+          [
+            24,
+            12,
+            "t"
+          ]
+        ]
+      ]
+    }
+  ],
+  "validation": {
+    "metric_0": {
+      "layer": null,
+      "frames": [
+        {
+          "frame": 1,
+          "x": 3,
+          "y": 4,
+          "width": 58,
+          "height": 56
+        },
+        {
+          "frame": 2,
+          "x": 1,
+          "y": 0,
+          "width": 61,
+          "height": 60
+        }
+      ]
+    },
+    "metric_1": {
+      "layer": null,
+      "frames": [
+        {
+          "frame": 1,
+          "x": 3,
+          "y": 4,
+          "width": 60,
+          "height": 56
+        }
+      ]
+    },
+    "metric_2": {
+      "layer": null,
+      "frames": [
+        {
+          "frame": 1,
+          "x": 7,
+          "y": 4,
+          "width": 19,
+          "height": 26
+        },
+        {
+          "frame": 2,
+          "x": 7,
+          "y": 4,
+          "width": 20,
+          "height": 26
+        },
+        {
+          "frame": 3,
+          "x": 8,
+          "y": 7,
+          "width": 17,
+          "height": 23
+        },
+        {
+          "frame": 4,
+          "x": 9,
+          "y": 7,
+          "width": 17,
+          "height": 23
+        },
+        {
+          "frame": 5,
+          "x": 4,
+          "y": 8,
+          "width": 27,
+          "height": 22
+        },
+        {
+          "frame": 6,
+          "x": 4,
+          "y": 8,
+          "width": 27,
+          "height": 22
+        }
+      ]
+    },
+    "metric_3": {
+      "layer": null,
+      "frames": [
+        {
+          "frame": 1,
+          "x": 4,
+          "y": 10,
+          "width": 24,
+          "height": 21
+        },
+        {
+          "frame": 2,
+          "x": 3,
+          "y": 10,
+          "width": 24,
+          "height": 21
+        }
+      ]
+    },
+    "metric_4": {
+      "frame_a": 1,
+      "frame_b": 2,
+      "changed_pixels": 1537,
+      "total_pixels": 4096,
+      "percent_changed": 37.52,
+      "changed_bounds": {
+        "x": 1,
+        "y": 0,
+        "width": 61,
+        "height": 59
+      }
+    },
+    "metric_5": {
+      "frame_a": 1,
+      "frame_b": 2,
+      "changed_pixels": 70,
+      "total_pixels": 1024,
+      "percent_changed": 6.84,
+      "changed_bounds": {
+        "x": 7,
+        "y": 4,
+        "width": 20,
+        "height": 26
+      }
+    },
+    "metric_6": {
+      "frame_a": 3,
+      "frame_b": 4,
+      "changed_pixels": 56,
+      "total_pixels": 1024,
+      "percent_changed": 5.47,
+      "changed_bounds": {
+        "x": 8,
+        "y": 13,
+        "width": 18,
+        "height": 17
+      }
+    },
+    "metric_7": {
+      "frame_a": 5,
+      "frame_b": 6,
+      "changed_pixels": 73,
+      "total_pixels": 1024,
+      "percent_changed": 7.13,
+      "changed_bounds": {
+        "x": 12,
+        "y": 13,
+        "width": 19,
+        "height": 17
+      }
+    },
+    "metric_8": {
+      "frame_a": 1,
+      "frame_b": 2,
+      "changed_pixels": 198,
+      "total_pixels": 1024,
+      "percent_changed": 19.34,
+      "changed_bounds": {
+        "x": 3,
+        "y": 10,
+        "width": 25,
+        "height": 16
+      }
+    },
+    "final_0": {
+      "frame": 1,
+      "pieces": 1,
+      "detached": 0,
+      "lone": 0,
+      "orphan_color_pixels": 57
+    },
+    "final_1": {
+      "frame": 2,
+      "pieces": 1,
+      "detached": 0,
+      "lone": 0,
+      "orphan_color_pixels": 82
+    },
+    "final_2": {
+      "layer": "Native walking - coat and paws",
+      "frames": [
+        {
+          "frame": 1,
+          "x": 7,
+          "y": 4,
+          "width": 18,
+          "height": 26
+        },
+        {
+          "frame": 2,
+          "x": 7,
+          "y": 4,
+          "width": 18,
+          "height": 26
+        },
+        {
+          "frame": 3,
+          "x": 9,
+          "y": 7,
+          "width": 14,
+          "height": 23
+        },
+        {
+          "frame": 4,
+          "x": 9,
+          "y": 7,
+          "width": 14,
+          "height": 23
+        },
+        {
+          "frame": 5,
+          "x": 4,
+          "y": 8,
+          "width": 27,
+          "height": 22
+        },
+        {
+          "frame": 6,
+          "x": 4,
+          "y": 8,
+          "width": 27,
+          "height": 22
+        }
+      ]
+    },
+    "final_3": {
+      "width": 64,
+      "height": 64,
+      "color_mode": "rgb",
+      "frames": 2,
+      "durations_ms": [
+        450,
+        150
+      ],
+      "layers": [
+        {
+          "name": "Layer 1",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Mightyena - regional pixel base",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Leaf-fur - planes and overlaps",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Ghost wisps - restrained mint",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Ghost wisps - additional curls",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        }
+      ],
+      "tags": [
+        {
+          "name": "Front",
+          "from": 1,
+          "to": 2,
+          "direction": "forward"
+        }
+      ]
+    },
+    "final_4": {
+      "width": 32,
+      "height": 32,
+      "color_mode": "rgb",
+      "frames": 6,
+      "durations_ms": [
+        180,
+        180,
+        180,
+        180,
+        180,
+        180
+      ],
+      "layers": [
+        {
+          "name": "Layer 1",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Native walking - coat and paws",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Flat leaf-fur clumps",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Face landmarks - eyes and nose",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Walking ghost wisps",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        }
+      ],
+      "tags": [
+        {
+          "name": "Down",
+          "from": 1,
+          "to": 2,
+          "direction": "forward"
+        },
+        {
+          "name": "Up",
+          "from": 3,
+          "to": 4,
+          "direction": "forward"
+        },
+        {
+          "name": "Left",
+          "from": 5,
+          "to": 6,
+          "direction": "forward"
+        }
+      ]
+    },
+    "final_5": {
+      "width": 32,
+      "height": 32,
+      "color_mode": "rgb",
+      "frames": 2,
+      "durations_ms": [
+        250,
+        250
+      ],
+      "layers": [
+        {
+          "name": "Layer 1",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Native party icon - coat and face",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Icon flat leaf clumps",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        },
+        {
+          "name": "Icon ghost accents and eye",
+          "visible": true,
+          "opacity": 255,
+          "is_group": false,
+          "parent": null
+        }
+      ],
+      "tags": [
+        {
+          "name": "Icon",
+          "from": 1,
+          "to": 2,
+          "direction": "forward"
+        }
+      ]
+    }
+  },
+  "source_sha256": {
+    "back.aseprite": "5c0de032d4f43fe77ccfee33eaa93e1d4e91d004307ea02c1d08a4b561768d06",
+    "front.aseprite": "ae02b0a61cd944b6d05c2a247cd126ca3601a328f2919eabf7a360739e8ed5c6",
+    "icon.aseprite": "ff470a3e4970f5361dcafc77c169d9d8f28655b5fa5cf80940ead3fb3355c179",
+    "overworld.aseprite": "47685b3a580b1251fe4afbe84714cc364509049ccf1238504858bd423f3c62ea"
+  }
+}
