@@ -403,47 +403,22 @@ No production dependency was added.
 
 ## Manual Android / My Boy! checklist
 
-Record the milestone commit, CI run/artifact, ROM SHA-256, Android
-model/version, My Boy! version, BIOS mode and starting save for every attempt.
-Use a backed-up first-Gym save from the recorded baseline, then repeat with a
-new game. Use ordinary in-game Save and a fresh emulator launch/Continue; save
-states alone do not validate FLASH persistence.
+Use the [separate Android / My Boy! checklist](VIRELIA_RAINFALL_SEABREAK_ANDROID.md)
+for device, Android/My Boy! versions, BIOS identity, source/ROM/save hashes and
+case results. Its chapter status remains **NOT RUN**. It covers both routes,
+all starter/gender variants, normal loss/retry, local services, puzzle/quest
+checkpoints, the ending, Czech UI, timing and free backtracking.
 
-- Before Mara, check the northern exit remains blocked. After victory, read
-  Mara's hint and enter Rainfall. Return immediately to Slateford and verify
-  the existing quarry, sanctuary, Maplebrook and lab remain usable.
-- Walk the entire upper choice, narrow bridges and all entrances in both
-  directions. Repeat the lower choice, stream banks, optional item and
-  shortcut. Confirm collisions, elevations, camera borders and trainer sight.
-- Compare rainy, downpour, sheltered and indoor transitions. Save in each
-  route zone, restart and move/interact after Continue. Observe performance
-  during extended rain on the actual Android device.
-- Test both player genders and all three starter choices. Lose to the rival,
-  verify normal whiteout and safe retry, then win. Restart and confirm the
-  rival battle cannot repeat and the coastal descent stays open.
-- Enter the Center before a later loss, verify the local whiteout destination,
-  heal damaged/statused Pokémon, buy/sell items, deposit/withdraw a Pokémon,
-  save indoors and restart from FLASH. Check Czech service messages visually.
-- Save after the harbor report and after damage inspection. Try controls
-  before inspection, cancel choices, press an incorrect order, leave midway,
-  then solve feed/lens/beacon. Save/restart before and after repair; confirm
-  only completed repair stays lit and all controls remain accessible.
-- Read the manifest, save before returning to the harbor, then finish the
-  credit scene. Save/restart and revisit all harbor characters. Confirm the
-  scene does not repeat, the harbor dialogue changes and the Gym stays closed.
-- Start the bottle quest, inspect clues out of order, then follow both coastal
-  clues and the keeper journal. Save/restart at each stage. Fill the relevant
-  Bag pocket before claiming Mystic Water, clear space and retry; claim only
-  one reward. Revisit Ota after another restart.
-- Review Czech accents, widths, battle titles, new species summaries, moves,
-  abilities, items and reachable evolutions through 24 on the 240×160 display.
-- Repeat the full journey with each starter family and record actual party
-  levels, losses, optional content and elapsed playtime. Record any grind,
-  forced type disadvantage, unexpected stall or unusual weather slowdown.
+The baseline-save regression must begin with a real FLASH Continue directly
+inside Slateford, before leaving the city. The entrance callback reconstructs
+the ten authored cells in its north 3×4 footprint, including the passable cave
+door at `(12,1)`, before applying the first-Gym gate. This prevents the old
+saved tree view from hiding the new exit. The unchanged side cells at row3
+retain their authored terrain. Test the same cached view before the badge to
+confirm the approach stays closed, and after the badge to confirm it opens.
 
-A successful mGBA/CI result must not be marked as a My Boy! pass. The historical
-Galaxy A 26 starter check remains separate from this chapter's Android
-checklist.
+A successful mGBA/CI result must not be marked as a My Boy! chapter pass. The
+historical Galaxy A26 starter check remains separate from the new checklist.
 
 ## Known limitations
 

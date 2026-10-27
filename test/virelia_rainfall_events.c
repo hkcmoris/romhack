@@ -295,6 +295,32 @@ TEST("Rainfall native Slateford gate reload follows only the existing first Gym 
     EXPECT_NE(MapGridGetCollisionAt(15 + MAP_OFFSET, 13 + MAP_OFFSET), 0);
 }
 
+TEST("Rainfall native Continue restores the whole north exit over an older cached Slateford view")
+{
+    u32 badge = FALSE;
+    PARAMETRIZE { badge = FALSE; }
+    PARAMETRIZE { badge = TRUE; }
+    ResetRainfall();
+    if (badge) FlagSet(FLAG_VIRELIA_FIRST_GYM_COMPLETE);
+    LoadRainfallMap(MAP_VIRELIA_SLATEFORD_CITY);
+    // Continue restores mapView after loading its layout. Reproduce the old
+    // impassable tree entries, then exercise the actual on-load callback.
+    for (u32 y = 0; y <= 3; y++)
+        for (u32 x = 11; x <= 13; x++)
+            MapGridSetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET, 0x1E4 | MAPGRID_IMPASSABLE);
+    EXPECT_NE(MapGridGetCollisionAt(12 + MAP_OFFSET, 1 + MAP_OFFSET), 0);
+    RunOnLoadMapScript();
+    EXPECT_EQ(MapGridGetMetatileIdAt(12 + MAP_OFFSET, 1 + MAP_OFFSET), 0x0A7);
+    EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 1 + MAP_OFFSET), 0);
+    EXPECT_EQ(MapGridGetMetatileIdAt(12 + MAP_OFFSET, 3 + MAP_OFFSET), 0x001);
+    EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 3 + MAP_OFFSET), 0);
+    EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 2 + MAP_OFFSET), !badge);
+    EXPECT_NE(MapGridGetCollisionAt(12 + MAP_OFFSET, 0 + MAP_OFFSET), 0);
+    for (u32 x = 11; x <= 13; x += 2)
+        for (u32 y = 0; y <= 2; y++)
+            EXPECT_NE(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET), 0);
+}
+
 extern const u8 Virelia_Seabreak_PokemonCenter_EventScript_Nurse[];
 extern const u8 Virelia_Seabreak_PokemonCenter_EventScript_Clerk[];
 

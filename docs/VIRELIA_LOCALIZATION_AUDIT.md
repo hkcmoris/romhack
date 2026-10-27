@@ -2,7 +2,7 @@
 
 ## Rozsah v0.4: Rainfall Pass a Seabreak
 
-Zdrojový validátor v0.4 ověřil 1 744 záznamů manifestu do úrovně 24. Kontrola zahrnuje nové druhy, trenérské týmy, předměty, schopnosti, útoky a dosažitelné evoluce. Všechny nové mapové dialogy procházejí kontrolou znaků, skutečné šířky písma a dvouřádkového okna. Názvy druhů, útoků, předmětů a míst zůstávají anglicky podle zavedených pravidel.
+Zdrojový validátor v0.4 ověřil 1 748 záznamů manifestu do úrovně 24. Kontrola zahrnuje nové druhy, trenérské týmy, předměty, schopnosti, útoky a dosažitelné evoluce. Všechny nové mapové dialogy procházejí kontrolou znaků, skutečné šířky písma a dvouřádkového okna. Názvy druhů, útoků, předmětů a míst zůstávají anglicky podle zavedených pravidel.
 
 Tento výsledek potvrzuje zdrojové pokrytí. Nepotvrzuje úplný průchod kapitolou ani zobrazení každé obrazovky v My Boy!. [Dokument kapitoly](VIRELIA_RAINFALL_SEABREAK.md) uvádí samostatné výsledky sestavení, nativních testů a ruční kontroly. Historické důkazy v0.3 níže zůstávají platné pouze pro uvedené revize.
 

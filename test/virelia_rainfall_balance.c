@@ -8,7 +8,6 @@
 #include "string_util.h"
 #include "virelia_prologue.h"
 #include "test/test.h"
-#include "test/battle.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 #include "constants/items.h"
@@ -53,7 +52,7 @@ TEST("Virelia Rainfall rival teams retain opposite gender and evolved counter st
         EXPECT_EQ(mon->iv, TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0));
         EXPECT_EQ(mon->heldItem, ITEM_NONE);
         for (u32 move = 0; move < MAX_MON_MOVES; move++)
-            EXPECT_LE(gMovesInfo[mon->moves[move]].power, 65);
+            EXPECT_LE((u32)gMovesInfo[mon->moves[move]].power, 65);
     }
     EXPECT_EQ(trainer->party[2].species, evolved[choice]);
 }
@@ -73,7 +72,7 @@ TEST("Virelia Rainfall ordinary trainers use distinct manageable level sixteen t
         EXPECT_LE(mon->lvl, 20);
         EXPECT_EQ(mon->heldItem, ITEM_NONE);
         for (u32 move = 0; move < MAX_MON_MOVES; move++)
-            EXPECT_LE(gMovesInfo[mon->moves[move]].power, 65);
+            EXPECT_LE((u32)gMovesInfo[mon->moves[move]].power, 65);
     }
 }
 
@@ -95,6 +94,8 @@ TEST("Virelia Rainfall Natu family learns Rain Dance at fourteen while keeping e
         EXPECT_EQ(gSpeciesInfo[species[s]].abilities[2], ABILITY_WATER_ABSORB);
     }
 }
+
+#include "test/battle.h"
 
 // Ordinary early-game IVs, no held items or EVs. All three evolved player
 // starters, plus an unevolved level-17 Poochyena, survive one counter-starter

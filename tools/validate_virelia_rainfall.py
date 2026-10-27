@@ -282,6 +282,61 @@ def approaches(world, name, event, flags):
 
 
 
+def trace_slateford_entrance(source, badge):
+    """Follow the actual entrance subroutine, including its flag branch."""
+    labels = list(re.finditer(r"^([A-Za-z_]\w*)::?\s*$", source, re.M))
+    blocks = {label[1]: [line.split("@", 1)[0].strip() for line in
+              source[label.end():labels[i + 1].start() if i + 1 < len(labels) else len(source)].splitlines()
+              if line.split("@", 1)[0].strip()]
+              for i, label in enumerate(labels)}
+    label, index, stack, restored = "Virelia_SlatefordCity_ConfigureRainfallGate", 0, [], {}
+    for _ in range(128):
+        require(label in blocks and index < len(blocks[label]), f"Incomplete entrance callback: {label}")
+        instruction = blocks[label][index]
+        index += 1
+        command, _, operands = instruction.partition(" ")
+        args = [value.strip() for value in operands.split(",")]
+        if command == "setmetatile":
+            require(len(args) == 4, "Malformed entrance restoration metatile command")
+            x, y, tile, collision = (int(value, 0) for value in args)
+            restored[x, y] = tile, bool(collision)
+        elif command in ("goto_if_set", "goto_if_unset"):
+            require(args[0] == "FLAG_VIRELIA_FIRST_GYM_COMPLETE", "Entrance callback changed its badge prerequisite")
+            if badge == (command == "goto_if_set"):
+                label, index = args[1], 0
+        elif command == "call":
+            stack.append((label, index))
+            label, index = args[0], 0
+        elif command == "goto":
+            label, index = args[0], 0
+        elif command == "return":
+            if not stack:
+                return restored
+            label, index = stack.pop()
+        else:
+            raise ValueError(f"Unsupported entrance callback instruction: {instruction}")
+    raise ValueError("Entrance callback did not return within its bounded restoration")
+
+
+def validate_cached_entrance(world):
+    source = world.scripts[CITY]
+    require("call Virelia_SlatefordCity_ConfigureRainfallGate" in source,
+            "Slateford load callback does not restore the entrance over cached map views")
+    # These ten authored cells are inside the 3x4 north patch. Row3 side cells
+    # remain original grass, so the callback deliberately does not repaint them.
+    footprint = {(x, y) for x in (11, 12, 13) for y in (0, 1, 2)} | {(12, 3)}
+    for badge in (False, True):
+        restored = trace_slateford_entrance(source, badge)
+        require(footprint <= restored.keys(), f"Cached Continue leaves entrance cells unrestored: {sorted(footprint - restored.keys())}")
+        for x, y in footprint:
+            raw = world.blocks[CITY][y * world.layouts[CITY]['width'] + x]
+            expected = (raw & 1023, bool(raw & 0xC00))
+            if (x, y) == (12, 2) and badge:
+                expected = 1, False
+            require(restored[x, y] == expected, f"Cached entrance art/collision mismatch at {(x, y)}, badge={badge}")
+        require(restored[12, 1] == (0x0A7, False), "Continue must restore the native passable cave-door warp")
+    print("PASS: actual badge-branch callback restores all10 authored entrance cells over an old cached map view")
+
 def validate_graphics_counts(source=None):
     """Match build-time graphics limits to actual PNG tile capacity."""
     if source is None:
@@ -389,6 +444,7 @@ def validate():
     contract = load('tools/virelia/rainfall_contract.json')
     world = World(layouts, contract)
     validate_used_palettes(world)
+    validate_cached_entrance(world)
     all_flags = frozenset(g['flag'] for g in contract['dynamic_tiles']) | frozenset(contract.get('completed_flags', []))
     graph = world.graph(all_flags)
     start, end = tuple(contract['entry']), tuple(contract['exit'])
