@@ -44,6 +44,13 @@ The original route still has its existing encounters, two trainers and Potion.
 The sanctuary uses General plus the shared VireliaOutdoor secondary tileset,
 also used by Maplebrook, Whisperwood Trail and Slateford. Shared IDs, graphics
 and palettes keep neighboring grass and buildings correct at seamless crossings.
+The sanctuary uses the native `WEATHER_SHADE` lighting used by both Viridian
+Forest and Petalburg Woods. Its level-3 weather color map darkens the field
+palettes beneath the canopy, retains ordinary object shadows, and composes
+with the existing day/night lighting. On entering Whisperwood Trail, the normal
+map-weather transition returns to that map's sunny lighting. The sanctuary
+builder retains this setting when regenerating its map header.
+
 The ancient tree is an **80 × 80 pixel** sprite, split into **5 × 5 map
 tiles** at `(7, 5)` through `(11, 9)`. Its twenty-five contiguous metatiles are
 `0x31D–0x335`, arranged row by row. One broad canopy, gnarled trunk and

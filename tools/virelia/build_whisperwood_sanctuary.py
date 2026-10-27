@@ -241,7 +241,7 @@ def main():
     write_json(group_path, groups)
     sanctuary = dict(id='MAP_VIRELIA_WHISPERWOOD_SANCTUARY', name=NAME, layout=entry['id'],
         music='MUS_PETALBURG_WOODS', region='REGION_HOENN', region_map_section='MAPSEC_VIRELIA_WHISPERWOOD_TRAIL',
-        requires_flash=False, weather='WEATHER_SUNNY', map_type='MAP_TYPE_ROUTE', allow_cycling=False,
+        requires_flash=False, weather='WEATHER_SHADE', map_type='MAP_TYPE_ROUTE', allow_cycling=False,
         allow_escaping=False, allow_running=True, show_map_name=False, battle_scene='MAP_BATTLE_SCENE_NORMAL',
         connections=[dict(map='MAP_VIRELIA_ROUTE01', offset=-6, direction='right')],
         object_events=[], warp_events=[], coord_events=[],
