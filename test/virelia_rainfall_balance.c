@@ -97,19 +97,22 @@ TEST("Virelia Rainfall Natu family learns Rain Dance at fourteen while keeping e
 }
 
 // Ordinary early-game IVs, no held items or EVs. All three evolved player
-// starters can survive one counter-starter STAB hit; this is not a full AI run.
+// starters, plus an unevolved level-17 Poochyena, survive one counter-starter
+// STAB hit; this is not a full AI run.
 SINGLE_BATTLE_TEST("Virelia Rainfall all starter matchups survive one counter hit without one hit wins")
 {
     enum Species species = SPECIES_MIGHTYENA_VIRELIA, counter = SPECIES_ARBOK_VIRELIA;
-    enum Move move = MOVE_RAZOR_LEAF, counterMove = MOVE_INCINERATE;
+    enum Move move = MOVE_BITE, counterMove = MOVE_EMBER;
+    u32 level = 18;
     enum Ability ability = ABILITY_OVERGROW, counterAbility = ABILITY_BLAZE;
-    PARAMETRIZE { species = SPECIES_MIGHTYENA_VIRELIA; counter = SPECIES_ARBOK_VIRELIA; move = MOVE_RAZOR_LEAF; counterMove = MOVE_INCINERATE; ability = ABILITY_OVERGROW; counterAbility = ABILITY_BLAZE; }
+    PARAMETRIZE { species = SPECIES_MIGHTYENA_VIRELIA; counter = SPECIES_ARBOK_VIRELIA; move = MOVE_RAZOR_LEAF; counterMove = MOVE_EMBER; ability = ABILITY_OVERGROW; counterAbility = ABILITY_BLAZE; }
     PARAMETRIZE { species = SPECIES_XATU_VIRELIA; counter = SPECIES_MIGHTYENA_VIRELIA; move = MOVE_PSYBEAM; counterMove = MOVE_RAZOR_LEAF; ability = ABILITY_TORRENT; counterAbility = ABILITY_OVERGROW; }
     PARAMETRIZE { species = SPECIES_ARBOK_VIRELIA; counter = SPECIES_XATU_VIRELIA; move = MOVE_ACID_SPRAY; counterMove = MOVE_WATER_PULSE; ability = ABILITY_BLAZE; counterAbility = ABILITY_TORRENT; }
+    PARAMETRIZE { species = SPECIES_POOCHYENA_VIRELIA; counter = SPECIES_ARBOK_VIRELIA; move = MOVE_BITE; counterMove = MOVE_EMBER; ability = ABILITY_OVERGROW; counterAbility = ABILITY_BLAZE; level = 17; }
     s16 dealt, received;
     GIVEN {
         PLAYER(species) {
-            Nature(NATURE_HARDY); Ability(ability); Moves(move); Level(18);
+            Nature(NATURE_HARDY); Ability(ability); Moves(move); Level(level);
             HPIV(15); AttackIV(15); DefenseIV(15); SpAttackIV(15); SpDefenseIV(15); SpeedIV(15);
         }
         OPPONENT(counter) {
@@ -125,7 +128,7 @@ SINGLE_BATTLE_TEST("Virelia Rainfall all starter matchups survive one counter hi
                 MOVE(opponent, counterMove);
         }
     } SCENE {
-        if (species == SPECIES_XATU_VIRELIA)
+        if (species == SPECIES_XATU_VIRELIA || species == SPECIES_POOCHYENA_VIRELIA)
         {
             HP_BAR(player, captureDamage: &received);
             HP_BAR(opponent, captureDamage: &dealt);

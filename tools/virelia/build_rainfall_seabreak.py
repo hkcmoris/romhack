@@ -111,12 +111,18 @@ class CoastBank:
             self.tiles.append(data)
         return self.lookup[data]
 
-    def custom(self, im, attr=0):
+    def custom(self, im, attr=0, grass_base=False):
         idx = 512 + len(self.attrs)
         for y in (0, 8):
             for x in (0, 8):
                 self.meta.append((11 << 12) | self.add(im.crop((x, y, x + 8, y + 8)).tobytes()))
-        self.meta += [0] * 4
+        if grass_base:
+            # Transparent tower quarters need real grass beneath them on GBA.
+            overlay = self.meta[-4:]
+            ground = words(ROOT / "data/tilesets/primary/general/metatiles.bin")[8:12]
+            self.meta[-4:] = ground + overlay
+        else:
+            self.meta += [0] * 4
         self.attrs.append(attr)
         return idx
 
@@ -498,6 +504,7 @@ def build():
                 coast.custom(
                     tower.crop((x * 16, y * 16, x * 16 + 16, y * 16 + 16)),
                     0x60 if (x, y) == (1, 7) else 0,
+                    grass_base=True,
                 )
             )
         TOWER.append(row)
@@ -855,11 +862,8 @@ def build():
         p = ROOT / "src/data/tilesets/graphics.h"
         s = p.read_text(encoding="utf-8")
         if "gTilesetTiles_" + symbol not in s:
-            tilecount = (
-                512
-                if symbol != "VireliaLighthouse"
-                else Image.open(ROOT / f"data/tilesets/secondary/{folder}/tiles.png").height * 2
-            )
+            tile_image = Image.open(ROOT / f"data/tilesets/secondary/{folder}/tiles.png")
+            tilecount = tile_image.width * tile_image.height // 64
             snippet = (
                 f'const u32 gTilesetTiles_{symbol}[] = INCGFX_U32("data/tilesets/secondary/{folder}/tiles.png", ".4bpp.fastSmol", "-num_tiles {tilecount} -Wnum_tiles");\nconst u16 gTilesetPalettes_{symbol}[][16] =\n{{\n'
                 + "".join(

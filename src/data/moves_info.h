@@ -6092,11 +6092,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_SWEET_SCENT] =
     {
         .name = COMPOUND_STRING("Sweet Scent"),
+    #if B_UPDATED_MOVE_DATA >= GEN_6
         .description = COMPOUND_STRING(LOCALIZED_TEXT("Allures the foes to harshly\nlower evasiveness.", "Sladká vůně sníží úhybnost zasažených\ncílů.")),
-        #else
-            "Allures the foes to lower\n"
-            "evasiveness."),
-        #endif
+    #else
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Allures the foes to lower\nevasiveness.", "Sladká vůně sníží úhybnost zasažených\ncílů.")),
+    #endif
         .effect = EFFECT_STAT_CHANGE,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -9216,11 +9216,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_WATER_SPORT] =
     {
         .name = COMPOUND_STRING("Water Sport"),
+    #if B_UPDATED_MOVE_DATA >= GEN_6
         .description = COMPOUND_STRING(LOCALIZED_TEXT("Water weakens Fire-\ntype moves for 5 turns.", "Voda dočasně oslabí všechny ohnivé\nútoky.")),
-        #else
-            "The user becomes soaked to\n"
-            "weaken all Fire-type moves."),
-        #endif
+    #else
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("The user becomes soaked to\nweaken all Fire-type moves.", "Voda dočasně oslabí všechny ohnivé\nútoky.")),
+    #endif
         .effect = EFFECT_WATER_SPORT,
         .power = 0,
         .type = TYPE_WATER,
@@ -9705,10 +9705,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_TAILWIND] =
     {
         .name = COMPOUND_STRING("Tailwind"),
+    #if B_TAILWIND_TURNS >= GEN_5
         .description = COMPOUND_STRING(LOCALIZED_TEXT("Whips up a wind that boosts\nallies' Speed for 4 turns.", "Příznivý vítr dočasně zdvojnásobí\nrychlost týmu.")),
-        #else
-            "allies' Speed for 3 turns."),
-        #endif
+    #else
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Whips up a wind that boosts\nallies' Speed for 3 turns.", "Příznivý vítr dočasně zdvojnásobí\nrychlost týmu.")),
+    #endif
         .effect = EFFECT_TAILWIND,
         .power = 0,
         .type = TYPE_FLYING,

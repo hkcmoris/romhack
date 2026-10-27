@@ -17844,6 +17844,46 @@
       "font": "Narrower",
       "width": 88,
       "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MENTAL_HERB.description.1",
+      "kind": "item_description",
+      "english": "A held item that\\nsnaps Pokémon out\\nof attraction once.",
+      "czech": "Zruší zamilování.\\nSpotřebuje se.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_SWEET_SCENT.description.1",
+      "kind": "move_description",
+      "english": "Allures the foes to lower\\nevasiveness.",
+      "czech": "Sladká vůně sníží úhybnost zasažených\\ncílů.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_WATER_SPORT.description.1",
+      "kind": "move_description",
+      "english": "The user becomes soaked to\\nweaken all Fire-type moves.",
+      "czech": "Voda dočasně oslabí všechny ohnivé\\nútoky.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_TAILWIND.description.1",
+      "kind": "move_description",
+      "english": "Whips up a wind that boosts\\nallies' Speed for 3 turns.",
+      "czech": "Příznivý vítr dočasně zdvojnásobí\\nrychlost týmu.",
+      "font": "Narrower",
+      "width": 152,
+      "lines": 3
     }
   ],
   "coverage": {

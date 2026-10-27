@@ -206,7 +206,7 @@ Grass/Water/Fire. Both genders share each matchup's party and ordinary prize
 | Virelian Natu | Virelian Mightyena 19 | Wingull 17, Geodude 18 |
 | Virelian Ekans | Virelian Xatu 19 | Hoppip 17, Aron 18 |
 
-Arbok uses Incinerate/Acid Spray/Smokescreen/Will-O-Wisp; Mightyena uses Razor
+Arbok uses Ember/Acid Spray/Smokescreen/Will-O-Wisp; Mightyena uses Razor
 Leaf/Shadow Sneak/Growl/Leech Seed; Xatu uses Water Pulse/Psybeam/Growl/Rain
 Dance. The original evolution thresholds are already satisfied at 19. No starter
 abilities or stats change. Normal battle loss invokes the existing whiteout
@@ -361,7 +361,7 @@ variants; Center/heal/PC/shop configuration; retained old IDs/geometry and My
 Boy flags. The first-Gym and original-world source audits also pass after
 narrowly allowing the appended map-registry suffix and the new city warp.
 
-The Czech validator passes with 1,744 manifest entries and level bound 24,
+The Czech validator passes with 1,748 manifest entries and level bound 24,
 including every new map/shared dialogue's glyphs, widths and pages. Its local
 record is `outputs/rainfall/localization-check.json`. This is a source-text
 result, not a full native UI playthrough.
@@ -374,7 +374,7 @@ story checkpoints. Build and runtime outcomes are recorded below when completed.
 | Evidence | Status / artifact |
 | --- | --- |
 | Source map/story/service audit | PASS, `python3 tools/validate_virelia_rainfall.py` |
-| Czech source/font/coverage audit | PASS, 1,744 entries through 24 |
+| Czech source/font/coverage audit | PASS, 1,748 entries through 24 |
 | Optimized Emerald release compilation | Pending current build; log `outputs/rainfall/release-build.log` |
 | Native event and FLASH suite | Pending execution |
 | Native controller-driven chapter checks | Pending execution |

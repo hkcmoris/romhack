@@ -9884,12 +9884,11 @@ const struct ItemInfo gItemsInfo[] =
         .price = 100,
     #endif
         .holdEffect = HOLD_EFFECT_MENTAL_HERB,
+    #if B_MENTAL_HERB >= GEN_5
         .description = COMPOUND_STRING(LOCALIZED_TEXT("Snaps Pokémon out\nof move-binding\neffects once.", "Odstraní mentální\nomezení.\nSpotřebuje se.")),
-        #else
-            "A held item that\n"
-            "snaps Pokémon out\n"
-            "of attraction once."),
-        #endif
+    #else
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\nsnaps Pokémon out\nof attraction once.", "Zruší zamilování.\nSpotřebuje se.")),
+    #endif
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,

@@ -200,7 +200,7 @@ const u16 gTilesetPalettes_Fallarbor[][16] =
 
 const u32 gTilesetTiles_Whisperwood[] = INCGFX_U32("data/tilesets/secondary/whisperwood/tiles.png", ".4bpp.fastSmol", "-num_tiles 512 -Wnum_tiles");
 
-const u32 gTilesetTiles_VireliaRainfall[] = INCGFX_U32("data/tilesets/secondary/virelia_rainfall/tiles.png", ".4bpp.fastSmol", "-num_tiles 512 -Wnum_tiles");
+const u32 gTilesetTiles_VireliaRainfall[] = INCGFX_U32("data/tilesets/secondary/virelia_rainfall/tiles.png", ".4bpp.fastSmol", "-num_tiles 496 -Wnum_tiles");
 const u16 gTilesetPalettes_VireliaRainfall[][16] =
 {
     INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/00.pal", ".gbapal"),

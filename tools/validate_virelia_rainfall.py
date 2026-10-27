@@ -56,6 +56,63 @@ def words(path):
     return struct.unpack(f'<{len(raw) // 2}H', raw)
 
 
+def preprocessor_errors(source):
+    """Check nesting after C line splicing and comment/string masking.
+
+    This does not evaluate #if or replace a compiler. Physical start-line numbers
+    remain available after backslash-newline continuations are joined.
+    """
+    logical, starts, pending, first = [], [], None, 1
+    for number, line in enumerate(source.splitlines(keepends=True), 1):
+        line = line.rstrip("\r\n")
+        if pending is None:
+            first, pending = number, ""
+        if line.endswith("\\"):
+            pending += line[:-1]
+            continue
+        logical.append(pending + line + "\n")
+        starts.append(first)
+        pending = None
+    if pending is not None:
+        logical.append(pending + "\n")
+        starts.append(first)
+    # Consume literals first so comment delimiters inside strings stay inert.
+    tokens = re.compile(r""" "(?:\\.|[^"\\])*" | '(?:\\.|[^'\\])*' | /\*.*?\*/ | //[^\n]* """, re.S | re.X)
+    masked = tokens.sub(lambda m: "".join("\n" if c == "\n" else " " for c in m[0]), "".join(logical))
+    stack, errors = [], []
+    for index, line in enumerate(masked.splitlines()):
+        match = re.match(r"^\s*#\s*(if|ifdef|ifndef|elif|else|endif)\b", line)
+        if not match:
+            continue
+        command, number = match[1], starts[index]
+        if command in ("if", "ifdef", "ifndef"):
+            stack.append([number, False])
+        elif command == "endif":
+            if stack:
+                stack.pop()
+            else:
+                errors.append(f"line {number}: #endif without #if")
+        elif not stack:
+            errors.append(f"line {number}: #{command} without #if")
+        elif stack[-1][1]:
+            errors.append(f"line {number}: #{command} follows #else from conditional at line {stack[-1][0]}")
+        elif command == "else":
+            stack[-1][1] = True
+    errors.extend(f"line {number}: unclosed conditional" for number, _ in stack)
+    return errors
+
+
+def validate_localized_conditionals():
+    paths = ("src/data/items.h", "src/data/moves_info.h", "src/data/abilities.h",
+             "src/data/pokemon/species_info/gen_1_families.h",
+             "src/data/pokemon/species_info/gen_2_families.h",
+             "src/data/pokemon/species_info/gen_3_families.h",
+             "src/data/pokemon/species_info/virelia_families.h")
+    errors = [f"{path}: {error}" for path in paths for error in preprocessor_errors(text(path))]
+    require(not errors, "Localized C conditional nesting: " + "; ".join(errors))
+    print(f"PASS: conditional nesting preserved across {len(paths)} localized C data headers")
+
+
 def preserve_baseline(groups, layouts, sections):
     old_groups = dict(groups)
     old_groups['gMapGroup_VireliaOverworld'] = groups['gMapGroup_VireliaOverworld'][:4]
@@ -225,7 +282,31 @@ def approaches(world, name, event, flags):
 
 
 
+def validate_graphics_counts(source=None):
+    """Match build-time graphics limits to actual PNG tile capacity."""
+    if source is None:
+        source = text("src/data/tilesets/graphics.h")
+    counts = {}
+    for suffix in ("VireliaRainfall", "VireliaCoast", "VireliaLighthouse"):
+        symbol = "gTilesetTiles_" + suffix
+        declaration = re.search(r"const u32 " + symbol + r"\[\]\s*=\s*INCGFX_U32\((.*?)\);", source, re.S)
+        require(declaration, f"Missing graphics declaration: {symbol}")
+        path = re.search(r'"([^"\n]+\.png)"', declaration[1])
+        count = re.search(r"-num_tiles\s+(\d+)\b", declaration[1])
+        require(path and count, f"Missing PNG/count in graphics declaration: {symbol}")
+        png = (ROOT / path[1]).read_bytes()
+        require(png[:8] == b"\x89PNG\r\n\x1a\n" and len(png) >= 24, f"Invalid PNG header: {path[1]}")
+        width, height = struct.unpack(">II", png[16:24])
+        require(width > 0 and height > 0 and width % 8 == height % 8 == 0, f"Invalid tile dimensions: {path[1]}")
+        actual, declared = width * height // 64, int(count[1])
+        require(actual == declared and 0 < actual <= 512,
+                f"{symbol}: declared {declared} tiles, PNG has {actual} ({width}x{height})")
+        counts["gTileset_" + suffix] = actual
+    print("PASS: new tileset PNG capacities match declared graphics counts " + str(counts))
+    return counts
+
 def validate_used_palettes(world):
+    graphics_counts = validate_graphics_counts()
     limit = int(re.search(r'^#define NUM_PALS_TOTAL\s+(\d+)', text('include/fieldmap.h'), re.M)[1])
     checked = set()
     for name, layout in world.layouts.items():
@@ -242,6 +323,10 @@ def validate_used_palettes(world):
             require(all(piece >> 12 < limit for piece in meta),
                     f'{name}: used {bank} metatile {index:#x} references unloaded palette(s) '
                     + str(sorted({piece >> 12 for piece in meta if piece >> 12 >= limit})))
+            secondary = layout['secondary_tileset']
+            if secondary in graphics_counts:
+                require(all((piece & 1023) < 512 + graphics_counts[secondary] for piece in meta),
+                        f'{name}: used metatile {index:#x} references a secondary graphic beyond its PNG capacity')
             checked.add((bank, index))
     print(f'PASS: {len(checked)} used native metatiles, including callback states, use loaded palettes0-{limit - 1}')
 
@@ -295,6 +380,7 @@ def validate_encounters_and_trainers(world, reached, flags):
 
 
 def validate():
+    validate_localized_conditionals()
     groups = load('data/maps/map_groups.json')
     layouts = load('data/layouts/layouts.json')['layouts']
     sections = load('src/data/region_map/region_map_sections.json')['map_sections']

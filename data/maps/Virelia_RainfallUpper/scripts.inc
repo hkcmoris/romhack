@@ -24,8 +24,8 @@ Virelia_RainfallUpper_EventScript_WeatherSign::
 	end
 
 Virelia_RainfallUpper_Text_WeatherSign:
-	.string "Na mostech neklouzej!\p"
-	.string "Za deště rostou vodní útoky.\n"
+	.string "Pozor, mokré mosty kloužou!\p"
+	.string "Za deště vodní útoky zesílí.\n"
 	.string "Ohnivé útoky zeslábnou.\p"
 	.string "Počasí v souboji může změnit\n"
 	.string "také Rain Dance. Zkus to.$"
