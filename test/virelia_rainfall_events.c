@@ -314,7 +314,7 @@ TEST("Rainfall native Continue restores the whole north exit over an older cache
     EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 1 + MAP_OFFSET), 0);
     EXPECT_EQ(MapGridGetMetatileIdAt(12 + MAP_OFFSET, 3 + MAP_OFFSET), 0x001);
     EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 3 + MAP_OFFSET), 0);
-    EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 2 + MAP_OFFSET), !badge);
+    EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 2 + MAP_OFFSET) == 0, badge);
     EXPECT_NE(MapGridGetCollisionAt(12 + MAP_OFFSET, 0 + MAP_OFFSET), 0);
     for (u32 x = 11; x <= 13; x += 2)
         for (u32 y = 0; y <= 2; y++)

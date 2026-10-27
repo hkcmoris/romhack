@@ -115,30 +115,29 @@ SINGLE_BATTLE_TEST("Virelia Rainfall all starter matchups survive one counter hi
         PLAYER(species) {
             Nature(NATURE_HARDY); Ability(ability); Moves(move); Level(level);
             HPIV(15); AttackIV(15); DefenseIV(15); SpAttackIV(15); SpDefenseIV(15); SpeedIV(15);
+            Speed(100);
         }
         OPPONENT(counter) {
             Nature(NATURE_HARDY); Ability(counterAbility); Moves(counterMove); Level(19);
             HPIV(0); AttackIV(0); DefenseIV(0); SpAttackIV(0); SpDefenseIV(0); SpeedIV(0);
+            Speed(50);
         }
     } WHEN {
         TURN {
-            MOVE(player, move);
-            if (counterMove == MOVE_WATER_PULSE)
+            if (move == MOVE_PSYBEAM || move == MOVE_BITE)
+                MOVE(player, move, WITH_RNG(RNG_SECONDARY_EFFECT, FALSE));
+            else
+                MOVE(player, move);
+            if (counterMove == MOVE_WATER_PULSE || counterMove == MOVE_EMBER)
                 MOVE(opponent, counterMove, WITH_RNG(RNG_SECONDARY_EFFECT, FALSE));
             else
                 MOVE(opponent, counterMove);
         }
     } SCENE {
-        if (species == SPECIES_XATU_VIRELIA || species == SPECIES_POOCHYENA_VIRELIA)
-        {
-            HP_BAR(player, captureDamage: &received);
-            HP_BAR(opponent, captureDamage: &dealt);
-        }
-        else
-        {
-            HP_BAR(opponent, captureDamage: &dealt);
-            HP_BAR(player, captureDamage: &received);
-        }
+        // Fixed Speed only makes the scene order deterministic; damage stats
+        // retain the ordinary species, level, nature and IV calculations.
+        HP_BAR(opponent, captureDamage: &dealt);
+        HP_BAR(player, captureDamage: &received);
     } THEN {
         EXPECT_GT(received, 0);
         EXPECT_LT(received, player->maxHP);
