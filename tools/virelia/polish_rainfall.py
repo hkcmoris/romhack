@@ -284,10 +284,12 @@ def build():
         for dx, t in enumerate(row):
             u.rect(14 + dx, 10 + dy, 1, 1, t, True)
     u.bridge(12, 18, 7)
-    for x in range(19, 32):
-        u.rect(x, 25, 1, 1, 0x078 if x == 19 else 0x079, True)
-    u.rect(20, 25, 1, 1, 0x0AF)
-    u.rect(21, 25, 1, 1, 0x0CF)
+    # Complete a three-row bank, including its river-facing side and foot.
+    terrace = {(x, y) for y in range(24, 27) for x in range(19, 32)}
+    u.land.update(paint_rock_outcrop(u.g, terrace, elevation=u.e))
+    for y in range(24, 27):
+        u.rect(20, y, 1, 1, 0x0AF)
+        u.rect(21, y, 1, 1, 0x0CF)
     u.grass([".###", "####", "###."], 3, 21)
     u.grass(["..###", "#####", "#####", ".####"], 24, 11, True)
     u.rect(10, 9, 1, 1, 3, True)
