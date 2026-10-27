@@ -520,8 +520,24 @@ quest approaches remain accessible. The wrench, hammer and pick now have
 individual collectible event sprites, and freight has ore/label or tool-hoard
 sprites. Their ordinary object flags still remove collected/resolved objects.
 
-The props reuse stock pixel clusters at their original scale, with upper-left
-highlights, shaded side faces and contact shadows. Donor assets remain unchanged:
+The wrench, hammer, pickaxe and tool hoard have a fresh native 16x16 art pass in
+`art/quarry_tools_v2/`, drawn from blank canvases through diivi's Aseprite MCP.
+The wrench has an open jaw and ring end; the sledgehammer has a broad forged
+head; the angled pickaxe has a long tapered blade. The hoard uses a shallow
+wooden bin with overlapping metal tools. All four retain the existing shared
+moving-box palette and static object layout.
+
+Editable sources are in `source/`; direct Aseprite frame exports are in
+`exports/`. After re-exporting a changed source at 1x, run
+`python tools/virelia/quarry_objects.py`. It maps the export's exact visible
+colors and alpha to the runtime palette and rejects unsupported colors or
+partial transparency. It also preserves the separate stock ore-crate builder.
+`previews/review.png` compares the previous and new art at 1x and enlarged,
+with RGB555 previews on the actual quarry map tiles.
+
+The quarry background props and ore crate reuse stock pixel clusters at their
+original scale, with upper-left highlights, shaded side faces and contact
+shadows. Donor assets remain unchanged:
 
 | Quarry artwork | Stock donor |
 | --- | --- |
@@ -541,8 +557,8 @@ centrifugal pump (bent spout, gauge, round casing and ribbed motor) and an
 electrical cabinet (lightning, breaker and outgoing cable). Pump flow and breaker
 position distinguish their active states as well as the status lamps. Cargo
 uses separate planks, grain, corner nails and a diagonal brace. Collectible
-crates share this construction; tools have short contact shadows and clear
-metal/wood separation. Rail joins use symmetric two-pixel tracks with lighting
+ore crates share this construction; the new tools use native outlines and
+material shadows to separate metal from wood. Rail joins use symmetric two-pixel tracks with lighting
 applied after orientation. Floor contrast is calmer and mineral facets sit in
 chipped stone sockets.
 

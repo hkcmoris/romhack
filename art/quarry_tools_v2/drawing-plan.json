@@ -1,0 +1,69 @@
+{
+  "status": "remade and installed",
+  "canvas": [
+    16,
+    16
+  ],
+  "method": "diivi Aseprite MCP, blank canvas to silhouette to material shading",
+  "runtime_palette": "graphics/object_events/palettes/moving_box.pal",
+  "light": "upper left",
+  "assets": {
+    "wrench": {
+      "box": [
+        1,
+        1,
+        14,
+        14
+      ],
+      "design": "open-ended steel wrench, clear jaw opening, diagonal grip and ring end"
+    },
+    "hammer": {
+      "box": [
+        1,
+        1,
+        14,
+        14
+      ],
+      "design": "broad forged sledge head, distinct striking faces, warm wooden handle"
+    },
+    "pick": {
+      "box": [
+        1,
+        1,
+        14,
+        14
+      ],
+      "design": "tapered curved steel pick head, central socket, slender wooden shaft"
+    },
+    "tool_hoard": {
+      "box": [
+        1,
+        1,
+        14,
+        14
+      ],
+      "design": "open timber tool bin, recognizable tool heads above rim, restrained plank shading"
+    }
+  },
+  "constraints": [
+    "native 16x16 static object events",
+    "palette index 0 transparent",
+    "exact existing shared-palette colors",
+    "no dithering or antialiasing",
+    "no old silhouette or stock cluster reuse",
+    "ore crate unchanged"
+  ],
+  "material_ramps": {
+    "steel": [
+      "#414A6A",
+      "#9C9CAC",
+      "#BDBDD5",
+      "#DEDEEE"
+    ],
+    "wood": [
+      "#393931",
+      "#9C7373",
+      "#BD948B"
+    ]
+  }
+}

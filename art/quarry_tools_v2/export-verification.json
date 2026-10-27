@@ -1,0 +1,104 @@
+{
+  "wrench": {
+    "size": [
+      16,
+      16
+    ],
+    "bounds": [
+      1,
+      1,
+      14,
+      15
+    ],
+    "opaque_colors": 5,
+    "indices": [
+      0,
+      6,
+      7,
+      9,
+      10,
+      11
+    ],
+    "visible_source_pixels_and_alpha_exact": true,
+    "sha256": "0ee388ad27e3feb8e3b35c94609645908094b8dbf1dd724d31eb24eea3d8f1d9"
+  },
+  "hammer": {
+    "size": [
+      16,
+      16
+    ],
+    "bounds": [
+      2,
+      2,
+      14,
+      15
+    ],
+    "opaque_colors": 8,
+    "indices": [
+      0,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "visible_source_pixels_and_alpha_exact": true,
+    "sha256": "e0a7f80f1a327ec62862d83dba86bf609eecc8193482919277ccaa0c6563d929"
+  },
+  "pick": {
+    "size": [
+      16,
+      16
+    ],
+    "bounds": [
+      2,
+      1,
+      14,
+      15
+    ],
+    "opaque_colors": 8,
+    "indices": [
+      0,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "visible_source_pixels_and_alpha_exact": true,
+    "sha256": "79e683f6feddb3d1e5a5df005ef1c8b833c87568ed7fc8ac19a8cbe5d4f664a8"
+  },
+  "tool_hoard": {
+    "size": [
+      16,
+      16
+    ],
+    "bounds": [
+      1,
+      1,
+      15,
+      15
+    ],
+    "opaque_colors": 8,
+    "indices": [
+      0,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "visible_source_pixels_and_alpha_exact": true,
+    "sha256": "464e867e5ef3081df050a74b07d41f0a8798d41265960780b999b1b54d55e34d"
+  },
+  "ore_crate_unchanged": true
+}

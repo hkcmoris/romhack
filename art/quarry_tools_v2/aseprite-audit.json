@@ -1,0 +1,285 @@
+{
+  "wrench": {
+    "stats": {
+      "frame": 1,
+      "unique_colors": 5,
+      "opaque_pixels": 76,
+      "top_colors": [
+        {
+          "color": "#393931",
+          "count": 32
+        },
+        {
+          "color": "#9C9CAC",
+          "count": 18
+        },
+        {
+          "color": "#BDBDD5",
+          "count": 14
+        },
+        {
+          "color": "#414A6A",
+          "count": 10
+        },
+        {
+          "color": "#DEDEEE",
+          "count": 2
+        }
+      ]
+    },
+    "lint": {
+      "frame": 1,
+      "layer": null,
+      "opaque_pixels": 76,
+      "pieces": 1,
+      "main_piece_pixels": 76,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 3,
+      "orphan_pixels": [
+        {
+          "x": 4,
+          "y": 2,
+          "color": "#BDBDD5"
+        },
+        {
+          "x": 4,
+          "y": 3,
+          "color": "#393931"
+        },
+        {
+          "x": 11,
+          "y": 11,
+          "color": "#9C9CAC"
+        }
+      ]
+    }
+  },
+  "hammer": {
+    "stats": {
+      "frame": 1,
+      "unique_colors": 8,
+      "opaque_pixels": 74,
+      "top_colors": [
+        {
+          "color": "#393931",
+          "count": 35
+        },
+        {
+          "color": "#9C9CAC",
+          "count": 9
+        },
+        {
+          "color": "#9C7373",
+          "count": 8
+        },
+        {
+          "color": "#414A6A",
+          "count": 7
+        },
+        {
+          "color": "#BD948B",
+          "count": 7
+        },
+        {
+          "color": "#BDBDD5",
+          "count": 4
+        },
+        {
+          "color": "#DEDEEE",
+          "count": 3
+        },
+        {
+          "color": "#62626A",
+          "count": 1
+        }
+      ]
+    },
+    "lint": {
+      "frame": 1,
+      "layer": null,
+      "opaque_pixels": 74,
+      "pieces": 1,
+      "main_piece_pixels": 74,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 1,
+      "orphan_pixels": [
+        {
+          "x": 4,
+          "y": 13,
+          "color": "#62626A"
+        }
+      ]
+    }
+  },
+  "pick": {
+    "stats": {
+      "frame": 1,
+      "unique_colors": 8,
+      "opaque_pixels": 72,
+      "top_colors": [
+        {
+          "color": "#393931",
+          "count": 37
+        },
+        {
+          "color": "#9C7373",
+          "count": 8
+        },
+        {
+          "color": "#9C9CAC",
+          "count": 7
+        },
+        {
+          "color": "#BD948B",
+          "count": 7
+        },
+        {
+          "color": "#414A6A",
+          "count": 5
+        },
+        {
+          "color": "#BDBDD5",
+          "count": 5
+        },
+        {
+          "color": "#DEDEEE",
+          "count": 2
+        },
+        {
+          "color": "#62626A",
+          "count": 1
+        }
+      ]
+    },
+    "lint": {
+      "frame": 1,
+      "layer": null,
+      "opaque_pixels": 72,
+      "pieces": 1,
+      "main_piece_pixels": 72,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 3,
+      "orphan_pixels": [
+        {
+          "x": 7,
+          "y": 5,
+          "color": "#414A6A"
+        },
+        {
+          "x": 3,
+          "y": 13,
+          "color": "#9C7373"
+        },
+        {
+          "x": 4,
+          "y": 13,
+          "color": "#62626A"
+        }
+      ]
+    }
+  },
+  "tool_hoard": {
+    "stats": {
+      "frame": 1,
+      "unique_colors": 8,
+      "opaque_pixels": 157,
+      "top_colors": [
+        {
+          "color": "#393931",
+          "count": 56
+        },
+        {
+          "color": "#9C7373",
+          "count": 32
+        },
+        {
+          "color": "#BD948B",
+          "count": 28
+        },
+        {
+          "color": "#9C9CAC",
+          "count": 12
+        },
+        {
+          "color": "#414A6A",
+          "count": 9
+        },
+        {
+          "color": "#62626A",
+          "count": 9
+        },
+        {
+          "color": "#BDBDD5",
+          "count": 8
+        },
+        {
+          "color": "#DEDEEE",
+          "count": 3
+        }
+      ]
+    },
+    "lint": {
+      "frame": 1,
+      "layer": null,
+      "opaque_pixels": 157,
+      "pieces": 1,
+      "main_piece_pixels": 157,
+      "detached_count": 0,
+      "detached": [],
+      "lone_pixel_count": 0,
+      "lone_pixels": [],
+      "orphan_pixel_count": 8,
+      "orphan_pixels": [
+        {
+          "x": 10,
+          "y": 2,
+          "color": "#9C9CAC"
+        },
+        {
+          "x": 11,
+          "y": 3,
+          "color": "#BDBDD5"
+        },
+        {
+          "x": 12,
+          "y": 3,
+          "color": "#9C9CAC"
+        },
+        {
+          "x": 7,
+          "y": 5,
+          "color": "#DEDEEE"
+        },
+        {
+          "x": 8,
+          "y": 5,
+          "color": "#BDBDD5"
+        },
+        {
+          "x": 9,
+          "y": 7,
+          "color": "#9C7373"
+        },
+        {
+          "x": 3,
+          "y": 9,
+          "color": "#DEDEEE"
+        },
+        {
+          "x": 10,
+          "y": 9,
+          "color": "#DEDEEE"
+        }
+      ]
+    }
+  }
+}

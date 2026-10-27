@@ -1,0 +1,79 @@
+{
+  "wrench": {
+    "native_roundtrip": "exact indices",
+    "bytes": 128,
+    "repacking_byte_identical": true
+  },
+  "hammer": {
+    "native_roundtrip": "exact indices",
+    "bytes": 128,
+    "repacking_byte_identical": true
+  },
+  "pick": {
+    "native_roundtrip": "exact indices",
+    "bytes": 128,
+    "repacking_byte_identical": true
+  },
+  "tool_hoard": {
+    "native_roundtrip": "exact indices",
+    "bytes": 128,
+    "repacking_byte_identical": true
+  },
+  "shared_palette_rgb555_exact": true,
+  "quest_tests_passed": 4,
+  "quarry_validators": "passed",
+  "playable_rom": "oraculum-v0.3.0-local.gba",
+  "rom_sha256": "0641bd0056d87feae4a1e3920265533a72ac33547d4672e184d9752fb42972cc",
+  "embedded_assets": [
+    {
+      "symbol": "gObjectEventPic_QuarryWrench",
+      "rom_offset": "0x4b4e44",
+      "bytes": 128
+    },
+    {
+      "symbol": "gObjectEventPic_QuarryHammer",
+      "rom_offset": "0x4b4dc4",
+      "bytes": 128
+    },
+    {
+      "symbol": "gObjectEventPic_QuarryPick",
+      "rom_offset": "0x4b4d44",
+      "bytes": 128
+    },
+    {
+      "symbol": "gObjectEventPic_QuarryToolHoard",
+      "rom_offset": "0x4b4c44",
+      "bytes": 128
+    }
+  ],
+  "manual_emulator_playtest": false,
+  "live_viewer": {
+    "url": "http://localhost:7778/",
+    "tracked_sources": [
+      {
+        "id": "35f0baaea826",
+        "name": "wrench.aseprite",
+        "error": null,
+        "versions": 4
+      },
+      {
+        "id": "fcd7df5ac662",
+        "name": "hammer.aseprite",
+        "error": null,
+        "versions": 5
+      },
+      {
+        "id": "8e228421d5b5",
+        "name": "pick.aseprite",
+        "error": null,
+        "versions": 5
+      },
+      {
+        "id": "967944baf00f",
+        "name": "tool_hoard.aseprite",
+        "error": null,
+        "versions": 5
+      }
+    ]
+  }
+}
