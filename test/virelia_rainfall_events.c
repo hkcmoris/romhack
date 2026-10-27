@@ -302,15 +302,24 @@ TEST("Rainfall native wooden bridges keep avatar and follower above the deck on 
     PARAMETRIZE { lower = TRUE; }
     ResetRainfall();
     LoadRainfallMap(lower ? MAP_VIRELIA_RAINFALL_LOWER : MAP_VIRELIA_RAINFALL_UPPER);
-    for (u32 i = 0; i < 2; i++)
+    u32 bridgeCells = 0;
+    // Composition may move or lengthen a bridge. Inspect every actual deck
+    // cell from the compiled layout rather than preserving old coordinates.
+    for (u32 y = 0; y < gMapHeader.mapLayout->height; y++)
     {
-        s32 x = lower ? 21 : 8 + i;
-        s32 y = lower ? 20 + i : 14;
-        EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x + MAP_OFFSET, y + MAP_OFFSET), METATILE_LAYER_TYPE_COVERED);
-        EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET), 0);
-        EXPECT_EQ(MapGridGetMetatileBehaviorAt(x + MAP_OFFSET, y + MAP_OFFSET), MB_NORMAL);
-        EXPECT_EQ(MapGridGetElevationAt(x + MAP_OFFSET, y + MAP_OFFSET), lower ? 3 : 5);
+        for (u32 x = 0; x < gMapHeader.mapLayout->width; x++)
+        {
+            u16 metatile = MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET);
+            if (metatile != 0x320 && metatile != 0x321 && (metatile < 0x324 || metatile > 0x32B))
+                continue;
+            bridgeCells++;
+            EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x + MAP_OFFSET, y + MAP_OFFSET), METATILE_LAYER_TYPE_COVERED);
+            EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET), 0);
+            EXPECT_EQ(MapGridGetMetatileBehaviorAt(x + MAP_OFFSET, y + MAP_OFFSET), MB_NORMAL);
+            EXPECT_EQ(MapGridGetElevationAt(x + MAP_OFFSET, y + MAP_OFFSET), lower ? 3 : 5);
+        }
     }
+    EXPECT_GE(bridgeCells, 2);
 }
 
 TEST("Rainfall native Continue restores the whole north exit over an older cached Slateford view")

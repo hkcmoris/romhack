@@ -277,9 +277,25 @@ def approaches(world, name, event, flags):
     for dx, dy in DELTAS:
         if world.behavior((name, x + dx, y + dy), flags) == 'MB_COUNTER':
             nodes.add((name, x + 2 * dx, y + 2 * dy))
+    # Native facing interaction rejects objects on another nonzero elevation.
+    # A geometric neighbor alone is not an accessible NPC after adding cliffs.
+    elevation = event.get('elevation', 0)
+    if elevation and name in OUTDOORS:
+        nodes = {node for node in nodes
+                 if world.tile(node, flags) is not None
+                 and world.tile(node, flags) >> 12 in (0, elevation)}
     return nodes
 
 
+
+def validate_actor_elevations(world):
+    for name in OUTDOORS:
+        for obj in world.maps[name]['object_events']:
+            floor = world.tile((name, obj['x'], obj['y'])) >> 12
+            authored = obj.get('elevation', 0)
+            require(not floor or not authored or floor == authored,
+                    f'{name}: {obj["script"]} elevation {authored} disagrees with floor {floor}')
+    print('PASS: Chapter 2 outdoor actor elevations agree with terrain and interaction approaches')
 
 
 def trace_slateford_entrance(source, badge):
@@ -364,7 +380,13 @@ def validate_used_palettes(world):
     graphics_counts = validate_graphics_counts()
     rainfall_attrs = world.attrs['gTileset_VireliaRainfall']
     normal = world.behaviors.index('MB_NORMAL')
-    for bridge in (0x320, 0x321):
+    bridge_ids = {0x320, 0x321}
+    for name, layout in world.layouts.items():
+        if layout['secondary_tileset'] == 'gTileset_VireliaRainfall':
+            bridge_ids.update(cell & 1023 for cell in world.blocks[name]
+                              if 0x324 <= (cell & 1023) <= 0x32B)
+    for bridge in sorted(bridge_ids):
+        require(bridge - 512 < len(rainfall_attrs), f'Missing Rainfall bridge alias {bridge:#x}')
         attribute = rainfall_attrs[bridge - 512]
         require((attribute >> 12) & 3 == 1 and attribute & 255 == normal,
                 f'Rainfall bridge {bridge:#x} must use Covered layers and normal walking behavior so actors remain visible')
@@ -470,6 +492,7 @@ def validate():
     world = World(layouts, contract)
     validate_used_palettes(world)
     validate_cached_entrance(world)
+    validate_actor_elevations(world)
     all_flags = frozenset(g['flag'] for g in contract['dynamic_tiles']) | frozenset(contract.get('completed_flags', []))
     graph = world.graph(all_flags)
     start, end = tuple(contract['entry']), tuple(contract['exit'])
@@ -502,6 +525,14 @@ def validate():
             require(0 <= index < len(target_warps), f'{name}: invalid destination warp index')
             require(target_warps[index]['dest_map'] == entry['id'], f'{name}: warp is not reciprocal')
             require(world.warp_access(name, warp, all_flags) in reached, f'{name}: unreachable warp')
+            direction = {'MB_NORTH_ARROW_WARP': (0, -1), 'MB_SOUTH_ARROW_WARP': (0, 1),
+                         'MB_EAST_ARROW_WARP': (1, 0), 'MB_WEST_ARROW_WARP': (-1, 0),
+                         'MB_DEEP_SOUTH_WARP': (0, 1), 'MB_ANIMATED_DOOR': (0, -1)}.get(
+                             world.behavior((name, warp['x'], warp['y']), all_flags))
+            if direction:
+                dx, dy = direction
+                approach = name, warp['x'] - dx, warp['y'] - dy
+                require(approach in reached, f'{name}: warp has no reachable approach in its native trigger direction')
             require(world.behavior((name, warp['x'], warp['y']), all_flags) in {
                 'MB_ANIMATED_DOOR', 'MB_NON_ANIMATED_DOOR', 'MB_LADDER', 'MB_NORTH_ARROW_WARP',
                 'MB_SOUTH_ARROW_WARP', 'MB_EAST_ARROW_WARP', 'MB_WEST_ARROW_WARP', 'MB_DEEP_SOUTH_WARP'},

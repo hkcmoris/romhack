@@ -1,4 +1,4 @@
-# Chapter 2 — Beneath the Gathering Clouds v0.4
+# Chapter 2 â€” Beneath the Gathering Clouds v0.4
 
 ## Scope and baseline
 
@@ -9,7 +9,7 @@ include the second Gym. The implementation branch is
 `codex/virelia-prologue` at `492267dadc0f9b54322a39038c479d717eba958a`.
 
 The prologue, sanctuary, quarry, first Gym and current regional starter IDs
-`1573–1581` remain. Natu → Xatu → Nimbatu stays Water/Psychic. Evolution levels
+`1573â€“1581` remain. Natu â†’ Xatu â†’ Nimbatu stays Water/Psychic. Evolution levels
 remain Poochyena 18 / Mightyena 38, Natu 14 / Xatu 34 and Ekans 16 / Arbok 36.
 Hoenn story, Link Multi, Duo Adventure and save structures are outside this
 chapter's changes. The engine remains `pokeemerald-expansion` 1.17.1 with
@@ -24,7 +24,7 @@ compatibility note](MYBOY_COMPATIBILITY.md).
 
 ## Complete chapter sequence
 
-1. Earn Mara's existing Lomový odznak. Only
+1. Earn Mara's existing LomovĂ˝ odznak. Only
    `FLAG_VIRELIA_FIRST_GYM_COMPLETE` opens Slateford's northern cleft. Mara and
    the passage sign point toward Rainfall Pass and Seabreak. No new badge is
    granted and no trip back to Maplebrook is required.
@@ -32,7 +32,7 @@ compatibility note](MYBOY_COMPATIBILITY.md).
    The small north-edge patch preserves all other authored city cells and the
    original southern connection to Whisperwood.
 3. Choose the short upper bridge trail or the longer lower wetland loop.
-   The upper choice has Ranger Irena; the lower choice has Fisherman Dušan,
+   The upper choice has Ranger Irena; the lower choice has Fisherman DuĹˇan,
    stream markings, a Super Potion and the return-footbridge control. Hiker
    Pavel covers the shared foothills. Both alternatives reconnect in lowlands.
 4. Meet the opposite-gender rival at lowlands `(15,12)`. Female player meets
@@ -41,9 +41,9 @@ compatibility note](MYBOY_COMPATIBILITY.md).
    remains for retry. A win persists and opens descent tile `(15,13)`.
 5. Reach Seabreak and use the combined Center/Mart. Speak to the harbor master
    at `(14,28)` to record the storm closure and missing cargo report.
-6. Enter the lighthouse on the eastern rocky headland. Meet Běla Křížová,
+6. Enter the lighthouse on the eastern rocky headland. Meet BÄ›la KĹ™Ă­ĹľovĂˇ,
    inspect the damaged cabinet at `(5,3)`, and read the emergency instructions
-   at `(9,3)`. Běla secures the loose wiring.
+   at `(9,3)`. BÄ›la secures the loose wiring.
 7. Take the staircase to the lantern room. Activate the left feed `(3,5)`,
    central lens `(6,5)`, then right signal control `(9,5)`. Clues state this order
    explicitly. A wrong input resets unfinished progress. Completion lights the
@@ -52,12 +52,12 @@ compatibility note](MYBOY_COMPATIBILITY.md).
    Slateford Quarry, an illegible recipient stamp and no receipt signature.
    The shipment's purpose and storm's cause remain unresolved.
 9. Return to the harbor master. The harbor reopens once; Detective Radim Vacek
-   receives public credit while Běla begins questioning his official record.
+   receives public credit while BÄ›la begins questioning his official record.
    The sailor, rival and returning characters update their dialogue. The
    storm-damaged second Gym remains closed, providing the next destination.
 10. Continue exploring or return freely through Rainfall, Slateford,
     Whisperwood and Maplebrook. The laboratory remains available as a research
-    hub. Professor Javorová, Mara and the player's mother have brief updates.
+    hub. Professor JavorovĂˇ, Mara and the player's mother have brief updates.
     Maplebrook's established Ema and her Poochyena retain their identity.
 
 There is no Rocket base or battle in this chapter, no reveal of Porygon,
@@ -66,27 +66,27 @@ Giovanni or Storage experiments, and no Hidden Ability or Mega Evolution quest.
 ## Appended maps and world connections
 
 All coordinates below are zero-based Porymap coordinates. Packed map IDs use
-`mapNumber | (groupNumber << 8)`. Layouts 798–806 and sections 212–213 append
+`mapNumber | (groupNumber << 8)`. Layouts 798â€“806 and sections 212â€“213 append
 after the existing registries. Every new outdoor link uses a conventional
 reciprocal warp so the independent rainforest/coastal tilesets cannot corrupt
 the old connected-map graphics buffer.
 
 | Map folder suffix after `Virelia_` | Group,map | Packed ID | Layout ID | Size | Weather |
 | --- | --- | --- | ---: | --- | --- |
-| RainfallFoothills | 75,4 | `0x4B04` | 798 | 32×28 | Sunny |
-| RainfallUpper | 75,5 | `0x4B05` | 799 | 32×34 | Rain |
-| RainfallLower | 75,6 | `0x4B06` | 800 | 40×40 | Downpour |
-| RainfallLowlands | 75,7 | `0x4B07` | 801 | 32×26 | Shade/shelter |
-| SeabreakTown | 75,8 | `0x4B08` | 802 | 48×42 | Rain |
-| Seabreak_PokemonCenter | 76,8 | `0x4C08` | 803 | 24×9 | None |
-| Seabreak_Lighthouse | 76,9 | `0x4C09` | 804 | 16×14 | None |
-| Seabreak_LanternRoom | 76,10 | `0x4C0A` | 805 | 13×12 | None |
-| Seabreak_KeepersHouse | 76,11 | `0x4C0B` | 806 | 12×10 | None |
+| RainfallFoothills | 75,4 | `0x4B04` | 798 | 32Ă—28 | Sunny |
+| RainfallUpper | 75,5 | `0x4B05` | 799 | 32Ă—34 | Rain |
+| RainfallLower | 75,6 | `0x4B06` | 800 | 40Ă—40 | Downpour |
+| RainfallLowlands | 75,7 | `0x4B07` | 801 | 32Ă—26 | Shade/shelter |
+| SeabreakTown | 75,8 | `0x4B08` | 802 | 48Ă—42 | Rain |
+| Seabreak_PokemonCenter | 76,8 | `0x4C08` | 803 | 24Ă—9 | None |
+| Seabreak_Lighthouse | 76,9 | `0x4C09` | 804 | 16Ă—14 | None |
+| Seabreak_LanternRoom | 76,10 | `0x4C0A` | 805 | 13Ă—12 | None |
+| Seabreak_KeepersHouse | 76,11 | `0x4C0B` | 806 | 12Ă—10 | None |
 
 `MAPSEC_VIRELIA_RAINFALL_PASS` 212 covers the four route maps;
 `MAPSEC_VIRELIA_SEABREAK_TOWN` 213 covers the town and its interiors. Their
 nonzero footprints are compatibility metadata, not new Hoenn map artwork or Fly
-targets. Existing map groups 75/76, layouts 786–797 and sections 209–211 retain
+targets. Existing map groups 75/76, layouts 786â€“797 and sections 209â€“211 retain
 their IDs.
 
 ```text
@@ -103,10 +103,10 @@ Slateford north passage
 ```
 
 The alternative paths stay apart until lowlands. The source graph audit finds
-130 walking/warp edges on the upper choice and 153 on the lower choice, from the
+110 walking/warp edges on the upper choice and 153 on the lower choice, from the
 foothills arrival to Seabreak's entry with the shortcut closed. These are
 shortest-path counts, not measured playtime. The reachable upper grass has 31
-cells; the lower has 152. Water remains impassable without Surf, while bridges
+cells; the lower has 84. Water remains impassable without Surf, while bridges
 and dry banks complete both mandatory paths without any HM.
 
 The lower control at `(18,20)` permanently enables the optional footbridge. It
@@ -154,7 +154,7 @@ trainer flag base remains fixed. No new field is added to a save block.
 
 Saved `VAR_VIRELIA_BOTTLE_STAGE` is `0x409B`: 0 unstarted, 1 bottle accepted, 2
 anchor read, 3 tide mark read, 4 journal found. `VAR_VIRELIA_SIGNAL_INPUT`
-`0x400F` is temporary. `0x272–0x277` and `0x27D–0x27F` remain unallocated. The
+`0x400F` is temporary. `0x272â€“0x277` and `0x27Dâ€“0x27F` remain unallocated. The
 upper-path Repel uses `0x26E`; the lower-path Super Potion uses `0x26F`.
 
 `FLAG_VIRELIA_FIRST_GYM_COMPLETE` remains `0x3A`; it is read as the
@@ -191,10 +191,10 @@ multiplier 1; the engine still applies its existing reward rules.
 | --- | ---: | --- | --- | ---: |
 | Hiker Pavel | 871 | Foothills | Geodude 16, Makuhita 17 | 680 |
 | Ranger Irena | 872 | Upper | Oddish 17, Yanma 18 | 864 |
-| Fisherman Dušan | 873 | Lower | Poliwag 17, Marill 18 | 720 |
+| Fisherman DuĹˇan | 873 | Lower | Poliwag 17, Marill 18 | 720 |
 | Weather enthusiast Milan | 874 | Lowlands | Skiploom 19, Wingull 20 | 320 |
 
-Viktor uses IDs 875–877 and Viktorie 878–880, in original player-choice order
+Viktor uses IDs 875â€“877 and Viktorie 878â€“880, in original player-choice order
 Grass/Water/Fire. Both genders share each matchup's party and ordinary prize
 1140. These battles grant no evolutionary item, multiplayer reward or badge.
 
@@ -213,64 +213,64 @@ blocker.
 
 ## Wild encounters
 
-The four native land tables use existing species at levels 14–19. They preserve
+The four native land tables use existing species at levels 14â€“19. They preserve
 the engine's twelve slot weights:20,20,10,10,10,10,5,5,4,4,1,1 percent. The
 following tables aggregate repeated species; exact per-slot levels remain in
 `src/data/wild_encounters.json`. Encounter rate is an engine parameter, not a
 flat per-step percentage. Main walking lanes remain grass-free.
 
-### Foothills — encounter rate 14
+### Foothills â€” encounter rate 14
 
 | Species | Levels | Total slot weight |
 | --- | --- | ---: |
-| Geodude | 14–16 | 30% |
-| Hoppip | 14–16 | 30% |
-| Seedot | 14–16 | 14% |
-| Oddish | 14–16 | 10% |
-| Shroomish | 15–16 | 9% |
-| Taillow | 15–16 | 5% |
-| Yanma | 15–16 | 1% |
-| Wooper | 15–16 | 1% |
+| Geodude | 14â€“16 | 30% |
+| Hoppip | 14â€“16 | 30% |
+| Seedot | 14â€“16 | 14% |
+| Oddish | 14â€“16 | 10% |
+| Shroomish | 15â€“16 | 9% |
+| Taillow | 15â€“16 | 5% |
+| Yanma | 15â€“16 | 1% |
+| Wooper | 15â€“16 | 1% |
 
-### Upper — encounter rate 16
-
-| Species | Levels | Total slot weight |
-| --- | --- | ---: |
-| Hoppip | 15–18 | 30% |
-| Oddish | 15–18 | 30% |
-| Taillow | 15–18 | 10% |
-| Shroomish | 15–18 | 10% |
-| Wingull | 16–18 | 5% |
-| Seedot | 16–18 | 5% |
-| Yanma | 16–18 | 5% |
-| Lotad | 16–18 | 4% |
-| Marill | 16–18 | 1% |
-
-### Lower — encounter rate 19
+### Upper â€” encounter rate 16
 
 | Species | Levels | Total slot weight |
 | --- | --- | ---: |
-| Lotad | 15–19 | 30% |
-| Wooper | 15–19 | 25% |
-| Poliwag | 15–19 | 15% |
-| Oddish | 15–19 | 10% |
-| Marill | 15–19 | 14% |
-| Hoppip | 16–19 | 4% |
-| Yanma | 16–19 | 1% |
-| Wingull | 16–19 | 1% |
+| Hoppip | 15â€“18 | 30% |
+| Oddish | 15â€“18 | 30% |
+| Taillow | 15â€“18 | 10% |
+| Shroomish | 15â€“18 | 10% |
+| Wingull | 16â€“18 | 5% |
+| Seedot | 16â€“18 | 5% |
+| Yanma | 16â€“18 | 5% |
+| Lotad | 16â€“18 | 4% |
+| Marill | 16â€“18 | 1% |
 
-### Lowlands — encounter rate 14
+### Lower â€” encounter rate 19
 
 | Species | Levels | Total slot weight |
 | --- | --- | ---: |
-| Wingull | 16–19 | 25% |
-| Lotad | 16–19 | 21% |
-| Marill | 16–19 | 14% |
-| Oddish | 16–19 | 14% |
-| Wooper | 16–19 | 10% |
-| Hoppip | 16–19 | 10% |
-| Poliwag | 17–19 | 5% |
-| Yanma | 17–19 | 1% |
+| Lotad | 15â€“19 | 30% |
+| Wooper | 15â€“19 | 25% |
+| Poliwag | 15â€“19 | 15% |
+| Oddish | 15â€“19 | 10% |
+| Marill | 15â€“19 | 14% |
+| Hoppip | 16â€“19 | 4% |
+| Yanma | 16â€“19 | 1% |
+| Wingull | 16â€“19 | 1% |
+
+### Lowlands â€” encounter rate 14
+
+| Species | Levels | Total slot weight |
+| --- | --- | ---: |
+| Wingull | 16â€“19 | 25% |
+| Lotad | 16â€“19 | 21% |
+| Marill | 16â€“19 | 14% |
+| Oddish | 16â€“19 | 14% |
+| Wooper | 16â€“19 | 10% |
+| Hoppip | 16â€“19 | 10% |
+| Poliwag | 17â€“19 | 5% |
+| Yanma | 17â€“19 | 1% |
 
 ## Services, weather and balance
 
@@ -279,9 +279,9 @@ Teleport's exterior anchor is town `(8,14)`; normal whiteout enters the Center
 at `(7,4)` and uses `LOCALID_VIRELIA_SEABREAK_NURSE`. Both exit tiles return to
 the town entrance. The local nurse retains the ordinary heal animation and party
 restoration while avoiding the uninitialized Union Room name-buffer path. The PC
-uses ordinary Pokémon Storage; it is never locked by the plot.
+uses ordinary PokĂ©mon Storage; it is never locked by the plot.
 
-The integrated shop stocks Great Ball, Net Ball, Poké Ball, Potion, Super
+The integrated shop stocks Great Ball, Net Ball, PokĂ© Ball, Potion, Super
 Potion, Antidote, Paralyze Heal, Awakening, Repel and Escape Rope. Normal
 purchases, sales, saving and loading remain available in the Center.
 
@@ -299,15 +299,15 @@ Water Absorb, stats and evolution requirements remain unchanged; Storm Omen is
 not implemented. Existing saves whose Natu family already passed that level do
 not receive a forced move replacement.
 
-The intended progression is 14–17 after Mara, wild 14–19, ordinary trainers
-16–20, rival 17–19, and an eventual party around 20–23. These are balance
+The intended progression is 14â€“17 after Mara, wild 14â€“19, ordinary trainers
+16â€“20, rival 17â€“19, and an eventual party around 20â€“23. These are balance
 targets; player party size, skipped trainers and captures affect actual
 experience. The upper choice offers fewer wild encounters and the lower offers
 more grass, items and exploration. No experience multiplier or forced grind is
 added.
 
-The design target is 30–45 additional minutes including exploration and the
-optional quest; the bottle quest target is 5–10 minutes. Neither duration is
+The design target is 30â€“45 additional minutes including exploration and the
+optional quest; the bottle quest target is 5â€“10 minutes. Neither duration is
 measured. An unassisted complete playthrough with each starter remains the
 appropriate pacing and matchup check; automated state tests do not establish
 actual player difficulty or completion time.
@@ -320,20 +320,70 @@ retain their established English spelling. Existing localized battle, shop,
 Storage, evolution and save interfaces remain in use. The bounded localization
 manifest now covers obtainable data through level 24, including new wild
 species, trainer parties, evolutions, abilities, held items and level-up moves.
-The actual Normal-font dialogue limit is 208 px in the 240×160 viewport; script
+The actual Normal-font dialogue limit is 208 px in the 240Ă—160 viewport; script
 validation also checks glyphs, expanded player/rival names and two-line pages.
 
 The upper route includes an off-path three-wide native waterfall with complete lip, body and splash art feeding its stream. Its rocky frame keeps it decorative; neither route requires Waterfall.
 
-The new route bank derives from stock Fortree rainforest art and General
-rock/ground/water art. It uses distinct authored geography rather than copying
-Route119's layout. Coastal graphics pack existing Slateport harbor parts and
-General houses with small native-pixel boardwalk, tower and equipment additions.
-The new lighthouse interior bank clones ordinary Building/GenericBuilding
-furnishings and supplies safe secondary warp metatiles. Donor banks and the old
-shared `VireliaOutdoor` bank are unchanged.
+The route bank reuses stock Fortree bridge pixels and General forest,
+cliff, ground and animated river artwork. It uses distinct authored geography
+rather than copying Route119's layout. Seabreak packs complete stock Dewford
+houses, Center and closed Gym, Slateport harbor/depot/boats, and General coast
+art. The lighthouse interior bank retains ordinary Building/GenericBuilding
+furnishings. Donor banks and the old shared `VireliaOutdoor` bank are unchanged.
 
-Běla uses the stock `WOMAN_2` field sprite; Vacek uses `POLICEMAN`; the harbor
+### Stock-art visual pass (2026-10-27)
+
+The supplied concept establishes dense rainy forest, readable terrain levels
+and a working coastal village. Its layout, orientation and incidental labels
+are visual reference; they do not introduce a shrine or another quest.
+
+The four route layouts were recomposed with overlapping Petalburg-style
+canopies. Interior crowns use `1D4/1D5` and `1DC/1DD`; exposed side/foot pieces
+are confined to actual forest edges. Trail shoulders replace the old shrub
+lattice. Native cliff rims, faces and feet replace repeated top-edge carpet.
+Stone stairs make the foothill descent visible. The sheltered ridge steps
+around the rival's existing one-tile gate rather than forming a flat wall.
+
+Rivers use animated `170` water and its matching native bank/corner family.
+`C8â€“DA` is reserved for small puddles. Both crossings use complete horizontal
+Fortree bridges (`210/218`, end pieces `216/21E`, `217/21F`, land approaches
+`211/219`, `215/21D`), with ordinary walking behavior and Covered layers.
+Aliases `320/321`, `324â€“32B` retain those existing pixels. `322/323` retain
+north/south native warp behavior; `32C` supplies an east-facing native warp
+for the foothill trail at `(28,18)`. No map/event ID or coordinate moved.
+
+Seabreak now has complete building facades, overlapping perimeter forest,
+native stone quays with retaining edges, a wooden fishing pier, complete
+boats, cargo piles and a rocky lighthouse shoulder. All buildings, clues,
+services and harbor actors retain their existing interaction positions.
+No new sprite pixels, palettes or custom tile artwork were drawn for this
+pass; the coast bank only repacks existing indexed stock art while retaining
+the pre-existing lighthouse placeholder.
+
+The following custom art remains a backlog, not newly implemented artwork:
+
+| Required replacement | Current reuse/placeholder | Scope for a future artist |
+| --- | --- | --- |
+| Seabreak lighthouse exterior | Existing prototype 4Ă—8-metatile tower | Coherent GBA tower, lantern, entrance and rocky foundation, matching the coastal palette |
+| Lighthouse electrical equipment | Existing prototype cabinet and off/on beacon | Clear damaged/repaired panels, cable connections and three legible signal controls |
+| Bottle-quest historical anchor and storm tide mark | Stock mooring bollard at `(6,31)` and pale coastal rock at `(41,35)` | Recognizable old anchor and readable weathered marking while retaining interaction anchors |
+| Recurring characters | Existing stock field sprites | Distinct BÄ›la, Radim Vacek and reporter sprites consistent with the existing sprite system |
+
+Narrow vertical wooden bridges, storm-bent trees, sea stacks and larger fishing
+boats from the concept are optional future art. The current layouts use stock
+horizontal crossings, ordinary trees, coastal rocks and available boats, so
+none of those optional assets is required to traverse the chapter.
+
+`tools/virelia/polish_rainfall.py`, `polish_seabreak.py` and `native_terrain.py`
+author this pass. The two polish tools affect only Chapter 2 route/town
+blockmaps and dedicated banks. They preserve the map JSON, scripts, events,
+flags, encounters and trainer parties. They are destructive authoring tools:
+back up any later Porymap edits before running them. The full Chapter 2
+builder applies both polish passes last; do not run an older world or Gym
+map generator to update these maps.
+
+BÄ›la uses the stock `WOMAN_2` field sprite; Vacek uses `POLICEMAN`; the harbor
 master and workers use stock sailor/fisherman sprites, and the reporter uses
 `REPORTER_F`. These are character-art placeholders. The lighthouse tower and
 plain cabinet/beacon graphics are prototype native-pixel assets. Boats reuse
@@ -351,9 +401,16 @@ renders do not substitute for controller or emulator evidence.
 
 ![Rainfall lower trail, streams and optional return control](images/virelia-rainfall/lower-layout.png)
 
+![Rainfall upper trail with native bridges and riverbanks](images/virelia-rainfall/art-upper-layout.png)
+
 ## Verification record
 
-The source graph audit passes on 2026-10-27: 3,707 reachable tiles across the
+The full-story ROM/CI ledger below describes gameplay source `206a940969`.
+The subsequent stock-art pass has its own ROM, screenshots and focused native
+traversal record; it does not inherit the older ROM's visual verification.
+
+
+The original gameplay source graph audit passed on 2026-10-27: 3,707 reachable tiles across the
 old city and nine new maps, both independent no-HM choices, reciprocal native
 warps, approachable events/counters, short trainer sight lines, badge/rival
 gates, the persistent shortcut, four encounter tables and all six rival
@@ -445,7 +502,7 @@ identifies the exact ROM, ELF, controller checkpoints and screenshots. All eight
 pipeline stages were replayed on the final `206a940969` ROM identified above.
 They use mGBA libretro `0.11-212-7a12d6d`, core SHA-256
 `5cac11c643d7f8dfa50c68855f2f2240ff7cc0b4cd0312dd9e17a639c85667e4`,
-at 240×160. Earlier `5573391ef9`, `4fa4c5edc2` and patched QA copies are excluded
+at 240Ă—160. Earlier `5573391ef9`, `4fa4c5edc2` and patched QA copies are excluded
 from this final PASS ledger; no state from an older ROM was reused.
 
 The starting FLASH fixture was created through normal New Game, naming and
@@ -469,13 +526,13 @@ A separate [rendered rival-loss probe](images/virelia-rainfall/rival-loss-verifi
 | Permanent shortcut | Actual lower control opened it; return and cold-Continue persistence worked |
 | Weather and environment | Rain, downpour, shelter and interior transitions worked; waterfall visible |
 | Bridge visibility | Ten recorded positions across both directions showed player and Natu over the planks |
-| Lighthouse | Harbor report, Běla/cabinet, wrong-input reset and feed/lens/beacon completion worked |
+| Lighthouse | Harbor report, BÄ›la/cabinet, wrong-input reset and feed/lens/beacon completion worked |
 | Partial puzzle persistence | Ordinary Save and fresh-core FLASH Continue restored lantern-room map 76,10, position 3,6 and input 1 |
 | Manifest and chapter ending | Real record interaction and Vacek scene completed; repaired/shipping/harbor/chapter flags persisted |
-| Bottle quest | Fisherman, anchor, tide mark and journal advanced stages 1–4; one Mystic Water reward persisted |
+| Bottle quest | Fisherman, anchor, tide mark and journal advanced stages 1â€“4; one Mystic Water reward persisted |
 | Center | Ordinary nurse healed 1 HP to 20/20; completed-story cold Continue restored map 76,8 at 7,4 |
-| Pokémon Storage | Ordinary box UI opened and closed safely back to the field |
-| Shop and purchase persistence | One Great Ball changed money 3000→2400 and quantity 0→1; fresh-core FLASH reload retained both |
+| PokĂ©mon Storage | Ordinary box UI opened and closed safely back to the field |
+| Shop and purchase persistence | One Great Ball changed money 3000â†’2400 and quantity 0â†’1; fresh-core FLASH reload retained both |
 | Backtracking | Walked through Slateford and Whisperwood to Maplebrook at 14,4 with chapter progress retained |
 
 Each persistence check started a new core using ordinary FLASH alone. State
@@ -521,7 +578,7 @@ checkpoints, the ending, Czech UI, timing and free backtracking.
 
 The baseline-save regression must begin with a real FLASH Continue directly
 inside Slateford, before leaving the city. The entrance callback reconstructs
-the ten authored cells in its north 3×4 footprint, including the passable cave
+the ten authored cells in its north 3Ă—4 footprint, including the passable cave
 door at `(12,1)`, before applying the first-Gym gate. This prevents the old
 saved tree view from hiding the new exit. The unchanged side cells at row 3
 retain their authored terrain. Test the same cached view before the badge to

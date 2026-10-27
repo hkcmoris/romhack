@@ -935,7 +935,21 @@ def build():
         beacon=[lantern.name, 6, 2, 0x20C, 0x20D],
     )
     jw(ROOT / "tools/virelia/rainfall_contract.json", contract)
-    print("Built nine Chapter 2 maps; existing town patch confined to north entrance.")
+    # Final stock-art composition is a separate authoring pass. Never run this
+    # full builder over later hand-authored Porymap changes without a backup.
+    import polish_rainfall
+    import polish_seabreak
+
+    polish_rainfall.ROOT = ROOT
+    polish_seabreak.ROOT = ROOT
+    polish_seabreak.COAST = ROOT / "data/tilesets/secondary/virelia_coast"
+    polish_seabreak.PRIMARY = ROOT / "data/tilesets/primary/general"
+    polish_seabreak.source.cache_clear()
+    polish_rainfall.build()
+    polish_seabreak.main()
+    print(
+        "Built nine Chapter 2 maps with final stock-art composition; existing town patch confined to north entrance."
+    )
 
 
 if __name__ == "__main__":
