@@ -9327,8 +9327,8 @@
     {
       "id": "LAYOUT_VIRELIA_MAPLEBROOK_TOWN",
       "name": "Virelia_MaplebrookTown_Layout",
-      "width": 30,
-      "height": 28,
+      "width": 36,
+      "height": 48,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_VireliaOutdoor",
       "border_filepath": "data/layouts/Virelia_MaplebrookTown/border.bin",

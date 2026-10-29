@@ -23,8 +23,8 @@
     {
       "local_id": "LOCALID_VIRELIA_MAPLEBROOK_RETURN_GUIDE",
       "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_1",
-      "x": 16,
-      "y": 21,
+      "x": 23,
+      "y": 12,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -36,8 +36,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
-      "x": 12,
-      "y": 12,
+      "x": 18,
+      "y": 40,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -49,8 +49,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ZIGZAGOON_1",
-      "x": 4,
-      "y": 14,
+      "x": 6,
+      "y": 35,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -62,8 +62,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BOY_2",
-      "x": 23,
-      "y": 12,
+      "x": 10,
+      "y": 44,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -76,8 +76,8 @@
     {
       "local_id": "LOCALID_VIRELIA_MAPLEBROOK_COURIER",
       "graphics_id": "OBJ_EVENT_GFX_MAN_1",
-      "x": 12,
-      "y": 8,
+      "x": 16,
+      "y": 38,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WALK_LEFT_AND_RIGHT",
       "movement_range_x": 2,
@@ -90,8 +90,8 @@
     {
       "local_id": "LOCALID_VIRELIA_MAPLEBROOK_FISHERMAN",
       "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
-      "x": 20,
-      "y": 10,
+      "x": 7,
+      "y": 43,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
@@ -104,8 +104,8 @@
     {
       "local_id": "LOCALID_VIRELIA_MAPLEBROOK_PSYDUCK",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(PSYDUCK)",
-      "x": 18,
-      "y": 10,
+      "x": 5,
+      "y": 43,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 0,
@@ -118,8 +118,8 @@
     {
       "local_id": "LOCALID_VIRELIA_MAPLEBROOK_EMA",
       "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
-      "x": 7,
-      "y": 15,
+      "x": 10,
+      "y": 35,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
@@ -132,8 +132,8 @@
     {
       "local_id": "LOCALID_VIRELIA_MAPLEBROOK_POOCHYENA",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(POOCHYENA)",
-      "x": 6,
-      "y": 15,
+      "x": 9,
+      "y": 35,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
       "movement_range_x": 1,
@@ -146,8 +146,8 @@
     {
       "local_id": "LOCALID_VIRELIA_MAPLEBROOK_WURMPLE",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(WURMPLE)",
-      "x": 8,
-      "y": 21,
+      "x": 18,
+      "y": 44,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WALK_IN_PLACE_DOWN",
       "movement_range_x": 0,
@@ -160,22 +160,22 @@
   ],
   "warp_events": [
     {
-      "x": 24,
-      "y": 18,
+      "x": 31,
+      "y": 9,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_MAPLEBROOK_RESEARCH_LABORATORY",
       "dest_warp_id": "0"
     },
     {
-      "x": 7,
-      "y": 9,
+      "x": 32,
+      "y": 39,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_MAPLEBROOK_PLAYERS_HOUSE",
       "dest_warp_id": "0"
     },
     {
-      "x": 22,
-      "y": 9,
+      "x": 9,
+      "y": 42,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_MAPLEBROOK_COTTAGE",
       "dest_warp_id": "0"
@@ -258,16 +258,16 @@
   "bg_events": [
     {
       "type": "sign",
-      "x": 10,
-      "y": 9,
+      "x": 28,
+      "y": 39,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookTown_EventScript_HomeSign"
     },
     {
       "type": "sign",
-      "x": 23,
-      "y": 19,
+      "x": 30,
+      "y": 10,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookTown_EventScript_LabSign"
@@ -282,40 +282,40 @@
     },
     {
       "type": "sign",
-      "x": 17,
-      "y": 23,
+      "x": 3,
+      "y": 39,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookTown_EventScript_TownSign"
     },
     {
       "type": "sign",
-      "x": 21,
-      "y": 10,
+      "x": 8,
+      "y": 43,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookTown_EventScript_CottageSign"
     },
     {
       "type": "sign",
-      "x": 13,
-      "y": 13,
+      "x": 3,
+      "y": 38,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookTown_EventScript_Noticeboard"
     },
     {
       "type": "sign",
-      "x": 10,
-      "y": 21,
+      "x": 20,
+      "y": 44,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookTown_EventScript_GroveFind"
     },
     {
       "type": "sign",
-      "x": 17,
-      "y": 25,
+      "x": 3,
+      "y": 40,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookTown_EventScript_Nursery"
