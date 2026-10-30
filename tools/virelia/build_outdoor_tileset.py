@@ -14,6 +14,7 @@ TARGET = ROOT / 'data/tilesets/secondary/virelia_outdoor'
 SYMBOL = 'gTileset_VireliaOutdoor'
 SERVICE_SOURCE = 'virelia_services'
 SERVICE_IDS = range(0x340, 0x363)
+VERTICAL_BRIDGE_IDS = (0x363, 0x364)
 SOURCES = {
     'Virelia_MaplebrookTown': 'petalburg',
     'Virelia_Route01': 'rustboro',
@@ -60,7 +61,7 @@ def source_blocks(name, layout, restored=False):
         return values
     inverse = {target: source for source, target in REMAP[SOURCES[name]].items()}
     return tuple((v & ~0x3FF) | inverse[v & 0x3FF]
-                 if v & 0x3FF >= 512 and v & 0x3FF not in SERVICE_IDS else v
+                 if v & 0x3FF >= 512 and v & 0x3FF not in (*SERVICE_IDS, *VERTICAL_BRIDGE_IDS) else v
                  for v in values)
 
 
@@ -80,7 +81,7 @@ def build(restored_maps=()):
     for name, values in blocks.items():
         for value in values:
             tile = value & 0x3FF
-            if tile >= 512:
+            if tile >= 512 and tile not in VERTICAL_BRIDGE_IDS:
                 source = SERVICE_SOURCE if tile in SERVICE_IDS else SOURCES[name]
                 used[source].add(tile)
     # Include door frames' static counterparts and all scripted sanctuary props.
@@ -178,11 +179,13 @@ def build(restored_maps=()):
         (TARGET / f'palettes/{slot:02}.pal').write_text(text, encoding='ascii')
     for name, layout in layouts.items():
         values = [(v & ~0x3FF) | REMAP[SOURCES[name]][v & 0x3FF]
-                  if v & 0x3FF >= 512 and v & 0x3FF not in SERVICE_IDS else v
+                  if v & 0x3FF >= 512 and v & 0x3FF not in (*SERVICE_IDS, *VERTICAL_BRIDGE_IDS) else v
                   for v in blocks[name]]
         (ROOT / layout['blockdata_filepath']).write_bytes(struct.pack(f'<{len(values)}H', *values))
         layout['secondary_tileset'] = SYMBOL
     registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    from build_vertical_bridge import build as build_vertical_bridge
+    build_vertical_bridge()
     print(f'Packed Virelia outdoors: {len(bank)} tiles, {len(palettes)} secondary palettes')
 
 

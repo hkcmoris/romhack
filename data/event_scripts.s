@@ -1782,6 +1782,7 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/scripts/virelia_sanctuary.inc"
 	.include "data/maps/Virelia_MaplebrookPlayersHouse/scripts.inc"
 	.include "data/maps/Virelia_MaplebrookCottage/scripts.inc"
+	.include "data/maps/Virelia_MaplebrookFishermansHouse/scripts.inc"
 	.include "data/maps/Virelia_MaplebrookTown/scripts.inc"
 	.include "data/maps/Virelia_MaplebrookResearchLaboratory/scripts.inc"
 	.include "data/maps/Virelia_Route01/scripts.inc"

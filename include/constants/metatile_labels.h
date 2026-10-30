@@ -1058,6 +1058,10 @@
 #define METATILE_ViridianForest_HugeTreeTopMiddle_Grass  0x284
 #define METATILE_ViridianForest_HugeTreeTopMiddle_Mowed  0x281
 
+// gTileset_VireliaOutdoor
+#define METATILE_VireliaOutdoor_BridgeVertical_Left   0x363
+#define METATILE_VireliaOutdoor_BridgeVertical_Right  0x364
+
 // Other
 #define METATILE_GeneralFrlg_CalmWater               0x12B
 #define METATILE_GeneralFrlg_Door                    0x03D

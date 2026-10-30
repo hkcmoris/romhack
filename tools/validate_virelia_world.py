@@ -29,6 +29,7 @@ NAMES = (
     "Virelia_Slateford_QuarryGallery",
     "Virelia_MaplebrookCottage",
     "Virelia_WhisperwoodSanctuary",
+    "Virelia_MaplebrookFishermansHouse",
 )
 TOWN, LAB, ROUTE, CITY, HOME = NAMES[:5]
 GROUPS = ("gMapGroup_VireliaOverworld", "gMapGroup_VireliaInteriors")
@@ -97,8 +98,9 @@ def validate(base=None):
     unique([section["id"] for section in sections], "map section IDs")
     require(len(sections) < 0xFD, "Map sections overlap reserved Pokemon met-location IDs")
     require(groups["group_order"][-2:] == list(GROUPS), "Virelia groups must be appended")
-    require(groups[GROUPS[0]][:4] == [TOWN, ROUTE, CITY, NAMES[-1]], "Unexpected Virelia overworld IDs")
-    require(groups[GROUPS[1]][:8] == [LAB, HOME, *NAMES[5:-1]], "Unexpected Virelia interior IDs")
+    require(groups[GROUPS[0]][:4] == [TOWN, ROUTE, CITY, "Virelia_WhisperwoodSanctuary"], "Unexpected Virelia overworld IDs")
+    require(groups[GROUPS[1]][:8] == [LAB, HOME, *NAMES[5:11]], "Unexpected Virelia interior IDs")
+    require(NAMES[-1] in groups[GROUPS[1]], "Missing fisherman house interior")
     require(groups["group_order"].index(GROUPS[1]) < 0x7F, "Virelia group exceeds signed warp storage")
     if base:
         verify_legacy(base, groups, layouts, sections)
@@ -186,14 +188,22 @@ def validate(base=None):
         width, height = dimensions(name)
         return blocks[name][y * width + x] if 0 <= x < width and 0 <= y < height else None
 
+    water_behaviors = {behavior_names.index(name) for name in (
+        "MB_POND_WATER", "MB_OCEAN_WATER", "MB_DEEP_WATER", "MB_INTERIOR_DEEP_WATER",
+        "MB_WATERFALL", "MB_SOOTOPOLIS_DEEP_WATER", "MB_EASTWARD_CURRENT", "MB_WESTWARD_CURRENT",
+        "MB_NORTHWARD_CURRENT", "MB_SOUTHWARD_CURRENT",
+    )}
+
     def walkable(node):
         name, x, y = node
         tile = block(name, x, y)
-        return tile is not None and (not tile & 0xC00 or (x, y) in dynamic_open.get(name, set())) and (x, y) not in occupied[name]
+        return (tile is not None and (not tile & 0xC00 or (x, y) in dynamic_open.get(name, set()))
+                and tile_behavior(*node) not in water_behaviors and (x, y) not in occupied[name])
 
     def same_elevation(a, b):
         elevation_a, elevation_b = block(*a) >> 12, block(*b) >> 12
-        return elevation_a == elevation_b or 0 in (elevation_a, elevation_b)
+        # Native ELEVATION_MULTI_LEVEL (15) keeps the actor's incoming elevation.
+        return elevation_a == elevation_b or bool({0, 15} & {elevation_a, elevation_b})
 
     jump_directions = {behavior_names.index("MB_JUMP_" + name): delta for name, delta in (
         ("EAST", (1, 0)), ("WEST", (-1, 0)), ("SOUTH", (0, 1)), ("NORTH", (0, -1)),
@@ -294,7 +304,7 @@ def validate(base=None):
                     queue.append(target)
         return seen
 
-    start = (TOWN, 14, 21)
+    start = (TOWN, 9, 47)
     require(walkable(start), "Development arrival is blocked")
     seen = reachable(start)
     require({node[0] for node in seen} == set(NAMES), "Cannot reach every Virelia map from Maplebrook")
@@ -326,6 +336,22 @@ def validate(base=None):
                 if tile_behavior(*counter) == counter_behavior and stand in seen:
                     adjacent.add(stand)
             require(bool(adjacent & seen), f"{name}: object cannot be approached: {obj.get('local_id', obj['script'])}")
+
+    for name in (TOWN, "Virelia_MaplebrookCottage", "Virelia_MaplebrookFishermansHouse"):
+        for event in maps[name]["bg_events"]:
+            adjacent = {(name, event["x"] + dx, event["y"] + dy)
+                        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))}
+            require(bool(adjacent & seen), f"{name}: sign or inspection cannot be approached: {event['script']}")
+
+    for state in range(4):
+        for x in (14, 15):
+            gates = [event for event in maps[TOWN]["coord_events"]
+                     if (event["x"], event["y"]) == (x, 1)
+                     and event["var"] == "VAR_VIRELIA_PROLOGUE_STATE"
+                     and int(event["var_value"]) == state
+                     and event["script"] == "Virelia_MaplebrookTown_EventScript_NorthGate"]
+            require(len(gates) == 1 and (TOWN, x, 2) in seen,
+                    f"Maplebrook north gate missing or step-back blocked at x={x}, state={state}")
 
     general_attrs = (ROOT / "data/tilesets/primary/general/metatile_attributes.bin").read_bytes()
     attrs = struct.unpack(f"<{len(general_attrs) // 2}H", general_attrs)

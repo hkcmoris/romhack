@@ -96,6 +96,14 @@ Virelia_MaplebrookTown_EventScript_CottageSign::
 	msgbox Virelia_MaplebrookTown_Text_CottageSign, MSGBOX_SIGN
 	end
 
+Virelia_MaplebrookTown_EventScript_EmptyHouseSign::
+	msgbox Virelia_MaplebrookTown_Text_EmptyHouseSign, MSGBOX_SIGN
+	end
+
+Virelia_MaplebrookTown_EventScript_FishermansHouseSign::
+	msgbox Virelia_MaplebrookTown_Text_FishermansHouseSign, MSGBOX_SIGN
+	end
+
 Virelia_MaplebrookTown_EventScript_Noticeboard::
 #if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
 	checkflag FLAG_VIRELIA_LAB_RESCUE_COMPLETE
@@ -281,6 +289,14 @@ Virelia_MaplebrookTown_Text_CottageSign:
 	.string "U ILONY\n"
 	.string "Bobule, návštěvy a jedna Skitty.$"
 
+Virelia_MaplebrookTown_Text_EmptyHouseSign:
+	.string "Dům je zatím prázdný.\n"
+	.string "Dveře jsou zamčené.$"
+
+Virelia_MaplebrookTown_Text_FishermansHouseSign:
+	.string "RYBÁŘŮV DŮM\n"
+	.string "Když nejsem doma, jsem u řeky.$"
+
 Virelia_MaplebrookTown_Text_Noticeboard:
 	.string "OBECNÍ NÁSTĚNKA\n"
 	.string "Dnes se zametá náves.\p"
@@ -316,8 +332,8 @@ Virelia_MaplebrookTown_Text_CourierAfterRocket:
 	.string "A já tam nosím poštu každý den.$"
 
 Virelia_MaplebrookTown_Text_Fisherman:
-	.string "Tenhle rybníček má své výhody.\n"
-	.string "Úlovek se nemá kam schovat.\p"
+	.string "U řeky mám všechno po ruce.\n"
+	.string "I domů to mám jen pár kroků.\p"
 	.string "Psyduck sem chodí rybařit taky.\n"
 	.string "Jen neví, co je to prut.$"
 

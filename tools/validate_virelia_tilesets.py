@@ -20,6 +20,29 @@ AUTHORED_METATILES = {
     0x200: (0x0000, (0x2004, 0x2404, 0x2014, 0x2414,
                      0x2000, 0x2000, 0x20CD, 0x2000)),
 }
+VERTICAL_BRIDGE_IDS = (0x363, 0x364)
+
+
+def validate_vertical_bridge(tile, packed, attrs):
+    source = [[None] * 16 for _ in range(32)]
+    for half, original in enumerate((0x2B3, 0x2B4)):
+        for part, value in enumerate(packed[(original - 512) * 8 + 4:(original - 511) * 8]):
+            pixels = rendered_tile('virelia_outdoor', value)
+            for y in range(8):
+                for x in range(8):
+                    source[half * 16 + part // 2 * 8 + y][part % 2 * 8 + x] = pixels[y * 8 + x]
+    half = VERTICAL_BRIDGE_IDS.index(tile)
+    values = packed[(tile - 512) * 8:(tile - 511) * 8]
+    require(attrs[tile - 512] == 0x1000, 'Vertical bridge must draw below actors with normal walking behavior')
+    require(values[:4] == packed[(0x2B3 - 512) * 8:(0x2B3 - 512) * 8 + 4],
+            'Vertical bridge water underlay changed')
+    for part, value in enumerate(values[4:]):
+        actual = rendered_tile('virelia_outdoor', value)
+        expected = tuple(source[31 - (half * 16 + part % 2 * 8 + x)][part // 2 * 8 + y]
+                         for y in range(8) for x in range(8))
+        require(actual == expected, f'Vertical bridge {tile:#x} does not match the rotated wooden deck')
+    require(all(value & 1023 < 1008 and value >> 12 < 13 for value in values),
+            'Vertical bridge exceeds native graphics or palette limits')
 
 
 def require(condition, message):
@@ -85,9 +108,14 @@ def validate():
             ids.update(range(0x318, 0x336))
         if name == 'Virelia_SlatefordCity':
             ids.update(SERVICE_IDS)
+        ids.update(VERTICAL_BRIDGE_IDS)
         for tile in ids:
             require(tile - 512 < len(attrs), f'{name}: packed metatile {tile:#x} is out of bounds')
-            if tile in AUTHORED_METATILES:
+            if tile in VERTICAL_BRIDGE_IDS:
+                validate_vertical_bridge(tile, packed, attrs)
+                checked.add(('vertical_bridge', tile))
+                continue
+            elif tile in AUTHORED_METATILES:
                 art_source, old = 'virelia_outdoor', tile
                 original_attr, original = AUTHORED_METATILES[tile]
             else:

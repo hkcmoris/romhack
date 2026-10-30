@@ -28,12 +28,12 @@ species. This document supersedes their development-start instructions.
 
 ### Maplebrook town life
 
-The optional town spaces now include Ilona's open cottage, a pond with a
+The optional town spaces now include Ilona's open cottage, a riverbank with a
 fisherman and Psyduck, a community noticeboard and courier, Ema with her
 Poochyena, a shaded walking loop with Wurmple, and a small plant nursery.
 The noticeboard and courier react to the laboratory rescue; the courier also
 reacts to the Rocket encounter. These visits do not gate the lab or north trail.
-The professor's garden and fence collision cells remain intact.
+The professor's garden remains fenced.
 
 Ilona gives one Oran Berry after the starter is received. Investigating behind
 the grove's stone finds one Antidote. Their independent flags are
@@ -43,6 +43,18 @@ available for another attempt. Development exhibitions do not grant these gifts.
 The cottage appends interior map index `7` after Slateford's shop moves into the
 Pokémon Center. The current prologue's map indices stay unchanged, and the
 new cottage door uses Maplebrook warp index `2`.
+
+The redesigned Maplebrook exterior is 36 × 48 tiles. Outdoor development
+travel arrives at `(9,47)`, on the bottom edge below the player's house.
+Ilona's cottage entrance is beside the nursery at `(29,34)` (warp `2`).
+The riverside fisherman's house at `(3,25)` uses warp `3` and a new interior
+with fishing gear and a notebook; the fisherman remains outside by the river.
+The former cottage at `(30,20)` is closed and its sign identifies it as empty.
+The shared outdoor tileset includes north–south wooden bridge metatiles
+`0x363`/`0x364`, built by `python tools/virelia/build_vertical_bridge.py` from
+the existing bridge deck. They connect the paths at `(13,20)`–`(14,23)`.
+All existing staircases remain unchanged. The north gate still covers `(14,1)`
+and `(15,1)` through prologue states 0–3.
 
 Lab regression checks follow the active campaign: story uses Viktor/Viktorie,
 persistent case slots and post-rescue level matching; development uses Hoenn

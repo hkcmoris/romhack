@@ -8,7 +8,7 @@ VireliaWorldTest_EventScript_OfferTravel::
 	msgbox VireliaWorldTest_Text_Travel, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, DuoMultiplayerTest_EventScript_Cancel
 	closemessage
-	warp MAP_VIRELIA_MAPLEBROOK_TOWN, 14, 21
+	warp MAP_VIRELIA_MAPLEBROOK_TOWN, 9, 47
 	waitstate
 	end
 
