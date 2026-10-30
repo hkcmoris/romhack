@@ -36,6 +36,7 @@ static const u16 sVireliaMaps[] =
     MAP_VIRELIA_MAPLEBROOK_COTTAGE,
     MAP_VIRELIA_WHISPERWOOD_SANCTUARY,
     MAP_VIRELIA_MAPLEBROOK_FISHERMANS_HOUSE,
+    MAP_VIRELIA_MAPLEBROOK_EMAS_HOUSE,
 };
 
 static const struct MapHeader *WorldHeader(u16 map)

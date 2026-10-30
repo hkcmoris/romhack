@@ -9076,13 +9076,13 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_MIRACLE_SEED] =
     {
         .name = ITEM_NAME("Miracle Seed"),
+#if !TESTING
+        .pluralName = ITEM_PLURAL_NAME(LOCALIZED_TEXT("Miracle Seeds", "Miracle Seed")),
+#endif
         .price = TYPE_BOOSTING_PRICE,
         .holdEffect = HOLD_EFFECT_TYPE_POWER,
         .holdEffectParam = TYPE_BOOST_PARAM,
-        .description = COMPOUND_STRING(
-            "A held item that\n"
-            "raises the power of\n"
-            "Grass-type moves."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A held item that\nraises the power of\nGrass-type moves.", "Držený předmět.\nZesiluje travní\nútoky.")),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_TYPE_BOOST_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -13581,10 +13581,7 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("HM01"),
         .price = 0,
-        .description = COMPOUND_STRING(
-            "Attacks the foe\n"
-            "with sharp blades\n"
-            "or claws."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Attacks the foe\nwith sharp blades\nor claws.", "Zasáhne cíl ostrou\nčepelí nebo\ndrápy.")),
         .importance = 1,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,

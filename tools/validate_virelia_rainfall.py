@@ -25,7 +25,7 @@ PROTECTED = {
     'include/constants/species.h': '40580ee3c7b6900859639df465dad05a5bdb7e40d32712ca173a8107a8880b48',
     'data/layouts/Virelia_WhisperwoodSanctuary/map.bin': 'ed93585f671788c530f6d51a74923de0444936d8e445a40ff7faa3b21bb88787',
     'data/layouts/Virelia_Route01/map.bin': 'd016edf56502bf6606063b18c4581af6cace5c253d8802bbca44c92a3e70d872',
-    'data/layouts/Virelia_MaplebrookTown/map.bin': '71547028d745396f3b18b7795cb01bfa5f8d1667fc12ea51ce6bfa5c501598bc',
+    'data/layouts/Virelia_MaplebrookTown/map.bin': '3074dfb68689dd3b576f120f9a1b63a9a467ee88fb86f02ee76e79fe4204eb1e',
     'data/layouts/Virelia_Slateford_Gym/map.bin': 'ac4dc01fd25aad0565fd245e5b181053a3b66193b39e24672d0a14f37a40395b',
     'data/layouts/Virelia_Slateford_QuarryEntrance/map.bin': 'fdc99a85e99b52284697b85e8c1bbd92e9cc258f519edf2d5acce035f8ccb007',
     'data/layouts/Virelia_Slateford_QuarryDepths/map.bin': '92a1f50e5d1638599a941fba113ceacd540412f32476fddb593072d8b335918f',

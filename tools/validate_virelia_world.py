@@ -30,6 +30,7 @@ NAMES = (
     "Virelia_MaplebrookCottage",
     "Virelia_WhisperwoodSanctuary",
     "Virelia_MaplebrookFishermansHouse",
+    "Virelia_MaplebrookEmasHouse",
 )
 TOWN, LAB, ROUTE, CITY, HOME = NAMES[:5]
 GROUPS = ("gMapGroup_VireliaOverworld", "gMapGroup_VireliaInteriors")
@@ -100,7 +101,8 @@ def validate(base=None):
     require(groups["group_order"][-2:] == list(GROUPS), "Virelia groups must be appended")
     require(groups[GROUPS[0]][:4] == [TOWN, ROUTE, CITY, "Virelia_WhisperwoodSanctuary"], "Unexpected Virelia overworld IDs")
     require(groups[GROUPS[1]][:8] == [LAB, HOME, *NAMES[5:11]], "Unexpected Virelia interior IDs")
-    require(NAMES[-1] in groups[GROUPS[1]], "Missing fisherman house interior")
+    require(all(name in groups[GROUPS[1]] for name in ("Virelia_MaplebrookFishermansHouse", "Virelia_MaplebrookEmasHouse")),
+            "Missing Maplebrook house interior")
     require(groups["group_order"].index(GROUPS[1]) < 0x7F, "Virelia group exceeds signed warp storage")
     if base:
         verify_legacy(base, groups, layouts, sections)
@@ -337,8 +339,11 @@ def validate(base=None):
                     adjacent.add(stand)
             require(bool(adjacent & seen), f"{name}: object cannot be approached: {obj.get('local_id', obj['script'])}")
 
-    for name in (TOWN, "Virelia_MaplebrookCottage", "Virelia_MaplebrookFishermansHouse"):
+    for name in (TOWN, "Virelia_MaplebrookCottage", "Virelia_MaplebrookFishermansHouse", "Virelia_MaplebrookEmasHouse"):
         for event in maps[name]["bg_events"]:
+            if event.get("flag") == "FLAG_VIRELIA_MAPLEBROOK_WOODLAND_ITEM":
+                # Its separate locked/open graph audit proves the Cut gate.
+                continue
             adjacent = {(name, event["x"] + dx, event["y"] + dy)
                         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))}
             require(bool(adjacent & seen), f"{name}: sign or inspection cannot be approached: {event['script']}")
@@ -381,6 +386,8 @@ def validate(base=None):
                 for obj in maps[ROUTE]["object_events"]), "Missing optional route item")
     print(f"PASS: {len(NAMES)} maps, native layouts, reciprocal warps/connections, {len(seen)} reachable tiles")
     print(f"PASS: {len(grass)} reachable tall-grass tiles, 12 encounter slots, approachable NPCs/item")
+    from validate_virelia_maplebrook import validate as validate_maplebrook
+    validate_maplebrook()
     print("Run the native test/virelia_world.c suite and emulator checklist for runtime/save validation.")
 
 

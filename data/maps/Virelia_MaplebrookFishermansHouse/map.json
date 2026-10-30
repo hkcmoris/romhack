@@ -3,7 +3,6 @@
   "name": "Virelia_MaplebrookFishermansHouse",
   "layout": "LAYOUT_VIRELIA_MAPLEBROOK_FISHERMANS_HOUSE",
   "music": "MUS_LITTLEROOT",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_VIRELIA_MAPLEBROOK_TOWN",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -49,5 +48,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_MaplebrookFishermansHouse_EventScript_Notebook"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }

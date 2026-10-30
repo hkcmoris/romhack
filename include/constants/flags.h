@@ -96,8 +96,8 @@
 #define FLAG_UNUSED_0x04A    0x4A // Reserved: FLAG_VIRELIA_MAPLEBROOK_BERRY_GIFT
 #define FLAG_UNUSED_0x04B    0x4B // Reserved: FLAG_VIRELIA_MAPLEBROOK_GROVE_FIND
 #define FLAG_UNUSED_0x04C    0x4C // Reserved: FLAG_VIRELIA_HIDE_RIVAL_POKEMON
-#define FLAG_UNUSED_0x04D    0x4D // Unused Flag
-#define FLAG_UNUSED_0x04E    0x4E // Unused Flag
+#define FLAG_UNUSED_0x04D    0x4D // Reserved: FLAG_VIRELIA_HM_CUT_RECEIVED
+#define FLAG_UNUSED_0x04E    0x4E // Reserved: FLAG_VIRELIA_HIDE_CUT_AIDE
 #define FLAG_UNUSED_0x04F    0x4F // Unused Flag
 
 // Scripts
@@ -678,7 +678,7 @@
 #define FLAG_UNUSED_0x26F  0x26F // Unused Flag
 #define FLAG_UNUSED_0x270  0x270 // Unused Flag
 #define FLAG_UNUSED_0x271  0x271 // Unused Flag
-#define FLAG_UNUSED_0x272  0x272 // Unused Flag
+#define FLAG_UNUSED_0x272  0x272 // Reserved: FLAG_VIRELIA_MAPLEBROOK_WOODLAND_ITEM
 #define FLAG_UNUSED_0x273  0x273 // Unused Flag
 #define FLAG_UNUSED_0x274  0x274 // Unused Flag
 #define FLAG_UNUSED_0x275  0x275 // Unused Flag

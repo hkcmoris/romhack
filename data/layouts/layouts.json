@@ -9565,6 +9565,17 @@
       "border_filepath": "data/layouts/Virelia_MaplebrookFishermansHouse/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_MaplebrookFishermansHouse/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_MAPLEBROOK_EMAS_HOUSE",
+      "name": "Virelia_MaplebrookEmasHouse_Layout",
+      "width": 12,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Virelia_MaplebrookEmasHouse/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_MaplebrookEmasHouse/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

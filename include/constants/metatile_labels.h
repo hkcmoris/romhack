@@ -1061,6 +1061,8 @@
 // gTileset_VireliaOutdoor
 #define METATILE_VireliaOutdoor_BridgeVertical_Left   0x363
 #define METATILE_VireliaOutdoor_BridgeVertical_Right  0x364
+#define METATILE_VireliaOutdoor_Bench_Left            0x365
+#define METATILE_VireliaOutdoor_Bench_Right           0x366
 
 // Other
 #define METATILE_GeneralFrlg_CalmWater               0x12B

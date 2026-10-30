@@ -10,6 +10,8 @@ void VireliaFirstGym_ResetGymPuzzle(void);
 void VireliaFirstGym_GymSwitch(void);
 void VireliaFirstGym_AwardBadge(void);
 void VireliaFirstGym_AwardTM(void);
+void VireliaFirstGym_AwardCut(void);
+void VireliaFirstGym_PrepareCutDelivery(void);
 void VireliaFirstGym_TakeQuarryItem(void);
 void VireliaFirstGym_BeginMissingTools(void);
 void VireliaFirstGym_CollectTool(void);

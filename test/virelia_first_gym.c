@@ -40,6 +40,7 @@
 #include "constants/opponents.h"
 #include "constants/virelia_prologue.h"
 #include "constants/virelia_first_gym.h"
+#include "constants/virelia_maplebrook.h"
 
 #if !IS_FRLG && P_VIRELIA_STARTERS
 
@@ -661,6 +662,10 @@ TEST("Virelia shared Center shop-wing save restores money items healing destinat
     SolveQuarry();
     SolveGym();
     VireliaFirstGym_AwardTM();
+    VireliaFirstGym_AwardCut();
+    EXPECT_EQ(gSpecialVar_Result, TRUE);
+    FlagSet(FLAG_VIRELIA_MAPLEBROOK_WOODLAND_ITEM);
+    EXPECT(AddBagItem(ITEM_MIRACLE_SEED, 1));
     VireliaFirstGym_TakeQuarryItem();
     static const u16 savedFlags[] =
     {
@@ -672,6 +677,7 @@ TEST("Virelia shared Center shop-wing save restores money items healing destinat
         FLAG_VIRELIA_MISSING_TOOLS_STARTED, FLAG_VIRELIA_TOOL_WRENCH,
         FLAG_VIRELIA_TOOL_HAMMER, FLAG_VIRELIA_TOOL_PICK,
         FLAG_VIRELIA_MISSING_TOOLS_RECOVERED, FLAG_VIRELIA_MISSING_TOOLS_REWARDED,
+        FLAG_VIRELIA_HM_CUT_RECEIVED, FLAG_VIRELIA_MAPLEBROOK_WOODLAND_ITEM,
     };
     VireliaFirstGym_BeginMissingTools();
     for (u32 tool = 1; tool <= 3; tool++)
@@ -752,6 +758,11 @@ TEST("Virelia shared Center shop-wing save restores money items healing destinat
     EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_TM_ROCK_TOMB), 1);
     EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_SUPER_POTION), 1);
     EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_HARD_STONE), 1);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_HM_CUT), 1);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_MIRACLE_SEED), 1);
+    VireliaFirstGym_AwardCut();
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_HM_CUT), 1);
     VireliaFirstGym_RewardTools();
     EXPECT_EQ(gSpecialVar_Result, FALSE);
     EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_HARD_STONE), 1);

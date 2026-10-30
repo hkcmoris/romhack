@@ -10,6 +10,7 @@ import struct
 import sys
 from virelia.build_outdoor_tileset import REMAP, SOURCES, SYMBOL, SERVICE_IDS
 from virelia.localize_type_icons import read_png
+from virelia.build_maplebrook_props import BENCH_IDS, BENCH_PALETTE_SLOT, bench_pixels
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -21,6 +22,23 @@ AUTHORED_METATILES = {
                      0x2000, 0x2000, 0x20CD, 0x2000)),
 }
 VERTICAL_BRIDGE_IDS = (0x363, 0x364)
+
+
+def validate_bench(tile, packed, attrs):
+    values = packed[(tile - 512) * 8:(tile - 511) * 8]
+    grass = words('data/tilesets/primary/general/metatiles.bin')[8:12]
+    require(values[:4] == grass and attrs[tile - 512] == 0x1000,
+            'Bench must retain native grass underlay and draw above ground')
+    image = bench_pixels()
+    colors = palette('secondary/virelia_outdoor', BENCH_PALETTE_SLOT)
+    half = BENCH_IDS.index(tile)
+    for part, value in enumerate(values[4:]):
+        expected = tuple(colors[index] if index else None
+                         for y in range(8) for x in range(8)
+                         for index in (image[part // 2 * 8 + y][half * 16 + part % 2 * 8 + x],))
+        require(rendered_tile('virelia_outdoor', value) == expected, 'Bench timber pixels or palette changed')
+    require(all(value & 1023 < 1008 and value >> 12 < 13 for value in values),
+            'Bench overlaps reserved graphics/palettes')
 
 
 def validate_vertical_bridge(tile, packed, attrs):
@@ -109,9 +127,14 @@ def validate():
         if name == 'Virelia_SlatefordCity':
             ids.update(SERVICE_IDS)
         ids.update(VERTICAL_BRIDGE_IDS)
+        ids.update(BENCH_IDS)
         for tile in ids:
             require(tile - 512 < len(attrs), f'{name}: packed metatile {tile:#x} is out of bounds')
-            if tile in VERTICAL_BRIDGE_IDS:
+            if tile in BENCH_IDS:
+                validate_bench(tile, packed, attrs)
+                checked.add(('maplebrook_bench', tile))
+                continue
+            elif tile in VERTICAL_BRIDGE_IDS:
                 validate_vertical_bridge(tile, packed, attrs)
                 checked.add(('vertical_bridge', tile))
                 continue

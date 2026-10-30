@@ -3,7 +3,6 @@
   "name": "Virelia_Seabreak_KeepersHouse",
   "layout": "LAYOUT_VIRELIA_SEABREAK_KEEPERS_HOUSE",
   "music": "MUS_DEWFORD",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_VIRELIA_SEABREAK_TOWN",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -55,5 +54,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_Seabreak_KeepersHouse_EventScript_Journal"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }

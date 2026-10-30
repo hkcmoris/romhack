@@ -49,12 +49,27 @@ travel arrives at `(9,47)`, on the bottom edge below the player's house.
 Ilona's cottage entrance is beside the nursery at `(29,34)` (warp `2`).
 The riverside fisherman's house at `(3,25)` uses warp `3` and a new interior
 with fishing gear and a notebook; the fisherman remains outside by the river.
-The former cottage at `(30,20)` is closed and its sign identifies it as empty.
+Ema's family home at `(30,20)` uses warp `4`. Her mother is indoors, with
+Ema's training notebook and Poochyena's treats; Ema and Poochyena remain outside.
 The shared outdoor tileset includes north–south wooden bridge metatiles
 `0x363`/`0x364`, built by `python tools/virelia/build_vertical_bridge.py` from
 the existing bridge deck. They connect the paths at `(13,20)`–`(14,23)`.
 All existing staircases remain unchanged. The north gate still covers `(14,1)`
 and `(15,1)` through prologue states 0–3.
+
+The lower village has a connected home path, a fenced planted garden, a shaded
+village green and two timber benches. Its southern woodland turns north at
+the eastern bank to meet the river. A one-tile passage at `(26,43)` is blocked by
+a native Cut tree. Beyond it, a dead-end bank contains a hidden Miracle Seed
+at `(34,45)`. The same bank has a future Surf landing. The tree
+regrows on map reload; the hidden item remains collected independently.
+
+After earning the Quarry Badge, leaving Slateford Gym triggers Professor
+Javorová's aide, who approaches the player and gives HM01 Cut. A full TM/HM
+pocket leaves the aide beside the Gym for a later retry. Teach Cut to a
+compatible Pokémon, such as Paras or Bidoof: the Quarry Badge authorizes it
+on Virelia maps without setting Hoenn badge flags or unlocking Surf. The HM
+gift and woodland reward survive ordinary saving and loading.
 
 Lab regression checks follow the active campaign: story uses Viktor/Viktorie,
 persistent case slots and post-rescue level matching; development uses Hoenn

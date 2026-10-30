@@ -113,7 +113,7 @@ void VireliaFirstGym_AwardBadge(void)
         return;
     FlagSet(FLAG_VIRELIA_BADGE_QUARRY);
     gSpecialVar_Result = TRUE;
-    // Recognition only: no implicit Hoenn stat boost, obedience or field move.
+    // Cut consults this badge directly; no Hoenn badge flags or boosts change.
 }
 
 static void GrantOnce(u16 flag, u16 item)
@@ -133,6 +133,27 @@ void VireliaFirstGym_AwardTM(void)
     GrantOnce(FLAG_VIRELIA_TM_ROCK_TOMB_RECEIVED, ITEM_TM_ROCK_TOMB);
     if (gSpecialVar_Result)
         FlagSet(FLAG_VIRELIA_FIRST_GYM_COMPLETE);
+}
+
+void VireliaFirstGym_AwardCut(void)
+{
+    gSpecialVar_Result = FALSE;
+    if (!ChapterAvailable() || !FlagGet(FLAG_VIRELIA_BADGE_QUARRY))
+        return;
+    GrantOnce(FLAG_VIRELIA_HM_CUT_RECEIVED, ITEM_HM_CUT);
+}
+
+void VireliaFirstGym_PrepareCutDelivery(void)
+{
+    bool32 waiting = ChapterAvailable() && FlagGet(FLAG_VIRELIA_BADGE_QUARRY)
+        && !FlagGet(FLAG_VIRELIA_HM_CUT_RECEIVED);
+    if (waiting)
+        FlagClear(FLAG_VIRELIA_HIDE_CUT_AIDE);
+    else
+        FlagSet(FLAG_VIRELIA_HIDE_CUT_AIDE);
+    // Animated-door arrivals initially occupy the door, then step south.
+    VarSet(VAR_VIRELIA_CUT_DELIVERY, waiting && gSaveBlock1Ptr->pos.x == 22
+        && (gSaveBlock1Ptr->pos.y == 9 || gSaveBlock1Ptr->pos.y == 10));
 }
 
 void VireliaFirstGym_TakeQuarryItem(void)

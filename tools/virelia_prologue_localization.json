@@ -17884,6 +17884,76 @@
       "font": "Narrower",
       "width": 152,
       "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MIRACLE_SEED.name.0",
+      "kind": "item_name",
+      "english": "Miracle Seed",
+      "czech": "Miracle Seed",
+      "font": "Narrower",
+      "width": 102,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MIRACLE_SEED.description.0",
+      "kind": "item_description",
+      "english": "A held item that\\nraises the power of\\nGrass-type moves.",
+      "czech": "Držený předmět.\\nZesiluje travní\\nútoky.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_HM_CUT.name.0",
+      "kind": "item_name",
+      "english": "HM01",
+      "czech": "HM01",
+      "font": "Narrower",
+      "width": 102,
+      "lines": 0
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_HM_CUT.description.0",
+      "kind": "item_description",
+      "english": "Attacks the foe\\nwith sharp blades\\nor claws.",
+      "czech": "Zasáhne cíl ostrou\\nčepelí nebo\\ndrápy.",
+      "font": "Normal",
+      "width": 102,
+      "lines": 3
+    },
+    {
+      "path": "src/data/items.h",
+      "key": "ITEM_MIRACLE_SEED.pluralName.0",
+      "kind": "item_plural_name",
+      "english": "Miracle Seeds",
+      "czech": "Miracle Seed",
+      "font": "Normal",
+      "width": 208,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CUT.name.0",
+      "kind": "move_name",
+      "english": "Cut",
+      "czech": "Cut",
+      "font": "Normal",
+      "width": 102,
+      "lines": 0
+    },
+    {
+      "path": "src/data/moves_info.h",
+      "key": "MOVE_CUT.description.0",
+      "kind": "move_description",
+      "english": "Cuts the foe with sharp\\nscythes, claws, etc.",
+      "czech": "Zasáhne cíl ostrou\\nčepelí nebo drápy.",
+      "font": "Normal",
+      "width": 144,
+      "lines": 2
     }
   ],
   "coverage": {
@@ -18021,6 +18091,7 @@
       "MOVE_CROSS_POISON",
       "MOVE_CRUNCH",
       "MOVE_CRUSH_CLAW",
+      "MOVE_CUT",
       "MOVE_DEFENSE_CURL",
       "MOVE_DETECT",
       "MOVE_DIG",
@@ -18315,6 +18386,7 @@
       "ITEM_GREAT_BALL",
       "ITEM_GRIP_CLAW",
       "ITEM_HARD_STONE",
+      "ITEM_HM_CUT",
       "ITEM_HYPER_POTION",
       "ITEM_KINGS_ROCK",
       "ITEM_LEFTOVERS",
@@ -18324,6 +18396,7 @@
       "ITEM_MAX_REPEL",
       "ITEM_MAX_REVIVE",
       "ITEM_MENTAL_HERB",
+      "ITEM_MIRACLE_SEED",
       "ITEM_MOON_STONE",
       "ITEM_MYSTIC_WATER",
       "ITEM_NET_BALL",
