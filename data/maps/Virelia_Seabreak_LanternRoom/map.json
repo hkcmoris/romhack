@@ -3,7 +3,6 @@
   "name": "Virelia_Seabreak_LanternRoom",
   "layout": "LAYOUT_VIRELIA_SEABREAK_LANTERN_ROOM",
   "music": "MUS_MT_PYRE",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_VIRELIA_SEABREAK_TOWN",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -58,5 +57,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_Seabreak_LanternRoom_EventScript_Manifest"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }

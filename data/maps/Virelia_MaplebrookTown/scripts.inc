@@ -1,6 +1,44 @@
 Virelia_MaplebrookTown_MapScripts::
 	.byte 0
 
+Virelia_MaplebrookTown_EventScript_CutTree::
+	lockall
+	checkfieldmove FIELD_MOVE_CUT, TRUE
+	goto_if_eq VAR_RESULT, PARTY_SIZE, Virelia_MaplebrookTown_CantCutTree
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	msgbox Virelia_MaplebrookTown_Text_CutTree, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_CancelCut
+	msgbox Virelia_MaplebrookTown_Text_UsedCut, MSGBOX_DEFAULT
+	closemessage
+	goto EventScript_CutTreeCommon
+
+Virelia_MaplebrookTown_CantCutTree:
+	msgbox Virelia_MaplebrookTown_Text_CutTreeHint, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Virelia_MaplebrookTown_Text_CutTree:
+	.string "Tento stromek lze odstranit.\n"
+	.string "Použít Cut?$"
+
+Virelia_MaplebrookTown_Text_UsedCut:
+	.string "{STR_VAR_1} používá Cut!$"
+
+Virelia_MaplebrookTown_Text_CutTreeHint:
+	.string "Za stromkem pokračuje úzká pěšina.\n"
+	.string "Tento stromek lze odstranit.$"
+
+Virelia_MaplebrookTown_EventScript_GreenResident::
+	msgbox Virelia_MaplebrookTown_Text_GreenResident, MSGBOX_NPC
+	end
+
+Virelia_MaplebrookTown_Text_GreenResident:
+	.string "Na návsi si rád odpočinu.\n"
+	.string "U řeky zase poslouchám vodu.\p"
+	.string "Jižní les je hustý. Jen malý\n"
+	.string "stromek zakrývá starou pěšinu.$"
+
 Virelia_MaplebrookTown_EventScript_Gardener::
 	lock
 	faceplayer
@@ -94,6 +132,14 @@ Virelia_MaplebrookTown_EventScript_TownSign::
 
 Virelia_MaplebrookTown_EventScript_CottageSign::
 	msgbox Virelia_MaplebrookTown_Text_CottageSign, MSGBOX_SIGN
+	end
+
+Virelia_MaplebrookTown_EventScript_EmasHouseSign::
+	msgbox Virelia_MaplebrookTown_Text_EmasHouseSign, MSGBOX_SIGN
+	end
+
+Virelia_MaplebrookTown_EventScript_FishermansHouseSign::
+	msgbox Virelia_MaplebrookTown_Text_FishermansHouseSign, MSGBOX_SIGN
 	end
 
 Virelia_MaplebrookTown_EventScript_Noticeboard::
@@ -281,6 +327,14 @@ Virelia_MaplebrookTown_Text_CottageSign:
 	.string "U ILONY\n"
 	.string "Bobule, návštěvy a jedna Skitty.$"
 
+Virelia_MaplebrookTown_Text_EmasHouseSign:
+	.string "EMA A POOCHYENA\n"
+	.string "Trénink začíná hned za dveřmi.$"
+
+Virelia_MaplebrookTown_Text_FishermansHouseSign:
+	.string "RYBÁŘŮV DŮM\n"
+	.string "Když nejsem doma, jsem u řeky.$"
+
 Virelia_MaplebrookTown_Text_Noticeboard:
 	.string "OBECNÍ NÁSTĚNKA\n"
 	.string "Dnes se zametá náves.\p"
@@ -316,8 +370,8 @@ Virelia_MaplebrookTown_Text_CourierAfterRocket:
 	.string "A já tam nosím poštu každý den.$"
 
 Virelia_MaplebrookTown_Text_Fisherman:
-	.string "Tenhle rybníček má své výhody.\n"
-	.string "Úlovek se nemá kam schovat.\p"
+	.string "U řeky mám všechno po ruce.\n"
+	.string "I domů to mám jen pár kroků.\p"
 	.string "Psyduck sem chodí rybařit taky.\n"
 	.string "Jen neví, co je to prut.$"
 

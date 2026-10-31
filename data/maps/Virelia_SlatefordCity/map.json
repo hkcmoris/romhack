@@ -140,6 +140,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Virelia_SlatefordCity_EventScript_Growlithe",
       "flag": "FLAG_VIRELIA_HIDE_POLICEMAN"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_1",
+      "local_id": "LOCALID_VIRELIA_SLATEFORD_CUT_AIDE",
+      "x": 23,
+      "y": 10,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_SlatefordCity_EventScript_CutAide",
+      "flag": "FLAG_VIRELIA_HIDE_CUT_AIDE"
     }
   ],
   "warp_events": [

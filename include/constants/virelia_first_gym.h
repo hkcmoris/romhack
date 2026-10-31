@@ -22,6 +22,10 @@
 #define FLAG_VIRELIA_TOOL_WRENCH              0x45
 #define FLAG_VIRELIA_TOOL_HAMMER              0x46
 #define FLAG_VIRELIA_TOOL_PICK                0x47
+#define FLAG_VIRELIA_HM_CUT_RECEIVED          0x4D
+#define FLAG_VIRELIA_HIDE_CUT_AIDE            0x4E
+
+#define VAR_VIRELIA_CUT_DELIVERY              VAR_TEMP_3
 
 // Partial input is temporary; completed puzzle flags persist.
 #define VAR_VIRELIA_QUARRY_SWITCH            0x400C

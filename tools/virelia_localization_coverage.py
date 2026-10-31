@@ -40,6 +40,13 @@ def derive_coverage(level_bound=24):
     scripts += list((ROOT / 'data/scripts').glob('virelia*.inc'))
     for path in scripts:
         items.update(re.findall(r'\bITEM_[A-Z0-9_]+\b', path.read_text(encoding='utf8')))
+    for path in (ROOT / 'data/maps').glob('Virelia_*/map.json'):
+        entry = json.loads(path.read_text(encoding='utf8'))
+        items.update(event['item'] for event in entry['bg_events'] if event['type'] == 'hidden_item')
+    for name in ('virelia_first_gym.c', 'virelia_rainfall.c'):
+        items.update(re.findall(r'\bITEM_[A-Z0-9_]+\b', (ROOT / 'src' / name).read_text(encoding='utf8')))
+    if 'ITEM_HM_CUT' in items:
+        moves.add('MOVE_CUT')
     # Pickup grants Moon/Sun Stones at levels 11-20; include supported stone evolutions.
     pickup = (ROOT / 'src/battle_script_commands.c').read_text(encoding='utf-8')
     table = re.search(r'sPickupTable\[\]\s*=\s*\{(.*?)\n\};', pickup, re.S)[1]

@@ -397,9 +397,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     [MOVE_CUT] =
     {
         .name = COMPOUND_STRING("Cut"),
-        .description = COMPOUND_STRING(
-            "Cuts the foe with sharp\n"
-            "scythes, claws, etc."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Cuts the foe with sharp\nscythes, claws, etc.", "Zasáhne cíl ostrou\nčepelí nebo drápy.")),
         .effect = EFFECT_HIT,
         .power = 50,
         .type = TYPE_NORMAL,

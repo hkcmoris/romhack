@@ -3,7 +3,6 @@
   "name": "Virelia_Seabreak_Lighthouse",
   "layout": "LAYOUT_VIRELIA_SEABREAK_LIGHTHOUSE",
   "music": "MUS_MT_PYRE",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_VIRELIA_SEABREAK_TOWN",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -70,5 +69,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_Seabreak_Lighthouse_EventScript_Instructions"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }

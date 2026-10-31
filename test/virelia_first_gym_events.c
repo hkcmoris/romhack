@@ -2,6 +2,9 @@
 #include "battle_setup.h"
 #include "event_data.h"
 #include "item.h"
+#include "fieldmap.h"
+#include "overworld.h"
+#include "script.h"
 #include "pokemon.h"
 #include "test/test.h"
 #include "test/overworld_script.h"
@@ -10,6 +13,7 @@
 #include "constants/opponents.h"
 #include "constants/virelia_prologue.h"
 #include "constants/virelia_first_gym.h"
+#include "constants/map_scripts.h"
 
 #if !IS_FRLG && VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE
 
@@ -23,6 +27,79 @@ static void ResetChapterEvents(void)
     VarSet(VAR_VIRELIA_PROLOGUE_STATE, VIRELIA_STATE_COMPLETE);
     VarSet(VAR_VIRELIA_QUARRY_SWITCH, 0);
     VarSet(VAR_VIRELIA_GYM_SWITCH, 0);
+}
+
+TEST("Virelia compiled Cut delivery requires the first badge and retries a full TM pocket exactly once")
+{
+    ResetChapterEvents();
+    RUN_OVERWORLD_SCRIPT(call VireliaFirstGym_EventScript_AwardCut;);
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    FlagSet(FLAG_VIRELIA_BADGE_QUARRY);
+    RUN_OVERWORLD_SCRIPT(call VireliaFirstGym_EventScript_AwardCut;);
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    FlagSet(FLAG_VIRELIA_PROLOGUE_COMPLETE);
+    FlagClear(FLAG_VIRELIA_BADGE_QUARRY);
+    RUN_OVERWORLD_SCRIPT(call VireliaFirstGym_EventScript_AwardCut;);
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    FlagSet(FLAG_VIRELIA_BADGE_QUARRY);
+    struct BagPocket *pocket = &gBagPockets[POCKET_TM_HM];
+    for (u32 i = 0; i < pocket->capacity; i++)
+        BagPocket_SetSlotItemIdAndCount(pocket, i, ITEM_TM_PROTECT, MAX_BAG_ITEM_CAPACITY);
+    RUN_OVERWORLD_SCRIPT(call VireliaFirstGym_EventScript_AwardCut;);
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    EXPECT(!FlagGet(FLAG_VIRELIA_HM_CUT_RECEIVED));
+    EXPECT(!CheckBagHasItem(ITEM_HM_CUT, 1));
+    ClearBag();
+    RUN_OVERWORLD_SCRIPT(call VireliaFirstGym_EventScript_AwardCut;);
+    EXPECT_EQ(gSpecialVar_Result, TRUE);
+    EXPECT(FlagGet(FLAG_VIRELIA_HM_CUT_RECEIVED));
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_HM_CUT), 1);
+    RUN_OVERWORLD_SCRIPT(call VireliaFirstGym_EventScript_AwardCut;);
+    EXPECT_EQ(gSpecialVar_Result, FALSE);
+    EXPECT_EQ(CountTotalItemQuantityInBag(ITEM_HM_CUT), 1);
+    for (u32 flag = FLAG_BADGE01_GET; flag <= FLAG_BADGE08_GET; flag++)
+        EXPECT(!FlagGet(flag));
+}
+
+extern const u8 Virelia_SlatefordCity_EventScript_CutDelivery[];
+extern const u8 Virelia_SlatefordCity_EventScript_CutAide[];
+
+TEST("Virelia native city callback schedules the aide only at the gym exit after victory")
+{
+    u32 checkpoint = 0;
+    for (u32 i = 0; i < 5; i++)
+        PARAMETRIZE { checkpoint = i; }
+    ResetChapterEvents();
+    FlagSet(FLAG_VIRELIA_PROLOGUE_COMPLETE);
+    if (checkpoint >= 1)
+        FlagSet(FLAG_VIRELIA_BADGE_QUARRY);
+    if (checkpoint == 3)
+        VireliaFirstGym_AwardCut();
+    bool32 exit = checkpoint != 2;
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_CITY), MAP_NUM(MAP_VIRELIA_SLATEFORD_CITY),
+                       WARP_ID_NONE, exit ? 22 : 14, checkpoint == 4 ? 9 : exit ? 10 : 27);
+    WarpIntoMap();
+    LoadObjEventTemplatesFromHeader();
+    InitMap();
+    RunOnLoadMapScript();
+    bool32 delivery = checkpoint == 1 || checkpoint == 4;
+    bool32 waiting = checkpoint == 1 || checkpoint == 2 || checkpoint == 4;
+    EXPECT_EQ(VarGet(VAR_VIRELIA_CUT_DELIVERY), delivery);
+    EXPECT_EQ(FlagGet(FLAG_VIRELIA_HIDE_CUT_AIDE), !waiting);
+    const u8 *frameScript = MapHeaderCheckScriptTable(MAP_SCRIPT_ON_FRAME_TABLE);
+    EXPECT_EQ(frameScript, delivery ? Virelia_SlatefordCity_EventScript_CutDelivery : NULL);
+    const struct ObjectEventTemplate *aide = NULL;
+    for (u32 i = 0; i < gMapHeader.events->objectEventCount; i++)
+        if (gSaveBlock1Ptr->objectEventTemplates[i].script == Virelia_SlatefordCity_EventScript_CutAide)
+            aide = &gSaveBlock1Ptr->objectEventTemplates[i];
+    EXPECT_NE(aide, NULL);
+    EXPECT_EQ(aide->x, delivery ? 26 : 23);
+    EXPECT_EQ(aide->y, 10);
+    if (delivery)
+    {
+        VarSet(VAR_VIRELIA_CUT_DELIVERY, 0);
+        EXPECT_EQ(MapHeaderCheckScriptTable(MAP_SCRIPT_ON_FRAME_TABLE), NULL);
+    }
 }
 
 TEST("Virelia compiled chapter entry requires the completed prologue and never replays it")
