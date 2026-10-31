@@ -68,6 +68,51 @@ static void LoadRainfallMap(u32 map)
     RunOnLoadMapScript();
 }
 
+TEST("Rainfall chapter warps have native triggers and reciprocal destinations")
+{
+    static const u16 maps[] =
+    {
+        MAP_VIRELIA_SLATEFORD_CITY,
+        MAP_VIRELIA_RAINFALL_FOOTHILLS,
+        MAP_VIRELIA_RAINFALL_UPPER,
+        MAP_VIRELIA_RAINFALL_LOWER,
+        MAP_VIRELIA_RAINFALL_LOWLANDS,
+        MAP_VIRELIA_SEABREAK_TOWN,
+        MAP_VIRELIA_SEABREAK_POKEMON_CENTER,
+        MAP_VIRELIA_SEABREAK_LIGHTHOUSE,
+        MAP_VIRELIA_SEABREAK_LANTERN_ROOM,
+        MAP_VIRELIA_SEABREAK_KEEPERS_HOUSE,
+    };
+    u32 index = 0;
+    for (u32 i = 0; i < ARRAY_COUNT(maps); i++)
+        PARAMETRIZE_LABEL("map=%d", maps[i]) { index = i; }
+
+    ResetRainfall();
+    FlagSet(FLAG_VIRELIA_QUARRY_COMPLETE);
+    FlagSet(FLAG_VIRELIA_FIRST_GYM_COMPLETE);
+    LoadRainfallMap(maps[index]);
+    const struct MapEvents *events = gMapHeader.events;
+    for (u32 i = 0; i < events->warpCount; i++)
+    {
+        const struct WarpEvent *warp = &events->warps[i];
+        u8 behavior = MapGridGetMetatileBehaviorAt(warp->x + MAP_OFFSET, warp->y + MAP_OFFSET);
+        // A valid warp destination alone cannot trigger a transition from floor.
+        bool32 triggered = behavior == MB_ANIMATED_DOOR || behavior == MB_NON_ANIMATED_DOOR
+               || behavior == MB_LADDER || behavior == MB_NORTH_ARROW_WARP
+               || behavior == MB_SOUTH_ARROW_WARP || behavior == MB_EAST_ARROW_WARP
+               || behavior == MB_WEST_ARROW_WARP || behavior == MB_DEEP_SOUTH_WARP;
+        if (!triggered)
+            Test_MgbaPrintf("warp %d at (%d, %d): behavior %d, metatile %d", i, warp->x, warp->y,
+                            behavior, MapGridGetMetatileIdAt(warp->x + MAP_OFFSET, warp->y + MAP_OFFSET));
+        EXPECT(triggered);
+        const struct MapHeader *target = Overworld_GetMapHeaderByGroupAndId(warp->mapGroup, warp->mapNum);
+        EXPECT_LT(warp->warpId, target->events->warpCount);
+        const struct WarpEvent *arrival = &target->events->warps[warp->warpId];
+        EXPECT_EQ(arrival->mapGroup, MAP_GROUP(maps[index]));
+        EXPECT_EQ(arrival->mapNum, MAP_NUM(maps[index]));
+    }
+}
+
 TEST("Rainfall compiled chapter entry requires Mara and preserves earlier progression")
 {
     ResetRainfall();
