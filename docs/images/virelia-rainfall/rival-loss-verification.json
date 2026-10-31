@@ -1,0 +1,129 @@
+{
+  "status": "PASS",
+  "game_source_commit": "206a9409699ea2a6ead9abcff8cffa65a2e3b98a",
+  "rom_sha256": "2247b753f89bd25edca86ef20de1da5b8763e8401587ba09eafab422c1ae9e4f",
+  "core_sha256": "5cac11c643d7f8dfa50c68855f2f2240ff7cc0b4cd0312dd9e17a639c85667e4",
+  "fixture": "Fresh core from baseline ordinary FLASH. Prior story flags reconstructed; native warp first visited Slateford Center to set the normal respawn, then placed the player next to the Lowlands rival. Rival victory bits cleared. No party, HP, battle-outcome or battle-state writes.",
+  "prior_seeded_flags": [
+    "0x23",
+    "0x24",
+    "0x25",
+    "0x33",
+    "0x34",
+    "0x35",
+    "0x36",
+    "0x37",
+    "0x38",
+    "0x40",
+    "0x41",
+    "0x42",
+    "0x43",
+    "0x44",
+    "0x48",
+    "0x49",
+    "0x85a",
+    "0x85b",
+    "0x85c"
+  ],
+  "prior_variable": "0x4083=5",
+  "cleared_flags": [
+    "0x265",
+    "0x27C"
+  ],
+  "player_starter": "Natu5, original water choice1",
+  "expected_rival": "Viktorie, opposite the male player",
+  "actual_trainer_id": 879,
+  "actual_party": [
+    {
+      "nickname": "Wingull",
+      "level": 17,
+      "species_id": 278
+    },
+    {
+      "nickname": "Geodude",
+      "level": 18,
+      "species_id": 74
+    },
+    {
+      "nickname": "Mightyena",
+      "level": 19,
+      "species_id": 1574
+    }
+  ],
+  "early_rival_mode": false,
+  "input": "Ordinary A-button dialogue/battle selections; no forced battle result",
+  "hp_events": [
+    {
+      "step": 0,
+      "hp": 20,
+      "outcome": 0,
+      "in_battle": true
+    },
+    {
+      "step": 10,
+      "hp": 0,
+      "outcome": 0,
+      "in_battle": true
+    },
+    {
+      "step": 13,
+      "hp": 0,
+      "outcome": 2,
+      "in_battle": true
+    },
+    {
+      "step": 19,
+      "hp": 20,
+      "outcome": 2,
+      "in_battle": false
+    }
+  ],
+  "whiteout": {
+    "group": 76,
+    "num": 2,
+    "x": 7,
+    "y": 4
+  },
+  "whiteout_player_hp": 20,
+  "whiteout_callback": "CB2_Overworld",
+  "before_flags": {
+    "0x265": false,
+    "0x266": false,
+    "0x267": false,
+    "0x268": false,
+    "0x269": false,
+    "0x26a": false,
+    "0x26b": false,
+    "0x26c": false,
+    "0x26d": false,
+    "0x26e": false,
+    "0x26f": false,
+    "0x27c": false
+  },
+  "after_flags": {
+    "0x265": false,
+    "0x266": false,
+    "0x267": false,
+    "0x268": false,
+    "0x269": false,
+    "0x26a": false,
+    "0x26b": false,
+    "0x26c": false,
+    "0x26d": false,
+    "0x26e": false,
+    "0x26f": false,
+    "0x27c": false
+  },
+  "retry": "Both victory flags remain false; the separate native event suite covers the retry path",
+  "free_control_after_whiteout": {
+    "steps": 1,
+    "map": "Virelia_Slateford_PokemonCenter",
+    "position": [
+      7,
+      5
+    ]
+  },
+  "battle_screenshot": "rival-challenge.png",
+  "battle_screenshot_sha256": "f168f35fb8fb9eb62f605753b102d79ea35d1d627a392f536fa1048dabdbdaf3",
+  "verified_visuals": "Opposite-gender RS May portrait; full Czech RIVAL VIKTORIE challenge fits the text window. Wingull17 HUD and Czech battle text rendered normally."
+}

@@ -1,0 +1,71 @@
+{
+  "dynamic_tiles": [
+    {
+      "map": "Virelia_SlatefordCity",
+      "x": 12,
+      "y": 2,
+      "flag": "FLAG_VIRELIA_FIRST_GYM_COMPLETE",
+      "open_block": 12289,
+      "closed_block": 1038
+    },
+    {
+      "map": "Virelia_RainfallLowlands",
+      "x": 15,
+      "y": 13,
+      "flag": "FLAG_VIRELIA_RAINFALL_RIVAL_COMPLETE",
+      "open_block": 12577,
+      "closed_block": 1038
+    }
+  ],
+  "completed_flags": [
+    "FLAG_VIRELIA_LOWER_SHORTCUT"
+  ],
+  "entry": [
+    "Virelia_RainfallFoothills",
+    14,
+    25
+  ],
+  "exit": [
+    "Virelia_SeabreakTown",
+    14,
+    2
+  ],
+  "branches": {
+    "upper": "Virelia_RainfallUpper",
+    "lower": "Virelia_RainfallLower"
+  },
+  "shortcut": {
+    "flag": "FLAG_VIRELIA_LOWER_SHORTCUT",
+    "lower": [
+      "Virelia_RainfallLower",
+      18,
+      20
+    ],
+    "lower_destination": [
+      "Virelia_RainfallLower",
+      17,
+      20
+    ],
+    "foothills": [
+      "Virelia_RainfallFoothills",
+      26,
+      23
+    ],
+    "foothills_destination": [
+      "Virelia_RainfallFoothills",
+      25,
+      23
+    ]
+  },
+  "center_anchor": [
+    8,
+    14
+  ],
+  "beacon": [
+    "Virelia_Seabreak_LanternRoom",
+    6,
+    2,
+    524,
+    525
+  ]
+}

@@ -17116,3 +17116,272 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Rock Tomb
 - Thunder Wave
 - Block
+
+/* Rainfall Pass. Authored moves avoid early sweeping coverage and held items. */
+=== TRAINER_VIRELIA_RAINFALL_HIKER ===
+Name: PAVEL
+Class: Hiker
+Pic: Hiker
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+Geodude
+Level: 16
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Rock Throw
+- Tackle
+- Defense Curl
+
+Makuhita
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Arm Thrust
+- Tackle
+- Focus Energy
+
+=== TRAINER_VIRELIA_RAINFALL_RANGER ===
+Name: IRENA
+Class: Pkmn Ranger
+Pic: Pokemon Ranger F
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+Oddish
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Absorb
+- Acid
+- Sweet Scent
+
+Yanma
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Quick Attack
+- Sonic Boom
+- Detect
+
+=== TRAINER_VIRELIA_RAINFALL_FISHERMAN ===
+Name: DUŠAN
+Class: Fisherman
+Pic: Fisherman
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+Poliwag
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Water Gun
+- Hypnosis
+- Pound
+
+Marill
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Water Gun
+- Tackle
+- Rain Dance
+
+=== TRAINER_VIRELIA_RAINFALL_WEATHER ===
+Name: MILAN
+Class: Youngster
+Pic: Youngster
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+Skiploom
+Level: 19
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Mega Drain
+- Tackle
+- Stun Spore
+
+Wingull
+Level: 20
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Water Pulse
+- Wing Attack
+- Growl
+
+=== TRAINER_VIRELIA_VIKTOR_RAINFALL_GRASS ===
+Name: VIKTOR
+Class: Rival
+Pic: RS Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+Taillow
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Wing Attack
+- Quick Attack
+- Focus Energy
+
+Lombre
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Mega Drain
+- Bubble
+- Fake Out
+
+SPECIES_ARBOK_VIRELIA
+Level: 19
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Ember
+- Acid Spray
+- Smokescreen
+- Will-O-Wisp
+
+=== TRAINER_VIRELIA_VIKTOR_RAINFALL_WATER ===
+Name: VIKTOR
+Class: Rival
+Pic: RS Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+Wingull
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Water Pulse
+- Wing Attack
+- Growl
+
+Geodude
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Rock Throw
+- Tackle
+- Defense Curl
+
+SPECIES_MIGHTYENA_VIRELIA
+Level: 19
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Razor Leaf
+- Shadow Sneak
+- Growl
+- Leech Seed
+
+=== TRAINER_VIRELIA_VIKTOR_RAINFALL_FIRE ===
+Name: VIKTOR
+Class: Rival
+Pic: RS Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move
+
+Hoppip
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Absorb
+- Tackle
+- Stun Spore
+
+Aron
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Metal Claw
+- Tackle
+- Harden
+
+SPECIES_XATU_VIRELIA
+Level: 19
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Water Pulse
+- Psybeam
+- Growl
+- Rain Dance
+
+=== TRAINER_VIRELIA_VIKTORIE_RAINFALL_GRASS ===
+Name: VIKTORIE
+Class: Rival
+Pic: RS May
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+Taillow
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Wing Attack
+- Quick Attack
+- Focus Energy
+
+Lombre
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Mega Drain
+- Bubble
+- Fake Out
+
+SPECIES_ARBOK_VIRELIA
+Level: 19
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Ember
+- Acid Spray
+- Smokescreen
+- Will-O-Wisp
+
+=== TRAINER_VIRELIA_VIKTORIE_RAINFALL_WATER ===
+Name: VIKTORIE
+Class: Rival
+Pic: RS May
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+Wingull
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Water Pulse
+- Wing Attack
+- Growl
+
+Geodude
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Rock Throw
+- Tackle
+- Defense Curl
+
+SPECIES_MIGHTYENA_VIRELIA
+Level: 19
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Razor Leaf
+- Shadow Sneak
+- Growl
+- Leech Seed
+
+=== TRAINER_VIRELIA_VIKTORIE_RAINFALL_FIRE ===
+Name: VIKTORIE
+Class: Rival
+Pic: RS May
+Gender: Female
+Music: Female
+AI: Check Bad Move
+
+Hoppip
+Level: 17
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Absorb
+- Tackle
+- Stun Spore
+
+Aron
+Level: 18
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Metal Claw
+- Tackle
+- Harden
+
+SPECIES_XATU_VIRELIA
+Level: 19
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Water Pulse
+- Psybeam
+- Growl
+- Rain Dance

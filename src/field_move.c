@@ -8,6 +8,9 @@
 #include "constants/field_move.h"
 #include "constants/moves.h"
 #include "constants/party_menu.h"
+#include "constants/virelia_first_gym.h"
+#include "constants/virelia_prologue.h"
+#include "constants/region_map_sections.h"
 
 static bool32 IsAlwaysFalse(enum FieldMove fieldMove)
 {
@@ -21,6 +24,14 @@ static bool32 IsAlwaysTrue(enum FieldMove fieldMove)
 
 static bool32 HasBadgeForFieldMove(enum FieldMove fieldMove)
 {
+#if VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE && !IS_FRLG
+    // The Virelia campaign has its own badge progression. Other field moves
+    // retain their existing requirements until their chapters unlock them.
+    if (fieldMove == FIELD_MOVE_CUT
+        && gMapHeader.regionMapSectionId >= MAPSEC_VIRELIA_MAPLEBROOK_TOWN
+        && gMapHeader.regionMapSectionId <= MAPSEC_VIRELIA_SEABREAK_TOWN)
+        return FlagGet(FLAG_VIRELIA_BADGE_QUARRY);
+#endif
     return FlagGet(gFieldMoveInfo[fieldMove].arg + FLAG_BADGE01_GET);
 }
 

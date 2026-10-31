@@ -6,6 +6,17 @@ makes the original development gateway an explicit build configuration. This
 document records the original map foundation; use the prologue document for
 current progression and playtesting instructions.
 
+## Chapter 2 continuation
+
+[Rainfall Pass and Seabreak v0.4](VIRELIA_RAINFALL_SEABREAK.md) continues after
+Mara using the existing first-Gym completion flag. The northern Slateford
+passage leads to two separate mountain/wetland paths, their lowlands confluence,
+and the coastal town. New maps append as overworld 75,4–8 and interiors 76,8–11;
+layouts 798–806 and sections 212–213 preserve every older ID. Conventional warps
+separate the new outdoor tilesets from the existing seamless woodland maps.
+The earlier foundation description below remains historical; the chapter guide
+records the current services, geography, save allocations and verification.
+
 ## Scope and baseline
 
 This milestone adds four explorable Virelia maps to the Emerald build based on

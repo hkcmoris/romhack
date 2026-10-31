@@ -1,5 +1,23 @@
 # Pokémon Virelia — My Boy! compatibility investigation
 
+## Current compatibility baseline — supersedes the investigation status below
+
+The successful fix is commit `debddae9eec8b7f9c88d0e77ce3da605cfba3a04`
+("Avoid GCC UDF traps that corrupt My Boy JIT", 2026-10-22), retained in the
+Chapter 2 baseline `492267dadc0f9b54322a39038c479d717eba958a`. It adds
+`-fno-isolate-erroneous-paths-dereference` to both ordinary compilation and
+release LTO code generation. Keep both flags. Ordinary builds keep
+`MYBOY_DIAGNOSTIC_MODE=0`; the diagnostic-only variants below are historical
+investigation tools, not the playable baseline.
+
+The fix commit records zero ARM/Thumb UDF instructions in mapped code ranges
+of the clean release ELF, a passing fresh-game starter-preview sequence in the
+original My Boy! 1.8.0 ARM core, and the user's successful Galaxy A26 / Android 16 /
+My Boy! 1.8.0 check: all three starters inspected, Ekans selected, first battle
+reached, with no new crash or ANR recorded. The original Galaxy J6 remains
+unverified. This evidence covers that tested sequence; Chapter 2 still requires
+its own Android playthrough. The investigation record below preserves the
+earlier failures and must not be read as the current fix status.
 ## Status and first experiment
 
 My Boy! compatibility remains a requirement, including its future Wi-Fi Link

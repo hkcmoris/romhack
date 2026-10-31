@@ -1,0 +1,247 @@
+{
+  "schema": 1,
+  "date": "2026-10-27",
+  "timezone": "Europe/Prague",
+  "status": "PASS",
+  "scope": "Visual composition and controller traversal after the stock-art map pass; independent of the earlier full-story verification ledger.",
+  "game_source_commit": "32ec933fd004443edda74319d628fe9a44e2d67e",
+  "rom_sha256": "961cd651fec63f3bce2d4e00a8d907c97ba5e6bf533654b9e08b0a7e231fee01",
+  "symbols_sha256": "315464c38abe068713e8e6663b9183c8daf8aea7609aba67d4366fd9b7cbbee6",
+  "core": {
+    "library_name": "mGBA",
+    "library_version": "0.11-212-7a12d6d",
+    "sha256": "5cac11c643d7f8dfa50c68855f2f2240ff7cc0b4cd0312dd9e17a639c85667e4"
+  },
+  "resolution": [
+    240,
+    160
+  ],
+  "method": "Fresh native libretro mGBA core cold-booted from ordinary baseline FLASH; all subsequent movement and doors used controller input. No savestates loaded and no live terrain, player position or sprite-visibility values modified.",
+  "fixture": {
+    "baseline_flash_sha256": "86721971729ce4d31c09f2f5fdc6dc37dab722b54b0bb5941a1ef43cf1088922",
+    "baseline_creation": "The existing minimal first-Gym fixture was created with native starter gifting plus seeded prior-story prerequisites and Slateford position, then saved through the ordinary game menu; its cached northern trees predate the new exit.",
+    "seeded_flags": [
+      "0x264 chapter started",
+      "0x265 rival victory",
+      "0x278-0x27C trainer victories"
+    ],
+    "seeded_variable": "0x4021 Repel step count = 9999",
+    "purpose": "Skip battles during visual traversal. This run does not independently prove rival battle, reward, puzzle or story progression."
+  },
+  "controller_checks": {
+    "baseline_FLASH_Continue_and_cached_Slateford_exit": "PASS",
+    "upper_route_and_river_crossing": "PASS",
+    "lower_route_and_river_crossing": "PASS",
+    "both_route_reciprocal_backtracking": "PASS",
+    "eastbound_Foothills_portal": "PASS, approached from x27,y18 by walking right",
+    "bridges": [
+      {
+        "map": "Virelia_RainfallUpper",
+        "all_deck_and_endcap_cells": 18,
+        "both_rows_both_directions": true
+      },
+      {
+        "map": "Virelia_RainfallLower",
+        "all_deck_and_endcap_cells": 18,
+        "both_rows_both_directions": true
+      }
+    ],
+    "center_door_entry_and_return": "PASS",
+    "keepers_house_door_entry_and_return": "PASS",
+    "lighthouse_door_entry_and_return": "PASS",
+    "harbor_walkway_and_both_coastal_clue_approaches": "PASS"
+  },
+  "visual_review": {
+    "reviewed_native_screenshots": 25,
+    "forest": "Complete native crowns and exposed tree edges; clear paths beside forests and cliffs.",
+    "water": "Native river and waterfall visible from the trail; shoreline and rock joins coherent at the reviewed viewpoints.",
+    "bridges": "Player and Natu visibly rendered above the deck on both rows in both directions on both bridges.",
+    "town": "Center and keeper doors align with working entrances; harbor and lighthouse headland are reachable with visible coast edges.",
+    "weather": "Rain and downpour remain animated. Existing lightning briefly brightens two captured frames; ordinary frames before and after use the expected palette.",
+    "placeholder": "Existing lighthouse artwork remains a documented placeholder; no new pixel art was drawn."
+  },
+  "bridge_actor_checkpoints": [
+    {
+      "map": "Virelia_RainfallUpper",
+      "player": [
+        15,
+        18
+      ],
+      "natu": [
+        14,
+        18
+      ],
+      "actor_hidden_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "map": "Virelia_RainfallUpper",
+      "player": [
+        15,
+        18
+      ],
+      "natu": [
+        16,
+        18
+      ],
+      "actor_hidden_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "map": "Virelia_RainfallUpper",
+      "player": [
+        15,
+        19
+      ],
+      "natu": [
+        14,
+        19
+      ],
+      "actor_hidden_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "map": "Virelia_RainfallUpper",
+      "player": [
+        15,
+        19
+      ],
+      "natu": [
+        16,
+        19
+      ],
+      "actor_hidden_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "map": "Virelia_RainfallLower",
+      "player": [
+        23,
+        20
+      ],
+      "natu": [
+        22,
+        20
+      ],
+      "actor_hidden_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "map": "Virelia_RainfallLower",
+      "player": [
+        23,
+        20
+      ],
+      "natu": [
+        24,
+        20
+      ],
+      "actor_hidden_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "map": "Virelia_RainfallLower",
+      "player": [
+        23,
+        21
+      ],
+      "natu": [
+        22,
+        21
+      ],
+      "actor_hidden_flags": [
+        false,
+        false
+      ]
+    },
+    {
+      "map": "Virelia_RainfallLower",
+      "player": [
+        23,
+        21
+      ],
+      "natu": [
+        24,
+        21
+      ],
+      "actor_hidden_flags": [
+        false,
+        false
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs/images/virelia-rainfall/art-native-foothills-stairs.png",
+      "sha256": "bc852e85426766b78d72b234a485071db345b7d407b924f31964220b479f2d0d",
+      "map": "Virelia_RainfallFoothills",
+      "position": [
+        8,
+        9
+      ]
+    },
+    {
+      "file": "docs/images/virelia-rainfall/art-native-upper-waterfall.png",
+      "sha256": "40915e3f1c9f4e4d3b136cdc6755d13825b11dee61c63e94133276f8a7c3ebca",
+      "map": "Virelia_RainfallUpper",
+      "position": [
+        8,
+        10
+      ]
+    },
+    {
+      "file": "docs/images/virelia-rainfall/art-native-upper-bridge.png",
+      "sha256": "6f4a186e05ba205a71e05c6baf45a19ff14c311b4006302d3d537b617e1b4fcd",
+      "map": "Virelia_RainfallUpper",
+      "position": [
+        15,
+        19
+      ]
+    },
+    {
+      "file": "docs/images/virelia-rainfall/art-native-lower-bridge.png",
+      "sha256": "56ee255b4bce6db4cf74cce5900a86205cb6bb295d8fc8e2b851085e0633520a",
+      "map": "Virelia_RainfallLower",
+      "position": [
+        23,
+        21
+      ]
+    },
+    {
+      "file": "docs/images/virelia-rainfall/art-native-seabreak-center.png",
+      "sha256": "2513cca4313afb923ae9659106dceaa3bf572e7c8d22364cf6ad21c1d4371f2f",
+      "map": "Virelia_SeabreakTown",
+      "position": [
+        8,
+        14
+      ]
+    },
+    {
+      "file": "docs/images/virelia-rainfall/art-native-seabreak-headland.png",
+      "sha256": "2e214b4d733e32a89e4b890e5eff5151d8e6ed49dbf4c66a107b26112d2fd909",
+      "map": "Virelia_SeabreakTown",
+      "position": [
+        37,
+        32
+      ]
+    }
+  ],
+  "limitations": [
+    "This is focused visual/controller verification, not a repeated end-to-end story or battle playthrough.",
+    "The earlier full-story, save, services and quest ledger remains separate and unchanged.",
+    "Playtime and emulator frame performance were not measured.",
+    "Android/My Boy verification of this chapter remains NOT RUN."
+  ]
+}

@@ -10,6 +10,8 @@
 #include "constants/vars.h"
 #include "constants/virelia_prologue.h"
 #include "constants/virelia_first_gym.h"
+#include "constants/virelia_maplebrook.h"
+#include "constants/virelia_rainfall.h"
 #include "constants/weather.h"
 #include "constants/trainer_hill.h"
 #include "constants/trainer_types.h"

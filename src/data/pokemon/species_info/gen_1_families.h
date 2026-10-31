@@ -4319,14 +4319,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Sandslash"),
         .cryId = CRY_SANDSLASH,
         .natDexNum = NATIONAL_DEX_SANDSLASH,
-        .categoryName = _("Mouse"),
+        .categoryName = _(LOCALIZED_TEXT("Mouse", "Myš")),
         .height = 10,
         .weight = 295,
-        .description = COMPOUND_STRING(
-            "It curls up in a ball to protect itself from\n"
-            "enemy attacks. It also curls up to prevent\n"
-            "heatstroke during the daytime when\n"
-            "temperatures rise sharply."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It curls up in a ball to protect itself from\nenemy attacks. It also curls up to prevent\nheatstroke during the daytime when\ntemperatures rise sharply.", "Při nebezpečí se stočí do ostnaté\nkoule. Tvrdé drápy používá k rychlému\nhloubení úkrytu.")),
         .pokemonScale = 341,
         .pokemonOffset = 11,
         .trainerScale = 256,
@@ -5923,14 +5919,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Golbat"),
         .cryId = CRY_GOLBAT,
         .natDexNum = NATIONAL_DEX_GOLBAT,
-        .categoryName = _("Bat"),
+        .categoryName = _(LOCALIZED_TEXT("Bat", "Netopýr")),
         .height = 16,
         .weight = 550,
-        .description = COMPOUND_STRING(
-            "Its fangs easily puncture even thick\n"
-            "animal hide. It loves to feast on the blood\n"
-            "of people and Pokémon. It flits about in\n"
-            "darkness and strikes from behind."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Its fangs easily puncture even thick\nanimal hide. It loves to feast on the blood\nof people and Pokémon. It flits about in\ndarkness and strikes from behind.", "Pohybuje se za tmy a vyhledává krev.\nOstrými zuby dokáže proniknout i\ntvrdou kůží.")),
         .pokemonScale = 256,
         .pokemonOffset = 1,
         .trainerScale = 256,
@@ -6030,14 +6022,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Crobat"),
         .cryId = CRY_CROBAT,
         .natDexNum = NATIONAL_DEX_CROBAT,
-        .categoryName = _("Bat"),
+        .categoryName = _(LOCALIZED_TEXT("Bat", "Netopýr")),
         .height = 18,
         .weight = 750,
-        .description = COMPOUND_STRING(
-            "Over the course of evolution, its hind legs\n"
-            "turned into wings. By alternately resting\n"
-            "its front and rear wings, it can fly all day\n"
-            "without having to stop."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Over the course of evolution, its hind legs\nturned into wings. By alternately resting\nits front and rear wings, it can fly all day\nwithout having to stop.", "Dvěma páry křídel létá tiše a vytrvale.\nDokáže se přiblížit ke kořisti zcela\nnepozorovaně.")),
         .pokemonScale = 256,
         .pokemonOffset = 0,
         .trainerScale = 281,
@@ -6116,14 +6104,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Oddish"),
         .cryId = CRY_ODDISH,
         .natDexNum = NATIONAL_DEX_ODDISH,
-        .categoryName = _("Weed"),
+        .categoryName = _(LOCALIZED_TEXT("Weed", "Plevel")),
         .height = 5,
         .weight = 54,
-        .description = COMPOUND_STRING(
-            "This Pokémon grows by absorbing moonlight.\n"
-            "During the daytime, it buries itself in the\n"
-            "ground, leaving only its leaves exposed to\n"
-            "avoid detection by its enemies."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("This Pokémon grows by absorbing moonlight.\nDuring the daytime, it buries itself in the\nground, leaving only its leaves exposed to\navoid detection by its enemies.", "Přes den se ukrývá v zemi a vstřebává\nživiny. V noci ožívá a vydává se hledat\núrodnou půdu.")),
         .pokemonScale = 423,
         .pokemonOffset = 19,
         .trainerScale = 256,
@@ -6191,14 +6175,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Gloom"),
         .cryId = CRY_GLOOM,
         .natDexNum = NATIONAL_DEX_GLOOM,
-        .categoryName = _("Weed"),
+        .categoryName = _(LOCALIZED_TEXT("Weed", "Plevel")),
         .height = 8,
         .weight = 86,
-        .description = COMPOUND_STRING(
-            "A horribly noxious honey drools from its\n"
-            "mouth. One whiff of the honey can result\n"
-            "in memory loss. Some fans are said to\n"
-            "enjoy this overwhelming stink, however."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("A horribly noxious honey drools from its\nmouth. One whiff of the honey can result\nin memory loss. Some fans are said to\nenjoy this overwhelming stink, however.", "Z tlamy mu odkapává sladký nektar. Jeho\nsilný pach dovede zahnat i zkušeného\ntrenéra.")),
         .pokemonScale = 329,
         .pokemonOffset = 13,
         .trainerScale = 256,
@@ -6375,14 +6355,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Bellossom"),
         .cryId = CRY_BELLOSSOM,
         .natDexNum = NATIONAL_DEX_BELLOSSOM,
-        .categoryName = _("Flower"),
+        .categoryName = _(LOCALIZED_TEXT("Flower", "Květina")),
         .height = 4,
         .weight = 58,
-        .description = COMPOUND_STRING(
-            "Its flower petals deepen in color through\n"
-            "exposure to sunlight. When cloudy weather\n"
-            "persists, it does a dance that is thought\n"
-            "to be a ritual for summoning the sun."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Its flower petals deepen in color through\nexposure to sunlight. When cloudy weather\npersists, it does a dance that is thought\nto be a ritual for summoning the sun.", "Za slunečných dnů tančí v kruhu. Jeho\nokvětní lístky při pohybu jemně zvoní.")),
         .pokemonScale = 472,
         .pokemonOffset = 21,
         .trainerScale = 256,
@@ -6550,14 +6526,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Parasect"),
         .cryId = CRY_PARASECT,
         .natDexNum = NATIONAL_DEX_PARASECT,
-        .categoryName = _("Mushroom"),
+        .categoryName = _(LOCALIZED_TEXT("Mushroom", "Houba")),
         .height = 10,
         .weight = 295,
-        .description = COMPOUND_STRING(
-            "Parasect are known to infest the roots of\n"
-            "large trees en masse and drain nutrients.\n"
-            "When an infested tree dies, they move\n"
-            "onto another tree all at once."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Parasect are known to infest the roots of\nlarge trees en masse and drain nutrients.\nWhen an infested tree dies, they move\nonto another tree all at once.", "Velká houba ovládla jeho tělo. Nejlépe\nse mu daří na vlhkých místech bez\npřímého slunce.")),
         .pokemonScale = 307,
         .pokemonOffset = 8,
         .trainerScale = 256,
@@ -8247,14 +8219,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .speciesName = _("Poliwag"),
         .cryId = CRY_POLIWAG,
         .natDexNum = NATIONAL_DEX_POLIWAG,
-        .categoryName = _("Tadpole"),
+        .categoryName = _(LOCALIZED_TEXT("Tadpole", "Pulec")),
         .height = 6,
         .weight = 124,
-        .description = COMPOUND_STRING(
-            "It is possible to see this Pokémon's spiral\n"
-            "innards right through its thin skin.\n"
-            "However, the skin is also very flexible.\n"
-            "Even sharp fangs bounce right off it."),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("It is possible to see this Pokémon's spiral\ninnards right through its thin skin.\nHowever, the skin is also very flexible.\nEven sharp fangs bounce right off it.", "Tenkou kůží prosvítá spirála útrob.\nNové nohy mu ještě nejsou jisté, proto\nraději plave.")),
         .pokemonScale = 369,
         .pokemonOffset = 20,
         .trainerScale = 256,

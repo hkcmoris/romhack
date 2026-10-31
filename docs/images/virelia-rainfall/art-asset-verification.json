@@ -1,0 +1,32 @@
+{
+  "source_commit": "32ec933fd004443edda74319d628fe9a44e2d67e",
+  "new_pixel_drawing": false,
+  "stock_sources": [
+    "Emerald General",
+    "Emerald Fortree",
+    "Emerald Dewford",
+    "Emerald Slateport"
+  ],
+  "old_lighthouse_placeholder_retained": true,
+  "coast_referenced_secondary_tiles": 200,
+  "unknown_coast_graphics_tiles": [],
+  "chapter_regeneration_checked_files": 94,
+  "chapter_regeneration_exact_identical": 94,
+  "map_json_or_event_coordinates_changed": false,
+  "files": {
+    "data/layouts/Virelia_RainfallFoothills/border.bin": "498b3691aaf93d939f5ef07b600ef5e1b3d2a5f4cd600b00bc4bc8844f581ebc",
+    "data/layouts/Virelia_RainfallFoothills/map.bin": "961073b8b666793ca1817b9f420ea6f547329e1c8ae6ca10841ebfdfc6678442",
+    "data/layouts/Virelia_RainfallLower/border.bin": "498b3691aaf93d939f5ef07b600ef5e1b3d2a5f4cd600b00bc4bc8844f581ebc",
+    "data/layouts/Virelia_RainfallLower/map.bin": "6ded46afe33c4cac85457409579daf8a0e67f7774adc63b679e90d8e9f102cee",
+    "data/layouts/Virelia_RainfallLowlands/border.bin": "498b3691aaf93d939f5ef07b600ef5e1b3d2a5f4cd600b00bc4bc8844f581ebc",
+    "data/layouts/Virelia_RainfallLowlands/map.bin": "eacc17ec71988ac417ac5253ee25e4feb3aeb61fa734900fef4c97f117b0db04",
+    "data/layouts/Virelia_RainfallUpper/border.bin": "ee050cbd8eac31b548f90b6ac73c5fdcb231894d0866a51cfd438ef3e839764f",
+    "data/layouts/Virelia_RainfallUpper/map.bin": "155d9f6e30465c8405062934f8458816a309f112af95be5cd18ac93bcfe518f8",
+    "data/layouts/Virelia_SeabreakTown/map.bin": "fb5e9c5d3dd0cdaa824c52348b99f769271ac67e194ceba30acfdef38351c9b3",
+    "data/tilesets/secondary/virelia_coast/metatile_attributes.bin": "4b06adede9e43e034e07fd1e4601cd2aa272d8a6c73f2472769d6c438330688e",
+    "data/tilesets/secondary/virelia_coast/metatiles.bin": "eab8c2f9e2c946e34491e84477199ecb204e717f866f4fbaf317790542a1f6aa",
+    "data/tilesets/secondary/virelia_coast/tiles.png": "eebc7d65f580533a9a7be8e80e8d33e3016362dc04df852febe87073a7365ea8",
+    "data/tilesets/secondary/virelia_rainfall/metatile_attributes.bin": "e28b8d20104a7b2a8157ef0f6128c8ea3a42b8bc2380c648c06413df43ab96c7",
+    "data/tilesets/secondary/virelia_rainfall/metatiles.bin": "dfd2cdfab46a1d5d900619d9c40a2def68eb20b335944badff6309e1beb34dcf"
+  }
+}

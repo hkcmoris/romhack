@@ -200,6 +200,69 @@ const u16 gTilesetPalettes_Fallarbor[][16] =
 
 const u32 gTilesetTiles_Whisperwood[] = INCGFX_U32("data/tilesets/secondary/whisperwood/tiles.png", ".4bpp.fastSmol", "-num_tiles 512 -Wnum_tiles");
 
+const u32 gTilesetTiles_VireliaRainfall[] = INCGFX_U32("data/tilesets/secondary/virelia_rainfall/tiles.png", ".4bpp.fastSmol", "-num_tiles 496 -Wnum_tiles");
+const u16 gTilesetPalettes_VireliaRainfall[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/12.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/13.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/14.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_rainfall/palettes/15.pal", ".gbapal"),
+};
+
+const u32 gTilesetTiles_VireliaCoast[] = INCGFX_U32("data/tilesets/secondary/virelia_coast/tiles.png", ".4bpp.fastSmol", "-num_tiles 512 -Wnum_tiles");
+const u16 gTilesetPalettes_VireliaCoast[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/12.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/13.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/14.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_coast/palettes/15.pal", ".gbapal"),
+};
+
+const u32 gTilesetTiles_VireliaLighthouse[] = INCGFX_U32("data/tilesets/secondary/virelia_lighthouse/tiles.png", ".4bpp.fastSmol", "-num_tiles 512 -Wnum_tiles");
+const u16 gTilesetPalettes_VireliaLighthouse[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/12.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/13.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/14.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/virelia_lighthouse/palettes/15.pal", ".gbapal"),
+};
+
 const u32 gTilesetTiles_VireliaOutdoor[] = INCGFX_U32("data/tilesets/secondary/virelia_outdoor/tiles.png", ".4bpp.fastSmol", "-num_tiles 512 -Wnum_tiles");
 
 const u16 gTilesetPalettes_VireliaOutdoor[][16] =

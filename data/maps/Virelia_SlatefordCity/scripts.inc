@@ -9,11 +9,20 @@ Virelia_SlatefordCity_MapScripts::
 @ derived from independent persistent flags and never reset the prologue.
 Virelia_SlatefordCity_FirstGymOnLoad:
 	callnative VireliaFirstGym_BeginChapter
+	callnative VireliaRainfall_BeginChapter
+	call Virelia_SlatefordCity_ConfigureRainfallGate
 	setmetatile 22, 9, 0x1C4, 1
 	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_MANAGER, 25, 18
 	call_if_set FLAG_VIRELIA_PROLOGUE_COMPLETE, Virelia_SlatefordCity_PositionManager
 	call_if_set FLAG_VIRELIA_QUARRY_COMPLETE, Virelia_SlatefordCity_OpenGym
+	callnative VireliaFirstGym_PrepareCutDelivery
+	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_CUT_AIDE, 23, 10
+	call_if_eq VAR_VIRELIA_CUT_DELIVERY, 1, Virelia_SlatefordCity_PositionCutAide
 	end
+
+Virelia_SlatefordCity_PositionCutAide:
+	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_CUT_AIDE, 26, 10
+	return
 
 Virelia_SlatefordCity_PositionManager:
 	setobjectxyperm LOCALID_VIRELIA_SLATEFORD_MANAGER, 24, 18
@@ -67,7 +76,100 @@ Virelia_SlatefordCity_EventScript_ManagerAfter:
 
 Virelia_SlatefordCity_OnFrame:
 	map_script_2 VAR_VIRELIA_PROLOGUE_STATE, VIRELIA_STATE_ROCKET, Virelia_SlatefordCity_EventScript_ResolveRocket
+	map_script_2 VAR_VIRELIA_CUT_DELIVERY, 1, Virelia_SlatefordCity_EventScript_CutDelivery
 	.2byte 0
+
+Virelia_SlatefordCity_EventScript_CutDelivery::
+	setvar VAR_VIRELIA_CUT_DELIVERY, 0
+	lockall
+	hidefollower
+	applymovement LOCALID_VIRELIA_SLATEFORD_CUT_AIDE, Virelia_SlatefordCity_Movement_CutAideApproach
+	waitmovement LOCALID_VIRELIA_SLATEFORD_CUT_AIDE
+	copyobjectxytoperm LOCALID_VIRELIA_SLATEFORD_CUT_AIDE
+	playse SE_WALL_HIT
+	turnobject LOCALID_PLAYER, DIR_EAST
+	call Virelia_SlatefordCity_EventScript_GiveCut
+	goto_if_unset FLAG_VIRELIA_HM_CUT_RECEIVED, Virelia_SlatefordCity_EventScript_CutDeliveryDone
+	applymovement LOCALID_VIRELIA_SLATEFORD_CUT_AIDE, Virelia_SlatefordCity_Movement_CutAideLeave
+	waitmovement LOCALID_VIRELIA_SLATEFORD_CUT_AIDE
+	removeobject LOCALID_VIRELIA_SLATEFORD_CUT_AIDE
+Virelia_SlatefordCity_EventScript_CutDeliveryDone:
+	releaseall
+	end
+
+Virelia_SlatefordCity_EventScript_CutAide::
+	lock
+	faceplayer
+	call Virelia_SlatefordCity_EventScript_GiveCut
+	call_if_set FLAG_VIRELIA_HM_CUT_RECEIVED, Virelia_SlatefordCity_HideCutAide
+	release
+	end
+
+Virelia_SlatefordCity_HideCutAide:
+	removeobject LOCALID_VIRELIA_SLATEFORD_CUT_AIDE
+	return
+
+Virelia_SlatefordCity_EventScript_GiveCut:
+	msgbox Virelia_SlatefordCity_Text_CutAide, MSGBOX_DEFAULT
+	call VireliaFirstGym_EventScript_AwardCut
+	goto_if_eq VAR_RESULT, FALSE, Virelia_SlatefordCity_CutBagFull
+	playfanfare MUS_OBTAIN_TMHM
+	msgbox Virelia_SlatefordCity_Text_ReceivedCut, MSGBOX_DEFAULT
+	waitfanfare
+	msgbox Virelia_SlatefordCity_Text_CutInstructions, MSGBOX_DEFAULT
+	setflag FLAG_VIRELIA_HIDE_CUT_AIDE
+	return
+
+Virelia_SlatefordCity_CutBagFull:
+	msgbox Virelia_SlatefordCity_Text_CutBagFull, MSGBOX_DEFAULT
+	return
+
+VireliaFirstGym_EventScript_AwardCut::
+	callnative VireliaFirstGym_AwardCut
+	return
+
+Virelia_SlatefordCity_Movement_CutAideApproach:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	face_left
+	step_end
+
+Virelia_SlatefordCity_Movement_CutAideLeave:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+Virelia_SlatefordCity_Text_CutAide:
+	.string "ASISTENT: Jé, promiň ten náraz!\n"
+	.string "Běžím od profesorky Javorové.\p"
+	.string "Prý už máš první odznak.\n"
+	.string "Posílá ti HM01 s tahem Cut.$"
+
+Virelia_SlatefordCity_Text_ReceivedCut:
+	.string "Získáváš HM01: Cut!\n"
+	.string "HM ukládáš do batohu.$"
+
+Virelia_SlatefordCity_Text_CutInstructions:
+	.string "ASISTENT: Nauč Cut Pokémona,\n"
+	.string "který ho zvládne, třeba Parase.\p"
+	.string "S Lomovým odznakem pak můžeš\n"
+	.string "odstranit malé stromky v cestě.\p"
+	.string "I v Maplebrooku jsou pěšiny,\n"
+	.string "kam se dřív nedalo projít.$"
+
+Virelia_SlatefordCity_Text_CutBagFull:
+	.string "ASISTENT: Na HM už nemáš místo.\n"
+	.string "Uvolni ho. Počkám tady u stadionu.$"
 
 Virelia_SlatefordCity_EventScript_Miner::
 	lock
@@ -443,3 +545,36 @@ Virelia_SlatefordCity_Text_ManagerAfter:
 	.string "Mara tě čeká na stadionu.\p"
 	.string "Pořádný souboj je bezpečnější\n"
 	.string "než nepořádná elektroinstalace.$"
+
+Virelia_SlatefordCity_ConfigureRainfallGate:
+	@ Continue can restore the previous map view over newly authored terrain.
+	@ Rebuild this current-build exit footprint before applying its badge gate.
+	setmetatile 11, 0, 0x079, 1
+	setmetatile 13, 0, 0x079, 1
+	setmetatile 11, 1, 0x079, 1
+	setmetatile 13, 1, 0x079, 1
+	setmetatile 12, 0, 0x09F, 1
+	setmetatile 12, 1, 0x0A7, 0
+	setmetatile 11, 2, 0x00E, 1
+	setmetatile 13, 2, 0x00E, 1
+	setmetatile 12, 3, 0x001, 0
+	goto_if_set FLAG_VIRELIA_FIRST_GYM_COMPLETE, Virelia_SlatefordCity_OpenRainfallGate
+	setmetatile 12, 2, 0x00E, 1
+	return
+Virelia_SlatefordCity_OpenRainfallGate:
+	setmetatile 12, 2, 0x001, 0
+	return
+
+Virelia_SlatefordCity_EventScript_RainfallGate::
+	goto_if_set FLAG_VIRELIA_FIRST_GYM_COMPLETE, Virelia_SlatefordCity_RainfallGateOpen
+	msgbox Virelia_SlatefordCity_Text_RainfallGateClosed, MSGBOX_SIGN
+	end
+Virelia_SlatefordCity_RainfallGateOpen:
+	msgbox Virelia_SlatefordCity_Text_RainfallGateOpen, MSGBOX_SIGN
+	end
+Virelia_SlatefordCity_Text_RainfallGateClosed:
+	.string "Rainfall Pass uzavřen po deštích.\n"
+	.string "Mara posoudí připravenost trenérů.$"
+Virelia_SlatefordCity_Text_RainfallGateOpen:
+	.string "Rainfall Pass - směr Seabreak.\n"
+	.string "Cesta je znovu přístupná.$"

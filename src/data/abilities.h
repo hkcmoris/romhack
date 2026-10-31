@@ -12,8 +12,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_STENCH] =
     {
-        .name = _("Stench"),
-        .description = COMPOUND_STRING("Moves may cause flinching."),
+        .name = _(LOCALIZED_TEXT("Stench", "Zápach")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Moves may cause flinching.", "Útok může soupeře zastrašit.")),
         .aiRating = 1,
     },
 
@@ -26,8 +26,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SPEED_BOOST] =
     {
-        .name = _("Speed Boost"),
-        .description = COMPOUND_STRING("Speed raises every turn."),
+        .name = _(LOCALIZED_TEXT("Speed Boost", "Zrychlení")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Speed raises every turn.", "Po každém tahu zvýší rychlost.")),
         .aiRating = 9,
     },
 
@@ -162,8 +162,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_OWN_TEMPO] =
     {
-        .name = _("Own Tempo"),
-        .description = COMPOUND_STRING("Prevents confusion."),
+        .name = _(LOCALIZED_TEXT("Own Tempo", "Vlastní tempo")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Prevents confusion.", "Chrání před zmatením a schopností\nIntimidate.")),
         .aiRating = 3,
         .breakable = TRUE,
     },
@@ -302,8 +302,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_HUGE_POWER] =
     {
-        .name = _("Huge Power"),
-        .description = COMPOUND_STRING("Doubles Attack."),
+        .name = _(LOCALIZED_TEXT("Huge Power", "Obří síla")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Doubles Attack.", "Zdvojnásobuje útok Pokémona.")),
         .aiRating = 10,
     },
 
@@ -360,8 +360,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_RAIN_DISH] =
     {
-        .name = _("Rain Dish"),
-        .description = COMPOUND_STRING("Slight HP recovery in rain."),
+        .name = _(LOCALIZED_TEXT("Rain Dish", "Dešťová miska")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Slight HP recovery in rain.", "V dešti postupně obnovuje HP.")),
         .aiRating = 3,
     },
 
@@ -738,8 +738,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_HYDRATION] =
     {
-        .name = _("Hydration"),
-        .description = COMPOUND_STRING("Cures status in rain."),
+        .name = _(LOCALIZED_TEXT("Hydration", "Zavlažení")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Cures status in rain.", "V dešti léčí vlastní stavové problémy.")),
         .aiRating = 4,
     },
 
@@ -794,8 +794,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_TECHNICIAN] =
     {
-        .name = _("Technician"),
-        .description = COMPOUND_STRING("Powers up weak moves."),
+        .name = _(LOCALIZED_TEXT("Technician", "Technik")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Powers up weak moves.", "Zesiluje slabší útoky.")),
         .aiRating = 8,
     },
 
@@ -859,8 +859,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_TINTED_LENS] =
     {
-        .name = _("Tinted Lens"),
-        .description = COMPOUND_STRING("Ups “not very effective”."),
+        .name = _(LOCALIZED_TEXT("Tinted Lens", "Barevné čočky")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Ups “not very effective”.", "Zesiluje málo účinné útoky.")),
         .aiRating = 7,
     },
 
@@ -941,8 +941,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_FRISK] =
     {
-        .name = _("Frisk"),
-        .description = COMPOUND_STRING("Checks a foe's held item."),
+        .name = _(LOCALIZED_TEXT("Frisk", "Prohledání")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Checks a foe's held item.", "Při příchodu odhalí držené předměty\nsoupeřů.")),
         .aiRating = 3,
     },
 
@@ -1035,8 +1035,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_HEALER] =
     {
-        .name = _("Healer"),
-        .description = COMPOUND_STRING("May cure ally's status."),
+        .name = _(LOCALIZED_TEXT("Healer", "Léčitel")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("May cure ally's status.", "Může vyléčit stavový problém\nsousedního spojence.")),
         .aiRating = 0,
     },
 
@@ -1236,8 +1236,8 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
 
     [ABILITY_SAP_SIPPER] =
     {
-        .name = _("Sap Sipper"),
-        .description = COMPOUND_STRING("Ups Attack if hit by Grass."),
+        .name = _(LOCALIZED_TEXT("Sap Sipper", "Býložravec")),
+        .description = COMPOUND_STRING(LOCALIZED_TEXT("Ups Attack if hit by Grass.", "Travní útoky neškodí a zvyšují útok.")),
         .aiRating = 7,
         .breakable = TRUE,
     },

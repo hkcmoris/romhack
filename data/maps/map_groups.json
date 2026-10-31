@@ -1167,7 +1167,12 @@
     "Virelia_MaplebrookTown",
     "Virelia_Route01",
     "Virelia_SlatefordCity",
-    "Virelia_WhisperwoodSanctuary"
+    "Virelia_WhisperwoodSanctuary",
+    "Virelia_RainfallFoothills",
+    "Virelia_RainfallUpper",
+    "Virelia_RainfallLower",
+    "Virelia_RainfallLowlands",
+    "Virelia_SeabreakTown"
   ],
   "gMapGroup_VireliaInteriors": [
     "Virelia_MaplebrookResearchLaboratory",
@@ -1177,6 +1182,12 @@
     "Virelia_Slateford_QuarryDepths",
     "Virelia_Slateford_Gym",
     "Virelia_Slateford_QuarryGallery",
-    "Virelia_MaplebrookCottage"
+    "Virelia_MaplebrookCottage",
+    "Virelia_Seabreak_PokemonCenter",
+    "Virelia_Seabreak_Lighthouse",
+    "Virelia_Seabreak_LanternRoom",
+    "Virelia_Seabreak_KeepersHouse",
+    "Virelia_MaplebrookFishermansHouse",
+    "Virelia_MaplebrookEmasHouse"
   ]
 }

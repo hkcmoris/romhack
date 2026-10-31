@@ -5,7 +5,7 @@ import json
 ROOT = Path(__file__).resolve().parents[1]
 BASE_SPECIES = {'WURMPLE','ZIGZAGOON','POOCHYENA','SEEDOT','TAILLOW','SHROOMISH','RALTS','RATTATA','ZUBAT','POOCHYENA_VIRELIA','NATU_VIRELIA','EKANS_VIRELIA','GEODUDE','ROGGENROLA','SANDSHREW','MAKUHITA','ARON','NOSEPASS'}
 CHAPTER_MOVES = {'TACKLE','SAND_ATTACK','HARDEN','HEADBUTT','ROCK_THROW','MUD_SLAP','DEFENSE_CURL','METAL_CLAW','LOW_KICK','FOCUS_ENERGY','ROCK_TOMB','THUNDER_WAVE','BLOCK'}
-CHAPTER_ITEMS = {'POTION','SUPER_POTION','POKE_BALL','ANTIDOTE','PARALYZE_HEAL','ESCAPE_ROPE','REPEL','TM_ROCK_TOMB'}
+CHAPTER_ITEMS = {'POTION','SUPER_POTION','POKE_BALL','ANTIDOTE','PARALYZE_HEAL','ESCAPE_ROPE','REPEL','TM_ROCK_TOMB','GREAT_BALL','NET_BALL','MYSTIC_WATER'}
 def records():
     result = {}
     for path in sorted((ROOT / 'src/data/pokemon/species_info').glob('*_families.h')):
@@ -13,7 +13,7 @@ def records():
             result[match[1]] = (path.relative_to(ROOT).as_posix(), match[2])
     return result
 
-def derive_coverage(level_bound=20):
+def derive_coverage(level_bound=24):
     species_records = records()
     learnsets = {}
     for path in sorted((ROOT / 'src/data/pokemon/level_up_learnsets').glob('*.h')):
@@ -40,6 +40,13 @@ def derive_coverage(level_bound=20):
     scripts += list((ROOT / 'data/scripts').glob('virelia*.inc'))
     for path in scripts:
         items.update(re.findall(r'\bITEM_[A-Z0-9_]+\b', path.read_text(encoding='utf8')))
+    for path in (ROOT / 'data/maps').glob('Virelia_*/map.json'):
+        entry = json.loads(path.read_text(encoding='utf8'))
+        items.update(event['item'] for event in entry['bg_events'] if event['type'] == 'hidden_item')
+    for name in ('virelia_first_gym.c', 'virelia_rainfall.c'):
+        items.update(re.findall(r'\bITEM_[A-Z0-9_]+\b', (ROOT / 'src' / name).read_text(encoding='utf8')))
+    if 'ITEM_HM_CUT' in items:
+        moves.add('MOVE_CUT')
     # Pickup grants Moon/Sun Stones at levels 11-20; include supported stone evolutions.
     pickup = (ROOT / 'src/battle_script_commands.c').read_text(encoding='utf-8')
     table = re.search(r'sPickupTable\[\]\s*=\s*\{(.*?)\n\};', pickup, re.S)[1]

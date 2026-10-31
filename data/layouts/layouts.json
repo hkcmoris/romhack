@@ -9327,8 +9327,8 @@
     {
       "id": "LAYOUT_VIRELIA_MAPLEBROOK_TOWN",
       "name": "Virelia_MaplebrookTown_Layout",
-      "width": 30,
-      "height": 28,
+      "width": 36,
+      "height": 48,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_VireliaOutdoor",
       "border_filepath": "data/layouts/Virelia_MaplebrookTown/border.bin",
@@ -9454,6 +9454,127 @@
       "secondary_tileset": "gTileset_GenericBuilding",
       "border_filepath": "data/layouts/Virelia_MaplebrookCottage/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_MaplebrookCottage/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_RAINFALL_FOOTHILLS",
+      "name": "Virelia_RainfallFoothills_Layout",
+      "width": 32,
+      "height": 28,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_VireliaRainfall",
+      "border_filepath": "data/layouts/Virelia_RainfallFoothills/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_RainfallFoothills/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_RAINFALL_UPPER",
+      "name": "Virelia_RainfallUpper_Layout",
+      "width": 32,
+      "height": 34,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_VireliaRainfall",
+      "border_filepath": "data/layouts/Virelia_RainfallUpper/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_RainfallUpper/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_RAINFALL_LOWER",
+      "name": "Virelia_RainfallLower_Layout",
+      "width": 40,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_VireliaRainfall",
+      "border_filepath": "data/layouts/Virelia_RainfallLower/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_RainfallLower/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_RAINFALL_LOWLANDS",
+      "name": "Virelia_RainfallLowlands_Layout",
+      "width": 32,
+      "height": 26,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_VireliaRainfall",
+      "border_filepath": "data/layouts/Virelia_RainfallLowlands/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_RainfallLowlands/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SEABREAK_TOWN",
+      "name": "Virelia_SeabreakTown_Layout",
+      "width": 48,
+      "height": 42,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_VireliaCoast",
+      "border_filepath": "data/layouts/Virelia_SeabreakTown/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_SeabreakTown/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SEABREAK_POKEMON_CENTER",
+      "name": "Virelia_Seabreak_PokemonCenter_Layout",
+      "width": 24,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_VireliaServiceInterior",
+      "border_filepath": "data/layouts/Virelia_Seabreak_PokemonCenter/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Seabreak_PokemonCenter/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SEABREAK_LIGHTHOUSE",
+      "name": "Virelia_Seabreak_Lighthouse_Layout",
+      "width": 16,
+      "height": 14,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_VireliaLighthouse",
+      "border_filepath": "data/layouts/Virelia_Seabreak_Lighthouse/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Seabreak_Lighthouse/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SEABREAK_LANTERN_ROOM",
+      "name": "Virelia_Seabreak_LanternRoom_Layout",
+      "width": 13,
+      "height": 12,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_VireliaLighthouse",
+      "border_filepath": "data/layouts/Virelia_Seabreak_LanternRoom/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Seabreak_LanternRoom/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SEABREAK_KEEPERS_HOUSE",
+      "name": "Virelia_Seabreak_KeepersHouse_Layout",
+      "width": 12,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Virelia_Seabreak_KeepersHouse/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_Seabreak_KeepersHouse/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_MAPLEBROOK_FISHERMANS_HOUSE",
+      "name": "Virelia_MaplebrookFishermansHouse_Layout",
+      "width": 12,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Virelia_MaplebrookFishermansHouse/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_MaplebrookFishermansHouse/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_MAPLEBROOK_EMAS_HOUSE",
+      "name": "Virelia_MaplebrookEmasHouse_Layout",
+      "width": 12,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Virelia_MaplebrookEmasHouse/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_MaplebrookEmasHouse/map.bin",
       "layout_version": "emerald"
     }
   ]

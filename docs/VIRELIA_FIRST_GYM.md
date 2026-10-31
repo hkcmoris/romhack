@@ -1,5 +1,11 @@
 # Pokémon Virelia — Slateford Quarry and first Gym v0.3
 
+The [v0.4 Rainfall Pass and Seabreak chapter](VIRELIA_RAINFALL_SEABREAK.md)
+continues after Mara's Lomový odznak through independent saved flags. It keeps
+the prologue, sanctuary and first Gym playable, appends its maps and opens only
+the new northern Slateford passage. The historical evidence below remains
+specific to its recorded revision; Chapter 2 has a separate verification record.
+
 ## Scope and baseline
 
 Branch: `codex/virelia-first-gym`, based directly on the clean, committed
@@ -132,7 +138,11 @@ eligible only at state 4, so a completed save cannot replay it.
    defeat Ivan and Dana. The older-layer control comes before the younger-layer
    control. Then challenge Mara.
 7. Win, receive the Lomový odznak and collect Rock Tomb's TM. A full Bag leaves
-   the TM pending; talk to Mara again after making space. Then save and Continue.
+   the TM pending; talk to Mara again after making space.
+8. Leave the Gym. Javorová's aide hurries up, bumps into the player and delivers
+   HM01 Cut. If its pocket is full, make space and speak to him beside the Gym.
+   Teach Cut to a compatible Pokémon and revisit Maplebrook's woodland passage
+   for a hidden Miracle Seed. Save and Continue to check that both rewards persist.
 
 The quarry reveals no Porygon experiments, laboratory or future Storage attack.
 
@@ -220,11 +230,15 @@ They are not chapter progress: leaving/reentering the puzzle map resets them.
 An in-map native FLASH Continue preserved quarry stage 1 during this test.
 Completed puzzle flags always restore the open passage.
 
-The badge intentionally grants recognition and chapter progression only.
-It grants no implicit Hoenn Attack bonus, obedience threshold or field-move use.
+The badge grants chapter progression and authorizes Cut on Virelia maps.
+On leaving the Gym after victory, Professor Javorová's aide gives HM01 Cut;
+a full TM/HM pocket leaves him beside the entrance for a later retry.
+It grants no implicit Hoenn Attack bonus or obedience threshold.
 No original Hoenn badge flag is set or repurposed.
 The existing eight-slot Trainer Card therefore remains unchanged.
 The Gym's post-victory dialogue/statue exposes earned progress.
+Cut opens the optional woodland pocket in southern Maplebrook, where a hidden
+Miracle Seed rewards the return trip. Surf remains locked for later chapters.
 A future sixteen-badge page must read independent Virelia flags, present regions
 separately and retain original Hoenn badge semantics.
 

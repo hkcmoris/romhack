@@ -33,6 +33,12 @@ const u16 gMetatileAttributes_Fallarbor[] = INCBIN_U16("data/tilesets/secondary/
 const u16 gMetatiles_Whisperwood[] = INCBIN_U16("data/tilesets/secondary/whisperwood/metatiles.bin");
 const u16 gMetatileAttributes_Whisperwood[] = INCBIN_U16("data/tilesets/secondary/whisperwood/metatile_attributes.bin");
 
+const u16 gMetatiles_VireliaRainfall[] = INCBIN_U16("data/tilesets/secondary/virelia_rainfall/metatiles.bin");
+const u16 gMetatileAttributes_VireliaRainfall[] = INCBIN_U16("data/tilesets/secondary/virelia_rainfall/metatile_attributes.bin");
+const u16 gMetatiles_VireliaCoast[] = INCBIN_U16("data/tilesets/secondary/virelia_coast/metatiles.bin");
+const u16 gMetatileAttributes_VireliaCoast[] = INCBIN_U16("data/tilesets/secondary/virelia_coast/metatile_attributes.bin");
+const u16 gMetatiles_VireliaLighthouse[] = INCBIN_U16("data/tilesets/secondary/virelia_lighthouse/metatiles.bin");
+const u16 gMetatileAttributes_VireliaLighthouse[] = INCBIN_U16("data/tilesets/secondary/virelia_lighthouse/metatile_attributes.bin");
 const u16 gMetatiles_VireliaOutdoor[] = INCBIN_U16("data/tilesets/secondary/virelia_outdoor/metatiles.bin");
 const u16 gMetatileAttributes_VireliaOutdoor[] = INCBIN_U16("data/tilesets/secondary/virelia_outdoor/metatile_attributes.bin");
 

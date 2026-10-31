@@ -141,6 +141,42 @@ const struct Tileset gTileset_Whisperwood =
 };
 
 // Connected maps share IDs, pixels and palettes in the native camera buffer.
+
+const struct Tileset gTileset_VireliaRainfall =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaRainfall,
+    .palettes = gTilesetPalettes_VireliaRainfall,
+    .metatiles = gMetatiles_VireliaRainfall,
+    .metatileAttributes = gMetatileAttributes_VireliaRainfall,
+    .callback = NULL,
+};
+
+
+const struct Tileset gTileset_VireliaCoast =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaCoast,
+    .palettes = gTilesetPalettes_VireliaCoast,
+    .metatiles = gMetatiles_VireliaCoast,
+    .metatileAttributes = gMetatileAttributes_VireliaCoast,
+    .callback = NULL,
+};
+
+
+const struct Tileset gTileset_VireliaLighthouse =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaLighthouse,
+    .palettes = gTilesetPalettes_VireliaLighthouse,
+    .metatiles = gMetatiles_VireliaLighthouse,
+    .metatileAttributes = gMetatileAttributes_VireliaLighthouse,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_VireliaOutdoor =
 {
     .isCompressed = TRUE,

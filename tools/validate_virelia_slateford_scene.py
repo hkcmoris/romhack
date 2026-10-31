@@ -150,7 +150,9 @@ def self_test():
         mutations.append((field, changed, script))
     for command in ('hidefollower', 'waitmovement ' + GROWLITHE, 'copyobjectxytoperm ' + GROWLITHE):
         assert '\t' + command in script
-        mutations.append((command, entry, script.replace('\t' + command, '\t@ removed ' + command, 1)))
+        label = PREFIX + 'EventScript_ResolveRocket::'
+        before, arrival = script.split(label, 1)
+        mutations.append((command, entry, before + label + arrival.replace('\t' + command, '\t@ removed ' + command, 1)))
     for name in ('RocketAroundPlayer', 'RocketToRoad'):
         label = PREFIX + 'Movement_' + name + ':\n'
         before, body = script.split(label, 1)

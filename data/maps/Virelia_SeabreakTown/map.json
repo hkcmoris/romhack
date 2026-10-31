@@ -1,0 +1,183 @@
+{
+  "id": "MAP_VIRELIA_SEABREAK_TOWN",
+  "name": "Virelia_SeabreakTown",
+  "layout": "LAYOUT_VIRELIA_SEABREAK_TOWN",
+  "music": "MUS_SLATEPORT",
+  "region": "REGION_HOENN",
+  "region_map_section": "MAPSEC_VIRELIA_SEABREAK_TOWN",
+  "requires_flash": false,
+  "weather": "WEATHER_RAIN",
+  "map_type": "MAP_TYPE_TOWN",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
+      "x": 14,
+      "y": 28,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_SeabreakTown_EventScript_HarborMaster",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
+      "x": 7,
+      "y": 35,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_SeabreakTown_EventScript_Fisherman",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_VAR_0",
+      "x": 20,
+      "y": 15,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_SeabreakTown_EventScript_Rival",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+      "x": 17,
+      "y": 29,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_SeabreakTown_EventScript_Bela",
+      "flag": "FLAG_VIRELIA_HIDE_HARBOR_BELA"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_POLICEMAN",
+      "x": 15,
+      "y": 29,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_SeabreakTown_EventScript_Vacek",
+      "flag": "FLAG_VIRELIA_HIDE_VACEK"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_REPORTER_F",
+      "x": 12,
+      "y": 29,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_SeabreakTown_EventScript_Reporter",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
+      "x": 27,
+      "y": 23,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "Virelia_SeabreakTown_EventScript_Sailor",
+      "flag": "0"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 14,
+      "y": 1,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_RAINFALL_LOWLANDS",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 8,
+      "y": 13,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_SEABREAK_POKEMON_CENTER",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 37,
+      "y": 31,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_SEABREAK_LIGHTHOUSE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 21,
+      "y": 20,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_SEABREAK_KEEPERS_HOUSE",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 10,
+      "y": 15,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_SeabreakTown_EventScript_TownSign"
+    },
+    {
+      "type": "sign",
+      "x": 23,
+      "y": 7,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_SeabreakTown_EventScript_GymClosed"
+    },
+    {
+      "type": "sign",
+      "x": 6,
+      "y": 31,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_SeabreakTown_EventScript_AnchorClue"
+    },
+    {
+      "type": "sign",
+      "x": 41,
+      "y": 35,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_SeabreakTown_EventScript_CoastClue"
+    },
+    {
+      "type": "sign",
+      "x": 23,
+      "y": 11,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_SeabreakTown_EventScript_GymClosed"
+    }
+  ]
+}

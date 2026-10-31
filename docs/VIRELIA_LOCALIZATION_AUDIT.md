@@ -1,5 +1,11 @@
 # Lokalizační audit Virelie
 
+## Rozsah v0.4: Rainfall Pass a Seabreak
+
+Zdrojový validátor v0.4 ověřil 1 748 záznamů manifestu do úrovně 24. Kontrola zahrnuje nové druhy, trenérské týmy, předměty, schopnosti, útoky a dosažitelné evoluce. Všechny nové mapové dialogy procházejí kontrolou znaků, skutečné šířky písma a dvouřádkového okna. Názvy druhů, útoků, předmětů a míst zůstávají anglicky podle zavedených pravidel.
+
+Tento výsledek potvrzuje zdrojové pokrytí. Nepotvrzuje úplný průchod kapitolou ani zobrazení každé obrazovky v My Boy!. [Dokument kapitoly](VIRELIA_RAINFALL_SEABREAK.md) uvádí samostatné výsledky sestavení, nativních testů a ruční kontroly. Historické důkazy v0.3 níže zůstávají platné pouze pro uvedené revize.
+
 Rozšíření v0.3 má zdrojovou kontrolu českých textů do úrovně 20 a nativní kontrolu služeb Slatefordu v optimalizované release ROM `0.3.49`, commit `6f3fa01bd8`. Kontrola ověřila léčení, následné zprávy, běžné Pokémon Storage, nákup a uložení i načtení uvnitř obou budov. Dřívější nativní kontrola prologu zůstává uvedena samostatně. Samotný počet přeložených řetězců nepotvrzuje úplnou lokalizaci ani celý herní průchod.
 
 Rozsah v0.3 zahrnuje Geodude, Roggenrola, Sandshrew, Makuhita, Aron a Nosepass. Nosepass je také vzácné divoké setkání v obou částech lomu. Zahrnuje také dosažitelné evoluce původních druhů do úrovně 20, včetně Linoone, Mightyena, Kirlia a všech tří prostředních forem regionálních startérů. Konzervativně kontroluje i Raticate jako evoluci druhu použitého Rocketem. Level-up, evoluce a učení TM používají již přeložené společné obrazovky.

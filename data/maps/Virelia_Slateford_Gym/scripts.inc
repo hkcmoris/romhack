@@ -122,6 +122,7 @@ Virelia_Slateford_Gym_EventScript_AfterBadge:
 	msgbox Virelia_Slateford_Gym_Text_TM, MSGBOX_DEFAULT
 	waitfanfare
 	msgbox Virelia_Slateford_Gym_Text_TMInfo, MSGBOX_DEFAULT
+	call VireliaRainfall_EventScript_MaraUpdate
 	release
 	end
 
@@ -131,7 +132,7 @@ Virelia_Slateford_Gym_EventScript_BagFull:
 	end
 
 Virelia_Slateford_Gym_EventScript_MaraAfter:
-	msgbox Virelia_Slateford_Gym_Text_MaraAfter, MSGBOX_DEFAULT
+	call VireliaRainfall_EventScript_MaraUpdate
 	release
 	end
 
