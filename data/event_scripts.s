@@ -1793,6 +1793,7 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/maps/Virelia_Slateford_QuarryEntrance/scripts.inc"
 	.include "data/maps/Virelia_Slateford_QuarryDepths/scripts.inc"
 	.include "data/maps/Virelia_Slateford_QuarryGallery/scripts.inc"
+	.include "data/maps/Virelia_Slateford_QuarryTerraces/scripts.inc"
 	.include "data/maps/Virelia_Slateford_Gym/scripts.inc"
 	.include "data/scripts/virelia_rainfall.inc"
 	.include "data/maps/Virelia_RainfallFoothills/scripts.inc"

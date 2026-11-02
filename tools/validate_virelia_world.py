@@ -31,6 +31,7 @@ NAMES = (
     "Virelia_WhisperwoodSanctuary",
     "Virelia_MaplebrookFishermansHouse",
     "Virelia_MaplebrookEmasHouse",
+    "Virelia_Slateford_QuarryTerraces",
 )
 TOWN, LAB, ROUTE, CITY, HOME = NAMES[:5]
 GROUPS = ("gMapGroup_VireliaOverworld", "gMapGroup_VireliaInteriors")
@@ -116,11 +117,12 @@ def validate(base=None):
     # Reachability below checks the eventual completed state of dynamic gates.
     # The first-Gym validator separately proves locked-state puzzle gating.
     dynamic_open = {
-        "Virelia_Slateford_QuarryDepths": {(11, 6)},
         "Virelia_Slateford_Gym": {(6, 6)},
         ROUTE: {(1, 8), (1, 9), (1, 16), (1, 17)},
         "Virelia_WhisperwoodSanctuary": {(16, 2), (16, 3), (20, 10), (20, 11)},
     }
+    from virelia.build_quarry_outdoor import GATES
+    dynamic_open.update({name: set(cells) for name, cells in GATES.items()})
     tileset_headers = (ROOT / "src/data/tilesets/headers.h").read_text()
     metatile_sources = (ROOT / "src/data/tilesets/metatiles.h").read_text()
     behavior_names = re.findall(r"\b(MB_[A-Z0-9_]+)\s*,", (ROOT / "include/constants/metatile_behaviors.h").read_text())

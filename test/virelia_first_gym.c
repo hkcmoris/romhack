@@ -28,6 +28,9 @@
 #include "trainer_pools.h"
 #include "virelia_prologue.h"
 #include "virelia_first_gym.h"
+#include "wild_encounter.h"
+#include "constants/virelia_quarry_outdoor.h"
+#include "constants/map_types.h"
 #include "test/test.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
@@ -280,9 +283,9 @@ TEST("Virelia actual quarry and Gym map scripts reset partial input and restore 
     u16 map = puzzle ? MAP_VIRELIA_SLATEFORD_GYM : MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS;
     u16 flag = puzzle ? FLAG_VIRELIA_GYM_PUZZLE_COMPLETE : FLAG_VIRELIA_QUARRY_POWER_RESTORED;
     u16 var = puzzle ? VAR_VIRELIA_GYM_SWITCH : VAR_VIRELIA_QUARRY_SWITCH;
-    u32 x = puzzle ? 6 : 11, y = 6;
+    u32 x = puzzle ? 6 : 20, y = puzzle ? 6 : 22;
     if (solved) FlagSet(flag);
-    SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), WARP_ID_NONE, puzzle ? 5 : 3, puzzle ? 18 : 19);
+    SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), WARP_ID_NONE, puzzle ? 5 : 10, puzzle ? 18 : 4);
     WarpIntoMap();
     InitMap();
     VarSet(var, 1);
@@ -291,15 +294,15 @@ TEST("Virelia actual quarry and Gym map scripts reset partial input and restore 
     EXPECT_EQ(VarGet(var), 0);
     EXPECT_EQ(FlagGet(flag), solved);
     EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET) != 0, !solved);
-    if (solved) EXPECT_EQ(MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET), 0x201);
+    if (solved) EXPECT_EQ(MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET), puzzle ? 0x201 : VQ_GROUND);
     if (!puzzle)
     {
-        EXPECT_EQ(MapGridGetMetatileIdAt(20 + MAP_OFFSET, 14 + MAP_OFFSET), solved ? 0x25D : 0x25C);
-        EXPECT_EQ(MapGridGetMetatileIdAt(4 + MAP_OFFSET, 9 + MAP_OFFSET), solved ? 0x25F : 0x25E);
+        EXPECT_EQ(MapGridGetMetatileIdAt(22 + MAP_OFFSET, 12 + MAP_OFFSET), solved ? VQ_PUMP_CONTROL_ON_0_0 : VQ_PUMP_CONTROL_OFF_0_0);
+        EXPECT_EQ(MapGridGetMetatileIdAt(10 + MAP_OFFSET, 12 + MAP_OFFSET), solved ? VQ_ELECTRICAL_FEED_ON_0_0 : VQ_ELECTRICAL_FEED_OFF_0_0);
     }
 }
 
-TEST("Virelia quarry Continue restores control lamps and keeps haul rails free of encounters")
+TEST("Virelia outdoor quarry Continue restores whole controls gates and encounter gravel")
 {
     u32 stage = 0;
     for (u32 i = 0; i < 3; i++)
@@ -307,58 +310,129 @@ TEST("Virelia quarry Continue restores control lamps and keeps haul rails free o
     ResetFirstGymTest();
     if (stage == 2) FlagSet(FLAG_VIRELIA_QUARRY_POWER_RESTORED);
     SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS),
-                       MAP_NUM(MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS), WARP_ID_NONE, 3, 19);
+                       MAP_NUM(MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS), WARP_ID_NONE, 10, 4);
     WarpIntoMap();
     InitMap();
     VarSet(VAR_VIRELIA_QUARRY_SWITCH, stage);
-    // Continue loads map tiles without running the entry reset script.
+    // Replace both complete controls with stale cached floor, then run the
+    // same ON_LOAD callback used after Continue restores the saved map view.
+    for (u32 y = 12; y < 14; y++)
+        for (u32 x = 10; x < 24; x++)
+            MapGridSetMetatileEntryAt(x + MAP_OFFSET, y + MAP_OFFSET, 0x3000 | VQ_GROUND);
     RunOnLoadMapScript();
     EXPECT_EQ(VarGet(VAR_VIRELIA_QUARRY_SWITCH), stage);
-    EXPECT_EQ(MapGridGetMetatileIdAt(20 + MAP_OFFSET, 14 + MAP_OFFSET), stage ? 0x25D : 0x25C);
-    EXPECT_EQ(MapGridGetMetatileIdAt(4 + MAP_OFFSET, 9 + MAP_OFFSET), stage == 2 ? 0x25F : 0x25E);
-    EXPECT_EQ(MapGridGetCollisionAt(11 + MAP_OFFSET, 6 + MAP_OFFSET) != 0, stage != 2);
-    EXPECT_EQ(MapGridGetMetatileBehaviorAt(11 + MAP_OFFSET, 12 + MAP_OFFSET), MB_NORMAL);
-    EXPECT_EQ(MapGridGetMetatileBehaviorAt(12 + MAP_OFFSET, 12 + MAP_OFFSET), MB_CAVE);
-    EXPECT_NE(MapGridGetCollisionAt(20 + MAP_OFFSET, 14 + MAP_OFFSET), 0);
-    EXPECT_NE(MapGridGetCollisionAt(4 + MAP_OFFSET, 9 + MAP_OFFSET), 0);
+    for (u32 row = 0; row < 2; row++)
+        for (u32 column = 0; column < 2; column++)
+        {
+            EXPECT_EQ(MapGridGetMetatileIdAt(22 + column + MAP_OFFSET, 12 + row + MAP_OFFSET),
+                      (stage ? VQ_PUMP_CONTROL_ON_0_0 : VQ_PUMP_CONTROL_OFF_0_0) + row * 2 + column);
+            EXPECT_EQ(MapGridGetMetatileIdAt(10 + column + MAP_OFFSET, 12 + row + MAP_OFFSET),
+                      (stage == 2 ? VQ_ELECTRICAL_FEED_ON_0_0 : VQ_ELECTRICAL_FEED_OFF_0_0) + row * 2 + column);
+            EXPECT_NE(MapGridGetCollisionAt(22 + column + MAP_OFFSET, 12 + row + MAP_OFFSET), 0);
+            EXPECT_NE(MapGridGetCollisionAt(10 + column + MAP_OFFSET, 12 + row + MAP_OFFSET), 0);
+        }
+    for (u32 x = 20; x <= 21; x++)
+        EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, 22 + MAP_OFFSET) != 0, stage != 2);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(10 + MAP_OFFSET, 18 + MAP_OFFSET), MB_NORMAL);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(4 + MAP_OFFSET, 23 + MAP_OFFSET), MB_CAVE);
+    EXPECT_EQ(gMapHeader.mapType, MAP_TYPE_ROUTE);
 }
 
-TEST("Virelia quarry wall mouth and directed ladders have native warp behaviors and solid caps")
+TEST("Virelia outdoor quarry uses one shared bank native connections and a real city exit")
 {
-    u32 level = 0;
-    for (u32 i = 0; i < 3; i++)
-        PARAMETRIZE { level = i; }
+    u32 index = 0;
+    for (u32 i = 0; i < 4; i++)
+        PARAMETRIZE { index = i; }
     static const u16 maps[] = {MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE,
+                              MAP_VIRELIA_SLATEFORD_QUARRY_TERRACES,
                               MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS,
                               MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY};
     ResetFirstGymTest();
-    FlagSet(FLAG_VIRELIA_QUARRY_POWER_RESTORED);
-    SetWarpDestination(MAP_GROUP(maps[level]), MAP_NUM(maps[level]), WARP_ID_NONE, 5, 17);
+    SetWarpDestination(MAP_GROUP(maps[index]), MAP_NUM(maps[index]), WARP_ID_NONE, 10, 15);
     WarpIntoMap();
     InitMap();
-    RunOnLoadMapScript();
-    if (level == 0)
+    EXPECT_EQ(gMapHeader.mapType, MAP_TYPE_ROUTE);
+    EXPECT_EQ(gMapHeader.connections->count, 2);
+    EXPECT_EQ(gMapHeader.events->warpCount, index == 0 ? 1 : 0);
+    for (u32 i = 0; i < gMapHeader.connections->count; i++)
     {
-        EXPECT_EQ(MapGridGetMetatileBehaviorAt(5 + MAP_OFFSET, 18 + MAP_OFFSET), MB_DEEP_SOUTH_WARP);
-        EXPECT_EQ(MapGridGetCollisionAt(5 + MAP_OFFSET, 18 + MAP_OFFSET), 0);
-        EXPECT_EQ(MapGridGetCollisionAt(5 + MAP_OFFSET, 17 + MAP_OFFSET), 0);
-        EXPECT_NE(MapGridGetCollisionAt(4 + MAP_OFFSET, 18 + MAP_OFFSET), 0);
-        EXPECT_NE(MapGridGetCollisionAt(6 + MAP_OFFSET, 18 + MAP_OFFSET), 0);
+        const struct MapHeader *other = GetMapHeaderFromConnection(&gMapHeader.connections->connections[i]);
+        EXPECT_EQ(gMapHeader.mapLayout->primaryTileset, other->mapLayout->primaryTileset);
+        EXPECT_EQ(gMapHeader.mapLayout->secondaryTileset, other->mapLayout->secondaryTileset);
     }
-    for (u32 i = level == 0 ? 1 : 0; i < gMapHeader.events->warpCount; i++)
+    if (index == 0)
+        EXPECT_EQ(MapGridGetMetatileBehaviorAt(9 + MAP_OFFSET, 29 + MAP_OFFSET), MB_SOUTH_ARROW_WARP);
+    if (index == 3)
     {
-        const struct WarpEvent *warp = &gMapHeader.events->warps[i];
-        u32 x = warp->x + MAP_OFFSET, y = warp->y + MAP_OFFSET;
-        bool32 upward = level == 2 || (level == 1 && i == 0);
-        EXPECT_EQ(MapGridGetMetatileBehaviorAt(x, y), MB_LADDER);
-        EXPECT_EQ(MapGridGetMetatileIdAt(x, y), upward ? 0x216 : 0x227);
-        EXPECT_EQ(MapGridGetCollisionAt(x, y), 0);
-        if (upward)
+        static const u8 gates[][2] = {{26,8},{27,8},{27,24},{27,25}};
+        for (u32 phase = 0; phase < 2; phase++)
         {
-            EXPECT_EQ(MapGridGetMetatileIdAt(x, y - 1), 0x20e);
-            EXPECT_NE(MapGridGetCollisionAt(x, y - 1), 0);
+            if (phase) FlagSet(FLAG_VIRELIA_QUARRY_POWER_RESTORED);
+            // Seed stale opposite-state cache values for every return barrier.
+            for (u32 i = 0; i < ARRAY_COUNT(gates); i++)
+                MapGridSetMetatileEntryAt(gates[i][0]+MAP_OFFSET, gates[i][1]+MAP_OFFSET,
+                                         phase ? 0x3400 | VQ_GATE : 0x3000 | VQ_GROUND);
+            RunOnLoadMapScript();
+            for (u32 i = 0; i < ARRAY_COUNT(gates); i++)
+            {
+                EXPECT_EQ(MapGridGetMetatileIdAt(gates[i][0]+MAP_OFFSET, gates[i][1]+MAP_OFFSET), phase ? VQ_GROUND : VQ_GATE);
+                EXPECT_EQ(MapGridGetCollisionAt(gates[i][0]+MAP_OFFSET, gates[i][1]+MAP_OFFSET) != 0, !phase);
+            }
         }
     }
+}
+
+TEST("Virelia outdoor quarry gravel generates the existing early game wild Pokemon")
+{
+    u32 basin = FALSE;
+    PARAMETRIZE { basin = FALSE; }
+    PARAMETRIZE { basin = TRUE; }
+    ResetFirstGymTest();
+    u16 map = basin ? MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS : MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE;
+    SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), WARP_ID_NONE, basin ? 4 : 25, basin ? 23 : 4);
+    WarpIntoMap();
+    InitMap();
+    EXPECT(MetatileBehavior_IsLandWildEncounter(MapGridGetMetatileBehaviorAt(
+        (basin ? 4 : 25) + MAP_OFFSET, (basin ? 23 : 4) + MAP_OFFSET)));
+    EXPECT_EQ(gMapHeader.mapType, MAP_TYPE_ROUTE);
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+    EXPECT_NE(headerId, HEADER_NONE);
+    const struct WildPokemonInfo *info = gWildMonHeaders[headerId].encounterTypes[
+        GetTimeOfDayForEncounters(headerId, WILD_AREA_LAND)].landMonsInfo;
+    EXPECT_NE(info, NULL);
+    ZeroPlayerPartyMons();
+    CreateRandomMonWithIVs(&gParties[B_TRAINER_PLAYER][0], SPECIES_TREECKO, 10, 10);
+    gPartiesCount[B_TRAINER_PLAYER] = 1;
+    EXPECT(TryGenerateWildMon(info, WILD_AREA_LAND, 0));
+    u32 level = GetMonData(&gParties[B_TRAINER_OPPONENT_A][0], MON_DATA_LEVEL);
+    EXPECT_GE(level, 8);
+    EXPECT_LE(level, 13);
+}
+
+TEST("Virelia outdoor quarry stairways change native actor elevation through transition tiles")
+{
+    u32 upper = FALSE;
+    PARAMETRIZE { upper = FALSE; }
+    PARAMETRIZE { upper = TRUE; }
+    ResetFirstGymTest();
+    SetWarpDestination(MAP_GROUP(MAP_VIRELIA_SLATEFORD_QUARRY_TERRACES),
+                       MAP_NUM(MAP_VIRELIA_SLATEFORD_QUARRY_TERRACES), WARP_ID_NONE, 10, 28);
+    WarpIntoMap();
+    InitMap();
+    struct ObjectEvent object = {0};
+    struct Sprite sprite = {0};
+    u32 x = upper ? 28 : 10, first = upper ? 13 : 28, last = upper ? 7 : 22;
+    object.currentElevation = upper ? 5 : 3;
+    object.currentCoords.x = x + MAP_OFFSET;
+    object.currentCoords.y = first + MAP_OFFSET;
+    for (s32 y = first - 1; y >= last; y--)
+    {
+        EXPECT(!IsElevationMismatchAt(object.currentElevation, x + MAP_OFFSET, y + MAP_OFFSET));
+        object.previousCoords = object.currentCoords;
+        object.currentCoords.y = y + MAP_OFFSET;
+        ObjectEventUpdateElevation(&object, &sprite);
+    }
+    EXPECT_EQ((u32)object.currentElevation, upper ? 7 : 5);
 }
 
 TEST("Virelia quarry and Gym teams use valid early game data without damaging Ground attacks")

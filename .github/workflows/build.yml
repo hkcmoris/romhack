@@ -239,7 +239,7 @@ jobs:
           python3 tools/virelia/test_build_lab_case.py
           python3 tools/validate_virelia_first_gym.py
           python3 tools/validate_virelia_missing_tools.py
-          python3 tools/validate_virelia_quarry.py
+          python3 tools/validate_virelia_quarry.py --self-test
           python3 tools/validate_virelia_slateford_scene.py
           python3 tools/validate_virelia_rainfall.py
 

@@ -16,6 +16,7 @@ SERVICE_SOURCE = 'virelia_services'
 SERVICE_IDS = range(0x340, 0x363)
 VERTICAL_BRIDGE_IDS = (0x363, 0x364)
 MAPLEBROOK_PROP_IDS = (0x365, 0x366)
+MAPLEBROOK_SHORE_IDS = (0x367,)
 SOURCES = {
     'Virelia_MaplebrookTown': 'petalburg',
     'Virelia_Route01': 'rustboro',
@@ -62,7 +63,7 @@ def source_blocks(name, layout, restored=False):
         return values
     inverse = {target: source for source, target in REMAP[SOURCES[name]].items()}
     return tuple((v & ~0x3FF) | inverse[v & 0x3FF]
-                 if v & 0x3FF >= 512 and v & 0x3FF not in (*SERVICE_IDS, *VERTICAL_BRIDGE_IDS, *MAPLEBROOK_PROP_IDS) else v
+                 if v & 0x3FF >= 512 and v & 0x3FF not in (*SERVICE_IDS, *VERTICAL_BRIDGE_IDS, *MAPLEBROOK_PROP_IDS, *MAPLEBROOK_SHORE_IDS) else v
                  for v in values)
 
 
@@ -82,7 +83,7 @@ def build(restored_maps=()):
     for name, values in blocks.items():
         for value in values:
             tile = value & 0x3FF
-            if tile >= 512 and tile not in (*VERTICAL_BRIDGE_IDS, *MAPLEBROOK_PROP_IDS):
+            if tile >= 512 and tile not in (*VERTICAL_BRIDGE_IDS, *MAPLEBROOK_PROP_IDS, *MAPLEBROOK_SHORE_IDS):
                 source = SERVICE_SOURCE if tile in SERVICE_IDS else SOURCES[name]
                 used[source].add(tile)
     # Include door frames' static counterparts and all scripted sanctuary props.
@@ -180,7 +181,7 @@ def build(restored_maps=()):
         (TARGET / f'palettes/{slot:02}.pal').write_text(text, encoding='ascii')
     for name, layout in layouts.items():
         values = [(v & ~0x3FF) | REMAP[SOURCES[name]][v & 0x3FF]
-                  if v & 0x3FF >= 512 and v & 0x3FF not in (*SERVICE_IDS, *VERTICAL_BRIDGE_IDS, *MAPLEBROOK_PROP_IDS) else v
+                  if v & 0x3FF >= 512 and v & 0x3FF not in (*SERVICE_IDS, *VERTICAL_BRIDGE_IDS, *MAPLEBROOK_PROP_IDS, *MAPLEBROOK_SHORE_IDS) else v
                   for v in blocks[name]]
         (ROOT / layout['blockdata_filepath']).write_bytes(struct.pack(f'<{len(values)}H', *values))
         layout['secondary_tileset'] = SYMBOL
@@ -189,6 +190,8 @@ def build(restored_maps=()):
     build_vertical_bridge()
     from build_maplebrook_props import build as build_maplebrook_props
     build_maplebrook_props()
+    from build_maplebrook_shore import build as build_maplebrook_shore
+    build_maplebrook_shore()
     print(f'Packed Virelia outdoors: {len(bank)} tiles, {len(palettes)} secondary palettes')
 
 

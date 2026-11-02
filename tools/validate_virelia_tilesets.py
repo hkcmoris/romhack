@@ -11,6 +11,7 @@ import sys
 from virelia.build_outdoor_tileset import REMAP, SOURCES, SYMBOL, SERVICE_IDS
 from virelia.localize_type_icons import read_png
 from virelia.build_maplebrook_props import BENCH_IDS, BENCH_PALETTE_SLOT, bench_pixels
+from virelia.build_maplebrook_shore import SOURCE_ID as SHORE_SOURCE_ID, SHORE_ID, SHORE_IDS
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -22,6 +23,23 @@ AUTHORED_METATILES = {
                      0x2000, 0x2000, 0x20CD, 0x2000)),
 }
 VERTICAL_BRIDGE_IDS = (0x363, 0x364)
+
+
+def validate_shore(packed, attrs):
+    native = words('data/tilesets/primary/general/metatiles.bin')[SHORE_SOURCE_ID * 8:(SHORE_SOURCE_ID + 1) * 8]
+    current = packed[(SHORE_ID - 512) * 8:(SHORE_ID - 511) * 8]
+    require(current == native and attrs[SHORE_ID - 512] == 0x1000,
+            'Straight banks must preserve their exact art and use ground layers below actors')
+    primary_attrs = words('data/tilesets/primary/general/metatile_attributes.bin')
+    require(primary_attrs[SHORE_SOURCE_ID] == 0 and primary_attrs[0xD4] == 0,
+            'Stock straight-bank and working corner attributes must remain untouched')
+    layouts = json.loads((ROOT / 'data/layouts/layouts.json').read_text())['layouts']
+    layout = next(l for l in layouts if l['name'] == 'Virelia_MaplebrookTown_Layout')
+    cells = words(layout['blockdata_filepath'])
+    require(not any(v & 1023 == SHORE_SOURCE_ID for v in cells), 'Maplebrook still uses the foreground straight bank')
+    require(cells[37 * layout['width'] + 19] == 0x3000 | SHORE_ID
+            and cells[37 * layout['width'] + 20] == 0x30D4,
+            'Pictured straight bank or working corner geometry changed')
 
 
 def validate_bench(tile, packed, attrs):
@@ -128,9 +146,14 @@ def validate():
             ids.update(SERVICE_IDS)
         ids.update(VERTICAL_BRIDGE_IDS)
         ids.update(BENCH_IDS)
+        ids.update(SHORE_IDS)
         for tile in ids:
             require(tile - 512 < len(attrs), f'{name}: packed metatile {tile:#x} is out of bounds')
-            if tile in BENCH_IDS:
+            if tile in SHORE_IDS:
+                validate_shore(packed, attrs)
+                checked.add(('maplebrook_shore', tile))
+                continue
+            elif tile in BENCH_IDS:
                 validate_bench(tile, packed, attrs)
                 checked.add(('maplebrook_bench', tile))
                 continue

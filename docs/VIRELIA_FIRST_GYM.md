@@ -1,5 +1,11 @@
 # Pokémon Virelia — Slateford Quarry and first Gym v0.3
 
+The current [outdoor quarry redesign](VIRELIA_QUARRY_OUTDOOR_REDESIGN.md)
+replaces the historical underground layout with four connected outdoor maps.
+It preserves this chapter's quests, teams, wild tables, rewards and progression
+flags. Map screenshots, ladder coordinates and geometry evidence below describe
+the earlier v0.3 layout; use the redesign document for current terrain and tests.
+
 The [v0.4 Rainfall Pass and Seabreak chapter](VIRELIA_RAINFALL_SEABREAK.md)
 continues after Mara's Lomový odznak through independent saved flags. It keeps
 the prologue, sanctuary and first Gym playable, appends its maps and opens only

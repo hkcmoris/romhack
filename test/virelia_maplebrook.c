@@ -12,6 +12,7 @@
 #include "constants/virelia_maplebrook.h"
 #include "constants/virelia_prologue.h"
 #include "constants/metatile_labels.h"
+#include "constants/metatile_behaviors.h"
 #include "constants/event_bg.h"
 #include "constants/event_objects.h"
 #include "constants/moves.h"
@@ -300,6 +301,17 @@ TEST("Virelia Maplebrook cottage fisherman and Ema entrances use their redesigne
     EXPECT(MetatileBehavior_IsDoor(MapGridGetMetatileBehaviorAt(cottage->x + MAP_OFFSET, cottage->y + MAP_OFFSET)));
     EXPECT(MetatileBehavior_IsDoor(MapGridGetMetatileBehaviorAt(fisher->x + MAP_OFFSET, fisher->y + MAP_OFFSET)));
     EXPECT(MetatileBehavior_IsDoor(MapGridGetMetatileBehaviorAt(ema->x + MAP_OFFSET, ema->y + MAP_OFFSET)));
+}
+
+TEST("Virelia Maplebrook straight river banks stay below actors and preserve the working corner")
+{
+    EnterTown();
+    EXPECT_EQ(MapGridGetMetatileIdAt(19 + MAP_OFFSET, 37 + MAP_OFFSET), METATILE_VireliaOutdoor_ShoreGround);
+    EXPECT_EQ(MapGridGetMetatileLayerTypeAt(19 + MAP_OFFSET, 37 + MAP_OFFSET), METATILE_LAYER_TYPE_COVERED);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(19 + MAP_OFFSET, 37 + MAP_OFFSET), MB_NORMAL);
+    EXPECT_EQ(MapGridGetCollisionAt(19 + MAP_OFFSET, 37 + MAP_OFFSET), 0);
+    EXPECT_EQ(MapGridGetMetatileIdAt(20 + MAP_OFFSET, 37 + MAP_OFFSET), 0xD4);
+    EXPECT_EQ(MapGridGetMetatileLayerTypeAt(20 + MAP_OFFSET, 37 + MAP_OFFSET), METATILE_LAYER_TYPE_NORMAL);
 }
 
 TEST("Virelia Maplebrook all five authored doors have native interior warps")

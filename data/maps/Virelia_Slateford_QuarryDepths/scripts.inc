@@ -4,28 +4,11 @@ Virelia_Slateford_QuarryDepths_MapScripts::
 	.byte 0
 
 Virelia_Slateford_QuarryDepths_OnTransition:
-	callnative VireliaFirstGym_ResetQuarryPuzzle
+	callnative VireliaQuarry_Transition
 	end
 
 Virelia_Slateford_QuarryDepths_OnLoad:
-	setmetatile 3, 7, 0x203, 1
-	setmetatile 20, 14, 0x25C, 1
-	setmetatile 4, 9, 0x25E, 1
-	goto_if_set FLAG_VIRELIA_QUARRY_POWER_RESTORED, Virelia_Slateford_QuarryDepths_OpenGate
-	goto_if_eq VAR_VIRELIA_QUARRY_SWITCH, 1, Virelia_Slateford_QuarryDepths_LoadPump
-	setmetatile 11, 6, 0x203, 1
-	end
-
-Virelia_Slateford_QuarryDepths_LoadPump:
-	setmetatile 20, 14, 0x25D, 1
-	setmetatile 11, 6, 0x203, 1
-	end
-
-Virelia_Slateford_QuarryDepths_OpenGate:
-	setmetatile 20, 14, 0x25D, 1
-	setmetatile 4, 9, 0x25F, 1
-	setmetatile 11, 6, 0x201, 0
-	setmetatile 3, 7, 0x227, 0
+	callnative VireliaQuarry_RefreshMap
 	end
 
 Virelia_Slateford_QuarryDepths_EventScript_Lenka::
@@ -41,7 +24,7 @@ Virelia_Slateford_QuarryDepths_EventScript_Pump::
 	setvar VAR_0x8004, 1
 	call VireliaFirstGym_EventScript_QuarrySwitch
 	goto_if_ne VAR_VIRELIA_QUARRY_SWITCH, 1, Virelia_Slateford_QuarryDepths_EventScript_WrongOrder
-	setmetatile 20, 14, 0x25D, 1
+	callnative VireliaQuarry_RefreshMap
 	special DrawWholeMapView
 	playse SE_SWITCH
 	msgbox Virelia_Slateford_QuarryDepths_Text_PumpRunning, MSGBOX_DEFAULT
@@ -56,10 +39,7 @@ Virelia_Slateford_QuarryDepths_EventScript_Feed::
 	setvar VAR_0x8004, 2
 	call VireliaFirstGym_EventScript_QuarrySwitch
 	goto_if_eq VAR_RESULT, FALSE, Virelia_Slateford_QuarryDepths_EventScript_WrongOrder
-	setmetatile 20, 14, 0x25D, 1
-	setmetatile 4, 9, 0x25F, 1
-	setmetatile 11, 6, 0x201, 0
-	setmetatile 3, 7, 0x227, 0
+	callnative VireliaQuarry_RefreshMap
 	special DrawWholeMapView
 	playse SE_BANG
 	msgbox Virelia_Slateford_QuarryDepths_Text_PowerRestored, MSGBOX_DEFAULT
@@ -67,8 +47,7 @@ Virelia_Slateford_QuarryDepths_EventScript_Feed::
 	end
 
 Virelia_Slateford_QuarryDepths_EventScript_WrongOrder:
-	setmetatile 20, 14, 0x25C, 1
-	setmetatile 4, 9, 0x25E, 1
+	callnative VireliaQuarry_RefreshMap
 	special DrawWholeMapView
 	playse SE_CLICK
 	msgbox Virelia_Slateford_QuarryDepths_Text_WrongOrder, MSGBOX_DEFAULT
@@ -114,7 +93,7 @@ Virelia_Slateford_QuarryDepths_EventScript_EvidenceAlready:
 	end
 
 Virelia_Slateford_QuarryDepths_Text_LenkaIntro:
-	.string "LENKA: Pod zemí potřebujeme\n"
+	.string "LENKA: V lomu potřebujeme\n"
 	.string "spolehlivé parťáky. Ukaž své!$"
 
 Virelia_Slateford_QuarryDepths_Text_LenkaDefeat:
@@ -125,7 +104,7 @@ Virelia_Slateford_QuarryDepths_Text_LenkaAfter:
 	.string "Pak přívod proudu vlevo.\p"
 	.string "Opačně spadne jistič.\n"
 	.string "Údržba tomu říká poučení.\p"
-	.string "K bedně na severu jdi až potom.\n"
+	.string "K bedně na jihu jdi až potom.\n"
 	.string "Ať její štítek neskončí ve vodě.$"
 
 Virelia_Slateford_QuarryDepths_Text_Pump:
@@ -147,9 +126,9 @@ Virelia_Slateford_QuarryDepths_Text_WrongOrder:
 Virelia_Slateford_QuarryDepths_Text_PowerRestored:
 	.string "Rozvodna opět pracuje!\n"
 	.string "Pohon odsunul kamenný náklad.\p"
-	.string "Cesta k severnímu skladu\n"
+	.string "Cesta k jižnímu skladu\n"
 	.string "je volná. Prohlédni jeho bednu.\p"
-	.string "Odsunuly se i vozíky u žebříků.\n"
+	.string "Otevřela se i stará trať.\n"
 	.string "Horník u vchodu tě shání.$"
 
 Virelia_Slateford_QuarryDepths_Text_PowerAlready:

@@ -1,5 +1,15 @@
 Virelia_Slateford_QuarryGallery_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Virelia_Slateford_QuarryGallery_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, Virelia_Slateford_QuarryGallery_OnLoad
 	.byte 0
+
+Virelia_Slateford_QuarryGallery_OnTransition:
+	callnative VireliaQuarry_Transition
+	end
+
+Virelia_Slateford_QuarryGallery_OnLoad:
+	callnative VireliaQuarry_RefreshMap
+	end
 
 @ Return-only wrappers also let native tests execute the compiled helpers.
 VireliaFirstGym_EventScript_BeginMissingTools::
@@ -142,18 +152,18 @@ Virelia_Slateford_QuarryGallery_Text_Request:
 	.string "Zjistíš, kdo je bere?$"
 
 Virelia_Slateford_QuarryGallery_Text_Reminder:
-	.string "U severozápadního žebříku\n"
+	.string "Na horní římse u vchodu\n"
 	.string "se něco leskne. Začni tam.\p"
 	.string "Vozíky už proud odsunul.\n"
-	.string "Stará štola vede až k rozvodně.\p"
+	.string "Stará trať vede až k rozvodně.\p"
 	.string "Posbírej po cestě tři nástroje\n"
 	.string "a najdi zbytek výbavy.$"
 
 Virelia_Slateford_QuarryGallery_Text_Wrench:
 	.string "Nacházíš lesklý montážní klíč.\n"
 	.string "Odkládáš ho stranou pro horníka.\p"
-	.string "Drobné stopy vedou k žebříku\n"
-	.string "na severozápadě. Žádné boty...$"
+	.string "Drobné stopy vedou ke trati\n"
+	.string "na jihu lomu. Žádné boty...$"
 
 Virelia_Slateford_QuarryGallery_Text_Hammer:
 	.string "Zvedáš hornické kladivo.\n"
@@ -196,7 +206,7 @@ Virelia_Slateford_QuarryGallery_Text_Recovered:
 	.string "Bereš pilu a zbylé nářadí.\n"
 	.string "Záhada zmizelých nástrojů končí!\p"
 	.string "Vrať je horníkovi u vchodu.\n"
-	.string "Jižní žebříky tvoří zkratku.$"
+	.string "Stará trať tvoří zkratku.$"
 
 Virelia_Slateford_QuarryGallery_Text_Retry:
 	.string "Sableye se vrátil ke své sbírce.\n"
@@ -206,7 +216,7 @@ Virelia_Slateford_QuarryGallery_Text_MoreTools:
 	.string "Sableye chrastí hromadou kovu.\n"
 	.string "Nejdřív posbírej tři nástroje:\p"
 	.string "u vchodu do lomu, na západě\n"
-	.string "štoly a v severní chodbě.$"
+	.string "staré trati a na severní římse.$"
 
 Virelia_Slateford_QuarryGallery_Text_AskMiner:
 	.string "Lesklé hornické nářadí...\n"
@@ -223,7 +233,7 @@ Virelia_Slateford_QuarryGallery_Text_Reward:
 Virelia_Slateford_QuarryGallery_Text_Thanks:
 	.string "Sableye má rád lesk, ne zločin.\n"
 	.string "Příště mu necháme lesklý kamínek.\p"
-	.string "Štola spojuje oba úseky lomu.\n"
+	.string "Trať spojuje oba úseky lomu.\n"
 	.string "Aspoň ušetříme pár kroků!$"
 
 Virelia_Slateford_QuarryGallery_Text_BagFull:
@@ -232,7 +242,7 @@ Virelia_Slateford_QuarryGallery_Text_BagFull:
 	.string "Hard Stone ti zatím schovám.$"
 
 Virelia_Slateford_QuarryGallery_Text_Gate:
-	.string "STARÁ ŠTOLA - servisní žebřík\n"
+	.string "STARÁ TRAŤ - servisní průchod\n"
 	.string "Vozík odsune elektrický pohon.$"
 
 Virelia_Slateford_QuarryGallery_Text_Hoard:
@@ -246,3 +256,11 @@ Virelia_Slateford_QuarryGallery_Text_EmptyHoard:
 Virelia_Slateford_QuarryGallery_Text_Sign:
 	.string "STARÁ SPOJOVACÍ ŠTOLA\n"
 	.string "Západ: vstup. Východ: rozvodna.$"
+
+Virelia_Slateford_QuarryGallery_EventScript_DeepAdit::
+	msgbox Virelia_Slateford_QuarryGallery_Text_DeepAdit, MSGBOX_SIGN
+	end
+
+Virelia_Slateford_QuarryGallery_Text_DeepAdit:
+	.string "Zával uzavřel hlubší štolu.\n"
+	.string "Dál je vstup zakázán.$"

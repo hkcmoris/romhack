@@ -1,0 +1,1123 @@
+{
+  "maps": [
+    "Virelia_Slateford_QuarryEntrance",
+    "Virelia_Slateford_QuarryTerraces",
+    "Virelia_Slateford_QuarryDepths",
+    "Virelia_Slateford_QuarryGallery"
+  ],
+  "sizes": {
+    "Virelia_Slateford_QuarryEntrance": [
+      36,
+      32
+    ],
+    "Virelia_Slateford_QuarryTerraces": [
+      40,
+      40
+    ],
+    "Virelia_Slateford_QuarryDepths": [
+      40,
+      32
+    ],
+    "Virelia_Slateford_QuarryGallery": [
+      36,
+      40
+    ]
+  },
+  "gates": {
+    "Virelia_Slateford_QuarryGallery": [
+      [
+        26,
+        8
+      ],
+      [
+        27,
+        8
+      ],
+      [
+        27,
+        24
+      ],
+      [
+        27,
+        25
+      ]
+    ],
+    "Virelia_Slateford_QuarryDepths": [
+      [
+        20,
+        22
+      ],
+      [
+        21,
+        22
+      ]
+    ]
+  },
+  "controls": {
+    "pump_control": [
+      22,
+      12
+    ],
+    "electrical_feed": [
+      10,
+      12
+    ]
+  },
+  "placements": [
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "cut_slate_stack",
+      "x": 23,
+      "y": 17,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "loaded_cart",
+      "x": 17,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "quarry_lantern",
+      "x": 5,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "cut_slate_stack",
+      "x": 17,
+      "y": 16,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "cut_slate_stack",
+      "x": 28,
+      "y": 21,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "slate_rubble",
+      "x": 4,
+      "y": 18,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "slate_rubble",
+      "x": 29,
+      "y": 16,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "slate_rubble",
+      "x": 20,
+      "y": 5,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "framed_adit",
+      "x": 19,
+      "y": 10,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "quarry_lantern",
+      "x": 18,
+      "y": 13,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 15,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 16,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 17,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 18,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 19,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 20,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 21,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 22,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 23,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "horizontal",
+      "x": 24,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "buffer_horizontal",
+      "x": 25,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryEntrance",
+      "asset": "buffer_vertical",
+      "x": 18,
+      "y": 26,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 14,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 16,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 18,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 20,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 22,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 24,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 26,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 28,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 30,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 32,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "exposed_slate",
+      "x": 34,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "timber_derrick",
+      "x": 28,
+      "y": 16,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "loaded_cart",
+      "x": 20,
+      "y": 20,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "slate_rubble",
+      "x": 34,
+      "y": 5,
+      "elevation": 7
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "cut_slate_stack",
+      "x": 15,
+      "y": 13,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "cut_slate_stack",
+      "x": 34,
+      "y": 20,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "slate_rubble",
+      "x": 21,
+      "y": 4,
+      "elevation": 7
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "slate_rubble",
+      "x": 24,
+      "y": 18,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 18,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 19,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 20,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 21,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 22,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 23,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 24,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 25,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 26,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "horizontal",
+      "x": 27,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "bend_nw",
+      "x": 28,
+      "y": 22,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "vertical",
+      "x": 28,
+      "y": 20,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "vertical",
+      "x": 28,
+      "y": 21,
+      "elevation": 5
+    },
+    {
+      "map": "Virelia_Slateford_QuarryTerraces",
+      "asset": "quarry_lantern",
+      "x": 14,
+      "y": 29,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryDepths",
+      "asset": "pump_control_off",
+      "x": 22,
+      "y": 12,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryDepths",
+      "asset": "electrical_feed_off",
+      "x": 10,
+      "y": 12,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryDepths",
+      "asset": "slate_rubble",
+      "x": 6,
+      "y": 8,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryDepths",
+      "asset": "cut_slate_stack",
+      "x": 3,
+      "y": 5,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryDepths",
+      "asset": "loaded_cart",
+      "x": 32,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryDepths",
+      "asset": "slate_rubble",
+      "x": 33,
+      "y": 27,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryDepths",
+      "asset": "quarry_lantern",
+      "x": 24,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "framed_adit",
+      "x": 5,
+      "y": 9,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "framed_adit",
+      "x": 20,
+      "y": 32,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "slate_rubble",
+      "x": 21,
+      "y": 34,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "quarry_lantern",
+      "x": 17,
+      "y": 30,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "cut_slate_stack",
+      "x": 4,
+      "y": 30,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "exposed_slate",
+      "x": 20,
+      "y": 17,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "slate_rubble",
+      "x": 3,
+      "y": 13,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "slate_rubble",
+      "x": 23,
+      "y": 28,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "quarry_lantern",
+      "x": 8,
+      "y": 11,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 5,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 6,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 7,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 8,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 9,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 10,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 11,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 12,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 13,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 14,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 15,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 16,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 17,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 18,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 19,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 20,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 21,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 22,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "bend_ne",
+      "x": 4,
+      "y": 25,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "bend_se",
+      "x": 4,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "bend_sw",
+      "x": 22,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 5,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 6,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 7,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 8,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 9,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 10,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 11,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 12,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 13,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 14,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 15,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 16,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 17,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 18,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 19,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 20,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "horizontal",
+      "x": 21,
+      "y": 22,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "vertical",
+      "x": 4,
+      "y": 23,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "vertical",
+      "x": 22,
+      "y": 23,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "vertical",
+      "x": 4,
+      "y": 24,
+      "elevation": 3
+    },
+    {
+      "map": "Virelia_Slateford_QuarryGallery",
+      "asset": "vertical",
+      "x": 22,
+      "y": 24,
+      "elevation": 3
+    }
+  ],
+  "ids": {
+    "GROUND": 512,
+    "ROUGH": 513,
+    "ROAD": 514,
+    "CITY_EXIT": 515,
+    "NATIVE_068": 516,
+    "NATIVE_069": 517,
+    "NATIVE_06A": 518,
+    "NATIVE_070": 519,
+    "NATIVE_071": 520,
+    "NATIVE_072": 521,
+    "NATIVE_078": 522,
+    "NATIVE_079": 523,
+    "NATIVE_07A": 524,
+    "NATIVE_080": 525,
+    "NATIVE_081": 526,
+    "NATIVE_082": 527,
+    "NATIVE_088": 528,
+    "NATIVE_089": 529,
+    "NATIVE_08A": 530,
+    "NATIVE_090": 531,
+    "NATIVE_091": 532,
+    "NATIVE_092": 533,
+    "NATIVE_0AF": 534,
+    "NATIVE_0CF": 535,
+    "TIMBER_DERRICK_BASE_0_0": 536,
+    "TIMBER_DERRICK_BASE_1_0": 537,
+    "TIMBER_DERRICK_BASE_2_0": 538,
+    "TIMBER_DERRICK_BASE_3_0": 539,
+    "TIMBER_DERRICK_BASE_0_1": 540,
+    "TIMBER_DERRICK_BASE_1_1": 541,
+    "TIMBER_DERRICK_BASE_2_1": 542,
+    "TIMBER_DERRICK_BASE_3_1": 543,
+    "TIMBER_DERRICK_BASE_0_2": 544,
+    "TIMBER_DERRICK_BASE_1_2": 545,
+    "TIMBER_DERRICK_BASE_2_2": 546,
+    "TIMBER_DERRICK_BASE_3_2": 547,
+    "TIMBER_DERRICK_BASE_0_3": 548,
+    "TIMBER_DERRICK_BASE_1_3": 549,
+    "TIMBER_DERRICK_BASE_2_3": 550,
+    "TIMBER_DERRICK_BASE_3_3": 551,
+    "FRAMED_ADIT_BASE_0_0": 552,
+    "FRAMED_ADIT_BASE_1_0": 553,
+    "FRAMED_ADIT_BASE_2_0": 554,
+    "FRAMED_ADIT_BASE_0_1": 555,
+    "FRAMED_ADIT_BASE_1_1": 556,
+    "FRAMED_ADIT_BASE_2_1": 557,
+    "FRAMED_ADIT_BASE_0_2": 558,
+    "FRAMED_ADIT_BASE_1_2": 559,
+    "FRAMED_ADIT_BASE_2_2": 560,
+    "QUARRY_LANTERN_BASE_0_0": 561,
+    "QUARRY_LANTERN_BASE_0_1": 562,
+    "QUARRY_LANTERN_BASE_0_2": 563,
+    "LOADED_CART_BASE_0_0": 564,
+    "LOADED_CART_BASE_1_0": 565,
+    "LOADED_CART_BASE_0_1": 566,
+    "LOADED_CART_BASE_1_1": 567,
+    "CUT_SLATE_STACK_BASE_0_0": 568,
+    "CUT_SLATE_STACK_BASE_1_0": 569,
+    "CUT_SLATE_STACK_BASE_0_1": 570,
+    "CUT_SLATE_STACK_BASE_1_1": 571,
+    "PUMP_CONTROL_OFF_0_0": 572,
+    "PUMP_CONTROL_OFF_1_0": 573,
+    "PUMP_CONTROL_OFF_0_1": 574,
+    "PUMP_CONTROL_OFF_1_1": 575,
+    "PUMP_CONTROL_ON_0_0": 576,
+    "PUMP_CONTROL_ON_1_0": 577,
+    "PUMP_CONTROL_ON_0_1": 578,
+    "PUMP_CONTROL_ON_1_1": 579,
+    "EXPOSED_SLATE_BASE_0_0": 580,
+    "EXPOSED_SLATE_BASE_1_0": 581,
+    "EXPOSED_SLATE_BASE_0_1": 582,
+    "EXPOSED_SLATE_BASE_1_1": 583,
+    "ELECTRICAL_FEED_OFF_0_0": 584,
+    "ELECTRICAL_FEED_OFF_1_0": 585,
+    "ELECTRICAL_FEED_OFF_0_1": 586,
+    "ELECTRICAL_FEED_OFF_1_1": 587,
+    "ELECTRICAL_FEED_ON_0_0": 588,
+    "ELECTRICAL_FEED_ON_1_0": 589,
+    "ELECTRICAL_FEED_ON_0_1": 590,
+    "ELECTRICAL_FEED_ON_1_1": 591,
+    "SLATE_RUBBLE_BASE_0_0": 592,
+    "SLATE_RUBBLE_BASE_1_0": 593,
+    "SLATE_RUBBLE_BASE_0_1": 594,
+    "SLATE_RUBBLE_BASE_1_1": 595,
+    "HORIZONTAL_BASE_0_0": 596,
+    "VERTICAL_BASE_0_0": 597,
+    "BEND_NE_BASE_0_0": 598,
+    "BEND_NW_BASE_0_0": 599,
+    "BEND_SE_BASE_0_0": 600,
+    "BEND_SW_BASE_0_0": 601,
+    "BUFFER_HORIZONTAL_BASE_0_0": 602,
+    "BUFFER_VERTICAL_BASE_0_0": 603,
+    "GATE": 566
+  },
+  "assets": {
+    "timber_derrick": [
+      [
+        536,
+        537,
+        538,
+        539
+      ],
+      [
+        540,
+        541,
+        542,
+        543
+      ],
+      [
+        544,
+        545,
+        546,
+        547
+      ],
+      [
+        548,
+        549,
+        550,
+        551
+      ]
+    ],
+    "framed_adit": [
+      [
+        552,
+        553,
+        554
+      ],
+      [
+        555,
+        556,
+        557
+      ],
+      [
+        558,
+        559,
+        560
+      ]
+    ],
+    "quarry_lantern": [
+      [
+        561
+      ],
+      [
+        562
+      ],
+      [
+        563
+      ]
+    ],
+    "loaded_cart": [
+      [
+        564,
+        565
+      ],
+      [
+        566,
+        567
+      ]
+    ],
+    "cut_slate_stack": [
+      [
+        568,
+        569
+      ],
+      [
+        570,
+        571
+      ]
+    ],
+    "pump_control_off": [
+      [
+        572,
+        573
+      ],
+      [
+        574,
+        575
+      ]
+    ],
+    "pump_control_on": [
+      [
+        576,
+        577
+      ],
+      [
+        578,
+        579
+      ]
+    ],
+    "exposed_slate": [
+      [
+        580,
+        581
+      ],
+      [
+        582,
+        583
+      ]
+    ],
+    "electrical_feed_off": [
+      [
+        584,
+        585
+      ],
+      [
+        586,
+        587
+      ]
+    ],
+    "electrical_feed_on": [
+      [
+        588,
+        589
+      ],
+      [
+        590,
+        591
+      ]
+    ],
+    "slate_rubble": [
+      [
+        592,
+        593
+      ],
+      [
+        594,
+        595
+      ]
+    ],
+    "horizontal": [
+      [
+        596
+      ]
+    ],
+    "vertical": [
+      [
+        597
+      ]
+    ],
+    "bend_ne": [
+      [
+        598
+      ]
+    ],
+    "bend_nw": [
+      [
+        599
+      ]
+    ],
+    "bend_se": [
+      [
+        600
+      ]
+    ],
+    "bend_sw": [
+      [
+        601
+      ]
+    ],
+    "buffer_horizontal": [
+      [
+        602
+      ]
+    ],
+    "buffer_vertical": [
+      [
+        603
+      ]
+    ]
+  }
+}

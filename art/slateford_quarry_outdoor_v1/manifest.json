@@ -1,0 +1,326 @@
+{
+  "version": 1,
+  "status": "integrated in gTileset_VireliaQuarryOutdoor",
+  "source": "source/quarry-outdoor.aseprite",
+  "export": "exports/quarry-outdoor.png",
+  "canvas": [
+    128,
+    128
+  ],
+  "metatile_size": 16,
+  "palette_source": "data/tilesets/secondary/virelia_quarry/palettes/07.pal",
+  "light": "upper left",
+  "assets": [
+    {
+      "id": "timber_derrick",
+      "layer": "Timber derrick",
+      "rect": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "role": "landmark with blocked tower and suspended-load footprint"
+    },
+    {
+      "id": "framed_adit",
+      "layer": "Framed adit",
+      "rect": [
+        64,
+        0,
+        48,
+        48
+      ],
+      "role": "cliff entrance with centered bottom warp"
+    },
+    {
+      "id": "quarry_lantern",
+      "layer": "Quarry lantern",
+      "rect": [
+        112,
+        0,
+        16,
+        48
+      ],
+      "role": "blocked lamp base; canopy above actors"
+    },
+    {
+      "id": "loaded_cart",
+      "layer": "Loaded ore cart",
+      "rect": [
+        64,
+        48,
+        32,
+        32
+      ],
+      "role": "blocked freight prop; south interaction"
+    },
+    {
+      "id": "cut_slate_stack",
+      "rect": [
+        96,
+        48,
+        32,
+        32
+      ],
+      "role": "blocked cut-stone prop",
+      "layers": [
+        "Slate blocks 01 base left",
+        "Slate blocks 02 base right",
+        "Slate blocks 03 upper"
+      ],
+      "composition": {
+        "painter_order": "left to right within each row; far to close within each base tier; upper tier last",
+        "pieces": [
+          {
+            "layer": "Slate blocks 01 base left",
+            "origin": [
+              1,
+              16
+            ],
+            "size": [
+              15,
+              14
+            ],
+            "tier": "base",
+            "order": 1
+          },
+          {
+            "layer": "Slate blocks 02 base right",
+            "origin": [
+              16,
+              16
+            ],
+            "size": [
+              15,
+              14
+            ],
+            "tier": "base",
+            "order": 2
+          },
+          {
+            "layer": "Slate blocks 03 upper",
+            "origin": [
+              9,
+              11
+            ],
+            "size": [
+              15,
+              14
+            ],
+            "tier": "upper",
+            "order": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "pump_control",
+      "layer": "Pump control",
+      "rect": [
+        0,
+        64,
+        32,
+        32
+      ],
+      "role": "blocked pump control; south interaction"
+    },
+    {
+      "id": "exposed_slate",
+      "layer": "Exposed slate course",
+      "rect": [
+        32,
+        64,
+        32,
+        32
+      ],
+      "role": "blocked repeating cliff-facing overlay"
+    },
+    {
+      "id": "electrical_feed",
+      "layer": "Electrical feed",
+      "rect": [
+        64,
+        80,
+        32,
+        32
+      ],
+      "role": "blocked electrical control; south interaction"
+    },
+    {
+      "id": "slate_rubble",
+      "rect": [
+        96,
+        80,
+        32,
+        32
+      ],
+      "role": "blocked rubble prop",
+      "layers": [
+        "Rubble 01 rear left",
+        "Rubble 02 rear right",
+        "Rubble 03 front left",
+        "Rubble 04 front right",
+        "Rubble 05 upper"
+      ],
+      "composition": {
+        "painter_order": "left to right within each row; far to close within each base tier; upper tier last",
+        "pieces": [
+          {
+            "layer": "Rubble 01 rear left",
+            "origin": [
+              3,
+              7
+            ],
+            "size": [
+              13,
+              13
+            ],
+            "tier": "base rear",
+            "order": 1
+          },
+          {
+            "layer": "Rubble 02 rear right",
+            "origin": [
+              16,
+              7
+            ],
+            "size": [
+              13,
+              13
+            ],
+            "tier": "base rear",
+            "order": 2
+          },
+          {
+            "layer": "Rubble 03 front left",
+            "origin": [
+              1,
+              17
+            ],
+            "size": [
+              13,
+              13
+            ],
+            "tier": "base front",
+            "order": 3
+          },
+          {
+            "layer": "Rubble 04 front right",
+            "origin": [
+              17,
+              17
+            ],
+            "size": [
+              13,
+              13
+            ],
+            "tier": "base front",
+            "order": 4
+          },
+          {
+            "layer": "Rubble 05 upper",
+            "origin": [
+              9,
+              11
+            ],
+            "size": [
+              13,
+              13
+            ],
+            "tier": "upper",
+            "order": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "horizontal",
+      "layer": "Modular rails",
+      "rect": [
+        0,
+        112,
+        16,
+        16
+      ],
+      "role": "walkable rail overlay"
+    },
+    {
+      "id": "vertical",
+      "layer": "Modular rails",
+      "rect": [
+        16,
+        112,
+        16,
+        16
+      ],
+      "role": "walkable rail overlay"
+    },
+    {
+      "id": "bend_ne",
+      "layer": "Modular rails",
+      "rect": [
+        32,
+        112,
+        16,
+        16
+      ],
+      "role": "walkable rail overlay"
+    },
+    {
+      "id": "bend_nw",
+      "layer": "Modular rails",
+      "rect": [
+        48,
+        112,
+        16,
+        16
+      ],
+      "role": "walkable rail overlay"
+    },
+    {
+      "id": "bend_se",
+      "layer": "Modular rails",
+      "rect": [
+        64,
+        112,
+        16,
+        16
+      ],
+      "role": "walkable rail overlay"
+    },
+    {
+      "id": "bend_sw",
+      "layer": "Modular rails",
+      "rect": [
+        80,
+        112,
+        16,
+        16
+      ],
+      "role": "walkable rail overlay"
+    },
+    {
+      "id": "buffer_horizontal",
+      "layer": "Modular rails",
+      "rect": [
+        96,
+        112,
+        16,
+        16
+      ],
+      "role": "blocked rail endpoint"
+    },
+    {
+      "id": "buffer_vertical",
+      "layer": "Modular rails",
+      "rect": [
+        112,
+        112,
+        16,
+        16
+      ],
+      "role": "blocked rail endpoint"
+    }
+  ]
+}

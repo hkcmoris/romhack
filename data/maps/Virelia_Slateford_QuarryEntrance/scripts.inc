@@ -3,15 +3,12 @@ Virelia_Slateford_QuarryEntrance_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, Virelia_Slateford_QuarryEntrance_OnLoad
 	.byte 0
 
-Virelia_Slateford_QuarryEntrance_OnLoad:
-	setmetatile 4, 3, 0x203, 1
-	goto_if_unset FLAG_VIRELIA_QUARRY_POWER_RESTORED, Virelia_Slateford_QuarryEntrance_LoadDone
-	setmetatile 4, 3, 0x227, 0
-Virelia_Slateford_QuarryEntrance_LoadDone:
+Virelia_Slateford_QuarryEntrance_OnTransition:
+	callnative VireliaQuarry_Transition
 	end
 
-Virelia_Slateford_QuarryEntrance_OnTransition:
-	callnative VireliaFirstGym_BeginChapter
+Virelia_Slateford_QuarryEntrance_OnLoad:
+	callnative VireliaQuarry_RefreshMap
 	end
 
 @ Public return-only entry points keep native event tests on the real helpers.
@@ -70,7 +67,7 @@ Virelia_Slateford_QuarryEntrance_EventScript_Item::
 	faceplayer
 	call VireliaFirstGym_EventScript_TakeQuarryItem
 	goto_if_eq VAR_RESULT, FALSE, Virelia_Slateford_QuarryEntrance_EventScript_BagFull
-	removeobject 2
+	removeobject VAR_LAST_TALKED
 	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
 	msgbox Virelia_Slateford_QuarryEntrance_Text_Item, MSGBOX_DEFAULT
@@ -98,8 +95,8 @@ Virelia_Slateford_QuarryEntrance_Text_BrunoAfter:
 Virelia_Slateford_QuarryEntrance_Text_Guide:
 	.string "Po zlodějích zbyly bedny\n"
 	.string "a poškozená rozvodna.\p"
-	.string "Hlubší část je za žebříkem\n"
-	.string "na severovýchodě.\p"
+	.string "K rozvodně dojdeš po cestě\n"
+	.string "přes východní terasy.\p"
 	.string "Když to začne jiskřit, ustup.\n"
 	.string "Hrdinství nehasí kabely.$"
 

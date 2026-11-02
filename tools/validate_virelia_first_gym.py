@@ -16,6 +16,7 @@ NEW_NAMES = (
     "Virelia_Slateford_PokemonCenter",
     "Virelia_Slateford_QuarryEntrance", "Virelia_Slateford_QuarryDepths",
     "Virelia_Slateford_Gym", "Virelia_Slateford_QuarryGallery",
+    "Virelia_Slateford_QuarryTerraces",
 )
 TRAINERS = (
     "TRAINER_VIRELIA_MINER_BRUNO", "TRAINER_VIRELIA_EXPLORER_LENKA",
@@ -178,8 +179,8 @@ def validate():
         "Virelia_MaplebrookTown", "Virelia_Route01", "Virelia_SlatefordCity"],
         "Existing overworld map IDs changed")
     # Later chapters and optional town interiors append after these fixed IDs.
-    require(groups["gMapGroup_VireliaInteriors"][:2 + len(NEW_NAMES)] == [
-        "Virelia_MaplebrookResearchLaboratory", "Virelia_MaplebrookPlayersHouse", *NEW_NAMES],
+    require(groups["gMapGroup_VireliaInteriors"][:7] == [
+        "Virelia_MaplebrookResearchLaboratory", "Virelia_MaplebrookPlayersHouse", *NEW_NAMES[:5]],
         "Unexpected merged-service interior map order")
     maps = {name: load(f"data/maps/{name}/map.json") for name in NEW_NAMES}
     for name, entry in maps.items():
@@ -244,8 +245,6 @@ def validate():
                           + r"::?\s*callnative VireliaFirstGym_" + suffix + r"\s+return", scripts_all),
                 f"Compiled event wrapper missing: {suffix}")
     for name, gate, arrival, target, panels, solved_flag, reset_fn in (
-        ("Virelia_Slateford_QuarryDepths", (11, 6), (3, 19), (12, 3), ((20, 14), (4, 9)),
-         "FLAG_VIRELIA_QUARRY_POWER_RESTORED", "VireliaFirstGym_ResetQuarryPuzzle"),
         ("Virelia_Slateford_Gym", (6, 6), (5, 18), (6, 2), ((3, 11), (9, 8)),
          "FLAG_VIRELIA_GYM_PUZZLE_COMPLETE", "VireliaFirstGym_ResetGymPuzzle"),
     ):
@@ -315,6 +314,8 @@ def validate():
     print("PASS: locked/open collision graphs for quarry and Gym; both switches reachable and objectives gated")
     print(f"PASS: two encounter tables, {len(quarry_species)} quarry species, independent badge/Hoenn save flags")
     print("Native test suites and emulator playtest remain separate verification steps.")
+    from validate_virelia_missing_tools import validate as validate_quarry_routes
+    validate_quarry_routes()
 
 
 def main():

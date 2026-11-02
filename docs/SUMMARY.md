@@ -8,6 +8,7 @@
 - [Virelia playable prologue](./VIRELIA_PROLOGUE.md)
 - [Whisperwood hidden sanctuary](./VIRELIA_SANCTUARY.md)
 - [Virelia first Gym](./VIRELIA_FIRST_GYM.md)
+- [Slateford quarry outdoor redesign](./VIRELIA_QUARRY_OUTDOOR_REDESIGN.md)
 - [Rainfall Pass and Seabreak chapter](./VIRELIA_RAINFALL_SEABREAK.md)
 - [Rainfall and Seabreak Android / My Boy! checklist](./VIRELIA_RAINFALL_SEABREAK_ANDROID.md)
 - [Rainfall Pass and Seabreak implementation design](./VIRELIA_RAINFALL_SEABREAK_PLAN.md)

@@ -11,6 +11,7 @@
 #include "constants/items.h"
 #include "constants/virelia_prologue.h"
 #include "constants/virelia_first_gym.h"
+#include "constants/virelia_quarry_outdoor.h"
 
 #if !IS_FRLG && VIRELIA_PROLOGUE && !VIRELIA_DEVELOPMENT_MODE
 
@@ -105,7 +106,7 @@ TEST("Virelia Missing Tools full Bag retries the Hard Stone reward exactly once"
     EXPECT(!FlagGet(FLAG_VIRELIA_QUARRY_COMPLETE));
 }
 
-TEST("Virelia Missing Tools actual map loads gate both gallery ladders on electricity")
+TEST("Virelia Missing Tools actual map loads gate both outdoor gallery corridors on electricity")
 {
     u32 entrance = TRUE, powered = FALSE;
     PARAMETRIZE { entrance = TRUE; powered = FALSE; }
@@ -114,14 +115,14 @@ TEST("Virelia Missing Tools actual map loads gate both gallery ladders on electr
     PARAMETRIZE { entrance = FALSE; powered = TRUE; }
     ResetTools();
     if (powered) FlagSet(FLAG_VIRELIA_QUARRY_POWER_RESTORED);
-    u16 map = entrance ? MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE : MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS;
-    u32 x = entrance ? 4 : 3, y = entrance ? 3 : 7;
-    SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), WARP_ID_NONE, 7, entrance ? 7 : 10);
+    u16 map = MAP_VIRELIA_SLATEFORD_QUARRY_GALLERY;
+    u32 x = entrance ? 26 : 27, y = entrance ? 8 : 24;
+    SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), WARP_ID_NONE, 10, 15);
     WarpIntoMap();
     InitMap();
     RunOnLoadMapScript();
     EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET) != 0, !powered);
-    EXPECT_EQ(MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET), powered ? 0x227 : 0x203);
+    EXPECT_EQ(MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET), powered ? VQ_GROUND : VQ_GATE);
 }
 
 #endif

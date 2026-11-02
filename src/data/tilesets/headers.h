@@ -926,6 +926,17 @@ const struct Tileset gTileset_UnionRoom =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_VireliaQuarryOutdoor =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_VireliaQuarryOutdoor,
+    .palettes = gTilesetPalettes_VireliaQuarryOutdoor,
+    .metatiles = gMetatiles_VireliaQuarryOutdoor,
+    .metatileAttributes = gMetatileAttributes_VireliaQuarryOutdoor,
+    .callback = NULL,
+};
+
 #else
 
 // FRLG tilesets

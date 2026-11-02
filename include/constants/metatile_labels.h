@@ -1063,6 +1063,7 @@
 #define METATILE_VireliaOutdoor_BridgeVertical_Right  0x364
 #define METATILE_VireliaOutdoor_Bench_Left            0x365
 #define METATILE_VireliaOutdoor_Bench_Right           0x366
+#define METATILE_VireliaOutdoor_ShoreGround           0x367
 
 // Other
 #define METATILE_GeneralFrlg_CalmWater               0x12B

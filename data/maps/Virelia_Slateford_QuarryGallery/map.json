@@ -5,20 +5,31 @@
   "music": "MUS_CAVE_OF_ORIGIN",
   "region_map_section": "MAPSEC_VIRELIA_SLATEFORD_CITY",
   "requires_flash": false,
-  "weather": "WEATHER_NONE",
-  "map_type": "MAP_TYPE_UNDERGROUND",
+  "weather": "WEATHER_SUNNY",
+  "map_type": "MAP_TYPE_ROUTE",
   "allow_cycling": false,
-  "allow_escaping": true,
+  "allow_escaping": false,
   "allow_running": true,
   "show_map_name": false,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": null,
+  "connections": [
+    {
+      "direction": "up",
+      "offset": 0,
+      "map": "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE"
+    },
+    {
+      "direction": "right",
+      "offset": 8,
+      "map": "MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS"
+    }
+  ],
   "object_events": [
     {
       "local_id": "LOCALID_VIRELIA_GALLERY_SABLEYE",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(SABLEYE)",
-      "x": 24,
-      "y": 9,
+      "x": 14,
+      "y": 29,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -30,8 +41,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_QUARRY_HAMMER",
-      "x": 7,
-      "y": 17,
+      "x": 8,
+      "y": 18,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -43,8 +54,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_QUARRY_PICK",
-      "x": 17,
-      "y": 6,
+      "x": 19,
+      "y": 13,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -56,8 +67,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_QUARRY_TOOL_HOARD",
-      "x": 25,
-      "y": 8,
+      "x": 15,
+      "y": 28,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -68,28 +79,21 @@
       "flag": "0"
     }
   ],
-  "warp_events": [
-    {
-      "x": 3,
-      "y": 20,
-      "elevation": 0,
-      "dest_map": "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE",
-      "dest_warp_id": "2"
-    },
-    {
-      "x": 26,
-      "y": 20,
-      "elevation": 0,
-      "dest_map": "MAP_VIRELIA_SLATEFORD_QUARRY_DEPTHS",
-      "dest_warp_id": "1"
-    }
-  ],
+  "warp_events": [],
   "coord_events": [],
   "bg_events": [
     {
       "type": "sign",
-      "x": 4,
-      "y": 20,
+      "x": 21,
+      "y": 35,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Virelia_Slateford_QuarryGallery_EventScript_DeepAdit"
+    },
+    {
+      "type": "sign",
+      "x": 25,
+      "y": 6,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_Slateford_QuarryGallery_EventScript_Sign"

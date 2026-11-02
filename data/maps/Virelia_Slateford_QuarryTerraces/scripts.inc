@@ -1,0 +1,12 @@
+Virelia_Slateford_QuarryTerraces_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Virelia_Slateford_QuarryTerraces_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, Virelia_Slateford_QuarryTerraces_OnLoad
+	.byte 0
+
+Virelia_Slateford_QuarryTerraces_OnTransition:
+	callnative VireliaQuarry_Transition
+	end
+
+Virelia_Slateford_QuarryTerraces_OnLoad:
+	callnative VireliaQuarry_RefreshMap
+	end
