@@ -27,6 +27,7 @@
 #include "constants/items.h"
 #include "constants/pokemon.h"
 #include "constants/metatile_behaviors.h"
+#include "constants/metatile_labels.h"
 #include "constants/opponents.h"
 #include "constants/virelia_prologue.h"
 #include "constants/virelia_first_gym.h"
@@ -365,6 +366,24 @@ TEST("Rainfall native wooden bridges keep avatar and follower above the deck on 
         }
     }
     EXPECT_GE(bridgeCells, 2);
+}
+
+TEST("Rainfall Seabreak lighthouse allows walking behind the gallery and blocks the stone foundation")
+{
+    ResetRainfall();
+    LoadRainfallMap(MAP_VIRELIA_SEABREAK_TOWN);
+    const s32 x = 37 + MAP_OFFSET;
+    const s32 galleryY = 25 + MAP_OFFSET;
+    const s32 doorY = 31 + MAP_OFFSET;
+    EXPECT_EQ(MapGridGetMetatileIdAt(x, galleryY), METATILE_VireliaCoast_Lighthouse_Gallery);
+    EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x, galleryY), METATILE_LAYER_TYPE_NORMAL);
+    EXPECT_EQ(MapGridGetCollisionAt(x, galleryY), 0);
+    for (s32 dx = -2; dx <= 2; dx++)
+        EXPECT_NE(MapGridGetCollisionAt(x + dx, doorY - 1), 0);
+    EXPECT_EQ(MapGridGetMetatileIdAt(x, doorY), METATILE_VireliaCoast_Lighthouse_Door);
+    EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x, doorY), METATILE_LAYER_TYPE_COVERED);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(x, doorY), MB_NON_ANIMATED_DOOR);
+    EXPECT_EQ(MapGridGetCollisionAt(x, doorY), 0);
 }
 
 TEST("Rainfall native Continue restores the whole north exit over an older cached Slateford view")

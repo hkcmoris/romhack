@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Polish Seabreak using complete stock Emerald assemblies, without drawing art.
+"""Build Seabreak's harbor, lighthouse and native tile assemblies.
 
-Only the SeabreakTown blockmap and its dedicated coast bank are written. Map
+The Seabreak harbor and its dedicated coast bank are rebuilt together. Map
 metadata, warps, scripts, actors and interaction coordinates stay unchanged.
-The existing lighthouse sprite is retained as an acknowledged art placeholder.
 Run after build_rainfall_seabreak.py; never regenerate hand-edited maps blindly.
 """
 
@@ -11,14 +10,15 @@ from pathlib import Path
 from functools import lru_cache
 import json
 import struct
-from PIL import Image
-from polish_rainfall import Terrain
-from native_terrain import paint_rock_outcrop
+from PIL import Image, ImageDraw
+from native_terrain import plant_trees
 
 ROOT = Path(__file__).resolve().parents[2]
 COAST = ROOT / "data/tilesets/secondary/virelia_coast"
 PRIMARY = ROOT / "data/tilesets/primary/general"
-BASE_COUNT = 0x39
+LIGHTHOUSE_WIDTH = 5
+LIGHTHOUSE_HEIGHT = 10
+LIGHTHOUSE_BASE = (".###.", "#####", ".#D#.")
 
 
 def words(path):
@@ -47,30 +47,66 @@ def stock_grid(name):
     ]
     layout = next(entry for entry in layouts if entry["name"] == name + "_Layout")
     data = words(ROOT / layout["blockdata_filepath"])
-    return [data[y * layout["width"] : (y + 1) * layout["width"]] for y in range(layout["height"])]
+    return [data[y * layout["width"]: (y + 1) * layout["width"]] for y in range(layout["height"])]
 
 
 class StockBank:
     """Copy existing indexed pixels, flips, palettes and behavior as complete units."""
 
     def __init__(self):
-        original = words(COAST / "metatiles.bin")[: BASE_COUNT * 8]
-        self.meta = original[:]
-        self.attrs = words(COAST / "metatile_attributes.bin")[:BASE_COUNT]
-        image = Image.open(COAST / "tiles.png").copy()
-        count = max((v & 1023) - 512 for v in original if (v & 1023) >= 512) + 1
-        self.tiles = [
-            image.crop((i % 16 * 8, i // 16 * 8, i % 16 * 8 + 8, i // 16 * 8 + 8)).tobytes()
-            for i in range(count)
-        ]
-        self.lookup = {value: 512 + i for i, value in enumerate(self.tiles)}
+        # The first 50 metatiles are the editable lighthouse, in sheet order.
+        self.attrs = [0] * (LIGHTHOUSE_WIDTH * LIGHTHOUSE_HEIGHT)
+        self.meta = [0] * (8 * len(self.attrs))
+        self.tiles = []
+        self.lookup = {}
         self.ids = {}
-        self.palette = image.getpalette()
-        # Replace the old featureless exit marker with stock path pixels. The
-        # north-arrow behavior and existing map ID are deliberately unchanged.
-        self.meta[(0x238 - 512) * 8 : (0x239 - 512) * 8] = words(PRIMARY / "metatiles.bin")[
-            0x121 * 8 : 0x122 * 8
-        ]
+        self.palette = source("slateport")[3].getpalette()
+
+    def graphic(self, pixels):
+        if not any(pixels):
+            return 0
+        if pixels not in self.lookup:
+            self.lookup[pixels] = 512 + len(self.tiles)
+            self.tiles.append(pixels)
+        return self.lookup[pixels]
+
+    def lighthouse(self, grid, left, top):
+        tower = Image.open(COAST / "lighthouse.png")
+        if (tower.mode != "P" or tower.size != (16 * LIGHTHOUSE_WIDTH, 16 * LIGHTHOUSE_HEIGHT)
+                or tower.getextrema()[1] > 15 or tower.info.get("transparency") != 0):
+            raise ValueError("lighthouse.png must be a 5x10 metatile sheet with 4bpp indices and transparent index 0")
+        colors = (COAST / "palettes/11.pal").read_text().splitlines()[3:19]
+        if tower.getpalette()[:48] != [int(channel) for color in colors for channel in color.split()]:
+            raise ValueError("Lighthouse sheet colors must match coast palette 11")
+        primary = words(PRIMARY / "metatiles.bin")
+        for row in range(LIGHTHOUSE_HEIGHT):
+            for col in range(LIGHTHOUSE_WIDTH):
+                index = row * LIGHTHOUSE_WIDTH + col
+                x, y = col * 16, row * 16
+                panel = tower.crop((x, y, x + 16, y + 16))
+                if not panel.getbbox():
+                    self.meta[index * 8:index * 8 + 8] = primary[8:16]  # Grass in the editor.
+                    continue
+                block = grid[top + row][left + col]
+                ground = block & 1023
+                table = primary if ground < 512 else self.meta
+                offset = ground % 512 * 8
+                pieces = table[offset:offset + 8]
+                for q in range(4):
+                    x, y = (q % 2) * 8, (q // 2) * 8
+                    pixels = panel.crop((x, y, x + 8, y + 8)).tobytes()
+                    if any(pixels):
+                        if pieces[4 + q] & 1023 and 0 in pixels:
+                            raise ValueError(f"Lighthouse obscures a terrain overlay at {(left + col, top + row, q)}")
+                        pieces[4 + q] = 0xB000 | self.graphic(pixels)
+                self.meta[index * 8:index * 8 + 8] = pieces
+                # Like Slateport, the raised tower can hide a passing actor.
+                # The ground-level foundation draws behind actors at the door.
+                base_row = row - (LIGHTHOUSE_HEIGHT - len(LIGHTHOUSE_BASE))
+                footing = LIGHTHOUSE_BASE[base_row][col] if base_row >= 0 else "."
+                self.attrs[index] = (0x1000 if base_row > 0 else 0) | (0x60 if footing == "D" else 0)
+                collision = 0x400 if footing == "#" else 0
+                grid[top + row][left + col] = (block & ~1023) | (512 + index) | collision
 
     def tile(self, bank, identifier, behavior=None):
         if identifier < 512:
@@ -80,7 +116,7 @@ class StockBank:
             return self.ids[key]
         path, meta, attrs, image = source(bank)
         copied = []
-        for value in meta[(identifier - 512) * 8 : (identifier - 511) * 8]:
+        for value in meta[(identifier - 512) * 8: (identifier - 511) * 8]:
             palette = value >> 12
             if palette >= 6:
                 # Selected stock colors must already fit the coast's slots.
@@ -93,14 +129,7 @@ class StockBank:
                 pixels = image.crop(
                     (index % 16 * 8, index // 16 * 8, index % 16 * 8 + 8, index // 16 * 8 + 8)
                 ).tobytes()
-                if not any(pixels):
-                    replacement = 0
-                else:
-                    if pixels not in self.lookup:
-                        self.lookup[pixels] = 512 + len(self.tiles)
-                        self.tiles.append(pixels)
-                    replacement = self.lookup[pixels]
-                value = (value & ~1023) | replacement
+                value = (value & ~1023) | self.graphic(pixels)
             copied.append(value)
         result = 512 + len(self.attrs)
         self.ids[key] = result
@@ -108,6 +137,32 @@ class StockBank:
         attribute = attrs[identifier - 512]
         self.attrs.append(attribute if behavior is None else (attribute & ~0x1FF) | behavior)
         return result
+
+    def pier(self, side, end):
+        # Route 104's timber boards use seven colors. Keep the existing
+        # dock-palette entries 0..7; its upper half can hold all seven exactly.
+        key = ("pier", side, end)
+        if key in self.ids:
+            return self.ids[key]
+        folder, metas, _, sheet = source("rustboro")
+        src = ((0x346, 0x347) if end else (0x34E, 0x34F))[side] - 512
+        old_palette = (folder / "palettes/11.pal").read_text().splitlines()[3:]
+        coast_palette = (COAST / "palettes/12.pal").read_text().splitlines()
+        indices = (5, 6, 8, 11, 12, 13, 14)
+        coast_palette[11:18] = [old_palette[i] for i in indices]
+        (COAST / "palettes/12.pal").write_text("\n".join(coast_palette) + "\n")
+        translate = bytes(0 if i not in indices else 8 + indices.index(i) for i in range(256))
+        pieces = words(PRIMARY / "metatiles.bin")[0x170*8:0x170*8+4]
+        for value in metas[src*8+4:src*8+8]:
+            index = (value & 1023) - 512
+            x, y = index % 16*8, index//16*8
+            pixels = sheet.crop((x, y, x+8, y+8)).tobytes().translate(translate)
+            pieces.append((12 << 12) | (value & 0xC00) | self.graphic(pixels))
+        identifier = 512 + len(self.attrs)
+        self.ids[key] = identifier
+        self.meta.extend(pieces)
+        self.attrs.append(0x1000)
+        return identifier
 
     def finish(self):
         assert len(self.tiles) <= 496, ("reserved door animation graphics", len(self.tiles))
@@ -123,7 +178,7 @@ class StockBank:
         write_words(COAST / "metatiles.bin", self.meta)
         write_words(COAST / "metatile_attributes.bin", self.attrs)
         print(
-            f"Coast stock pack: {len(self.attrs)} metatiles, {len(self.tiles)}/496 graphics tiles; palette bytes unchanged"
+            f"Seabreak coast pack: {len(self.attrs)} metatiles, {len(self.tiles)}/496 graphics tiles"
         )
 
 
@@ -137,82 +192,67 @@ def main():
         if 0 <= x < width and 0 <= y < height:
             grid[y][x] = 0x3000 | (0x400 if solid else 0) | tile
 
-    def rect(x, y, w, h, tile=1, solid=False):
-        for yy in range(y, y + h):
-            for xx in range(x, x + w):
-                cell(xx, yy, tile, solid)
+    # The north pass widens into town, then breaks into an inlet with a separate
+    # rocky point, a narrow neck behind the shipyard and a sheltered harbor.
+    def shore(top, bottom, left, right):
+        land.update((x, y) for y in range(top, bottom + 1) for x in range(left, right + 1))
 
-    def island(x, y, w, h):
-        land.update((xx, yy) for yy in range(y, y + h) for xx in range(x, x + w))
+    for rows in (
+        (0, 0, 8, 25), (1, 1, 6, 28), (2, 3, 4, 30), (4, 6, 2, 30),
+        (7, 9, 2, 32), (10, 12, 1, 31), (13, 14, 2, 32),
+        (15, 17, 3, 33), (18, 20, 2, 33), (21, 22, 3, 34),
+        (23, 24, 3, 36), (25, 25, 4, 35), (26, 26, 5, 30),
+        (27, 28, 5, 24), (29, 31, 5, 23), (32, 32, 9, 23),
+        (18, 18, 40, 42), (19, 20, 38, 44), (21, 21, 37, 45),
+        (22, 25, 35, 45), (26, 29, 34, 46), (30, 33, 34, 45),
+        (34, 35, 35, 44), (36, 36, 36, 43), (37, 37, 38, 42),
+    ):
+        shore(*rows)
+    for y in range(height):
+        for x in range(width):
+            n, w, e = (x, y-1) in land, (x-1, y) in land, (x+1, y) in land
+            if (x, y) in land:
+                cell(x, y, 0x001 if n else 0x002, y == 0)
+            else:
+                if n:
+                    tile = 0x188 if w else 0x18A if e else 0x189
+                elif w or e:
+                    tile = 0x190 if w else 0x192
+                elif (x-1, y-1) in land:
+                    tile = 0x198
+                elif (x+1, y-1) in land:
+                    tile = 0x19A
+                else:
+                    tile = 0x170
+                cell(x, y, tile, True)
 
-    # A village shore, open harbor basin and a separate lighthouse headland.
-    island(0, 0, 33, 27)
-    island(0, 26, 11, 5)
-    island(10, 25, 15, 8)
-    island(24, 22, 10, 6)
-    island(31, 22, 14, 5)
-    island(34, 26, 11, 12)
-    for x, y in sorted(land):
-        n, s, w, e = [(x + dx, y + dy) in land for dx, dy in [(0, -1), (0, 1), (-1, 0), (1, 0)]]
-        # Native sand/water edges, including concave beach corners.
-        if not n and not w:
-            tile = 0x11B
-        elif not n and not e:
-            tile = 0x11D
-        elif not s and not w:
-            tile = 0x12B
-        elif not s and not e:
-            tile = 0x12D
-        elif not n:
-            tile = 0x11C
-        elif not s:
-            tile = 0x12C
-        elif not w:
-            tile = 0x123
-        elif not e:
-            tile = 0x125
-        elif (x - 1, y - 1) not in land:
-            tile = 0x13D
-        elif (x + 1, y - 1) not in land:
-            tile = 0x13E
-        elif (x - 1, y + 1) not in land:
-            tile = 0x145
-        elif (x + 1, y + 1) not in land:
-            tile = 0x146
-        else:
-            tile = 0x124
-        cell(x, y, tile)
-    # The town grows from the green pass into a sheltered sandy waterfront.
-    rect(0, 0, 32, 22, 1)
-    for x in range(0, 32):
-        cell(x, 22, 0x119)
-    for y in range(0, 22):
-        cell(32, y, 0x075, True)
-        cell(33, y, 0x190, True)
-    cell(32, 22, 0x07D, True)
-    cell(33, 22, 0x198, True)
+    def slate(x, y, source_tile, solid=False):
+        cell(x, y, bank.tile("slateport", source_tile), solid)
 
-    # Complete native Slateport paths, with the matching rounded grassy edge.
     paths = set()
 
     def road(x, y, w, h):
-        paths.update((xx, yy) for yy in range(y, y + h) for xx in range(x, x + w))
+        paths.update((xx, yy) for yy in range(y, y+h) for xx in range(x, x+w))
 
-    road(13, 0, 3, 27)
+    road(13, 1, 3, 24)
+    road(7, 7, 17, 2)
+    road(22, 7, 3, 10)
     road(7, 14, 22, 3)
-    road(22, 8, 3, 7)
-    road(20, 15, 3, 8)
-    road(7, 20, 22, 3)
-    road(26, 19, 3, 6)
-    for x, y in paths:
-        n, s, w, e = [(x + dx, y + dy) in paths for dx, dy in [(0, -1), (0, 1), (-1, 0), (1, 0)]]
+    road(7, 13, 3, 2)
+    road(13, 20, 10, 3)
+    road(5, 19, 5, 4)
+    road(5, 21, 10, 2)
+    road(35, 23, 2, 11)
+    road(35, 32, 8, 2)
+    for x, y in sorted(paths):
+        n, s, w, e = ((x+dx, y+dy) in paths for dx, dy in ((0, -1), (0, 1), (-1, 0), (1, 0)))
         if not n:
             tile = 0x208 if not w else 0x20A if not e else 0x209
         elif not s:
             tile = 0x218 if not w else 0x21A if not e else 0x219
         else:
             tile = 0x210 if not w else 0x212 if not e else 0x211
-        cell(x, y, bank.tile("slateport", tile))
+        slate(x, y, tile)
 
     def assembly(map_name, source_bank, sx, sy, w, h, x, y, decorative=False):
         source_map = stock_grid(map_name)
@@ -241,138 +281,192 @@ def main():
 
     # A compact working shipyard overlooks a genuine native stone quay.
     assembly("SlateportCity", "slateport", 24, 32, 8, 7, 25, 16, True)
-    # The fixed sailor stands south of the complete facade. Its entrance is
-    # decorative; this milestone has no shipyard interior.
-    # Public harbor promenade: all story actors share a wide unobstructed stage.
-    rect(10, 26, 14, 6, bank.tile("slateport", 0x202))
-    for x in range(10, 24):
-        cell(x, 32, bank.tile("slateport", 0x25D), True)
-    cell(9, 32, bank.tile("slateport", 0x2FE), True)
-    cell(24, 32, bank.tile("slateport", 0x2FF), True)
-    for y in range(27, 32):
-        cell(9, y, bank.tile("slateport", 0x234), True)
-        cell(24, y, bank.tile("slateport", 0x23C), True)
-    for x in range(10, 24):
-        cell(x, 33, 0x189, True)
-    cell(9, 33, 0x188, True)
-    cell(24, 33, 0x198, True)
 
-    # Native wooden pier, visible below the fishermen rather than hidden layers.
-    for y in range(29, 36):
-        for x in range(5, 9):
-            cell(x, y, bank.tile("dewford", 0x228 if x == 5 else 0x229))
-    for x in range(5, 9):
-        cell(x, 36, bank.tile("dewford", 0x230 if x == 5 else 0x231))
-    # A small native rowing boat and a full mast/sail/hull assembly.
-    rect(1, 27, 3, 3, 1)
-    assembly("SlateportCity", "slateport", 21, 35, 3, 2, 1, 28, True)
-    assembly("SlateportCity", "slateport", 33, 35, 3, 4, 26, 31, True)
-    # Two source bounding-box cells are the dock behind the mast, not boat art.
-    cell(26, 31, 0x170, True)
-    cell(27, 31, 0x170, True)
-    assembly("SlateportCity", "slateport", 36, 37, 3, 2, 17, 35, True)
+    # A covered fish stall opens onto the lane above the harbor steps.
+    for dy, row in enumerate((
+        (0x225, 0x20D, 0x20F, 0x227),
+        (0x22D, 0x2F8, 0x2FA, 0x22F),
+        (0x26B, 0x28E, 0x28E, 0x26C),
+    )):
+        for dx, tile in enumerate(row):
+            slate(5+dx, 19+dy, tile, True)
 
-    # Headland: native grass, a south-facing two-row rock coast, lighthouse kept.
-    rect(35, 23, 9, 13, 1)
-    for y in range(26, 36):
-        cell(34, y, 0x17A, True)
-        cell(44, y, 0x075, True)
-        cell(45, y, 0x190, True)
-    for x in range(35, 44):
-        cell(x, 36, 0x07C, True)
-        cell(x, 37, 0x189, True)
-    cell(34, 36, 0x07B, True)
-    cell(34, 37, 0x188, True)
-    cell(44, 36, 0x07D, True)
-    cell(44, 37, 0x198, True)
-    # Keep the existing 4x8 tower pixels. A stock-art replacement is still needed.
-    for dy in range(8):
-        for dx in range(4):
-            cell(36 + dx, 24 + dy, 0x20E + dy * 4 + dx, True)
-    cell(37, 31, 0x22B)
-    # Readable approach bends around the west side to the actual south door.
-    for y in range(23, 33):
-        for x in (35,):
-            cell(x, y, 0x121)
-    for y in range(32, 35):
-        for x in range(35, 43):
-            cell(x, y, 0x121)
-    for x in range(29, 36):
-        for y in range(23, 26):
-            cell(x, y, bank.tile("slateport", 0x202))
-    # Native cliff fragments and a pale stone mark form the coastal viewpoint.
+    # Two public terraces descend to the quay. A stair breaks the wall on
+    # each approach, including the closed Gym door and the central avenue.
+    def terrace(y, left, right, stairs):
+        for x in range(left, right + 1):
+            tile = 0x078 if x == left else 0x07A if x == right else 0x079
+            cell(x, y, tile, True)
+        for x in stairs:
+            cell(x, y, 0x0AF)
+            cell(x + 1, y, 0x0CF)
+
+    terrace(8, 3, 29, (13, 22))
+    terrace(23, 4, 24, (13, 21))
+
+    # Quay copings follow the stepped floor on the seaward sides; the west
+    # opening is the timber fishing pier, the east opens into the cargo yard.
+    quay = set()
+    for top, bottom, left, right in ((24, 25, 5, 34), (26, 26, 5, 30), (27, 28, 5, 24),
+                                     (29, 31, 5, 23), (32, 32, 9, 23)):
+        quay.update((x, y) for y in range(top, bottom+1) for x in range(left, right+1))
+    for x, y in sorted(quay):
+        w, e, s = (x-1, y) in land, (x+1, y) in land, (x, y+1) in land
+        if not s:
+            t = 0x2FE if not w else 0x2FF if not e else 0x25D
+        else:
+            t = 0x234 if not w else 0x23C if not e else 0x202
+        slate(x, y, t, not w or not e or not s)
+    for x in range(25, 35):
+        slate(x, 23, 0x202)
+    for y in range(24, 26):
+        slate(35, y, 0x202)
+    for x in (7, 8):
+        slate(x, 31, 0x202)
+    for y in range(32, 37):
+        for dx in (0, 1):
+            cell(7+dx, y, bank.pier(dx, y == 36))
+    slate(6, 31, 0x238, True)
+    for x, y in ((5, 26), (22, 30), (20, 27), (19, 27), (28, 24)):
+        slate(x, y, 0x336, True)
+    for x, y in ((5, 28), (10, 31), (23, 29)):
+        slate(x, y, 0x238, True)
+    # Open-water mooring alongside the fishing jetty.
+    assembly("SlateportCity", "slateport", 34, 44, 3, 3, 1, 29, True)
+    # Whole floating sailing boats, copied from the open berths rather than
+    # the row of quay/coping behind the taller mast.
+    assembly("SlateportCity", "slateport", 34, 44, 3, 3, 17, 35, True)
+    assembly("SlateportCity", "slateport", 33, 36, 3, 3, 26, 30, True)
+    cell(26, 30, 0x170, True)
+    # A few wave-breaking reefs leave clear water between the lighthouse
+    # and the fishing berths. Each is a full native four-quadrant assembly.
+    for x, y in ((3, 34), (30, 37), (42, 9), (46, 17), (1, 7)):
+        if all((x+dx, y+dy) not in land and grid[y+dy][x+dx] & 1023 == 0x170
+               for dx in (0, 1) for dy in (0, 1)):
+            for dy, row in enumerate(((0x150, 0x151), (0x158, 0x159))):
+                for dx, t in enumerate(row):
+                    cell(x+dx, y+dy, t, True)
+
+    # Exposed stone along the south rim lifts the headland above its wave foot.
+    for y, left, right in ((35, 35, 44), (36, 36, 43), (37, 38, 42)):
+        for x in range(left, right+1):
+            if (x, y+1) not in land:
+                cell(x, y, 0x07B if x == left else 0x07D if x == right else 0x07C, True)
+    bank.lighthouse(grid, 35, 22)
     cell(41, 35, 0x0E2, True)
-    cell(42, 35, 0x004, True)
 
-    # Petalburg's native overlapping inner/outer canopy pieces form connected
-    # forest masses. Protect every building/path; do not stamp isolated trees.
-    forest = {(x, y) for y in range(0, 23) for x in range(0, 4)}
-    forest.update((x, y) for y in range(0, 4) for x in range(0, 12))
-    forest.update((x, y) for y in range(0, 3) for x in range(17, 32))
-    forest.update((x, y) for y in range(2, 20) for x in range(30, 32))
-    forest.update((x, y) for y in range(21, 29) for x in range(40, 44))
-    protect = paths | {(x, y) for y in range(4, 8) for x in range(5, 10)}
-    protect.update((x, y) for y in range(16, 23) for x in range(25, 33))
-    forest -= protect
-    terrain = Terrain("SeabreakTown", width, height)
-    terrain.g = grid
-    terrain.land = {(x, y) for y in range(height) for x in range(width)} - forest
-    terrain.path = paths | {(14, 1)}
-    terrain.forest()
-    # Rocky north-east shoulder keeps the headland distinct from the town.
-    paint_rock_outcrop(
-        grid,
-        {
-            (x, y)
-            for y in range(19, 23)
-            for x in range(35, 42)
-            if not (y in (19, 22) and x in (35, 41))
-        },
-        elevation=3,
-    )
-    # Small coast gardens use complete two-row native shrubs rather than filler.
-    for x, y in [(11, 10), (18, 17), (25, 14)]:
-        cell(x, y, 0x016, True)
-        cell(x + 1, y, 0x017, True)
-        cell(x, y + 1, 0x01E, True)
-        cell(x + 1, y + 1, 0x01F, True)
-    # Coastal rocks and small planted corners give each plot an edge.
-    for x, y in [(3, 25), (1, 25), (10, 24)]:
-        cell(x, y, 0x0E2, True)
-    for x, y in [(5, 8), (9, 8), (25, 14), (28, 14), (18, 20)]:
+    plant_trees(grid, (
+        (9, 1), (17, 1), (26, 2), (28, 5), (4, 9), (4, 11),
+        (16, 10), (29, 12), (5, 16), (10, 18), (17, 17),
+        (40, 20), (43, 23), (41, 27),
+    ), elevation=3)
+
+    for x, y in ((11, 6), (19, 9), (18, 12), (19, 18), (42, 34), (10, 17)):
         cell(x, y, 0x004, True)
-    for x, y in [(11, 27), (22, 27), (22, 30)]:
-        cell(x, y, bank.tile("slateport", 0x238), True)
-    for x, y in [(20, 27), (20, 28), (23, 30), (25, 24), (29, 24)]:
-        cell(x, y, bank.tile("slateport", 0x336), True)
-
-    # Restore every fixed gameplay anchor after decorative passes.
-    cell(14, 1, 0x238)
-    cell(14, 2, bank.tile("slateport", 0x211))
+    for x, y in ((3, 13), (30, 9), (43, 21), (44, 30)):
+        cell(x, y, 0x0E2, True)
+    cell(14, 1, bank.tile("slateport", 0x211, 0x64))
+    # The ledge frames a visible, recessed entrance instead of ending a street
+    # abruptly at the map border. Enter from the southern cobbles.
+    for x in range(10, 20):
+        cell(x, 0, 0x078 if x == 10 else 0x07A if x == 19 else 0x079, True)
+    cell(14, 0, 0x0A7, True)
     cell(10, 15, 0x003, True)
-    # The GymClosed background event is on its original blocked door pixels.
     cell(23, 7, 0x1CD, True)
     cell(23, 11, 0x003, True)
-    cell(6, 31, bank.tile("slateport", 0x238), True)
-    actors = [(14, 28), (7, 35), (20, 15), (17, 29), (15, 29), (12, 29), (27, 23)]
-    for x, y in actors:
-        if y >= 23 and x >= 10:
-            tile = bank.tile("slateport", 0x202)
-        elif y == 15:
-            tile = bank.tile("slateport", 0x211)
-        else:
-            tile = bank.tile("dewford", 0x229)
-        cell(x, y, tile)
-    # The fixed sailor stands on the cargo yard south of the intact depot.
-    rect(25, 23, 4, 3, bank.tile("slateport", 0x202))
-    cell(27, 23, bank.tile("slateport", 0x202))
-    # The town map's metadata and event coordinates are intentionally untouched.
     bank.finish()
-    write_words(
-        ROOT / "data/layouts/Virelia_SeabreakTown/map.bin",
-        [value for row in grid for value in row],
-    )
-    print("Seabreak map written: 48x42, all 4 warps / 7 NPCs / 5 background events unchanged")
+    layout = ROOT / "data/layouts/Virelia_SeabreakTown"
+    write_words(layout / "map.bin", [block for row in grid for block in row])
+    write_words(layout / "border.bin", [0x3570]*4)
+    lighthouse_rooms()
+
+
+def lighthouse_rooms():
+    """Keep the paired stair warps, cabinet, logbook and beacon readable."""
+    folder = ROOT / "data/tilesets/secondary/virelia_lighthouse"
+    table = words(folder / "metatiles.bin")
+    # Both stair landings show the recessed steps, retaining their respective
+    # north/south-arrow behaviors. The lower room has a separate two-cell exit rug.
+    for target in (0x300, 0x301):
+        offset = (target - 512) * 8
+        table[offset:offset + 8] = table[0x0B*8:0x0C*8]
+
+    # Weathered oak instead of the original yellow striped floor. This palette
+    # belongs only to the lighthouse interior bank.
+    palette = (folder / "palettes/06.pal").read_text().splitlines()
+    palette[8:12] = ["160 136 112", "180 156 128", "112 96 88", "144 120 104"]
+    (folder / "palettes/06.pal").write_text("\n".join(palette) + "\n")
+
+    # The two fixed callback slots hold the unlit and lit Fresnel lens.
+    sheet = Image.open(folder / "tiles.png").copy()
+    # Quarter the staggered plank joints. The upper pair also backs the stock
+    # furniture. The two lower pieces use free graphics just before door VRAM.
+    planks = Image.new("P", (16, 16), 5)
+    board = ImageDraw.Draw(planks)
+    for y, seam in ((0, 3), (8, 12)):
+        board.line((0, y+7, 15, y+7), fill=8)
+        board.line((seam, y, seam, y+6), fill=8)
+        board.line((seam+2, y+1, min(15, seam+5), y+1), fill=6)
+        board.point(((seam+9) % 16, y+4), fill=6)
+    for n, index in enumerate((0x30, 0x31, 493, 494)):
+        x, y = n % 2*8, n//2*8
+        sheet.paste(planks.crop((x, y, x+8, y+8)), (index % 16*8, index//16*8))
+        table[0x23*8+n] = 0x6000 | (512+index)
+    write_words(folder / "metatiles.bin", table)
+    for state in (0, 1):
+        lens = Image.new("P", (16, 16), 1)
+        d = ImageDraw.Draw(lens)
+        d.rectangle((1, 1, 14, 14), outline=4)
+        d.rectangle((3, 2, 12, 3), fill=5)
+        d.ellipse((3, 3, 12, 12), fill=11 if state else 13, outline=2)
+        d.ellipse((5, 4, 10, 10), fill=12 if state else 14)
+        d.line((5, 6, 10, 6), fill=7 if state else 15)
+        d.line((4, 9, 11, 9), fill=7 if state else 13)
+        d.rectangle((4, 12, 11, 13), fill=3)
+        for n in range(4):
+            index = 480 + 4*state + n
+            x, y = n % 2*8, n//2*8
+            sheet.paste(lens.crop((x, y, x+8, y+8)), (index % 16*8, index//16*8))
+    sheet.save(folder / "tiles.png")
+
+    def room(name, width, height, spans, fixtures):
+        # Building 001 is opaque black (slot 5, color 15), as in the keeper's
+        # home. Transparent 000 would expose the GBA backdrop color instead.
+        void = 0x0401
+        grid = [[void] * width for _ in range(height)]
+        for y, left, right in spans:
+            for x in range(left, right+1):
+                grid[y][x] = 0x3223
+                if y == 1 or grid[y-1][x] == void:
+                    grid[y][x] = 0x3605
+        for x, y, tile, solid in fixtures:
+            grid[y][x] = 0x3000 | (0x400 if solid else 0) | tile
+        layout = ROOT / ("data/layouts/Virelia_Seabreak_" + name)
+        write_words(layout / "map.bin", [v for row in grid for v in row])
+        write_words(layout / "border.bin", [void] * 4)
+
+    # The corners of both floors step inward around the masonry tower wall.
+    room("Lighthouse", 16, 14,
+         [(y, 4 if y in (1, 12) else 2 if y in (2, 11) else 1,
+           11 if y in (1, 12) else 13 if y in (2, 11) else 14) for y in range(1, 13)],
+         (
+             (5, 2, 0x205, True), (5, 3, 0x268, True),    # power cabinet
+             (9, 2, 0x205, True), (9, 3, 0x207, True),    # framed operating instructions
+             (11, 3, 0x20A, True), (12, 3, 0x300, False),
+             (3, 3, 0x281, True), (4, 3, 0x281, True),
+             (12, 8, 0x22A, True), (13, 8, 0x268, True),
+             (7, 12, 0x208, False), (8, 12, 0x209, False),
+         ))
+    room("LanternRoom", 13, 12,
+         [(y, 4 if y in (1, 10) else 2 if y in (2, 9) else 1,
+           8 if y in (1, 10) else 10 if y in (2, 9) else 11) for y in range(1, 11)],
+         (
+             (5, 1, 0x206, True), (7, 1, 0x206, True),
+             (6, 2, 0x20C, True),                      # switched Fresnel lens
+             (3, 5, 0x268, True), (6, 5, 0x22A, True), (9, 5, 0x004, True),
+             (9, 8, 0x2D1, True),                      # open shipping register
+             (5, 10, 0x20A, True), (6, 10, 0x301, False),
+         ))
 
 
 if __name__ == "__main__":

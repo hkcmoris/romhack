@@ -411,6 +411,62 @@ def validate_used_palettes(world):
     print(f'PASS: {len(checked)} used native metatiles, including callback states, use loaded palettes0-{limit - 1}')
 
 
+def validate_tree_footprints(world):
+    """Read the drawn trees back from the blockmaps, including shared crown/base rows."""
+    crown, trunk, roots, overlap = (0x1CE, 0x1CF), (0x1D6, 0x1D7), (0x1E6, 0x1E7), (0x1DE, 0x1DF)
+    tree_tiles = set(crown + trunk + roots + overlap)
+    for name in OUTDOORS:
+        width = world.layouts[name]['width']
+        cells = {(i % width, i // width): block for i, block in enumerate(world.blocks[name])
+                 if block & 1023 in tree_tiles}
+        trunks = {point for point, block in cells.items() if block & 1023 == trunk[0]}
+        require(trunks, f'{name}: no complete trees')
+        covered = set()
+        for x, y in trunks:
+            above, below = (x, y - 2) in trunks, (x, y + 2) in trunks
+            elevation = cells[x, y] >> 12
+            for dy, pair, solid in ((-1, overlap if above else crown, above), (0, trunk, True),
+                                    (1, overlap if below else roots, True)):
+                for dx, tile in enumerate(pair):
+                    point = x + dx, y + dy
+                    block = cells.get(point, 0)
+                    require(block & 1023 == tile and bool(block & 0xC00) == solid and block >> 12 == elevation,
+                            f'{name} {point}: expected tree tile {tile:#05x}, solid={solid}')
+                    covered.add(point)
+        require(covered == cells.keys(), f'{name}: orphaned tree pieces at {cells.keys() - covered}')
+    print('PASS: complete two-by-two tree footprints with walkable crowns or solid stacked overlaps')
+
+
+def validate_marsh(world):
+    # For a concave corner the two adjacent cardinals are wet but their shared diagonal is dry.
+    edges = ('NW', 'N', 'NE', 'W', '', 'E', 'SW', 'S', 'SE')
+    notches = ('NW', 'NE', 'SW', 'SE')
+    shapes = [(set(edge), set()) for edge in edges] + [(set(), {notch}) for notch in notches]
+    first = 0x32D
+    bank = world.layouts['Virelia_RainfallLower']['secondary_tileset']
+    start = first - 512
+    attrs = world.attrs[bank][start:start + len(shapes)]
+    require(len(attrs) == len(shapes) and all(world.behaviors[a & 255] == 'MB_PUDDLE' and a >> 12 == 1 for a in attrs),
+            'All 13 marsh pieces need puddle behavior and the Covered drawing layer')
+    cardinals = {'N': (0, -1), 'S': (0, 1), 'W': (-1, 0), 'E': (1, 0)}
+    for name in OUTDOORS[:4]:
+        width = world.layouts[name]['width']
+        marsh = {(i % width, i // width): block for i, block in enumerate(world.blocks[name])
+                 if first <= block & 1023 < first + len(shapes)}
+        if name == 'Virelia_RainfallLower':
+            require(marsh, 'Rainfall Lower has no marsh terrain')
+        for (x, y), block in marsh.items():
+            dry_edges = {d for d, (dx, dy) in cardinals.items() if (x + dx, y + dy) not in marsh}
+            dry_notches = {v + h for v, h in notches if v not in dry_edges and h not in dry_edges
+                           and (x + cardinals[h][0], y + cardinals[v][1]) not in marsh}
+            tile = block & 1023
+            require((dry_edges, dry_notches) == shapes[tile - first],
+                    f'{name} {(x, y)}: marsh tile {tile:#05x} does not fit edges {dry_edges}, notches {dry_notches}')
+            require(not block & 0xC00 and world.behavior((name, x, y)) == 'MB_PUDDLE',
+                    f'{name} {(x, y)}: marsh must be passable shallow ground')
+    print('PASS: marsh shores and inverted corners follow the wet footprint')
+
+
 def validate_rainfall_cascade(world, reached, flags):
     """Require a readable native cascade without constraining its coordinates."""
     name = 'Virelia_RainfallUpper'
@@ -488,6 +544,8 @@ def validate():
     contract = load('tools/virelia/rainfall_contract.json')
     world = World(layouts, contract)
     validate_used_palettes(world)
+    validate_tree_footprints(world)
+    validate_marsh(world)
     validate_cached_entrance(world)
     validate_actor_elevations(world)
     all_flags = frozenset(g['flag'] for g in contract['dynamic_tiles']) | frozenset(contract.get('completed_flags', []))
@@ -502,6 +560,10 @@ def validate():
         require(len(world.blocks[name]) == layout['width'] * layout['height'], f'{name}: incorrect layout length')
         require((layout['width'] + 15) * (layout['height'] + 14) <= 10240, f'{name}: native map buffer overflow')
         require(len((ROOT / layout['border_filepath']).read_bytes()) == 8, f'{name}: invalid border dimensions')
+        if name in ('Virelia_Seabreak_Lighthouse', 'Virelia_Seabreak_LanternRoom'):
+            # Building metatile zero shows the palette backdrop around the stepped walls in game.
+            require(all(block & 1023 for block in world.blocks[name] + words(layout['border_filepath'])),
+                    f'{name}: the room and its repeating border need opaque void tiles')
         if name != CITY:
             require(start in distances(graph, next(n for n in reached if n[0] == name)), f'{name}: backtracking blocked')
         for obj in entry['object_events']:

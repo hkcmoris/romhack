@@ -103,11 +103,11 @@ Slateford north passage
 ```
 
 The alternative paths stay apart until lowlands. The source graph audit finds
-110 walking/warp edges on the upper choice and 153 on the lower choice, from the
+114 walking/warp edges on the upper choice and 133 on the lower choice, from the
 foothills arrival to Seabreak's entry with the shortcut closed. These are
-shortest-path counts, not measured playtime. The reachable upper grass has 26
-cells; the lower has 84. Water remains impassable without Surf, while bridges
-and dry banks complete both mandatory paths without any HM.
+shortest-path counts. The upper route has 32 reachable encounter-grass cells
+and the lower route has 83. Both branches can be walked without an HM. The
+deep stream separates the banks, and the shallow marsh can be crossed on foot.
 
 The lower control at `(18,20)` permanently enables the optional footbridge. It
 returns to foothills `(25,23)`; the foothills interaction at `(26,23)` returns
@@ -331,6 +331,32 @@ rather than copying Route119's layout. Seabreak packs complete stock Dewford
 houses, Center and closed Gym, Slateport harbor/depot/boats, and General coast
 art. The lighthouse interior bank retains ordinary Building/GenericBuilding
 furnishings. Donor banks and the old shared `VireliaOutdoor` bank are unchanged.
+
+### Editing the marsh and trees
+
+In Porymap, select the Rainfall secondary bank. The marsh occupies `32D–335`
+in reading order across a 3×3 square. The following four pieces, `336–339`,
+round the **dry** northwest, northeast, southwest and southeast corners of an
+inlet or island. Leave enough room for each change of direction to occupy its
+own metatile. Paint the marsh at the surrounding ground elevation with
+collision off so the player can wade across it.
+
+The indexed source is `data/tilesets/secondary/virelia_rainfall/marsh.png`.
+Run `python tools/virelia/pack_rainfall_marsh.py` after editing its pixels.
+The four pass layouts and Seabreak Town each specify their own tree positions
+in the two polish tools. Each position marks the top-left crown. Leave the
+exposed top row walkable and block the two rows beneath it. To stack two
+trees, place the front crown on the rear tree’s base, two rows lower.
+
+Seabreak’s red-capped lighthouse is drawn at 80×160 pixels in
+`data/tilesets/secondary/virelia_coast/lighthouse.png`. Its roof, gallery and
+foundation follow the front-top perspective of Slateport’s 32×64 lighthouse.
+The Seabreak polish tool packs the 5×10 sheet into coast metatiles `200–231`
+in row order. The lantern and shaft draw in front of a player walking behind
+the tower. The plinth blocks movement around the south-facing door at
+`(37,31)`. Dithered copper, masonry and painted bands use coast palette 11.
+The beacon’s unlit and lit metatiles stay at `20C` and `20D` for the room’s
+load callback.
 
 ### Stock-art visual pass (2026-10-27)
 

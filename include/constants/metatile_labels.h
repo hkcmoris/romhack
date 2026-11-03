@@ -1058,12 +1058,33 @@
 #define METATILE_ViridianForest_HugeTreeTopMiddle_Grass  0x284
 #define METATILE_ViridianForest_HugeTreeTopMiddle_Mowed  0x281
 
+// gTileset_VireliaCoast
+#define METATILE_VireliaCoast_Lighthouse_Finial   0x202
+#define METATILE_VireliaCoast_Lighthouse_Lantern  0x20C
+#define METATILE_VireliaCoast_Lighthouse_Gallery  0x211
+#define METATILE_VireliaCoast_Lighthouse_Door     0x22F
+
 // gTileset_VireliaOutdoor
 #define METATILE_VireliaOutdoor_BridgeVertical_Left   0x363
 #define METATILE_VireliaOutdoor_BridgeVertical_Right  0x364
 #define METATILE_VireliaOutdoor_Bench_Left            0x365
 #define METATILE_VireliaOutdoor_Bench_Right           0x366
 #define METATILE_VireliaOutdoor_ShoreGround           0x367
+
+// gTileset_VireliaRainfall
+#define METATILE_VireliaRainfall_Marsh_NW       0x32D
+#define METATILE_VireliaRainfall_Marsh_N        0x32E
+#define METATILE_VireliaRainfall_Marsh_NE       0x32F
+#define METATILE_VireliaRainfall_Marsh_W        0x330
+#define METATILE_VireliaRainfall_Marsh_Center   0x331
+#define METATILE_VireliaRainfall_Marsh_E        0x332
+#define METATILE_VireliaRainfall_Marsh_SW       0x333
+#define METATILE_VireliaRainfall_Marsh_S        0x334
+#define METATILE_VireliaRainfall_Marsh_SE       0x335
+#define METATILE_VireliaRainfall_Marsh_InnerNW  0x336
+#define METATILE_VireliaRainfall_Marsh_InnerNE  0x337
+#define METATILE_VireliaRainfall_Marsh_InnerSW  0x338
+#define METATILE_VireliaRainfall_Marsh_InnerSE  0x339
 
 // Other
 #define METATILE_GeneralFrlg_CalmWater               0x12B

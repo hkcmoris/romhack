@@ -111,18 +111,12 @@ class CoastBank:
             self.tiles.append(data)
         return self.lookup[data]
 
-    def custom(self, im, attr=0, grass_base=False):
+    def custom(self, im, attr=0):
         idx = 512 + len(self.attrs)
         for y in (0, 8):
             for x in (0, 8):
                 self.meta.append((11 << 12) | self.add(im.crop((x, y, x + 8, y + 8)).tobytes()))
-        if grass_base:
-            # Transparent tower quarters need real grass beneath them on GBA.
-            overlay = self.meta[-4:]
-            ground = words(ROOT / "data/tilesets/primary/general/metatiles.bin")[8:12]
-            self.meta[-4:] = ground + overlay
-        else:
-            self.meta += [0] * 4
+        self.meta += [0] * 4
         self.attrs.append(attr)
         return idx
 
@@ -193,15 +187,6 @@ class Map:
                 )
             )
             self.g[y][x] = self.block(tile)
-
-    def trees(self):
-        # Replace shrub filler only with complete native tree silhouettes.
-        for y in range(1, self.h - 3, 3):
-            for x in range(1, self.w - 2, 2):
-                if all(self.g[y + dy][x + dx] == 0x040E for dy in range(3) for dx in range(2)):
-                    for dy, row in enumerate(((0x1CE, 0x1CF), (0x1D6, 0x1D7), (0x1E6, 0x1E7))):
-                        for dx, v in enumerate(row):
-                            self.g[y + dy][x + dx] = 0x400 | v
 
     def actor(self, gfx, x, y, label, local=None, trainer=False, flag="0", facing="DOWN"):
         o = dict(
@@ -310,7 +295,6 @@ def build():
     f.area(11, 19, 7, 1, 0x090, True)
     f.area(3, 13, 3, 5, 0x00D)
     f.area(18, 4, 7, 4, 0x00D)
-    f.trees()
     f.warp(14, 26, "MAP_VIRELIA_SLATEFORD_CITY", 3, "south")
     f.warp(7, 3, "MAP_VIRELIA_RAINFALL_UPPER", 0)
     f.warp(28, 18, "MAP_VIRELIA_RAINFALL_LOWER", 0)
@@ -320,7 +304,7 @@ def build():
     f.area(24, 22, 5, 3)
     f.actor("HIKER", 26, 23, "Shortcut")
     f.road(24, 19, 2, 4)
-    # Preserve previously painted rocks/trees while adding only the shortcut spur.
+    # Preserve the rock outcrop while adding the shortcut spur.
     f.area(24, 19, 2, 4, 0x121)
 
     u = Map("RainfallUpper", 32, 34, elev=5)
@@ -358,7 +342,6 @@ def build():
     u.area(24, 11, 4, 5, 0x015)
     u.area(12, 21, 7, 3, 0x079, True)
     u.area(12, 20, 7, 1, 0x071, True)
-    u.trees()
     u.warp(5, 31, "MAP_VIRELIA_RAINFALL_FOOTHILLS", 1, "south")
     u.warp(23, 3, "MAP_VIRELIA_RAINFALL_LOWLANDS", 0)
     u.actor("ITEM_BALL", 27, 12, "Item", flag="FLAG_VIRELIA_RAINFALL_ITEM_REPEL")
@@ -401,7 +384,6 @@ def build():
     for r in [(3, 20, 4, 9), (11, 16, 5, 6), (25, 8, 6, 5), (31, 31, 5, 5), (19, 34, 6, 3)]:
         lo.area(*r, 0x015)
     lo.area(14, 19, 7, 4)
-    lo.trees()
     lo.warp(4, 36, "MAP_VIRELIA_RAINFALL_FOOTHILLS", 2, "south")
     lo.warp(4, 2, "MAP_VIRELIA_RAINFALL_LOWLANDS", 1)
     lo.actor("FISHERMAN", 9, 19, "Fisherman", trainer=True, facing="DOWN")
@@ -431,7 +413,6 @@ def build():
     ll.area(20, 13, 9, 5, 0x00D)
     ll.area(25, 17, 2, 4, 0x00D)
     ll.area(3, 15, 8, 7, 0x0D1, True)
-    ll.trees()
     # A one-tile ledge neck makes the rival checkpoint unavoidable, with room to retreat.
     for y in (11, 12, 13, 14):
         for x in range(12, 20):
@@ -487,39 +468,6 @@ def build():
         d.rectangle((1, 1, 14, 14), fill=4, outline=1)
         d.rectangle((4, 4, 11, 11), fill=12 if lit else 3)
         coast.custom(im)
-    # Lighthouse: coherent 4x8 native pixel silhouette, slate dome and red stripe.
-    tower = Image.new("P", (64, 128), 0)
-    d = ImageDraw.Draw(tower)
-    d.polygon([(12, 24), (18, 16), (46, 16), (52, 24)], fill=2)
-    d.rectangle((14, 24, 49, 112), fill=6, outline=2)
-    d.rectangle((14, 42, 49, 52), fill=9)
-    d.rectangle((14, 84, 49, 92), fill=9)
-    d.rectangle((45, 25, 49, 111), fill=4)
-    d.rectangle((15, 26, 19, 110), fill=7)
-    d.polygon([(7, 16), (16, 5), (47, 5), (56, 16)], fill=2)
-    d.line((13, 16, 50, 16), fill=1, width=2)
-    d.rectangle((17, 17, 46, 29), fill=14, outline=1)
-    for x in (19, 31, 43):
-        d.line((x, 17, x, 29), fill=3, width=2)
-    d.rectangle((8, 30, 55, 33), fill=2)
-    d.rectangle((10, 34, 53, 37), fill=5)
-    for y in (60, 99):
-        d.rectangle((28, y, 35, y + 9), fill=13, outline=2)
-    d.rectangle((26, 111, 37, 127), fill=2)
-    d.rectangle((29, 114, 34, 127), fill=3)
-    d.line((12, 112, 51, 112), fill=4, width=2)
-    TOWER = []
-    for y in range(8):
-        row = []
-        for x in range(4):
-            row.append(
-                coast.custom(
-                    tower.crop((x * 16, y * 16, x * 16 + 16, y * 16 + 16)),
-                    0x60 if (x, y) == (1, 7) else 0,
-                    grass_base=True,
-                )
-            )
-        TOWER.append(row)
     t = Map("SeabreakTown", 48, 42, bank="VireliaCoast")
     t.weather = "WEATHER_RAIN"
     t.music = "MUS_SLATEPORT"
@@ -620,11 +568,8 @@ def build():
         for dy, row in enumerate([[0x260, 0x265, 0x266, 0x267], [0x278, 0x34B, 0x348, 0x351]]):
             for dx, c in enumerate(row):
                 t.g[by + dy][bx + dx] = t.block(coast.stock(c), True)
-    # Lighthouse headland tower, approach from south and west.
-    for dy, row in enumerate(TOWER):
-        for dx, c in enumerate(row):
-            t.g[24 + dy][36 + dx] = t.block(c, True)
-    t.g[31][37] = t.block(TOWER[7][1])
+    # The final Seabreak pass composes the lighthouse over its finished headland.
+    t.g[31][37] = t.block(0x0A7)
     t.area(35, 32, 7, 3, 0x121)
     # Boardwalk runs around the beacon with a separate historical viewpoint.
     t.area(31, 25, 3, 10, plank)
