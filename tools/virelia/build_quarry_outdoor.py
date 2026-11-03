@@ -166,6 +166,8 @@ def build_quarry():
         if name not in ids:
             top = (art - 512) * 8 + 4
             bottom = (terrain - 512) * 8
+            if any(word & 1023 for word in meta[bottom+4:bottom+8]):
+                raise ValueError(f'Inlay {name} would erase the terrain overlay')
             index = add(name, meta[bottom:bottom+4] + meta[top:top+4], attrs[art-512])
             inlays.append(dict(index=index, art=art, terrain=terrain))
         return ids[name]
@@ -241,7 +243,7 @@ def build(ids, assets, embed, cut_tile):
                 canopy = asset == 'timber_derrick' and row < 2 or asset == 'quarry_lantern' and row < 2
                 original = grids[name][y+row][x+col] & 1023
                 on_track_bed = asset.startswith('bend_') and original == ids['GROUND']
-                on_cliff = asset in ('framed_adit', 'exposed_slate') and original in rock_markers
+                on_cliff = asset in ('framed_adit', 'caved_in_adit', 'exposed_slate') and original in rock_markers
                 if original in work_floors or original == ids['ROAD'] or on_track_bed or on_cliff:
                     embedded_art[name, x+col, y+row] = (original, index)
                 rect(name,x+col,y+row,1,1,index,e,blocked and not canopy)
@@ -390,8 +392,8 @@ def build(ids, assets, embed, cut_tile):
     cliff(HAUL,18,16,7)
     cliff(HAUL,18,30,7)
     stamp(HAUL,'framed_adit',5,9)
-    stamp(HAUL,'framed_adit',20,32)
-    stamp(HAUL,'slate_rubble',21,34)
+    stamp(HAUL,'caved_in_adit',20,32)
+    stamp(HAUL,'slate_rubble',22,35)
     stamp(HAUL,'quarry_lantern',17,30)
     stamp(HAUL,'cut_slate_stack',4,30)
     stamp(HAUL,'exposed_slate',20,17)
@@ -402,7 +404,7 @@ def build(ids, assets, embed, cut_tile):
     actor(HAUL,'Hammer',8,18)
     actor(HAUL,'Pick',19,13)
     actor(HAUL,'Hoard',15,28)
-    sign(HAUL,21,35,'Virelia_Slateford_QuarryGallery_EventScript_DeepAdit')
+    sign(HAUL,21,34,'Virelia_Slateford_QuarryGallery_EventScript_DeepAdit')
     rect(HAUL,25,6,1,1,0x003,solid=True)
     sign(HAUL,25,6,'Virelia_Slateford_QuarryGallery_EventScript_Sign')
     # The abandoned spur starts at the boarded adit, doubles back along the

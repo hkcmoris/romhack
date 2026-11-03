@@ -82,6 +82,23 @@ def validate(run_self_test=False):
     require((BANK/'palettes/07.pal').read_bytes()==(ROOT/manifest['palette_source']).read_bytes(),'Shared machinery palette changed')
     world=QuarryGraph()
     validate_sump_banks(world,metatile,graphic)
+    # Compare every entrance cell to its source slice, including cliff inlays.
+    placements=json.loads((ROOT/'tools/virelia/quarry_outdoor_contract.json').read_text())['placements']
+    overlay={item['index']:item['art'] for item in packing['inlays']}
+    cave_in=packing['assets']['caved_in_adit']
+    warning=next(e for e in world.maps[HAUL]['bg_events'] if e['script'].endswith('_DeepAdit'))
+    door=world.cell((HAUL,warning['x'],warning['y'])) & 1023
+    require(overlay.get(door,door)==cave_in[-1][len(cave_in[-1])//2],
+            'Deep gallery warning must face the collapsed tunnel mouth')
+    for prop in placements:
+        if prop['asset'] not in ('framed_adit','caved_in_adit'):
+            continue
+        for dy,row in enumerate(packing['assets'][prop['asset']]):
+            for dx,expected in enumerate(row):
+                node=(prop['map'],prop['x']+dx,prop['y']+dy)
+                cell=world.cell(node)
+                require(overlay.get(cell & 1023, cell & 1023)==expected and cell & 0xC00,
+                        f"{node}: missing or passable {prop['asset']} tile")
     used={cell & 1023 for blocks in world.blocks.values() for cell in blocks}
     rocks={value for key,value in packing['ids'].items() if key.startswith('ROCK_')}
     roads={value for key,value in packing['ids'].items() if key=='ROAD' or key.startswith(('ROAD_', 'TRACK_'))}

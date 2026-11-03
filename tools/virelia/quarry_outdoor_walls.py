@@ -118,19 +118,23 @@ def _rock_pixel(x, y, mask, variant):
     return _bed_pixel(x, y, variant)
 
 
-def _cut_pixel(x, y, section, phase, cap):
+def _cap_pixel(x, y, section, cap):
+    dx = x if cap == 'W' else 15 - x
+    yy = 16 * section + y
+    bevel = max(0, 4 - yy, yy - 43)
+    if dx < 1 + bevel:
+        return 15
+    if dx == 1 + bevel:
+        return 14
+    if dx == 2 + bevel:
+        return 10 if cap == 'W' else 13
+    return 0
+
+
+def _cut_pixel(x, y, section, phase):
     """Three vertical courses of quarried shale, with shear joints and bedding."""
     xx = x + 16 * phase
     yy = 16 * section + y
-    if cap:
-        dx = x if cap == 'W' else 15 - x
-        bevel = max(0, 4 - yy, yy - 43)
-        if dx < 1 + bevel:
-            return 15
-        if dx == 1 + bevel:
-            return 14
-        if dx == 2 + bevel:
-            return 10 if cap == 'W' else 13
     if yy < 5:
         return _bed_pixel(x, y, 0)
     dip = (0, 0, 1, 1, 1, 2, 2, 1, 0, 0, -1, -1, -1, 0, 0, 0)[xx // 4]
@@ -163,23 +167,27 @@ def _cut_pixel(x, y, section, phase, cap):
 
 
 def pack_walls(add, graphic):
-    def register(name, sample):
+    def quarters(sample):
         entries = []
         for ox, oy in ((0, 0), (8, 0), (0, 8), (8, 8)):
             tile = (sample(x + ox, y + oy) for y in range(8) for x in range(8))
-            entries.append(0x6000 | graphic(tile))
-        return add(name, entries + [0] * 4)
+            entry = graphic(tile)
+            entries.append(0x6000 | entry if entry else 0)
+        return entries
 
     for variant in range(8):
-        register(f'ROCK_BED_{variant}', lambda x, y: _rock_pixel(x, y, 0, variant))
+        add(f'ROCK_BED_{variant}', quarters(lambda x, y: _rock_pixel(x, y, 0, variant)) + [0]*4)
     for mask in sorted({normalize(bits) for bits in range(1, 256)}):
-        register(f'ROCK_EDGE_{mask:02X}', lambda x, y: _rock_pixel(x, y, mask, 0))
+        add(f'ROCK_EDGE_{mask:02X}', quarters(lambda x, y: _rock_pixel(x, y, mask, 0)) + [0]*4)
     # Phase and end-cap combinations depend on the length and position of a
     # bench. Allocate the ones that appear in the layout, including under props.
     @lru_cache(None)
     def cut_tile(section, phase, cap):
-        return register(f'ROCK_CUT_{section}_{phase}{cap}',
-                        lambda x, y: _cut_pixel(x, y, section, phase, cap))
+        # The same edge bevel fits every phase of a stratum. Pack it once on
+        # the upper layer so each face can share the untrimmed stone below.
+        face = quarters(lambda x, y: _cut_pixel(x, y, section, phase))
+        edge = quarters(lambda x, y: _cap_pixel(x, y, section, cap)) if cap else [0]*4
+        return add(f'ROCK_CUT_{section}_{phase}{cap}', face + edge)
 
     return cut_tile
 

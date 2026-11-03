@@ -7,7 +7,7 @@ The layout proposal is [Slateford quarry outdoor redesign](../../docs/VIRELIA_QU
 
 ## Files
 
-- `source/quarry-outdoor.aseprite` holds the editable layers and 18 named slices.
+- `source/quarry-outdoor.aseprite` holds the editable layers and 19 named slices.
 - `exports/quarry-outdoor.png` is the native 128×192 indexed atlas. Index 0 is transparent.
 - `manifest.json`: slice rectangles and intended gameplay roles.
 - `previews/tile-kit.png`: enlarged Aseprite review image, unsuitable for packing.
@@ -25,7 +25,7 @@ All atlas colors use GBA RGB555 precision. The packed terrain uses separate
 palettes for cliff faces, haul roads, sump water, rim vegetation and the
 working platforms. Machinery uses slot 7 throughout.
 
-The atlas contains a 48×32 slate cutting bench, 64×64 derrick, 48×48 timber-framed adit, 16×48 work lamp,
+The atlas contains a 48×32 slate cutting bench, 64×64 derrick, two 48×48 tunnel entrances (boarded and caved in), a 16×48 work lamp,
 six 32×32 modules (cart, stone stack, pump, slate course, feed and rubble),
 two 16×16 straight track modules, two buffers, and four 32×32 bends.
 Each bend spans two map cells per side. Its sleepers fan around a pair of
@@ -50,9 +50,10 @@ each piece's local origin and painter order so the arrangement stays editable.
 
 For packing, separate the derrick/lamp bases from their upper overhangs so
 actors can pass behind them. Keep the suspended load off the walking route.
-The boarded adits in these four outdoor sections are scenery. Keep their
-frames embedded in the adjacent cliff and the working rail on its haul-road
-underlay. The yard's exit to Slateford uses its own warp tile.
+The yard and the gallery siding use the boarded entrance. The deep gallery
+uses `caved_in_adit`: the broken lintel, displaced capstone and fallen slate
+cover the tunnel mouth. Keep the nine cells of each entrance blocked and the
+cave-in warning on the bottom center cell of the collapsed entrance.
 The runtime builder derives on/off control variants by changing indicator
 index 14 to index 13. Their final IDs are generated into
 `include/constants/virelia_quarry_outdoor.h`; native callbacks restore all four

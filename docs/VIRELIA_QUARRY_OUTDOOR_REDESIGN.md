@@ -98,8 +98,8 @@ needed for prototype saves.
 ![Quarry tile kit](../art/slateford_quarry_outdoor_v1/previews/tile-kit.png)
 
 The [editable source and atlas](../art/slateford_quarry_outdoor_v1/README.md)
-contain 18 named modules in a native 128×192 sheet. They include a timber
-derrick, cutting bench, framed adit, work lamp, loaded cart, cut-slate stacks, pump, exposed slate course,
+contain 19 named modules in a native 128×192 sheet. They include a timber
+derrick, cutting bench, boarded and caved-in entrances, work lamp, loaded cart, cut-slate stacks, pump, exposed slate course,
 electrical feed, rubble, two straight rail sections, four corners and two
 buffer stops. All use the current quarry machinery palette, slot 7.
 

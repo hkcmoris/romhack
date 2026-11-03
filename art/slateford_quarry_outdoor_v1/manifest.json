@@ -331,6 +331,18 @@
       "layer": "Cutting bay - timber frame",
       "rect": [0, 128, 48, 32],
       "role": "open-sided roofed cutting bench with a wheel, clamp and split slab"
+    },
+    {
+      "id": "caved_in_adit",
+      "layer": "Collapse - recess and standing jamb",
+      "layers": [
+        "Collapse - recess and standing jamb",
+        "Collapse - sheared capstone",
+        "Collapse - wedged slate",
+        "Collapse - broken sill and scree"
+      ],
+      "rect": [48, 112, 48, 48],
+      "role": "blocked deep gallery entrance, failed timber supports and interlocking rockfall"
     }
   ]
 }
