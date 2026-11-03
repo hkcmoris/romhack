@@ -13,7 +13,23 @@
   "allow_running": true,
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": null,
+  "connections": [
+    {
+      "map": "MAP_VIRELIA_SLATEFORD_CITY",
+      "offset": 2,
+      "direction": "down"
+    },
+    {
+      "map": "MAP_VIRELIA_RAINFALL_UPPER",
+      "offset": 32,
+      "direction": "up"
+    },
+    {
+      "map": "MAP_VIRELIA_RAINFALL_LOWER",
+      "offset": 0,
+      "direction": "right"
+    }
+  ],
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_HIKER",
@@ -56,29 +72,7 @@
       "flag": "FLAG_VIRELIA_RAINFALL_RIVAL_COMPLETE"
     }
   ],
-  "warp_events": [
-    {
-      "x": 14,
-      "y": 38,
-      "elevation": 0,
-      "dest_map": "MAP_VIRELIA_SLATEFORD_CITY",
-      "dest_warp_id": "3"
-    },
-    {
-      "x": 38,
-      "y": 6,
-      "elevation": 0,
-      "dest_map": "MAP_VIRELIA_RAINFALL_UPPER",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 46,
-      "y": 22,
-      "elevation": 0,
-      "dest_map": "MAP_VIRELIA_RAINFALL_LOWER",
-      "dest_warp_id": "0"
-    }
-  ],
+  "warp_events": [],
   "coord_events": [],
   "bg_events": [
     {

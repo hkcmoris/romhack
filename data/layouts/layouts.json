@@ -9470,7 +9470,7 @@
     {
       "id": "LAYOUT_VIRELIA_RAINFALL_UPPER",
       "name": "Virelia_RainfallUpper_Layout",
-      "width": 64,
+      "width": 146,
       "height": 48,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_VireliaRainfall",
@@ -9586,6 +9586,17 @@
       "secondary_tileset": "gTileset_VireliaQuarryOutdoor",
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryTerraces/border.bin",
       "blockdata_filepath": "data/layouts/Virelia_Slateford_QuarryTerraces/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_VIRELIA_SEABREAK_APPROACHES",
+      "name": "Virelia_SeabreakApproaches_Layout",
+      "width": 16,
+      "height": 56,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_VireliaCoast",
+      "border_filepath": "data/layouts/Virelia_SeabreakApproaches/border.bin",
+      "blockdata_filepath": "data/layouts/Virelia_SeabreakApproaches/map.bin",
       "layout_version": "emerald"
     }
   ]

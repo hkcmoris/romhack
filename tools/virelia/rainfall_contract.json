@@ -15,10 +15,15 @@
       "flag": "FLAG_VIRELIA_RAINFALL_RIVAL_COMPLETE",
       "open_block": 12577,
       "closed_block": 1038
+    },
+    {
+      "map": "Virelia_RainfallLower",
+      "x": 9,
+      "y": 19,
+      "flag": "FLAG_VIRELIA_LOWER_SHORTCUT",
+      "open_block": 13169,
+      "closed_block": 14183
     }
-  ],
-  "completed_flags": [
-    "FLAG_VIRELIA_LOWER_SHORTCUT"
   ],
   "entry": [
     "Virelia_RainfallFoothills",
@@ -36,22 +41,12 @@
   },
   "shortcut": {
     "flag": "FLAG_VIRELIA_LOWER_SHORTCUT",
-    "lower": [
-      "Virelia_RainfallLower",
-      18,
-      20
-    ],
-    "lower_destination": [
+    "lower_approach": [
       "Virelia_RainfallLower",
       17,
       20
     ],
-    "foothills": [
-      "Virelia_RainfallFoothills",
-      26,
-      23
-    ],
-    "foothills_destination": [
+    "foothills_approach": [
       "Virelia_RainfallFoothills",
       25,
       23

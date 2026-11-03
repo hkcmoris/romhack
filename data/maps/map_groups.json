@@ -1173,7 +1173,8 @@
     "Virelia_RainfallLower",
     "Virelia_RainfallLowlands",
     "Virelia_SeabreakTown",
-    "Virelia_Slateford_QuarryTerraces"
+    "Virelia_Slateford_QuarryTerraces",
+    "Virelia_SeabreakApproaches"
   ],
   "gMapGroup_VireliaInteriors": [
     "Virelia_MaplebrookResearchLaboratory",

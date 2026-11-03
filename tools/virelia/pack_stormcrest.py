@@ -2,6 +2,7 @@
 
 import struct
 from pathlib import Path
+from cliff_transitions import pack_ridge_contact
 
 from PIL import Image
 
@@ -60,12 +61,17 @@ def pack_stormcrest(root):
 
     # The original bank is nearly full on disk but many 8x8 graphics have no
     # metatile references. Allocate deterministically around the earlier art.
-    earlier = definitions[:start * 8]
+    # 318..31F were blank Fortree editor slots. The pass floor kit below
+    # owns them, so their previous graphics may be reclaimed on a repack.
+    floor_start, floor_stop = (0x318 - 512) * 8, (0x320 - 512) * 8
+    cliff_slots = {0x2FD, 0x305, 0x30D, 0x310, 0x311, 0x312, 0x315}
+    earlier = [v for i, v in enumerate(definitions[:start * 8])
+               if not floor_start <= i < floor_stop and 512 + i // 8 not in cliff_slots]
     if any(v >> 12 in (6, 7) for v in earlier):
         raise ValueError("Stormcrest needs unused Rainfall palette slots 6 and 7")
-    # 384..388 belong to the route warps. Later compound shores may alias our
-    # graphics, while any other graphics they reference must stay allocated.
-    gap = slice((0x384 - 512) * 8, (0x389 - 512) * 8)
+    # 385..386 retain the route aliases. The toe of the ridge contact uses
+    # the former blank slots on either side of this pair.
+    gap = slice((0x385 - 512) * 8, (0x387 - 512) * 8)
     old_kit = definitions[start * 8:gap.start] + definitions[gap.stop:stop * 8]
     external = definitions[gap] + definitions[stop * 8:]
     independently_used = {v & 1023 for v in external} - {v & 1023 for v in old_kit}
@@ -120,6 +126,21 @@ def pack_stormcrest(root):
 
     grass = ground(1)
     empty = [0, 0, 0, 0]
+    # In a single-cell tidal channel, both banks must be present. At its
+    # head, turn the same two corner pieces inward to close the waterline.
+    for tile, capped in ((0x2CB, False), (0x2D3, True)):
+        parts = []
+        for layer in (0,4):
+            for q in range(4):
+                right = q % 2
+                if capped and q >= 2:
+                    source = (0x188, 0x18A)[right]
+                    value = primary[source*8 + layer + right] ^ 0x800
+                else:
+                    source = (0x190, 0x192)[right]
+                    value = primary[source*8 + layer + q]
+                parts.append(value)
+        define(tile, parts[:4], parts[4:], 0x1015)
     for i in range(9):
         define(0x341 + i, grass, quarters(art(ridge, i % 3, i // 3), 6))
     for i in range(2):
@@ -144,6 +165,11 @@ def pack_stormcrest(root):
                0 if row == 0 else 0x1000)
 
     peat = quarters(art(fen, 0, 0), 7)
+    # Where the outcrop meets the fen, show dark water through the same
+    # cut stone edge. Other uses of these crags retain their grass backing.
+    for exposed, original in ((0x2FD, 0x347), (0x305, 0x349), (0x30D, 0x344)):
+        i = (original - 512) * 8
+        define(exposed, peat, definitions[i+4:i+8])
     for i in range(6):
         define(0x367 + i, quarters(art(fen, i % 3, i // 3), 7), empty, 0x1010)
     for i in range(3):
@@ -177,15 +203,47 @@ def pack_stormcrest(root):
 
     for i in range(9):
         define(0x3AE + i, grass, quarters(art(summit, i % 3, i // 3), 11))
+    # One-metatile tracks show both grassy shoulders. The boardwalk starts
+    # over dirt and crosses a bank beneath its planks before reaching peat.
+    thin_h = ground(0x119)[:2] + ground(0x129)[2:]
+    thin_v = [ground(0x120 if q % 2 == 0 else 0x122)[q] for q in range(4)]
+    define(0x318, thin_h, empty, 0)
+    define(0x319, thin_v, empty, 0)
+    blend = Image.open(bank / "gravel_to_earth.png")
+    if blend.mode != "P" or blend.size != (24, 16) or blend.getpalette()[:48] != summit.getpalette()[:48]:
+        raise ValueError("The gravel/earth junction must use the indexed summit palette")
+    face = blend.crop((0, 0, 16, 16))
+    for i, tile in enumerate((face, face.transpose(Image.Transpose.FLIP_TOP_BOTTOM))):
+        bed = ground((0x119, 0x129)[i])
+        # The west verge carries its own outline. Grass must show through
+        # its transparent lip; the east half thins onto Emerald's dirt.
+        west_edge = 2*i
+        bed[west_edge] = grass[west_edge]
+        define(0x31A + i, bed, quarters(tile, 11))
+    define(0x31C, thin_h, quarters(art(fen, 0, 2), 7), 0)
+    bank_under_deck = [grass[q] if q % 2 == 0 else peat[q] for q in range(4)]
+    define(0x31D, bank_under_deck, quarters(art(fen, 1, 2), 7))
     center = quarters(art(summit, 1, 1), 11)
     for i, corners in enumerate(((0,), (1,), (2,), (3,), (0, 3), (1, 2))):
         inset = center.copy()
         for q in corners:
             inset[q] = quarters(art(summit, q % 2, 3 + q // 2), 11)[q]
         define(0x3B7 + i, grass, inset)
+    # The bend just uphill of the saddle keeps its outer and inner grass
+    # profiles. Warm the packed surface on its road-facing quarter.
+    wear = quarters(blend.crop((16, 0, 32, 16)), 11)[0]
+    for i, (original, q) in enumerate(((0x3BC, 3), (0x3B4, 1))):
+        pos = (original - 512) * 8
+        top = definitions[pos+4:pos+8]
+        top[q] = wear ^ (0x800 if i else 0)
+        define(0x31E + i, grass, top)
     define(0x3BD, peat, quarters(art(ridge, 6, 3), 6))
     define(0x3BE, moss, quarters(art(ridge, 7, 3), 6))
     define(0x3BF, ground(0x170), quarters(fog, 11), 0x1010)
+    pack_ridge_contact(ridge, general, primary, quarters, define)
+    # The last exposed buttress shares the continuous granite face and keeps
+    # the behavior of the native rock tile it replaces.
+    define(0x388, ground(0x0A9), empty, words(general_bank / "metatile_attributes.bin")[0x071])
 
     # Remove abandoned work pixels after artist iterations; caller-defined warp
     # and compound shore aliases only use graphics already assigned above.

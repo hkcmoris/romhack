@@ -10,6 +10,19 @@ def _word(tile, elevation, blocked):
     return tile | (elevation << 12) | (0x400 if blocked else 0)
 
 
+def close_edge(grid, side, openings):
+    """Keep hikers on the marked crossings. Exposed tree crowns remain walkable."""
+    width, height = len(grid[0]), len(grid)
+    count = width if side in ("up", "down") else height
+    for i in range(count):
+        if i in openings:
+            continue
+        x, y = {"up": (i, 0), "down": (i, height - 1),
+                "left": (0, i), "right": (width - 1, i)}[side]
+        if grid[y][x] & 1023 not in (0x1CE, 0x1CF, 0x389, 0x38A, 0x248, 0x249):
+            grid[y][x] |= 0x400
+
+
 def _inside(grid, point):
     x, y = point
     return 0 <= y < len(grid) and 0 <= x < len(grid[y])

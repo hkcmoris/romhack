@@ -283,6 +283,12 @@
 #define METATILE_General_ReflectiveWater       0x0A1
 #define METATILE_General_RockWall_GrassBase    0x079
 #define METATILE_General_RockWall_RockBase     0x07C
+#define METATILE_General_CliffRim_WestDown     0x02A
+#define METATILE_General_CliffRim_EastDown     0x05C
+#define METATILE_General_CliffRim_WestUp       0x135
+#define METATILE_General_CliffRim_EastUp       0x13F
+#define METATILE_General_CliffRim_DescendsEast 0x1A2
+#define METATILE_General_CliffRim_RisesEast    0x1B6
 #define METATILE_General_RockWall_SandBase     0x091
 #define METATILE_General_RoughDeepWater        0x14F
 #define METATILE_General_RoughWater            0x14E
@@ -1072,6 +1078,26 @@
 #define METATILE_VireliaOutdoor_ShoreGround           0x367
 
 // gTileset_VireliaRainfall
+#define METATILE_VireliaRainfall_TidalCreek_TwoBanks           0x2CB
+#define METATILE_VireliaRainfall_TidalCreek_SouthEnd           0x2D3
+#define METATILE_VireliaRainfall_PeatCliff_FootWest            0x2FD
+#define METATILE_VireliaRainfall_PeatCliff_FootEast            0x305
+#define METATILE_VireliaRainfall_PeatCliff_SideWest            0x30D
+#define METATILE_VireliaRainfall_ShaleGranite_CrestWest        0x310
+#define METATILE_VireliaRainfall_ShaleGranite_CrestEast        0x311
+#define METATILE_VireliaRainfall_ShaleGranite_FaceWest         0x312
+#define METATILE_VireliaRainfall_ShaleGranite_FaceEast         0x315
+#define METATILE_VireliaRainfall_NarrowTrail_Horizontal        0x318
+#define METATILE_VireliaRainfall_NarrowTrail_Vertical          0x319
+#define METATILE_VireliaRainfall_GravelEarth_North             0x31A
+#define METATILE_VireliaRainfall_GravelEarth_South             0x31B
+#define METATILE_VireliaRainfall_Boardwalk_DirtLanding         0x31C
+#define METATILE_VireliaRainfall_Boardwalk_PeatLanding         0x31D
+#define METATILE_VireliaRainfall_GravelEarth_InnerBend         0x31E
+#define METATILE_VireliaRainfall_GravelEarth_OuterBend         0x31F
+#define METATILE_VireliaRainfall_ShaleGranite_FootWest         0x384
+#define METATILE_VireliaRainfall_ShaleGranite_FootEast         0x387
+#define METATILE_VireliaRainfall_ShaleGranite_Buttress         0x388
 #define METATILE_VireliaRainfall_Marsh_NW       0x32D
 #define METATILE_VireliaRainfall_Marsh_N        0x32E
 #define METATILE_VireliaRainfall_Marsh_NE       0x32F

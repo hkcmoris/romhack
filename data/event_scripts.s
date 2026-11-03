@@ -1801,6 +1801,7 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/maps/Virelia_RainfallLower/scripts.inc"
 	.include "data/maps/Virelia_RainfallLowlands/scripts.inc"
 	.include "data/maps/Virelia_SeabreakTown/scripts.inc"
+	.include "data/maps/Virelia_SeabreakApproaches/scripts.inc"
 	.include "data/maps/Virelia_Seabreak_PokemonCenter/scripts.inc"
 	.include "data/maps/Virelia_Seabreak_Lighthouse/scripts.inc"
 	.include "data/maps/Virelia_Seabreak_LanternRoom/scripts.inc"

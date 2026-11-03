@@ -252,11 +252,6 @@ def validate(base=None):
                     f"{name}: warp tile has no native walking/door behavior: {warp}")
             require(behavior == animated_door or not block(name, warp["x"], warp["y"]) & 0xC00,
                     f"{name}: non-animated warp tile is blocked: {warp}")
-            # Later chapters append a conventional exit; their own graph audit
-            # checks its destination. Keep this audit focused on the old world.
-            if warp["dest_map"] == "MAP_VIRELIA_RAINFALL_FOOTHILLS" and name == CITY:
-                require((warp["x"], warp["y"]) == (12, 1), "Rainfall exit moved from its audited footprint")
-                continue
             require(warp["dest_map"] in by_id, f"{name}: unexpected external warp")
             target_name = by_id[warp["dest_map"]]
             target_warps = maps[target_name]["warp_events"]
@@ -270,6 +265,10 @@ def validate(base=None):
 
         for connection in entry.get("connections") or []:
             direction, offset = connection["direction"], int(connection["offset"])
+            # Chapter 2 audits the northbound seam, its badge gate and return.
+            if name == CITY and connection["map"] == "MAP_VIRELIA_RAINFALL_FOOTHILLS":
+                require(direction == "up", "The Rainfall trail must leave Slateford to the north")
+                continue
             require(connection["map"] in by_id, f"{name}: unexpected external connection")
             target_name = by_id[connection["map"]]
             source_layout = by_layout[entry["layout"]]

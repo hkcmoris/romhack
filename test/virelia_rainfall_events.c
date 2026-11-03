@@ -10,6 +10,7 @@
 #include "heal_location.h"
 #include "item.h"
 #include "main.h"
+#include "metatile_behavior.h"
 #include "money.h"
 #include "overworld.h"
 #include "pokemon.h"
@@ -69,7 +70,7 @@ static void LoadRainfallMap(u32 map)
     RunOnLoadMapScript();
 }
 
-TEST("Rainfall chapter warps have native triggers and reciprocal destinations")
+TEST("Rainfall building warps have native triggers and reciprocal destinations")
 {
     static const u16 maps[] =
     {
@@ -96,6 +97,8 @@ TEST("Rainfall chapter warps have native triggers and reciprocal destinations")
     for (u32 i = 0; i < events->warpCount; i++)
     {
         const struct WarpEvent *warp = &events->warps[i];
+        if (MAP_GROUP(maps[index]) == MAP_GROUP(MAP_VIRELIA_SEABREAK_TOWN))
+            EXPECT_NE(warp->mapGroup, MAP_GROUP(MAP_VIRELIA_SEABREAK_TOWN));
         u8 behavior = MapGridGetMetatileBehaviorAt(warp->x + MAP_OFFSET, warp->y + MAP_OFFSET);
         // A valid warp destination alone cannot trigger a transition from floor.
         bool32 triggered = behavior == MB_ANIMATED_DOOR || behavior == MB_NON_ANIMATED_DOOR
@@ -112,6 +115,64 @@ TEST("Rainfall chapter warps have native triggers and reciprocal destinations")
         EXPECT_EQ(arrival->mapGroup, MAP_GROUP(maps[index]));
         EXPECT_EQ(arrival->mapNum, MAP_NUM(maps[index]));
     }
+}
+
+TEST("Rainfall outdoor walking seams lead onto the neighboring map at the same height")
+{
+    static const struct {
+        u16 maps[2];
+        u8 elevation;
+    } links[] =
+    {
+        {{MAP_VIRELIA_SLATEFORD_CITY, MAP_VIRELIA_RAINFALL_FOOTHILLS}, 3},
+        {{MAP_VIRELIA_RAINFALL_FOOTHILLS, MAP_VIRELIA_RAINFALL_UPPER}, 3},
+        {{MAP_VIRELIA_RAINFALL_FOOTHILLS, MAP_VIRELIA_RAINFALL_LOWER}, 3},
+        {{MAP_VIRELIA_RAINFALL_LOWER, MAP_VIRELIA_RAINFALL_LOWLANDS}, 3},
+        {{MAP_VIRELIA_RAINFALL_UPPER, MAP_VIRELIA_SEABREAK_APPROACHES}, 7},
+        {{MAP_VIRELIA_RAINFALL_LOWLANDS, MAP_VIRELIA_SEABREAK_APPROACHES}, 3},
+        {{MAP_VIRELIA_SEABREAK_APPROACHES, MAP_VIRELIA_SEABREAK_TOWN}, 7},
+        {{MAP_VIRELIA_SEABREAK_APPROACHES, MAP_VIRELIA_SEABREAK_TOWN}, 3},
+    };
+    u32 index = 0, reverse = 0;
+    for (u32 i = 0; i < ARRAY_COUNT(links); i++)
+        for (u32 j = 0; j < 2; j++)
+            PARAMETRIZE_LABEL("map=%d to=%d", links[i].maps[j], links[i].maps[j ^ 1]) { index = i; reverse = j; }
+
+    ResetRainfall();
+    FlagSet(FLAG_VIRELIA_FIRST_GYM_COMPLETE);
+    FlagSet(FLAG_VIRELIA_RAINFALL_RIVAL_COMPLETE);
+    LoadRainfallMap(links[index].maps[reverse]);
+    u16 dest = links[index].maps[reverse ^ 1];
+    bool32 found = FALSE;
+    EXPECT(gMapHeader.connections != NULL);
+    for (s32 i = 0; i < gMapHeader.connections->count; i++)
+    {
+        const struct MapConnection *link = &gMapHeader.connections->connections[i];
+        if (link->mapGroup != MAP_GROUP(dest) || link->mapNum != MAP_NUM(dest))
+            continue;
+        s32 dx = (link->direction == CONNECTION_EAST) - (link->direction == CONNECTION_WEST);
+        s32 dy = (link->direction == CONNECTION_SOUTH) - (link->direction == CONNECTION_NORTH);
+        EXPECT(dx != 0 || dy != 0);
+        const struct MapLayout *layout = gMapHeader.mapLayout;
+        for (s32 pos = 0; pos < (dx ? layout->height : layout->width); pos++)
+        {
+            s32 x = MAP_OFFSET + (dx ? (dx > 0 ? layout->width - 1 : 0) : pos);
+            s32 y = MAP_OFFSET + (dy ? (dy > 0 ? layout->height - 1 : 0) : pos);
+            if (GetMapConnectionAtPos(x + dx, y + dy) != link
+                || MapGridGetCollisionAt(x, y) || MapGridGetCollisionAt(x + dx, y + dy)
+                || MetatileBehavior_IsSurfableWaterOrUnderwater(MapGridGetMetatileBehaviorAt(x, y))
+                || MetatileBehavior_IsSurfableWaterOrUnderwater(MapGridGetMetatileBehaviorAt(x + dx, y + dy)))
+                continue;
+            u32 level = MapGridGetElevationAt(x, y);
+            if (level != MapGridGetElevationAt(x + dx, y + dy))
+                continue;
+            if (level != links[index].elevation)
+                continue;
+            found = TRUE;
+            break;
+        }
+    }
+    EXPECT(found);
 }
 
 TEST("Rainfall compiled chapter entry requires Mara and preserves earlier progression")
@@ -276,9 +337,17 @@ TEST("Rainfall route pickups and lower shortcut persist without duplicate reward
     RUN_OVERWORLD_SCRIPT(call VireliaRainfall_EventScript_TakeRouteItem;);
     EXPECT_EQ(gSpecialVar_Result, FALSE);
     EXPECT_EQ(CountTotalItemQuantityInBag(itemId), 1);
+    LoadRainfallMap(MAP_VIRELIA_RAINFALL_LOWER);
+    const s32 bridgeX = 9 + MAP_OFFSET, bridgeY = 19 + MAP_OFFSET;
+    EXPECT_EQ(MapGridGetMetatileIdAt(bridgeX, bridgeY), METATILE_VireliaRainfall_PeatPool);
+    EXPECT_NE(MapGridGetCollisionAt(bridgeX, bridgeY), 0);
     RUN_OVERWORLD_SCRIPT(call VireliaRainfall_EventScript_OpenShortcut;);
     ClearTempFieldEventData();
     EXPECT(FlagGet(FLAG_VIRELIA_LOWER_SHORTCUT));
+    RunOnLoadMapScript();
+    EXPECT_EQ(MapGridGetMetatileIdAt(bridgeX, bridgeY), METATILE_VireliaRainfall_Boardwalk_Center);
+    EXPECT_EQ(MapGridGetCollisionAt(bridgeX, bridgeY), 0);
+    EXPECT_EQ(MapGridGetElevationAt(bridgeX, bridgeY), 3);
 }
 TEST("Rainfall all rival starter and gender variants white out on loss and persist only victory")
 {
@@ -393,16 +462,10 @@ TEST("Rainfall branches reach separate Seabreak terraces before the lighthouse i
 {
     ResetRainfall();
     LoadRainfallMap(MAP_VIRELIA_SEABREAK_TOWN);
-    const struct WarpEvent *upper = &gMapHeader.events->warps[0];
-    const struct WarpEvent *harbor = &gMapHeader.events->warps[4];
-    EXPECT_EQ(upper->x, 26);
-    EXPECT_EQ(upper->y, 8);
-    EXPECT_EQ(harbor->x, 3);
-    EXPECT_EQ(harbor->y, 36);
-    EXPECT_EQ(upper->mapNum, MAP_NUM(MAP_VIRELIA_RAINFALL_UPPER));
-    EXPECT_EQ(harbor->mapNum, MAP_NUM(MAP_VIRELIA_RAINFALL_LOWLANDS));
-    EXPECT_EQ(MapGridGetElevationAt(upper->x + MAP_OFFSET, upper->y + MAP_OFFSET), 7);
-    EXPECT_EQ(MapGridGetElevationAt(harbor->x + MAP_OFFSET, harbor->y + MAP_OFFSET), 3);
+    EXPECT_EQ(MapGridGetElevationAt(26 + MAP_OFFSET, 8 + MAP_OFFSET), 7);
+    EXPECT_EQ(MapGridGetCollisionAt(26 + MAP_OFFSET, 8 + MAP_OFFSET), 0);
+    EXPECT_EQ(MapGridGetElevationAt(3 + MAP_OFFSET, 36 + MAP_OFFSET), 3);
+    EXPECT_EQ(MapGridGetCollisionAt(3 + MAP_OFFSET, 36 + MAP_OFFSET), 0);
     // The Center and market are on the middle shelf between the two arrivals.
     EXPECT_EQ(MapGridGetElevationAt(8 + MAP_OFFSET, 22 + MAP_OFFSET), 5);
     EXPECT(!FlagGet(FLAG_VIRELIA_LIGHTHOUSE_REPAIRED));
@@ -423,12 +486,13 @@ TEST("Rainfall native Continue restores the whole north exit over an older cache
             MapGridSetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET, 0x1E4 | MAPGRID_IMPASSABLE);
     EXPECT_NE(MapGridGetCollisionAt(12 + MAP_OFFSET, 1 + MAP_OFFSET), 0);
     RunOnLoadMapScript();
-    EXPECT_EQ(MapGridGetMetatileIdAt(12 + MAP_OFFSET, 1 + MAP_OFFSET), 0x0A7);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(12 + MAP_OFFSET, 1 + MAP_OFFSET), MB_NORMAL);
     EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 1 + MAP_OFFSET), 0);
     EXPECT_EQ(MapGridGetMetatileIdAt(12 + MAP_OFFSET, 3 + MAP_OFFSET), 0x001);
     EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 3 + MAP_OFFSET), 0);
     EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 2 + MAP_OFFSET) == 0, badge);
-    EXPECT_NE(MapGridGetCollisionAt(12 + MAP_OFFSET, 0 + MAP_OFFSET), 0);
+    EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 0 + MAP_OFFSET), 0);
+    EXPECT_EQ(MapGridGetMetatileBehaviorAt(12 + MAP_OFFSET, 0 + MAP_OFFSET), MB_NORMAL);
     for (u32 x = 11; x <= 13; x += 2)
         for (u32 y = 0; y <= 2; y++)
             EXPECT_NE(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET), 0);

@@ -18,11 +18,16 @@ ROOT = Path(__file__).resolve().parents[1]
 BASELINE = '492267dadc0f9b54322a39038c479d717eba958a'
 CITY = 'Virelia_SlatefordCity'
 OUTDOORS = tuple('Virelia_' + name for name in (
-    'RainfallFoothills', 'RainfallUpper', 'RainfallLower', 'RainfallLowlands', 'SeabreakTown'))
+    'RainfallFoothills', 'RainfallUpper', 'RainfallLower', 'RainfallLowlands', 'SeabreakTown', 'SeabreakApproaches'))
+COAST_APPROACHES = OUTDOORS[-1]
 INTERIORS = tuple('Virelia_Seabreak_' + name for name in (
     'PokemonCenter', 'Lighthouse', 'LanternRoom', 'KeepersHouse'))
 NAMES = (CITY, *OUTDOORS, *INTERIORS)
 DELTAS = ((1, 0), (-1, 0), (0, 1), (0, -1))
+OPPOSITE = {'up': 'down', 'down': 'up', 'left': 'right', 'right': 'left'}
+ROUTE_LINKS = ((CITY, OUTDOORS[0]), (OUTDOORS[0], OUTDOORS[1]), (OUTDOORS[0], OUTDOORS[2]),
+               (OUTDOORS[2], OUTDOORS[3]), (OUTDOORS[1], COAST_APPROACHES), (OUTDOORS[3], COAST_APPROACHES),
+               (COAST_APPROACHES, OUTDOORS[4]))
 PROTECTED = {
     'include/constants/species.h': '40580ee3c7b6900859639df465dad05a5bdb7e40d32712ca173a8107a8880b48',
     'data/layouts/Virelia_WhisperwoodSanctuary/map.bin': 'ed93585f671788c530f6d51a74923de0444936d8e445a40ff7faa3b21bb88787',
@@ -122,7 +127,9 @@ def preserve_baseline(groups, layouts, sections):
             'Existing layout IDs moved')
     require(digest([x['id'] for x in sections[:212]]) == '86f6c9860f45bbebd03472094ce57749f2b963b169df8a11a0973bfb532c61ea',
             'Existing region section IDs moved')
-    require(groups['gMapGroup_VireliaOverworld'][4:9] == list(OUTDOORS), 'Incorrect Chapter 2 overworld map order')
+    overworld = groups['gMapGroup_VireliaOverworld']
+    require(overworld[4:9] == list(OUTDOORS[:5]) and overworld[9:11] == ['Virelia_Slateford_QuarryTerraces', COAST_APPROACHES],
+            'Chapter 2 must preserve existing map IDs and append the coast approach')
     require(groups['gMapGroup_VireliaInteriors'][8:8 + len(INTERIORS)] == list(INTERIORS), 'Incorrect Chapter 2 interior map order')
     for path, expected in PROTECTED.items():
         data = (ROOT / path).read_bytes()
@@ -173,11 +180,13 @@ class World:
         layout = self.layouts[name]
         if not (0 <= x < layout['width'] and 0 <= y < layout['height']):
             return None
+        block = self.blocks[name][y * layout['width'] + x]
         for gate in self.contract['dynamic_tiles']:
             if (name, x, y) == (gate['map'], gate['x'], gate['y']):
                 key = 'open_block' if gate['flag'] in flags else 'closed_block'
-                return gate[key]
-        return self.blocks[name][y * layout['width'] + x]
+                # Native setmetatile replaces the ID and collision but preserves the layout elevation.
+                return (block & 0xF000) | (gate[key] & 0x0FFF)
+        return block
 
     def behavior(self, node, flags=frozenset()):
         cell = self.tile(node, flags)
@@ -207,6 +216,20 @@ class World:
             node = (name, warp['x'], warp['y'] + 1)
         return node
 
+    def connection_tiles(self, name, connection):
+        """Pair the touching edge cells using Emerald's signed destination offset."""
+        target = self.ids[connection['map']]
+        src, dst = self.layouts[name], self.layouts[target]
+        direction, offset = connection['direction'], int(connection['offset'])
+        if direction in ('up', 'down'):
+            y, ty = (0, dst['height'] - 1) if direction == 'up' else (src['height'] - 1, 0)
+            for x in range(max(0, offset), min(src['width'], offset + dst['width'])):
+                yield (name, x, y), (target, x - offset, ty)
+        else:
+            x, tx = (0, dst['width'] - 1) if direction == 'left' else (src['width'] - 1, 0)
+            for y in range(max(0, offset), min(src['height'], offset + dst['height'])):
+                yield (name, x, y), (target, tx, y - offset)
+
     def graph(self, flags=frozenset(), excluded=frozenset()):
         edges = {}
         jumps = {'MB_JUMP_EAST': (1, 0), 'MB_JUMP_WEST': (-1, 0), 'MB_JUMP_NORTH': (0, -1), 'MB_JUMP_SOUTH': (0, 1)}
@@ -232,7 +255,14 @@ class World:
         for name, entry in self.maps.items():
             if name in excluded:
                 continue
-            require(name == CITY or not entry.get('connections'), f'{name}: use conventional warps between independent tilesets')
+            for connection in entry.get('connections') or ():
+                if self.ids.get(connection['map']) in excluded or connection['map'] not in self.ids:
+                    continue
+                for src, dst in self.connection_tiles(name, connection):
+                    if src in edges and dst in edges:
+                        a, b = self.tile(src, flags) >> 12, self.tile(dst, flags) >> 12
+                        if a == b or 0 in (a, b):
+                            edges[src].append(dst)
             for warp in entry['warp_events']:
                 if warp['dest_map'] not in self.ids:
                     require(name == CITY, f'{name}: unexplained external warp')
@@ -244,17 +274,6 @@ class World:
                 src, dst = self.warp_access(name, warp, flags), self.warp_access(target, arrival, flags)
                 if src in edges and dst in edges:
                     edges[src].append(dst)
-        shortcut = self.contract.get('shortcut')
-        if shortcut and shortcut['flag'] in flags:
-            for source_key, destination_key in (('lower', 'foothills_destination'), ('foothills', 'lower_destination')):
-                name, x, y = shortcut[source_key]
-                destination = tuple(shortcut[destination_key])
-                if name in excluded or destination[0] in excluded:
-                    continue
-                for dx, dy in DELTAS:
-                    source = name, x + dx, y + dy
-                    if source in edges and destination in edges:
-                        edges[source].append(destination)
         return edges
 
 
@@ -268,6 +287,74 @@ def distances(edges, start):
                 found[target] = found[node] + 1
                 queue.append(target)
     return found
+
+
+def validate_route_connections(world, graph, reached):
+    required = {frozenset(link) for link in ROUTE_LINKS}
+    outdoor_ids = {world.maps[n]['id'] for n in (CITY, *OUTDOORS)}
+    observed = set()
+    for name in (CITY, *OUTDOORS):
+        entry = world.maps[name]
+        neighbors = set()
+        for connection in entry.get('connections') or ():
+            if name == CITY and connection['map'] == 'MAP_VIRELIA_ROUTE01':
+                continue
+            target = world.ids.get(connection['map'])
+            pair = frozenset((name, target))
+            require(pair in required and target not in neighbors, f'{name}: unexpected connection to {target}')
+            neighbors.add(target)
+            observed.add(pair)
+            direction, offset = connection['direction'], int(connection['offset'])
+            require(direction in OPPOSITE and any(
+                back['map'] == entry['id'] and back['direction'] == OPPOSITE[direction] and int(back['offset']) == -offset
+                for back in world.maps[target].get('connections') or ()), f'{name}: missing reciprocal link to {target}')
+            crossing = [(a, b) for a, b in world.connection_tiles(name, connection) if b in graph.get(a, ())]
+            require(crossing and any(a in reached for a, b in crossing), f'{name}: no accessible walking seam to {target}')
+            require(all(a in graph[b] for a, b in crossing), f'{name}: one-way edge opening to {target}')
+            # Emerald picks the first matching connection, including the far endpoint.
+            # Two neighbors can share a side (both Rainfall approaches west of Seabreak).
+            adjacent = [c for c in entry['connections'] if c['direction'] == direction and c['map'] in world.ids]
+            vertical = direction in ('up', 'down')
+            for a, b in crossing:
+                coord = a[1 if vertical else 2]
+                chosen = next(c for c in adjacent if int(c['offset']) <= coord <= int(c['offset'])
+                              + world.layouts[world.ids[c['map']]]['width' if vertical else 'height'])
+                require(chosen == connection, f'{a}: another connection takes precedence over the trail to {target}')
+                for point in (a, b):
+                    behavior = world.behavior(point)
+                    require('WARP' not in behavior and 'DOOR' not in behavior and behavior != 'MB_LADDER',
+                            f'{point}: walking seam still has {behavior}')
+        require(not any(w['dest_map'] in outdoor_ids for w in entry['warp_events']),
+                f'{name}: outdoor traversal still uses a warp event')
+        scripted_destinations = re.findall(r'^\s*warp\w*\s+(MAP_\w+)', world.scripts[name], re.M)
+        require(not outdoor_ids.intersection(scripted_destinations), f'{name}: scripted warp bypasses an outdoor seam')
+    require(observed == required, f'Missing route connections: {required - observed}')
+    # Both branches form a loop on Porymap's canvas. Following either must
+    # place Seabreak at the same world coordinates without overlapping a route.
+    origins, queue = {CITY: (0, 0)}, deque([CITY])
+    while queue:
+        name = queue.popleft()
+        x, y = origins[name]
+        src = world.layouts[name]
+        for link in world.maps[name]['connections']:
+            target = world.ids.get(link['map'])
+            if target is None:
+                continue
+            dst, off = world.layouts[target], int(link['offset'])
+            dx, dy = {'up': (off, -dst['height']), 'down': (off, src['height']),
+                      'left': (-dst['width'], off), 'right': (src['width'], off)}[link['direction']]
+            origin = x + dx, y + dy
+            if target in origins:
+                require(origins[target] == origin, f'Conflicting Porymap position for {target} via {name}')
+                continue
+            for other, (ox, oy) in origins.items():
+                size = world.layouts[other]
+                require(origin[0] + dst['width'] <= ox or ox + size['width'] <= origin[0]
+                        or origin[1] + dst['height'] <= oy or oy + size['height'] <= origin[1],
+                        f'{target} overlaps {other} on the connection canvas')
+            origins[target] = origin
+            queue.append(target)
+    print(f'PASS: all {len(required)} outdoor map boundaries have reciprocal, walkable connections')
 
 
 def approaches(world, name, event, flags):
@@ -346,10 +433,11 @@ def validate_cached_entrance(world):
         for x, y in footprint:
             raw = world.blocks[CITY][y * world.layouts[CITY]['width'] + x]
             expected = (raw & 1023, bool(raw & 0xC00))
-            if (x, y) == (12, 2) and badge:
-                expected = 1, False
+            if (x, y) == (12, 2):
+                expected = (1, False) if badge else (0x00E, True)
             require(restored[x, y] == expected, f"Cached entrance art/collision mismatch at {(x, y)}, badge={badge}")
-        require(restored[12, 1] == (0x0A7, False), "Continue must restore the native passable cave-door warp")
+        require(all(not restored[12, y][1] and world.behavior((CITY, 12, y)) == 'MB_NORMAL' for y in (0, 1)),
+                "The restored trail must reach the north map boundary on ordinary walking tiles")
     print("PASS: actual badge-branch callback restores all10 authored entrance cells over an old cached map view")
 
 def validate_graphics_counts(source=None):
@@ -432,17 +520,51 @@ def validate_spruce_art():
     print('PASS: both banks preserve the complete spruce crown, directional shading and stacked overlap')
 
 
+def validate_gravel_edges(world):
+    """A painted trail may expose the verge, but not enclosed specks of dirt."""
+    table = world.metatiles['gTileset_VireliaRainfall']
+    pixels = {(x,y) for x in range(16) for y in range(16)}
+    border = {(x,y) for x,y in pixels if x in (0,15) or y in (0,15)}
+
+    def flood(seeds, allowed):
+        seen = set(seeds)
+        pending = list(seen)
+        while pending:
+            x,y = pending.pop()
+            for dx,dy in DELTAS:
+                neighbor = x+dx,y+dy
+                if neighbor in allowed and neighbor not in seen:
+                    seen.add(neighbor)
+                    pending.append(neighbor)
+        return seen
+
+    for tile in (*range(0x3AE,0x3BD), 0x31A,0x31B,0x31E,0x31F):
+        start = (tile-512)*8+4
+        painted = set()
+        for q,ref in enumerate(table[start:start+4]):
+            for i,color in enumerate(rendered_tile('virelia_rainfall', ref)):
+                if color is not None:
+                    painted.add((8*(q%2)+i%8, 8*(q//2)+i//8))
+
+        bare = pixels - painted
+        require(painted and flood([min(painted)], painted) == painted,
+                f'Gravel {tile:#05x} leaves disconnected fragments on the adjoining surface')
+        require(flood(border & bare, bare) == bare, f'Gravel {tile:#05x} has a hole inside its surface')
+    print('PASS: connected gravel surfaces and open outer and inner verges throughout the ridge trail')
+
+
 def validate_tree_footprints(world):
     """Read the drawn trees back from the blockmaps, including shared crown/base rows."""
     for name in OUTDOORS:
-        spruce = (0x248, 0x24A, 0x24C, 0x24E) if name == 'Virelia_SeabreakTown' else (0x389, 0x38B, 0x38D, 0x38F)
+        coast = world.layouts[name]['secondary_tileset'] == 'gTileset_VireliaCoast'
+        spruce = (0x248, 0x24A, 0x24C, 0x24E) if coast else (0x389, 0x38B, 0x38D, 0x38F)
         families = {0x1D6: (0x1CE, 0x1D6, 0x1E6, 0x1DE), spruce[1]: spruce}
         tree_tiles = {tile + dx for family in families.values() for tile in family for dx in (0, 1)}
         width = world.layouts[name]['width']
         cells = {(i % width, i // width): block for i, block in enumerate(world.blocks[name])
                  if block & 1023 in tree_tiles}
         trunks = {point for point, block in cells.items() if block & 1023 in families}
-        require(trunks, f'{name}: no complete trees')
+        require(trunks or name == COAST_APPROACHES, f'{name}: no complete trees')
         covered = set()
         for x, y in trunks:
             crown, trunk, roots, overlap = families[cells[x, y] & 1023]
@@ -550,6 +672,24 @@ def validate_seabreak_coast(world, reachable):
                 f'Seabreak is cut off from the mainland west of row {y}')
     require((0, 0) not in sea, 'The northwestern coastal slopes must continue inland')
 
+    # The sea stack shares one metatile with the cape's inside shoreline corner.
+    # All four parts of the rock must survive shoreline autotiling.
+    primary = world.metatiles[layout['primary_tileset']]
+    for dy, row in enumerate(((0x150, 0x151), (0x158, 0x159))):
+        for dx, source in enumerate(row):
+            node = (town, 43 + dx, 20 + dy)
+            block = world.tile(node)
+            tile = block & 1023
+            bank = layout['primary_tileset' if tile < 512 else 'secondary_tileset']
+            offset = (tile % 512) * 8
+            for q in range(4, 8):
+                rock = primary[source * 8 + q]
+                if rock & 1023:
+                    require(world.metatiles[bank][offset + q] == rock,
+                            f'{node}: missing offshore rock artwork')
+            require(block & 0xC00 and world.behavior(node) == 'MB_NORMAL',
+                    f'{node}: offshore rock must block passage')
+
     # A navigable basin must open east. Trace water past the pier without
     # treating boats, piles or the seawall as part of the shipping channel.
     offshore = {(width - 1, y) for y in range(height)} & sea
@@ -577,7 +717,7 @@ def validate_seabreak_coast(world, reachable):
     print('PASS: Seabreak joins the western mainland and its fishing pier opens to the eastern sea')
 
 
-def validate_encounters_and_trainers(world, reached, flags):
+def validate_encounters_and_trainers(world, graph, reached, flags):
     tables = [entry for group in load('src/data/wild_encounters.json')['wild_encounter_groups']
               if group.get('for_maps') for entry in group['encounters']
               if entry['map'] in {world.maps[n]['id'] for n in OUTDOORS[:4]}]
@@ -614,8 +754,9 @@ def validate_encounters_and_trainers(world, reached, flags):
         ray = [(name, obj['x'] + dx * i, obj['y'] + dy * i)
                for i in range(1, int(obj['trainer_sight_or_berry_tree_id']) + 1)]
         require(ray and ray[0] in reached, f'{name}: trainer faces blocked or unreachable terrain')
-        arrivals = {world.warp_access(name, w, flags) for w in world.maps[name]['warp_events']}
-        require(not arrivals.intersection(ray), f'{name}: trainer starts battle on the warp arrival')
+        arrivals = {a for link in world.maps[name]['connections'] for a, b in world.connection_tiles(name, link)
+                    if a in reached and a in graph.get(b, ())}
+        require(not arrivals.intersection(ray), f'{name}: trainer starts a battle at a map crossing')
     for identity in ('VIKTOR', 'VIKTORIE'):
         for choice, starter in (('GRASS', 'ARBOK'), ('WATER', 'MIGHTYENA'), ('FIRE', 'XATU')):
             key = f'TRAINER_VIRELIA_{identity}_RAINFALL_{choice}'
@@ -631,19 +772,22 @@ def validate():
     layouts = load('data/layouts/layouts.json')['layouts']
     sections = load('src/data/region_map/region_map_sections.json')['map_sections']
     preserve_baseline(groups, layouts, sections)
-    require(len(layouts) >= 806 and len(sections) >= 214, 'Chapter 2 layouts/sections must be appended once')
+    require(len(layouts) >= 810 and layouts[809]['id'] == 'LAYOUT_VIRELIA_SEABREAK_APPROACHES'
+            and len(sections) >= 214, 'Chapter 2 layouts/sections must retain their registered order')
     contract = load('tools/virelia/rainfall_contract.json')
     world = World(layouts, contract)
     validate_used_palettes(world)
     validate_spruce_art()
+    validate_gravel_edges(world)
     validate_tree_footprints(world)
     validate_marsh(world)
     validate_cached_entrance(world)
     validate_actor_elevations(world)
-    all_flags = frozenset(g['flag'] for g in contract['dynamic_tiles']) | frozenset(contract.get('completed_flags', []))
+    all_flags = frozenset(g['flag'] for g in contract['dynamic_tiles'])
     graph = world.graph(all_flags)
     start, end = tuple(contract['entry']), tuple(contract['exit'])
     reached = distances(graph, start)
+    validate_route_connections(world, graph, reached)
     # The blind at the flood gauge and the unfinished plank walk must each be
     # accessible on foot and have just one way back to the trail.
     for x, y in ((32, 17), (25, 14)):
@@ -698,45 +842,48 @@ def validate():
         require(gate['flag'] in world.scripts[gate['map']], f'{node}: map callback lacks persistent gate flag')
         require('setmetatile' in world.scripts[gate['map']], f'{node}: gate has no restoration callback')
     shortcut = contract['shortcut']
-    for source_key, destination_key in (('lower', 'foothills_destination'), ('foothills', 'lower_destination')):
-        source_map = shortcut[source_key][0]
-        destination = tuple(shortcut[destination_key])
-        script = world.scripts[source_map]
-        require(shortcut['flag'] in script, f'{source_map}: shortcut lacks persistent flag check')
-        expected = (r'warp\s+' + world.maps[destination[0]]['id'] + r',\s*WARP_ID_NONE,\s*'
-                    + str(destination[1]) + r',\s*' + str(destination[2]) + r'\b')
-        require(re.search(expected, script), f'{source_map}: scripted shortcut destination disagrees with actual map contract')
-        require(destination in reached, f'{source_map}: shortcut arrives on blocked terrain')
-    return_start = tuple(shortcut['lower_destination'])
-    return_end = tuple(shortcut['foothills_destination'])
-    closed_distance = distances(world.graph(all_flags - {shortcut['flag']}), return_start)[return_end]
+    return_start = tuple(shortcut['lower_approach'])
+    return_end = tuple(shortcut['foothills_approach'])
+    closed_graph = world.graph(all_flags - {shortcut['flag']})
+    closed = distances(closed_graph, return_start)
+    require(return_end in closed, 'Closing the shortcut must leave the main route available')
+    require(return_start in distances(closed_graph, start), 'The winch must be accessible before it is lowered')
+    closed_distance = closed[return_end]
     open_distance = distances(graph, return_start)[return_end]
     require(open_distance + 15 < closed_distance, 'Exploring the lower branch does not unlock a useful return shortcut')
     before = all_flags - {'FLAG_VIRELIA_FIRST_GYM_COMPLETE'}
-    require(end not in distances(world.graph(before), (CITY, 12, 3)), 'First badge prerequisite can be bypassed')
+    before_badge = distances(world.graph(before), (CITY, 12, 3))
+    require(not any(n[0] in OUTDOORS for n in before_badge), 'Can leave Slateford before the first badge')
     before_rival = all_flags - {'FLAG_VIRELIA_RAINFALL_RIVAL_COMPLETE'}
-    require(end not in distances(world.graph(before_rival), start), 'Rival can be bypassed')
+    before_fork = distances(world.graph(before_rival), start)
+    require(not any(n[0] in OUTDOORS[1:] for n in before_fork), 'Can reach a branch before defeating the rival')
     branch_lengths = {}
     town = 'Virelia_SeabreakTown'
-    local_graph = world.graph(all_flags, set(NAMES) - {town})
-    validate_seabreak_coast(world, distances(local_graph, end))
+    local_graph = world.graph(all_flags, set(NAMES) - {town, COAST_APPROACHES})
+    validate_seabreak_coast(world, {n for n in distances(local_graph, end) if n[0] == town})
+    branch_entries = {}
     for branch, source_map, excluded in (('upper', OUTDOORS[1], OUTDOORS[2]), ('lower', OUTDOORS[3], OUTDOORS[1])):
         x, y, elevation = contract['arrivals'][branch]
         landing = town, x, y
-        warp = next(w for w in world.maps[town]['warp_events'] if (w['x'], w['y']) == (x, y))
-        require(world.ids[warp['dest_map']] == source_map and world.tile(landing) >> 12 == elevation,
-                f'{branch} path arrives in the wrong district')
-        back = world.maps[source_map]['warp_events'][int(warp['dest_warp_id'])]
-        require(world.maps[town]['warp_events'][int(back['dest_warp_id'])] == warp,
-                f'{branch} approach does not return through its own entrance')
-        departure = source_map, back['x'], back['y']
-        seen = distances(world.graph(all_flags - {shortcut['flag']}, {excluded, town}), start)
-        require(departure in seen, f'{branch}: cannot reach the coast without taking the other branch')
+        require(world.tile(landing) >> 12 == elevation, f'{branch}: former entrance changed terrace')
+        link = next(c for c in world.maps[source_map]['connections'] if world.ids[c['map']] == COAST_APPROACHES)
+        seen = distances(world.graph(all_flags - {shortcut['flag']}, {excluded, COAST_APPROACHES, town}), start)
+        terrace = {n: [b for b in exits if world.tile(b) >> 12 in (0, elevation)] for n, exits in local_graph.items()
+                   if world.tile(n) >> 12 in (0, elevation)}
+        district = distances(terrace, landing)
+        arrivals = {b: seen[a] + 1 for a, b in world.connection_tiles(source_map, link)
+                    if a in seen and b in graph[a] and b in district and world.tile(b) >> 12 == elevation}
+        require(arrivals, f'{branch}: route fails to enter its terrace on foot without using the other branch')
         local = distances(local_graph, landing)
         for w in world.maps[town]['warp_events']:
             require(world.warp_access(town, w, all_flags) in local, f'{branch}: town stairways fail to connect districts')
         require(end in local, f'{branch}: arrival cannot reach town services')
-        branch_lengths[branch] = seen[departure] + 1
+        branch_entries[branch] = set(arrivals)
+        branch_lengths[branch] = min(arrivals.values())
+    shoulder = world.graph(all_flags, set(NAMES) - {COAST_APPROACHES})
+    for high in branch_entries['upper']:
+        require(not branch_entries['lower'].intersection(distances(shoulder, high)),
+                'The ridge and estuary trails must stay separate until the town stairways')
     require(branch_lengths['lower'] >= branch_lengths['upper'] + 15, f'Lower trail is not meaningfully longer: {branch_lengths}')
     grass = {name: sum(world.behavior(n, all_flags) in {'MB_TALL_GRASS', 'MB_LONG_GRASS'} for n in reached if n[0] == name)
              for name in OUTDOORS[1:3]}
@@ -771,7 +918,9 @@ def validate():
             'Lantern-room callback does not reset partial input and restore completion')
     require(load('tools/virelia_prologue_localization.json')['level_bound'] >= 24, 'Czech coverage must extend through level 24')
     validate_rainfall_cascade(world, reached, all_flags)
-    validate_encounters_and_trainers(world, reached, all_flags)
+    validate_encounters_and_trainers(world, graph, reached, all_flags)
+    from virelia.rainfall_connection_views import validate_connection_views
+    validate_connection_views(world, reached)
     print(f'PASS: {len(reached)} reachable tiles, reciprocal warps, NPC/clue access, native services and no-HM paths')
     print(f'PASS: distinct branch distances {branch_lengths}; accessible grass {grass}; badge/rival gates block correctly')
     print('PASS: weather contrast, persistent callback contracts, dedicated saved flags and item retry safeguards')

@@ -28,9 +28,8 @@ compatibility note](MYBOY_COMPATIBILITY.md).
    `FLAG_VIRELIA_FIRST_GYM_COMPLETE` opens Slateford's northern cleft. Mara and
    the passage sign point toward Rainfall Pass and Seabreak. No new badge is
    granted and no trip back to Maplebrook is required.
-2. Enter the foothills through the conventional passage at Slateford `(12,1)`.
-   The small north-edge patch preserves all other authored city cells and the
-   original southern connection to Whisperwood.
+2. Walk north through the gate at Slateford `(12,2)` and follow the trail
+   across the city boundary into the foothills.
 3. Meet the rival at the shared Foothills trailhead `(14,29)`. The player’s
    starter determines the evolved counter-starter. A loss allows a retry.
    Victory opens the rock cut at `(14,28)` for both onward routes.
@@ -67,17 +66,18 @@ Giovanni or Storage experiments, and no Hidden Ability or Mega Evolution quest.
 
 All coordinates below are zero-based Porymap coordinates. Packed map IDs use
 `mapNumber | (groupNumber << 8)`. Layouts 798–806 and sections 212–213 append
-after the existing registries. Every new outdoor link uses a conventional
-reciprocal warp so the independent rainforest/coastal tilesets cannot corrupt
-the old connected-map graphics buffer.
+after the existing registries. The outdoor routes meet at native two-way map
+connections. In Porymap, open the Connections tab to see adjoining routes and
+their offsets. Building entrances and the lighthouse stairs use warp events.
 
 | Map folder suffix after `Virelia_` | Group,map | Packed ID | Layout ID | Size | Weather |
 | --- | --- | --- | ---: | --- | --- |
 | RainfallFoothills | 75,4 | `0x4B04` | 798 | 50×42 | Sunny |
-| RainfallUpper | 75,5 | `0x4B05` | 799 | 64×48 | Rain |
+| RainfallUpper | 75,5 | `0x4B05` | 799 | 146×48 | Rain |
 | RainfallLower | 75,6 | `0x4B06` | 800 | 64×54 | Downpour |
 | RainfallLowlands | 75,7 | `0x4B07` | 801 | 64×42 | Shade/shelter |
 | SeabreakTown | 75,8 | `0x4B08` | 802 | 58×56 | Rain |
+| SeabreakApproaches | 75,10 | `0x4B0A` | 810 | 16×56 | Rain |
 | Seabreak_PokemonCenter | 76,8 | `0x4C08` | 803 | 24×9 | None |
 | Seabreak_Lighthouse | 76,9 | `0x4C09` | 804 | 16×14 | None |
 | Seabreak_LanternRoom | 76,10 | `0x4C0A` | 805 | 13×12 | None |
@@ -104,14 +104,19 @@ Pass and Lowlands use dark, impassable peat water around walkable shallows,
 reed beds and muddy banks. Follow the boards between islands. Some spurs
 end at clues, items or overlooks and require backtracking.
 
+On Seabreak's western shoulder, a high road leads to the lighthouse lane
+and a lower causeway enters the quay. A cliff divides the roads until the
+stairs in town. The shoulder shares Seabreak's tileset at its eastern edge.
+Its western edge uses General terrain so the neighboring ridge and estuary
+draw correctly while Emerald scrolls between graphics banks.
+
 The regional art uses the east-coast diagram, regional overview and the two
 local concept sheets in `docs/images/concept-art-world/`. The layout follows
 the watershed and three districts described in [the world bible](VIRELIA_WORLD_BIBLE.md#8-location-atlas-stormcrest-and-the-eastern-coast).
 
-The lower control at `(18,20)` permanently enables the optional footbridge. It
-returns to foothills `(25,23)`; the foothills interaction at `(26,23)` returns
-to lower `(17,20)`. The shortcut never depends on an item or temporary puzzle
-state.
+The lower winch permanently lowers the optional footbridge. Walk across the
+planks to take the shorter route back to the foothills. The same bridge can
+be crossed in the other direction once lowered.
 
 `tools/virelia/rainfall_contract.json` records dynamic gates, endpoints and the
 beacon; the validator compares this metadata with real geometry and scripts.
@@ -328,12 +333,21 @@ foot. The editable sources in the Rainfall bank are `stormcrest.png`,
 `cascade.png`, `summit.png` and `fen.png`.
 
 Seabreak occupies the eastern edge of the mainland. Rock and heath continue
-north and west. The ridge trail enters beside the lighthouse at `(26,8)`,
-and the estuary enters at quay level at `(3,36)`. The lighthouse lane overlooks
+north and west. The ridge road crosses the town's west edge at rows 8–9 and
+reaches the lighthouse lane at `(26,8)`. The estuary road crosses at row 36
+and meets the original quay landing at `(3,36)`. The lighthouse lane overlooks
 the market fountain, with stair flights, parapets and arched drains cut into
 the cliffs below. At the waterline, six boats share the fishing slip, freight
 pier and shipyard. Three cranes handle cargo beside the berths. The editable art is in
 `harbor.png`, `dockyard.png` and `terrace.png` in the Virelia Coast bank.
+
+For a material change on the upper ridge, Porymap's Rainfall palette has
+paired `ShaleGranite` pieces for the crest, face and foot. Place each west
+piece immediately left of its east piece to carry the fracture from one
+course to the next. The nearby `GravelEarth` and `Boardwalk` landing pieces
+join the walking surfaces. On the Seabreak approaches, the upper road near
+`(11,9)` and the quay landing near `(11,36)` show the dirt, paving and
+heath transitions together.
 
 ### Editing the marsh and trees
 

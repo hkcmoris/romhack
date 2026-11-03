@@ -11,9 +11,13 @@ from functools import lru_cache
 import json
 import struct
 from PIL import Image, ImageDraw
-from native_terrain import paint_river, plant_trees
+from native_terrain import close_edge, paint_river, plant_trees
 from pack_stormcrest import spruce_panels, write_palette
 from seabreak_harbor import build_harbor
+from seabreak_approaches import build_approaches
+from seabreak_surfaces import CoastSurfaces, ROOF_REINDEX, floor_palettes
+from cliff_transitions import install_coast_rock_palette, retaining_end
+from cliff_contours import coast_outline, install_shared_crests, turns
 
 ROOT = Path(__file__).resolve().parents[2]
 COAST = ROOT / "data/tilesets/secondary/virelia_coast"
@@ -60,12 +64,16 @@ class StockBank:
         self.attrs = [0] * (LIGHTHOUSE_WIDTH * LIGHTHOUSE_HEIGHT)
         self.meta = [0] * (8 * len(self.attrs))
         self.tiles = []
-        self.lookup = {}
+        # General's immutable 0x0BF is an opaque quarter of color 5.
+        self.lookup = {bytes([5]) * 64: 0x0BF}
         self.ids = {}
         self.palette = source("slateport")[3].getpalette()
         self.harbor = Image.open(COAST / "harbor.png")
         self.terrace = Image.open(COAST / "terrace.png")
         self.general = words(PRIMARY / "metatiles.bin")
+        self.general_attrs = words(PRIMARY / "metatile_attributes.bin")
+        self.general_image = Image.open(PRIMARY / "tiles.png").copy()
+        self.general_attrs = words(PRIMARY / "metatile_attributes.bin")
 
     def graphic(self, pixels):
         """Return the 8×8 graphic ID and the GBA flip bits that reproduce these pixels."""
@@ -153,22 +161,7 @@ class StockBank:
                 pixels = panel.crop((sx, sy, sx + 8, sy + 8)).tobytes()
                 self.meta.append(0x8000 | self.graphic(pixels))
             self.attrs.append(0)
-        # Two edge quarters blend the salt meadow into General's grass. Use
-        # the same low-contrast grain across the border and below the grass.
-        edge = bytes(4 if x < 4+(y in (1,2,6))-(y in (3,7)) else (6 if (x,y)==(7,2) else 15)
-                     for y in range(8) for x in range(8))
-        seam = self.graphic(edge)
-        turf = self.general[8:12]
-        margins = []
-        for upper, lower in ((True,False),(False,True),(False,False)):
-            margins.append(512 + len(self.attrs))
-            for q, turn in enumerate((upper, upper, lower, lower)):
-                if (q % 2) == int(turn):
-                    self.meta.append(0xA000 | seam)
-                else:
-                    self.meta.append(turf[q] if q % 2 else 0xA000 | graphic)
-            self.meta.extend([0]*4)
-            self.attrs.append(0x1000)
+        floor_palettes(COAST, PRIMARY, source('slateport')[0])
 
         # Capped headwater, falling curtain and foam. Mirroring the two edge
         # quarters uses six 8x8 graphics from the same source as Rainfall.
@@ -185,7 +178,7 @@ class StockBank:
                     bits = cascade.crop((sx,sy,sx+8,sy+8)).tobytes()
                     self.meta.append(0x4000 | (self.graphic(bits) ^ (0x400 if flip else 0)))
                 self.attrs.append(attr)
-        return variants, heath, tuple(first + i for i in (0,2,4,6)), margins, falls
+        return variants, heath, tuple(first + i for i in (0,2,4,6)), falls
 
     def lighthouse(self, grid, left, top):
         tower = Image.open(COAST / "lighthouse.png")
@@ -235,18 +228,27 @@ class StockBank:
         copied = []
         for value in meta[(identifier - 512) * 8: (identifier - 511) * 8]:
             palette = value >> 12
-            if palette >= 6:
-                # Selected stock colors must already fit the coast's slots.
-                assert (path / f"palettes/{palette:02}.pal").read_bytes() == (
-                    COAST / f"palettes/{palette:02}.pal"
-                ).read_bytes(), (bank, hex(identifier), palette)
             index = value & 1023
-            if index >= 512:
-                index -= 512
-                pixels = image.crop(
-                    (index % 16 * 8, index // 16 * 8, index % 16 * 8 + 8, index // 16 * 8 + 8)
-                ).tobytes()
-                value = (value & ~1023) ^ self.graphic(pixels)
+            if index < 512 and palette < 6:
+                copied.append(value)
+                continue
+            sheet = self.general_image if index < 512 else image
+            x, y = index % 16 * 8, index % 512 // 16 * 8
+            pixels = sheet.crop((x, y, x + 8, y + 8)).tobytes()
+            remapped = pixels.translate(ROOF_REINDEX) if palette == 9 else pixels
+            if palette >= 6:
+                # A donor can also color General graphics with a secondary palette.
+                original = (path / f"palettes/{palette:02}.pal").read_text().splitlines()[3:]
+                packed = (COAST / f"palettes/{palette:02}.pal").read_text().splitlines()[3:]
+                assert all(original[i] == packed[j] for i, j in set(zip(pixels, remapped)) if i), (
+                    bank, hex(identifier), palette)
+            if palette == 6 and pixels == bytes([7]) * 64:
+                # Slot 7's native roof shade 5 is also Slateport shade 7.
+                native = (COAST / "palettes/07.pal").read_text().splitlines()[3:]
+                assert original[7] == native[5]
+                value = 0x70BF
+            elif index >= 512 or remapped != pixels:
+                value = (value & ~1023) ^ self.graphic(remapped)
             copied.append(value)
         result = 512 + len(self.attrs)
         self.ids[key] = result
@@ -274,6 +276,7 @@ class StockBank:
 
 
 def main():
+    install_shared_crests(PRIMARY)
     bank = StockBank()
     width, height = 58, 56
     grid = [[0x1570] * width for _ in range(height)]
@@ -316,7 +319,8 @@ def main():
     def slate(x, y, tile, solid=False):
         cell(x, y, bank.tile("slateport", tile), solid)
 
-    rock, heath, spruce, margins, falls = bank.cliff_landscape()
+    rock, heath, spruce, falls = bank.cliff_landscape()
+    surfaces = CoastSurfaces(bank, heath)
     # Round the upland margin at the root of each road cut instead of
     # separating grass and heath along one straight map column.
     verge = (4,5,5,4,4,3,2,2,1,1,2,3,4,5,5,4,3,2,1,1,2,2,1,0,0,1,2,3,
@@ -327,11 +331,8 @@ def main():
             w = (x - 1, y) in land or x == 0
             e = (x + 1, y) in land
             if (x, y) in land:
-                if y <= back[x][0] or y >= len(verge) or x < verge[y]:
+                if y <= back[x][0] or y >= len(verge) or x <= verge[y]:
                     tile = heath
-                elif x == verge[y]:
-                    tile = margins[0 if y+1 < len(verge) and verge[y+1] < x else
-                                   1 if y+1 < len(verge) and verge[y+1] > x else 2]
                 else:
                     tile = 0x001 if n else 0x002
                 cell(x, y, tile, x == 0 or y <= back[x][0] or y >= 49)
@@ -344,6 +345,7 @@ def main():
                     tile = 0x198 if (x - 1, y - 1) in land else 0x19A
                 cell(x, y, tile, True, 1)
 
+    soil = [[block & 1023 for block in row] for row in grid]
     # The masonry quay begins below the last shelf and ends at the open bay.
     # The dry western hillside and the estuary approach stay on the mainland.
     for x, y in sorted(land):
@@ -365,7 +367,7 @@ def main():
                     (25,12,5,2),(28,13,9,3),(13,12,2,7),(27,14,2,7),
                     (6,21,12,3),(10,23,13,3),(13,20,8,3),(17,21,12,4),
                     (27,21,7,2),(8,25,3,6),(22,24,2,8),(31,23,7,2),
-                    (3,26,5,2)):
+                    (3,26,5,2),(9,23,1,3)):
         pave(*stretch)
     for x, y in sorted(paths):
         n, s, w, e = ((x + dx, y + dy) in paths for dx, dy in ((0,-1),(0,1),(-1,0),(1,0)))
@@ -374,42 +376,67 @@ def main():
             (0x210 if not w else 0x212 if not e else 0x211))
         slate(x, y, tile)
 
+    underlays = {}
     def building(donor, tileset, source_x, source_y, w, h, x, y, decorative=False):
         source_map = stock_grid(donor)
         for dy in range(h):
             for dx in range(w):
                 raw = source_map[source_y + dy][source_x + dx]
+                if dy == h - 1:
+                    underlays[x + dx, y + dy] = grid[y + dy][x + dx] & 1023
                 cell(x + dx, y + dy, bank.tile(tileset, raw & 1023),
                      bool(raw & 0xC00) or (decorative and dy == h - 1))
 
     # Follow the full depth of each cliff. Civil retaining walls and stairs
     # occupy the straight street fronts; elsewhere the rock remains exposed.
-    def escarpment(profile, masonry=(), stairs=()):
+    ridge = ((0,8),(1,8),(2,8),(3,7),(4,7),(5,6),(6,6),(7,5),(8,5),(9,4),
+             (10,4),(11,4),(12,3),(13,3),(14,3),(15,3),(16,3),(17,4),
+             (18,4),(19,4),(20,4),(21,4),(22,5),(23,5),(24,6),(25,6),(26,7))
+    ridge_top = dict(ridge)
+
+    def escarpment(profile, masonry=(), stairs=(), road_cut=False):
+        # Work with the drawn western profile for both sides of each turn.
+        # Neighboring columns must agree on where the rock actually starts.
+        profile = [(min(toe, crest + 5 - x) if x < 5 else crest, toe)
+                   for x,(crest,toe) in enumerate(profile)]
         for x, (crest, toe) in enumerate(profile):
             left = profile[max(0, x - 1)][0]
             right = profile[min(width - 1, x + 1)][0]
             engineered = any(a <= x <= b for a, b in masonry)
             if x == 0 or x == 1:
                 continue
-            if x < 5:
-                # Turn the embankment back into the slope before it meets the
-                # west edge; the camera can see past this edge from Rainfall.
-                crest += 5 - x
-                crest = min(crest, toe)
             for y in range(crest, toe + 1):
                 if (x, y) not in land:
                     continue
-                if engineered:
+                road = ridge_top.get(x) if road_cut else None
+                if road is not None and y == road-1 and y > crest:
+                    # The upper rock face ends at the paved surface of the cut.
+                    road_toe = lambda col: min(profile[col][1],ridge_top.get(col, height)-1)
+                    sides = turns(road_toe(max(0,x-1)), y, road_toe(min(width-1,x+1)))
+                    tile = coast_outline(surfaces, rock[0x079], bank.tile("slateport",0x211),
+                                         sides, foot=True)
+                elif road is not None and y == road+2:
+                    # The lane is raised on a coursed stone plinth where the
+                    # natural cliff continues below it. Keep the road surface
+                    # under the coping instead of a bright strip of grass.
+                    tile = bank.harbor_panel(4 + x % 3, 0, bank.tile("slateport",0x211), covered=True)
+                elif engineered:
                     row = 0 if y == crest else 2 if y == toe else 1
                     tile = bank.harbor_panel(4 + x % 3, row, 1, covered=True)
+                    for first, last in masonry:
+                        if x == first and profile[x-1][0] <= y <= profile[x-1][1]:
+                            tile = retaining_end(bank, tile, True, y-crest, y == toe)
+                        if x == last and profile[x+1][0] <= y <= profile[x+1][1]:
+                            tile = retaining_end(bank, tile, False, y-crest, y == toe)
                 elif y == crest:
-                    tile = rock[0x0D5 if left > crest else 0x0D6 if right > crest else 0x087]
+                    tile = coast_outline(surfaces, rock[0x087], grid[y][x] & 1023,
+                                         turns(left, crest, right))
                 elif y == toe:
-                    tile = rock[0x078 if x and profile[x - 1][1] < toe else
-                                0x07A if x + 1 < width and profile[x + 1][1] < toe else 0x079]
+                    sides = turns(profile[max(0,x-1)][1], toe, profile[min(width-1,x+1)][1])
+                    ground = grid[min(height-1,y+1)][x] & 1023
+                    tile = coast_outline(surfaces, rock[0x079], ground, sides, foot=True)
                 else:
-                    tile = rock[0x075 if left >= y else 0x073 if right >= y else
-                                0x07C if y == toe - 1 and toe - crest > 3 else 0x0A9]
+                    tile = rock[0x0A9]
                 cell(x, y, tile, True)
         for x in stairs:
             crest, toe = profile[x]
@@ -418,21 +445,39 @@ def main():
                 cell(x, y, 0x0AF, elevation=0)
                 cell(x + 1, y, 0x0CF, elevation=0)
 
-    escarpment(back)
+    escarpment(back, road_cut=True)
     escarpment(upper, masonry=((10,15),(22,24),(27,34)), stairs=(13,27))
     escarpment(lower, masonry=((7,12),(16,24),(29,34)), stairs=(8,22))
 
     # The lighthouse footing projects beyond the built terraces. Trace its
     # seaward rock face to the tide line, with surf below each exposed shelf.
+    headland = set()
     for x in range(36,47):
         cap = max(y for y in range(16) if (x, y) in land)
         depth = 4 if 39 <= x <= 43 else 3
-        cell(x, cap, rock[0x07D if x == 46 else 0x07C], True)
+        cell(x, cap, rock[0x07C], True)
         for dy in range(1, depth + 1):
             if (x, cap + dy) not in land:
-                cell(x, cap + dy, rock[0x073 if x == 46 else 0x0A9], True, 1)
-        if (x,cap + depth + 1) not in land:
-            cell(x,cap + depth + 1,0x18A if x == 46 else 0x189,True,1)
+                headland.add((x,cap+dy))
+                cell(x, cap + dy, rock[0x0A9], True, 1)
+    # Refit the waterline to the *foot* of the cape, including the sea-facing
+    # sides and inside elbows. Its schist shadow lies on live animated water.
+    coast_land = land | headland
+    shore = {(x+dx,y+dy) for x,y in headland for dx in (-1,0,1) for dy in (-1,0,1)}
+    for x,y in sorted(shore - coast_land):
+        n = (x,y-1) in coast_land
+        w, e = (x-1,y) in coast_land, (x+1,y) in coast_land
+        if n:
+            tile = 0x188 if w else 0x18A if e else 0x189
+        elif w or e:
+            tile = 0x190 if w else 0x192
+        else:
+            tile = 0x198 if (x-1,y-1) in coast_land else 0x19A if (x+1,y-1) in coast_land else 0x170
+        if tile != 0x170:
+            pieces = surfaces.pieces(tile)
+            pieces = [(v & 0xFFF) | 0xA000 if v >> 12 == 3 else v for v in pieces]
+            tile = surfaces.variant(tile,pieces)
+        cell(x,y,tile,True,1)
     # Small rock aprons tie the western map edge into the interior slopes.
     # The capped southern reef also keeps the distant border outside the camera.
     for x, y, w in ((0,2,4),(18,0,5),(0,26,3),(0,43,4),(1,48,4)):
@@ -479,13 +524,18 @@ def main():
         for dx, tile in enumerate(row):
             slate(5+dx,23+dy,tile,True)
 
-    # Both portals keep their original map positions. The high route passes
-    # through the back wall of town, not an outcrop floating in a meadow.
-    cell(26, 7, rock[0x09F], True)
-    cell(26, 8, 0x0A7)
+    # The cliff path slips behind the upper cottages and rounds the keeper's
+    # shoulder, arriving at the original landing beside the lighthouse.
+    ridge_walk = {(x, yy) for x, y in ridge for yy in (y, y+1)}
+    for x, y in ridge_walk:
+        north = (x, y-1) in ridge_walk
+        south = (x, y+1) in ridge_walk
+        col = 0 if x and (x-1,y) not in ridge_walk else 2 if (x+1,y) not in ridge_walk else 1
+        tile = (0x208 if not north else 0x218 if not south else 0x210) + col
+        cell(x, y, bank.tile("slateport", tile), elevation=7)
     bank.lighthouse(grid, 29, 4)
 
-    build_harbor(bank, grid, cell, slate, rock)
+    build_harbor(bank, grid, cell, slate, rock, surfaces)
 
     bank.terrace_fitting(grid,16,23,"fountain")
     bank.terrace_fitting(grid,34,15,"railing",width=5)
@@ -497,11 +547,21 @@ def main():
             ground = grid[y-1+row][x] & 1023
             cell(x, y-1+row, bank.harbor_panel(3,row,ground), row==1)
 
-    for x, y in ((43,20),(47,11)):
-        if all(grid[y+dy][x+dx] & 1023 == 0x170 for dx in (0,1) for dy in (0,1)):
-            for dy, row in enumerate(((0x150,0x151),(0x158,0x159))):
-                for dx, tile in enumerate(row):
-                    cell(x+dx, y+dy, tile, True, 1)
+    # The headland clips the northwest corner of the offshore stack.
+    # Carry the bank and its animated water through the open quarters of the rock.
+    for dy, row in enumerate(((0x150, 0x151), (0x158, 0x159))):
+        for dx, tile in enumerate(row):
+            x, y = 43 + dx, 20 + dy
+            ground = grid[y][x] & 1023
+            if ground != 0x170:
+                shore, stack = surfaces.pieces(ground), surfaces.pieces(tile)
+                for q in range(4):
+                    if shore[q + 4] & 1023:
+                        if stack[q + 4] & 1023:
+                            raise ValueError(f'Sea stack overlaps the cliff face at {(x, y)}')
+                        stack[q], stack[q + 4] = shore[q], shore[q + 4]
+                tile = surfaces.variant(tile, stack)
+            cell(x, y, tile, True, 1)
 
     # Stagger small groves on the sheltered shelves; leave the street
     # fronts and the two portal approach tiles visible to an arriving player.
@@ -510,12 +570,18 @@ def main():
     plant_trees(grid, ((14,6),(35,5),(37,7),(38,12)), elevation=7)
     plant_trees(grid, ((3,17),(11,18)), elevation=5)
     for x, y in ((9,10),(14,9),(20,10),(35,11),(6,20),(11,23),(25,21),(29,23)):
+        underlays.setdefault((x,y), grid[y][x] & 1023)
         cell(x, y, 0x004, True)
     cell(10,22,0x003,True)
     cell(23,21,0x1CD,True)
     cell(24,23,0x003,True)
     cell(36,25,0x0E2,True)
+    close_edge(grid, "left", (8,9,36))
+    surfaces.foundations(grid, underlays)
+    surfaces.finish(grid, soil)
+    build_approaches(ROOT, bank, heath, spruce, rock, surfaces)
     bank.finish()
+    install_coast_rock_palette(PRIMARY, COAST)
     layout = ROOT / "data/layouts/Virelia_SeabreakTown"
     write_words(layout / "map.bin", [v for row in grid for v in row])
     write_words(layout / "border.bin", [0x3400 | heath] * 4)

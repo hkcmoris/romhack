@@ -99,10 +99,7 @@ Virelia_RainfallFoothills_Text_CoastGate:
 Virelia_RainfallFoothills_EventScript_Shortcut::
 	lockall
 	goto_if_unset FLAG_VIRELIA_LOWER_SHORTCUT, Virelia_RainfallFoothills_ShortcutClosed
-	msgbox Virelia_RainfallFoothills_Text_Shortcut, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, VireliaRainfall_EventScript_Release
-	warp MAP_VIRELIA_RAINFALL_LOWER, WARP_ID_NONE, 17, 20
-	waitstate
+	msgbox Virelia_RainfallFoothills_Text_Shortcut, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -112,8 +109,8 @@ Virelia_RainfallFoothills_ShortcutClosed:
 	end
 
 Virelia_RainfallFoothills_Text_Shortcut:
-	.string "Lávka vede zpět do mokřin.\n"
-	.string "Přejít po ní?$"
+	.string "Lávka už je dole. Přes ni\n"
+	.string "dojdeš rovnou do mokřin.$"
 
 Virelia_RainfallFoothills_Text_ShortcutClosed:
 	.string "Lávka je vytažená na druhý břeh.\n"

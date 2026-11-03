@@ -17,6 +17,11 @@
       "map": "MAP_VIRELIA_ROUTE01",
       "offset": 0,
       "direction": "down"
+    },
+    {
+      "map": "MAP_VIRELIA_RAINFALL_FOOTHILLS",
+      "offset": -2,
+      "direction": "up"
     }
   ],
   "object_events": [
@@ -176,13 +181,6 @@
       "y": 17,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_SLATEFORD_QUARRY_ENTRANCE",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 12,
-      "y": 1,
-      "elevation": 0,
-      "dest_map": "MAP_VIRELIA_RAINFALL_FOOTHILLS",
       "dest_warp_id": "0"
     }
   ],

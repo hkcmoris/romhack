@@ -13,7 +13,18 @@
   "allow_running": true,
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": null,
+  "connections": [
+    {
+      "map": "MAP_VIRELIA_RAINFALL_FOOTHILLS",
+      "offset": 0,
+      "direction": "left"
+    },
+    {
+      "map": "MAP_VIRELIA_RAINFALL_LOWLANDS",
+      "offset": 0,
+      "direction": "right"
+    }
+  ],
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
@@ -55,22 +66,7 @@
       "flag": "FLAG_VIRELIA_RAINFALL_ITEM_SUPER_POTION"
     }
   ],
-  "warp_events": [
-    {
-      "x": 4,
-      "y": 40,
-      "elevation": 0,
-      "dest_map": "MAP_VIRELIA_RAINFALL_FOOTHILLS",
-      "dest_warp_id": "2"
-    },
-    {
-      "x": 59,
-      "y": 18,
-      "elevation": 0,
-      "dest_map": "MAP_VIRELIA_RAINFALL_LOWLANDS",
-      "dest_warp_id": "0"
-    }
-  ],
+  "warp_events": [],
   "coord_events": [],
   "bg_events": [
     {

@@ -1,17 +1,33 @@
 Virelia_RainfallLower_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, Virelia_RainfallLower_OnLoad
 	.byte 0
+
+Virelia_RainfallLower_OnLoad:
+	goto_if_set FLAG_VIRELIA_LOWER_SHORTCUT, Virelia_RainfallLower_RestoreBridge
+	setmetatile 9, 19, METATILE_VireliaRainfall_PeatPool, 1
+	end
+
+Virelia_RainfallLower_RestoreBridge:
+	call Virelia_RainfallLower_LowerBridge
+	end
+
+Virelia_RainfallLower_LowerBridge:
+	setmetatile 9, 19, METATILE_VireliaRainfall_Boardwalk_Center, 0
+	return
 
 Virelia_RainfallLower_EventScript_Shortcut::
 	lockall
 	goto_if_set FLAG_VIRELIA_LOWER_SHORTCUT, Virelia_RainfallLower_ShortcutOpen
 	call VireliaRainfall_EventScript_OpenShortcut
+	goto_if_eq VAR_RESULT, FALSE, VireliaRainfall_EventScript_Release
+	call Virelia_RainfallLower_LowerBridge
+	special DrawWholeMapView
 	playse SE_BANG
 	msgbox Virelia_RainfallLower_Text_ShortcutOpened, MSGBOX_DEFAULT
+	releaseall
+	end
 Virelia_RainfallLower_ShortcutOpen:
-	msgbox Virelia_RainfallLower_Text_Shortcut, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, VireliaRainfall_EventScript_Release
-	warp MAP_VIRELIA_RAINFALL_FOOTHILLS, WARP_ID_NONE, 25, 23
-	waitstate
+	msgbox Virelia_RainfallLower_Text_Shortcut, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -36,7 +52,8 @@ Virelia_RainfallLower_Text_ShortcutOpened:
 	.string "Zkratka zůstane otevřená.$"
 
 Virelia_RainfallLower_Text_Shortcut:
-	.string "Vrátit se lávkou do podhůří?$"
+	.string "Po spuštěné lávce se dostaneš\n"
+	.string "zpátky do podhůří.$"
 
 Virelia_RainfallLower_Text_Item:
 	.string "V suché schránce je Super Potion.\n"

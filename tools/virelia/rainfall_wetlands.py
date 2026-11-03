@@ -148,6 +148,37 @@ def terrace(t, start_x, crest, drops):
         t.put(col, y + depth, 0x347 + side, True)
 
 
+def fit_peat_to_cliff(t, land):
+    """Let peat lap against exposed rock; keep grassy banks along actual turf."""
+    walls = {(x,y) for y,row in enumerate(t.g) for x,block in enumerate(row)
+             if 0x344 <= (block & 1023) <= 0x34B}
+    water_ids = set(SHORE.values()) | set(range(0x367,0x36D))
+    wet = {(x,y) for y,row in enumerate(t.g) for x,block in enumerate(row) if block & 1023 in water_ids}
+    shore = set()
+    for x,y in walls:
+        adjacent = {(x+dx,y+dy) for dy in (-1,0,1) for dx in (-1,0,1)} & wet
+        if not adjacent:
+            continue
+        shore.update(adjacent)
+        tile = t.g[y][x] & 1023
+        if tile in (0x347,0x348,0x349):
+            if (x+1,y) in wet:
+                tile = 0x305
+            elif (x-1,y) in wet:
+                tile = 0x2FD
+            elif (x,y+1) in wet:
+                tile = {0x347:0x2FD, 0x349:0x305}.get(tile, tile)
+        elif tile == 0x344 and (x-1,y) in wet:
+            tile = 0x30D
+        t.g[y][x] = (t.g[y][x] & ~1023) | tile
+    turf = land - walls
+    for x,y in shore:
+        mask = edge_mask(x,y,lambda xx,yy: (xx,yy) in turf)
+        block = t.g[y][x]
+        if mask or (block & 1023) in SHORE.values():
+            t.g[y][x] = (block & ~1023) | (SHORE[mask] if mask else 0x367)
+
+
 def cascades(t, x, y, height):
     for dy in range(height):
         base = 0x34C if dy == 0 else 0x352 if dy == height - 1 else 0x34F
@@ -222,6 +253,15 @@ def lower(Terrain):
         ((60,43),(63,41),(63,52),(59,52),(57,49)),
         ((13,47),(15,47),(17,49),(15,51),(13,50)),
     ))
+    # The western arm of the fen separates the long entry boardwalk from the
+    # cable crossing. Its taper and small peat hags use the regular shore kit.
+    for y, last in enumerate((6,8,10,9,7,5,5,4,3,3,4,5,7,8,7,5,3,2,1), 16):
+        land.difference_update((x,y) for x in range(last+1))
+    # The bordering Foothills continue onto dry turf. Include that shore
+    # when picking outer banks and inside corners in the connected camera view.
+    land.update((-1,y) for y in range(42))
+    # The dry north lip of the estuary meets the fen across its eastern seam.
+    land.update((t.w,y) for y in range(6))
     peat(t, land)
     terrace(t, 1, 10, ((4,1,4),(4,0,4),(5,-1,5),(5,-3,5),(4,-4,4),(3,-6,4)))
     # Spring water, no longer stained by peat, drops past the sealed grotto.
@@ -273,8 +313,8 @@ def lower(Terrain):
         (6,2),(6,4),(15,0),(19,0),(8,5),(19,3),(37,1),(40,1),
         (52,7),(59,14),
         (30,8),(34,12),(42,13),(44,17),
-        (13,19),(13,22),(15,24),(19,25),(20,21),(4,19),(2,23),
-        (1,35),(1,37),(7,32),(10,36),(2,43),(4,44),(2,46),
+        (13,19),(13,22),(15,24),(19,25),(20,21),
+        (7,32),(10,36),(2,43),(4,44),(2,46),
         (18,37),(19,41),(26,32),(26,36),(24,38),(26,39),(26,49),(29,48),
         (33,36),(35,38),(39,38),(42,34),(42,36),
         (54,25),(56,26),(55,31),(58,33),(54,35),(57,36),
@@ -300,7 +340,26 @@ def lower(Terrain):
     for x,y in ((23,48),(38,28),(26,13),(49,12),(56,40),(5,17),(24,5)):
         if t.g[y][x] & 1023 == 1:
             t.put(x,y,0x0E0,True)
+    # The last grassy pixel-island at this corner used to show as a bright
+    # square under the bluff. Continue the sloping toe down to the water.
+    t.put(19,10,0x345,True)
+    t.put(19,11,0x349)
+    fit_peat_to_cliff(t, land)
     return t
+
+
+def west_marsh_trails(t):
+    # The main boardwalk turns south over the flood channel to the trailhead
+    # island. Deep peat separates it from the winch span nine tiles inland.
+    footway(t, (0,22),(2,22),(2,28),(1,28),(1,35),(2,35),(2,40))
+    footway(t, (0,19), (11,19))
+    for y in (19,22):
+        t.put(0,y,0x31D)
+    footway(t, (4,19), (4,15))
+    t.put(4,19,0x376)
+    t.put(9,19,0x367,True)
+    footway(t, (59,18), (63,18))
+    t.put(63,18,0x371)
 
 
 def lowlands(Terrain):
@@ -321,6 +380,9 @@ def lowlands(Terrain):
          (34,17),(32,14),(34,11),(32,8),(35,6)),
         ((48,23),(50,20),(53,20),(54,22),(54,26),(55,29),(54,32),(55,36),(53,40),(52,40),(49,38),
          (48,34),(47,30),(49,27)),
+        # Shingle and turf join the estuary trestle to Seabreak's coastal shelf.
+        ((55,29),(55,26),(56,24),(57,22),(58,19),(59,16),(61,14),(63,13),
+         (63,21),(61,22),(59,24),(58,26),(57,29)),
         # Outlying hags and low wooded banks frame the backwater.
         ((1,29),(4,28),(7,31),(5,35),(2,35)), ((19,1),(24,0),(28,2),(27,5),(23,6)),
         ((25,22),(29,21),(30,24),(28,26),(24,25)),
@@ -329,8 +391,16 @@ def lowlands(Terrain):
     # East of the bar the final current opens into blue tidal water. There
     # is no row of peat/sea seams through the water; land divides the basins.
     tidal = {(x,y) for y in range(-1,t.h+1) for x in range(38,t.w+1)
-             if (x,y) not in land}
+             if (x,y) not in land and not (x == t.w and 13 <= y <= 21)}
     paint_river(t.g, tidal, elevation=3)
+    for x,y in tidal:
+        if not (0 < x < t.w-1 and 0 < y < t.h-1):
+            continue
+        if (x,y-1) in tidal and (x-1,y) not in tidal and (x+1,y) not in tidal:
+            end = (x,y+1) not in tidal
+            t.put(x,y,0x2D3 if end else 0x2CB,True)
+            if end and t.g[y+1][x] & 1023 == 2:
+                t.put(x,y+1,1)
     terrace(t, 1, 4, ((5,-1,3),(5,0,3),(4,-1,3),(3,-2,3)))
     terrace(t, 35, 8, ((4,0,3),(3,-1,4),(4,-3,3)))
     footway(t, (13,12), (21,12))
@@ -348,10 +418,10 @@ def lowlands(Terrain):
     ))
     t.marsh(30, [(16,19),(15,20),(15,20),(16,19)])
     footway(t, (2,9), (2,10), (8,10))
-    footway(t, (49,32), (56,32), (56,34), (58,34))
+    footway(t, (49,32), (56,32), (56,34))
     # Breakers beyond the landing sit in the open estuary, far enough offshore
     # that the peat backing used west of the gorge cannot appear in this view.
-    for x,y in ((58,18), (61,28), (59,38)):
+    for x,y in ((54,15), (61,28), (59,38)):
         for dy in (0,1):
             for dx in (0,1):
                 t.put(x+dx,y+dy,0x150+8*dy+dx,True)
@@ -372,13 +442,26 @@ def lowlands(Terrain):
                (35,18,3,4),(40,25,4,3),(38,34,4,3),(53,30,3,3)))
     t.put(50,31,0x3BE,True)
     t.put(5,9,0x3BE,True)
+    # A timber trestle reaches Seabreak's landward quay. Tidal water shows
+    # beneath its braces and south of the spit.
+    footway(t, (0,18),(2,18),(2,10),(4,10))
+    t.put(0,18,0x371)
+    footway(t, (56,32),(56,27))
+    for x in range(60,64):
+        t.put(x,16,0x118 if x == 60 else 0x119)
+        t.put(x,17,0x128 if x == 60 else 0x129)
+    for x,y in ((58,23),(61,18),(62,15)):
+        t.put(x,y,0x004)
+    fit_peat_to_cliff(t, land)
     return t
 
 
 def build_wetlands(terrain, root):
     pack_shore_corners(root)
-    for build in (lower, lowlands):
+    for build, left, right in ((lower, (19,22), (18,)), (lowlands, (18,), (16,))):
         t = build(terrain)
-        t.finish((), (0x3E2, 0x3E3), root=root)
+        if build == lower:
+            west_marsh_trails(t)
+        t.finish((), {"left": left, "right": right}, root=root)
         border = root / "data/layouts" / t.name / "border.bin"
         border.write_bytes(t.cell(0x367, True).to_bytes(2, "little") * 4)

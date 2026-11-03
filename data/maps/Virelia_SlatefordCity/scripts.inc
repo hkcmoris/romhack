@@ -553,8 +553,8 @@ Virelia_SlatefordCity_ConfigureRainfallGate:
 	setmetatile 13, 0, 0x079, 1
 	setmetatile 11, 1, 0x079, 1
 	setmetatile 13, 1, 0x079, 1
-	setmetatile 12, 0, 0x09F, 1
-	setmetatile 12, 1, 0x0A7, 0
+	setmetatile 12, 0, 0x001, 0
+	setmetatile 12, 1, 0x001, 0
 	setmetatile 11, 2, 0x00E, 1
 	setmetatile 13, 2, 0x00E, 1
 	setmetatile 12, 3, 0x001, 0

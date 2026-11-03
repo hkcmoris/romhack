@@ -6,7 +6,8 @@ from pathlib import Path
 
 from PIL import Image
 
-from native_terrain import paint_river, plant_trees
+from native_terrain import close_edge, paint_river, plant_trees
+from cliff_contours import install_shared_crests, shared_crest, turns
 
 ROOT = Path(__file__).resolve().parents[2]
 TRAIL_NOTCHES = ((0,), (1,), (2,), (3,), (0, 3), (1, 2))
@@ -146,16 +147,15 @@ class Terrain:
             self.put(x + dx, y, top)
             self.put(x + dx, y + 1, bottom)
 
-    def finish(self, trees, directions, *, root=None, border=1):
+    def finish(self, trees, edges, *, root=None, border=1):
         plant_trees(self.g, trees)
         root = ROOT if root is None else root
         doc = json.loads((root / "data/maps" / self.name / "map.json").read_text(encoding="utf-8"))
         for obj in doc["object_events"]:
             if self.g[obj["y"]][obj["x"]] & 0xC00:
                 raise ValueError(f"{self.name}: terrain blocks {obj['script']}")
-        for warp, tile in zip(doc["warp_events"], directions, strict=True):
-            x, y = warp["x"], warp["y"]
-            self.g[y][x] = (self.g[y][x] & 0xF000) | tile
+        for side, openings in edges.items():
+            close_edge(self.g, side, openings)
 
         folder = root / "data/layouts" / self.name
         write(folder / "map.bin", [c for row in self.g for c in row])
@@ -359,6 +359,22 @@ def lookout(t, x, y):
             t.put(x + dx, y + dy, 0x361 + dy * 3 + dx, True)
 
 
+def shared_rock(t, cells):
+    # Connected neighbors draw these shoulders with General before the active
+    # secondary bank changes. Preserve each rim, toe, stair and flower shape.
+    native = {0x33F:0x121, 0x340:0x0AF, 0x341:0x068, 0x342:0x087, 0x343:0x06A,
+              0x344:0x075, 0x345:0x0A9, 0x346:0x073, 0x347:0x078, 0x348:0x079,
+              0x349:0x07A, 0x34A:0x07C, 0x34B:0x07C, 0x36F:0x004,
+              0x3A1:0x07B, 0x3A2:0x07C, 0x3A3:0x070, 0x3A4:0x071,
+              0x3A5:0x001, 0x3A7:0x079, 0x3A8:0x001,
+              0x3AF:0x119, 0x3B5:0x129}
+    for x,y in cells:
+        block = t.g[y][x]
+        tile = block & 1023
+        if tile in native:
+            t.g[y][x] = (block & ~1023) | native[tile]
+
+
 def foothills():
     t = Terrain("RainfallFoothills", 50, 42)
     # The apron above Slateford narrows to a single rock stair below the fork.
@@ -422,6 +438,26 @@ def foothills():
         t.put(x, y, 0x36F)
     for x, y in ((13, 34), (14, 33), (17, 20), (24, 20), (25, 11), (42, 24), (40, 35)):
         t.put(x, y, 0x004)
+    for y in range(4):
+        t.put(38, y, 0x121)
+    for y in range(39, 42):
+        t.put(14, y, 0x121)
+    for x in range(45, 50):
+        t.put(x, 22, 0x121)
+    # The winch controls the bridge beyond the spur on the Lower Pass bank.
+    for x in range(44, 50):
+        t.put(x, 19, 0x121)
+    t.put(44, 20, 0x121)
+    for y in (0, 1):
+        t.put(38, y, 0x319)
+    t.put(44,20,0x120)
+    for y in (19,22):
+        t.put(47,y,0x318)
+        t.put(48,y,0x31C)
+        t.put(49,y,0x3E5)
+    shared_rock(t, ((x,y) for x in range(40) for y in range(35,42)))
+    for y in (37,38):
+        t.put(15,y,0x0CF)
     return t
 
 
@@ -513,7 +549,149 @@ def upper():
     suspension_span(t, 14, 26, 24, 19, 5)
     suspension_span(t, 38, 52, 12, 43, 7, 5)
     cloudline(t)
+    for y in range(39, 48):
+        level = 3 if y >= 45 else 0 if y >= 42 else 5
+        t.g[y][6] = level << 12 | (0x121 if y >= 45 else 0x340)
+    coastal_ridge(t)
     return t
+
+def coastal_ridge(t):
+    """The windward lip runs above the two fens and meets the lighthouse ledge."""
+    t.w = 146
+    for row in t.g:
+        row.extend([0x77A5] * (t.w - len(row)))
+    t.e = 7
+    # Two narrow saddles open onto sheltered heather and a lookout over the estuary.
+    back = profile([(60,12),(65,9),(69,7),(75,8),(79,5),(84,4),(88,8),
+                    (93,10),(97,13),(103,11),(109,13),(116,18),(121,19),
+                    (125,23),(130,24),(136,25),(142,28),(145,27)])
+    edge = profile([(60,17),(65,20),(70,21),(74,24),(79,23),(84,21),(88,24),
+                    (93,28),(98,31),(103,32),(108,29),(113,32),(117,36),
+                    (122,38),(126,36),(131,39),(135,43),(141,42),(145,41)])
+    skyline = profile([(64,6),(69,2),(76,4),(83,0),(88,1),(94,4),(101,1),
+                       (107,3),(113,7),(120,8),(126,11),(132,8),(138,10),(145,9)])
+    foot = profile([(64,23),(70,27),(76,29),(84,25),(90,31),(97,36),(103,40),
+                    (108,35),(115,39),(122,46),(130,42),(135,47),(140,46),(145,46)])
+    for x in range(60, t.w):
+        for y in range(back[x], edge[x]):
+            if x >= 64 or y < 16:
+                t.put(x, y, 1)
+        if x < 64:
+            continue
+        for y in range(skyline[x], back[x]-4):
+            t.put(x, y, 0x3A8 if y == skyline[x] else 1, True)
+        for y in range(back[x]-4, back[x]):
+            t.put(x, y, 0x342 if y == back[x]-4 else 0x348 if y == back[x]-1 else 0x345, True)
+        for y in range(edge[x], foot[x]+1):
+            t.put(x, y, 0x342 if y == edge[x] else 0x3A7 if y == foot[x] else 0x345, True)
+    # The lower buttress from the first gorge tapers out of the cloud below the pass.
+    spur_foot = profile([(61,45),(64,45),(71,42),(77,44),(81,39)])
+    for x, top in profile([(61,31),(64,31),(68,29),(73,31),(77,35),(81,36)]).items():
+        bottom = spur_foot[x]
+        for y in range(top, bottom+1):
+            if top+4 < y < bottom-2 and x < 76:
+                tile = 1
+            elif y == bottom-2 and x < 76:
+                tile = 0x342
+            else:
+                tile = 0x342 if y == top else 0x3A7 if y == bottom else 0x345
+            t.put(x,y,tile,True)
+        if x < 77:
+            t.put(x,top-1,1,True)
+    buttresses(t, [(65,21),(69,23),(71,32),(65,36),(74,38),(77,27),(89,27),
+                   (96,32),(101,34),(103,36),(109,31),(115,34),(123,40),
+                   (128,39),(132,42),(137,43),(142,43)])
+    for x, y in ((68,6),(72,6),(79,3),(89,6),(94,9),(107,11),(116,16),(121,18),
+                 (128,21),(134,22),(141,26),(68,23),(79,25),(94,29),(122,40)):
+        if t.g[y][x] & 1023 == 0x345:
+            t.put(x,y,0x34B,True)
+    t.path.clear()
+    t.trail((59,14),(66,14),(71,12),(76,13),(80,16),(85,17),(88,15),
+            (92,15),(96,19),(97,22),(101,25),(106,25),(110,22),(113,22),
+            (117,25),(119,29),(124,32),(128,31),(133,33),(136,36),(145,36))
+    t.trail((76,13),(76,10),(79,8))
+    t.trail((100,24),(100,28),(103,29))
+    t.trails(stone=True)
+    for x, y, stretches, lip in (
+            (80,17, ((3,4),(2,5),(1,6),(0,6),(1,5),(2,5),(2,4)),23),
+            (114,28, ((3,5),(1,5),(0,6),(0,7),(1,6),(2,6),(2,5),(2,5)),35)):
+        pool = footprint(y, [(x+a, x+b) for a,b in stretches])
+        paint_river(t.g, pool, elevation=7, land_elevation=7, south_bank=False)
+        cascade(t, x+2, lip, min(46, lip+6))
+    lookout(t, 103, 28)
+    for x,y in ((65,39),(68,37),(72,37),(78,10),(87,9),(101,19),
+                (112,14),(115,19),(126,16),(129,20),(133,17),(141,22)):
+        if t.g[y][x] & 1023 == 1:
+            t.put(x,y,0x0E0,True)
+    for x, y in ((67,13),(74,17),(83,12),(89,19),(95,23),(104,19),(109,25),
+                 (117,22),(123,29),(130,34),(135,29),(139,39)):
+        if t.g[y][x] & 1023 == 1:
+            t.put(x, y, 0x36F)
+    plant_trees(t.g, ((69,9),(74,9),(83,8),(87,11),(92,20),(96,15),(101,15),
+                (109,17),(113,18),(121,23),(128,26),(132,28),
+                      (90,10),(92,12),(102,4),(104,3),(109,6),(120,10),(122,11),
+                (124,12),(134,11),(136,12)), pieces=(0x389,0x38B,0x38D,0x38F))
+    plant_trees(t.g, ((68,17),(70,18),(73,19),(98,16),(105,18),(111,26),
+                      (125,24),(130,35),(137,38),(140,33),(138,31),(139,13)))
+    shared_rock(t, ((x,y) for x in range(138,146) for y in range(48)))
+    # Exposed shale narrows along the bedding planes before giving way to
+    # the shared granite. Each pair includes the complete material contact.
+    contact = {0x342:(0x310,0x311), 0x345:(0x312,0x315), 0x348:(0x384,0x387),
+               0x3A3:(0x312,0x315), 0x3A7:(0x384,0x387)}
+    for x in (136,137):
+        for y in range(20,48):
+            block = t.g[y][x]
+            pair = contact.get(block & 1023)
+            if pair:
+                t.g[y][x] = (block & ~1023) | pair[x-136]
+    t.put(138,44,0x388,True)
+    # The last wisps above the rock shelf thin out over the grass.
+    for y, edge_x in enumerate((135,135,136,136,135,135,136,137,137,137)):
+        for x in range(edge_x,138):
+            if t.g[y][x] & 1023 == 0x3A5:
+                t.put(x,y,0x3AA if x == edge_x else 1,True)
+    # The granite shelf continues through the western end of the coastal
+    # approach. Both sides meet at the same visible crest and cliff foot.
+    for x, crest, toe in ((139,42,46),(140,42,46),(141,42,46),(142,42,46),
+                          (143,41,45),(144,41,45),(145,41,45)):
+        for y in range(crest,48):
+            tile = 0x087 if y == crest else 0x079 if y == toe else 1 if y > toe else 0x0A9
+            t.put(x,y,tile,True)
+    for x, crest in ((140,25),(141,25),(142,26),(143,27),(144,28),(145,28)):
+        for y in range(23,crest+2):
+            tile = 0x087 if y == crest else 0x079 if y == crest+1 else 1
+            t.put(x,y,tile,True)
+    # The two bands retain the same collision and elevations. Draw each rim
+    # from the adjoining columns' crest heights, including uphill half-tiles.
+    rear = (21,22,23,25,25,26,27,28,28,28)
+    front = (43,43,42,42,42,42,41,41,41,41)
+    for band in (rear,front):
+        for x in range(138,146):
+            i = x-137
+            y = band[i]
+            if t.g[y][x] & 1023 == 0x087:
+                sides = turns(band[i-1],y,band[min(i+1,len(band)-1)])
+                t.g[y][x] = (t.g[y][x] & ~1023) | shared_crest(sides)
+    for x in range(138,146):
+        for y in range(20,48):
+            block = t.g[y][x]
+            tile = block & 1023
+            if tile != 0x079:
+                continue
+            west = t.g[y][x-1] & 1023 == 1
+            east = x+1 < t.w and t.g[y][x+1] & 1023 == 1
+            if west != east:
+                t.g[y][x] = (block & ~1023) | (0x078 if west else 0x07A)
+    for x in range(139,146):
+        t.put(x,36,0x119)
+        t.put(x,37,0x129)
+    # Grit thins to exposed ochre earth one tile before the shared camera strip.
+    t.put(136,36,0x31E)
+    t.put(136,37,0x31F)
+    t.put(137,36,0x31A)
+    t.put(137,37,0x31B)
+    t.e = 5
+
 
 # Hand-placed crown origins. The spruce stands thicken along the higher ledges.
 GROVES = {
@@ -530,7 +708,6 @@ GROVES = {
         ],
         [
             (9, 1), (11, 2), (29, 0), (19, 8), (27, 7), (10, 12), (30, 19), (43, 23),
-            (48, 19), (48, 22),
         ],
     ),
     "Virelia_RainfallUpper": (
@@ -544,7 +721,7 @@ GROVES = {
             (28, 11), (24, 9), (36, 4), (38, 5), (38, 7), (36, 7), (50, 5), (52, 6),
             (54, 6), (58, 8), (58, 10), (60, 9), (60, 11), (60, 16), (9, 18), (12, 19),
             (14, 18), (14, 20), (10, 21), (24, 18), (26, 19), (24, 20), (35, 23), (37, 24),
-            (39, 24), (37, 26), (34, 27), (50, 23), (50, 25), (53, 25), (56, 26), (5, 42),
+            (39, 24), (37, 26), (34, 27), (50, 23), (50, 25), (53, 25), (56, 26),
             (17, 37), (13, 38), (54, 39), (59, 40),
         ],
     ),
@@ -564,6 +741,7 @@ def pass_approaches():
 
 
 def build():
+    install_shared_crests(ROOT / "data/tilesets/primary/general")
     from pack_rainfall_marsh import pack_marsh
     from pack_stormcrest import pack_stormcrest
     from rainfall_wetlands import build_wetlands
@@ -573,11 +751,11 @@ def build():
     trail_corners()
     pack_stormcrest(ROOT)
     pass_approaches()
-    for t, directions in ((foothills(), (0x323, 0x385, 0x32C)),
-                          (upper(), (0x323, 0x386))):
+    for t, edges in ((foothills(), {"up": (38,), "down": (14,), "right": (19,22)}),
+                     (upper(), {"down": (6,), "right": (36,37)})):
         broadleaf, spruce = GROVES[t.name]
         plant_trees(t.g, spruce, pieces=(0x389, 0x38B, 0x38D, 0x38F))
-        t.finish(broadleaf, directions, border=0x3A5 if t.name == "Virelia_RainfallUpper" else 1)
+        t.finish(broadleaf, edges, border=0x3A5 if t.name == "Virelia_RainfallUpper" else 1)
     build_wetlands(Terrain, ROOT)
 
 

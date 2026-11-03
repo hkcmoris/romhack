@@ -3,9 +3,10 @@
 from pathlib import Path
 
 from PIL import Image
+from cliff_contours import coast_outline
 
 
-def build_harbor(bank, grid, cell, slate, rock):
+def build_harbor(bank, grid, cell, slate, rock, surfaces):
     coast = Path(bank.harbor.filename).parent
     dockyard = Image.open(coast / "dockyard.png")
     if dockyard.mode != "P" or dockyard.getextrema()[1] > 15 or dockyard.info.get("transparency") != 0:
@@ -85,21 +86,19 @@ def build_harbor(bank, grid, cell, slate, rock):
         slate(x, 38, metatile, True)
         slate(x, 39, 0x2FF if x == 11 else 0x2FE, True)
 
-    # The estuary trail turns behind the western cliff. Its recessed mouth sits
-    # immediately west of the warp; the traveler steps out onto the quay paving.
-    for x, tile in enumerate((0x075, 0x0A9, 0x0A9, 0x07A), 1):
-        cell(x, 34, rock[tile], True, 3)
-    for x, tile in enumerate((0x075, 0x09F, 0x073), 1):
-        cell(x, 35, rock[tile], True, 3)
-    cell(1, 36, rock[0x078], True, 3)
-    recess = 512 + len(bank.attrs)
-    mouth = bank.general[0x0A7 * 8:0x0A8 * 8]
-    bank.meta.extend((piece & 0x0FFF) | 0xA000 if piece >> 12 == 3 else piece for piece in mouth)
-    bank.attrs.append(0x1000)
-    cell(2, 36, recess, True, 3)
-    for x in range(3, 7):
-        tile = bank.tile("slateport", 0x202, 0x63) if x == 3 else stone
-        cell(x, 36, tile, elevation=3)
+    # A low rock nose meets the paved estuary entrance. Its foot runs above
+    # the street, with ordinary fractured stone instead of a recessed portal.
+    for x, tile in enumerate((0x087, 0x0A9, 0x0A9, 0x07A), 1):
+        piece = rock[tile]
+        if x == 1:
+            piece = coast_outline(surfaces, piece, surfaces.heath, (1,-1))
+        elif x == 4:
+            piece = coast_outline(surfaces, piece, stone, (0,-1), foot=True)
+        cell(x, 34, piece, True, 3)
+    for x, sides in ((1,(-1,0)),(2,(0,0)),(3,(0,-1))):
+        cell(x, 35, coast_outline(surfaces, rock[0x079], stone, sides, foot=True), True, 3)
+    for x in range(7):
+        cell(x, 36, stone, elevation=3)
 
     def pier(stem, head=None):
         left, top, right, bottom = stem
