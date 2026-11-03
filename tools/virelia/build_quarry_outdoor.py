@@ -12,8 +12,12 @@ import struct
 
 try:
     from .localize_type_icons import read_png, write_png
+    from .quarry_outdoor_rim import pack_rim, plant_rim
+    from . import quarry_outdoor_surfaces as surfaces, quarry_outdoor_walls as walls, quarry_outdoor_water as water
 except ImportError:
     from localize_type_icons import read_png, write_png
+    from quarry_outdoor_rim import pack_rim, plant_rim
+    import quarry_outdoor_surfaces as surfaces, quarry_outdoor_walls as walls, quarry_outdoor_water as water
 
 ROOT = Path(__file__).resolve().parents[2]
 BANK = ROOT / 'data/tilesets/secondary/virelia_quarry_outdoor'
@@ -21,6 +25,7 @@ ART = ROOT / 'art/slateford_quarry_outdoor_v1'
 PREFIX = 'Virelia_Slateford_Quarry'
 YARD, BASIN, HAUL, TERRACES = (PREFIX + s for s in ('Entrance', 'Depths', 'Gallery', 'Terraces'))
 NAMES = (YARD, TERRACES, BASIN, HAUL)
+ORIGINS = {YARD: (0, 0), TERRACES: (36, 0), BASIN: (36, 40), HAUL: (0, 32)}
 SIZES = {YARD: (36, 32), TERRACES: (40, 40), BASIN: (40, 32), HAUL: (36, 40)}
 GATES = {HAUL: ((26, 8), (27, 8), (27, 24), (27, 25)), BASIN: ((20, 22), (21, 22))}
 CONTROLS = {'pump_control': (22, 12), 'electrical_feed': (10, 12)}
@@ -52,7 +57,7 @@ def write_words(path, values):
     path.write_bytes(struct.pack(f'<{len(values)}H', *values))
 
 
-def pack():
+def build_quarry():
     BANK.mkdir(parents=True, exist_ok=True)
     (BANK / 'palettes').mkdir(exist_ok=True)
     for path in (ROOT / 'data/tilesets/secondary/virelia_quarry/palettes').glob('*.pal'):
@@ -62,20 +67,30 @@ def pack():
     stone = [(int(c) // 8) * 8 for line in (ROOT / 'data/tilesets/primary/general/palettes/03.pal').read_text().splitlines()[3:19] for c in line.split()]
     for index, color in enumerate(((208,216,200),(176,184,176),(152,160,160),(120,128,136),(96,104,112),(72,72,80)), 9):
         stone[index*3:index*3+3] = color
+    stone[45:48] = surfaces.PALETTE[5]  # Dust visible in clipped rock corners.
     (BANK / 'palettes/06.pal').write_text('JASC-PAL\n0100\n16\n' + ''.join(' '.join(map(str, stone[i:i+3]))+'\n' for i in range(0,48,3)), newline='\n')
     pixels, _, chunks = read_png(ART / 'exports/quarry-outdoor.png')
     canvas = [[0] * 128 for _ in range(256)]
     tiles, meta, attrs, ids, assets = {}, [], [], {}, {}
+    tiles[(0,) * 64] = 0  # General already supplies the transparent graphic.
+    graphic_count = 0
 
     def graphic(data):
+        nonlocal graphic_count
         data = tuple(data)
         if data not in tiles:
-            index = len(tiles)
+            index = graphic_count
             if index >= 496:
                 raise ValueError('Outdoor quarry graphics overlap native door animation RAM')
-            tiles[data] = index + 512
+            graphic_count += 1
             for y in range(8):
                 canvas[index//16*8+y][index%16*8:index%16*8+8] = data[y*8:y*8+8]
+            # GBA tile entries can mirror either axis without additional VRAM.
+            for flip_y in (False, True):
+                for flip_x in (False, True):
+                    mirrored = tuple(data[(7-y if flip_y else y)*8 + (7-x if flip_x else x)]
+                                     for y in range(8) for x in range(8))
+                    tiles.setdefault(mirrored, (index + 512) | (flip_x << 10) | (flip_y << 11))
         return tiles[data]
 
     def quarters(image):
@@ -83,25 +98,18 @@ def pack():
 
     def add(name, values, attr=0x1000):
         index = 512 + len(attrs)
+        if index >= 1024:
+            raise ValueError('Outdoor quarry exceeds secondary metatile capacity')
         ids[name] = index
         meta.extend(values)
         attrs.append(attr)
         return index
 
-    ground = [[5] * 16 for _ in range(16)]
-    ground[4][3:5] = [4,4]
-    ground[12][11:13] = [4,4]
-    floor = quarters(ground)
+    surfaces.write_surface_palette(BANK)
+    floor = surfaces.surface_quarters(surfaces.base_surface('GROUND'), quarters)
     add('GROUND', floor + [0]*4)
-    rough = [row[:] for row in ground]
-    for x,y in ((2,3),(9,2),(6,9),(12,12),(2,13)):
-        rough[y][x:x+2] = [3,4]
-        rough[y+1][x] = 4
-    add('ROUGH', quarters(rough)+[0]*4, 0x1008)  # Native land encounters, including outdoors.
-    road = [[4] * 16 for _ in range(16)]
-    road[5][2:4] = [5,5]
-    road[11][10:12] = [3,4]
-    add('ROAD', quarters(road)+[0]*4)
+    add('ROUGH', surfaces.surface_quarters(surfaces.base_surface('ROUGH'), quarters) + [0]*4, 0x1008)
+    add('ROAD', surfaces.surface_quarters(surfaces.base_surface('ROAD'), quarters) + [0]*4)
     add('CITY_EXIT', floor+[0]*4, 0x1065)
     general = words(ROOT / 'data/tilesets/primary/general/metatiles.bin')
     for code in (0x68,0x69,0x6a,0x70,0x71,0x72,0x78,0x79,0x7a,0x80,0x81,0x82,0x88,0x89,0x8a,0x90,0x91,0x92,0xAF,0xCF):
@@ -123,18 +131,54 @@ def pack():
                     line.append(add(f'{asset["id"].upper()}_{version.upper()}_{col}_{row}', floor+quarters(image), 0 if canopy else 0x1000))
                 grid.append(line)
             assets[asset['id'] + ('_'+version if version != 'base' else '')] = grid
-    # The gate is a visible cart, with ordinary floor restored after power.
-    ids['GATE'] = assets['loaded_cart'][1][0]
+    # Retractable freight bollards. Each cell needs a complete silhouette:
+    # pairs close east-west and north-south approaches using the same callback.
+    bollard = (
+        '0000000000000000', '0000011111000000', '0001435554310000', '0001444444310000',
+        '0001223332210000', '000126aa66210000', '00016aa66a610000', '0001aa66aa610000',
+        '0001223332210000', '0001434332310000', '0001332322210000', '0001222222210000',
+        '0014333333331000', '0015432222341000', '0001111111110000', '0000000000000000',
+    )
+    add('GATE', floor + quarters([[int(p, 16) for p in row] for row in bollard]))
+    # A lens of pale quartz and oxidized iron follows a joint through two
+    # adjoining blocks. Stamp only the mineral; retain the local face below.
+    vein = [[0] * 32 for _ in range(16)]
+    for x, y, stroke in (
+        (21, 3, '999aa5'), (18, 4, '89aaa998'), (14, 5, '358859'),
+        (12, 6, '43554'), (11, 7, '934'), (7, 8, '9aa58'),
+        (4, 9, '898598'), (2, 10, '938'), (11, 10, '388'),
+        (15, 9, '99895'), (20, 8, '9388'), (24, 7, '88'),
+    ):
+        vein[y][x:x+len(stroke)] = [int(p, 16) for p in stroke]
+    for part in range(2):
+        add(f'QUARTZ_{part}', floor + quarters([row[16*part:16*part+16] for row in vein]))
+    surfaces.pack_surfaces(add, quarters)
+    surfaces.pack_work_floors(add, quarters, BANK)
+    cut_tile = walls.pack_walls(add, graphic)
+    primary_pixels, _, _ = read_png(ROOT / 'data/tilesets/primary/general/tiles.png')
+    pack_rim(add, graphic, ids, meta, general, primary_pixels, BANK)
+    water.pack_sump(add, graphic, general, BANK)
     bank_chunks = [(k, struct.pack('>IIBBBBB',128,256,4,3,0,0,0) if k == b'IHDR' else v)
                    for k,v in chunks if k != b'tRNS']
+    inlays = []
+    def embed(art, terrain):
+        name = f'INLAY_{art:03X}_{terrain:03X}'
+        if name not in ids:
+            top = (art - 512) * 8 + 4
+            bottom = (terrain - 512) * 8
+            index = add(name, meta[bottom:bottom+4] + meta[top:top+4], attrs[art-512])
+            inlays.append(dict(index=index, art=art, terrain=terrain))
+        return ids[name]
+
+    build(ids, assets, embed, cut_tile)
     write_png(BANK / 'tiles.png', canvas, 4, bank_chunks)
     write_words(BANK / 'metatiles.bin', meta)
     write_words(BANK / 'metatile_attributes.bin', attrs)
-    save('data/tilesets/secondary/virelia_quarry_outdoor/packing.json', {'ids':ids,'assets':assets,'graphics':len(tiles)})
-    return ids, assets
+    save('data/tilesets/secondary/virelia_quarry_outdoor/packing.json',
+         {'ids':ids,'assets':assets,'graphics':graphic_count,'inlays':inlays})
 
 
-def build(ids, assets):
+def build(ids, assets, embed, cut_tile):
     originals = {n: load(f'data/maps/{n}/map.json') for n in (YARD,BASIN,HAUL)}
     # Authoring data is kept separately so moving Bruno/item out of the yard is
     # idempotent across rebuilds without rereading an obsolete generated map.
@@ -167,7 +211,9 @@ def build(ids, assets):
             for xx in range(x,x+w):
                 grids[name][yy][xx] = e<<12 | (0x400 if solid else 0) | (ids['GROUND'] if tile is None else tile)
 
+    cut_faces = []
     def cliff(name,x,y,w,height=3):
+        cut_faces.append((name, x, y, w, height))
         rect(name,x,y,w,1,ids['NATIVE_071'],solid=True)
         rect(name,x,y+1,w,height-1,ids['NATIVE_079'],solid=True)
         for yy in range(y,y+height):
@@ -180,13 +226,33 @@ def build(ids, assets):
                 grids[name][yy][x+dx] = ids[key]  # Native elevation-zero transition.
 
     placements = []
+    embedded_art = {}
+    rock_markers = walls.wall_markers(ids)
+    work_floors = {ids[f'{kind}_{half}'] for kind in ('SLAB','DECK') for half in range(2)}
+    def work_floor(name, kind, spans, elevation):
+        for y, start, end in spans:
+            for x in range(start, end + 1):
+                rect(name,x,y,1,1,ids[f'{kind}_{x % 2}'],elevation)
+
     def stamp(name,asset,x,y,e=3,blocked=True):
         grid = assets[asset]
         for row,line in enumerate(grid):
             for col,index in enumerate(line):
                 canopy = asset == 'timber_derrick' and row < 2 or asset == 'quarry_lantern' and row < 2
+                original = grids[name][y+row][x+col] & 1023
+                on_track_bed = asset.startswith('bend_') and original == ids['GROUND']
+                on_cliff = asset in ('framed_adit', 'exposed_slate') and original in rock_markers
+                if original in work_floors or original == ids['ROAD'] or on_track_bed or on_cliff:
+                    embedded_art[name, x+col, y+row] = (original, index)
                 rect(name,x+col,y+row,1,1,index,e,blocked and not canopy)
         placements.append({'map':name,'asset':asset,'x':x,'y':y,'elevation':e})
+
+    def rail_bend(name, direction, x, y, elevation=3):
+        # x,y is the intersection of the two straight track centerlines.
+        # Each 32px curve starts one cell back along both adjoining tracks.
+        left = x - ('w' in direction)
+        top = y - ('n' in direction)
+        stamp(name, 'bend_' + direction, left, top, elevation, blocked=False)
 
     def actor(name,key,x,y,e=3,local=None):
         obj = copy.deepcopy(by_script[key])
@@ -215,10 +281,14 @@ def build(ids, assets):
     maps[YARD]['warp_events'] = [dict(x=9,y=29,elevation=0,dest_map='MAP_VIRELIA_SLATEFORD_CITY',dest_warp_id='2')]
     actor(YARD,'Guide',11,26)
     actor(YARD,'Wrench',12,6,5)
+    work_floor(YARD,'SLAB',[(16,17,24),(17,16,24),(18,16,24),(19,16,24),
+                            (20,18,21),(21,18,19),(22,18,19)],3)
     stamp(YARD,'cut_slate_stack',23,17)
-    stamp(YARD,'loaded_cart',17,22)
+    # The loaded wagon covers two rail cells; the track emerges at its wheels.
+    stamp(YARD,'loaded_cart',18,23)
     stamp(YARD,'quarry_lantern',5,24)
     stamp(YARD,'cut_slate_stack',17,16)
+    stamp(YARD,'slate_cutting_bench',19,17)
     stamp(YARD,'cut_slate_stack',28,21)
     stamp(YARD,'slate_rubble',4,18)
     stamp(YARD,'slate_rubble',29,16)
@@ -227,9 +297,11 @@ def build(ids, assets):
     stamp(YARD,'quarry_lantern',18,13)
     sign(YARD,20,12,'Virelia_Slateford_QuarryEntrance_EventScript_Equipment')
     sign(YARD,23,18,'Virelia_Slateford_QuarryEntrance_EventScript_Equipment')
-    for x in range(15,25): stamp(YARD,'horizontal',x,24,blocked=False)
+    stamp(YARD,'buffer_vertical',15,21)
+    stamp(YARD,'vertical',15,22,blocked=False)
+    rail_bend(YARD,'ne',15,24)
+    for x in (17,20,21,22,23,24): stamp(YARD,'horizontal',x,24,blocked=False)
     stamp(YARD,'buffer_horizontal',25,24)
-    stamp(YARD,'buffer_vertical',18,26)
     rect(YARD,25,4,6,3,ids['ROUGH'],5)
 
     # Working benches, with a low western haul road and two native stairways.
@@ -249,19 +321,29 @@ def build(ids, assets):
     rect(TERRACES,10,29,2,11,ids['ROAD'])
     rect(TERRACES,10,14,20,3,ids['ROAD'],5)
     rect(TERRACES,10,17,3,6,ids['ROAD'],5)
-    for x in range(14,36,2): stamp(TERRACES,'exposed_slate',x,25)
+    # The eastern wall steps down into the lower yard in three cuts. Leave
+    # a broad apron around the stair foot and the two-cell southern exit.
+    for x, top, lip, width in ((23,32,33,4), (27,30,32,5), (32,28,31,6)):
+        rect(TERRACES,x,top,width,lip-top,ids['NATIVE_079'],solid=True)
+        cliff(TERRACES,x,lip,width)
+    # Cut courses below the working floor, interrupted by rough native face.
+    for x in (14,16,18,24,26,28,30,32): stamp(TERRACES,'exposed_slate',x,25)
     actor(TERRACES,'Bruno',17,18,5)['movement_type'] = 'MOVEMENT_TYPE_FACE_DOWN'
     actor(TERRACES,'Item',30,5,7, 'LOCALID_VIRELIA_QUARRY_ITEM')
+    work_floor(TERRACES,'DECK',[(18,27,31),(19,26,32),(20,26,32),(21,27,29)],5)
     stamp(TERRACES,'timber_derrick',28,16,5)
-    stamp(TERRACES,'loaded_cart',20,20,5)
+    stamp(TERRACES,'loaded_cart',20,21,5)
     stamp(TERRACES,'slate_rubble',34,5,7)
     stamp(TERRACES,'cut_slate_stack',15,13,5)
     stamp(TERRACES,'cut_slate_stack',34,20,5)
     stamp(TERRACES,'slate_rubble',21,4,7)
     stamp(TERRACES,'slate_rubble',24,18,5)
-    for x in range(18,28): stamp(TERRACES,'horizontal',x,22,5,False)
-    stamp(TERRACES,'bend_nw',28,22,5,False)
-    for y in range(20,22): stamp(TERRACES,'vertical',28,y,5,False)
+    stamp(TERRACES,'buffer_vertical',15,19,5)
+    stamp(TERRACES,'vertical',15,20,5,False)
+    rail_bend(TERRACES,'ne',15,22,5)
+    for x in (17,18,19,22,23,24,25,26): stamp(TERRACES,'horizontal',x,22,5,False)
+    rail_bend(TERRACES,'nw',28,22,5)
+    stamp(TERRACES,'vertical',28,20,5,False)
     stamp(TERRACES,'quarry_lantern',14,29)
     sign(TERRACES,29,19,'Virelia_Slateford_QuarryEntrance_EventScript_Equipment')
 
@@ -274,13 +356,7 @@ def build(ids, assets):
     rect(BASIN,14,10,3,12,ids['ROAD'])
     rect(BASIN,0,16,15,2,ids['ROAD'])
     rect(BASIN,15,20,7,2,ids['ROAD'])
-    rect(BASIN,27,7,9,14,0x0D1,solid=True)
-    for x in range(27,36):
-        rect(BASIN,x,7,1,1,0x0C9,solid=True)
-        rect(BASIN,x,20,1,1,0x0D9,solid=True)
-    for y in range(8,20):
-        rect(BASIN,27,y,1,1,0x0D0,solid=True)
-        rect(BASIN,35,y,1,1,0x0D2,solid=True)
+    water.paint_sump(grids[BASIN], ids)
     for asset,(x,y) in CONTROLS.items():
         stamp(BASIN,asset+'_off',x,y)
         sign(BASIN,x,y+1,'Virelia_Slateford_QuarryDepths_EventScript_'+('Pump' if asset == 'pump_control' else 'Feed'))
@@ -329,16 +405,73 @@ def build(ids, assets):
     sign(HAUL,21,35,'Virelia_Slateford_QuarryGallery_EventScript_DeepAdit')
     rect(HAUL,25,6,1,1,0x003,solid=True)
     sign(HAUL,25,6,'Virelia_Slateford_QuarryGallery_EventScript_Sign')
-    for x in range(5,23): stamp(HAUL,'horizontal',x,25,blocked=False)
-    stamp(HAUL,'bend_ne',4,25,blocked=False)
-    stamp(HAUL,'bend_se',4,22,blocked=False)
-    stamp(HAUL,'bend_sw',22,22,blocked=False)
-    for x in range(5,22): stamp(HAUL,'horizontal',x,22,blocked=False)
-    for y in (23,24):
-        stamp(HAUL,'vertical',4,y,blocked=False)
-        stamp(HAUL,'vertical',22,y,blocked=False)
+    # The abandoned spur starts at the boarded adit, doubles back along the
+    # old stockyard, and finishes against a timber stop below the rubble.
+    for y in range(12,21): stamp(HAUL,'vertical',6,y,blocked=False)
+    rail_bend(HAUL,'ne',6,22)
+    for x in range(8,21): stamp(HAUL,'horizontal',x,22,blocked=False)
+    # East end of the siding: the two broad curves meet on the same tangent.
+    rail_bend(HAUL,'sw',22,22)
+    rail_bend(HAUL,'nw',22,25)
+    for x in range(6,21): stamp(HAUL,'horizontal',x,25,blocked=False)
+    rail_bend(HAUL,'ne',4,25)
+    stamp(HAUL,'buffer_vertical',4,22)
+    stamp(HAUL,'vertical',4,23,blocked=False)
     for name, cells in GATES.items():
         for x,y in cells: rect(name,x,y,1,1,ids['GATE'],solid=True)
+
+    # Stepped excavation cuts break the rectangular perimeter of each bench.
+    # Each run follows the bedrock inward from an existing wall. Keep stamped
+    # infrastructure, haul roads, stairs and encounter patches intact.
+    cuts = {
+        YARD: [(2,3,5), (2,4,3), (2,5,1), (32,3,2),
+               (2,27,2), (2,28,3), (2,29,5), (31,29,3)],
+        TERRACES: [(34,3,4), (36,4,2), (37,5,1), (35,34,3), (33,35,5),
+                   (31,36,7), (2,34,1), (2,35,2), (2,36,4)],
+        BASIN: [(2,3,5), (2,4,3), (36,3,2), (2,27,1), (2,28,2), (2,29,4),
+                (36,28,2), (34,29,4)],
+        HAUL: [(2,10,3), (2,11,1), (2,32,1), (2,33,2), (2,34,4), (2,35,6),
+               (22,37,3), (24,36,1)],
+    }
+    for name, runs in cuts.items():
+        for start, y, length in runs:
+            for x in range(start, start + length):
+                if grids[name][y][x] & 1023 == ids['GROUND']:
+                    grids[name][y][x] = 0x3400 | ids['NATIVE_079']
+
+    # Solve connected contours before compositing overlays. This keeps
+    # both sides of a road joined underneath sleepers, carts and buildings.
+    exposed = {}
+    for (name, x, y), (marker, art) in embedded_art.items():
+        cell = grids[name][y][x]
+        if cell & 1023 == art:
+            exposed[name, x, y] = art
+            grids[name][y][x] = (cell & ~1023) | marker
+    walls.place_walls(grids, ids, cut_faces, ORIGINS, cut_tile)
+    surfaces.dress_surfaces(grids, ids, ORIGINS)
+    for name, x, y in ((TERRACES,28,33), (YARD,26,11), (HAUL,21,31)):
+        for part in range(2):
+            cell = grids[name][y][x + part]
+            grids[name][y][x + part] = (cell & ~1023) | embed(ids[f'QUARTZ_{part}'], cell & 1023)
+    for (name, x, y), art in exposed.items():
+        cell = grids[name][y][x]
+        grids[name][y][x] = (cell & ~1023) | embed(art, cell & 1023)
+
+    # Most of the yard is actively quarried. The largest surviving groves
+    # occupy the unworked rim above the old haul road and below the terraces.
+    plant_rim(grids[YARD], ids, [(2,0,'FIR'), (4,1,'SAPLING'), (7,1,'TALUS'),
+                                 (30,30,'SAPLING'), (33,29,'FIR'), (32,30,'TALUS')])
+    plant_rim(grids[TERRACES], ids, [(34,0,'FIR'), (37,1,'SAPLING'), (38,3,'TALUS'),
+                                     (1,37,'FIR'), (3,38,'SAPLING'), (6,38,'TALUS'),
+                                     (35,37,'FIR'), (38,36,'SAPLING'), (31,38,'TALUS')])
+    plant_rim(grids[BASIN], ids, [(3,0,'FIR'), (5,1,'SAPLING'), (7,1,'TALUS'),
+                                  (1,29,'SAPLING'), (4,30,'TALUS'), (35,30,'FIR')])
+    plant_rim(grids[HAUL], ids, [(1,3,'SAPLING'), (2,5,'FIR'), (4,4,'SAPLING'),
+                                 (5,5,'FIR'), (8,5,'TALUS'), (17,2,'FIR'),
+                                 (19,1,'SAPLING'), (20,3,'TALUS'), (30,12,'FIR'),
+                                 (32,11,'SAPLING'), (30,15,'TALUS'), (33,18,'FIR'),
+                                 (28,31,'SAPLING'), (29,32,'FIR'), (31,34,'TALUS'),
+                                 (3,36,'FIR'), (5,37,'SAPLING'), (8,38,'TALUS')])
 
     for name,entry in maps.items():
         layout = next((l for l in doc['layouts'] if l['id'] == entry['layout']), None)
@@ -350,7 +483,7 @@ def build(ids, assets):
         layout.update(width=SIZES[name][0],height=SIZES[name][1],primary_tileset='gTileset_General',secondary_tileset='gTileset_VireliaQuarryOutdoor')
         save(f'data/maps/{name}/map.json', entry)
         write_words(ROOT / layout['blockdata_filepath'], [v for row in grids[name] for v in row])
-        write_words(ROOT / layout['border_filepath'], [0x3400 | ids['NATIVE_079']]*4)
+        write_words(ROOT / layout['border_filepath'], [0x3400 | ids[f'ROCK_BED_{i}'] for i in range(4)])
     save('data/layouts/layouts.json', doc)
     save('data/maps/map_groups.json', groups)
     save('tools/virelia/quarry_outdoor_contract.json', {'maps':list(NAMES),'sizes':SIZES,'gates':GATES,'controls':CONTROLS,'placements':placements,'ids':ids,'assets':assets})
@@ -362,4 +495,4 @@ def build(ids, assets):
 
 
 if __name__ == '__main__':
-    build(*pack())
+    build_quarry()

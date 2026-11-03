@@ -8,10 +8,10 @@ import zlib
 import sys
 try:
     from .localize_type_icons import read_png
-    from .build_quarry_outdoor import NAMES,ROOT
+    from .build_quarry_outdoor import NAMES, ORIGINS, ROOT
 except ImportError:
     from localize_type_icons import read_png
-    from build_quarry_outdoor import NAMES,ROOT
+    from build_quarry_outdoor import NAMES, ORIGINS, ROOT
 
 
 @lru_cache(None)
@@ -82,7 +82,7 @@ def render():
         images[name]=rows
         png(ROOT/'outputs/quarry-outdoor'/f'{name}.png',rows)
     composite=[bytearray(bytes((46,52,56))* (76*16)) for _ in range(72*16)]
-    for name,ox,oy in ((NAMES[0],0,0),(NAMES[1],36,0),(NAMES[2],36,40),(NAMES[3],0,32)):
+    for name,(ox,oy) in ORIGINS.items():
         for y,row in enumerate(images[name]): composite[oy*16+y][ox*16*3:ox*16*3+len(row)]=row
     png(ROOT/'outputs/quarry-outdoor/overview.png',composite)
     if '--docs' in sys.argv:

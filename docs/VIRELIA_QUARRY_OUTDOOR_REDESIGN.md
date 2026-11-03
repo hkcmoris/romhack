@@ -98,18 +98,19 @@ needed for prototype saves.
 ![Quarry tile kit](../art/slateford_quarry_outdoor_v1/previews/tile-kit.png)
 
 The [editable source and atlas](../art/slateford_quarry_outdoor_v1/README.md)
-contain 17 named modules in a native 128×128 sheet: timber derrick, framed
-adit, work lamp, loaded cart, cut-slate stacks, pump, exposed slate course,
+contain 18 named modules in a native 128×192 sheet. They include a timber
+derrick, cutting bench, framed adit, work lamp, loaded cart, cut-slate stacks, pump, exposed slate course,
 electrical feed, rubble, two straight rail sections, four corners and two
 buffer stops. All use the current quarry machinery palette, slot 7.
 
-Reuse existing outdoor ground, cliff corners, stairs, vegetation and common
-fences. The supplied straight slate course adds quarry-specific strata to
-those cliff compositions; corners and complete terrain transitions still
-come from the native cliff set. Reserve custom assets for recognizable work
-sites. Powered control states and split canopy/foot layers are packed into the
-new `VireliaQuarryOutdoor` runtime bank. Machinery indicators turn from red to
-green after the corresponding step; all controls retain blocked footprints.
+The shared quarry bank draws cliff returns, the worn shoulders of the haul road,
+and the inset corners of the sump from neighboring terrain. Rails retain the
+underlying road through a bend or crossing. The adits and exposed slate courses
+sit against the rock face. The yard's saw bench, the working terraces' quartz
+seam, the basin intake and the abandoned gallery siding distinguish the four
+sections. The pump and feed indicators turn from red to green as power returns.
+
+![Current four-section quarry rendered from the packed map tiles](images/virelia-quarry/outdoor-layout.png)
 
 Pack the entire four-map outdoor component into one secondary bank. Count
 deduplicated 8×8 graphics together with the native terrain before assigning

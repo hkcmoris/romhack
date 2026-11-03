@@ -5,7 +5,7 @@
   "export": "exports/quarry-outdoor.png",
   "canvas": [
     128,
-    128
+    192
   ],
   "metatile_size": 16,
   "palette_source": "data/tilesets/secondary/virelia_quarry/palettes/07.pal",
@@ -258,45 +258,49 @@
     },
     {
       "id": "bend_ne",
-      "layer": "Modular rails",
+      "layer": "Curved track - railheads",
+      "underlay": "Curved track - timber sleepers",
       "rect": [
+        0,
+        160,
         32,
-        112,
-        16,
-        16
+        32
       ],
       "role": "walkable rail overlay"
     },
     {
       "id": "bend_nw",
-      "layer": "Modular rails",
+      "layer": "Curved track - railheads",
+      "underlay": "Curved track - timber sleepers",
       "rect": [
-        48,
-        112,
-        16,
-        16
+        32,
+        160,
+        32,
+        32
       ],
       "role": "walkable rail overlay"
     },
     {
       "id": "bend_se",
-      "layer": "Modular rails",
+      "layer": "Curved track - railheads",
+      "underlay": "Curved track - timber sleepers",
       "rect": [
         64,
-        112,
-        16,
-        16
+        160,
+        32,
+        32
       ],
       "role": "walkable rail overlay"
     },
     {
       "id": "bend_sw",
-      "layer": "Modular rails",
+      "layer": "Curved track - railheads",
+      "underlay": "Curved track - timber sleepers",
       "rect": [
-        80,
-        112,
-        16,
-        16
+        96,
+        160,
+        32,
+        32
       ],
       "role": "walkable rail overlay"
     },
@@ -321,6 +325,12 @@
         16
       ],
       "role": "blocked rail endpoint"
+    },
+    {
+      "id": "slate_cutting_bench",
+      "layer": "Cutting bay - timber frame",
+      "rect": [0, 128, 48, 32],
+      "role": "open-sided roofed cutting bench with a wheel, clamp and split slab"
     }
   ]
 }

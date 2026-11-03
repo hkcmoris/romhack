@@ -7,6 +7,7 @@ import struct
 from virelia.localize_type_icons import read_png
 from virelia.build_quarry_outdoor import BANK, ROOT, ART, YARD, TERRACES, BASIN, HAUL, GATES, CONTROLS
 from virelia.quarry_outdoor_graph import QuarryGraph, require
+from virelia.quarry_outdoor_water import SUMP
 from validate_virelia_missing_tools import validate as validate_routes
 
 
@@ -15,7 +16,30 @@ def words(path):
     return struct.unpack(f'<{len(raw)//2}H',raw)
 
 
-def validate():
+def validate_sump_banks(world, metatile, graphic):
+    """Sample the shipped shoreline overlay where each tile meets its neighbors."""
+    width=world.layouts[BASIN]['width']
+    water=set()
+    for i,cell in enumerate(world.blocks[BASIN]):
+        index=cell & 1023
+        if index >= 512 and all(word>>12==9 for word in metatile(index)[:4]):
+            water.add((i%width,i//width))
+    require(water==SUMP,'Sump water backing does not match its cut footprint')
+    for x,y in water:
+        layers=metatile(world.cell((BASIN,x,y)) & 1023)
+        # Each side midpoint touches one adjacent cell. A corner touches
+        # three: even a single dry diagonal needs an inside bank return.
+        for px,py,dx,dy in ((8,0,0,-1),(15,8,1,0),(8,15,0,1),(0,8,-1,0),
+                            (0,0,-1,-1),(15,0,1,-1),(0,15,-1,1),(15,15,1,1)):
+            bank_expected=any(point not in water for point in
+                              ((x+dx,y),(x,y+dy),(x+dx,y+dy)))
+            word=layers[4 + 2*(py//8) + px//8]
+            painted=bool(word and graphic(word)[8*(py%8) + px%8])
+            require(painted==bank_expected,
+                    f'Sump bank at {(x,y)} faces the wrong way at pixel {(px,py)}')
+
+
+def validate(run_self_test=False):
     packing=json.loads((BANK/'packing.json').read_text())
     meta,attrs=words(BANK/'metatiles.bin'),words(BANK/'metatile_attributes.bin')
     pixels,depth,_=read_png(BANK/'tiles.png')
@@ -57,6 +81,32 @@ def validate():
                         require(value>>12==7 and graphic(value)==expected,f'{key}: native art differs from Aseprite export')
     require((BANK/'palettes/07.pal').read_bytes()==(ROOT/manifest['palette_source']).read_bytes(),'Shared machinery palette changed')
     world=QuarryGraph()
+    validate_sump_banks(world,metatile,graphic)
+    used={cell & 1023 for blocks in world.blocks.values() for cell in blocks}
+    rocks={value for key,value in packing['ids'].items() if key.startswith('ROCK_')}
+    roads={value for key,value in packing['ids'].items() if key=='ROAD' or key.startswith(('ROAD_', 'TRACK_'))}
+    platforms={value for key,value in packing['ids'].items() if key.startswith(('SLAB_', 'DECK_'))}
+    curves={tile for key,grid in packing['assets'].items() if key.startswith('bend_')
+            for row in grid for tile in row}
+    inlaid_art,road_overlays=set(),{}
+    for item in packing['inlays']:
+        index,art,terrain=item['index'],item['art'],item['terrain']
+        require(index in used and (terrain in rocks | roads | platforms or
+                art in curves and attrs[terrain-512]==0x1000),'Missing embedded art or terrain backing')
+        require(metatile(index)==metatile(terrain)[:4]+metatile(art)[4:]
+                and attrs[index-512]==attrs[art-512], 'Incorrect terrain-backed prop layers')
+        if terrain in rocks:
+            inlaid_art.add(art)
+        elif terrain in roads:
+            road_overlays[index]=art
+    for asset in ('exposed_slate','framed_adit'):
+        require(all(i in inlaid_art for row in packing['assets'][asset] for i in row),
+                f'{asset}: missing stone-backed atlas slices')
+    # The old siding crosses the north/south apron, and the yard cart's
+    # wheels cover two road cells. Both must display road through the ironwork.
+    for node,art in (((HAUL,12,22),packing['assets']['horizontal'][0][0]),
+                     ((YARD,18,24),packing['assets']['loaded_cart'][1][0])):
+        require(road_overlays.get(world.cell(node)&1023)==art, 'Haul road breaks beneath track or wagon')
     for name,l in world.layouts.items():
         require((l['width']+15)*(l['height']+14)<=10240,'Native map buffer overflow')
         for cell in world.blocks[name]:
@@ -68,18 +118,21 @@ def validate():
         reached=world.reached(True)
         require(any(n==name and world.behavior((n,x,y))=='MB_CAVE' for n,x,y in reached),'No reachable land-encounter gravel')
     for asset in ('horizontal','vertical','bend_ne','bend_nw','bend_se','bend_sw'):
-        require(attrs[packing['assets'][asset][0][0]-512]==0x1000,'Haul tracks must remain encounter-free ordinary ground')
+        require(all(attrs[tile-512]==0x1000 for row in packing['assets'][asset] for tile in row),
+                'Haul tracks must remain encounter-free ordinary ground')
     for name in (YARD,TERRACES,BASIN,HAUL):
         source=(ROOT/f'data/maps/{name}/scripts.inc').read_text(encoding='utf-8')
         require('callnative VireliaQuarry_Transition' in source and 'callnative VireliaQuarry_RefreshMap' in source,'Missing load/entry callbacks')
     validate_routes()
     print(f'PASS: {packing["graphics"]}/496 quarry graphics; exact Aseprite props, opaque ground, canopy layers, powered controls and hardware limits')
+    if run_self_test:
+        self_test(lambda broken:validate_sump_banks(broken,metatile,graphic))
 
 
-def self_test():
+def self_test(check_sump_banks):
     mutations=0
     # Exercise actual graphs with broken source blocks and connection metadata.
-    for kind in ('gate','seam','control','elevation'):
+    for kind in ('gate','seam','control','elevation','shore corner'):
         world=QuarryGraph()
         if kind=='gate':
             for x,y in GATES[HAUL][:2]:world.blocks[HAUL][y*36+x]&=~0xC00
@@ -88,21 +141,28 @@ def self_test():
         elif kind=='control':
             x,y=CONTROLS['pump_control']
             world.blocks[BASIN][(y+2)*40+x]|=0x400
-        else:
+        elif kind=='elevation':
             for y in range(23,28):
                 for x in (10,11):world.blocks[TERRACES][y*40+x]|=0x3000
+        else:
+            # Flatten the NW turn of the upper sump into the straight bank
+            # immediately to its east. The water and collision still agree.
+            x,y=min(SUMP,key=lambda point:(point[1],point[0]))
+            world.blocks[BASIN][world.layouts[BASIN]['width']*y+x]=world.cell((BASIN,x+1,y))
         try:
-            validate_routes(world)
+            if kind=='shore corner':
+                check_sump_banks(world)
+            else:
+                validate_routes(world)
         except ValueError:
             mutations+=1
         else:
             raise ValueError(f'Outdoor route validator accepted broken {kind} data')
-    print(f'PASS: {mutations} broken gate, seam, control approach and stair-elevation mutations detected')
+    print(f'PASS: {mutations} broken gate, seam, control approach, stair elevation and shore corner mutations detected')
 
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--self-test',action='store_true')
     args=parser.parse_args()
-    validate()
-    if args.self_test:self_test()
+    validate(run_self_test=args.self_test)

@@ -66,7 +66,8 @@ def aseprite_pixels(path):
 def validate():
     manifest = json.loads((HERE / 'manifest.json').read_text())
     pixels, depth, chunks = read_png(HERE / manifest['export'])
-    require([len(pixels[0]), len(pixels)] == manifest['canvas'] == [128, 128], 'Atlas size changed')
+    width, height = manifest['canvas']
+    require([len(pixels[0]), len(pixels)] == [width, height], 'Atlas size changed')
     require(depth in (4, 8) and all(0 <= p < 16 for row in pixels for p in row), 'Atlas exceeds 4bpp indices')
     native = [tuple(map(int, line.split())) for line in
               (ROOT / manifest['palette_source']).read_text().splitlines()[3:19]]
@@ -78,36 +79,66 @@ def validate():
     source, slices = aseprite_pixels(HERE / manifest['source'])
     require(source == pixels, 'PNG export differs from editable Aseprite pixels')
     expected = {a['id']: a['rect'] for a in manifest['assets']}
-    require(len(expected) == 17 and slices == expected, 'Manifest and Aseprite named slices differ')
+    require(len(expected) == len(manifest['assets']) and slices == expected,
+            'Manifest and Aseprite named slices differ')
     occupied = set()
     for name, (x, y, w, h) in expected.items():
         require(all(v % 16 == 0 for v in (x, y, w, h)), f'{name}: not metatile-aligned')
-        require(0 <= x < x + w <= 128 and 0 <= y < y + h <= 128, f'{name}: outside atlas')
+        require(0 <= x < x + w <= width and 0 <= y < y + h <= height, f'{name}: outside atlas')
         area = {(xx, yy) for yy in range(y, y + h) for xx in range(x, x + w)}
         require(not occupied & area, f'{name}: overlaps another slice')
         occupied |= area
         require(any(pixels[yy][xx] for xx, yy in area), f'{name}: empty art')
     require(all(not p or (x, y) in occupied for y, row in enumerate(pixels) for x, p in enumerate(row)),
             'Opaque pixels outside named slices')
-    # All rail modules share the same two three-pixel rail endpoints, including
-    # mirrored corners; sleepers never cross a tile boundary between the rails.
-    rail_edges = {
-        'horizontal': ('left', 'right'), 'vertical': ('top', 'bottom'),
-        'bend_ne': ('top', 'right'), 'bend_nw': ('top', 'left'),
-        'bend_se': ('bottom', 'right'), 'bend_sw': ('bottom', 'left'),
-    }
-    for name, edges in rail_edges.items():
-        x, y, _, _ = expected[name]
-        for edge in edges:
-            values = [pixels[y + (0 if edge == 'top' else 15)][x + i] if edge in ('top', 'bottom')
-                      else pixels[y + i][x + (0 if edge == 'left' else 15)] for i in range(16)]
-            require({i for i, p in enumerate(values) if p} == {3, 4, 5, 10, 11, 12},
-                    f'{name}: mismatched {edge} rail seam')
+    validate_track(pixels, expected)
     tiles = {tuple(pixels[y + j][x + i] for j in range(8) for i in range(8))
-             for y in range(0, 128, 8) for x in range(0, 128, 8)}
+             for y in range(0, height, 8) for x in range(0, width, 8)}
     tiles.discard((0,) * 64)
-    print(f'PASS: 17 named Aseprite slices, exact source/export pixels, native palette and rail seams; '
+    print(f'PASS: {len(expected)} named Aseprite slices, exact source/export pixels, native palette and rail seams; '
           f'{len(tiles)} unique nonblank 8x8 graphics before terrain packing')
+
+
+def validate_track(pixels, slices):
+    def edge(name, side):
+        x, y, w, h = slices[name]
+        if side in ('n', 's'):
+            return pixels[y if side == 'n' else y+h-1][x:x+w]
+        return [row[x if side == 'w' else x+w-1] for row in pixels[y:y+h]]
+
+    for name, ends in [('vertical', 'ns'), ('horizontal', 'we')]:
+        for side in ends:
+            require([i for i,p in enumerate(edge(name, side)) if p] == [3,4,5,10,11,12],
+                    f'{name}: rail gauge or sleeper crosses the {side} seam')
+    for direction in ('ne', 'nw', 'se', 'sw'):
+        name = f'bend_{direction}'
+        x, y, w, h = slices[name]
+        require((w,h) == (32,32), f'{name}: expected a two-cell turn')
+        for side, opposite, straight in [('n','s','vertical'), ('s','n','vertical'),
+                                          ('e','w','horizontal'), ('w','e','horizontal')]:
+            joint = [0] * 32
+            if side in direction:
+                far_half = 'w' if straight == 'vertical' else 'n'
+                offset = 16 if far_half in direction else 0
+                joint[offset:offset+16] = edge(straight, opposite)
+            require(edge(name, side) == joint, f'{name}: {side} railhead does not match straight track')
+        # Follow the steel alone. Each rail must remain a separate, continuous
+        # strip all the way from one straight to the other, even above the ties.
+        steel = {(i,j) for j in range(h) for i in range(w) if pixels[y+j][x+i] in (1,2,3,4)}
+        rails = 0
+        while steel:
+            component = {steel.pop()}
+            pending = list(component)
+            while pending:
+                i,j = pending.pop()
+                neighbors = steel.intersection(((i+1,j),(i-1,j),(i,j+1),(i,j-1)))
+                steel.difference_update(neighbors)
+                component.update(neighbors)
+                pending.extend(neighbors)
+            require(any(j in (0,h-1) for i,j in component) and any(i in (0,w-1) for i,j in component),
+                    f'{name}: disconnected railhead')
+            rails += 1
+        require(rails == 2, f'{name}: the two rails merge inside the turn')
 
 
 if __name__ == '__main__':
