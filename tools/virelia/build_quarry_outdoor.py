@@ -26,7 +26,9 @@ PREFIX = 'Virelia_Slateford_Quarry'
 YARD, BASIN, HAUL, TERRACES = (PREFIX + s for s in ('Entrance', 'Depths', 'Gallery', 'Terraces'))
 NAMES = (YARD, TERRACES, BASIN, HAUL)
 ORIGINS = {YARD: (0, 0), TERRACES: (36, 0), BASIN: (36, 40), HAUL: (0, 32)}
-SIZES = {YARD: (36, 32), TERRACES: (40, 40), BASIN: (40, 32), HAUL: (36, 40)}
+# Include the eastern highwall and the foreground cuts below the pump floor.
+# Keep the four origins fixed so the existing haul-road connections still meet.
+SIZES = {YARD: (36, 32), TERRACES: (46, 40), BASIN: (46, 40), HAUL: (36, 48)}
 GATES = {HAUL: ((26, 8), (27, 8), (27, 24), (27, 25)), BASIN: ((20, 22), (21, 22))}
 CONTROLS = {'pump_control': (22, 12), 'electrical_feed': (10, 12)}
 CONNECTIONS = {
@@ -62,17 +64,25 @@ def build_quarry():
     (BANK / 'palettes').mkdir(exist_ok=True)
     for path in (ROOT / 'data/tilesets/secondary/virelia_quarry/palettes').glob('*.pal'):
         shutil.copyfile(path, BANK / 'palettes' / path.name)
-    # Native outdoor cliff graphics keep their indices; only their warm stone
-    # ramp changes. Primary grass, water and sign palettes remain untouched.
     stone = [(int(c) // 8) * 8 for line in (ROOT / 'data/tilesets/primary/general/palettes/03.pal').read_text().splitlines()[3:19] for c in line.split()]
-    for index, color in enumerate(((208,216,200),(176,184,176),(152,160,160),(120,128,136),(96,104,112),(72,72,80)), 9):
+    # A warm cut lip catches daylight; the bottom of the cut falls into
+    # blue-violet shadow. The same ramp lights the face and its side returns.
+    for index, color in enumerate(((232,216,176),(192,192,160),(152,168,160),
+                                   (112,136,144),(80,96,120),(48,56,80)), 9):
         stone[index*3:index*3+3] = color
+    stone[18:27] = (128,96,80, 192,152,104, 48,56,64)  # iron stain and deep cleft
     stone[45:48] = surfaces.PALETTE[5]  # Dust visible in clipped rock corners.
     (BANK / 'palettes/06.pal').write_text('JASC-PAL\n0100\n16\n' + ''.join(' '.join(map(str, stone[i:i+3]))+'\n' for i in range(0,48,3)), newline='\n')
     pixels, _, chunks = read_png(ART / 'exports/quarry-outdoor.png')
     canvas = [[0] * 128 for _ in range(256)]
     tiles, meta, attrs, ids, assets = {}, [], [], {}, {}
-    tiles[(0,) * 64] = 0  # General already supplies the transparent graphic.
+    # Reuse resident graphics (including solid-color fills) before allocating
+    # a secondary slot. General's first animated range starts at tile 432.
+    primary_pixels, _, _ = read_png(ROOT / 'data/tilesets/primary/general/tiles.png')
+    for index in range(432):
+        ox, oy = (index % 16) * 8, (index // 16) * 8
+        pixels8 = tuple(p for row in primary_pixels[oy:oy+8] for p in row[ox:ox+8])
+        tiles.setdefault(pixels8,index)
     graphic_count = 0
 
     def graphic(data):
@@ -140,6 +150,16 @@ def build_quarry():
         '0014333333331000', '0015432222341000', '0001111111110000', '0000000000000000',
     )
     add('GATE', floor + quarters([[int(p, 16) for p in row] for row in bollard]))
+    # Two graphics form a complete run of timber posts and slack steel cable.
+    # Mirror the terminal so the cable dies into a post at either end.
+    def rail_quarter(rows):
+        return 0x7000 | graphic(int(p, 16) for row in rows for p in row)
+    post = rail_quarter(('09540000','09860000','08760000','43234440',
+                         '19861114','08760001','07610000','01110000'))
+    cable = rail_quarter(('00000000','00000000','00000000','00000444',
+                          '44444111','11111000','00000000','00000000'))
+    add('BRINK_POST', floor + [0,0,post,cable])
+    add('BRINK_END', floor + [0,0,cable ^ 0x400,post ^ 0x400])
     # A lens of pale quartz and oxidized iron follows a joint through two
     # adjoining blocks. Stamp only the mineral; retain the local face below.
     vein = [[0] * 32 for _ in range(16)]
@@ -152,10 +172,10 @@ def build_quarry():
         vein[y][x:x+len(stroke)] = [int(p, 16) for p in stroke]
     for part in range(2):
         add(f'QUARTZ_{part}', floor + quarters([row[16*part:16*part+16] for row in vein]))
-    surfaces.pack_surfaces(add, quarters)
+    pack_road = surfaces.pack_surfaces(add, quarters)
     surfaces.pack_work_floors(add, quarters, BANK)
-    cut_tile = walls.pack_walls(add, graphic)
-    primary_pixels, _, _ = read_png(ROOT / 'data/tilesets/primary/general/tiles.png')
+    face_pixels, _, _ = read_png(ART / 'exports/bench-face.png')
+    cut_tile = walls.pack_walls(add, graphic, BANK, face_pixels)
     pack_rim(add, graphic, ids, meta, general, primary_pixels, BANK)
     water.pack_sump(add, graphic, general, BANK)
     bank_chunks = [(k, struct.pack('>IIBBBBB',128,256,4,3,0,0,0) if k == b'IHDR' else v)
@@ -172,7 +192,11 @@ def build_quarry():
             inlays.append(dict(index=index, art=art, terrain=terrain))
         return ids[name]
 
-    build(ids, assets, embed, cut_tile)
+    def dress_floors(grids):
+        surfaces.dress_surfaces(grids, ids, ORIGINS, pack_road)
+        surfaces.shade_benches(grids, ids, meta, attrs, add)
+
+    build(ids, assets, embed, cut_tile, dress_floors)
     write_png(BANK / 'tiles.png', canvas, 4, bank_chunks)
     write_words(BANK / 'metatiles.bin', meta)
     write_words(BANK / 'metatile_attributes.bin', attrs)
@@ -180,7 +204,7 @@ def build_quarry():
          {'ids':ids,'assets':assets,'graphics':graphic_count,'inlays':inlays})
 
 
-def build(ids, assets, embed, cut_tile):
+def build(ids, assets, embed, cut_tile, dress_floors):
     originals = {n: load(f'data/maps/{n}/map.json') for n in (YARD,BASIN,HAUL)}
     # Authoring data is kept separately so moving Bruno/item out of the yard is
     # idempotent across rebuilds without rereading an obsolete generated map.
@@ -267,11 +291,31 @@ def build(ids, assets, embed, cut_tile):
     def sign(name,x,y,script):
         maps[name]['bg_events'].append(dict(type='sign',x=x,y=y,elevation=0,player_facing_dir='BG_EVENT_PLAYER_FACING_ANY',script=script))
 
-    # Yard: broad sorting apron, elevated tool ledge, city exit and two seams.
+    side_returns = []
+    def stepped_bench(name, top, elevation, profile):
+        """A level work floor, its south-facing cuts and the returns at each jog."""
+        for x, end, lip in profile:
+            if lip > top:
+                rect(name,x,top,end-x+1,lip-top,e=elevation)
+            cliff(name,x,lip,end-x+1)
+        for (_, left_end, left_lip), (right, _, right_lip) in zip(profile,profile[1:]):
+            # Close the exposed side of the farther-projecting shelf.
+            side = left_end if left_lip > right_lip else right
+            rect(name,side,min(left_lip,right_lip),1,abs(right_lip-left_lip),
+                 ids['NATIVE_070'],solid=True)
+            for y in range(min(left_lip,right_lip),max(left_lip,right_lip)):
+                side_returns.append((name, side, y, 'E' if left_lip > right_lip else 'W', elevation))
+
+    # Sorting yard. The stair by the saw leads up to the tool ledge; a
+    # shorter return stair climbs to the last cut above it.
     rect(YARD,2,3,32,27)
-    rect(YARD,2,3,32,7,e=5)
-    cliff(YARD,2,10,32)
+    stepped_bench(YARD,3,5,((2,6,14),(7,10,10),(11,18,12),
+                             (19,28,10),(29,33,8)))
+    stepped_bench(YARD,3,7,((14,17,6),(18,21,5),(22,23,6)))
+    rect(YARD,14,3,1,3,ids['NATIVE_070'],solid=True)
+    rect(YARD,23,3,1,3,ids['NATIVE_072'],solid=True)
     stairs(YARD,8,9,5)
+    stairs(YARD,15,5,5)
     rect(YARD,34,14,2,2)
     rect(YARD,26,29,2,3)
     rect(YARD,9,29,1,1,ids['CITY_EXIT'])
@@ -294,7 +338,7 @@ def build(ids, assets, embed, cut_tile):
     stamp(YARD,'cut_slate_stack',28,21)
     stamp(YARD,'slate_rubble',4,18)
     stamp(YARD,'slate_rubble',29,16)
-    stamp(YARD,'slate_rubble',20,5,5)
+    stamp(YARD,'slate_rubble',20,3,7)
     stamp(YARD,'framed_adit',19,10)
     stamp(YARD,'quarry_lantern',18,13)
     sign(YARD,20,12,'Virelia_Slateford_QuarryEntrance_EventScript_Equipment')
@@ -306,30 +350,53 @@ def build(ids, assets, embed, cut_tile):
     stamp(YARD,'buffer_horizontal',25,24)
     rect(YARD,25,4,6,3,ids['ROUGH'],5)
 
-    # Working benches, with a low western haul road and two native stairways.
+    # The two working benches project by different amounts. Their south
+    # faces wrap around the derrick floor; each lift meets a real stair.
     rect(TERRACES,2,3,36,34)
-    rect(TERRACES,8,3,30,6,e=7)
-    rect(TERRACES,8,12,30,12,e=5)
-    cliff(TERRACES,8,9,30)
-    cliff(TERRACES,8,24,30)
+    stepped_bench(TERRACES,3,5,((8,13,24),(14,20,26),(21,32,23),(33,37,25)))
+    stepped_bench(TERRACES,3,7,((8,16,10),(17,24,15),(25,31,9),(32,37,14)))
+    # The first switchback passes the toe of a two-lift west spur.
+    for x, end, lip in ((2,4,8),(5,6,11)):
+        rect(TERRACES,x,3,end-x+1,lip-3,ids['NATIVE_079'],solid=True)
+        cliff(TERRACES,x,lip,end-x+1)
+    cliff(TERRACES,2,4,5,2)
     for y in range(3,27): rect(TERRACES,7,y,1,1,ids['NATIVE_070'],solid=True)
     stairs(TERRACES,28,8,5)
     stairs(TERRACES,10,23,5)
+    # Follow the exposed seam into the east highwall. The upper cut stops
+    # first; the derrick's lower rail bench projects farther into the rock.
+    rect(TERRACES,38,4,3,5,e=7)
+    cliff(TERRACES,38,9,3)
+    rect(TERRACES,38,17,4,5,e=5)
+    rect(TERRACES,42,18,1,4,e=5)
+    cliff(TERRACES,38,22,5)
     rect(TERRACES,0,14,2,2)
     rect(TERRACES,10,37,2,3)
     rect(TERRACES,0,14,6,2,ids['ROAD'])
     rect(TERRACES,3,14,3,16,ids['ROAD'])
     rect(TERRACES,4,28,8,3,ids['ROAD'])
     rect(TERRACES,10,29,2,11,ids['ROAD'])
-    rect(TERRACES,10,14,20,3,ids['ROAD'],5)
+    # This middle haul road follows the lip all the way to the hoist.
     rect(TERRACES,10,17,3,6,ids['ROAD'],5)
-    # The eastern wall steps down into the lower yard in three cuts. Leave
-    # a broad apron around the stair foot and the two-cell southern exit.
-    for x, top, lip, width in ((23,32,33,4), (27,30,32,5), (32,28,31,6)):
-        rect(TERRACES,x,top,width,lip-top,ids['NATIVE_079'],solid=True)
-        cliff(TERRACES,x,lip,width)
+    rect(TERRACES,10,16,7,2,ids['ROAD'],5)
+    rect(TERRACES,15,17,2,3,ids['ROAD'],5)
+    rect(TERRACES,16,18,12,2,ids['ROAD'],5)
+    rect(TERRACES,26,15,2,3,ids['ROAD'],5)
+    rect(TERRACES,27,13,3,3,ids['ROAD'],5)
+
+    # Below the rail bench a dogleg catch bench separates a second rock
+    # face from the one above. The open dry cut at its foot has its own
+    # landing and working floor at elevation 1.
+    for x, end, lip in ((18,21,31),(22,25,29),(26,31,31),(32,34,30)):
+        cliff(TERRACES,x,lip,end-x+1)
+        rect(TERRACES,x,lip+3,end-x+1,36-lip-2,e=1)
+    for x, y, height in ((18,33,4),(21,30,3),(26,30,3),(31,31,2),(34,31,6)):
+        rect(TERRACES,x,y,1,height,ids['NATIVE_070'],solid=True)
+    rect(TERRACES,18,36,17,1,ids['NATIVE_079'],solid=True)
+    stairs(TERRACES,23,28,5)
     # Cut courses below the working floor, interrupted by rough native face.
-    for x in (14,16,18,24,26,28,30,32): stamp(TERRACES,'exposed_slate',x,25)
+    for x, y in ((15,27),(17,27),(22,24),(24,24),(26,24),(28,24),(34,26)):
+        stamp(TERRACES,'exposed_slate',x,y)
     actor(TERRACES,'Bruno',17,18,5)['movement_type'] = 'MOVEMENT_TYPE_FACE_DOWN'
     actor(TERRACES,'Item',30,5,7, 'LOCALID_VIRELIA_QUARRY_ITEM')
     work_floor(TERRACES,'DECK',[(18,27,31),(19,26,32),(20,26,32),(21,27,29)],5)
@@ -351,10 +418,32 @@ def build(ids, assets, embed, cut_tile):
 
     # Basin: both controls in one map, open approaches, enclosed freight plot.
     rect(BASIN,2,3,36,27)
+    # Widen the dry service foot around the sump's east shoulder. The rib
+    # left between these cuts remains rock, with room to show its side face.
+    rect(BASIN,38,6,2,5)
+    rect(BASIN,38,17,4,4)
+    rect(BASIN,38,21,2,3)
     rect(BASIN,10,0,2,3)
     rect(BASIN,0,16,2,2)
-    rect(BASIN,10,0,2,10,ids['ROAD'])
-    rect(BASIN,10,8,15,3,ids['ROAD'])
+    # The north haul road enters through a slot cut in the quarry headwall.
+    # Its west shoulder is a two-flight inspection stair. The flights are
+    # offset so the player turns on a real landing above the pump floor.
+    for x, width, upper, lower in ((2,4,5,11), (6,3,4,10)):
+        rect(BASIN,x,2,width,upper-2,e=7)
+        cliff(BASIN,x,upper,width,2)
+        rect(BASIN,x,upper+2,width,lower-upper-2,e=5)
+        cliff(BASIN,x,lower,width,2)
+    rect(BASIN,9,0,1,12,ids['NATIVE_070'],solid=True)
+    stairs(BASIN,3,10,4)
+    stairs(BASIN,6,3,4)
+
+    # Across the slot, the outer rim sweeps out behind the controls and
+    # recedes along the sump. Its solid rock shares the northern map seam.
+    for x, width, depth in ((12,3,5),(15,4,7),(19,3,9),(22,4,10),
+                            (26,3,9),(29,2,7),(31,4,5),(35,3,7)):
+        rect(BASIN,x,0,width,depth,ids['NATIVE_079'],solid=True)
+    rect(BASIN,10,0,2,12,ids['ROAD'])
+    rect(BASIN,10,10,15,2,ids['ROAD'])
     rect(BASIN,14,10,3,12,ids['ROAD'])
     rect(BASIN,0,16,15,2,ids['ROAD'])
     rect(BASIN,15,20,7,2,ids['ROAD'])
@@ -373,8 +462,8 @@ def build(ids, assets, embed, cut_tile):
     for y in range(23,30):
         for x in (17,26): rect(BASIN,x,y,1,1,ids['NATIVE_079'],solid=True)
     rect(BASIN,4,23,8,4,ids['ROUGH'])
-    stamp(BASIN,'slate_rubble',6,8)
-    stamp(BASIN,'cut_slate_stack',3,5)
+    stamp(BASIN,'slate_rubble',7,8,5)
+    stamp(BASIN,'cut_slate_stack',3,2,7)
     stamp(BASIN,'loaded_cart',32,22)
     stamp(BASIN,'slate_rubble',33,27)
     stamp(BASIN,'quarry_lantern',24,25)
@@ -389,16 +478,28 @@ def build(ids, assets, embed, cut_tile):
     rect(HAUL,12,12,16,2,ids['ROAD'])
     rect(HAUL,12,13,2,17,ids['ROAD'])
     rect(HAUL,13,24,23,2,ids['ROAD'])
-    cliff(HAUL,18,16,7)
-    cliff(HAUL,18,30,7)
+    # The old line follows the foot of an exhausted extraction bench. Carry
+    # the rock into the eastern rim instead of leaving isolated strips of wall.
+    for x, width, toe in ((18,3,16),(21,3,17),(24,4,18),(28,4,19)):
+        rect(HAUL,x,15,width,toe-15,ids['NATIVE_079'],solid=True)
+        cliff(HAUL,x,toe,width)
+
+    # The collapsed heading is driven into the *lower* lift. Climb beside
+    # the timber frame to look back over the switch from the old drill bench.
+    rect(HAUL,17,26,17,7,ids['NATIVE_079'],solid=True)
+    rect(HAUL,17,27,13,3,e=5)
+    cliff(HAUL,17,30,12)
+    cliff(HAUL,22,26,6,2)
+    cliff(HAUL,28,27,4,2)
+    stairs(HAUL,17,29,4)
     stamp(HAUL,'framed_adit',5,9)
     stamp(HAUL,'caved_in_adit',20,32)
     stamp(HAUL,'slate_rubble',22,35)
-    stamp(HAUL,'quarry_lantern',17,30)
+    stamp(HAUL,'quarry_lantern',16,30)
     stamp(HAUL,'cut_slate_stack',4,30)
     stamp(HAUL,'exposed_slate',20,17)
     stamp(HAUL,'slate_rubble',3,13)
-    stamp(HAUL,'slate_rubble',23,28)
+    stamp(HAUL,'slate_rubble',23,28,5)
     stamp(HAUL,'quarry_lantern',8,11)
     actor(HAUL,'Sableye',14,29)
     actor(HAUL,'Hammer',8,18)
@@ -422,6 +523,14 @@ def build(ids, assets, embed, cut_tile):
     for name, cells in GATES.items():
         for x,y in cells: rect(name,x,y,1,1,ids['GATE'],solid=True)
 
+    # Cable guards mark the brink beside the working machinery. Set them
+    # into the tread, leaving both stair mouths and their turning space open.
+    for name, y, start, end, elevation in ((YARD,11,12,15,5), (TERRACES,14,18,21,7),
+                                            (BASIN,4,2,4,7), (HAUL,29,25,28,5)):
+        for x in range(start, end+1):
+            assert grids[name][y][x] == (elevation << 12 | ids['GROUND']), (name,x,y)
+            rect(name,x,y,1,1,ids['BRINK_END' if x == end else 'BRINK_POST'],elevation,True)
+
     # Stepped excavation cuts break the rectangular perimeter of each bench.
     # Each run follows the bedrock inward from an existing wall. Keep stamped
     # infrastructure, haul roads, stairs and encounter patches intact.
@@ -441,6 +550,25 @@ def build(ids, assets, embed, cut_tile):
                 if grids[name][y][x] & 1023 == ids['GROUND']:
                     grids[name][y][x] = 0x3400 | ids['NATIVE_079']
 
+    # From the southern lip the player looks down into two further lifts.
+    # Author this foreground in world coordinates so the strata continue
+    # straight through the Gallery/Basin connection under the freight yard.
+    foreground = (
+        (0,8,68,74), (8,17,69,75), (17,25,71,77), (25,31,70,76),
+        (31,41,68,74), (41,47,69,75), (47,53,68,75), (53,63,70,77),
+        (63,68,68,74), (68,76,70,76), (76,82,67,73),
+    )
+    for name in (HAUL,BASIN):
+        ox,oy = ORIGINS[name]
+        for left,right,lip,lower_lip in foreground:
+            x = max(0,left-ox)
+            width = min(SIZES[name][0],right-ox) - x
+            if width <= 0:
+                continue
+            cliff(name,x,lip-oy,width,2)
+            rect(name,x,lip-oy+2,width,lower_lip-lip-2,e=1,solid=True)
+            cliff(name,x,lower_lip-oy,width,2)
+
     # Solve connected contours before compositing overlays. This keeps
     # both sides of a road joined underneath sleepers, carts and buildings.
     exposed = {}
@@ -449,8 +577,13 @@ def build(ids, assets, embed, cut_tile):
         if cell & 1023 == art:
             exposed[name, x, y] = art
             grids[name][y][x] = (cell & ~1023) | marker
-    walls.place_walls(grids, ids, cut_faces, ORIGINS, cut_tile)
-    surfaces.dress_surfaces(grids, ids, ORIGINS)
+    walls.place_walls(grids, ids, cut_faces, ORIGINS, cut_tile, protected=exposed)
+    for name,x,y,side,elevation in side_returns:
+        cell = grids[name][y][x]
+        if cell & 0xC00 and (name,x,y) not in exposed:
+            side_tile = cut_tile[1]('top', 0, side, 2 if elevation == 7 else 1)
+            grids[name][y][x] = (cell & ~1023) | side_tile
+    dress_floors(grids)
     for name, x, y in ((TERRACES,28,33), (YARD,26,11), (HAUL,21,31)):
         for part in range(2):
             cell = grids[name][y][x + part]

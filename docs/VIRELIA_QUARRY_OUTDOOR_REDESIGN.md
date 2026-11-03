@@ -28,9 +28,9 @@ quarry secondary bank. Internal seams share identical tile/palette definitions.
 | Section | Size | Global origin | Identity and route |
 | --- | --- | --- | --- |
 | 1. Arrival yard | 36×32 | (0,0) | Quarry office frontage, sorting tables, cut-stone stacks and cart siding. Enter from Slateford near (9,29), see the large hoist across the pit, then follow the east haul road. Put the quest briefing and first tool clue here. |
-| 2. Working terraces | 40×40 | (36,0) | Three exposed benches around the main derrick. Bruno guards the middle haul road; optional stairs lead to ore seams and the existing Super Potion. The main descent stays visible and at least two tiles wide. |
-| 3. Pump basin | 40×32 | (36,40) | Lowest working terrace, a shallow drainage sump, pump house and electrical cabinet. Lenka and the two controls are accessible before restoration. The freight evidence sits behind the powered barrier on the dry platform. |
-| 4. Old haul terrace | 36×40 | (0,32) | Quieter, partly reclaimed shelf with abandoned rails, lantern-lit adit and Sableye's hoard. After power restoration it links the basin back to the arrival yard. A rockfall seals the deeper cavern as future content. |
+| 2. Working terraces | 46×40 | (36,0) | A stair descends from the haul road (elevation 3) to the extraction floor (1). Two more flights climb to the derrick and Bruno (5), then the upper cut and Super Potion (7). The upper and middle benches run different distances into the east highwall. |
+| 3. Pump basin | 46×40 | (36,40) | The service road enters through a cut between the north headwalls. West of it, a switchback joins two inspection ledges. The controls occupy the low floor, and the freight platform overlooks two more cuts to the south. |
+| 4. Old haul terrace | 36×48 | (0,32) | The disused siding follows a rock spur. A stair beside the caved-in tunnel reaches the drill bench above it. After restoration the old haul connects the basin and arrival yard and gives access to Sableye's hoard. |
 
 The clockwise first visit is yard → terraces → basin → restored freight.
 Opening both old-haul barriers then creates a useful return loop and optional

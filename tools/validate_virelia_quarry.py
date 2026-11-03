@@ -19,10 +19,12 @@ def words(path):
 def validate_sump_banks(world, metatile, graphic):
     """Sample the shipped shoreline overlay where each tile meets its neighbors."""
     width=world.layouts[BASIN]['width']
+    general=words(ROOT/'data/tilesets/primary/general/metatiles.bin')
+    water_backing=tuple((word & 0xfff) | 0x9000 for word in general[0x170*8:0x170*8+4])
     water=set()
     for i,cell in enumerate(world.blocks[BASIN]):
         index=cell & 1023
-        if index >= 512 and all(word>>12==9 for word in metatile(index)[:4]):
+        if index >= 512 and metatile(index)[:4]==water_backing:
             water.add((i%width,i//width))
     require(water==SUMP,'Sump water backing does not match its cut footprint')
     for x,y in water:
@@ -37,6 +39,37 @@ def validate_sump_banks(world, metatile, graphic):
             painted=bool(word and graphic(word)[8*(py%8) + px%8])
             require(painted==bank_expected,
                     f'Sump bank at {(x,y)} faces the wrong way at pixel {(px,py)}')
+
+
+def validate_benches(world,metatile,graphic):
+    # Two cross-sections visible from the haul roads. Read the packed front
+    # faces themselves, including flip bits; a single flat cap fails here.
+    face,_,_=read_png(ART/'exports/bench-face.png')
+    toes={tuple(tuple(face[32 + (q//2)*8 + y][phase*16 + (q%2)*8 + x]
+                      for y in range(8) for x in range(8)) for q in range(4))
+          for phase in range(4)}
+    for name,x in ((HAUL,12),(BASIN,22)):
+        drops=[]
+        for y in range(10):
+            cell=world.cell((name,x,y))
+            tile=cell & 1023
+            if tile>=512 and cell & 0xc00 and tuple(graphic(v) for v in metatile(tile)[:4]) in toes:
+                drops.append(y)
+        require(any(3 <= b-a <= 7 for a,b in zip(drops,drops[1:])),
+                f'{name}: haul-road view needs two risers with a landing between them')
+
+    # Follow the actual approach, stair cells and landing of the new lifts.
+    # The gallery is behind the powered barrier; the other lifts are public.
+    public=world.reached(False)
+    restored=world.reached(True)
+    for name,x,top,foot,upper,lower in (
+        (YARD,16,4,10,7,5), (TERRACES,23,27,33,3,1),
+        (BASIN,3,9,14,5,3), (BASIN,6,2,7,7,5), (HAUL,18,28,33,5,3),
+    ):
+        path=[(name,x,y) for y in range(top,foot+1)]
+        require(all(node in (restored if name==HAUL else public) for node in path)
+                and [world.cell(node)>>12 for node in path]==[upper]+[0]*(len(path)-2)+[lower],
+                f'{name}: broken stair or landing between elevations {upper} and {lower}')
 
 
 def validate(run_self_test=False):
@@ -82,6 +115,7 @@ def validate(run_self_test=False):
     require((BANK/'palettes/07.pal').read_bytes()==(ROOT/manifest['palette_source']).read_bytes(),'Shared machinery palette changed')
     world=QuarryGraph()
     validate_sump_banks(world,metatile,graphic)
+    validate_benches(world,metatile,graphic)
     # Compare every entrance cell to its source slice, including cliff inlays.
     placements=json.loads((ROOT/'tools/virelia/quarry_outdoor_contract.json').read_text())['placements']
     overlay={item['index']:item['art'] for item in packing['inlays']}
@@ -152,15 +186,15 @@ def self_test(check_sump_banks):
     for kind in ('gate','seam','control','elevation','shore corner'):
         world=QuarryGraph()
         if kind=='gate':
-            for x,y in GATES[HAUL][:2]:world.blocks[HAUL][y*36+x]&=~0xC00
+            for x,y in GATES[HAUL][:2]:world.blocks[HAUL][y*world.layouts[HAUL]['width']+x]&=~0xC00
         elif kind=='seam':
             world.maps[BASIN]['connections'][1]['offset']=-7
         elif kind=='control':
             x,y=CONTROLS['pump_control']
-            world.blocks[BASIN][(y+2)*40+x]|=0x400
+            world.blocks[BASIN][(y+2)*world.layouts[BASIN]['width']+x]|=0x400
         elif kind=='elevation':
             for y in range(23,28):
-                for x in (10,11):world.blocks[TERRACES][y*40+x]|=0x3000
+                for x in (10,11):world.blocks[TERRACES][y*world.layouts[TERRACES]['width']+x]|=0x3000
         else:
             # Flatten the NW turn of the upper sump into the straight bank
             # immediately to its east. The water and collision still agree.

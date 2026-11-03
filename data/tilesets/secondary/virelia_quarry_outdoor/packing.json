@@ -120,276 +120,366 @@
     "CAVED_IN_ADIT_BASE_1_2": 629,
     "CAVED_IN_ADIT_BASE_2_2": 630,
     "GATE": 631,
-    "QUARTZ_0": 632,
-    "QUARTZ_1": 633,
-    "SPLIT": 634,
-    "SHINGLE": 635,
-    "FLAKES": 636,
-    "FINES": 637,
-    "SCREE": 638,
-    "CUT_0": 639,
-    "CUT_1": 640,
-    "VEIN_0": 641,
-    "VEIN_1": 642,
-    "SEEP_0": 643,
-    "SEEP_1": 644,
-    "LICHEN_0": 645,
-    "LICHEN_1": 646,
-    "ROAD_00": 647,
-    "ROAD_01": 648,
-    "ROAD_02": 649,
-    "ROAD_03": 650,
-    "ROAD_04": 651,
-    "ROAD_05": 652,
-    "ROAD_06": 653,
-    "ROAD_07": 654,
-    "ROAD_08": 655,
-    "ROAD_09": 656,
-    "ROAD_0A": 657,
-    "ROAD_0B": 658,
-    "ROAD_0C": 659,
-    "ROAD_0D": 660,
-    "ROAD_0E": 661,
-    "ROAD_0F": 662,
-    "ROAD_13": 663,
-    "ROAD_17": 664,
-    "ROAD_1B": 665,
-    "ROAD_1F": 666,
-    "ROAD_26": 667,
-    "ROAD_27": 668,
-    "ROAD_2E": 669,
-    "ROAD_2F": 670,
-    "ROAD_37": 671,
-    "ROAD_37_B": 672,
-    "ROAD_3F": 673,
-    "ROAD_4C": 674,
-    "ROAD_4D": 675,
-    "ROAD_4E": 676,
-    "ROAD_4F": 677,
-    "ROAD_5F": 678,
-    "ROAD_6E": 679,
-    "ROAD_6E_B": 680,
-    "ROAD_6F": 681,
-    "ROAD_7F": 682,
-    "ROAD_89": 683,
-    "ROAD_8B": 684,
-    "ROAD_8D": 685,
-    "ROAD_8F": 686,
-    "ROAD_9B": 687,
-    "ROAD_9B_B": 688,
-    "ROAD_9F": 689,
-    "ROAD_AF": 690,
-    "ROAD_BF": 691,
-    "ROAD_CD": 692,
-    "ROAD_CD_B": 693,
-    "ROAD_CF": 694,
-    "ROAD_DF": 695,
-    "ROAD_EF": 696,
-    "TRACK_LONG": 697,
-    "TRACK_LONG_V": 698,
-    "TRACK_SHORT": 699,
-    "TRACK_SHORT_V": 700,
-    "SLAB_0": 701,
-    "SLAB_1": 702,
-    "DECK_0": 703,
-    "DECK_1": 704,
-    "ROCK_BED_0": 705,
-    "ROCK_BED_1": 706,
-    "ROCK_BED_2": 707,
-    "ROCK_BED_3": 708,
-    "ROCK_BED_4": 709,
-    "ROCK_BED_5": 710,
-    "ROCK_BED_6": 711,
-    "ROCK_BED_7": 712,
-    "ROCK_EDGE_01": 713,
-    "ROCK_EDGE_02": 714,
-    "ROCK_EDGE_03": 715,
-    "ROCK_EDGE_04": 716,
-    "ROCK_EDGE_05": 717,
-    "ROCK_EDGE_06": 718,
-    "ROCK_EDGE_07": 719,
-    "ROCK_EDGE_08": 720,
-    "ROCK_EDGE_09": 721,
-    "ROCK_EDGE_0A": 722,
-    "ROCK_EDGE_0B": 723,
-    "ROCK_EDGE_0C": 724,
-    "ROCK_EDGE_0D": 725,
-    "ROCK_EDGE_0E": 726,
-    "ROCK_EDGE_0F": 727,
-    "ROCK_EDGE_10": 728,
-    "ROCK_EDGE_12": 729,
-    "ROCK_EDGE_14": 730,
-    "ROCK_EDGE_16": 731,
-    "ROCK_EDGE_20": 732,
-    "ROCK_EDGE_24": 733,
-    "ROCK_EDGE_28": 734,
-    "ROCK_EDGE_2C": 735,
-    "ROCK_EDGE_30": 736,
-    "ROCK_EDGE_34": 737,
-    "ROCK_EDGE_40": 738,
-    "ROCK_EDGE_41": 739,
-    "ROCK_EDGE_48": 740,
-    "ROCK_EDGE_49": 741,
-    "ROCK_EDGE_50": 742,
-    "ROCK_EDGE_60": 743,
-    "ROCK_EDGE_68": 744,
-    "ROCK_EDGE_70": 745,
-    "ROCK_EDGE_80": 746,
-    "ROCK_EDGE_81": 747,
-    "ROCK_EDGE_82": 748,
-    "ROCK_EDGE_83": 749,
-    "ROCK_EDGE_90": 750,
-    "ROCK_EDGE_92": 751,
-    "ROCK_EDGE_A0": 752,
-    "ROCK_EDGE_B0": 753,
-    "ROCK_EDGE_C0": 754,
-    "ROCK_EDGE_C1": 755,
-    "ROCK_EDGE_D0": 756,
-    "ROCK_EDGE_E0": 757,
-    "ROCK_EDGE_F0": 758,
-    "RIM_FIR_0": 759,
-    "RIM_FIR_1": 760,
-    "RIM_FIR_2": 761,
-    "RIM_FIR_3": 762,
-    "RIM_SAPLING_0": 763,
-    "RIM_SAPLING_1": 764,
-    "RIM_TALUS": 765,
-    "SHORE_00": 766,
-    "SHORE_01": 767,
-    "SHORE_02": 768,
-    "SHORE_03": 769,
-    "SHORE_04": 770,
-    "SHORE_06": 771,
-    "SHORE_08": 772,
-    "SHORE_09": 773,
-    "SHORE_0C": 774,
-    "SHORE_10": 775,
-    "SHORE_20": 776,
-    "SHORE_40": 777,
-    "SUMP_INTAKE": 778,
-    "SUMP_PIPE": 779,
-    "ROCK_CUT_0_2": 780,
-    "ROCK_CUT_0_3": 781,
-    "ROCK_CUT_0_0": 782,
-    "ROCK_CUT_0_1": 783,
-    "ROCK_CUT_0_3E": 784,
-    "ROCK_CUT_0_2W": 785,
-    "ROCK_CUT_1_2": 786,
-    "ROCK_CUT_1_3": 787,
-    "ROCK_CUT_1_0": 788,
-    "ROCK_CUT_1_1": 789,
-    "ROCK_CUT_1_3E": 790,
-    "ROCK_CUT_1_2W": 791,
-    "ROCK_CUT_2_2": 792,
-    "ROCK_CUT_2_3": 793,
-    "ROCK_CUT_2_0": 794,
-    "ROCK_CUT_2_1": 795,
-    "ROCK_CUT_2_3E": 796,
-    "ROCK_CUT_2_2W": 797,
-    "ROCK_CUT_0_1E": 798,
-    "ROCK_CUT_0_0W": 799,
-    "ROCK_CUT_1_1E": 800,
-    "ROCK_CUT_1_0W": 801,
-    "ROCK_CUT_2_1E": 802,
-    "ROCK_CUT_2_0W": 803,
-    "ROCK_CUT_0_3W": 804,
-    "ROCK_CUT_1_3W": 805,
-    "ROCK_CUT_2_3W": 806,
-    "ROCK_CUT_2_2E": 807,
-    "ROCK_CUT_0_0E": 808,
-    "ROCK_CUT_1_0E": 809,
-    "ROCK_CUT_2_0E": 810,
-    "INLAY_278_314": 811,
-    "INLAY_279_315": 812,
-    "INLAY_278_312": 813,
-    "INLAY_279_313": 814,
-    "INLAY_278_315": 815,
-    "INLAY_279_312": 816,
-    "INLAY_238_2BE": 817,
-    "INLAY_239_2BD": 818,
-    "INLAY_23A_2BE": 819,
-    "INLAY_23B_2BD": 820,
-    "INLAY_236_2A8": 821,
-    "INLAY_237_2A7": 822,
-    "INLAY_268_2BE": 823,
-    "INLAY_269_2BD": 824,
-    "INLAY_26A_2BE": 825,
-    "INLAY_26B_2BE": 826,
-    "INLAY_26C_2BD": 827,
-    "INLAY_26D_2BE": 828,
-    "INLAY_238_2BC": 829,
-    "INLAY_239_2B5": 830,
-    "INLAY_23A_2BA": 831,
-    "INLAY_23B_2B5": 832,
-    "INLAY_250_2B4": 833,
-    "INLAY_252_2B5": 834,
-    "INLAY_228_30D": 835,
-    "INLAY_229_30E": 836,
-    "INLAY_22A_30F": 837,
-    "INLAY_22B_313": 838,
-    "INLAY_22C_314": 839,
-    "INLAY_22D_315": 840,
-    "INLAY_22E_319": 841,
-    "INLAY_22F_31A": 842,
-    "INLAY_230_31B": 843,
-    "INLAY_256_200": 844,
-    "INLAY_257_200": 845,
-    "INLAY_258_2A7": 846,
-    "INLAY_259_2A8": 847,
-    "INLAY_254_2A8": 848,
-    "INLAY_254_2A7": 849,
-    "INLAY_266_2A8": 850,
-    "INLAY_244_312": 851,
-    "INLAY_245_313": 852,
-    "INLAY_246_318": 853,
-    "INLAY_247_319": 854,
-    "INLAY_244_314": 855,
-    "INLAY_245_315": 856,
-    "INLAY_246_31A": 857,
-    "INLAY_247_31B": 858,
-    "INLAY_218_2B0": 859,
-    "INLAY_219_2AB": 860,
-    "INLAY_220_2BF": 861,
-    "INLAY_221_2C0": 862,
-    "INLAY_222_2BF": 863,
-    "INLAY_223_2C0": 864,
-    "INLAY_224_2BF": 865,
-    "INLAY_225_2C0": 866,
-    "INLAY_226_2BF": 867,
-    "INLAY_227_2C0": 868,
-    "INLAY_23A_2A7": 869,
-    "INLAY_23B_2A8": 870,
-    "INLAY_256_27D": 871,
-    "INLAY_258_200": 872,
-    "INLAY_259_200": 873,
-    "INLAY_25A_2C0": 874,
-    "INLAY_25B_2BF": 875,
-    "INLAY_25C_27B": 876,
-    "INLAY_25D_200": 877,
-    "INLAY_255_2BF": 878,
-    "INLAY_228_2CC": 879,
-    "INLAY_229_2CC": 880,
-    "INLAY_22A_2CC": 881,
-    "INLAY_26E_31A": 882,
-    "INLAY_26F_31B": 883,
-    "INLAY_270_318": 884,
-    "INLAY_257_27B": 885,
-    "INLAY_258_27D": 886,
-    "INLAY_259_27B": 887,
-    "INLAY_254_29F": 888,
-    "INLAY_254_2B5": 889,
-    "INLAY_262_200": 890,
-    "INLAY_263_200": 891,
-    "INLAY_264_27C": 892,
-    "INLAY_265_200": 893,
-    "INLAY_25A_2A7": 894,
-    "INLAY_25B_2A7": 895,
-    "INLAY_25C_2B0": 896,
-    "INLAY_25D_2B0": 897,
-    "INLAY_254_2A0": 898,
-    "INLAY_254_2B7": 899,
-    "INLAY_254_2B0": 900,
-    "INLAY_254_2AF": 901
+    "BRINK_POST": 632,
+    "BRINK_END": 633,
+    "QUARTZ_0": 634,
+    "QUARTZ_1": 635,
+    "SPLIT": 636,
+    "SHINGLE": 637,
+    "FLAKES": 638,
+    "FINES": 639,
+    "SCREE": 640,
+    "CUT_0": 641,
+    "CUT_1": 642,
+    "VEIN_0": 643,
+    "VEIN_1": 644,
+    "SEEP_0": 645,
+    "SEEP_1": 646,
+    "LICHEN_0": 647,
+    "LICHEN_1": 648,
+    "TRACK_LONG": 649,
+    "TRACK_LONG_V": 650,
+    "TRACK_SHORT": 651,
+    "TRACK_SHORT_V": 652,
+    "SLAB_0": 653,
+    "SLAB_1": 654,
+    "DECK_0": 655,
+    "DECK_1": 656,
+    "ROCK_BED_0": 657,
+    "ROCK_BED_1": 658,
+    "ROCK_BED_2": 659,
+    "ROCK_BED_3": 660,
+    "ROCK_BED_4": 661,
+    "ROCK_BED_5": 662,
+    "ROCK_BED_6": 663,
+    "ROCK_BED_7": 664,
+    "RIM_FIR_0": 665,
+    "RIM_FIR_1": 666,
+    "RIM_FIR_2": 667,
+    "RIM_FIR_3": 668,
+    "RIM_SAPLING_0": 669,
+    "RIM_SAPLING_1": 670,
+    "RIM_TALUS": 671,
+    "SHORE_00": 672,
+    "SHORE_01": 673,
+    "SHORE_02": 674,
+    "SHORE_03": 675,
+    "SHORE_04": 676,
+    "SHORE_06": 677,
+    "SHORE_08": 678,
+    "SHORE_09": 679,
+    "SHORE_0C": 680,
+    "SHORE_10": 681,
+    "SHORE_20": 682,
+    "SHORE_40": 683,
+    "SUMP_INTAKE": 684,
+    "SUMP_PIPE": 685,
+    "ROCK_EDGE_40": 686,
+    "ROCK_EDGE_04": 687,
+    "ROCK_EDGE_C0": 688,
+    "ROCK_EDGE_80": 689,
+    "ROCK_EDGE_06": 690,
+    "ROCK_EDGE_0A": 691,
+    "ROCK_EDGE_0C": 692,
+    "ROCK_EDGE_08": 693,
+    "ROCK_EDGE_09": 694,
+    "ROCK_EDGE_01": 695,
+    "ROCK_EDGE_12": 696,
+    "ROCK_EDGE_02": 697,
+    "ROCK_EDGE_48": 698,
+    "ROCK_EDGE_0E": 699,
+    "ROCK_EDGE_10": 700,
+    "ROCK_EDGE_03": 701,
+    "ROCK_EDGE_50": 702,
+    "ROCK_EDGE_A0": 703,
+    "ROCK_EDGE_41": 704,
+    "ROCK_EDGE_14": 705,
+    "ROCK_EDGE_20": 706,
+    "ROCK_EDGE_82": 707,
+    "ROCK_EDGE_28": 708,
+    "ROCK_EDGE_0B": 709,
+    "ROCK_EDGE_60": 710,
+    "ROCK_EDGE_07": 711,
+    "ROCK_EDGE_0F": 712,
+    "ROCK_EDGE_49": 713,
+    "ROCK_EDGE_05": 714,
+    "ROCK_EDGE_0D": 715,
+    "ROCK_EDGE_83": 716,
+    "ROCK_EDGE_24": 717,
+    "ROCK_EDGE_81": 718,
+    "ROCK_BENCH_TOP_0_0E": 719,
+    "ROCK_CUT_0_3": 720,
+    "ROCK_CUT_0_0": 721,
+    "ROCK_CUT_0_1": 722,
+    "ROCK_CUT_0_2": 723,
+    "ROCK_BENCH_TOP_0_0W": 724,
+    "ROCK_CUT_0_2E": 725,
+    "ROCK_CUT_2_3": 726,
+    "ROCK_CUT_2_0": 727,
+    "ROCK_CUT_2_1": 728,
+    "ROCK_CUT_2_2": 729,
+    "ROCK_CUT_0_0W": 730,
+    "ROCK_CUT_0_0E": 731,
+    "ROCK_CUT_2_2E": 732,
+    "ROCK_CUT_2_0W": 733,
+    "ROCK_CUT_2_0E": 734,
+    "ROCK_CUT_0_2W": 735,
+    "ROCK_CUT_2_2W": 736,
+    "ROCK_BENCH_REAR_0_0W": 737,
+    "ROCK_BENCH_REAR_1_0W": 738,
+    "ROCK_BENCH_REAR_1_0": 739,
+    "ROCK_BENCH_REAR_0_0E": 740,
+    "ROCK_BENCH_REAR_1_0E": 741,
+    "ROCK_BENCH_TOP_1_0W": 742,
+    "ROCK_BENCH_TOP_1_3": 743,
+    "ROCK_BENCH_TOP_1_2": 744,
+    "ROCK_BENCH_TOP_1_0E": 745,
+    "ROCK_CUT_0_1E": 746,
+    "ROCK_CUT_2_1E": 747,
+    "ROCK_BENCH_TOP_1_1": 748,
+    "ROCK_BENCH_TOP_1_0": 749,
+    "ROCK_BENCH_REAR_2_0W": 750,
+    "ROCK_BENCH_REAR_2_0": 751,
+    "ROCK_BENCH_REAR_2_0E": 752,
+    "ROCK_BENCH_LIP_2W": 753,
+    "ROCK_BENCH_LIP_3": 754,
+    "ROCK_BENCH_LIP_0": 755,
+    "ROCK_BENCH_LIP_1E": 756,
+    "ROCK_BENCH_LIP_0E": 757,
+    "ROCK_BENCH_TOP_2_2": 758,
+    "ROCK_BENCH_TOP_2_3": 759,
+    "ROCK_BENCH_TOP_2_0E": 760,
+    "ROCK_BENCH_LIP_2": 761,
+    "ROCK_BENCH_LIP_1": 762,
+    "ROCK_BENCH_LIP_1W": 763,
+    "ROCK_BENCH_LIP_2E": 764,
+    "ROCK_BENCH_LIP_0W": 765,
+    "ROCK_CUT_2_1W": 766,
+    "ROCK_BENCH_LIP_3E": 767,
+    "ROCK_CUT_2_3E": 768,
+    "ROCK_CUT_0_3W": 769,
+    "ROCK_CUT_2_3W": 770,
+    "ROCK_CUT_1_2": 771,
+    "ROCK_CUT_1_3": 772,
+    "ROCK_CUT_1_0": 773,
+    "ROCK_CUT_1_1": 774,
+    "ROCK_CUT_1_2E": 775,
+    "ROCK_CUT_0_3E": 776,
+    "ROCK_CUT_1_3E": 777,
+    "ROCK_CUT_1_2W": 778,
+    "ROCK_CUT_1_3W": 779,
+    "ROCK_CUT_1_1E": 780,
+    "ROCK_CUT_1_0E": 781,
+    "ROCK_CUT_0_1W": 782,
+    "ROCK_CUT_1_1W": 783,
+    "ROCK_CUT_1_0W": 784,
+    "ROCK_BENCH_TOP_2_0W": 785,
+    "ROAD_26": 786,
+    "ROAD_6E": 787,
+    "ROAD_6E_B": 788,
+    "ROAD_37_B": 789,
+    "ROAD_DF": 790,
+    "ROAD_9B_B": 791,
+    "ROAD_9B": 792,
+    "ROAD_CD": 793,
+    "ROAD_CD_B": 794,
+    "ROAD_37": 795,
+    "ROAD_7F": 796,
+    "ROAD_89": 797,
+    "ROAD_BF": 798,
+    "ROAD_13": 799,
+    "ROAD_4C": 800,
+    "ROAD_5F": 801,
+    "ROAD_17": 802,
+    "ROAD_EF": 803,
+    "ROAD_4E": 804,
+    "ROAD_09": 805,
+    "FLAKES_HEIGHT_5": 806,
+    "SPLIT_HEIGHT_5": 807,
+    "GROUND_HEIGHT_5": 808,
+    "SHINGLE_HEIGHT_5": 809,
+    "SPLIT_HEIGHT_7": 810,
+    "GROUND_HEIGHT_7": 811,
+    "FINES_HEIGHT_7": 812,
+    "FLAKES_HEIGHT_7": 813,
+    "SLATE_RUBBLE_BASE_0_0_HEIGHT_7": 814,
+    "SLATE_RUBBLE_BASE_1_0_HEIGHT_7": 815,
+    "SHINGLE_HEIGHT_7": 816,
+    "SLATE_RUBBLE_BASE_0_1_HEIGHT_7": 817,
+    "SLATE_RUBBLE_BASE_1_1_HEIGHT_7": 818,
+    "SCREE_HEIGHT_5": 819,
+    "ROUGH_HEIGHT_5": 820,
+    "FINES_HEIGHT_5": 821,
+    "CUT_0_HEIGHT_5": 822,
+    "CUT_1_HEIGHT_5": 823,
+    "VEIN_0_HEIGHT_5": 824,
+    "VEIN_1_HEIGHT_5": 825,
+    "BRINK_POST_HEIGHT_5": 826,
+    "BRINK_END_HEIGHT_5": 827,
+    "VEIN_0_HEIGHT_7": 828,
+    "VEIN_1_HEIGHT_7": 829,
+    "CUT_SLATE_STACK_BASE_0_0_HEIGHT_5": 830,
+    "CUT_SLATE_STACK_BASE_1_0_HEIGHT_5": 831,
+    "CUT_0_HEIGHT_7": 832,
+    "CUT_1_HEIGHT_7": 833,
+    "ROAD_26_HEIGHT_5": 834,
+    "ROAD_6E_HEIGHT_5": 835,
+    "ROAD_4C_HEIGHT_5": 836,
+    "CUT_SLATE_STACK_BASE_0_1_HEIGHT_5": 837,
+    "CUT_SLATE_STACK_BASE_1_1_HEIGHT_5": 838,
+    "BRINK_POST_HEIGHT_7": 839,
+    "BRINK_END_HEIGHT_7": 840,
+    "ROAD_37_B_HEIGHT_5": 841,
+    "TRACK_SHORT_V_HEIGHT_5": 842,
+    "ROAD_CD_B_HEIGHT_5": 843,
+    "ROAD_5F_HEIGHT_5": 844,
+    "ROAD_9B_B_HEIGHT_5": 845,
+    "ROAD_89_HEIGHT_5": 846,
+    "ROAD_6E_B_HEIGHT_5": 847,
+    "TIMBER_DERRICK_BASE_0_0_HEIGHT_5": 848,
+    "TIMBER_DERRICK_BASE_1_0_HEIGHT_5": 849,
+    "TIMBER_DERRICK_BASE_2_0_HEIGHT_5": 850,
+    "TIMBER_DERRICK_BASE_3_0_HEIGHT_5": 851,
+    "ROAD_37_HEIGHT_5": 852,
+    "TRACK_LONG_V_HEIGHT_5": 853,
+    "ROAD_DF_HEIGHT_5": 854,
+    "ROAD_BF_HEIGHT_5": 855,
+    "ROAD_17_HEIGHT_5": 856,
+    "TIMBER_DERRICK_BASE_0_1_HEIGHT_5": 857,
+    "TIMBER_DERRICK_BASE_1_1_HEIGHT_5": 858,
+    "TIMBER_DERRICK_BASE_2_1_HEIGHT_5": 859,
+    "TIMBER_DERRICK_BASE_3_1_HEIGHT_5": 860,
+    "ROAD_HEIGHT_5": 861,
+    "ROAD_EF_HEIGHT_5": 862,
+    "ROAD_4E_HEIGHT_5": 863,
+    "ROAD_09_HEIGHT_5": 864,
+    "ROAD_CD_HEIGHT_5": 865,
+    "ROAD_13_HEIGHT_5": 866,
+    "ROAD_9B_HEIGHT_5": 867,
+    "VERTICAL_BASE_0_0_HEIGHT_5": 868,
+    "LOADED_CART_BASE_0_0_HEIGHT_5": 869,
+    "LOADED_CART_BASE_1_0_HEIGHT_5": 870,
+    "HORIZONTAL_BASE_0_0_HEIGHT_5": 871,
+    "LOADED_CART_BASE_0_1_HEIGHT_5": 872,
+    "LOADED_CART_BASE_1_1_HEIGHT_5": 873,
+    "GROUND_HEIGHT_1": 874,
+    "FLAKES_HEIGHT_1": 875,
+    "FINES_HEIGHT_1": 876,
+    "SPLIT_HEIGHT_1": 877,
+    "SHINGLE_HEIGHT_1": 878,
+    "CUT_SLATE_STACK_BASE_0_0_HEIGHT_7": 879,
+    "CUT_SLATE_STACK_BASE_1_0_HEIGHT_7": 880,
+    "CUT_SLATE_STACK_BASE_0_1_HEIGHT_7": 881,
+    "CUT_SLATE_STACK_BASE_1_1_HEIGHT_7": 882,
+    "SLATE_RUBBLE_BASE_0_0_HEIGHT_5": 883,
+    "SLATE_RUBBLE_BASE_1_0_HEIGHT_5": 884,
+    "SLATE_RUBBLE_BASE_0_1_HEIGHT_5": 885,
+    "SLATE_RUBBLE_BASE_1_1_HEIGHT_5": 886,
+    "INLAY_27A_2D7": 887,
+    "INLAY_27B_2D8": 888,
+    "INLAY_27A_303": 889,
+    "INLAY_27B_304": 890,
+    "INLAY_27A_306": 891,
+    "INLAY_27B_303": 892,
+    "INLAY_238_28E": 893,
+    "INLAY_239_28D": 894,
+    "INLAY_23A_28E": 895,
+    "INLAY_23B_28D": 896,
+    "INLAY_236_314": 897,
+    "INLAY_237_313": 898,
+    "INLAY_268_28E": 899,
+    "INLAY_269_28D": 900,
+    "INLAY_26A_28E": 901,
+    "INLAY_26B_28E": 902,
+    "INLAY_26C_28D": 903,
+    "INLAY_26D_28E": 904,
+    "INLAY_238_28C": 905,
+    "INLAY_239_31A": 906,
+    "INLAY_23A_28A": 907,
+    "INLAY_23B_31A": 908,
+    "INLAY_250_319": 909,
+    "INLAY_252_31A": 910,
+    "INLAY_228_2D0": 911,
+    "INLAY_229_2D1": 912,
+    "INLAY_22A_2D2": 913,
+    "INLAY_22B_304": 914,
+    "INLAY_22C_305": 915,
+    "INLAY_22D_306": 916,
+    "INLAY_22E_2D6": 917,
+    "INLAY_22F_2D7": 918,
+    "INLAY_230_2D8": 919,
+    "INLAY_256_200": 920,
+    "INLAY_257_200": 921,
+    "INLAY_258_313": 922,
+    "INLAY_259_314": 923,
+    "INLAY_254_314": 924,
+    "INLAY_254_313": 925,
+    "INLAY_266_314": 926,
+    "INLAY_244_304": 927,
+    "INLAY_245_305": 928,
+    "INLAY_246_2D6": 929,
+    "INLAY_247_2D7": 930,
+    "INLAY_244_306": 931,
+    "INLAY_245_303": 932,
+    "INLAY_246_2D8": 933,
+    "INLAY_247_2D9": 934,
+    "INLAY_244_303": 935,
+    "INLAY_245_304": 936,
+    "INLAY_246_2D9": 937,
+    "INLAY_247_2D6": 938,
+    "INLAY_244_305": 939,
+    "INLAY_245_306": 940,
+    "INLAY_246_2D7": 941,
+    "INLAY_247_2D8": 942,
+    "INLAY_220_28F": 943,
+    "INLAY_221_290": 944,
+    "INLAY_222_28F": 945,
+    "INLAY_223_290": 946,
+    "INLAY_224_28F": 947,
+    "INLAY_225_290": 948,
+    "INLAY_226_28F": 949,
+    "INLAY_227_290": 950,
+    "INLAY_250_34F": 951,
+    "INLAY_251_35F": 952,
+    "INLAY_252_34D": 953,
+    "INLAY_253_34E": 954,
+    "INLAY_267_362": 955,
+    "INLAY_256_335": 956,
+    "INLAY_257_328": 957,
+    "INLAY_258_328": 958,
+    "INLAY_259_328": 959,
+    "INLAY_25A_290": 960,
+    "INLAY_25B_28F": 961,
+    "INLAY_25C_329": 962,
+    "INLAY_25D_328": 963,
+    "INLAY_255_28F": 964,
+    "INLAY_228_2AF": 965,
+    "INLAY_229_2AF": 966,
+    "INLAY_22A_2AF": 967,
+    "INLAY_26E_2D7": 968,
+    "INLAY_26F_2D8": 969,
+    "INLAY_270_2D9": 970,
+    "INLAY_245_2D2": 971,
+    "INLAY_247_306": 972,
+    "INLAY_257_27D": 973,
+    "INLAY_258_27F": 974,
+    "INLAY_259_27D": 975,
+    "INLAY_254_31B": 976,
+    "INLAY_254_31A": 977,
+    "INLAY_262_200": 978,
+    "INLAY_263_200": 979,
+    "INLAY_264_27E": 980,
+    "INLAY_265_200": 981,
+    "INLAY_25A_313": 982,
+    "INLAY_25B_313": 983,
+    "INLAY_25C_317": 984,
+    "INLAY_25D_317": 985,
+    "INLAY_254_315": 986,
+    "INLAY_254_316": 987,
+    "INLAY_254_317": 988,
+    "INLAY_254_318": 989,
+    "INLAY_258_200": 990,
+    "INLAY_259_200": 991
   },
   "assets": {
     "timber_derrick": [
@@ -616,462 +706,532 @@
       ]
     ]
   },
-  "graphics": 489,
+  "graphics": 494,
   "inlays": [
     {
-      "index": 811,
-      "art": 632,
-      "terrain": 788
-    },
-    {
-      "index": 812,
-      "art": 633,
-      "terrain": 789
-    },
-    {
-      "index": 813,
-      "art": 632,
-      "terrain": 786
-    },
-    {
-      "index": 814,
-      "art": 633,
-      "terrain": 787
-    },
-    {
-      "index": 815,
-      "art": 632,
-      "terrain": 789
-    },
-    {
-      "index": 816,
-      "art": 633,
-      "terrain": 786
-    },
-    {
-      "index": 817,
-      "art": 568,
-      "terrain": 702
-    },
-    {
-      "index": 818,
-      "art": 569,
-      "terrain": 701
-    },
-    {
-      "index": 819,
-      "art": 570,
-      "terrain": 702
-    },
-    {
-      "index": 820,
-      "art": 571,
-      "terrain": 701
-    },
-    {
-      "index": 821,
-      "art": 566,
-      "terrain": 680
-    },
-    {
-      "index": 822,
-      "art": 567,
-      "terrain": 679
-    },
-    {
-      "index": 823,
-      "art": 616,
-      "terrain": 702
-    },
-    {
-      "index": 824,
-      "art": 617,
-      "terrain": 701
-    },
-    {
-      "index": 825,
-      "art": 618,
-      "terrain": 702
-    },
-    {
-      "index": 826,
-      "art": 619,
-      "terrain": 702
-    },
-    {
-      "index": 827,
-      "art": 620,
-      "terrain": 701
-    },
-    {
-      "index": 828,
-      "art": 621,
-      "terrain": 702
-    },
-    {
-      "index": 829,
-      "art": 568,
-      "terrain": 700
-    },
-    {
-      "index": 830,
-      "art": 569,
-      "terrain": 693
-    },
-    {
-      "index": 831,
-      "art": 570,
-      "terrain": 698
-    },
-    {
-      "index": 832,
-      "art": 571,
-      "terrain": 693
-    },
-    {
-      "index": 833,
-      "art": 592,
-      "terrain": 692
-    },
-    {
-      "index": 834,
-      "art": 594,
-      "terrain": 693
-    },
-    {
-      "index": 835,
-      "art": 552,
-      "terrain": 781
-    },
-    {
-      "index": 836,
-      "art": 553,
-      "terrain": 782
-    },
-    {
-      "index": 837,
-      "art": 554,
-      "terrain": 783
-    },
-    {
-      "index": 838,
-      "art": 555,
-      "terrain": 787
-    },
-    {
-      "index": 839,
-      "art": 556,
-      "terrain": 788
-    },
-    {
-      "index": 840,
-      "art": 557,
-      "terrain": 789
-    },
-    {
-      "index": 841,
-      "art": 558,
-      "terrain": 793
-    },
-    {
-      "index": 842,
-      "art": 559,
-      "terrain": 794
-    },
-    {
-      "index": 843,
-      "art": 560,
-      "terrain": 795
-    },
-    {
-      "index": 844,
-      "art": 598,
-      "terrain": 512
-    },
-    {
-      "index": 845,
-      "art": 599,
-      "terrain": 512
-    },
-    {
-      "index": 846,
-      "art": 600,
-      "terrain": 679
-    },
-    {
-      "index": 847,
-      "art": 601,
-      "terrain": 680
-    },
-    {
-      "index": 848,
-      "art": 596,
-      "terrain": 680
-    },
-    {
-      "index": 849,
-      "art": 596,
-      "terrain": 679
-    },
-    {
-      "index": 850,
-      "art": 614,
-      "terrain": 680
-    },
-    {
-      "index": 851,
-      "art": 580,
-      "terrain": 786
-    },
-    {
-      "index": 852,
-      "art": 581,
-      "terrain": 787
-    },
-    {
-      "index": 853,
-      "art": 582,
-      "terrain": 792
-    },
-    {
-      "index": 854,
-      "art": 583,
-      "terrain": 793
-    },
-    {
-      "index": 855,
-      "art": 580,
-      "terrain": 788
-    },
-    {
-      "index": 856,
-      "art": 581,
-      "terrain": 789
-    },
-    {
-      "index": 857,
-      "art": 582,
-      "terrain": 794
-    },
-    {
-      "index": 858,
-      "art": 583,
-      "terrain": 795
-    },
-    {
-      "index": 859,
-      "art": 536,
-      "terrain": 688
-    },
-    {
-      "index": 860,
-      "art": 537,
-      "terrain": 683
-    },
-    {
-      "index": 861,
-      "art": 544,
-      "terrain": 703
-    },
-    {
-      "index": 862,
-      "art": 545,
-      "terrain": 704
-    },
-    {
-      "index": 863,
-      "art": 546,
-      "terrain": 703
-    },
-    {
-      "index": 864,
-      "art": 547,
-      "terrain": 704
-    },
-    {
-      "index": 865,
-      "art": 548,
-      "terrain": 703
-    },
-    {
-      "index": 866,
-      "art": 549,
-      "terrain": 704
-    },
-    {
-      "index": 867,
-      "art": 550,
-      "terrain": 703
-    },
-    {
-      "index": 868,
-      "art": 551,
-      "terrain": 704
-    },
-    {
-      "index": 869,
-      "art": 570,
-      "terrain": 679
-    },
-    {
-      "index": 870,
-      "art": 571,
-      "terrain": 680
-    },
-    {
-      "index": 871,
-      "art": 598,
-      "terrain": 637
-    },
-    {
-      "index": 872,
-      "art": 600,
-      "terrain": 512
-    },
-    {
-      "index": 873,
-      "art": 601,
-      "terrain": 512
-    },
-    {
-      "index": 874,
-      "art": 602,
-      "terrain": 704
-    },
-    {
-      "index": 875,
-      "art": 603,
-      "terrain": 703
-    },
-    {
-      "index": 876,
-      "art": 604,
-      "terrain": 635
-    },
-    {
-      "index": 877,
-      "art": 605,
-      "terrain": 512
-    },
-    {
-      "index": 878,
-      "art": 597,
-      "terrain": 703
-    },
-    {
-      "index": 879,
-      "art": 552,
-      "terrain": 716
-    },
-    {
-      "index": 880,
-      "art": 553,
-      "terrain": 716
-    },
-    {
-      "index": 881,
-      "art": 554,
-      "terrain": 716
-    },
-    {
-      "index": 882,
-      "art": 622,
-      "terrain": 794
-    },
-    {
-      "index": 883,
-      "art": 623,
-      "terrain": 795
-    },
-    {
-      "index": 884,
-      "art": 624,
-      "terrain": 792
-    },
-    {
-      "index": 885,
-      "art": 599,
-      "terrain": 635
-    },
-    {
-      "index": 886,
-      "art": 600,
-      "terrain": 637
-    },
-    {
       "index": 887,
-      "art": 601,
-      "terrain": 635
+      "art": 634,
+      "terrain": 727
     },
     {
       "index": 888,
-      "art": 596,
-      "terrain": 671
+      "art": 635,
+      "terrain": 728
     },
     {
       "index": 889,
-      "art": 596,
-      "terrain": 693
+      "art": 634,
+      "terrain": 771
     },
     {
       "index": 890,
+      "art": 635,
+      "terrain": 772
+    },
+    {
+      "index": 891,
+      "art": 634,
+      "terrain": 774
+    },
+    {
+      "index": 892,
+      "art": 635,
+      "terrain": 771
+    },
+    {
+      "index": 893,
+      "art": 568,
+      "terrain": 654
+    },
+    {
+      "index": 894,
+      "art": 569,
+      "terrain": 653
+    },
+    {
+      "index": 895,
+      "art": 570,
+      "terrain": 654
+    },
+    {
+      "index": 896,
+      "art": 571,
+      "terrain": 653
+    },
+    {
+      "index": 897,
+      "art": 566,
+      "terrain": 788
+    },
+    {
+      "index": 898,
+      "art": 567,
+      "terrain": 787
+    },
+    {
+      "index": 899,
+      "art": 616,
+      "terrain": 654
+    },
+    {
+      "index": 900,
+      "art": 617,
+      "terrain": 653
+    },
+    {
+      "index": 901,
+      "art": 618,
+      "terrain": 654
+    },
+    {
+      "index": 902,
+      "art": 619,
+      "terrain": 654
+    },
+    {
+      "index": 903,
+      "art": 620,
+      "terrain": 653
+    },
+    {
+      "index": 904,
+      "art": 621,
+      "terrain": 654
+    },
+    {
+      "index": 905,
+      "art": 568,
+      "terrain": 652
+    },
+    {
+      "index": 906,
+      "art": 569,
+      "terrain": 794
+    },
+    {
+      "index": 907,
+      "art": 570,
+      "terrain": 650
+    },
+    {
+      "index": 908,
+      "art": 571,
+      "terrain": 794
+    },
+    {
+      "index": 909,
+      "art": 592,
+      "terrain": 793
+    },
+    {
+      "index": 910,
+      "art": 594,
+      "terrain": 794
+    },
+    {
+      "index": 911,
+      "art": 552,
+      "terrain": 720
+    },
+    {
+      "index": 912,
+      "art": 553,
+      "terrain": 721
+    },
+    {
+      "index": 913,
+      "art": 554,
+      "terrain": 722
+    },
+    {
+      "index": 914,
+      "art": 555,
+      "terrain": 772
+    },
+    {
+      "index": 915,
+      "art": 556,
+      "terrain": 773
+    },
+    {
+      "index": 916,
+      "art": 557,
+      "terrain": 774
+    },
+    {
+      "index": 917,
+      "art": 558,
+      "terrain": 726
+    },
+    {
+      "index": 918,
+      "art": 559,
+      "terrain": 727
+    },
+    {
+      "index": 919,
+      "art": 560,
+      "terrain": 728
+    },
+    {
+      "index": 920,
+      "art": 598,
+      "terrain": 512
+    },
+    {
+      "index": 921,
+      "art": 599,
+      "terrain": 512
+    },
+    {
+      "index": 922,
+      "art": 600,
+      "terrain": 787
+    },
+    {
+      "index": 923,
+      "art": 601,
+      "terrain": 788
+    },
+    {
+      "index": 924,
+      "art": 596,
+      "terrain": 788
+    },
+    {
+      "index": 925,
+      "art": 596,
+      "terrain": 787
+    },
+    {
+      "index": 926,
+      "art": 614,
+      "terrain": 788
+    },
+    {
+      "index": 927,
+      "art": 580,
+      "terrain": 772
+    },
+    {
+      "index": 928,
+      "art": 581,
+      "terrain": 773
+    },
+    {
+      "index": 929,
+      "art": 582,
+      "terrain": 726
+    },
+    {
+      "index": 930,
+      "art": 583,
+      "terrain": 727
+    },
+    {
+      "index": 931,
+      "art": 580,
+      "terrain": 774
+    },
+    {
+      "index": 932,
+      "art": 581,
+      "terrain": 771
+    },
+    {
+      "index": 933,
+      "art": 582,
+      "terrain": 728
+    },
+    {
+      "index": 934,
+      "art": 583,
+      "terrain": 729
+    },
+    {
+      "index": 935,
+      "art": 580,
+      "terrain": 771
+    },
+    {
+      "index": 936,
+      "art": 581,
+      "terrain": 772
+    },
+    {
+      "index": 937,
+      "art": 582,
+      "terrain": 729
+    },
+    {
+      "index": 938,
+      "art": 583,
+      "terrain": 726
+    },
+    {
+      "index": 939,
+      "art": 580,
+      "terrain": 773
+    },
+    {
+      "index": 940,
+      "art": 581,
+      "terrain": 774
+    },
+    {
+      "index": 941,
+      "art": 582,
+      "terrain": 727
+    },
+    {
+      "index": 942,
+      "art": 583,
+      "terrain": 728
+    },
+    {
+      "index": 943,
+      "art": 544,
+      "terrain": 655
+    },
+    {
+      "index": 944,
+      "art": 545,
+      "terrain": 656
+    },
+    {
+      "index": 945,
+      "art": 546,
+      "terrain": 655
+    },
+    {
+      "index": 946,
+      "art": 547,
+      "terrain": 656
+    },
+    {
+      "index": 947,
+      "art": 548,
+      "terrain": 655
+    },
+    {
+      "index": 948,
+      "art": 549,
+      "terrain": 656
+    },
+    {
+      "index": 949,
+      "art": 550,
+      "terrain": 655
+    },
+    {
+      "index": 950,
+      "art": 551,
+      "terrain": 656
+    },
+    {
+      "index": 951,
+      "art": 592,
+      "terrain": 847
+    },
+    {
+      "index": 952,
+      "art": 593,
+      "terrain": 863
+    },
+    {
+      "index": 953,
+      "art": 594,
+      "terrain": 845
+    },
+    {
+      "index": 954,
+      "art": 595,
+      "terrain": 846
+    },
+    {
+      "index": 955,
+      "art": 615,
+      "terrain": 866
+    },
+    {
+      "index": 956,
+      "art": 598,
+      "terrain": 821
+    },
+    {
+      "index": 957,
+      "art": 599,
+      "terrain": 808
+    },
+    {
+      "index": 958,
+      "art": 600,
+      "terrain": 808
+    },
+    {
+      "index": 959,
+      "art": 601,
+      "terrain": 808
+    },
+    {
+      "index": 960,
+      "art": 602,
+      "terrain": 656
+    },
+    {
+      "index": 961,
+      "art": 603,
+      "terrain": 655
+    },
+    {
+      "index": 962,
+      "art": 604,
+      "terrain": 809
+    },
+    {
+      "index": 963,
+      "art": 605,
+      "terrain": 808
+    },
+    {
+      "index": 964,
+      "art": 597,
+      "terrain": 655
+    },
+    {
+      "index": 965,
+      "art": 552,
+      "terrain": 687
+    },
+    {
+      "index": 966,
+      "art": 553,
+      "terrain": 687
+    },
+    {
+      "index": 967,
+      "art": 554,
+      "terrain": 687
+    },
+    {
+      "index": 968,
+      "art": 622,
+      "terrain": 727
+    },
+    {
+      "index": 969,
+      "art": 623,
+      "terrain": 728
+    },
+    {
+      "index": 970,
+      "art": 624,
+      "terrain": 729
+    },
+    {
+      "index": 971,
+      "art": 581,
+      "terrain": 722
+    },
+    {
+      "index": 972,
+      "art": 583,
+      "terrain": 774
+    },
+    {
+      "index": 973,
+      "art": 599,
+      "terrain": 637
+    },
+    {
+      "index": 974,
+      "art": 600,
+      "terrain": 639
+    },
+    {
+      "index": 975,
+      "art": 601,
+      "terrain": 637
+    },
+    {
+      "index": 976,
+      "art": 596,
+      "terrain": 795
+    },
+    {
+      "index": 977,
+      "art": 596,
+      "terrain": 794
+    },
+    {
+      "index": 978,
       "art": 610,
       "terrain": 512
     },
     {
-      "index": 891,
+      "index": 979,
       "art": 611,
       "terrain": 512
     },
     {
-      "index": 892,
+      "index": 980,
       "art": 612,
-      "terrain": 636
+      "terrain": 638
     },
     {
-      "index": 893,
+      "index": 981,
       "art": 613,
       "terrain": 512
     },
     {
-      "index": 894,
+      "index": 982,
       "art": 602,
-      "terrain": 679
+      "terrain": 787
     },
     {
-      "index": 895,
+      "index": 983,
       "art": 603,
-      "terrain": 679
+      "terrain": 787
     },
     {
-      "index": 896,
+      "index": 984,
       "art": 604,
-      "terrain": 688
+      "terrain": 791
     },
     {
-      "index": 897,
+      "index": 985,
       "art": 605,
-      "terrain": 688
+      "terrain": 791
     },
     {
-      "index": 898,
+      "index": 986,
       "art": 596,
-      "terrain": 672
+      "terrain": 789
     },
     {
-      "index": 899,
+      "index": 987,
       "art": 596,
-      "terrain": 695
+      "terrain": 790
     },
     {
-      "index": 900,
+      "index": 988,
       "art": 596,
-      "terrain": 688
+      "terrain": 791
     },
     {
-      "index": 901,
+      "index": 989,
       "art": 596,
-      "terrain": 687
+      "terrain": 792
+    },
+    {
+      "index": 990,
+      "art": 600,
+      "terrain": 512
+    },
+    {
+      "index": 991,
+      "art": 601,
+      "terrain": 512
     }
   ]
 }

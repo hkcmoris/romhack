@@ -9404,8 +9404,8 @@
     {
       "id": "LAYOUT_VIRELIA_SLATEFORD_QUARRY_DEPTHS",
       "name": "Virelia_Slateford_QuarryDepths_Layout",
-      "width": 40,
-      "height": 32,
+      "width": 46,
+      "height": 40,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_VireliaQuarryOutdoor",
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryDepths/border.bin",
@@ -9438,7 +9438,7 @@
       "id": "LAYOUT_VIRELIA_SLATEFORD_QUARRY_GALLERY",
       "name": "Virelia_Slateford_QuarryGallery_Layout",
       "width": 36,
-      "height": 40,
+      "height": 48,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_VireliaQuarryOutdoor",
       "border_filepath": "data/layouts/Virelia_Slateford_QuarryGallery/border.bin",
@@ -9580,7 +9580,7 @@
     {
       "id": "LAYOUT_VIRELIA_SLATEFORD_QUARRY_TERRACES",
       "name": "Virelia_Slateford_QuarryTerraces_Layout",
-      "width": 40,
+      "width": 46,
       "height": 40,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_VireliaQuarryOutdoor",

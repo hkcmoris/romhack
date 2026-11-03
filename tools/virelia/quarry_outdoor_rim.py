@@ -6,7 +6,7 @@ def pack_rim(add, graphic, ids, meta, general, primary_pixels, bank):
     # halves. Remove the grass pixels baked into their trunks before layering
     # the trees over slate. Palette 10 gives these upland trees a sage ramp.
     colors = [(0, 0, 0), (176, 192, 136), (128, 160, 112), (88, 120, 88),
-              (56, 80, 72), (152, 128, 96), (96, 88, 80), (112, 88, 72),
+              (56, 80, 72), (128, 144, 144), (96, 88, 80), (112, 88, 72),
               (64, 64, 64), (168, 144, 104), (184, 152, 112), (144, 120, 96)]
     colors += [(0, 0, 0)] * (16 - len(colors))
     (bank / 'palettes/10.pal').write_text('JASC-PAL\n0100\n16\n' +

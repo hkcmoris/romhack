@@ -81,7 +81,9 @@ def render():
                     if p and 0<=yy<len(rows) and 0<=xx<len(rows[0])//3:rows[yy][xx*3:xx*3+3]=bytes(pal[p])
         images[name]=rows
         png(ROOT/'outputs/quarry-outdoor'/f'{name}.png',rows)
-    composite=[bytearray(bytes((46,52,56))* (76*16)) for _ in range(72*16)]
+    width=max(ORIGINS[n][0]*16+len(rows[0])//3 for n,rows in images.items())
+    height=max(ORIGINS[n][1]*16+len(rows) for n,rows in images.items())
+    composite=[bytearray(bytes((46,52,56))*width) for _ in range(height)]
     for name,(ox,oy) in ORIGINS.items():
         for y,row in enumerate(images[name]): composite[oy*16+y][ox*16*3:ox*16*3+len(row)]=row
     png(ROOT/'outputs/quarry-outdoor/overview.png',composite)

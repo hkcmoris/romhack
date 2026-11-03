@@ -74,6 +74,11 @@ def pack_sump(add, graphic, general, bank):
     # Frames for the two graphics in the calm-water metatile use indices
     # 11..14. Give them a mineral-green ramp in this bank's unused slot 9.
     water_palette = [(0, 0, 0)] * 16
+    # The mid-height working shelf uses indices 1-10 of this slot. Its
+    # floor and road shoulders share index 5, including underneath track.
+    water_palette[1:11] = [(80,88,88), (112,120,120), (144,152,144), (160,168,152),
+                           (184,184,168), (200,200,176), (216,216,192), (208,192,168),
+                           (160,152,128), (184,168,144)]
     water_palette[11:15] = [(152, 208, 192), (112, 184, 184),
                             (80, 152, 160), (64, 128, 144)]
     rows = (' '.join(map(str, color)) for color in water_palette)

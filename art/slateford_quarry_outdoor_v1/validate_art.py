@@ -64,6 +64,15 @@ def aseprite_pixels(path):
 
 
 def validate():
+    face,_,face_chunks=read_png(HERE/'exports/bench-face.png')
+    source,_=aseprite_pixels(HERE/'source/bench-face.aseprite')
+    require(source==face and len(face)==48 and len(face[0])==64,
+            'The bench face must match its 64x48 editable Aseprite source')
+    require(all(0 < p < 16 for row in face for p in row),
+            'A cut face must be opaque and fit the quarry stone palette')
+    stone=(ROOT/'data/tilesets/secondary/virelia_quarry_outdoor/palettes/06.pal').read_text()
+    require(dict(face_chunks)[b'PLTE']==bytes(int(c) for c in stone.splitlines()[3:19] for c in c.split()),
+            'Cut-face export and packed stone palette disagree')
     manifest = json.loads((HERE / 'manifest.json').read_text())
     pixels, depth, chunks = read_png(HERE / manifest['export'])
     width, height = manifest['canvas']

@@ -4,7 +4,7 @@
 PALETTE = (
     (0, 0, 0), (72, 88, 96), (104, 120, 128), (128, 144, 144),
     (152, 160, 152), (168, 176, 168), (184, 184, 168), (208, 208, 184),
-    (144, 136, 120), (168, 160, 144), (184, 176, 152), (200, 192, 168),
+    (200, 192, 168), (168, 160, 144), (184, 176, 152), (200, 192, 168),
     (104, 136, 136), (144, 168, 160), (128, 144, 112), (160, 168, 128),
 )
 
@@ -156,9 +156,9 @@ def road_image(mask, alternate=False):
     if mask in STRAIGHT_EDGES:
         horizontal = mask & 5 != 5
         if alternate:
-            marks = [(0, 8, '999'), (1, 9, 'bb'), (7, 7, '999999'), (9, 8, 'bbbb'), (10, 12, '9a9')]
+            marks = [(0, 8, '999'), (1, 9, '88'), (7, 7, '999999'), (9, 8, '8888'), (10, 12, '9a9')]
         else:
-            marks = [(0, 7, '9'), (5, 8, '9999'), (6, 9, 'bb'), (14, 8, '99'), (2, 4, '9')]
+            marks = [(0, 7, '9'), (5, 8, '9999'), (6, 9, '88'), (14, 8, '99'), (2, 4, '9')]
         flip = bool(mask & (1 if horizontal else 8))
         for along, across, stroke in marks:
             across = 15 - across if flip else across
@@ -179,19 +179,20 @@ def pack_surfaces(add, quarters):
         stamp(image, x, y, rows)
         for side in range(2):
             tile(f'{kind}_{side}', [row[side*16:side*16+16] for row in image])
-    masks = sorted({road_mask(m) for m in range(256)} - {255})
-    for mask in masks:
-        tile(f'ROAD_{mask:02X}', road_image(mask))
-        if mask in STRAIGHT_EDGES:
-            tile(f'ROAD_{mask:02X}_B', road_image(mask, alternate=True))
     for name, rows in (
-        ('LONG', ('...bbbbbb....', '.99999.......', '...........bb', '.........99..')),
-        ('SHORT', ('....bb.', '..999..', '.......', '......b')),
+        ('LONG', ('...888888....', '.99999.......', '...........88', '.........99..')),
+        ('SHORT', ('....88.', '..999..', '.......', '......8')),
     ):
         image = flat(10)
         stamp(image, 1, 6, rows)
         tile('TRACK_' + name, image)
         tile('TRACK_' + name + '_V', [list(row) for row in zip(*image)])
+
+    # Reserve metatile IDs for the road joins that actually occur in the
+    # connected maps, including crossings and bench exposure variants.
+    def pack_edge(key, mask, alternate):
+        tile(key, road_image(mask, alternate))
+    return pack_edge
 
 
 def pack_work_floors(add, quarters, bank):
@@ -246,7 +247,7 @@ def grain(x, y):
     return h ^ (h >> 16)
 
 
-def dress_surfaces(grids, ids, origins):
+def dress_surfaces(grids, ids, origins, pack_edge):
     roads = set()
     for name, grid in grids.items():
         ox, oy = origins[name]
@@ -267,6 +268,8 @@ def dress_surfaces(grids, ids, origins):
                     key = 'ROAD' if mask == 255 else f'ROAD_{mask:02X}'
                     if mask in STRAIGHT_EDGES and (choice >> 2) % 3:
                         key += '_B'
+                    if key not in ids:
+                        pack_edge(key, mask, key.endswith('_B'))
                     if mask == 255 and choice % 5 < 2:
                         key = 'TRACK_LONG' if choice & 1 else 'TRACK_SHORT'
                         if (gx+2, gy) not in roads or (gx-2, gy) not in roads:
@@ -289,3 +292,29 @@ def dress_surfaces(grids, ids, origins):
                 cells = grid[y][x:x+2]
                 if len(cells) == 2 and all(v & 1023 in bare for v in cells):
                     grid[y][x:x+2] = [(v & ~1023) | ids[f'{kind}_{i}'] for i,v in enumerate(cells)]
+
+
+def shade_benches(grids, ids, metatiles, attributes, add):
+    """Choose the exposure of the stone underfoot, including beneath props."""
+    names = {index: name for name, index in ids.items()}
+    variants = {}
+    # Sump shade, dressed middle shelf and the sunlit upper lift. The yard
+    # level already uses slot 8. These variants share their actual 8px art.
+    palettes = {1: 10, 5: 9, 7: 12}
+    for grid in grids.values():
+        for row in grid:
+            for x, block in enumerate(row):
+                elevation = block >> 12
+                index = block & 1023
+                if elevation not in palettes or index < 512:
+                    continue
+                start = (index - 512) * 8
+                base = metatiles[start:start+4]
+                if any(tile >> 12 != 8 for tile in base):
+                    continue
+                key = index, elevation
+                if key not in variants:
+                    lower = [(tile & 0xfff) | (palettes[elevation] << 12) for tile in base]
+                    name = f'{names[index]}_HEIGHT_{elevation}'
+                    variants[key] = add(name, lower + metatiles[start+4:start+8], attributes[index-512])
+                row[x] = (block & ~1023) | variants[key]

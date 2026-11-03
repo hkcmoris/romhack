@@ -9,6 +9,7 @@ The layout proposal is [Slateford quarry outdoor redesign](../../docs/VIRELIA_QU
 
 - `source/quarry-outdoor.aseprite` holds the editable layers and 19 named slices.
 - `exports/quarry-outdoor.png` is the native 128×192 indexed atlas. Index 0 is transparent.
+- `source/bench-face.aseprite` and `exports/bench-face.png` hold the 64×48 slate exposure. Its layers separate the fractured planes, mineral beds, drill scars and cut lip. The packer reads its four 16px columns for the cliff faces.
 - `manifest.json`: slice rectangles and intended gameplay roles.
 - `previews/tile-kit.png`: enlarged Aseprite review image, unsuitable for packing.
 - `previews/stone-props.png`: enlarged review of the rebuilt blocks and rubble.
