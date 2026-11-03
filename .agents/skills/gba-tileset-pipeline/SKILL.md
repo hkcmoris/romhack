@@ -1,0 +1,22 @@
+---
+name: gba-tileset-pipeline
+description: Create, repack or debug Virelia overworld terrain and prop graphics, indexed palettes, metatile definitions, behaviors and layers. Use when the tileset itself changes or renders incorrectly across a seam.
+---
+
+# GBA tileset pipeline
+
+Work from the repository root. Start with the affected map's layout in `data/layouts/layouts.json`. Follow its primary and secondary symbols through `src/data/tilesets/headers.h`, `graphics.h` and `metatiles.h` in that same directory. Check the actual PNG path, conversion tile count, palette sources, metatile tables and animation callback. A single bank may serve several layouts. Search scripts and native callbacks for metatile swaps as well as cells in the map and border before reusing an ID.
+
+## Choose the edit
+
+For a new arrangement of existing art, compose a metatile in the target pair before allocating more graphics. For new art, edit the native-size source or owning generator. In a kit with Aseprite sources, keep the editable layers, slice manifest and indexed PNG export in sync. Compare terrain repeats, inside/outside corners and props against an adjacent map at game scale. Use the exported palette indices for packing. Each 8×8 graphic uses one 16-entry palette, with index zero transparent in overlays. Check colors at GBA RGB555 precision.
+
+These Virelia Emerald banks compose a 16×16 metatile from two layers of four 8×8 entries each, ordered top left, top right, bottom left, bottom right within each layer. Each little-endian halfword contains a ten-bit **graphic** ID, horizontal and vertical flip bits and a four-bit palette slot. The corresponding attribute halfword selects behavior and layer type. A layout cell instead contains a **metatile** ID in its low ten bits with collision and elevation above it. Preserve those upper bits when remapping art. Match a working neighbor's behavior and drawing layers, including opaque ground below props and overhangs in front of actors where intended. See the [Porymap Tileset Editor manual](https://huderlem.github.io/porymap/manual/tileset-editor.html).
+
+## Choose the bank and checks
+
+- **Maplebrook, Route 01, Slateford City and Whisperwood Sanctuary.** Connected neighbors render through the current map's bank. Keep the General + VireliaOutdoor pairing and consistent shared IDs on both sides. In this bank the secondary graphics start at 512, must stay below 1008 to leave the final 16 for doors, and use secondary palette slots 6–12. Keep Petalburg slots 6, 8 and 10 intact for Maplebrook door animations. For packed donor art, inspect `SOURCES`, `REMAP` and `FIXED_PALETTES` in `tools/virelia/build_outdoor_tileset.py`. The packer rewrites multiple maps and the layout registry, and calls additional prop builders. Compare current Porymap edits and provenance before choosing a full rebuild. For a deliberate new authored shared metatile, record its expected composition/behavior or a dedicated check beside the existing cases. Run `python tools/validate_virelia_tilesets.py` to compare used metatiles, flips, palette colors and attributes.
+- **Slateford outdoor quarry.** Follow `art/slateford_quarry_outdoor_v1/README.md` for the layered source, named slices and slot 7 palette. After export run `python art/slateford_quarry_outdoor_v1/validate_art.py`. The packed bank, scripted control variants and map sections are generated together by `tools/virelia/build_quarry_outdoor.py`. Use that builder only for an intentional regeneration that accounts for later edits to the four sections. Run `python tools/validate_virelia_quarry.py --self-test` for runtime packing, canopies, controls and routes.
+- **Rainfall, coast and lighthouse.** Use the capacity declared for the specific symbol in `src/data/tilesets/graphics.h`. Run `python tools/validate_virelia_rainfall.py` for PNG capacities, referenced metatiles and loaded palette slots, including callback states. The Chapter 2 authoring script also writes map layouts. Scope changes to the asset that owns the defect.
+
+When a contract intentionally changes, update its source/export, consuming data and expected validator case together. For a visual fix, inspect the reloaded bank in the affected map with the actual adjacent tiles, player layer or animated door that exposed the issue. A passing packing check establishes file consistency; report in-game observations only after checking them in the ROM.
