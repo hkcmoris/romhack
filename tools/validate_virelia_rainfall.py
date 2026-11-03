@@ -11,6 +11,8 @@ from pathlib import Path
 import re
 import struct
 import sys
+from validate_virelia_tilesets import rendered_tile
+from virelia.localize_type_icons import read_png
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = '492267dadc0f9b54322a39038c479d717eba958a'
@@ -380,8 +382,8 @@ def validate_used_palettes(world):
     bridge_ids = {0x320, 0x321}
     for name, layout in world.layouts.items():
         if layout['secondary_tileset'] == 'gTileset_VireliaRainfall':
-            bridge_ids.update(cell & 1023 for cell in world.blocks[name]
-                              if 0x324 <= (cell & 1023) <= 0x32B)
+            decks = set(range(0x324, 0x32C)) | set(range(0x355, 0x361)) | set(range(0x370, 0x377))
+            bridge_ids.update((cell & 1023) for cell in world.blocks[name] if (cell & 1023) in decks)
     for bridge in sorted(bridge_ids):
         require(bridge - 512 < len(rainfall_attrs), f'Missing Rainfall bridge alias {bridge:#x}')
         attribute = rainfall_attrs[bridge - 512]
@@ -411,23 +413,46 @@ def validate_used_palettes(world):
     print(f'PASS: {len(checked)} used native metatiles, including callback states, use loaded palettes0-{limit - 1}')
 
 
+def validate_spruce_art():
+    """Check both halves and the foreground crown against the artist's indexed pixels."""
+    sheet, _, chunks = read_png(ROOT / 'data/tilesets/secondary/virelia_rainfall/fen.png')
+    colors = [tuple(c >> 3 for c in rgb) for rgb in struct.iter_unpack('3B', dict(chunks)[b'PLTE'])]
+    tree = [row[64:96] for row in sheet[32:80]]
+    overlap = [[crown or base for crown, base in zip(top, bottom)] for top, bottom in zip(tree[:16], tree[32:])]
+    rows = tree + overlap
+    for bank, first in (('virelia_rainfall', 0x389), ('virelia_coast', 0x248)):
+        metatiles = words(f'data/tilesets/secondary/{bank}/metatiles.bin')
+        for panel in range(8):
+            offset = (first + panel - 512) * 8 + 4
+            for q, ref in enumerate(metatiles[offset:offset + 4]):
+                x, y = panel % 2 * 16 + q % 2 * 8, panel // 2 * 16 + q // 2 * 8
+                expected = tuple(colors[i] if i else None for row in rows[y:y + 8] for i in row[x:x + 8])
+                require(rendered_tile(bank, ref) == expected,
+                        f'{bank}: spruce metatile {first + panel:#x} quarter {q} differs from fen.png')
+    print('PASS: both banks preserve the complete spruce crown, directional shading and stacked overlap')
+
+
 def validate_tree_footprints(world):
     """Read the drawn trees back from the blockmaps, including shared crown/base rows."""
-    crown, trunk, roots, overlap = (0x1CE, 0x1CF), (0x1D6, 0x1D7), (0x1E6, 0x1E7), (0x1DE, 0x1DF)
-    tree_tiles = set(crown + trunk + roots + overlap)
     for name in OUTDOORS:
+        spruce = (0x248, 0x24A, 0x24C, 0x24E) if name == 'Virelia_SeabreakTown' else (0x389, 0x38B, 0x38D, 0x38F)
+        families = {0x1D6: (0x1CE, 0x1D6, 0x1E6, 0x1DE), spruce[1]: spruce}
+        tree_tiles = {tile + dx for family in families.values() for tile in family for dx in (0, 1)}
         width = world.layouts[name]['width']
         cells = {(i % width, i // width): block for i, block in enumerate(world.blocks[name])
                  if block & 1023 in tree_tiles}
-        trunks = {point for point, block in cells.items() if block & 1023 == trunk[0]}
+        trunks = {point for point, block in cells.items() if block & 1023 in families}
         require(trunks, f'{name}: no complete trees')
         covered = set()
         for x, y in trunks:
-            above, below = (x, y - 2) in trunks, (x, y + 2) in trunks
+            crown, trunk, roots, overlap = families[cells[x, y] & 1023]
+            above = cells.get((x, y - 2), 0) & 1023 == trunk
+            below = cells.get((x, y + 2), 0) & 1023 == trunk
             elevation = cells[x, y] >> 12
             for dy, pair, solid in ((-1, overlap if above else crown, above), (0, trunk, True),
                                     (1, overlap if below else roots, True)):
-                for dx, tile in enumerate(pair):
+                for dx in (0, 1):
+                    tile = pair + dx
                     point = x + dx, y + dy
                     block = cells.get(point, 0)
                     require(block & 1023 == tile and bool(block & 0xC00) == solid and block >> 12 == elevation,
@@ -468,23 +493,89 @@ def validate_marsh(world):
 
 
 def validate_rainfall_cascade(world, reached, flags):
-    """Require a readable native cascade without constraining its coordinates."""
+    """Trace each rope bridge across the falls, from upstream lip to plunge pool."""
     name = 'Virelia_RainfallUpper'
     width, height = world.layouts[name]['width'], world.layouts[name]['height']
-    pattern = ((0x0BB, 0x0B3, 0x0BC), (0x0B9, 0x0B9, 0x0B9), (0x02C, 0x034, 0x03C))
-    cascades = [(x, y) for y in range(height - 2) for x in range(width - 2)
-                if all(world.tile((name, x + dx, y + dy), flags) & 1023 == tile
-                       for dy, row in enumerate(pattern) for dx, tile in enumerate(row))]
-    require(cascades, 'Rainfall upper route lacks a complete native waterfall lip/body/splash composition')
-    for x, y in cascades:
-        waterfall = [(name, x + dx, y + dy) for dy in (0, 1) for dx in range(3)]
-        require(all(world.behavior(node, flags) == 'MB_WATERFALL' for node in waterfall),
-                'Waterfall art lost its native environmental behavior')
-        require(all(world.tile(node, flags) & 0xC00 for node in waterfall),
-                'Decorative waterfall must remain off the no-HM walking route')
-        require(any(n[0] == name and abs(n[1] - x - 1) <= 6 and abs(n[2] - y - 1) <= 4 for n in reached),
-                'Waterfall cannot be viewed from reachable upper terrain')
-    print('PASS: complete native off-path waterfall is visible from reachable terrain; no HM traversal required')
+    def tile(x, y):
+        return world.blocks[name][y * width + x] & 1023
+
+    levels = set()
+    for y in range(1, height - 2):
+        for x in range(1, width - 2):
+            if tile(x, y) != 0x35B:
+                continue
+            right = x + 1
+            while right < width and tile(right, y) == 0x35C:
+                right += 1
+            require(right > x + 1 and right < width and tile(right, y) == 0x35D,
+                    f'Broken back rail at {(x, y)}')
+
+            def row_matches(yy, first):
+                return all(tile(xx, yy) == first + (0 if xx == x else 2 if xx == right else 1)
+                           for xx in range(x, right + 1))
+
+            require(row_matches(y + 1, 0x35E), f'Incomplete rope deck at {(x, y)}')
+            top, bottom = y - 1, y + 2
+            while top > 0 and row_matches(top, 0x34F):
+                top -= 1
+            while bottom < height - 1 and row_matches(bottom, 0x34F):
+                bottom += 1
+            require(row_matches(top, 0x34C) and row_matches(bottom, 0x352),
+                    f'Water does not flow from lip to pool under bridge at {(x, y)}')
+            for yy in range(top, bottom):
+                for xx in range(x, right + 1):
+                    node = name, xx, yy
+                    if yy in (y, y + 1):
+                        require(node in reached and world.behavior(node, flags) == 'MB_NORMAL',
+                                f'Bridge over falls is impassable at {node}')
+                    else:
+                        require(world.behavior(node, flags) == 'MB_WATERFALL' and world.tile(node, flags) & 0xC00,
+                                f'Broken cascade at {node}')
+            levels.add(world.tile((name, x, y), flags) >> 12)
+    require(len(levels) >= 2, 'Upper Pass needs playable waterfall spans at different heights')
+    print(f'PASS: ridge bridges cross continuous waterfalls at elevations {sorted(levels)}')
+
+
+def validate_seabreak_coast(world, reachable):
+    town = 'Virelia_SeabreakTown'
+    layout = world.layouts[town]
+    width, height = layout['width'], layout['height']
+    sea = {(x, y) for y in range(height) for x in range(width)
+           if world.behavior((town, x, y)) in {'MB_OCEAN_WATER', 'MB_DEEP_WATER', 'MB_POND_WATER'}}
+    water_ids = {world.tile((town, x, y)) & 1023 for x, y in sea}
+    require(all(block & 1023 not in water_ids for block in words(layout['border_filepath'])),
+            'Seabreak needs an inland border behind the western Rainfall entrances')
+    for _, y, _ in world.contract['arrivals'].values():
+        require(all((0, yy) not in sea for yy in range(y - 1, y + 2)),
+                f'Seabreak is cut off from the mainland west of row {y}')
+    require((0, 0) not in sea, 'The northwestern coastal slopes must continue inland')
+
+    # A navigable basin must open east. Trace water past the pier without
+    # treating boats, piles or the seawall as part of the shipping channel.
+    offshore = {(width - 1, y) for y in range(height)} & sea
+    queue = deque(offshore)
+    while queue:
+        x, y = queue.popleft()
+        for dx, dy in DELTAS:
+            neighbor = x + dx, y + dy
+            if neighbor in sea and neighbor not in offshore:
+                offshore.add(neighbor)
+                queue.append(neighbor)
+    fisher = next(obj for obj in world.maps[town]['object_events'] if obj['script'].endswith('_Fisherman'))
+    require(any(abs(x - fisher['x']) + abs(y - fisher['y']) <= 3 for x, y in offshore),
+            'The fishing pier must face water connected to the eastern sea')
+    for x, y in ((8, 46), (23, 45), (39, 42)):
+        require((town, x, y) in reachable, f'Cargo blocks access to the pier head at {(x, y)}')
+
+    # Emerald repeats the same 2x2 border on every side. An on-map strip of
+    # ocean must fill the camera beyond the furthest walkable dock or headland.
+    for _, x, y in reachable:
+        if (width - 1, y) in offshore:
+            require(x + 8 < width, f'The inland border is visible beyond the eastern sea at {(x, y)}')
+        if (x, height - 1) in offshore:
+            require(y + 6 < height, f'The inland border is visible beyond the harbor at {(x, y)}')
+    print('PASS: Seabreak joins the western mainland and its fishing pier opens to the eastern sea')
+
 
 def validate_encounters_and_trainers(world, reached, flags):
     tables = [entry for group in load('src/data/wild_encounters.json')['wild_encounter_groups']
@@ -544,6 +635,7 @@ def validate():
     contract = load('tools/virelia/rainfall_contract.json')
     world = World(layouts, contract)
     validate_used_palettes(world)
+    validate_spruce_art()
     validate_tree_footprints(world)
     validate_marsh(world)
     validate_cached_entrance(world)
@@ -552,6 +644,11 @@ def validate():
     graph = world.graph(all_flags)
     start, end = tuple(contract['entry']), tuple(contract['exit'])
     reached = distances(graph, start)
+    # The blind at the flood gauge and the unfinished plank walk must each be
+    # accessible on foot and have just one way back to the trail.
+    for x, y in ((32, 17), (25, 14)):
+        tip = 'Virelia_RainfallLower', x, y
+        require(tip in reached and len(graph[tip]) == 1, f'Marsh side trail is missing its dead end at {tip}')
     require(end in reached, 'Chapter cannot be completed without an HM')
     require(set(NAMES) <= {n[0] for n in reached}, 'A chapter map is disconnected')
     for name, entry in world.maps.items():
@@ -620,10 +717,26 @@ def validate():
     before_rival = all_flags - {'FLAG_VIRELIA_RAINFALL_RIVAL_COMPLETE'}
     require(end not in distances(world.graph(before_rival), start), 'Rival can be bypassed')
     branch_lengths = {}
-    for branch, excluded in (('upper', OUTDOORS[2]), ('lower', OUTDOORS[1])):
-        seen = distances(world.graph(all_flags - {'FLAG_VIRELIA_LOWER_SHORTCUT'}, {excluded}), start)
-        require(end in seen, f'{branch}: mandatory route needs the other branch or an HM')
-        branch_lengths[branch] = seen[end]
+    town = 'Virelia_SeabreakTown'
+    local_graph = world.graph(all_flags, set(NAMES) - {town})
+    validate_seabreak_coast(world, distances(local_graph, end))
+    for branch, source_map, excluded in (('upper', OUTDOORS[1], OUTDOORS[2]), ('lower', OUTDOORS[3], OUTDOORS[1])):
+        x, y, elevation = contract['arrivals'][branch]
+        landing = town, x, y
+        warp = next(w for w in world.maps[town]['warp_events'] if (w['x'], w['y']) == (x, y))
+        require(world.ids[warp['dest_map']] == source_map and world.tile(landing) >> 12 == elevation,
+                f'{branch} path arrives in the wrong district')
+        back = world.maps[source_map]['warp_events'][int(warp['dest_warp_id'])]
+        require(world.maps[town]['warp_events'][int(back['dest_warp_id'])] == warp,
+                f'{branch} approach does not return through its own entrance')
+        departure = source_map, back['x'], back['y']
+        seen = distances(world.graph(all_flags - {shortcut['flag']}, {excluded, town}), start)
+        require(departure in seen, f'{branch}: cannot reach the coast without taking the other branch')
+        local = distances(local_graph, landing)
+        for w in world.maps[town]['warp_events']:
+            require(world.warp_access(town, w, all_flags) in local, f'{branch}: town stairways fail to connect districts')
+        require(end in local, f'{branch}: arrival cannot reach town services')
+        branch_lengths[branch] = seen[departure] + 1
     require(branch_lengths['lower'] >= branch_lengths['upper'] + 15, f'Lower trail is not meaningfully longer: {branch_lengths}')
     grass = {name: sum(world.behavior(n, all_flags) in {'MB_TALL_GRASS', 'MB_LONG_GRASS'} for n in reached if n[0] == name)
              for name in OUTDOORS[1:3]}
@@ -639,6 +752,9 @@ def validate():
     heal = next(h for h in load('src/data/heal_locations.json')['heal_locations']
                 if h['id'] == 'HEAL_LOCATION_VIRELIA_SEABREAK_POKEMON_CENTER')
     require(heal['respawn_map'] == world.maps[INTERIORS[0]]['id'], 'Seabreak whiteout uses wrong Center')
+    center_door = next(w for w in world.maps[town]['warp_events'] if w['dest_map'] == world.maps[INTERIORS[0]]['id'])
+    require((heal['x'], heal['y']) == (center_door['x'], center_door['y'] + 1) == tuple(contract['center_anchor']),
+            'Teleport must arrive on the market terrace outside the Center')
     require((INTERIORS[0], heal['respawn_x'], heal['respawn_y']) in reached, 'Whiteout arrival is blocked')
     require(any(world.behavior(n, all_flags) == 'MB_PC' for n in ((INTERIORS[0], x, y)
                 for y in range(world.layouts[INTERIORS[0]]['height']) for x in range(world.layouts[INTERIORS[0]]['width']))),

@@ -49,16 +49,16 @@ class Terrain:
                 self.path.update((xx + dx, yy + dy) for dx in (0, 1) for dy in (0, 1)
                                  if 0 <= xx + dx < self.w and 0 <= yy + dy < self.h)
 
-    def trails(self):
+    def trails(self, *, stone=False):
         for x, y in self.path:
             row = 0 if (x, y - 1) not in self.path else 2 if (x, y + 1) not in self.path else 1
             col = 0 if (x - 1, y) not in self.path else 2 if (x + 1, y) not in self.path else 1
-            tile = 0x118 + 8 * row + col
-            if tile == 0x121:
+            tile = 0x3AE + 3 * row + col if stone else 0x118 + 8 * row + col
+            if row == col == 1:
                 notches = tuple(i for i, (dx, dy) in enumerate(((-1, -1), (1, -1), (-1, 1), (1, 1)))
                                 if (x + dx, y + dy) not in self.path)
                 if notches:
-                    tile = 0x33A + TRAIL_NOTCHES.index(notches)
+                    tile = (0x3B7 if stone else 0x33A) + TRAIL_NOTCHES.index(notches)
             self.put(x, y, tile)
 
     def grass(self, y, spans, long=False):
@@ -146,24 +146,20 @@ class Terrain:
             self.put(x + dx, y, top)
             self.put(x + dx, y + 1, bottom)
 
-    def finish(self, trees):
-        plant_trees(self.g, trees, elevation=self.e)
-        directions = {
-            "Virelia_RainfallFoothills": (0x323, 0x322, 0x32C),
-            "Virelia_RainfallUpper": (0x323, 0x322),
-            "Virelia_RainfallLower": (0x323, 0x322),
-            "Virelia_RainfallLowlands": (0x322, 0x322, 0x323),
-        }
-        doc = json.loads((ROOT / "data/maps" / self.name / "map.json").read_text(encoding="utf-8"))
+    def finish(self, trees, directions, *, root=None, border=1):
+        plant_trees(self.g, trees)
+        root = ROOT if root is None else root
+        doc = json.loads((root / "data/maps" / self.name / "map.json").read_text(encoding="utf-8"))
         for obj in doc["object_events"]:
             if self.g[obj["y"]][obj["x"]] & 0xC00:
                 raise ValueError(f"{self.name}: terrain blocks {obj['script']}")
-        for warp, tile in zip(doc["warp_events"], directions[self.name], strict=True):
-            self.put(warp["x"], warp["y"], tile)
+        for warp, tile in zip(doc["warp_events"], directions, strict=True):
+            x, y = warp["x"], warp["y"]
+            self.g[y][x] = (self.g[y][x] & 0xF000) | tile
 
-        folder = ROOT / "data/layouts" / self.name
+        folder = root / "data/layouts" / self.name
         write(folder / "map.bin", [c for row in self.g for c in row])
-        write(folder / "border.bin", [self.cell(1, True)] * 4)
+        write(folder / "border.bin", [self.cell(border, True)] * 4)
 
     def pass_mouth(self, x, y, width):
         """Northbound passage through a stock cliff, with the arrow warp at its mouth."""
@@ -236,178 +232,353 @@ def trail_corners():
     write(bank / "metatile_attributes.bin", attrs)
 
 
+def profile(points):
+    """Interpolate the hand-drawn crest, toe or shoreline between its surveyed bends."""
+    result = {}
+    for (start, a), (end, b) in zip(points, points[1:]):
+        for index in range(start, end + 1):
+            result[index] = a + round((b - a) * (index - start) / (end - start))
+    return result
+
+
+def escarpment(t, crest, toe, *, stairs=(), moss=(), fractures=(), inset=0):
+    """Draw the visible vertical surface between two independently shaped contours."""
+    tops, feet = profile(crest), profile(toe)
+    first, last = crest[0][0] + inset, crest[-1][0] - inset
+    for x in range(first, last + 1):
+        top = tops[x]
+        bottom = feet[x]
+        for y in range(top, bottom + 1):
+            west = x > first and tops[x - 1] <= y <= feet[x - 1]
+            east = x < last and tops[x + 1] <= y <= feet[x + 1]
+            edge = 0 if not west else 2 if not east else 1
+            tile = (0x341 if y == top else 0x347 if y == bottom else 0x344) + edge
+            t.put(x, y, tile, True)
+    for x, length in moss:
+        if not first <= x <= last:
+            continue
+        for y in range(tops[x] + 1, min(tops[x] + length + 1, feet[x])):
+            t.put(x, y, 0x34B, True)
+    for x, y in fractures:
+        t.put(x, y, 0x34A, True)
+    for x, width in stairs:
+        for dx in range(width):
+            for y in range(tops[x + dx], feet[x + dx] + 1):
+                tile = 0x340 if width == 1 else (0x0AF if dx == 0 else 0x0CF)
+                t.put(x + dx, y, tile)
+    return tops, feet
+
+
+def channel(t, *courses):
+    """The spring flares into plunge pools and contracts again at each fall."""
+    water = set()
+    for sections in courses:
+        left = profile([(y, x) for y, x, _ in sections])
+        right = profile([(y, x) for y, _, x in sections])
+        water.update((x, y) for y in left for x in range(left[y], right[y] + 1))
+    paint_river(t.g, water, elevation=t.e, land_elevation=t.e)
+
+
+def cascade(t, x, lip, plunge, width=3):
+    for y in range(lip, plunge + 1):
+        first = 0x34C if y == lip else 0x352 if y == plunge else 0x34F
+        for dx in range(width):
+            section = 0 if dx == 0 else 2 if dx == width - 1 else 1
+            t.put(x + dx, y, first + section, True)
+
+
+def hanging_shelf(t, x, y, spans):
+    """A grassy step partway down a face, with a shaded back and a lower rock lip."""
+    ledge = footprint(y, [(x + a, x + b) for a, b in spans])
+    for xx, yy in ledge:
+        north, south = (xx, yy - 1) in ledge, (xx, yy + 1) in ledge
+        side = 0 if (xx - 1, yy) not in ledge else 2 if (xx + 1, yy) not in ledge else 1
+        if not north:
+            t.put(xx, yy, 0x347 + side, True)
+        elif not south:
+            t.put(xx, yy, 0x341 + side, True)
+        else:
+            t.put(xx, yy, 1)
+
+
+def buttresses(t, anchors):
+    # Each group of four is one continuous, two-storey fracture in the slate.
+    for x, y in anchors:
+        for dy in range(2):
+            for dx in range(2):
+                if (t.g[y+dy][x+dx] & 1023) in (0x345, 0x34A, 0x34B):
+                    t.put(x+dx, y+dy, 0x3A1 + dx + 2*dy, True)
+
+
+def cloudline(t):
+    """The four shoulders of the summit disappear into the same cloud bank."""
+    west = profile([(0, 3), (5, 4), (12, 2), (20, 1), (28, 3), (34, 2), (41, 1), (47, 3)])
+    east = profile([(0, 60), (10, 62), (17, 62), (25, 60), (32, 62), (40, 61), (47, 60)])
+    north = profile([(0, 2), (6, 3), (13, 2), (19, 1), (24, 1), (30, 2),
+                     (38, 1), (47, 0), (54, 2), (60, 3), (63, 2)])
+    south = profile([(0, 44), (7, 46), (13, 45), (22, 46), (28, 45), (34, 44),
+                     (40, 46), (47, 46), (53, 44), (58, 45), (63, 44)])
+    for y, row in enumerate(t.g):
+        for x, block in enumerate(row):
+            distances = (south[x] - y, y - north[x], x - west[y], east[y] - x)
+            margin = min(distances)
+            if margin <= 0:
+                material = block & 1023
+                rock = 0x341 <= material <= 0x34B or 0x3A1 <= material <= 0x3A4
+                tile = 0x3A5 if margin < 0 else 0x3A6 + 2 * distances.index(0) + int(rock)
+                if margin == 0 and distances[0] == 0 and 0x34C <= material <= 0x354:
+                    tile = 0x3BF
+                t.put(x, y, tile, True)
+
+
+def suspension_span(t, x, end, y, falls_x, elevation, falls_width=3):
+    for xx in range(x, end + 1):
+        if falls_x <= xx < falls_x + falls_width:
+            section = 0 if xx == falls_x else 2 if xx == falls_x + falls_width - 1 else 1
+            back, front = 0x35B + section, 0x35E + section
+        else:
+            section = 0 if xx == x else 2 if xx == end else 1
+            back, front = 0x355 + section, 0x358 + section
+        t.g[y][xx] = elevation << 12 | back
+        t.g[y + 1][xx] = elevation << 12 | front
+
+
+def uplift(t, crest, stairs, toe):
+    """Northern benches share one height. Level-zero steps join their lower landing."""
+    for x, top in crest.items():
+        for y in range(top):
+            t.g[y][x] = 0x7000 | (t.g[y][x] & 0xFFF)
+    for x in stairs:
+        for y in range(crest[x], toe[x] + 1):
+            t.g[y][x] &= 0xFFF
+
+
+def lookout(t, x, y):
+    for dy in range(2):
+        for dx in range(3):
+            t.put(x + dx, y + dy, 0x361 + dy * 3 + dx, True)
+
+
 def foothills():
-    t = Terrain("RainfallFoothills", 32, 28)
-    # The junction sits below the upper staircase. A returning hiker spots the
-    # lower turn across the clearing; the shortcut has its own short spur.
-    t.trail((14, 26), (14, 23), (11, 21), (8, 20), (7, 18), (7, 14),
-            (9, 12), (9, 10), (7, 8), (7, 3))
-    t.trail((9, 12), (13, 12), (16, 13), (20, 13), (23, 16),
-            (25, 18), (28, 18))
-    t.trail((24, 17), (24, 20), (25, 22), (25, 23))
-    # The east arrow leads directly under the tree line beyond the fork.
-    t.path.difference_update(((29, 18), (29, 19)))
+    t = Terrain("RainfallFoothills", 50, 42)
+    # The apron above Slateford narrows to a single rock stair below the fork.
+    t.trail((14, 38), (14, 36), (10, 34), (10, 32), (14, 30), (14, 25),
+            (16, 23), (18, 22), (20, 20))
+    t.trail((19, 21), (23, 18), (27, 18), (28, 16), (28, 11),
+            (33, 10), (35, 8), (38, 8), (38, 6))
+    t.trail((18, 22), (23, 21), (25, 22), (29, 22), (31, 23),
+            (39, 23), (43, 21), (46, 22))
+    t.trail((28, 10), (24, 9), (21, 9))
     t.trails()
-    t.ledge(0, 7, [(4, -1), (9, 0), (3, 1), (7, 2), (4, 1), (5, 0)], stairs=(7,))
-    t.outcrop(13, 16, 6)
-    t.outcrop(23, 0, 5)
-    t.grass(13, [(3, 5), (2, 5), (2, 5), (3, 4), (3, 4)])
-    t.grass(3, [(15, 18), (14, 19), (14, 19), (16, 18)])
-    t.meadow(4, [(24, 27), (23, 27), (23, 26), (24, 25)])
-    t.meadow(19, [(20, 22), (18, 22), (16, 18), (15, 16)])
-    t.grass(20, [(5, 6), (5, 6), (6, 7)])
-    t.put(10, 10, 3, True)
-    for x, y in ((22, 5), (27, 6), (19, 19), (5, 18)):
+    channel(t, [(6, 35, 36), (7, 33, 37), (9, 32, 37), (11, 33, 37),
+                (15, 33, 37), (20, 33, 37), (21, 32, 39), (23, 32, 39),
+                (25, 33, 38), (26, 33, 37), (29, 33, 37), (33, 33, 37),
+                (34, 32, 38), (35, 31, 39), (37, 30, 39), (38, 31, 37), (39, 32, 35)])
+    escarpment(t,
+        [(0, 6), (6, 5), (12, 7), (15, 6), (20, 4), (25, 4), (29, 3),
+         (31, 2), (37, 2), (42, 3), (46, 5), (49, 4)],
+        [(0, 9), (5, 8), (10, 11), (15, 9), (20, 6), (25, 7), (30, 4),
+         (36, 4), (40, 6), (43, 6), (47, 9), (49, 8)],
+        inset=2, moss=[(3, 1), (11, 2), (17, 1), (24, 2), (44, 2)])
+    escarpment(t,
+        [(0, 17), (5, 18), (10, 16), (14, 12), (18, 11), (22, 12),
+         (25, 14), (28, 13), (29, 13), (32, 12), (34, 13), (36, 13),
+         (39, 12), (43, 15), (46, 16), (49, 14)],
+        [(0, 21), (4, 22), (10, 20), (14, 17), (19, 15), (23, 16), (27, 17),
+         (29, 17), (33, 19), (37, 19), (40, 17), (45, 20), (49, 19)],
+        inset=2, stairs=[(28, 2)], moss=[(2, 3), (8, 1), (14, 2), (23, 1), (30, 2), (39, 2), (44, 2)],
+        fractures=[(5, 21), (17, 14), (26, 15), (40, 14), (46, 18)])
+    cascade(t, 34, 13, 19)
+    t.bridge(32, 22, 8)
+    t.bridge(32, 9, 6)
+    escarpment(t,
+        [(0, 27), (5, 26), (9, 24), (13, 25), (15, 25), (19, 26),
+         (24, 28), (28, 27), (31, 28), (36, 29), (40, 26), (44, 27), (49, 25)],
+        [(0, 31), (4, 30), (8, 29), (13, 29), (15, 29), (19, 31),
+         (24, 34), (29, 32), (33, 34), (37, 33), (42, 31), (47, 32), (49, 30)],
+        inset=2, stairs=[(14, 1)], moss=[(1, 2), (6, 1), (16, 3), (21, 4), (25, 2), (35, 2), (41, 3), (48, 1)],
+        fractures=[(8, 27), (17, 28), (29, 30), (39, 30), (46, 29)])
+    t.put(14, 28, 0x00E, True)
+    t.put(13, 29, 0x003, True)
+    t.put(18, 21, 0x003, True)
+    for y in range(4, 7):
+        t.put(38, y, 0x340)
+    escarpment(t, [(9,39),(11,38),(13,37),(15,37),(17,38),(20,39)],
+               [(9,40),(11,40),(13,39),(15,39),(17,40),(20,40)], stairs=[(14, 1)])
+    lookout(t, 21, 7)
+    cascade(t, 34, 29, 34)
+    hanging_shelf(t, 17, 27, [(0, 3), (0, 4), (1, 4)])
+    hanging_shelf(t, 42, 27, [(1, 4), (0, 4), (0, 3)])
+    escarpment(t, [(1,37),(3,36),(5,37)], [(1,38),(3,39),(5,38)])
+    buttresses(t, [(1, 29), (5, 19), (5, 28), (8, 18), (10, 26), (19, 13),
+                   (23, 29), (26, 30), (31, 16), (38, 29), (43, 17), (45, 17)])
+    t.grass(32, [(3, 5), (2, 6), (2, 6), (3, 4)])
+    t.grass(21, [(10, 12), (9, 12), (10, 12)])
+    t.grass(9, [(42, 44), (41, 45), (41, 44)])
+    t.grass(33, [(42, 46), (41, 46), (41, 44), (42, 43)])
+    for x, y in ((11, 36), (10, 30), (12, 30), (16, 32), (14, 24), (16, 21),
+                 (19, 20), (26, 20), (29, 9), (31, 25), (40, 21), (44, 20),
+                 (21, 33), (6, 37), (39, 34), (18, 25)):
+        t.put(x, y, 0x36F)
+    for x, y in ((13, 34), (14, 33), (17, 20), (24, 20), (25, 11), (42, 24), (40, 35)):
         t.put(x, y, 0x004)
-    t.pass_mouth(7, 3, 5)
-    t.descent(14, 26, 5)
-    for x, y in ((11, 6), (12, 16), (20, 18), (26, 12), (28, 17), (29, 20), (10, 26), (4, 11)):
-        t.put(x, y, 0x0E0, True)
     return t
 
 
 def upper():
-    t = Terrain("RainfallUpper", 32, 34, 5)
-    t.trail((5, 31), (5, 29), (7, 27), (9, 26), (9, 23), (8, 22),
-            (8, 19), (10, 18), (21, 18), (22, 17), (21, 15), (21, 12),
-            (23, 10), (25, 8), (25, 6), (23, 4), (23, 3))
-    t.trail((8, 19), (7, 17), (7, 14), (9, 12), (9, 10), (10, 9))
-    t.trail((20, 18), (20, 23), (22, 26), (24, 28))
-    t.trails()
-    # Two grassy benches frame the gorge. The river cuts their faces cleanly;
-    # its three flowing center columns continue through the lip and plunge pool.
-    t.ledge(0, 7, [(4, -2), (8, -1), (6, 2), (6, 3), (8, 2)], stairs=(24,))
-    t.ledge(18, 24, [(6, 0), (5, 1), (3, 2)], stairs=(20,))
-    t.river([(12, 17)]*3 + [(13, 17)]*11 + [(13, 18)]*3 + [(12, 18)]*5
-            + [(12, 17)]*3 + [(11, 17)]*3 + [(11, 16)]*3 + [(12, 16)]*3)
-    for dy, row in enumerate(((0x0BB, 0x0B3, 0x0BC), (0x0B9, 0x0B9, 0x0B9),
-                              (0x02C, 0x034, 0x03C))):
-        for dx, tile in enumerate(row):
-            t.put(14 + dx, 9 + dy, tile, True)
-    t.bridge(12, 18, 7)
-    t.pass_mouth(23, 3, 5)
-    t.descent(5, 31, 5)
-    t.grass(21, [(3, 4), (2, 5), (2, 5), (3, 4)])
-    t.grass(13, [(26, 28), (25, 29), (26, 29), (27, 28)], long=True)
-    t.meadow(15, [(9, 11), (9, 11), (10, 11)])
-    t.meadow(20, [(22, 24), (22, 24), (23, 25), (23, 25)])
-    t.grass(28, [(26, 27), (26, 27), (26, 27)])
-    t.put(10, 9, 3, True)
-    for x, y in ((6, 10), (11, 12), (10, 22), (11, 27), (19, 13), (24, 13), (25, 30)):
-        t.put(x, y, 0x0E0, True)
+    t = Terrain("RainfallUpper", 64, 48, 5)
+    # Follow the first hanging bench, climb the central spur, then cross a
+    # second tributary above the first. Both high banks terminate at real falls.
+    t.trail((6, 40), (7, 38), (7, 32), (9, 29), (12, 28),
+            (13, 25), (15, 24), (29, 24), (31, 23), (32, 21), (32, 16),
+            (33, 13), (35, 12), (51, 12), (54, 13), (56, 15), (61, 14))
+    t.trail((34, 13), (34, 10), (32, 8), (29, 8))
+    t.trail((32, 8), (34, 7), (34, 5))
+    t.trail((25, 24), (27, 22), (28, 21))
+    t.trails(stone=True)
+    channel(t, [(2, 20, 21), (3, 19, 22), (4, 18, 22), (6, 18, 22),
+                (13, 18, 22), (15, 16, 23), (17, 17, 23), (19, 18, 22),
+                (29, 18, 22), (31, 16, 24), (32, 15, 25), (33, 15, 24),
+                (35, 18, 23), (37, 20, 24), (39, 23, 27), (41, 26, 31),
+                (42, 28, 35), (43, 30, 43), (46, 33, 42)],
+               [(1, 43, 45), (3, 42, 48), (5, 41, 49), (8, 42, 48),
+                (17, 42, 48), (19, 41, 49), (20, 39, 47), (21, 39, 45),
+                (22, 40, 46), (23, 41, 47), (25, 43, 47), (27, 43, 47), (34, 43, 47),
+                (36, 42, 49), (37, 40, 49), (39, 39, 47), (41, 37, 44),
+                (42, 36, 43), (43, 34, 42), (46, 33, 42)])
+    upper_rim, upper_toe = escarpment(t,
+        [(0, 11), (5, 13), (10, 12), (14, 11), (17, 9), (18, 8), (22, 8),
+         (24, 12), (27, 14), (28, 14), (31, 17), (34, 17), (37, 16), (39, 16),
+         (40, 15), (42, 10), (43, 8), (47, 8), (49, 15), (50, 16), (53, 18),
+         (56, 18), (59, 20), (63, 18)],
+        [(0, 16), (5, 18), (9, 17), (13, 18), (17, 15), (18, 14), (22, 14),
+         (24, 16), (28, 19), (31, 21), (34, 21), (37, 23), (40, 21),
+         (43, 18), (47, 18), (49, 21), (52, 23), (56, 25), (60, 26), (63, 24)],
+        stairs=[(32, 2)], moss=[(1, 2), (6, 2), (12, 3), (17, 1), (23, 3),
+         (26, 2), (34, 3), (36, 2), (39, 3), (49, 2), (54, 3), (60, 4)],
+        fractures=[(3, 15), (11, 15), (16, 14), (24, 14), (30, 19), (38, 19),
+                   (50, 19), (52, 22), (59, 22), (62, 21)])
+    escarpment(t,
+        [(0, 34), (4, 32), (7, 30), (8, 30), (12, 31), (14, 29), (16, 27),
+         (18, 20), (22, 20), (24, 25), (26, 29), (30, 29), (34, 31), (37, 30),
+         (40, 28), (43, 27), (47, 27), (50, 29), (55, 31), (58, 29), (63, 31)],
+        [(0, 39), (4, 38), (7, 35), (8, 35), (11, 37), (14, 36), (17, 31),
+         (18, 30), (22, 30), (24, 32), (27, 35), (31, 36), (36, 37), (40, 35),
+         (43, 34), (47, 34), (51, 36), (55, 38), (60, 35), (63, 36)],
+        stairs=[(7, 2)], moss=[(2, 2), (5, 3), (11, 3), (13, 1), (16, 3),
+         (24, 3), (27, 2), (31, 2), (35, 3), (40, 2), (48, 3), (55, 4), (61, 3)],
+        fractures=[(3, 36), (10, 34), (14, 33), (25, 31), (29, 32),
+                   (37, 34), (49, 33), (52, 34), (59, 32)])
+    # The spillway can be seen again much farther down the windward slope.
+    cascade(t, 19, 8, 14)
+    cascade(t, 19, 20, 30)
+    cascade(t, 43, 8, 18, 5)
+    cascade(t, 44, 27, 34)
+    # The lookout projects over the lower drainage. Small hanging benches and
+    # broad jointed buttresses interrupt the sheer faces between its two falls.
+    hanging_shelf(t, 2, 13, [(1, 4), (0, 5), (0, 4), (1, 3)])
+    hanging_shelf(t, 8, 31, [(2, 4), (1, 5), (1, 4), (2, 3)])
+    hanging_shelf(t, 27, 30, [(2, 5), (0, 5), (0, 6), (1, 4)])
+    hanging_shelf(t, 53, 19, [(1, 4), (0, 6), (0, 6), (2, 5)])
+    hanging_shelf(t, 48, 30, [(1, 3), (0, 6), (1, 4), (2, 3)])
+    buttresses(t, [(2, 35), (4, 33), (10, 13), (12, 32), (14, 13), (15, 29),
+                   (24, 14), (24, 28), (26, 32), (29, 16), (31, 34), (35, 18),
+                   (35, 34), (38, 19), (39, 31), (49, 17), (52, 20), (54, 34),
+                   (57, 31), (59, 21), (62, 33)])
+    escarpment(t, [(0,46),(7,45),(10,44),(15,45),(19,44),(25,45),(32,43),
+                   (37,44),(42,45),(47,44),(54,42),(58,43),(63,42)],
+                  [(0,47),(63,47)], moss=[(33,1),(54,2)])
+    cascade(t, 37, 44, 47)
+    # A second rock spine closes the spring basins from behind. Only the
+    # weather-station bench is accessible from the upper landing.
+    escarpment(t, [(0,0),(63,0)],
+        [(0,5),(5,7),(9,5),(13,5),(17,3),(18,2),(23,2),(26,4),(29,4),
+         (33,2),(37,3),(41,2),(48,1),(51,3),(56,6),(60,7),(63,6)],
+        moss=[(5,3),(10,2),(27,2),(52,2),(59,3)])
+    escarpment(t, [(0,40),(3,38),(5,39),(7,39),(10,41),(12,40)],
+               [(0,43),(3,42),(5,41),(7,41),(10,43),(12,42)], stairs=[(6, 1)])
+    lookout(t, 29, 6)
+    t.put(33, 8, 0x003, True)
+    t.grass(20, [(6, 8), (5, 8), (5, 9), (7, 9)])
+    t.grass(9, [(53, 57), (54, 57), (54, 56)])
+    t.grass(37, [(32, 33), (31, 34), (31, 34), (32, 33)])
+    for x, y in ((9, 37), (10, 28), (12, 25), (14, 23), (26, 26), (29, 23),
+                 (31, 16), (35, 15), (36, 11), (40, 10), (40, 14), (49, 10),
+                 (50, 15), (52, 14), (53, 11), (55, 16), (59, 13), (32, 10),
+                 (26, 37), (49, 39)):
+        t.put(x, y, 0x36F)
+    for x, y in ((10, 25), (8, 27), (26, 22), (31, 15), (32, 5), (52, 11), (50, 14)):
+        t.put(x, y, 0x004)
+    uplift(t, upper_rim, (32, 33), upper_toe)
+    suspension_span(t, 14, 26, 24, 19, 5)
+    suspension_span(t, 38, 52, 12, 43, 7, 5)
+    cloudline(t)
     return t
 
-
-def lower():
-    t = Terrain("RainfallLower", 40, 40)
-    t.trail((4, 36), (4, 35), (7, 32), (10, 31), (12, 28), (12, 26),
-            (10, 24), (9, 22), (10, 20), (12, 19), (16, 19), (18, 20),
-            (27, 20), (30, 18), (30, 14), (32, 12), (32, 10), (29, 8),
-            (24, 8), (22, 7), (15, 7), (12, 6), (10, 4), (6, 4), (4, 3), (4, 2))
-    t.trail((12, 28), (16, 28), (17, 26))
-    t.trails()
-    # The wetland has two crossings. The basalt bench joins the western bank
-    # between them, so the far-bank walk is still the longer exploration route.
-    t.ledge(0, 13, [(6, 0), (3, -1), (6, -2), (5, -1), (4, 0)])
-    t.river([(18, 22)]*3 + [(17, 22)]*3 + [(17, 21)]*4 + [(18, 22)]*2
-            + [(19, 24)]*3 + [(20, 25)]*3 + [(21, 25)]*5 + [(20, 25)]*2
-            + [(19, 24)]*3 + [(19, 23)]*3 + [(20, 24)]*2 + [(21, 26)]*3
-            + [(22, 27)]*4)
-    t.bridge(17, 7, 5)
-    t.bridge(21, 20, 5)
-    t.pass_mouth(4, 2, 5)
-    t.descent(4, 36, 5)
-    t.marsh(23, [(2, 4), (2, 6), (2, 6), (3, 8), (3, 8), (5, 8), (5, 7)])
-    t.marsh(29, [(14, 16), (13, 17), (13, 17), (14, 18), (14, 18), (12, 17), (12, 17), (12, 15)])
-    t.marsh(24, [(30, 34), (30, 35), (29, 35), (29, 33), (31, 33)])
-    t.grass(16, [(3, 6), (3, 7), (2, 7), (2, 5), (3, 5)], long=True)
-    t.grass(23, [(12, 15), (13, 16), (14, 17), (15, 16)], long=True)
-    t.grass(32, [(28, 30), (28, 31), (28, 31), (29, 31), (29, 30)], long=True)
-    t.grass(10, [(24, 25), (24, 27), (25, 28), (26, 28)], long=True)
-    t.grass(4, [(12, 14), (13, 15)], long=True)
-    t.meadow(5, [(31, 33), (30, 33), (31, 34)])
-    t.meadow(29, [(8, 10), (7, 9), (7, 8)])
-    t.meadow(29, [(24, 26), (24, 26), (25, 26)])
-    t.grass(2, [(7, 8), (7, 9)])
-    t.grass(22, [(29, 32), (30, 32)])
-    t.put(16, 22, 0x0C5, True)
-    for x, y in ((1, 11), (8, 15), (15, 10), (33, 20), (11, 35), (28, 24), (16, 38)):
-        t.put(x, y, 0x0E0, True)
-    return t
-
-
-def lowlands():
-    t = Terrain("RainfallLowlands", 32, 26)
-    t.trail((4, 3), (4, 5), (6, 7), (9, 7), (12, 9), (15, 9), (15, 12))
-    t.trail((25, 3), (25, 4), (24, 6), (21, 7), (19, 9), (15, 9))
-    t.trail((15, 14), (15, 17), (17, 19), (19, 19), (22, 20), (24, 20))
-    t.trail((17, 19), (16, 21), (15, 22), (15, 23))
-    t.trails()
-    t.ledge(0, 12, [(4, 1), (5, 0), (4, -1), (7, 0), (4, 1), (4, 2), (4, 1)])
-    # The callback replaces this specific throat with path after the rival battle.
-    for y in (12, 13, 14):
-        t.put(15, y, 0x121)
-    t.put(15, 13, 0x00E, True)
-    t.put(16, 12, 1)
-    t.pass_mouth(4, 3, 5)
-    t.pass_mouth(25, 3, 5)
-    t.descent(15, 23, 5)
-    t.marsh(16, [(5, 7), (4, 8), (4, 8), (6, 10), (6, 10), (7, 9)])
-    t.grass(16, [(21, 23), (21, 26), (22, 27), (24, 27)])
-    t.grass(4, [(14, 16), (13, 16), (14, 15)])
-    t.meadow(4, [(6, 8), (6, 9), (7, 9)])
-    t.meadow(7, [(16, 19), (16, 18)])
-    t.grass(16, [(9, 10), (10, 11), (10, 11)])
-    for x, y in ((9, 3), (11, 10), (13, 16), (12, 21), (21, 22), (28, 9)):
-        t.put(x, y, 0x0E0, True)
-    return t
-
-
-# Crown positions are individually composed around landmarks and switchbacks.
-# An aligned pair two rows apart shares the rear tree's base.
+# Hand-placed crown origins. The spruce stands thicken along the higher ledges.
 GROVES = {
-    "Virelia_RainfallFoothills": [
-        (1, 0), (1, 2), (3, 1), (3, 3), (11, 0), (10, 3), (18, 0), (21, 1), (29, 0), (30, 4),
-        (1, 9), (0, 13), (6, 10), (28, 11), (30, 12), (28, 13), (29, 17), (26, 14),
-        (1, 18), (3, 20), (1, 20), (0, 23), (3, 22), (5, 23), (3, 25), (8, 24),
-        (19, 21), (19, 23), (17, 24), (17, 22), (21, 21), (22, 25), (28, 22), (30, 25),
-    ],
-    "Virelia_RainfallUpper": [
-        (1, 0), (1, 2), (3, 1), (5, 0), (5, 2), (8, 0), (7, 3), (10, 3),
-        (18, 1), (20, 4), (27, 0), (29, 2), (28, 5),
-        (0, 11), (0, 13), (2, 13), (2, 15), (0, 16), (4, 17), (3, 10), (4, 14),
-        (28, 18), (30, 17), (26, 21), (28, 22),
-        (0, 25), (2, 26), (0, 27), (0, 29), (0, 31), (8, 31),
-        (18, 28), (20, 30), (17, 31), (28, 30), (30, 29), (25, 31),
-    ],
-    "Virelia_RainfallLower": [
-        (0, 1), (1, 5), (4, 8), (7, 7), (9, 0), (12, 1), (15, 0),
-        (24, 1), (26, 3), (26, 5), (29, 2), (33, 0), (34, 4), (37, 2),
-        (36, 8), (34, 10), (37, 12), (35, 14), (32, 15),
-        (0, 17), (0, 20), (10, 14), (12, 14), (12, 16), (14, 15), (16, 15), (18, 16),
-        (36, 18), (34, 21), (37, 22), (37, 24), (27, 16),
-        (0, 28), (2, 30), (5, 30), (0, 33), (0, 35), (0, 37), (8, 36),
-        (10, 37), (18, 36), (27, 29), (32, 29), (35, 28), (38, 31),
-        (33, 34), (35, 35), (31, 37), (37, 37),
-    ],
-    "Virelia_RainfallLowlands": [
-        (0, 0), (0, 2), (2, 5), (0, 7), (7, 0), (10, 0), (11, 3), (16, 0), (18, 2),
-        (21, 1), (28, 0), (30, 2), (28, 5), (2, 9), (24, 10), (30, 9),
-        (1, 16), (0, 20), (3, 22), (5, 23), (10, 22),
-        (17, 15), (28, 17), (30, 19), (26, 21), (26, 23), (22, 23), (18, 23),
-    ],
+    "Virelia_RainfallFoothills": (
+        [
+            (0, 25), (48, 25), (0, 1), (2, 1), (0, 3), (4, 0), (7, 2), (7, 0),
+            (13, 0), (15, 2), (17, 0), (20, 1), (24, 1), (40, 0), (44, 1), (46, 0),
+            (48, 2), (1, 10), (3, 11), (1, 12), (5, 12), (7, 11), (3, 14), (13, 19),
+            (15, 18), (19, 16), (45, 11), (48, 9), (48, 11), (3, 23), (6, 22), (1, 22),
+            (21, 24), (23, 25), (25, 24), (27, 24), (7, 30), (7, 32), (0, 32), (0, 34),
+            (0, 39), (5, 39), (7, 37), (7, 39), (16, 34), (18, 33), (18, 35), (20, 34),
+            (22, 36), (21, 39), (24, 38), (27, 34), (29, 34), (24, 36), (26, 38), (28, 37),
+            (40, 37), (42, 37), (44, 38), (46, 37), (48, 38), (47, 34), (48, 31),
+        ],
+        [
+            (9, 1), (11, 2), (29, 0), (19, 8), (27, 7), (10, 12), (30, 19), (43, 23),
+            (48, 19), (48, 22),
+        ],
+    ),
+    "Virelia_RainfallUpper": (
+        [
+            (4, 8), (6, 8), (6, 10), (2, 18), (2, 20), (3, 23), (5, 23), (4, 26),
+            (6, 26), (8, 24), (4, 28), (10, 38), (13, 41), (15, 38), (15, 40), (28, 37),
+            (35, 38), (50, 38), (52, 38), (56, 38), (58, 37),
+        ],
+        [
+            (9, 7), (12, 6), (12, 8), (15, 7), (24, 6), (26, 7), (26, 9), (30, 10),
+            (28, 11), (24, 9), (36, 4), (38, 5), (38, 7), (36, 7), (50, 5), (52, 6),
+            (54, 6), (58, 8), (58, 10), (60, 9), (60, 11), (60, 16), (9, 18), (12, 19),
+            (14, 18), (14, 20), (10, 21), (24, 18), (26, 19), (24, 20), (35, 23), (37, 24),
+            (39, 24), (37, 26), (34, 27), (50, 23), (50, 25), (53, 25), (56, 26), (5, 42),
+            (17, 37), (13, 38), (54, 39), (59, 40),
+        ],
+    ),
 }
+
+
+def pass_approaches():
+    bank = ROOT / "data/tilesets/secondary/virelia_rainfall"
+    metas, attrs = words(bank / "metatiles.bin"), words(bank / "metatile_attributes.bin")
+    for target, source, behavior in ((0x385, 0x340, 0x64), (0x386, 0x3B2, 0x62)):
+        i = target - 512
+        j = source - 512
+        metas[i*8:(i+1)*8] = metas[j*8:(j+1)*8]
+        attrs[i] = behavior
+    write(bank / "metatiles.bin", metas)
+    write(bank / "metatile_attributes.bin", attrs)
 
 
 def build():
     from pack_rainfall_marsh import pack_marsh
+    from pack_stormcrest import pack_stormcrest
+    from rainfall_wetlands import build_wetlands
 
     bridges()
     pack_marsh(ROOT)
     trail_corners()
-    for make_route in (foothills, upper, lower, lowlands):
-        terrain = make_route()
-        terrain.finish(GROVES[terrain.name])
+    pack_stormcrest(ROOT)
+    pass_approaches()
+    for t, directions in ((foothills(), (0x323, 0x385, 0x32C)),
+                          (upper(), (0x323, 0x386))):
+        broadleaf, spruce = GROVES[t.name]
+        plant_trees(t.g, spruce, pieces=(0x389, 0x38B, 0x38D, 0x38F))
+        t.finish(broadleaf, directions, border=0x3A5 if t.name == "Virelia_RainfallUpper" else 1)
+    build_wetlands(Terrain, ROOT)
 
 
 if __name__ == "__main__":

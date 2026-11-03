@@ -25,6 +25,5 @@
 #define VAR_VIRELIA_BOTTLE_STAGE              0x409B
 #define VAR_VIRELIA_SIGNAL_INPUT              0x400F
 #define LOCALID_VIRELIA_SEABREAK_NURSE         1
-#define LOCALID_VIRELIA_RAINFALL_RIVAL          1
 
 #endif

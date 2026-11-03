@@ -374,7 +374,7 @@
       "id": "HEAL_LOCATION_VIRELIA_SEABREAK_POKEMON_CENTER",
       "map": "MAP_VIRELIA_SEABREAK_TOWN",
       "x": 8,
-      "y": 14,
+      "y": 22,
       "respawn_map": "MAP_VIRELIA_SEABREAK_POKEMON_CENTER",
       "respawn_npc": "LOCALID_VIRELIA_SEABREAK_NURSE",
       "respawn_x": 7,

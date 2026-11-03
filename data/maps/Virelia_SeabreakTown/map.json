@@ -17,8 +17,8 @@
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
-      "x": 14,
-      "y": 28,
+      "x": 16,
+      "y": 35,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -30,8 +30,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
-      "x": 7,
-      "y": 35,
+      "x": 8,
+      "y": 41,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -44,8 +44,8 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_VAR_0",
       "x": 20,
-      "y": 15,
-      "elevation": 3,
+      "y": 23,
+      "elevation": 5,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
@@ -56,8 +56,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
-      "x": 17,
-      "y": 29,
+      "x": 19,
+      "y": 35,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -69,8 +69,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_POLICEMAN",
-      "x": 15,
-      "y": 29,
+      "x": 18,
+      "y": 36,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -82,8 +82,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_REPORTER_F",
-      "x": 12,
-      "y": 29,
+      "x": 13,
+      "y": 36,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -95,8 +95,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
-      "x": 27,
-      "y": 23,
+      "x": 31,
+      "y": 37,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -109,32 +109,39 @@
   ],
   "warp_events": [
     {
-      "x": 14,
-      "y": 1,
+      "x": 26,
+      "y": 8,
       "elevation": 0,
-      "dest_map": "MAP_VIRELIA_RAINFALL_LOWLANDS",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_VIRELIA_RAINFALL_UPPER",
+      "dest_warp_id": "1"
     },
     {
       "x": 8,
-      "y": 13,
+      "y": 21,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_SEABREAK_POKEMON_CENTER",
       "dest_warp_id": "0"
     },
     {
-      "x": 37,
-      "y": 31,
+      "x": 31,
+      "y": 13,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_SEABREAK_LIGHTHOUSE",
       "dest_warp_id": "0"
     },
     {
-      "x": 21,
-      "y": 20,
+      "x": 11,
+      "y": 9,
       "elevation": 0,
       "dest_map": "MAP_VIRELIA_SEABREAK_KEEPERS_HOUSE",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 3,
+      "y": 36,
+      "elevation": 0,
+      "dest_map": "MAP_VIRELIA_RAINFALL_LOWLANDS",
+      "dest_warp_id": "1"
     }
   ],
   "coord_events": [],
@@ -142,7 +149,7 @@
     {
       "type": "sign",
       "x": 10,
-      "y": 15,
+      "y": 22,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_SeabreakTown_EventScript_TownSign"
@@ -150,31 +157,31 @@
     {
       "type": "sign",
       "x": 23,
-      "y": 7,
+      "y": 21,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_SeabreakTown_EventScript_GymClosed"
     },
     {
       "type": "sign",
-      "x": 6,
-      "y": 31,
+      "x": 7,
+      "y": 39,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_SeabreakTown_EventScript_AnchorClue"
     },
     {
       "type": "sign",
-      "x": 41,
-      "y": 35,
+      "x": 36,
+      "y": 25,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_SeabreakTown_EventScript_CoastClue"
     },
     {
       "type": "sign",
-      "x": 23,
-      "y": 11,
+      "x": 24,
+      "y": 23,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Virelia_SeabreakTown_EventScript_GymClosed"

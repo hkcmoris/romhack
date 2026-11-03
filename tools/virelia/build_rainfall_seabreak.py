@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Author Chapter 2 maps. Never regenerate existing Porymap terrain.
 
-Only Slateford's documented 3x4 north passage footprint is patched. Re-running
-replaces Chapter 2 maps, so back up subsequent Porymap edits before doing so.
+On the registered Stormcrest chapter, rebuild the terrain and tilesets from the
+authored inputs. The old single-exit prototype bootstrap is retained below.
 """
 
 from pathlib import Path
@@ -275,7 +275,27 @@ class Map:
             group.append(self.name)
 
 
+def rebuild_terrain():
+    import polish_rainfall
+    import polish_seabreak
+
+    polish_rainfall.ROOT = ROOT
+    polish_seabreak.ROOT = ROOT
+    polish_seabreak.COAST = ROOT / "data/tilesets/secondary/virelia_coast"
+    polish_seabreak.PRIMARY = ROOT / "data/tilesets/primary/general"
+    polish_seabreak.source.cache_clear()
+    polish_rainfall.build()
+    polish_seabreak.main()
+
+
 def build():
+    # The two coastal arrivals, event ordering and resized layout registry are
+    # now authored inputs. Only the original single-exit prototype seeded them.
+    contract_file = ROOT / "tools/virelia/rainfall_contract.json"
+    if contract_file.exists() and "arrivals" in json.loads(contract_file.read_text(encoding="utf-8")):
+        rebuild_terrain()
+        return
+
     clone_rainfall()
     f = Map("RainfallFoothills", 32, 28)
     f.weather = "WEATHER_SUNNY"
@@ -880,21 +900,7 @@ def build():
         beacon=[lantern.name, 6, 2, 0x20C, 0x20D],
     )
     jw(ROOT / "tools/virelia/rainfall_contract.json", contract)
-    # Final stock-art composition is a separate authoring pass. Never run this
-    # full builder over later hand-authored Porymap changes without a backup.
-    import polish_rainfall
-    import polish_seabreak
-
-    polish_rainfall.ROOT = ROOT
-    polish_seabreak.ROOT = ROOT
-    polish_seabreak.COAST = ROOT / "data/tilesets/secondary/virelia_coast"
-    polish_seabreak.PRIMARY = ROOT / "data/tilesets/primary/general"
-    polish_seabreak.source.cache_clear()
-    polish_rainfall.build()
-    polish_seabreak.main()
-    print(
-        "Built nine Chapter 2 maps with final stock-art composition; existing town patch confined to north entrance."
-    )
+    rebuild_terrain()
 
 
 if __name__ == "__main__":

@@ -31,19 +31,19 @@ compatibility note](MYBOY_COMPATIBILITY.md).
 2. Enter the foothills through the conventional passage at Slateford `(12,1)`.
    The small north-edge patch preserves all other authored city cells and the
    original southern connection to Whisperwood.
-3. Choose the short upper bridge trail or the longer lower wetland loop.
-   The upper choice has Ranger Irena; the lower choice has Fisherman Dušan,
-   stream markings, a Super Potion and the return-footbridge control. Hiker
-   Pavel covers the shared foothills. Both alternatives reconnect in lowlands.
-4. Meet the opposite-gender rival at lowlands `(15,12)`. Female player meets
-   Viktor; male player meets Viktorie. The original starter choice selects the
-   established evolved counter-starter. A normal loss whites out; the rival
-   remains for retry. A win persists and opens descent tile `(15,13)`.
-5. Reach Seabreak and use the combined Center/Mart. Speak to the harbor master
-   at `(14,28)` to record the storm closure and missing cargo report.
-6. Enter the lighthouse on the eastern rocky headland. Meet Běla Křížová,
-   inspect the damaged cabinet at `(5,3)`, and read the emergency instructions
-   at `(9,3)`. Běla secures the loose wiring.
+3. Meet the rival at the shared Foothills trailhead `(14,29)`. The player’s
+   starter determines the evolved counter-starter. A loss allows a retry.
+   Victory opens the rock cut at `(14,28)` for both onward routes.
+4. The upper route climbs mossy steps and crosses two waterfalls on rope
+   bridges. It arrives at Seabreak’s upper terrace beside the lighthouse.
+   The lower route winds through peat islands, boardwalk forks and the river
+   estuary before reaching the fishing docks. Its side paths include the
+   Super Potion and the optional winch shortcut.
+5. Walk between the lighthouse terrace, the middle market and Center, and the
+   harbor using the stone stairs. Speak to the harbor master at `(16,35)`
+   for the storm closure and missing cargo report.
+6. Enter the lighthouse at `(31,13)`. Meet Běla Křížová, inspect the damaged
+   cabinet at `(5,3)`, and read the emergency instructions at `(9,3)`.
 7. Take the staircase to the lantern room. Activate the left feed `(3,5)`,
    central lens `(6,5)`, then right signal control `(9,5)`. Clues state this order
    explicitly. A wrong input resets unfinished progress. Completion lights the
@@ -73,11 +73,11 @@ the old connected-map graphics buffer.
 
 | Map folder suffix after `Virelia_` | Group,map | Packed ID | Layout ID | Size | Weather |
 | --- | --- | --- | ---: | --- | --- |
-| RainfallFoothills | 75,4 | `0x4B04` | 798 | 32×28 | Sunny |
-| RainfallUpper | 75,5 | `0x4B05` | 799 | 32×34 | Rain |
-| RainfallLower | 75,6 | `0x4B06` | 800 | 40×40 | Downpour |
-| RainfallLowlands | 75,7 | `0x4B07` | 801 | 32×26 | Shade/shelter |
-| SeabreakTown | 75,8 | `0x4B08` | 802 | 48×42 | Rain |
+| RainfallFoothills | 75,4 | `0x4B04` | 798 | 50×42 | Sunny |
+| RainfallUpper | 75,5 | `0x4B05` | 799 | 64×48 | Rain |
+| RainfallLower | 75,6 | `0x4B06` | 800 | 64×54 | Downpour |
+| RainfallLowlands | 75,7 | `0x4B07` | 801 | 64×42 | Shade/shelter |
+| SeabreakTown | 75,8 | `0x4B08` | 802 | 58×56 | Rain |
 | Seabreak_PokemonCenter | 76,8 | `0x4C08` | 803 | 24×9 | None |
 | Seabreak_Lighthouse | 76,9 | `0x4C09` | 804 | 16×14 | None |
 | Seabreak_LanternRoom | 76,10 | `0x4C0A` | 805 | 13×12 | None |
@@ -90,24 +90,23 @@ targets. Existing map groups 75/76, layouts 786–797 and sections 209–211 ret
 their IDs.
 
 ```text
-Slateford north passage
-          |
-      Foothills --- permanent return shortcut --- Lower control
-       /     \
- Upper       Lower wetlands
-   \          /
-      Lowlands -- rival -- Seabreak
-                            |  |  |
-                          Center  Keeper's house
-                            Lighthouse -- Lantern room
+Slateford → Foothills trailhead → rival → fork
+                                          ├─ Upper Pass → lighthouse terrace (7)
+                                          │                      ↕ stairs
+                                          │                market and Center (5)
+                                          │                      ↕ stairs
+                                          └─ Lower Pass → Lowlands → harbor (3)
 ```
 
-The alternative paths stay apart until lowlands. The source graph audit finds
-114 walking/warp edges on the upper choice and 133 on the lower choice, from the
-foothills arrival to Seabreak's entry with the shortcut closed. These are
-shortest-path counts. The upper route has 32 reachable encounter-grass cells
-and the lower route has 83. Both branches can be walked without an HM. The
-deep stream separates the banks, and the shallow marsh can be crossed on foot.
+Upper and Lower each reach the coast independently. Rainfall Upper has
+two walkable spans across the falling water at elevations 5 and 7. Lower
+Pass and Lowlands use dark, impassable peat water around walkable shallows,
+reed beds and muddy banks. Follow the boards between islands. Some spurs
+end at clues, items or overlooks and require backtracking.
+
+The regional art uses the east-coast diagram, regional overview and the two
+local concept sheets in `docs/images/concept-art-world/`. The layout follows
+the watershed and three districts described in [the world bible](VIRELIA_WORLD_BIBLE.md#8-location-atlas-stormcrest-and-the-eastern-coast).
 
 The lower control at `(18,20)` permanently enables the optional footbridge. It
 returns to foothills `(25,23)`; the foothills interaction at `(26,23)` returns
@@ -168,9 +167,9 @@ and validate with a fresh game if its origin is uncertain. Never load a Chapter
 
 ## Message in the Bottle
 
-The optional quest begins with fisherman Ota at Seabreak `(7,35)`. His family's
+The optional quest begins with fisherman Ota at Seabreak `(8,41)`. His family's
 argument with the former lighthouse keeper motivates the search. Inspect the old
-anchor at `(6,31)`, the coastal tide mark at `(41,35)`, then the journal in the
+anchor at `(7,39)`, the coastal tide mark at `(36,25)`, then the journal in the
 keeper's house at `(3,3)`. The journal reveals that the keeper left the failed
 lamp to guide stranded fishermen to safety. Bring the discovery to Ota for one
 Mystic Water. This is local history, unrelated to Rocket cargo.
@@ -208,8 +207,7 @@ Arbok uses Ember/Acid Spray/Smokescreen/Will-O-Wisp; Mightyena uses Razor
 Leaf/Shadow Sneak/Growl/Leech Seed; Xatu uses Water Pulse/Psybeam/Growl/Rain
 Dance. The original evolution thresholds are already satisfied at 19. No starter
 abilities or stats change. Normal battle loss invokes the existing whiteout
-callback; only a recorded win can commit rival completion and remove the coast
-blocker.
+callback. A recorded win removes the rival and opens the shared trailhead.
 
 ## Wild encounters
 
@@ -275,7 +273,7 @@ flat per-step percentage. Main walking lanes remain grass-free.
 ## Services, weather and balance
 
 Entering the Seabreak Center registers the appended local heal destination.
-Teleport's exterior anchor is town `(8,14)`; normal whiteout enters the Center
+Teleport returns to the market terrace at `(8,22)`. A normal whiteout enters the Center
 at `(7,4)` and uses `LOCALID_VIRELIA_SEABREAK_NURSE`. Both exit tiles return to
 the town entrance. The local nurse retains the ordinary heal animation and party
 restoration while avoiding the uninitialized Union Room name-buffer path. The PC
@@ -323,14 +321,19 @@ species, trainer parties, evolutions, abilities, held items and level-up moves.
 The actual Normal-font dialogue limit is 208 px in the 240×160 viewport; script
 validation also checks glyphs, expanded player/rival names and two-line pages.
 
-The upper route includes an off-path three-wide native waterfall with complete lip, body and splash art feeding its stream. Its rocky frame keeps it decorative; neither route requires Waterfall.
+The western suspension bridge crosses a three-tile curtain. The eastern
+bridge crosses a five-tile curtain higher on the ridge. Each has separate art
+for the lip, falling water, rope deck and plunge pool. Both can be crossed on
+foot. The editable sources in the Rainfall bank are `stormcrest.png`,
+`cascade.png`, `summit.png` and `fen.png`.
 
-The route bank reuses stock Fortree bridge pixels and General forest,
-cliff, ground and animated river artwork. It uses distinct authored geography
-rather than copying Route119's layout. Seabreak packs complete stock Dewford
-houses, Center and closed Gym, Slateport harbor/depot/boats, and General coast
-art. The lighthouse interior bank retains ordinary Building/GenericBuilding
-furnishings. Donor banks and the old shared `VireliaOutdoor` bank are unchanged.
+Seabreak occupies the eastern edge of the mainland. Rock and heath continue
+north and west. The ridge trail enters beside the lighthouse at `(26,8)`,
+and the estuary enters at quay level at `(3,36)`. The lighthouse lane overlooks
+the market fountain, with stair flights, parapets and arched drains cut into
+the cliffs below. At the waterline, six boats share the fishing slip, freight
+pier and shipyard. Three cranes handle cargo beside the berths. The editable art is in
+`harbor.png`, `dockyard.png` and `terrace.png` in the Virelia Coast bank.
 
 ### Editing the marsh and trees
 
@@ -354,7 +357,7 @@ foundation follow the front-top perspective of Slateport’s 32×64 lighthouse.
 The Seabreak polish tool packs the 5×10 sheet into coast metatiles `200–231`
 in row order. The lantern and shaft draw in front of a player walking behind
 the tower. The plinth blocks movement around the south-facing door at
-`(37,31)`. Dithered copper, masonry and painted bands use coast palette 11.
+`(31,13)`. Dithered copper, masonry and painted bands use coast palette 11.
 The beacon’s unlit and lit metatiles stay at `20C` and `20D` for the room’s
 load callback.
 

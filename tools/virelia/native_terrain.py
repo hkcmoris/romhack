@@ -15,7 +15,7 @@ def _inside(grid, point):
     return 0 <= y < len(grid) and 0 <= x < len(grid[y])
 
 
-def plant_trees(grid, crowns, *, elevation):
+def plant_trees(grid, crowns, *, elevation=None, pieces=(0x1CE, 0x1D6, 0x1E6, 0x1DE), ground=1):
     """Stamp authored trees, drawing the foreground crown over grass or a rear trunk."""
     sites = set(crowns)
     if len(sites) != len(crowns):
@@ -23,22 +23,19 @@ def plant_trees(grid, crowns, *, elevation):
     occupied = set()
     for x, y in sorted(sites, key=lambda point: (point[1], point[0])):
         stacked = (x, y - 2) in sites
-        rows = (
-            (0x1DE, 0x1DF) if stacked else (0x1CE, 0x1CF),
-            (0x1D6, 0x1D7),
-            (0x1E6, 0x1E7),
-        )
-        for dy, row in enumerate(rows):
-            for dx, tile in enumerate(row):
+        crown, trunk, roots, overlap = pieces
+        for dy, left in enumerate((overlap if stacked else crown, trunk, roots)):
+            for dx, tile in enumerate((left, left + 1)):
                 point = (x + dx, y + dy)
                 if not _inside(grid, point):
                     raise ValueError(f"Tree {(x, y)} crosses the map edge")
                 if point in occupied:
                     if dy != 0 or not stacked:
                         raise ValueError(f"Tree {(x, y)} splits another tree at {point}")
-                elif grid[y + dy][x + dx] & 1023 != 1:
+                elif grid[y + dy][x + dx] & 1023 != ground:
                     raise ValueError(f"Tree {(x, y)} would cover terrain at {point}")
-                grid[y + dy][x + dx] = _word(tile, elevation, dy > 0 or stacked)
+                level = grid[y + dy][x + dx] >> 12 if elevation is None else elevation
+                grid[y + dy][x + dx] = _word(tile, level, dy > 0 or stacked)
                 occupied.add(point)
 
 

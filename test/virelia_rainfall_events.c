@@ -292,7 +292,7 @@ TEST("Rainfall all rival starter and gender variants white out on loss and persi
     gSaveBlock2Ptr->playerGender = gender;
     u16 trainer = VireliaRainfall_RivalTrainer(choice);
     EXPECT_EQ(trainer, (gender == FEMALE ? TRAINER_VIRELIA_VIKTOR_RAINFALL_GRASS : TRAINER_VIRELIA_VIKTORIE_RAINFALL_GRASS) + choice);
-    LoadRainfallMap(MAP_VIRELIA_RAINFALL_LOWLANDS);
+    LoadRainfallMap(MAP_VIRELIA_RAINFALL_FOOTHILLS);
     CreateRandomMonWithIVs(&gParties[B_TRAINER_PLAYER][0], GetVireliaStarterSpecies(choice), 17, 10);
     gPartiesCount[B_TRAINER_PLAYER] = 1;
     SetLastHealLocationWarp(HEAL_LOCATION_VIRELIA_SLATEFORD_POKEMON_CENTER);
@@ -306,7 +306,7 @@ TEST("Rainfall all rival starter and gender variants white out on loss and persi
     EXPECT(HasTrainerBeenFought(trainer));
     EXPECT(FlagGet(FLAG_VIRELIA_TRAINER_RAINFALL_RIVAL));
     RunOnLoadMapScript();
-    EXPECT_EQ(MapGridGetCollisionAt(15 + MAP_OFFSET, 13 + MAP_OFFSET), 0);
+    EXPECT_EQ(MapGridGetCollisionAt(14 + MAP_OFFSET, 28 + MAP_OFFSET), 0);
     EXPECT_EQ(VarGet(VAR_VIRELIA_STARTER), choice);
 }
 
@@ -337,8 +337,8 @@ TEST("Rainfall native Slateford gate reload follows only the existing first Gym 
     RunOnLoadMapScript();
     EXPECT_EQ(MapGridGetCollisionAt(12 + MAP_OFFSET, 2 + MAP_OFFSET), 0);
     EXPECT(FlagGet(FLAG_VIRELIA_RAINFALL_STARTED));
-    LoadRainfallMap(MAP_VIRELIA_RAINFALL_LOWLANDS);
-    EXPECT_NE(MapGridGetCollisionAt(15 + MAP_OFFSET, 13 + MAP_OFFSET), 0);
+    LoadRainfallMap(MAP_VIRELIA_RAINFALL_FOOTHILLS);
+    EXPECT_NE(MapGridGetCollisionAt(14 + MAP_OFFSET, 28 + MAP_OFFSET), 0);
 }
 
 TEST("Rainfall native wooden bridges keep avatar and follower above the deck on both paths")
@@ -356,13 +356,16 @@ TEST("Rainfall native wooden bridges keep avatar and follower above the deck on 
         for (u32 x = 0; x < gMapHeader.mapLayout->width; x++)
         {
             u16 metatile = MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET);
-            if (metatile != 0x320 && metatile != 0x321 && (metatile < 0x324 || metatile > 0x32B))
+            bool32 rope = metatile >= 0x355 && metatile <= 0x360;
+            bool32 boardwalk = metatile >= 0x370 && metatile <= 0x375;
+            if (!rope && !boardwalk && metatile != 0x320 && metatile != 0x321 && (metatile < 0x324 || metatile > 0x32B))
                 continue;
             bridgeCells++;
             EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x + MAP_OFFSET, y + MAP_OFFSET), METATILE_LAYER_TYPE_COVERED);
             EXPECT_EQ(MapGridGetCollisionAt(x + MAP_OFFSET, y + MAP_OFFSET), 0);
             EXPECT_EQ(MapGridGetMetatileBehaviorAt(x + MAP_OFFSET, y + MAP_OFFSET), MB_NORMAL);
-            EXPECT_EQ(MapGridGetElevationAt(x + MAP_OFFSET, y + MAP_OFFSET), lower ? 3 : 5);
+            u32 elevation = MapGridGetElevationAt(x + MAP_OFFSET, y + MAP_OFFSET);
+            EXPECT(lower ? elevation == 3 : (elevation == 5 || elevation == 7));
         }
     }
     EXPECT_GE(bridgeCells, 2);
@@ -372,9 +375,9 @@ TEST("Rainfall Seabreak lighthouse allows walking behind the gallery and blocks 
 {
     ResetRainfall();
     LoadRainfallMap(MAP_VIRELIA_SEABREAK_TOWN);
-    const s32 x = 37 + MAP_OFFSET;
-    const s32 galleryY = 25 + MAP_OFFSET;
-    const s32 doorY = 31 + MAP_OFFSET;
+    const s32 x = 31 + MAP_OFFSET;
+    const s32 galleryY = 7 + MAP_OFFSET;
+    const s32 doorY = 13 + MAP_OFFSET;
     EXPECT_EQ(MapGridGetMetatileIdAt(x, galleryY), METATILE_VireliaCoast_Lighthouse_Gallery);
     EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x, galleryY), METATILE_LAYER_TYPE_NORMAL);
     EXPECT_EQ(MapGridGetCollisionAt(x, galleryY), 0);
@@ -384,6 +387,25 @@ TEST("Rainfall Seabreak lighthouse allows walking behind the gallery and blocks 
     EXPECT_EQ(MapGridGetMetatileLayerTypeAt(x, doorY), METATILE_LAYER_TYPE_COVERED);
     EXPECT_EQ(MapGridGetMetatileBehaviorAt(x, doorY), MB_NON_ANIMATED_DOOR);
     EXPECT_EQ(MapGridGetCollisionAt(x, doorY), 0);
+}
+
+TEST("Rainfall branches reach separate Seabreak terraces before the lighthouse is repaired")
+{
+    ResetRainfall();
+    LoadRainfallMap(MAP_VIRELIA_SEABREAK_TOWN);
+    const struct WarpEvent *upper = &gMapHeader.events->warps[0];
+    const struct WarpEvent *harbor = &gMapHeader.events->warps[4];
+    EXPECT_EQ(upper->x, 26);
+    EXPECT_EQ(upper->y, 8);
+    EXPECT_EQ(harbor->x, 3);
+    EXPECT_EQ(harbor->y, 36);
+    EXPECT_EQ(upper->mapNum, MAP_NUM(MAP_VIRELIA_RAINFALL_UPPER));
+    EXPECT_EQ(harbor->mapNum, MAP_NUM(MAP_VIRELIA_RAINFALL_LOWLANDS));
+    EXPECT_EQ(MapGridGetElevationAt(upper->x + MAP_OFFSET, upper->y + MAP_OFFSET), 7);
+    EXPECT_EQ(MapGridGetElevationAt(harbor->x + MAP_OFFSET, harbor->y + MAP_OFFSET), 3);
+    // The Center and market are on the middle shelf between the two arrivals.
+    EXPECT_EQ(MapGridGetElevationAt(8 + MAP_OFFSET, 22 + MAP_OFFSET), 5);
+    EXPECT(!FlagGet(FLAG_VIRELIA_LIGHTHOUSE_REPAIRED));
 }
 
 TEST("Rainfall native Continue restores the whole north exit over an older cached Slateford view")

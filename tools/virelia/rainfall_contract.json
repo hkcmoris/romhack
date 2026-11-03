@@ -9,9 +9,9 @@
       "closed_block": 1038
     },
     {
-      "map": "Virelia_RainfallLowlands",
-      "x": 15,
-      "y": 13,
+      "map": "Virelia_RainfallFoothills",
+      "x": 14,
+      "y": 28,
       "flag": "FLAG_VIRELIA_RAINFALL_RIVAL_COMPLETE",
       "open_block": 12577,
       "closed_block": 1038
@@ -23,12 +23,12 @@
   "entry": [
     "Virelia_RainfallFoothills",
     14,
-    25
+    37
   ],
   "exit": [
     "Virelia_SeabreakTown",
-    14,
-    2
+    13,
+    22
   ],
   "branches": {
     "upper": "Virelia_RainfallUpper",
@@ -59,7 +59,7 @@
   },
   "center_anchor": [
     8,
-    14
+    22
   ],
   "beacon": [
     "Virelia_Seabreak_LanternRoom",
@@ -67,5 +67,17 @@
     2,
     524,
     525
-  ]
+  ],
+  "arrivals": {
+    "upper": [
+      26,
+      8,
+      7
+    ],
+    "lower": [
+      3,
+      36,
+      3
+    ]
+  }
 }
